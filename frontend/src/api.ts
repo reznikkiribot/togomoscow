@@ -32,8 +32,30 @@ import type {
 // initData, the imported constant would be '' forever and every call would be
 // unauthenticated (e.g. favorites showing empty on a cold launch). The live value
 // falls back to the import when the WebApp object isn't present (e.g. dev).
+function launchInitData() {
+  try {
+    const direct = window.Telegram?.WebApp?.initData || initData;
+    if (direct) {
+      sessionStorage.setItem('tg:initData', direct);
+      return direct;
+    }
+    const params = new URLSearchParams(
+      location.hash.startsWith('#') ? location.hash.slice(1) : location.search.slice(1),
+    );
+    const raw = params.get('tgWebAppData');
+    if (raw) {
+      const decoded = decodeURIComponent(raw);
+      sessionStorage.setItem('tg:initData', decoded);
+      return decoded;
+    }
+    return sessionStorage.getItem('tg:initData') || '';
+  } catch {
+    return window.Telegram?.WebApp?.initData || initData || '';
+  }
+}
+
 const authHeaders = (): Record<string, string> => ({
-  Authorization: `tma ${window.Telegram?.WebApp?.initData || initData}`,
+  Authorization: `tma ${launchInitData()}`,
 });
 
 async function http<T>(path: string, init?: RequestInit): Promise<T> {

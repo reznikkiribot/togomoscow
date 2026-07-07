@@ -136,6 +136,7 @@ const router = createBrowserRouter([
   { path: '/tg-boot-219', element: <App />, children: appChildren },
   { path: '/tg-boot-221', element: <App />, children: appChildren },
   { path: '/tg-boot-222', element: <App />, children: appChildren },
+  { path: '/tg-boot-224', element: <App />, children: appChildren },
 ]);
 
 function BootedRouter() {
