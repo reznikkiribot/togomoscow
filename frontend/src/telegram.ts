@@ -25,6 +25,8 @@ export function initTelegram() {
 
 export const tgUser = tg?.initDataUnsafe?.user;
 
+const appOrigin = window.location.origin;
+
 // light haptic tap feedback (no-op outside Telegram)
 export function haptic(style: 'light' | 'medium' | 'heavy' | 'soft' | 'rigid' = 'light') {
   try {
@@ -84,7 +86,7 @@ export function shareMessage(id: string): boolean {
 export function shareToChat(text: string, startParam: string, photoUrl?: string) {
   const link = appDeepLink(startParam);
   // a relative /api/files/… path won't load for the friend → make it absolute
-  const absPhoto = photoUrl && photoUrl.startsWith('/') ? `https://app.togomoscow.ru${photoUrl}` : photoUrl;
+  const absPhoto = photoUrl && photoUrl.startsWith('/') ? `${appOrigin}${photoUrl}` : photoUrl;
   const shareUrl = absPhoto || link;
   const shareText = photoUrl ? `${text}\n${link}` : text;
   const url = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`;
@@ -115,7 +117,7 @@ export function callPhone(raw: string, venueName?: string, backParam?: string) {
       const p = new URLSearchParams({ n: num });
       if (venueName) p.set('name', venueName);
       if (backParam) p.set('back', backParam); // e.g. "l_<listingId>" → reopen that card
-      w.openLink(`https://app.togomoscow.ru/call.html?${p.toString()}`);
+      w.openLink(`${appOrigin}/call.html?${p.toString()}`);
       return;
     }
   } catch { /* fall through to native */ }

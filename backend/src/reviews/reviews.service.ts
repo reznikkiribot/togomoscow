@@ -61,7 +61,7 @@ export class ReviewsService {
   async preparePost(tgUserId: number, listingId: string, text?: string, photoUrl?: string) {
     const token = process.env.TELEGRAM_BOT_TOKEN;
     if (!token || !tgUserId) throw new BadRequestException('share unavailable');
-    const APP = 'https://app.togomoscow.ru';
+    const APP = (process.env.PUBLIC_APP_URL || 'https://togomoscow-production-f7b1.up.railway.app').replace(/\/$/, '');
     const deepLink = `https://t.me/togomoscow_bot?startapp=l_${listingId}`;
     const reply_markup = { inline_keyboard: [[{ text: '🍽 Открыть в togomoscow', url: deepLink }]] };
     const caption = (text ?? '').trim().slice(0, 1000);
