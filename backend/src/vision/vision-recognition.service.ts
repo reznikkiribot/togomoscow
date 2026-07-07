@@ -58,7 +58,7 @@ export class VisionRecognitionService implements OnModuleInit {
   ) {}
 
   onModuleInit() {
-    if (process.env.VISION_AUTO_BACKFILL === '0') return;
+    if (process.env.VISION_AUTO_BACKFILL !== '1') return;
     const delayMs = Number(process.env.VISION_AUTO_BACKFILL_DELAY_MS ?? 15000);
     setTimeout(() => {
       this.backfillImageEmbeddings().catch((e) => this.log.warn(`image backfill failed: ${e?.message}`));
