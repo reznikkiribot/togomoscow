@@ -5,7 +5,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://app.togomoscow.ru/api/:path*"
+      "destination": "https://togomoscow-production.up.railway.app/api/:path*"
     },
     {
       "source": "/(.*)",
