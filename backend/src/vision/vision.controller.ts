@@ -34,7 +34,18 @@ export class VisionController {
   @UseInterceptors(FileInterceptor('file', { limits: { fileSize: 15 * 1024 * 1024 } }))
   async recognize(@UploadedFile() file: Express.Multer.File, @Body() body: { mode?: RecognizeMode }) {
     if (!file) throw new BadRequestException('No image');
-    return this.recognition.recognize(file.buffer, body?.mode ?? 'auto');
+    const mode = body?.mode ?? 'auto';
+    try {
+      return await this.recognition.recognize(file.buffer, mode);
+    } catch (e) {
+      return {
+        caption: '',
+        mode,
+        candidates: [],
+        autoOpen: false,
+        diagnostic: `server:${String((e as Error).message || e).slice(0, 240)}`,
+      };
+    }
   }
 
   /** Confirmation/correction → training data + a positive recsys signal. */

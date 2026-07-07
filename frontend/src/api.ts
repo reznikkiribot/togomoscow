@@ -306,7 +306,10 @@ export const api = {
     fd.append('file', file);
     fd.append('mode', mode);
     const res = await fetch('/api/vision/recognize', { method: 'POST', headers: authHeaders(), body: fd });
-    if (!res.ok) throw new Error(`recognize HTTP ${res.status}`);
+    if (!res.ok) {
+      const text = await res.text().catch(() => '');
+      throw new Error(`recognize HTTP ${res.status}${text ? `: ${text.slice(0, 180)}` : ''}`);
+    }
     return res.json();
   },
   visionFeedback: (body: {

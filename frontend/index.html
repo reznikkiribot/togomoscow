@@ -30,6 +30,9 @@
               tg: !!(window.Telegram && window.Telegram.WebApp),
               platform: window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp.platform : 'n/a',
               version: window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp.version : 'n/a',
+              ua: navigator.userAgent,
+              vw: window.innerWidth,
+              vh: window.innerHeight,
             });
             if (navigator.sendBeacon) navigator.sendBeacon(API, new Blob([body], { type: 'application/json' }));
             else { var x = new XMLHttpRequest(); x.open('POST', API, true); x.setRequestHeader('Content-Type', 'application/json'); x.send(body); }
@@ -93,7 +96,7 @@
     </style>
   </head>
   <body>
-    <img src="/api/health/ping?kind=html-img&v=222" alt="" width="1" height="1" style="position:absolute;left:-9999px;top:-9999px" />
+    <img src="/api/health/ping?kind=html-img&v=223" alt="" width="1" height="1" style="position:absolute;left:-9999px;top:-9999px" />
     <div id="root"><div id="boot-msg"><div class="sp"></div>Загружаем togomoscow…</div></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

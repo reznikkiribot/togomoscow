@@ -25,14 +25,25 @@ export class HealthController {
 
   @Get('vision')
   async vision() {
-    const counts = await this.vectors.rebuild();
-    return {
-      status: counts.image > 0 ? 'ok' : 'degraded',
-      clipReady: this.clip.ready,
-      textIndex: counts.text,
-      imageIndex: counts.image,
-      time: new Date().toISOString(),
-    };
+    try {
+      const counts = await this.vectors.rebuild();
+      return {
+        status: counts.image > 0 ? 'ok' : 'degraded',
+        clipReady: this.clip.ready,
+        textIndex: counts.text,
+        imageIndex: counts.image,
+        time: new Date().toISOString(),
+      };
+    } catch (e) {
+      return {
+        status: 'error',
+        clipReady: this.clip.ready,
+        textIndex: 0,
+        imageIndex: 0,
+        error: String((e as Error).message || e).slice(0, 300),
+        time: new Date().toISOString(),
+      };
+    }
   }
 
   @Get('ping')
