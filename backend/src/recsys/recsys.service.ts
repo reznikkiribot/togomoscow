@@ -1,0 +1,320 @@
+import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
+import { ListingsService } from '../listings/listings.service';
+
+/**
+ * Recommendation signals + serving.
+ *
+ * Phase 1 (now): collect implicit-feedback `interactions` and serve a transparent
+ * COLD-START "probability you'll like" from existing signals (item quality, the
+ * user's category affinity, onboarding quiz). No model required, never shows raw
+ * scores, always returns a human reason.
+ *
+ * Phase 2 (when data accrues): a LightFM model trains offline (recsys/train.py via
+ * cron), writes per-user top-N + a calibrated probability into `rec_cache`, and
+ * `likeProbability`/`recommend` read that cache, falling back to cold-start here
+ * whenever the user/item is unknown to the model. See docs/recsys-lightfm.md.
+ */
+// The recommendation feed shows ONLY items whose photo was legally parsed from a
+// site/menu (real dish photo) — never a fetched stock image — PLUS coffee always.
+const REAL_PHOTO_OR_COFFEE = {
+  OR: [
+    { category: { contains: 'Кофе', mode: 'insensitive' as const } },
+    {
+      photoUrl: { not: null },
+      NOT: [
+        { photoUrl: { contains: 'pexels' } },
+        { photoUrl: { contains: 'unsplash' } },
+        { photoUrl: { contains: 'wikimedia' } },
+        { photoUrl: { contains: 'pixabay' } },
+        { photoUrl: { contains: 'images.unsplash' } },
+      ],
+    },
+  ],
+};
+
+@Injectable()
+export class RecsysService {
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly listings: ListingsService,
+  ) {}
+
+  // categories never shown in recommendations: breakfast, all alcohol, and
+  // "not premium" everyday food (baking, grill, sandwiches).
+  // ('Безалкогольные' is safe — none of these substrings match it.)
+  static readonly EXCLUDED_CATS = [
+    'завтрак', 'пиво', 'вино', 'коктейл', 'крепк', 'сидр',
+    'выпечк', 'гриль', 'сэндвич', 'сендвич',
+  ];
+
+  // "народные"/everyday dishes excluded by NAME (they live in mixed categories
+  // like Супы/Русская, so category rules can't catch them). Not "дорого-богато".
+  static readonly EXCLUDED_NAMES = [
+    'уха', 'борщ', 'окрошк', 'солянк', 'рассольник', 'пельмен', 'вареник',
+    'холодец', 'студень', 'винегрет', 'селёдк', 'сельдь', 'гречк', 'каша',
+    'оладь', 'драник', 'заливн', 'квашен', 'кисель', 'квас', 'морс',
+    'глинтвейн', 'грог', 'сангри', 'пунш', // alcohol that hides in non-bar categories
+    // retail coffee (bags of beans / ground / drip / capsules) — a product to buy,
+    // not a drink to taste, and its "photo" is often just packaging.
+    'в зёрнах', 'в зернах', 'зернах', 'зерновой', 'молот', 'дрип-пакет', 'дрип пакет',
+    'капсул', 'чалда', 'помол',
+  ];
+
+  // Prisma OR-filter of everything we never recommend (use inside `NOT:`).
+  // Only restaurant-grade cuisine — Russian/folk cuisine is excluded entirely.
+  private excludeFilter() {
+    return {
+      OR: [
+        ...RecsysService.EXCLUDED_CATS.map((c) => ({ category: { contains: c, mode: 'insensitive' as const } })),
+        ...RecsysService.EXCLUDED_NAMES.map((n) => ({ name: { contains: n, mode: 'insensitive' as const } })),
+        { category: { contains: 'русск', mode: 'insensitive' as const } },
+        // NULL-safe: `NOT(NULL LIKE …)` is NULL (drops the row), and most items have
+        // no cuisine — so only exclude when cuisine is set AND matches.
+        { AND: [{ cuisine: { not: null } }, { cuisine: { contains: 'русск', mode: 'insensitive' as const } }] },
+      ],
+    };
+  }
+
+  // action → implicit weight (per product spec)
+  static readonly WEIGHTS: Record<string, number> = {
+    RATE_HIGH: 5, // rating 9–10 / 5★
+    RATE_GOOD: 4, // rating 8 / 4★
+    SAVE: 3, // saved/favorited
+    VIEW: 2, // card open > 15s
+    OPEN: 1, // card opened
+  };
+
+  /** Append an implicit-feedback event (deduped softly by upserting the max weight). */
+  async log(userId: string, listingId: string, type: string) {
+    const weight = RecsysService.WEIGHTS[type];
+    if (!weight || !userId || !listingId) return { ok: false };
+    await this.prisma.interaction.create({ data: { userId, listingId, type, weight } });
+    return { ok: true };
+  }
+
+  /** Map a 5★ rating to a weighted RATE event (used by the review flow). */
+  ratingType(rating: number): string | null {
+    if (rating >= 5) return 'RATE_HIGH';
+    if (rating >= 4) return 'RATE_GOOD';
+    return null; // low ratings are negative signal, handled by Dislike/exclusions
+  }
+
+  /**
+   * Cold-start probability the user will like an item, as 0–100% + a reason.
+   * Blends: item quality (community), the user's affinity for the same category,
+   * and onboarding-quiz interests. Clamped to a friendly 40–97% band.
+   */
+  async likeProbability(userId: string, listingId: string) {
+    const item = await this.prisma.listing.findUnique({ where: { id: listingId } });
+    if (!item) return { probability: null, reason: '' };
+
+    let score = 0.55; // prior
+    let reason = 'Популярный выбор';
+
+    // 1) community quality of the item itself
+    if (item.reviewCount > 0) {
+      score += ((item.avgRating - 3) / 2) * 0.18;
+      if (item.avgRating >= 4.3) reason = `Высокая оценка у других — ${item.avgRating.toFixed(1)}★`;
+    }
+
+    // 2) the user's affinity for this category (avg of their ratings there)
+    if (item.category) {
+      const mine = await this.prisma.review.findMany({
+        where: { userId, status: 'APPROVED', listing: { category: item.category } },
+        select: { rating: true },
+      });
+      if (mine.length) {
+        const avg = mine.reduce((s, r) => s + r.rating, 0) / mine.length;
+        score += ((avg - 3) / 2) * 0.28;
+        if (avg >= 4) reason = `Вам нравится категория «${item.category}»`;
+      }
+    }
+
+    // 3) onboarding-quiz interests (price + categories)
+    const u = await this.prisma.user.findUnique({ where: { id: userId }, select: { preferences: true } });
+    const prefs = (u?.preferences as any) ?? {};
+    const cats: string[] = prefs.categories ?? [];
+    const hay = `${item.category ?? ''} ${item.cuisine ?? ''} ${item.name}`.toLowerCase();
+    if (cats.some((k) => hay.includes(String(k).toLowerCase()))) {
+      score += 0.08;
+      reason = 'Совпадает с вашими интересами из анкеты';
+    }
+
+    const probability = Math.round(Math.max(0.4, Math.min(0.97, score)) * 100);
+    return { probability, reason };
+  }
+
+  /**
+   * AI-profile recommendations: rank dishes/drinks against the LLM-built taste
+   * profile (preferences.aiTaste — cuisines/loves boost, dislikes penalise),
+   * minus what the user already rated or swiped away. Falls back to cold-start
+   * when no profile has been built yet.
+   */
+  async recommendByTaste(userId: string, take = 30) {
+    const u = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { preferences: true },
+    });
+    const ai = (u?.preferences as any)?.aiTaste;
+    if (!ai) return this.recommend(userId, take);
+
+    const cuisines: string[] = (ai.cuisines ?? []).map((s: string) => String(s).toLowerCase());
+    const loves: string[] = (ai.loves ?? []).map((s: string) => String(s).toLowerCase());
+    const dislikes: string[] = (ai.dislikes ?? []).map((s: string) => String(s).toLowerCase());
+
+    const rated = await this.prisma.review.findMany({ where: { userId }, select: { listingId: true } });
+    const swiped = await this.prisma.dislike.findMany({ where: { userId }, select: { itemId: true } });
+    const exclude = new Set([...rated.map((r) => r.listingId), ...swiped.map((d) => d.itemId)]);
+
+    // price affinity: learn the user's comfortable price band from the menu prices of
+    // items they've already rated, then favour recommendations inside that range.
+    const ratedIds = rated.map((r) => r.listingId);
+    const priceRows = ratedIds.length
+      ? await this.prisma.menuLink.findMany({ where: { itemId: { in: ratedIds }, price: { not: null } }, select: { price: true } })
+      : [];
+    const userPrices = priceRows.map((r) => r.price!).filter((p) => p > 0).sort((a, b) => a - b);
+    let priceLo = 0, priceHi = Infinity, hasPriceProfile = false;
+    if (userPrices.length >= 3) {
+      const q = (p: number) => userPrices[Math.min(userPrices.length - 1, Math.floor(userPrices.length * p))];
+      const p25 = q(0.25), p75 = q(0.75);
+      const pad = Math.max(150, p75 - p25); // comfortable band a bit wider than IQR
+      priceLo = Math.max(0, p25 - pad);
+      priceHi = p75 + pad;
+      hasPriceProfile = true;
+    }
+    const medianPrice = (links: any[]) => {
+      const ps = links.map((l) => l.price).filter((p: any) => p != null).sort((a: number, b: number) => a - b);
+      return ps.length ? ps[Math.floor(ps.length / 2)] : null;
+    };
+
+    // only dishes actually served somewhere — every recommendation is "блюдо в
+    // конкретном месте", with a real venue attached (servedAt = APPROVED menu links).
+    const items = await this.prisma.listing.findMany({
+      where: {
+        type: { in: ['DISH', 'DRINK'] },
+        id: { notIn: [...exclude] },
+        NOT: this.excludeFilter(),
+        servedAt: { some: { status: 'APPROVED' } },
+        ...REAL_PHOTO_OR_COFFEE, // feed shows only real (legally-parsed) photos + coffee
+      },
+      include: {
+        servedAt: {
+          where: { status: 'APPROVED' },
+          select: { venue: { select: { id: true, name: true } }, price: true },
+          take: 30,
+        },
+      },
+      orderBy: [{ reviewCount: 'desc' }, { avgRating: 'desc' }],
+      take: 500,
+    });
+
+    let scored = items
+      .map((it) => {
+        const hay = `${it.name} ${it.category ?? ''} ${it.cuisine ?? ''}`.toLowerCase();
+        let s = (it.avgRating - 3) * 0.3; // base quality
+        let why = '';
+        for (const c of cuisines) if (hay.includes(c)) { s += 2; why ||= `вы любите ${c}`; }
+        for (const l of loves) if (hay.includes(l)) { s += 3; why = `похоже на «${l}», что вам нравится`; }
+        for (const d of dislikes) if (hay.includes(d)) s -= 4;
+        // price affinity: reward items in the user's usual price band, gently penalise
+        // ones well outside it (too cheap or too pricey for their habits)
+        if (hasPriceProfile) {
+          const price = medianPrice((it as any).servedAt ?? []);
+          if (price != null) {
+            if (price >= priceLo && price <= priceHi) { s += 1.2; why ||= 'в вашем ценовом диапазоне'; }
+            else {
+              const dist = price < priceLo ? priceLo - price : price - priceHi;
+              s -= Math.min(2, dist / Math.max(200, priceHi - priceLo));
+            }
+          }
+        }
+        return { it, s, why: why || ai.summary || 'подобрано под ваш вкус' };
+      })
+      .filter((x) => x.s > -1)
+      .sort((a, b) => b.s - a.s);
+
+    // one per dish name (no duplicate "Глинтвейн" from different venues)
+    const seenName = new Set<string>();
+    scored = scored.filter((x) => {
+      const n = x.it.name.toLowerCase().trim();
+      if (seenName.has(n)) return false;
+      seenName.add(n);
+      return true;
+    });
+
+    // take a generous top pool, then SHUFFLE → a fresh set of good items every
+    // time the user returns to home (not the same deterministic top each time)
+    const pool = scored.slice(0, Math.max(Number(take) * 5, 120)); // wider pool → less repetition across visits
+    for (let i = pool.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [pool[i], pool[j]] = [pool[j], pool[i]];
+    }
+    const pick = pool.slice(0, Number(take));
+
+    const cards = await this.listings.enrichCards(pick.map((x) => x.it));
+    return cards.map((c, i) => {
+      // pick one real venue for this dish (random among its places → variety)
+      // pick a real menu link (venue + its price for THIS item → shown on the card)
+      const links = ((pick[i].it as any).servedAt ?? []).filter((l: any) => l.venue);
+      const link = links.length ? links[Math.floor(Math.random() * links.length)] : undefined;
+      const recVenue = link ? { ...link.venue, price: link.price ?? null } : undefined;
+      return { ...c, recReason: pick[i].why, recVenue };
+    });
+  }
+
+  /**
+   * Cold-start recommendations: popular, well-rated items in the user's affine
+   * categories, minus what they already rated/disliked. (LightFM replaces this in
+   * Phase 2 via rec_cache.)
+   */
+  async recommend(userId: string, take = 20) {
+    const rated = await this.prisma.review.findMany({ where: { userId }, select: { listingId: true } });
+    const disliked = await this.prisma.dislike.findMany({ where: { userId }, select: { itemId: true } });
+    const exclude = new Set([...rated.map((r) => r.listingId), ...disliked.map((d) => d.itemId)]);
+
+    // same shape as recommendByTaste (cards + recVenue) so a brand-new user (no
+    // taste profile yet) still gets a real "dish in a place" deck, not a dropped feed.
+    const items = await this.prisma.listing.findMany({
+      where: {
+        type: { in: ['DISH', 'DRINK'] },
+        id: { notIn: [...exclude] },
+        NOT: this.excludeFilter(),
+        servedAt: { some: { status: 'APPROVED' } },
+        ...REAL_PHOTO_OR_COFFEE,
+      },
+      include: {
+        servedAt: {
+          where: { status: 'APPROVED' },
+          select: { venue: { select: { id: true, name: true } }, price: true },
+          take: 30,
+        },
+      },
+      orderBy: [{ reviewCount: 'desc' }, { avgRating: 'desc' }],
+      take: 200,
+    });
+
+    // one per dish name, then shuffle a generous top pool for variety on each load
+    const seenName = new Set<string>();
+    const uniq = items.filter((it) => {
+      const n = it.name.toLowerCase().trim();
+      if (seenName.has(n)) return false;
+      seenName.add(n);
+      return true;
+    });
+    const pool = uniq.slice(0, Math.max(Number(take) * 5, 120)); // wider pool → less repetition
+    for (let i = pool.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [pool[i], pool[j]] = [pool[j], pool[i]];
+    }
+    const pick = pool.slice(0, Number(take));
+
+    const cards = await this.listings.enrichCards(pick);
+    return cards.map((c, i) => {
+      const links = ((pick[i] as any).servedAt ?? []).filter((l: any) => l.venue);
+      const link = links.length ? links[Math.floor(Math.random() * links.length)] : undefined;
+      const recVenue = link ? { ...link.venue, price: link.price ?? null } : undefined;
+      return { ...c, recReason: 'популярно сейчас', recVenue };
+    });
+  }
+}

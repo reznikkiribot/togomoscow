@@ -1,0 +1,193 @@
+// Imports extracted chain menus (prisma/menu-out/<domain>.json) into the catalog.
+// A chain shares one menu, so each item is linked to ALL the chain's venues
+// (matched by website host), with the price stored on the menu link.
+//
+//   node prisma/menu-import.mjs <domain...> [--pending]
+// Default status APPROVED (authoritative chain data → usable immediately).
+// Tagged with source='menu-import' + logged to menu-out/_import-log.json for undo.
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const OUT = path.join(__dirname, 'menu-out');
+
+// JS \b is ASCII-only (breaks on Cyrillic) → use explicit Cyrillic/Latin boundaries.
+const B = (w) => `(?<![а-яёa-z])(?:${w})(?![а-яёa-z])`;
+const DRINK_RE = new RegExp([
+  'латте', 'капучин', 'эспрессо', 'американо', 'какао', 'матч', 'тоник', 'лимонад', 'смузи', 'джус', 'juice',
+  'морс', 'компот', 'коктейл', 'глинтвейн', 'бамбл', 'флэт.?уайт', 'колд.?брю', 'фраппе', 'глясе', 'милкшейк',
+  'напиток', 'айс.?латте', 'айсти', 'айс.?ти', 'ice.?tea', 'айс.?кофе', 'мокко', 'мокка', 'кортадо', 'пикколо',
+  'чино', 'маршмеллоу', 'пунш', 'газиров', 'минерал', 'боржоми', 'нарзан', 'добрый', 'фанта', 'спрайт', 'пепси',
+  'швепс', 'энергет', 'red.?bull', 'milkis', 'миринда', 'байкал', 'тархун', 'дюшес',
+  B('кофе'), B('раф'), B('чай'), B('сок'), B('вино'), B('пиво'), B('вода'), B('кола'), B('шейк'), B('эль'),
+  B('tea'), B('coffee'), B('latte'), B('juice'), B('wine'), B('beer'), // English drink words in brand names (Rich Tea, Stars Coffee…)
+].join('|'), 'i');
+// alcohol → a proper category so the recsys filter (which excludes пиво/вино/коктейли/
+// крепкие by category) actually catches it. Checked BEFORE the generic drink branch.
+const WINE_RE = new RegExp(['вино', 'шардоне', 'каберне', 'мерло', 'совиньон', 'просекко', 'игрист', 'рислинг', B('пино'), 'санджовезе', 'мальбек', 'ламбруско', 'портвейн', 'шампанск', 'просек', 'sauvignon', 'savignon', 'chardonnay', 'merlot', 'cabernet', 'riesling', B('blanc'), B('rose')].join('|'), 'i');
+const BEER_RE = new RegExp(['пиво', 'лагер', B('эль'), B('ipa'), 'ипа', 'стаут', 'портер', 'пилснер', B('вайс'), 'сидр', 'хугарден', 'гиннес'].join('|'), 'i');
+const SPIRIT_RE = new RegExp(['виски', 'водк', B('ром'), B('джин'), 'текил', 'коньяк', 'ликёр', 'ликер', 'бренди', 'вермут', 'кампари', 'самбука', 'абсент', 'граппа', 'кальвадос', B('мартини'), B('саке')].join('|'), 'i');
+// note: NOT "маргарит" (collides with Маргарита pizza) — only explicit cocktails
+const COCKTAIL_RE = new RegExp(['коктейл', 'мохито', 'негрони', 'спритц', 'апероль', 'дайкири', 'космополит', 'b52', 'лонг.?айленд', 'пина.?колада', 'кровавая мэри'].join('|'), 'i');
+const MILKSHAKE_RE = new RegExp(['милкшейк', 'молочн.{0,5}коктейл', B('шейк'), 'фраппе'].join('|'), 'i');
+// strong food words → it's a dish even if the name mentions "напиток" (combos like "Пицца и напиток")
+const FOOD_OVERRIDE = /пицц|бургер|салат|ролл|спагетти|шаурм|шаверм|стейк|сэндвич|сендвич|донер|кебаб|\bсуп\b|наггетс|картоф|хачапур|хинкал|\bвок\b|боул|поке|том.?ям|лазань|ризотто|карбонар|болонье|тост|брускетт|сырник|блин|паст/i;
+export function classify(name) {
+  const n = name.toLowerCase();
+  if (MILKSHAKE_RE.test(n)) return { type: 'DRINK', category: 'Смузи' }; // milkshake ≠ alcohol cocktail
+  // filter/specialty coffee (coffeemania "hoop", Sber filter, pour-over, origins) → DRINK/Кофе
+  if (/\bhoop\b|пуровер|пур.?овер|фильтр.?кофе|аэропресс|кемекс|\bv60\b|дрип.?пакет/i.test(n) ||
+      (/фильтр/i.test(n) && /эфиоп|йемен|колумб|кени|бразил|гватемал|кост.?рик|\bперу\b|никарагуа/i.test(n))) {
+    return { type: 'DRINK', category: 'Кофе' };
+  }
+  if (WINE_RE.test(n)) return { type: 'DRINK', category: 'Вино' };
+  if (BEER_RE.test(n)) return { type: 'DRINK', category: 'Пиво' };
+  if (SPIRIT_RE.test(n)) return { type: 'DRINK', category: 'Крепкие напитки' };
+  if (COCKTAIL_RE.test(n)) return { type: 'DRINK', category: 'Коктейли' };
+  if (!FOOD_OVERRIDE.test(n) && DRINK_RE.test(n)) {
+    let c = 'Напитки';
+    if (new RegExp(['кофе', 'латте', 'капучин', 'эспрессо', 'американо', B('раф'), 'флэт', 'колд.?брю', 'мокко', 'мокка', 'кортадо', 'пикколо', 'бамбл', 'айс.?латте', 'глясе', 'айс.?кофе', B('coffee'), B('latte'), B('espresso')].join('|'), 'i').test(n)) c = 'Кофе';
+    else if (new RegExp([B('чай'), 'матч', 'улун', 'пуэр', 'айсти', 'айс.?ти', 'ice.?tea', B('tea')].join('|'), 'i').test(n)) c = 'Чай';
+    else if (/коктейл/.test(n)) c = 'Коктейли';
+    else if (new RegExp(['смузи', B('шейк'), 'милкшейк', 'фраппе'].join('|'), 'i').test(n)) c = 'Смузи';
+    else if (new RegExp(['лимонад', B('сок'), 'джус', 'juice', 'морс', 'компот', 'тоник', B('вода'), B('кола')].join('|'), 'i').test(n)) c = 'Безалкогольные';
+    return { type: 'DRINK', category: c };
+  }
+  let c = 'Блюдо';
+  if (/пицц/.test(n)) c = 'Пицца';
+  else if (/бургер|чизбургер/.test(n)) c = 'Бургеры';
+  else if (/паст|спагетти|карбонар|болонье|лазань/.test(n)) c = 'Паста';
+  else if (/суши|ролл|сашими|поке/.test(n)) c = 'Японская';
+  else if (/салат|цезарь/.test(n)) c = 'Салаты';
+  else if (/\bсуп\b|том.?ям|борщ/.test(n)) c = 'Супы';
+  else if (/десерт|торт|чизкейк|тирамису|маффин|круассан|штрудель|мороже|панна/.test(n)) c = 'Десерты';
+  else if (/картоф|наггетс|стрипс|твистер|шаурм|хот.?дог|фри/.test(n)) c = 'Фастфуд';
+  else if (/стейк|рибай|миньон/.test(n)) c = 'Стейки';
+  return { type: 'DISH', category: c };
+}
+
+// normalize a menu name: strip codes, marketing noise, and — importantly — SIZE/VOLUME
+// so "Латте 300 мл" and "Латте 400 мл" collapse to one item "Латте" (find-or-create
+// dedups them). Flavor variants ("Латте Матча", "Латте Сингапур") are kept.
+function sanitizeName(name) {
+  let n = name
+    .replace(/\s*\[[^\]]*\]/g, '') // [AT], [NEW] …
+    .replace(/\s*\((?:м3|m3|зона ?\d|ночн[а-я]*)\)/gi, '');
+  // JS \b is ASCII-only (fails after Cyrillic letters) → use Cyrillic-safe lookaheads
+  n = n.replace(/\s*\d+([.,]\d+)?\s?(мл|ml|литр|л|l|гр|г|g)(?![а-яёa-z])\.?/gi, ' '); // "300 мл", "0,5 л"
+  n = n.replace(/\s*\d+\s?шт(?![а-яё])\.?/gi, ' ').replace(/\s*[xх]\s?\d+(?![\dа-яёa-z])/gi, ' '); // "2 шт", "x2"
+  n = n.replace(/\s+(гранде|венти|grande|venti|tall|большой|больш(?:ая|ое)|средн(?:ий|яя|ее)|маленьк\w+|мал(?:ый|ая))(?![а-яё])/gi, ' ');
+  n = n.replace(/\s+(xl|xxl|[sml])\s*$/i, ''); // trailing standalone size letter
+  return n.replace(/\s+/g, ' ').trim();
+}
+// skip non-dish noise the engine sometimes catches (combos / banners / sets / descriptions)
+function isJunk(name) {
+  const n = name.toLowerCase();
+  if (n.length < 2 || n.length > 55) return true;
+  if (n.split(/\s+/).length > 7) return true; // a sentence/description, not a menu name
+  if (/^\d+\s*(любые|пицц|штук|шт\b)/.test(n)) return true; // "3 любые пиццы"
+  if (/любые пицц|комбо|\bсет\b|\bнабор\b|меню дня|за \d+\s*₽|выгодн|подарок|конструктор|собери|акци|скидк|сертификат|доставк|для офиса|идеальных|\+ ?\d|\d ?\+ ?\d/.test(n)) return true;
+  // mostly non-letters (codes/garbage)
+  const letters = (n.match(/[а-яёa-z]/gi) || []).length;
+  if (letters < n.length * 0.5) return true;
+  return false;
+}
+
+async function undo() {
+  const { PrismaClient } = await import('@prisma/client');
+  const prisma = new PrismaClient();
+  // delete every menu link this import created (incl. links to pre-existing items)…
+  const logPath = path.join(OUT, '_import-log.json');
+  if (fs.existsSync(logPath)) {
+    const log = JSON.parse(fs.readFileSync(logPath, 'utf8'));
+    let n = 0;
+    for (const [venueId, itemId] of log.links || []) {
+      await prisma.menuLink.delete({ where: { venueId_itemId: { venueId, itemId } } }).catch(() => {});
+      n++;
+    }
+    console.log(`removed ${n} logged menu links`);
+  }
+  // …then delete every item the import created (cascades any remaining links)
+  const del = await prisma.listing.deleteMany({ where: { source: 'menu-import' } });
+  console.log(`deleted ${del.count} imported items. Undo complete.`);
+  await prisma.$disconnect();
+}
+
+async function main() {
+  const args = process.argv.slice(2);
+  if (args.includes('--undo')) return undo();
+  const pending = args.includes('--pending');
+  let domains;
+  if (args.includes('--all')) {
+    // import every successfully-extracted menu (count >= 5) in menu-out/
+    domains = fs.readdirSync(OUT)
+      .filter((f) => f.endsWith('.json') && f !== '_import-log.json')
+      .map((f) => { try { const j = JSON.parse(fs.readFileSync(path.join(OUT, f), 'utf8')); return j.count >= 5 ? j.domain : null; } catch { return null; } })
+      .filter(Boolean);
+  } else {
+    domains = args.filter((a) => !a.startsWith('--'));
+  }
+  if (!domains.length) { console.log('usage: node prisma/menu-import.mjs <domain...> | --all [--pending]'); return; }
+  const status = pending ? 'PENDING' : 'APPROVED';
+
+  const { PrismaClient } = await import('@prisma/client');
+  const prisma = new PrismaClient();
+  const log = { at: new Date().toISOString(), status, createdItems: [], links: [] };
+
+  for (const domain of domains) {
+    const file = path.join(OUT, domain.replace(/[^\w.-]/g, '_') + '.json');
+    if (!fs.existsSync(file)) { console.log(`${domain}: no extract file, skip`); continue; }
+    const data = JSON.parse(fs.readFileSync(file, 'utf8'));
+    if (!data.items?.length) { console.log(`${domain}: empty, skip`); continue; }
+
+    // chain venues = restaurants whose website host matches this domain
+    const venues = await prisma.listing.findMany({
+      where: { type: 'RESTAURANT', website: { contains: domain.replace(/^www\./, '') } },
+      select: { id: true, name: true },
+    });
+    if (!venues.length) { console.log(`${domain}: no venues in catalog, skip`); continue; }
+
+    let newItems = 0, links = 0;
+    for (const raw of data.items) {
+      const name = sanitizeName(raw.name.trim().replace(/\s+/g, ' '));
+      if (isJunk(name)) continue;
+      const { type, category } = classify(name);
+      const photoUrl = typeof raw.image === 'string' && /^https?:\/\//.test(raw.image) ? raw.image : null;
+      // find-or-create the shared catalog item (dedup by name + type)
+      let item = await prisma.listing.findFirst({
+        where: { type, name: { equals: name, mode: 'insensitive' } },
+        select: { id: true, photoUrl: true },
+      });
+      if (!item) {
+        item = await prisma.listing.create({
+          data: { type, name, category, groupKey: name.toLowerCase(), source: 'menu-import', photoUrl },
+          select: { id: true, photoUrl: true },
+        });
+        newItems++;
+        log.createdItems.push(item.id);
+      } else if (!item.photoUrl && photoUrl) {
+        // backfill a real menu photo onto an existing item that had none
+        await prisma.listing.update({ where: { id: item.id }, data: { photoUrl } });
+      }
+      const price = raw.price > 0 && raw.price < 100000 ? Math.round(raw.price) : null;
+      for (const v of venues) {
+        await prisma.menuLink.upsert({
+          where: { venueId_itemId: { venueId: v.id, itemId: item.id } },
+          create: { venueId: v.id, itemId: item.id, status, price },
+          update: { status, price },
+        });
+        links++;
+        log.links.push([v.id, item.id]);
+      }
+    }
+    console.log(`${domain}: ${venues.length} venues × ${data.count} items → +${newItems} new items, ${links} menu links (${status})`);
+  }
+
+  fs.writeFileSync(path.join(OUT, '_import-log.json'), JSON.stringify(log, null, 2));
+  console.log(`\nDone. Log: menu-out/_import-log.json (${log.createdItems.length} items created, ${log.links.length} links).`);
+  await prisma.$disconnect();
+}
+// only run the importer when executed directly (so `classify` can be reused elsewhere)
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main().catch((e) => { console.error(e); process.exit(1); });
+}

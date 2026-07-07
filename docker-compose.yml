@@ -1,0 +1,40 @@
+# Local development infrastructure for the togomoscow MVP.
+# Postgres = primary database. MinIO = S3-compatible image storage (used from Sprint 2).
+# Mirrors what we'll run on Yandex Cloud in production.
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: yelp_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: yelp
+      POSTGRES_PASSWORD: yelp_dev_password
+      POSTGRES_DB: yelp
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U yelp"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  minio:
+    image: minio/minio:latest
+    container_name: yelp_minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports:
+      - "9000:9000"   # S3 API
+      - "9001:9001"   # Web console
+    volumes:
+      - minio_data:/data
+
+volumes:
+  postgres_data:
+  minio_data:

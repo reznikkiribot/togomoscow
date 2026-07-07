@@ -1,0 +1,10 @@
+import { PrismaClient } from "@prisma/client";
+const p = new PrismaClient();
+const total = await p.listing.count({ where: { type: "RESTAURANT" } });
+const osm = await p.listing.count({ where: { type: "RESTAURANT", source: "osm" } });
+const noSite = await p.listing.count({ where: { type: "RESTAURANT", website: null } });
+const osmNoSite = await p.listing.count({ where: { type: "RESTAURANT", source: "osm", website: null } });
+console.log(`venues=${total} osm=${osm} noWebsite=${noSite} osmNoWebsite=${osmNoSite}`);
+const s = await p.listing.findMany({ where: { type: "RESTAURANT", source: "osm" }, select: { name: true, externalId: true, lat: true, lng: true }, take: 8 });
+for (const x of s) console.log(`  ${x.name}: externalId=${x.externalId} (${x.lat},${x.lng})`);
+await p.$disconnect();

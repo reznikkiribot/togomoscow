@@ -1,0 +1,286 @@
+import { useEffect, useState } from 'react';
+import { api } from '../api';
+import { useEscClose } from '../modalEsc';
+import { ListingDetailModal } from './ListingDetail';
+import { PhotoPostModal } from './PhotoPostModal';
+import { ReviewCard, CategoryAverages } from './ReviewCard';
+import type { PublicProfile, PublicUser, Review } from '../types';
+
+function Avatar({ user }: { user: { photoUrl?: string | null; firstName?: string | null } }) {
+  return user.photoUrl ? (
+    <img className="pu-avatar" src={user.photoUrl} alt="" />
+  ) : (
+    <div className="pu-avatar ph">{(user.firstName ?? '?').trim()[0]?.toUpperCase() ?? '?'}</div>
+  );
+}
+
+function FollowBtn({ u, onChange }: { u: PublicUser; onChange: (following: boolean) => void }) {
+  const [following, setFollowing] = useState(u.isFollowing);
+  const [busy, setBusy] = useState(false);
+  if (u.isMe) return null;
+  const toggle = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setBusy(true);
+    const next = !following;
+    setFollowing(next);
+    (next ? api.followUser(u.id) : api.unfollowUser(u.id))
+      .then(() => onChange(next))
+      .catch(() => setFollowing(!next))
+      .finally(() => setBusy(false));
+  };
+  return (
+    <button className={'follow-btn' + (following ? ' on' : '')} onClick={toggle} disabled={busy}>
+      {following ? 'Вы подписаны' : 'Подписаться'}
+    </button>
+  );
+}
+
+function UserRow({ u, onOpen }: { u: PublicUser; onOpen: (id: string) => void }) {
+  return (
+    <div className="pu-row" onClick={() => onOpen(u.id)}>
+      <Avatar user={u} />
+      <div style={{ flex: 1 }}>
+        <div className="pu-name">{u.firstName ?? u.username ?? 'Гость'}</div>
+        <div className="pu-meta">
+          {u.reviews} отзывов · {u.followers} подписчиков
+        </div>
+      </div>
+      <FollowBtn u={u} onChange={() => {}} />
+    </div>
+  );
+}
+
+export function PeopleModal({
+  userId,
+  initialTab,
+  onClose,
+  onOpenUser,
+}: {
+  userId: string;
+  initialTab: 'followers' | 'following';
+  onClose: () => void;
+  onOpenUser: (id: string) => void;
+}) {
+  const [tab, setTab] = useState<'followers' | 'following'>(initialTab);
+  const [followers, setFollowers] = useState<PublicUser[]>([]);
+  const [following, setFollowing] = useState<PublicUser[]>([]);
+  const [query, setQuery] = useState('');
+  const [results, setResults] = useState<PublicUser[] | null>(null);
+
+  useEffect(() => {
+    api.myFollowers().then(setFollowers).catch(() => {});
+    api.myFollowing().then(setFollowing).catch(() => {});
+  }, [userId]);
+
+  useEffect(() => {
+    const q = query.trim();
+    if (!q) {
+      setResults(null);
+      return;
+    }
+    const t = setTimeout(() => {
+      api.searchUsers(q).then(setResults).catch(() => {});
+    }, 250);
+    return () => clearTimeout(t);
+  }, [query]);
+
+  const list = results ?? (tab === 'followers' ? followers : following);
+
+  return (
+    <div className="modal-backdrop" style={{ zIndex: 2600 }} onClick={onClose}>
+      <div className="modal" onClick={(e) => e.stopPropagation()}>
+        <div className="pu-search">
+          <span className="search-ico">🔍</span>
+          <input
+            placeholder="Найти людей…"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+        </div>
+
+        {!results && (
+          <div className="tabbar" style={{ position: 'static' }}>
+            <button
+              className={'tab' + (tab === 'followers' ? ' active' : '')}
+              onClick={() => setTab('followers')}
+            >
+              Подписчики ({followers.length})
+            </button>
+            <button
+              className={'tab' + (tab === 'following' ? ' active' : '')}
+              onClick={() => setTab('following')}
+            >
+              Подписки ({following.length})
+            </button>
+          </div>
+        )}
+
+        <div className="pu-list">
+          {list.length === 0 ? (
+            <div className="meta" style={{ color: 'var(--hint)', padding: '12px 2px' }}>
+              {results ? 'Никого не найдено' : 'Пока пусто'}
+            </div>
+          ) : (
+            list.map((u) => <UserRow key={u.id} u={u} onOpen={onOpenUser} />)
+          )}
+        </div>
+
+        <button className="btn secondary" style={{ marginTop: 12 }} onClick={onClose}>
+          Закрыть
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export function UserProfileModal({ id, onClose }: { id: string; onClose: () => void }) {
+  const [p, setP] = useState<PublicProfile | null>(null);
+  const [openListing, setOpenListing] = useState<string | null>(null);
+  const [photoReview, setPhotoReview] = useState<Review | null>(null); // Instagram-style photo view
+  const [closing, setClosing] = useState(false);
+  useEffect(() => {
+    api.userProfile(id).then(setP).catch(() => {});
+  }, [id]);
+  const requestClose = () => {
+    setClosing(true);
+    setTimeout(onClose, 240);
+  };
+  useEscClose(requestClose);
+
+  return (
+    <div className={'userprofile' + (closing ? ' closing' : '')}>
+      <div className="up-top">
+        <button className="back-btn" onClick={requestClose}>
+          ←
+        </button>
+      </div>
+      {!p ? (
+        <div style={{ padding: 16 }}>Загрузка…</div>
+      ) : (
+        <>
+          <div className="me-head">
+            <Avatar user={p} />
+            <div className="me-name">{p.firstName ?? p.username ?? 'Гость'}</div>
+            <div className="me-stats">
+              <span>
+                <b>{p.followers}</b> подписчиков
+              </span>
+              <span>
+                <b>{p.following}</b> подписок
+              </span>
+              <span>⭐ {p.reviews}</span>
+            </div>
+            {!p.isMe && (
+              <div style={{ marginTop: 10 }}>
+                <FollowBtn u={p} onChange={() => {}} />
+              </div>
+            )}
+          </div>
+
+          {(() => {
+            // fill the author from the profile owner (reviewList items carry no `user`)
+            const withUser = (r: Review): Review =>
+              ({ ...r, user: r.user ?? { id: p.id, firstName: p.firstName, username: p.username, photoUrl: p.photoUrl } } as Review);
+            const open = (r: Review) => setPhotoReview(withUser(r));
+            const withPhoto = p.reviewList.filter((r) => r.photoUrls?.[0] || r.listing?.photoUrl);
+            // taste snapshot (computed from the reviews we have)
+            const total = p.reviewList.length;
+            const avg = total ? p.reviewList.reduce((s, r) => s + r.rating, 0) / total : 0;
+            const catCount = new Set(
+              p.reviewList
+                .map((r) => r.listing?.category)
+                .filter((c): c is string => !!c && !/^(блюдо|напиток)$/i.test(c)),
+            ).size;
+            const best = [...p.reviewList].sort((a, b) => b.rating - a.rating)[0];
+            if (p.reviewList.length === 0) {
+              return (
+                <div className="me-section">
+                  <h2 className="me-h">Отзывы</h2>
+                  <div className="meta" style={{ color: 'var(--hint)' }}>Пока нет отзывов</div>
+                </div>
+              );
+            }
+            return (
+              <>
+                {/* 1) carousel of rating photos (tap → Untappd card) */}
+                {withPhoto.length > 0 && (
+                  <div className="me-section">
+                    <h2 className="me-h">Оценки</h2>
+                    <div className="rc-carousel">
+                      {withPhoto.map((r) => (
+                        <button key={r.id} onClick={() => open(r)}>
+                          <img src={(r.photoUrls?.[0] || r.listing?.photoUrl) as string} alt="" />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {/* 2) taste snapshot */}
+                <div className="me-section">
+                  <h2 className="me-h">О вкусе</h2>
+                  <div className="taste-card">
+                    <div className="taste-line">
+                      <span className="taste-key">Средняя оценка</span>
+                      <span className="taste-val">{avg.toFixed(1)}★</span>
+                    </div>
+                    <div className="taste-line">
+                      <span className="taste-key">Оценок</span>
+                      <span className="taste-val">{total}</span>
+                    </div>
+                    <div className="taste-line">
+                      <span className="taste-key">Распробовал категорий</span>
+                      <span className="taste-val">{catCount}</span>
+                    </div>
+                    {best?.listing && (
+                      <div className="taste-line">
+                        <span className="taste-key">🥇 Лучшая находка</span>
+                        <span className="taste-val">{best.listing.name} · {best.rating.toFixed(1)}★</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                {/* 3) average rating per category */}
+                <div className="me-section">
+                  <h2 className="me-h">Оценки по категориям</h2>
+                  <CategoryAverages reviews={p.reviewList} />
+                </div>
+                {/* 3) full Untappd-style cards */}
+                <div className="me-section">
+                  <h2 className="me-h">Отзывы</h2>
+                  {p.reviewList.map((r) => (
+                    <ReviewCard
+                      key={r.id}
+                      review={withUser(r)}
+                      onOpen={() => open(r)}
+                      onOpenVenue={() => r.venue?.id && setOpenListing(r.venue.id)}
+                    />
+                  ))}
+                </div>
+              </>
+            );
+          })()}
+        </>
+      )}
+      {openListing && (
+        <ListingDetailModal id={openListing} onClose={() => setOpenListing(null)} />
+      )}
+      {photoReview && (
+        <PhotoPostModal
+          review={photoReview}
+          onClose={() => setPhotoReview(null)}
+          onOpenUser={() => setPhotoReview(null)}
+          onOpenListing={() => {
+            const lid = photoReview.listing?.id;
+            setPhotoReview(null);
+            if (lid) setOpenListing(lid);
+          }}
+          onOpenVenue={() => {
+            const vid = photoReview.venue?.id;
+            setPhotoReview(null);
+            if (vid) setOpenListing(vid);
+          }}
+        />
+      )}
+    </div>
+  );
+}

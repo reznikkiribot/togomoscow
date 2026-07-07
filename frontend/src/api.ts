@@ -1,0 +1,322 @@
+import { initData } from './telegram';
+import type {
+  AdminChallenge,
+  AdminUser,
+  BusinessSubmission,
+  Challenge,
+  BusinessSubmissionInput,
+  CheckinResult,
+  Claim,
+  Correction,
+  Favorite,
+  GeoPoint,
+  Group,
+  Listing,
+  ListingDetail,
+  ListingType,
+  PendingMenuLink,
+  Profile,
+  PublicProfile,
+  PublicUser,
+  Question,
+  Review,
+  Specialization,
+  SupportMsg,
+  UserStats,
+  VenueEvent,
+  VoteState,
+  VoteType,
+} from './types';
+
+// Read initData LIVE on every request. If our bundle ran before Telegram injected
+// initData, the imported constant would be '' forever and every call would be
+// unauthenticated (e.g. favorites showing empty on a cold launch). The live value
+// falls back to the import when the WebApp object isn't present (e.g. dev).
+const authHeaders = (): Record<string, string> => ({
+  Authorization: `tma ${window.Telegram?.WebApp?.initData || initData}`,
+});
+
+async function http<T>(path: string, init?: RequestInit): Promise<T> {
+  const res = await fetch(`/api${path}`, init);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  // some endpoints (DELETE) may return empty
+  const text = await res.text();
+  return text ? (JSON.parse(text) as T) : (undefined as T);
+}
+
+const getJson = <T>(path: string) => http<T>(path, { headers: authHeaders() });
+
+const postJson = <T>(path: string, body?: unknown) =>
+  http<T>(path, {
+    method: 'POST',
+    headers: { ...authHeaders(), 'Content-Type': 'application/json' },
+    body: body !== undefined ? JSON.stringify(body) : undefined,
+  });
+
+const del = <T>(path: string) =>
+  http<T>(path, { method: 'DELETE', headers: authHeaders() });
+
+const patch = <T>(path: string, body?: unknown) =>
+  http<T>(path, {
+    method: 'PATCH',
+    headers: { ...authHeaders(), 'Content-Type': 'application/json' },
+    body: body !== undefined ? JSON.stringify(body) : undefined,
+  });
+
+export interface CreateReviewInput {
+  rating: number;
+  text?: string;
+  attributes?: Record<string, unknown>;
+  photoUrls?: string[];
+  videoUrls?: string[];
+  lat?: number;
+  lng?: number;
+}
+
+export const api = {
+  recommended: () => getJson<Listing[]>('/listings/recommended'),
+  // AI-taste-profile ranked feed (Ollama-built profile); falls back to cold-start
+  recsysFeed: (take = 30) => getJson<Listing[]>(`/recsys/feed?take=${take}`),
+  // find beer by the flavor/serving tags left in reviews
+  beerByTags: (tags: string[]) =>
+    getJson<Listing[]>(`/listings/beer-by-tags?tags=${encodeURIComponent(tags.join(','))}`),
+  topWeekly: () => getJson<Listing[]>('/listings/top-weekly'),
+  geo: () => getJson<GeoPoint[]>('/listings/geo'),
+  listings: (
+    type?: ListingType,
+    search?: string,
+    opts?: {
+      sort?: string;
+      price?: number;
+      openNow?: boolean;
+      cuisine?: string;
+      category?: string;
+      take?: number;
+    },
+  ) => {
+    const q = new URLSearchParams();
+    if (type) q.set('type', type);
+    if (search) q.set('search', search);
+    if (opts?.sort) q.set('sort', opts.sort);
+    if (opts?.price) q.set('price', String(opts.price));
+    if (opts?.openNow) q.set('openNow', '1');
+    if (opts?.cuisine) q.set('cuisine', opts.cuisine);
+    if (opts?.category) q.set('category', opts.category);
+    if (opts?.take) q.set('take', String(opts.take));
+    const qs = q.toString();
+    return getJson<Listing[]>(`/listings${qs ? `?${qs}` : ''}`);
+  },
+  feed: () => getJson<Review[]>('/listings/feed'),
+
+  // venues serving a dish/drink matching the query (Блюда / Напитки search)
+  venuesServing: (type: 'DISH' | 'DRINK', q?: string) =>
+    getJson<Listing[]>(`/listings/venues-serving?type=${type}${q ? `&q=${encodeURIComponent(q)}` : ''}`),
+  itemSuggest: (type: 'DISH' | 'DRINK', q: string) =>
+    getJson<string[]>(`/listings/item-suggest?type=${type}&q=${encodeURIComponent(q)}`),
+  searchVenues: (q: string) =>
+    getJson<Listing[]>(`/listings/search-venues?q=${encodeURIComponent(q)}`),
+  searchAll: (q: string) =>
+    getJson<Listing[]>(`/listings/search-all?q=${encodeURIComponent(q)}`),
+  suggest: (q: string) =>
+    getJson<{ name: string; kind: string }[]>(`/listings/suggest?q=${encodeURIComponent(q)}`),
+  searchItems: (type: 'DISH' | 'DRINK', q: string) =>
+    getJson<Listing[]>(`/listings/search-items?type=${type}&q=${encodeURIComponent(q)}`),
+  // real places to taste a given dish/drink (menu links + cuisine match)
+  placesForItem: (id: string) => getJson<Listing[]>(`/listings/${id}/where`),
+
+  // Q&A (ask the community)
+  questions: (listingId: string) => getJson<Question[]>(`/listings/${listingId}/questions`),
+  askQuestion: (listingId: string, text: string) =>
+    postJson<Question>(`/listings/${listingId}/questions`, { text }),
+  answerQuestion: (questionId: string, text: string) =>
+    postJson(`/questions/${questionId}/answers`, { text }),
+  listing: (id: string) => getJson<ListingDetail>(`/listings/${id}`),
+  group: (key: string, type?: ListingType) =>
+    getJson<Group>(
+      `/listings/group?key=${encodeURIComponent(key)}${type ? `&type=${type}` : ''}`,
+    ),
+
+  onboarding: () => getJson<{ onboarded: boolean; preferences: { categories?: string[]; price?: number } | null }>('/me/onboarding'),
+  setOnboarding: (dto: { categories: string[]; price?: number }) =>
+    postJson<{ ok: boolean }>('/me/onboarding', dto),
+  recommendedFor: (cats: string[]) =>
+    getJson<Listing[]>(`/listings/recommended-for?cats=${encodeURIComponent(cats.join(','))}`),
+  recommendedSmart: (recentCats: string[] = []) =>
+    getJson<Listing[]>(
+      `/listings/recommended-smart${recentCats.length ? `?recent=${encodeURIComponent(recentCats.join(','))}` : ''}`,
+    ),
+
+  profile: () => getJson<Profile>('/me/profile'),
+  stats: () => getJson<UserStats>('/me/stats'),
+  specializations: () => getJson<Specialization[]>('/me/specializations'),
+  tasteProfile: () => getJson<import('./types').TasteProfile>('/me/taste-profile'),
+  tasteRanking: (itemId: string) =>
+    getJson<import('./types').TasteRanking | null>(`/me/taste-ranking?itemId=${itemId}`),
+  compare: (dto: { winnerId: string; loserId: string; reason?: string; category?: string }) =>
+    postJson<{ ok: boolean }>('/me/compare', dto),
+  skips: () => getJson<string[]>('/me/skips'),
+  skip: (itemId: string, category?: string) =>
+    postJson<{ ok: boolean }>('/me/skip', { itemId, category }),
+  challenges: () => getJson<Challenge[]>('/challenges'),
+  adminChallenges: () => getJson<AdminChallenge[]>('/admin/challenges'),
+  createChallenge: (dto: { title: string; category?: string; target: number; days?: number }) =>
+    postJson<AdminChallenge>('/admin/challenges', dto),
+  deactivateChallenge: (id: string) => postJson(`/admin/challenges/${id}/deactivate`),
+  myReviews: () => getJson<Review[]>('/me/reviews'),
+
+  // social graph
+  myFollowers: () => getJson<PublicUser[]>('/me/followers'),
+  myFollowing: () => getJson<PublicUser[]>('/me/following'),
+  searchUsers: (q: string) => getJson<PublicUser[]>(`/users/search?q=${encodeURIComponent(q)}`),
+  userProfile: (id: string) => getJson<PublicProfile>(`/users/${id}/profile`),
+  followUser: (id: string) => postJson<{ ok: boolean }>(`/users/${id}/follow`),
+  unfollowUser: (id: string) => del<{ ok: boolean }>(`/users/${id}/follow`),
+  followingFeed: () => getJson<Review[]>('/me/following-feed'),
+
+  // support + corrections
+  support: (text: string) => postJson<{ ok: boolean }>('/support', { text }),
+  sendCorrection: (listingId: string, text: string) =>
+    postJson<{ ok: boolean }>(`/listings/${listingId}/correction`, { text }),
+  adminUsers: () => getJson<AdminUser[]>('/admin/users'),
+  adminCorrections: () => getJson<Correction[]>('/admin/corrections'),
+  resolveCorrection: (id: string) => postJson(`/admin/corrections/${id}/resolve`),
+  adminSupport: () => getJson<SupportMsg[]>('/admin/support'),
+
+  // app-open sessions (for admin analytics)
+  sessionStart: () => postJson<{ id: string }>('/session/start'),
+  sessionEnd: (id: string) => postJson('/session/end', { id }),
+  favorites: () => getJson<Favorite[]>('/me/favorites'),
+  addFavorite: (id: string) => postJson<{ ok: boolean }>(`/me/favorites/${id}`),
+  removeFavorite: (id: string) => del<{ ok: boolean }>(`/me/favorites/${id}`),
+  createReview: (id: string, dto: CreateReviewInput) =>
+    postJson<Review>(`/listings/${id}/reviews`, dto),
+  deleteReview: (reviewId: string) => del<{ ok: boolean }>(`/reviews/${reviewId}`),
+  vote: (reviewId: string, type: VoteType) =>
+    postJson<VoteState>(`/reviews/${reviewId}/vote`, { type }),
+  voteState: (reviewId: string) => getJson<VoteState>(`/reviews/${reviewId}/vote`),
+  comments: (reviewId: string) =>
+    getJson<import('./types').Comment[]>(`/reviews/${reviewId}/comments`),
+  // add a photo to a card WITHOUT a review/rating (just the picture)
+  addPhoto: (listingId: string, url: string) =>
+    postJson<{ ok: boolean }>(`/listings/${listingId}/photo`, { url }),
+  addComment: (reviewId: string, text: string, parentId?: string) =>
+    postJson<import('./types').Comment>(`/reviews/${reviewId}/comments`, { text, parentId }),
+  deleteComment: (commentId: string) => del<{ ok: boolean }>(`/comments/${commentId}`),
+  // prepare a rich shareable message (photo + caption + open-app button) for a friend
+  preparePost: (dto: { listingId: string; text?: string; photoUrl?: string }) =>
+    postJson<{ id: string }>('/share/prepare', dto),
+
+  // check-in (GPS proximity verified; photo feeds the venue gallery)
+  checkin: (
+    listingId: string,
+    dto: { lat?: number; lng?: number; photoUrl?: string; note?: string },
+  ) => postJson<CheckinResult>(`/listings/${listingId}/checkin`, dto),
+
+  // link an existing dish/drink to a restaurant the user picks
+  linkItemToVenue: (itemId: string, venueId: string) =>
+    postJson<{ ok: boolean }>(`/listings/${itemId}/served-at`, { venueId }),
+
+  // category unlock progress (rankings open after N reviews in a category)
+  categoryProgress: () =>
+    getJson<{
+      threshold: number;
+      total: number;
+      categories: { name: string; count: number; unlocked: boolean }[];
+    }>('/me/category-progress'),
+
+  // venue events parsed from their site & Telegram channel
+  events: (take = 30) => getJson<VenueEvent[]>(`/events?take=${take}`),
+  eventsFeed: (take = 24) => getJson<VenueEvent[]>(`/events/feed?take=${take}`),
+  myEvents: () => getJson<VenueEvent[]>('/events/mine'),
+
+  // recommender: implicit-feedback logging + transparent "probability you'll like"
+  logEvent: (listingId: string, type: 'OPEN' | 'VIEW' | 'SAVE') =>
+    postJson('/recsys/event', { listingId, type }).catch(() => {}),
+  likeProbability: (id: string) =>
+    getJson<{ probability: number | null; reason: string }>(`/recsys/probability/${id}`),
+
+  // a user proposes a dish/drink for a venue (then can review it immediately)
+  addItem: (
+    venueId: string,
+    dto: {
+      type: 'DISH' | 'DRINK';
+      name: string;
+      description?: string;
+      photoUrl?: string;
+      category?: string;
+    },
+  ) => postJson<Listing>(`/listings/${venueId}/items`, dto),
+
+  // owner / business cabinet
+  me: () => getJson<Profile['user']>('/me'),
+  pendingMenuItems: (venueId: string) =>
+    getJson<PendingMenuLink[]>(`/owner/venues/${venueId}/pending-items`),
+  setMenuItem: (
+    venueId: string,
+    itemId: string,
+    body: { status: 'APPROVED' | 'REJECTED'; price?: number },
+  ) => postJson(`/owner/venues/${venueId}/items/${itemId}`, body),
+  claim: (listingId: string, message?: string) =>
+    postJson<Claim>(`/owner/claims/${listingId}`, { message }),
+  myClaims: () => getJson<Claim[]>('/me/claims'),
+  ownerVenues: () => getJson<Listing[]>('/owner/venues'),
+  editVenue: (id: string, dto: Partial<Listing>) => patch<Listing>(`/owner/venues/${id}`, dto),
+  venueReviews: (id: string) => getJson<Review[]>(`/owner/venues/${id}/reviews`),
+  replyReview: (id: string, text: string) =>
+    postJson<Review>(`/owner/reviews/${id}/reply`, { text }),
+
+  // add a business (Yelp-style suggestion)
+  submitBusiness: (dto: BusinessSubmissionInput) =>
+    postJson<BusinessSubmission>('/business', dto),
+  mySubmissions: () => getJson<BusinessSubmission[]>('/me/business'),
+  adminBusiness: () => getJson<BusinessSubmission[]>('/admin/business'),
+  setBusiness: (
+    id: string,
+    action: 'approve' | 'reject',
+    overrides?: { name?: string; address?: string; phone?: string; category?: string },
+  ) => postJson(`/admin/business/${id}/${action}`, overrides),
+
+  // admin (manual verification)
+  adminClaims: () => getJson<Claim[]>('/admin/claims'),
+  approveClaim: (id: string) => postJson<Claim>(`/admin/claims/${id}/approve`),
+  rejectClaim: (id: string) => postJson<Claim>(`/admin/claims/${id}/reject`),
+  adminReviews: () => getJson<Review[]>('/admin/reviews'),
+  moderateReview: (id: string, action: 'approve' | 'reject', price?: number) =>
+    postJson(`/admin/reviews/${id}/${action}`, price != null ? { price } : {}),
+  adminPendingItems: () => getJson<PendingMenuLink[]>('/admin/items'),
+  adminSetItem: (venueId: string, itemId: string, body: { status: 'APPROVED' | 'REJECTED'; price?: number }) =>
+    postJson(`/admin/items/${venueId}/${itemId}`, body),
+
+  async upload(file: File): Promise<string> {
+    const fd = new FormData();
+    fd.append('file', file);
+    const res = await fetch('/api/uploads', {
+      method: 'POST',
+      headers: authHeaders(),
+      body: fd,
+    });
+    if (!res.ok) throw new Error(`upload HTTP ${res.status}`);
+    const { url } = (await res.json()) as { url: string };
+    return url;
+  },
+
+  // ── photo recognition ──────────────────────────────────────────────────────
+  async recognize(file: File, mode = 'auto'): Promise<import('./types').RecognizeResult> {
+    const fd = new FormData();
+    fd.append('file', file);
+    fd.append('mode', mode);
+    const res = await fetch('/api/vision/recognize', { method: 'POST', headers: authHeaders(), body: fd });
+    if (!res.ok) throw new Error(`recognize HTTP ${res.status}`);
+    return res.json();
+  },
+  visionFeedback: (body: {
+    photoUrl?: string;
+    caption?: string;
+    mode?: string;
+    predictedIds?: string[];
+    topConfidence?: number;
+    chosenId?: string;
+  }) => postJson<{ ok: boolean }>('/vision/feedback', body),
+  visionSimilar: (id: string) =>
+    getJson<{ locked: boolean; items: Listing[] }>(`/vision/similar/${id}`),
+};

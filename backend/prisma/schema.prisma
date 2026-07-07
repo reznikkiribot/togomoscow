@@ -1,0 +1,495 @@
+// Sprint 2 schema — listings (restaurants / dishes / drinks), reviews,
+// favorites, and a follow graph for the social profile screen.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  CUSTOMER
+  OWNER
+  ADMIN
+}
+
+enum ListingType {
+  RESTAURANT
+  DISH
+  DRINK
+}
+
+enum VoteType {
+  USEFUL
+  FUNNY
+  COOL
+  OHNO
+}
+
+enum ClaimStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum ReviewStatus {
+  PENDING
+  APPROVED
+}
+
+enum MenuItemStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model User {
+  id         String   @id @default(uuid())
+  telegramId BigInt   @unique @map("telegram_id")
+  username   String?
+  firstName  String?  @map("first_name")
+  lastName   String?  @map("last_name")
+  photoUrl   String?  @map("photo_url")
+  role       Role     @default(CUSTOMER)
+  onboardedAt DateTime? @map("onboarded_at") // set when the intro quiz is done
+  preferences Json?     // { categories: [...], price?: n }
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  reviews       Review[]
+  favorites     Favorite[]
+  interactions  Interaction[]
+  following     Follow[]         @relation("Following")
+  followers     Follow[]         @relation("Followers")
+  reviewVotes   ReviewVote[]
+  ownedListings Listing[]        @relation("OwnedListings")
+  claims        OwnershipClaim[]
+  proposedItems MenuLink[]       @relation("ProposedItems")
+  questions     Question[]
+  answers       Answer[]
+  checkins      CheckIn[]
+  businessSubmissions BusinessSubmission[]
+  supportMessages SupportMessage[]
+  corrections     Correction[]
+  sessions        Session[]
+  comparisons     Comparison[]
+  dislikes        Dislike[]
+  comments        Comment[]
+  recognitionFeedback RecognitionFeedback[]
+
+  @@map("users")
+}
+
+// Reddit-style threaded comments on a review (followers can discuss tastings).
+model Comment {
+  id        String   @id @default(uuid())
+  reviewId  String   @map("review_id")
+  userId    String   @map("user_id")
+  parentId  String?  @map("parent_id")
+  text      String
+  createdAt DateTime @default(now()) @map("created_at")
+  review    Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  parent    Comment? @relation("CommentThread", fields: [parentId], references: [id], onDelete: Cascade)
+  replies   Comment[] @relation("CommentThread")
+
+  @@index([reviewId])
+  @@map("comments")
+}
+
+// "swipe left" — the user isn't interested in this item. Hides it from their
+// feed and is negative training data for the recommender.
+model Dislike {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  itemId    String   @map("item_id")
+  category  String?
+  createdAt DateTime @default(now()) @map("created_at")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, itemId])
+  @@map("dislikes")
+}
+
+// Pairwise "what tasted better, A or B + why" — the user's own preference data.
+// Stored for later AI training; not surfaced as a public ranking.
+model Comparison {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  category  String?
+  winnerId  String   @map("winner_id")
+  loserId   String   @map("loser_id")
+  reason    String?
+  createdAt DateTime @default(now()) @map("created_at")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("comparisons")
+}
+
+model Listing {
+  id          String      @id @default(uuid())
+  type        ListingType
+  name        String
+  aliases     String? // alt spellings / English names for search (e.g. "pinot noir")
+  description String?
+  category    String? // cuisine for a restaurant, style for a drink, kind for a dish
+  address     String? // restaurants
+  photoUrl    String?     @map("photo_url") // the card "face" (first real photo)
+  photos      String[]    @default([]) // accumulating gallery: every added photo (card + reviews)
+  // multimodal recognition: embedding of the item's text/photo for vector search.
+  // Nullable/empty by default → fully backward-compatible. Populated lazily/by backfill.
+  embedding    Float[]    @default([]) @map("embedding") // text embedding (semantic "similar")
+  embeddingModel String?  @map("embedding_model") // which model produced it (for re-embeds)
+  imageEmbedding Float[]  @default([]) @map("image_embedding") // CLIP image embedding (photo recognition)
+  priceLevel  Int?        @map("price_level") // 1..4, Yelp-style $$$$
+
+  // geo + contacts + provenance (for bulk imports like OpenStreetMap)
+  lat        Float?
+  lng        Float?
+  phone      String?
+  website    String?
+  source     String? // e.g. "osm", null for hand-seeded demo data
+  externalId String? @map("external_id") // id within the source, for dedup
+
+  // chain grouping + enrichment
+  brand    String? // OSM brand tag (chain name), null for independents
+  hours    String? // OSM opening_hours string
+  cuisine  String? // cuisine(s)
+  groupKey String? @map("group_key") // lower(brand || name) — groups chain branches
+
+  // categorized amenities derived from OSM tags (wheelchair, payments, wifi, etc.)
+  amenities Json?
+
+  // delivery aggregator links (owner-provided; button shown only if set)
+  deliveryYandex  String? @map("delivery_yandex")
+  deliverySamokat String? @map("delivery_samokat")
+  deliveryVk      String? @map("delivery_vk")
+
+  ownerId String? @map("owner_id") // set when an ownership claim is approved
+  owner   User?   @relation("OwnedListings", fields: [ownerId], references: [id], onDelete: SetNull)
+
+  claims OwnershipClaim[]
+
+  // a dish or drink can belong to a restaurant listing
+  parentId String?   @map("parent_id")
+  parent   Listing?  @relation("ListingChildren", fields: [parentId], references: [id], onDelete: SetNull)
+  children Listing[] @relation("ListingChildren")
+
+  avgRating   Float    @default(0) @map("avg_rating")
+  reviewCount Int      @default(0) @map("review_count")
+  views       Int      @default(0) // profile views (owner analytics)
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  reviews   Review[]
+  favorites Favorite[]
+  interactions Interaction[]
+  sources   VenueSource[]
+  events    VenueEvent[]
+
+  // many-to-many: a restaurant has menu items; a dish/drink is served at venues
+  menuItems MenuLink[] @relation("VenueItems")
+  servedAt  MenuLink[] @relation("ItemVenues")
+  questions Question[]
+  checkins  CheckIn[]
+  corrections Correction[]
+
+  @@unique([source, externalId])
+  @@index([type])
+  @@index([groupKey])
+  @@map("listings")
+}
+
+// Links a venue (restaurant) to an item (dish or drink). A drink/dish can be
+// served at many venues, and a venue has many items.
+model MenuLink {
+  venueId String  @map("venue_id")
+  itemId  String  @map("item_id")
+  venue   Listing @relation("VenueItems", fields: [venueId], references: [id], onDelete: Cascade)
+  item    Listing @relation("ItemVenues", fields: [itemId], references: [id], onDelete: Cascade)
+
+  status        MenuItemStatus @default(APPROVED)
+  price         Int? // price in rubles, set by owner
+  addedByUserId String?        @map("added_by_user_id")
+  addedBy       User?          @relation("ProposedItems", fields: [addedByUserId], references: [id], onDelete: SetNull)
+
+  @@id([venueId, itemId])
+  @@map("menu_links")
+}
+
+model Review {
+  id        String  @id @default(uuid())
+  listingId String  @map("listing_id")
+  listing   Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  userId    String  @map("user_id")
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  rating     Float // 1..5
+  text       String?
+  status     ReviewStatus @default(APPROVED) // PENDING when not geo-verified → moderation
+  ownerReply String? @map("owner_reply") // venue owner's public reply
+  // type-specific fields: drinks -> { style, abv, servingStyle }; food -> { visitDate, dishName }
+  attributes Json?
+  photoUrls  String[] @map("photo_urls")
+  videoUrls  String[] @map("video_urls")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  votes ReviewVote[]
+  comments Comment[]
+
+  @@unique([listingId, userId])
+  @@index([userId])
+  @@map("reviews")
+}
+
+model ReviewVote {
+  reviewId  String   @map("review_id")
+  userId    String   @map("user_id")
+  type      VoteType
+  review    Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@id([reviewId, userId, type])
+  @@map("review_votes")
+}
+
+model OwnershipClaim {
+  id        String      @id @default(uuid())
+  listingId String      @map("listing_id")
+  userId    String      @map("user_id")
+  listing   Listing     @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  status    ClaimStatus @default(PENDING)
+  message   String?
+  createdAt DateTime    @default(now()) @map("created_at")
+
+  @@unique([listingId, userId])
+  @@map("ownership_claims")
+}
+
+// A user-submitted business to add to the platform (Yelp "Add a business").
+// relationship = "customer" (just suggesting) or "owner" (works there → becomes owner on approval).
+model BusinessSubmission {
+  id           String      @id @default(uuid())
+  userId       String      @map("user_id")
+  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  relationship String      @default("customer")
+  name         String
+  address      String
+  category     String
+  phone        String?
+  website      String?
+  notes        String?
+  country      String      @default("Россия")
+  status       ClaimStatus @default(PENDING)
+  createdAt    DateTime    @default(now()) @map("created_at")
+
+  @@map("business_submissions")
+}
+
+// A user-submitted correction/addition for a venue/dish/drink card.
+model Correction {
+  id        String   @id @default(uuid())
+  listingId String   @map("listing_id")
+  listing   Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  userId    String   @map("user_id")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  text      String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("corrections")
+}
+
+// An app-open session: started when the Mini App opens, ended on close.
+model Session {
+  id        String    @id @default(uuid())
+  userId    String    @map("user_id")
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  startedAt DateTime  @default(now()) @map("started_at")
+  endedAt   DateTime? @map("ended_at")
+
+  @@index([userId])
+  @@map("sessions")
+}
+
+// A seasonal/weekly challenge ("оцените 5 кофеен"). Progress is computed on the
+// fly from the user's reviews in the window — no per-user progress table needed.
+model Challenge {
+  id        String   @id @default(uuid())
+  title     String
+  category  String? // keyword to match (e.g. "кофе"); null = any tasting
+  target    Int
+  startsAt  DateTime @default(now()) @map("starts_at")
+  endsAt    DateTime @map("ends_at")
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("challenges")
+}
+
+model SupportMessage {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  text      String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("support_messages")
+}
+
+model CheckIn {
+  id        String   @id @default(uuid())
+  listingId String   @map("listing_id")
+  userId    String   @map("user_id")
+  listing   Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lat       Float?
+  lng       Float?
+  verified  Boolean  @default(false) // true when GPS confirmed proximity to the venue
+  photoUrl  String?  @map("photo_url")
+  note      String?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([listingId])
+  @@map("checkins")
+}
+
+model Question {
+  id        String   @id @default(uuid())
+  listingId String   @map("listing_id")
+  userId    String   @map("user_id")
+  listing   Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  text      String
+  createdAt DateTime @default(now()) @map("created_at")
+  answers   Answer[]
+
+  @@map("questions")
+}
+
+model Answer {
+  id         String   @id @default(uuid())
+  questionId String   @map("question_id")
+  userId     String   @map("user_id")
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  text       String
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@map("answers")
+}
+
+model Favorite {
+  userId    String  @map("user_id")
+  listingId String  @map("listing_id")
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  listing   Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@id([userId, listingId])
+  @@map("favorites")
+}
+
+model Follow {
+  followerId  String @map("follower_id")
+  followingId String @map("following_id")
+  follower    User   @relation("Following", fields: [followerId], references: [id], onDelete: Cascade)
+  following   User   @relation("Followers", fields: [followingId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@id([followerId, followingId])
+  @@map("follows")
+}
+
+// A venue's public content source: its own website or its OPEN Telegram channel
+// (read via the public t.me/s/<channel> web preview — no account, no MTProto).
+model VenueSource {
+  id          String    @id @default(uuid())
+  venueId     String    @map("venue_id")
+  type        String // 'website' | 'telegram' | 'vk'
+  url         String // full url or t.me/<channel>
+  handle      String? // channel/group handle for telegram/vk
+  status      String    @default("active") // active | disabled | error
+  lastFetched DateTime? @map("last_fetched")
+  lastPostId  String?   @map("last_post_id") // dedup cursor (newest seen)
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  venue       Listing   @relation(fields: [venueId], references: [id], onDelete: Cascade)
+
+  @@unique([venueId, type])
+  @@index([type, status])
+  @@map("venue_sources")
+}
+
+// A parsed public post from a venue source: a new dish, an event/афиша, a promo.
+// Append-only; deduped by (venueId, externalId).
+model VenueEvent {
+  id          String   @id @default(uuid())
+  venueId     String   @map("venue_id")
+  kind        String // 'dish' (new dish/drink, shown in feed) | 'schedule' (hours change, venue card only)
+  title       String?
+  text        String?
+  price       Int? // detected price for a new dish/drink
+  photoUrl    String?  @map("photo_url")
+  aiProcessed Boolean  @default(false) @map("ai_processed") // LLM extracted name + dish photo
+  url         String? // link back to the original post
+  source      String // 'telegram' | 'website' | 'vk'
+  externalId  String   @map("external_id") // e.g. channel/123 — for dedup
+  publishedAt DateTime @map("published_at")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  venue       Listing  @relation(fields: [venueId], references: [id], onDelete: Cascade)
+
+  @@unique([venueId, externalId])
+  @@index([venueId, publishedAt])
+  @@index([publishedAt])
+  @@map("venue_events")
+}
+
+// Implicit-feedback signal for the recommender (LightFM). One row per user action
+// on an item, with a weight. The training ETL aggregates these into a
+// user×item interaction matrix. Kept append-only and cheap to write.
+model Interaction {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  listingId String   @map("listing_id")
+  // RATE_HIGH(5) RATE_GOOD(4) SAVE(3) VIEW(2) OPEN(1) — see RecsysService.WEIGHTS
+  type      String
+  weight    Float    @default(1)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  listing   Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([listingId])
+  @@index([type])
+  @@map("interactions")
+}
+
+// Photo-recognition feedback → training data for improving the model over time.
+// One row per recognition attempt: what we predicted (top-5) and what the user
+// actually chose. Chosen==top → positive example; chosen!=top → hard negative.
+// Append-only, isolated table → fully backward-compatible.
+model RecognitionFeedback {
+  id            String   @id @default(uuid())
+  userId        String   @map("user_id")
+  photoUrl      String?  @map("photo_url")       // the query photo (if stored)
+  caption       String?                           // VLM caption used for the search
+  mode          String   @default("dish")         // dish | drink | wine | menu
+  predictedIds  String[] @default([]) @map("predicted_ids") // top-5 item ids shown
+  topConfidence Float?   @map("top_confidence")
+  chosenId      String?  @map("chosen_id")         // item the user confirmed (null = dismissed)
+  wasTop        Boolean? @map("was_top")           // chosen == top-1 prediction?
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([chosenId])
+  @@map("recognition_feedback")
+}

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>togomoscow</title>
+    <meta http-equiv="Cache-Control" content="no-store, max-age=0" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <!-- SELF-HOSTED (same origin): the external https://telegram.org copy is throttled /
+         unreachable on some RU mobile carriers, and as a synchronous <head> script it
+         stalled the whole page → Telegram's loader hung forever with ZERO requests
+         reaching us. Serving it from our origin removes that dependency entirely. -->
+    <script src="/telegram-web-app.js" defer></script>
+    <!-- boot watchdog: no dependency on the app bundle, so it works even when the
+         bundle fails to load/parse (the exact failure mode we're debugging). -->
+    <script>
+      (function () {
+        var API = '/api/health/client-error';
+        function report(kind, detail) {
+          try {
+            var body = JSON.stringify({
+              kind: kind,
+              detail: String(detail).slice(0, 500),
+              url: location.href,
+              boot: true,
+              tg: !!(window.Telegram && window.Telegram.WebApp),
+              platform: window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp.platform : 'n/a',
+              version: window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp.version : 'n/a',
+            });
+            if (navigator.sendBeacon) navigator.sendBeacon(API, new Blob([body], { type: 'application/json' }));
+            else { var x = new XMLHttpRequest(); x.open('POST', API, true); x.setRequestHeader('Content-Type', 'application/json'); x.send(body); }
+          } catch (e) {}
+        }
+        report('boot-open', 'html script executed');
+        // catch EVERYTHING before/while the bundle boots (module load errors included)
+        window.addEventListener('error', function (e) {
+          report('boot-error', (e.message || 'res-error') + ' @ ' + (e.filename || (e.target && e.target.src) || '') + ':' + (e.lineno || 0));
+        }, true);
+        window.addEventListener('unhandledrejection', function (e) {
+          report('boot-promise', (e.reason && (e.reason.stack || e.reason.message)) || e.reason);
+        });
+        // Telegram keeps its native dark loader until WebApp.ready() is called.
+        // Call it before React boots so a slow bundle still reveals our HTML
+        // loader/watchdog instead of leaving the user on Telegram's spinner.
+        function telegramReadySoon() {
+          try {
+            var webApp = window.Telegram && window.Telegram.WebApp;
+            if (webApp && webApp.ready) {
+              webApp.ready();
+              if (webApp.expand) webApp.expand();
+              report('tg-ready-called', 'ready/expand called from html');
+              return true;
+            }
+          } catch (e) {}
+          return false;
+        }
+        if (!telegramReadySoon()) {
+          var tries = 0;
+          var readyTimer = setInterval(function () {
+            tries += 1;
+            if (telegramReadySoon() || tries > 300) clearInterval(readyTimer);
+          }, 100);
+        }
+        // if React hasn't mounted in 12s → the page is wedged (stale cache / failed
+        // asset / blocked script). Auto-recover ONCE with a cache-busting reload;
+        // on a second failure show a manual retry so the user is never stuck.
+        setTimeout(function () {
+          if (window.__APP_BOOTED) return;
+          report('boot-timeout', 'app not mounted in 12s');
+          var u = new URL(location.href);
+          if (!u.searchParams.get('rb')) {
+            u.searchParams.set('rb', String(Date.now()));
+            location.replace(u.toString());
+          } else {
+            var d = document.getElementById('boot-msg');
+            if (d) {
+              d.innerHTML = 'Не удалось загрузить 😕<br/><button onclick="location.reload()" ' +
+                'style="margin-top:12px;padding:12px 22px;border:none;border-radius:12px;background:#d32323;color:#fff;font-weight:700;font-size:15px">Обновить</button>';
+            }
+          }
+        }, 12000);
+      })();
+    </script>
+    <style>
+      /* minimal first-paint loader (replaced when React mounts) */
+      #boot-msg { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: system-ui, sans-serif; color: #555; font-size: 15px; text-align: center; background: #fff; }
+      #boot-msg .sp { width: 26px; height: 26px; border: 3px solid #eee; border-top-color: #d32323; border-radius: 50%; animation: bspin 0.8s linear infinite; margin-bottom: 12px; }
+      @keyframes bspin { to { transform: rotate(360deg); } }
+    </style>
+  </head>
+  <body>
+    <img src="/api/health/ping?kind=html-img&v=222" alt="" width="1" height="1" style="position:absolute;left:-9999px;top:-9999px" />
+    <div id="root"><div id="boot-msg"><div class="sp"></div>Загружаем togomoscow…</div></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+﻿import { PrismaClient } from "@prisma/client"; const p=new PrismaClient(); console.log("обработано:",await p.venueEvent.count({where:{kind:"dish",aiProcessed:true}}),"| очередь:",await p.venueEvent.count({where:{kind:"dish",aiProcessed:false}})); await p.$disconnect();
