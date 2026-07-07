@@ -1,0 +1,12 @@
+{
+  "name": "togomoscow",
+  "version": "0.0.1",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "cd backend && npm ci && npm run railway:build",
+    "start": "cd backend && npm run railway:start"
+  }
+}
