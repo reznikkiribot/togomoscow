@@ -8,7 +8,7 @@
     "start:prod": "node dist/main.js",
     "start:dev": "nest start --watch",
     "railway:build": "prisma generate && npm run build",
-    "railway:start": "prisma migrate deploy && npm run start:prod",
+    "railway:start": "node scripts/ensure-database-url.mjs && prisma migrate deploy && npm run start:prod",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio"
@@ -24,6 +24,7 @@
     "@xenova/transformers": "^2.17.2",
     "opening_hours": "^3.13.0",
     "playwright": "^1.61.1",
+    "prisma": "^6.2.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
     "sharp": "^0.35.2",
@@ -34,7 +35,6 @@
     "@nestjs/schematics": "^11.0.0",
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.0",
-    "prisma": "^6.2.0",
     "typescript": "^5.7.0"
   }
 }
