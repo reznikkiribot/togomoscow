@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { ListingsService } from '../listings/listings.service';
 import { OllamaService } from './ollama.service';
@@ -43,7 +43,7 @@ function dice(a: string, b: string) {
 }
 
 @Injectable()
-export class VisionRecognitionService {
+export class VisionRecognitionService implements OnModuleInit {
   private readonly log = new Logger('VisionRecognition');
   private readonly AUTO_OPEN = Number(process.env.VISION_AUTO_OPEN ?? 0.9);
 
@@ -56,6 +56,14 @@ export class VisionRecognitionService {
     private readonly clip: ClipService,
     private readonly ocr: OCRService,
   ) {}
+
+  onModuleInit() {
+    if (process.env.VISION_AUTO_BACKFILL === '0') return;
+    const delayMs = Number(process.env.VISION_AUTO_BACKFILL_DELAY_MS ?? 15000);
+    setTimeout(() => {
+      this.backfillImageEmbeddings().catch((e) => this.log.warn(`image backfill failed: ${e?.message}`));
+    }, delayMs);
+  }
 
   async recognize(image: Buffer, mode: RecognizeMode = 'auto'): Promise<RecognizeResult> {
     if (mode === 'wine') return this.recognizeWine(image);
@@ -81,6 +89,47 @@ export class VisionRecognitionService {
     }
     // FALLBACK (CLIP unavailable): VLM caption → translate → text search
     return this.recognizeByCaption(image, mode);
+  }
+
+  private async backfillImageEmbeddings() {
+    if (this.vectors.imageSize > 0) return;
+    const limit = Math.max(1, Math.min(Number(process.env.VISION_AUTO_BACKFILL_LIMIT ?? 80), 250));
+    const origin = (process.env.PUBLIC_APP_URL || 'https://togomoscow-production-f7b1.up.railway.app').replace(/\/$/, '');
+    const rows = await this.prisma.$queryRawUnsafe<{ id: string; name: string; photoUrl: string }[]>(
+      `SELECT id, name, photo_url AS "photoUrl"
+         FROM listings
+        WHERE type::text IN ('DISH','DRINK')
+          AND photo_url IS NOT NULL
+          AND COALESCE(array_length(image_embedding, 1), 0) = 0
+        ORDER BY
+          CASE
+            WHEN lower(name) LIKE '%болонь%' OR lower(name) LIKE '%bologn%' THEN 0
+            WHEN lower(name) LIKE '%паста%' OR lower(name) LIKE '%спагет%' OR lower(name) LIKE '%pasta%' THEN 1
+            ELSE 2
+          END,
+          review_count DESC
+        LIMIT ${limit}`,
+    );
+    if (!rows.length) return;
+    this.log.log(`auto image backfill started: ${rows.length} items`);
+    let done = 0;
+    let failed = 0;
+    for (const row of rows) {
+      try {
+        const url = row.photoUrl.startsWith('http') ? row.photoUrl : `${origin}${row.photoUrl}`;
+        const vec = await this.clip.embedImage(url);
+        if (!vec.length) {
+          failed++;
+          continue;
+        }
+        await this.prisma.listing.update({ where: { id: row.id }, data: { imageEmbedding: vec } });
+        done++;
+      } catch {
+        failed++;
+      }
+    }
+    const counts = await this.vectors.rebuild();
+    this.log.log(`auto image backfill done: embedded=${done}, failed=${failed}, imageIndex=${counts.image}`);
   }
 
   /** Shape a scored id list into enriched candidates (top-5), preserving order. */
