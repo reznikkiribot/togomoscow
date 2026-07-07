@@ -68,10 +68,16 @@ export class VisionRecognitionService {
       const hits = this.vectors.searchImage(qvec, { type, limit: 8 });
       const candidates = await this.shape(hits.map((h) => ({ id: h.id, confidence: h.score })));
       const top = candidates[0]?.confidence ?? 0;
-      const diagnostic = candidates.length
-        ? `clip:image top=${top.toFixed(2)} imageIndex=${this.vectors.imageSize}`
-        : `clip:image no_candidates imageIndex=${this.vectors.imageSize} rawHits=${hits.length}`;
-      return { caption: 'фото', mode, candidates, autoOpen: top >= this.AUTO_OPEN, diagnostic };
+      if (candidates.length) {
+        return {
+          caption: 'фото',
+          mode,
+          candidates,
+          autoOpen: top >= this.AUTO_OPEN,
+          diagnostic: `clip:image top=${top.toFixed(2)} imageIndex=${this.vectors.imageSize}`,
+        };
+      }
+      this.log.warn(`CLIP produced no candidates: imageIndex=${this.vectors.imageSize} rawHits=${hits.length}`);
     }
     // FALLBACK (CLIP unavailable): VLM caption → translate → text search
     return this.recognizeByCaption(image, mode);
