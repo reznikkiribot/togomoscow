@@ -4,6 +4,7 @@ import { useEscClose } from '../modalEsc';
 import { tg, openExternal } from '../telegram';
 import type { Comment, Review, VoteState, VoteType } from '../types';
 import { Stars } from './Stars';
+import { thumb } from '../img';
 
 const VOTE_LABEL: Record<VoteType, string> = {
   USEFUL: '👍 Полезно',
@@ -100,8 +101,8 @@ export function PhotoPostModal({
 
         {/* HERO: full (uncropped) photo with the author + place overlaid on top */}
         <div className="pp-hero">
-          {photo && <div className="ph-blur" style={{ backgroundImage: `url("${photo}")` }} />}
-          {photo && <img className="pp-photo" src={photo} alt="" />}
+          {photo && <div className="ph-blur" style={{ backgroundImage: `url("${thumb(photo, 200)}")` }} />}
+          {photo && <img className="pp-photo" src={thumb(photo, 900)} alt="" />}
           <button type="button" className="pp-head" onClick={() => u?.id && onOpenUser?.(u.id)}>
             {u?.photoUrl ? (
               <img className="pp-avatar" src={u.photoUrl} alt="" />
@@ -119,7 +120,7 @@ export function PhotoPostModal({
         <div className="pp-card">
           <button type="button" className="pp-card-main" onClick={onOpenListing}>
             {review.listing?.photoUrl && (
-              <img className="pp-card-thumb" src={review.listing.photoUrl} alt="" />
+              <img className="pp-card-thumb" src={thumb(review.listing.photoUrl, 200)} alt="" />
             )}
             <div className="pp-card-info">
               <b className="pp-card-name">{review.listing?.name}</b>

@@ -39,8 +39,33 @@ export class VectorSearchService implements OnModuleInit {
     };
     this.textIndex = rows.map((r) => mk(r.embedding, r.id, r.type)).filter(Boolean) as Entry[];
     this.imageIndex = rows.map((r) => mk(r.image_embedding, r.id, r.type)).filter(Boolean) as Entry[];
-    this.log.log(`vector index → text: ${this.textIndex.length}, image: ${this.imageIndex.length}`);
+    // exemplars: real user photos confirmed via feedback — each one is an extra
+    // index entry carrying the SAME listing id (knn dedupes to the best score),
+    // so every confirmation makes that item easier to recognize next time.
+    const typeById = new Map(rows.map((r) => [r.id, r.type]));
+    try {
+      const ex = await this.prisma.recognitionExemplar.findMany({
+        select: { listingId: true, embedding: true },
+      });
+      let added = 0;
+      for (const e of ex) {
+        const entry = mk(e.embedding, e.listingId, typeById.get(e.listingId) ?? 'DISH');
+        if (entry) { this.imageIndex.push(entry); added++; }
+      }
+      this.log.log(`vector index → text: ${this.textIndex.length}, image: ${this.imageIndex.length} (+${added} exemplars)`);
+    } catch (e) {
+      this.log.warn(`exemplar load failed: ${(e as Error).message}`);
+    }
     return { text: this.textIndex.length, image: this.imageIndex.length };
+  }
+
+  /** Live-learn: append a confirmed user photo's embedding without a full rebuild. */
+  addImageExemplar(listingId: string, type: string, embedding: number[]) {
+    if (!embedding?.length) return;
+    const vec = Float32Array.from(embedding);
+    let n = 0;
+    for (let i = 0; i < vec.length; i++) n += vec[i] * vec[i];
+    this.imageIndex.push({ id: listingId, type, vec, norm: Math.sqrt(n) || 1 });
   }
 
   get imageSize() {
@@ -53,15 +78,19 @@ export class VectorSearchService implements OnModuleInit {
     let qn = 0;
     for (let i = 0; i < q.length; i++) qn += q[i] * q[i];
     qn = Math.sqrt(qn) || 1;
-    const out: { id: string; score: number }[] = [];
+    // best score per id: exemplars add multiple vectors per listing — the item
+    // matches if ANY of its views (catalog photo or confirmed user photos) matches
+    const best = new Map<string, number>();
     for (const e of index) {
       if (opts.type && e.type !== opts.type) continue;
       if (opts.excludeId && e.id === opts.excludeId) continue;
       if (e.vec.length !== q.length) continue;
       let dot = 0;
       for (let i = 0; i < q.length; i++) dot += q[i] * e.vec[i];
-      out.push({ id: e.id, score: dot / (qn * e.norm) });
+      const score = dot / (qn * e.norm);
+      if (score > (best.get(e.id) ?? -Infinity)) best.set(e.id, score);
     }
+    const out = [...best.entries()].map(([id, score]) => ({ id, score }));
     out.sort((a, b) => b.score - a.score);
     return out.slice(0, opts.limit ?? 20);
   }

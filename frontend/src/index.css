@@ -4850,6 +4850,48 @@ a.addr-line {
   font-weight: 700;
   cursor: pointer;
 }
+/* photo-source sheet: camera or gallery only (no file browser) */
+.scan-src {
+  background: var(--bg);
+  width: 100%;
+  max-width: 560px;
+  border-radius: 18px 18px 0 0;
+  padding: 14px 14px calc(18px + env(safe-area-inset-bottom));
+  animation: sheetUp 0.22s ease;
+}
+.scan-src-btn {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 8px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.scan-src-btn.cancel {
+  border: none;
+  background: none;
+  color: var(--hint);
+  font-weight: 600;
+  margin-bottom: 0;
+}
+/* manual search inside the recognition sheet */
+.scan-search {
+  margin-top: 12px;
+}
+.scan-search input {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 15px;
+}
+.scan-search .scan-list {
+  margin-top: 8px;
+}
 .scan-retake {
   background: #f8f8f8;
   color: #111;

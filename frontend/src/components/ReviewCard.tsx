@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import type { Review } from '../types';
 import { Stars } from './Stars';
+import { thumb } from '../img';
 
 const REACTS: [keyof NonNullable<Review['voteCounts']>, string][] = [
   ['USEFUL', '👍'],
@@ -39,8 +40,8 @@ export function ReviewCard({
         {photo && (
           <div className="rc-photo-wrap">
             {/* blurred fill of the same photo → no black letterbox bars */}
-            <div className="ph-blur" style={{ backgroundImage: `url("${photo}")` }} />
-            <img className="rc-photo" src={photo} alt="" loading="lazy" />
+            <div className="ph-blur" style={{ backgroundImage: `url("${thumb(photo, 200)}")` }} />
+            <img className="rc-photo" src={thumb(photo, 600)} alt="" loading="lazy" />
             {/* author + place overlaid on the photo (same as the open post) */}
             {u && (
               <div className="rc-head">
@@ -72,7 +73,7 @@ export function ReviewCard({
         <div className="rc-card">
           <div className="rc-main">
             {review.listing?.photoUrl && (
-              <img className="rc-thumb" src={review.listing.photoUrl} alt="" />
+              <img className="rc-thumb" src={thumb(review.listing.photoUrl, 200)} alt="" />
             )}
             <div className="rc-info">
               <b className="rc-name">{review.listing?.name}</b>

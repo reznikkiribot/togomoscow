@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { api } from '../api';
 import type { Review, VoteState, VoteType } from '../types';
 import { Stars } from './Stars';
+import { thumb } from '../img';
 
 const VOTE_LABEL: Record<VoteType, string> = {
   USEFUL: '👍 Полезно',
@@ -57,7 +58,7 @@ export function FeedPost({
       </button>
 
       {/* the user's own upload, or the item's real photo — never a stock placeholder */}
-      {photo && <img className="post-photo" src={photo} alt="" loading="lazy" />}
+      {photo && <img className="post-photo" src={thumb(photo, 600)} alt="" loading="lazy" />}
 
       <div className="post-venue">
         <b>{review.listing?.name}</b>

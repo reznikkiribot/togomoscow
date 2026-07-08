@@ -15,8 +15,12 @@ import { TelegramAuthGuard } from '../common/telegram-auth.guard';
 import { UsersService } from '../users/users.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { ListingsService } from '../listings/listings.service';
+import { UploadsService } from '../uploads/uploads.service';
+import { ClipService } from './clip.service';
 import { VectorSearchService } from './vector-search.service';
 import { VisionRecognitionService, type RecognizeMode } from './vision-recognition.service';
+
+const MAX_EXEMPLARS = 20; // per item — bounds memory while keeping variety
 
 @Controller('vision')
 export class VisionController {
@@ -25,8 +29,40 @@ export class VisionController {
     private readonly users: UsersService,
     private readonly prisma: PrismaService,
     private readonly listings: ListingsService,
+    private readonly uploads: UploadsService,
+    private readonly clip: ClipService,
     private readonly vectors: VectorSearchService,
   ) {}
+
+  /** Prototype learning: the CONFIRMED photo becomes a new reference view of the
+   *  item — embedded and added to the live index, so the NEXT scan of the same
+   *  dish matches this real-world photo, not just the catalog picture. */
+  private async learnFromFeedback(photoUrl: string, chosenId: string) {
+    const key = photoUrl.match(/\/api\/files\/([\w-]+)/)?.[1];
+    if (!key) return;
+    const listing = await this.prisma.listing.findUnique({
+      where: { id: chosenId },
+      select: { id: true, type: true },
+    });
+    if (!listing || (listing.type !== 'DISH' && listing.type !== 'DRINK')) return;
+    const obj = await this.uploads.get(key);
+    const chunks: Buffer[] = [];
+    for await (const c of obj.body) chunks.push(c as Buffer);
+    const vec = await this.clip.embedImage(Buffer.concat(chunks));
+    if (!vec.length) return;
+    await this.prisma.recognitionExemplar.create({ data: { listingId: chosenId, embedding: vec } });
+    this.vectors.addImageExemplar(chosenId, listing.type, vec); // learn instantly
+    // cap: drop the oldest beyond MAX_EXEMPLARS
+    const extra = await this.prisma.recognitionExemplar.findMany({
+      where: { listingId: chosenId },
+      orderBy: { createdAt: 'desc' },
+      skip: MAX_EXEMPLARS,
+      select: { id: true },
+    });
+    if (extra.length) {
+      await this.prisma.recognitionExemplar.deleteMany({ where: { id: { in: extra.map((x) => x.id) } } });
+    }
+  }
 
   /** Recognize a dish/drink/wine/menu from a photo → top-5 candidates. */
   @Post('recognize')
@@ -82,6 +118,8 @@ export class VisionController {
       this.prisma.interaction
         .create({ data: { userId: user.id, listingId: body.chosenId, type: 'OPEN', weight: 1 } })
         .catch(() => {});
+      // every confirmation trains the recognizer (fire-and-forget)
+      if (body.photoUrl) this.learnFromFeedback(body.photoUrl, body.chosenId).catch(() => {});
     }
     return { ok: true };
   }

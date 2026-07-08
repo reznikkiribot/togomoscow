@@ -4,6 +4,7 @@ import {
   Get,
   Param,
   Post,
+  Query,
   Res,
   UploadedFile,
   UseGuards,
@@ -11,8 +12,12 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import type { Response } from 'express';
+import sharp from 'sharp';
 import { TelegramAuthGuard } from '../common/telegram-auth.guard';
 import { UploadsService } from './uploads.service';
+
+// allowed thumbnail widths (whitelist → bounded cache keys)
+const THUMB_WIDTHS = new Set([200, 400, 600, 900]);
 
 @Controller()
 export class UploadsController {
@@ -29,13 +34,36 @@ export class UploadsController {
     return { url: `/api/files/${key}` };
   }
 
+  // ?w=200|400|600|900 → resized WebP thumbnail, generated once and cached back
+  // into storage — feed photos load in a fraction of the original's size/time.
   @Get('files/:key')
-  async file(@Param('key') key: string, @Res() res: Response) {
+  async file(@Param('key') key: string, @Query('w') w: string, @Res() res: Response) {
+    const width = Number(w);
+    const wantThumb = THUMB_WIDTHS.has(width);
+    const cacheKey = wantThumb ? `${key}-w${width}` : key;
     try {
-      const obj = await this.uploads.get(key);
-      res.setHeader('Content-Type', obj.contentType ?? 'application/octet-stream');
-      res.setHeader('Cache-Control', 'public, max-age=31536000');
+      const obj = await this.uploads.get(cacheKey);
+      res.setHeader('Content-Type', wantThumb ? 'image/webp' : (obj.contentType ?? 'application/octet-stream'));
+      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
       obj.body.pipe(res);
+      return;
+    } catch {
+      /* thumb not cached yet (or key missing) → try to build it */
+    }
+    if (!wantThumb) {
+      res.status(404).end();
+      return;
+    }
+    try {
+      const orig = await this.uploads.get(key);
+      const chunks: Buffer[] = [];
+      for await (const c of orig.body) chunks.push(c as Buffer);
+      const thumb = await sharp(Buffer.concat(chunks)).rotate().resize({ width, withoutEnlargement: true }).webp({ quality: 78 }).toBuffer();
+      res.setHeader('Content-Type', 'image/webp');
+      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+      res.end(thumb);
+      // cache for next time (fire-and-forget)
+      this.uploads.putAt(cacheKey, thumb, 'image/webp').catch(() => {});
     } catch {
       res.status(404).end();
     }

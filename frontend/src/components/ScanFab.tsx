@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { api } from '../api';
 import { useEscClose } from '../modalEsc';
 import { haptic } from '../telegram';
@@ -24,6 +24,47 @@ function BackIcon() {
   );
 }
 
+// Search inside the recognition sheet: when the AI didn't guess it, the user finds
+// the item manually — that correction is the strongest training signal we get.
+function ScanSearch({ onPick }: { onPick: (l: Listing) => void }) {
+  const [q, setQ] = useState('');
+  const [found, setFound] = useState<Listing[]>([]);
+  useEffect(() => {
+    const query = q.trim();
+    if (query.length < 2) { setFound([]); return; }
+    const t = setTimeout(() => {
+      api.searchAll(query)
+        .then((list) => setFound(list.filter((l) => l.type === 'DISH' || l.type === 'DRINK').slice(0, 5)))
+        .catch(() => {});
+    }, 250);
+    return () => clearTimeout(t);
+  }, [q]);
+  return (
+    <div className="scan-search">
+      <input
+        placeholder="Не то? Найдите вручную…"
+        value={q}
+        onChange={(e) => setQ(e.target.value)}
+      />
+      {found.length > 0 && (
+        <div className="scan-list">
+          {found.map((l) => (
+            <button key={l.id} className="scan-cand" onClick={() => onPick(l)}>
+              <div className="scan-cand-thumb">
+                {l.photoUrl ? <img src={l.photoUrl} alt="" loading="lazy" /> : <span>🍽</span>}
+              </div>
+              <div className="scan-cand-body">
+                <b>{l.name}</b>
+                <span className="scan-cand-meta">{l.category ?? ''}</span>
+              </div>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function ScanDialog({
   busy,
   result,
@@ -32,6 +73,7 @@ function ScanDialog({
   onRetake,
   onRetryAnalysis,
   onPickCandidate,
+  onPickSearch,
 }: {
   busy: boolean;
   result: RecognizeResult | null;
@@ -40,6 +82,7 @@ function ScanDialog({
   onRetake: () => void;
   onRetryAnalysis: () => void;
   onPickCandidate: (id: string, result: RecognizeResult) => void;
+  onPickSearch: (l: Listing) => void;
 }) {
   useEscClose(onClose);
 
@@ -74,6 +117,7 @@ function ScanDialog({
                 </button>
               ))}
             </div>
+            <ScanSearch onPick={onPickSearch} />
             <button className="scan-retry" onClick={onRetryAnalysis}>
               Попробовать еще раз
             </button>
@@ -85,6 +129,7 @@ function ScanDialog({
           <div className="scan-empty">
             <div>Не удалось распознать 🤔</div>
             {result?.diagnostic && <small>{result.diagnostic}</small>}
+            <ScanSearch onPick={onPickSearch} />
             <button className="scan-retry" onClick={onRetryAnalysis}>
               Попробовать еще раз
             </button>
@@ -99,7 +144,9 @@ function ScanDialog({
 }
 
 export function ScanFab() {
-  const fileRef = useRef<HTMLInputElement>(null);
+  const cameraRef = useRef<HTMLInputElement>(null);
+  const galleryRef = useRef<HTMLInputElement>(null);
+  const [srcMenu, setSrcMenu] = useState(false);
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<RecognizeResult | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -191,17 +238,42 @@ export function ScanFab() {
   const retakePhoto = () => {
     if (busy) return;
     setResult(null);
-    fileRef.current?.click();
+    setSrcMenu(true);
+  };
+
+  // manual search pick = a CORRECTION: negative signal for the shown top-5,
+  // positive for the chosen item — the strongest training example we get
+  const pickFromSearch = (l: Listing) => {
+    const r: RecognizeResult =
+      result ?? { caption: '', mode: 'auto', candidates: [], autoOpen: false };
+    void pickCandidate(l.id, r);
   };
 
   return (
     <>
-      <button className="scan-fab" onClick={() => fileRef.current?.click()} aria-label="Сканировать блюдо или напиток">
+      <button className="scan-fab" onClick={() => setSrcMenu(true)} aria-label="Сканировать блюдо или напиток">
         <CamIcon />
       </button>
-      {/* no `capture` attr: iOS/Telegram then offers BOTH camera and gallery;
-          on desktop (incl. Mac Photos) it opens the normal media picker */}
-      <input ref={fileRef} type="file" accept="image/*" hidden onChange={onPick} />
+      {/* ONLY photos: a capture input (camera) and a gallery input (images only) —
+          no generic file browser */}
+      <input ref={cameraRef} type="file" accept="image/*" capture="environment" hidden onChange={onPick} />
+      <input ref={galleryRef} type="file" accept="image/*" hidden onChange={onPick} />
+
+      {srcMenu && (
+        <div className="modal-backdrop" style={{ zIndex: 3590 }} onClick={() => setSrcMenu(false)}>
+          <div className="scan-src" onClick={(e) => e.stopPropagation()}>
+            <button className="scan-src-btn" onClick={() => { setSrcMenu(false); cameraRef.current?.click(); }}>
+              📷 Сделать фото
+            </button>
+            <button className="scan-src-btn" onClick={() => { setSrcMenu(false); galleryRef.current?.click(); }}>
+              🖼 Из галереи
+            </button>
+            <button className="scan-src-btn cancel" onClick={() => setSrcMenu(false)}>
+              Отмена
+            </button>
+          </div>
+        </div>
+      )}
 
       {(busy || result) && (
         <ScanDialog
@@ -212,6 +284,7 @@ export function ScanFab() {
           onRetake={retakePhoto}
           onRetryAnalysis={retryAnalysis}
           onPickCandidate={pickCandidate}
+          onPickSearch={pickFromSearch}
         />
       )}
 

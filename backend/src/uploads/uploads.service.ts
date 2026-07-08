@@ -91,6 +91,18 @@ export class UploadsService implements OnModuleInit {
     return key;
   }
 
+  /** Store bytes under an EXPLICIT key (thumbnail cache) — no transforms applied. */
+  async putAt(key: string, buffer: Buffer, contentType: string): Promise<void> {
+    if (!this.useS3) {
+      await writeFile(join(this.uploadDir, key), buffer);
+      await writeFile(join(this.uploadDir, `${key}.json`), JSON.stringify({ contentType }));
+      return;
+    }
+    await this.s3!.send(
+      new PutObjectCommand({ Bucket: this.bucket, Key: key, Body: buffer, ContentType: contentType }),
+    );
+  }
+
   async get(key: string): Promise<{ body: Readable; contentType?: string }> {
     if (!this.useS3) {
       let contentType: string | undefined;

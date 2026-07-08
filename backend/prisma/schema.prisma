@@ -195,6 +195,7 @@ model Listing {
   questions Question[]
   checkins  CheckIn[]
   corrections Correction[]
+  exemplars RecognitionExemplar[]
 
   @@unique([source, externalId])
   @@index([type])
@@ -475,6 +476,21 @@ model Interaction {
 // One row per recognition attempt: what we predicted (top-5) and what the user
 // actually chose. Chosen==top → positive example; chosen!=top → hard negative.
 // Append-only, isolated table → fully backward-compatible.
+// Exemplar embeddings: every CONFIRMED recognition adds the user's real photo
+// (CLIP vector) to the item — the index literally learns from each choice, so
+// recognition gets more accurate with use (prototype learning, no GPU training).
+model RecognitionExemplar {
+  id        String   @id @default(uuid())
+  listingId String   @map("listing_id")
+  embedding Float[]  @default([])
+  createdAt DateTime @default(now()) @map("created_at")
+
+  listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  @@index([listingId])
+  @@map("recognition_exemplars")
+}
+
 model RecognitionFeedback {
   id            String   @id @default(uuid())
   userId        String   @map("user_id")
