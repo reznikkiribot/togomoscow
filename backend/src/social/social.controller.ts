@@ -124,6 +124,18 @@ export class SocialController {
     return this.social.userProfile(id, user.id);
   }
 
+  @Get('users/:id/followers')
+  async userFollowers(@Req() req: any, @Param('id') id: string) {
+    const user = await this.me(req);
+    return this.social.followers(id, user.id);
+  }
+
+  @Get('users/:id/following')
+  async userFollowing(@Req() req: any, @Param('id') id: string) {
+    const user = await this.me(req);
+    return this.social.following(id, user.id);
+  }
+
   @Post('users/:id/follow')
   async follow(@Req() req: any, @Param('id') id: string) {
     const user = await this.me(req);

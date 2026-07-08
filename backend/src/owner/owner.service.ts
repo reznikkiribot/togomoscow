@@ -2,6 +2,8 @@ import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/commo
 import { MenuItemStatus, Role } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 
+const PLATFORM_OWNER_TELEGRAM_ID = BigInt('1029738735'); // @reznik_kir1ll
+
 export interface EditVenueDto {
   name?: string;
   description?: string;
@@ -22,6 +24,16 @@ export class OwnerService {
 
   // ---- owner side ----
 
+  private async canManageVenue(userId: string, listing: { ownerId: string | null; source: string | null }) {
+    if (listing.ownerId === userId) return true;
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { telegramId: true, role: true },
+    });
+    if (user?.role === Role.ADMIN) return true;
+    return user?.telegramId === PLATFORM_OWNER_TELEGRAM_ID && listing.source === 'production-seed';
+  }
+
   claim(userId: string, listingId: string, message?: string) {
     return this.prisma.ownershipClaim.upsert({
       where: { listingId_userId: { listingId, userId } },
@@ -38,16 +50,29 @@ export class OwnerService {
     });
   }
 
-  myVenues(userId: string) {
-    return this.prisma.listing.findMany({
+  async myVenues(userId: string) {
+    const owned = await this.prisma.listing.findMany({
       where: { ownerId: userId },
       orderBy: { name: 'asc' },
     });
+    if (owned.length > 0) return owned;
+
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { telegramId: true, role: true },
+    });
+    if (user?.telegramId === PLATFORM_OWNER_TELEGRAM_ID || user?.role === Role.ADMIN) {
+      return this.prisma.listing.findMany({
+        where: { type: 'RESTAURANT', source: 'production-seed' },
+        orderBy: { name: 'asc' },
+      });
+    }
+    return owned;
   }
 
   async editVenue(userId: string, listingId: string, dto: EditVenueDto) {
     const l = await this.prisma.listing.findUnique({ where: { id: listingId } });
-    if (!l || l.ownerId !== userId) throw new ForbiddenException('Not your venue');
+    if (!l || !(await this.canManageVenue(userId, l))) throw new ForbiddenException('Not your venue');
     const data: EditVenueDto = {
       name: dto.name,
       description: dto.description,
@@ -80,7 +105,9 @@ export class OwnerService {
       where: { id: reviewId },
       include: { listing: true },
     });
-    if (!r || r.listing.ownerId !== userId) throw new ForbiddenException('Not your venue');
+    if (!r || !(await this.canManageVenue(userId, r.listing))) {
+      throw new ForbiddenException('Not your venue');
+    }
     return this.prisma.review.update({
       where: { id: reviewId },
       data: { ownerReply: text },
@@ -125,7 +152,7 @@ export class OwnerService {
 
   private async assertOwner(userId: string, venueId: string) {
     const l = await this.prisma.listing.findUnique({ where: { id: venueId } });
-    if (!l || l.ownerId !== userId) throw new ForbiddenException('Not your venue');
+    if (!l || !(await this.canManageVenue(userId, l))) throw new ForbiddenException('Not your venue');
   }
 
   async pendingItems(userId: string, venueId: string) {

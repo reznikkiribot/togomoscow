@@ -28,6 +28,26 @@ import type {
   VoteType,
 } from './types';
 
+function decodeMaybe(value: string) {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
+}
+
+function launchParam(source: string) {
+  const raw = source.replace(/^[#?]/, '');
+  const variants = [raw];
+  const nestedQuery = raw.indexOf('?');
+  if (nestedQuery >= 0) variants.push(raw.slice(nestedQuery + 1));
+  for (const part of variants) {
+    const value = new URLSearchParams(part).get('tgWebAppData');
+    if (value) return decodeMaybe(value);
+  }
+  return '';
+}
+
 // Read initData LIVE on every request. If our bundle ran before Telegram injected
 // initData, the imported constant would be '' forever and every call would be
 // unauthenticated (e.g. favorites showing empty on a cold launch). The live value
@@ -39,14 +59,10 @@ function launchInitData() {
       sessionStorage.setItem('tg:initData', direct);
       return direct;
     }
-    const params = new URLSearchParams(
-      location.hash.startsWith('#') ? location.hash.slice(1) : location.search.slice(1),
-    );
-    const raw = params.get('tgWebAppData');
-    if (raw) {
-      const decoded = decodeURIComponent(raw);
-      sessionStorage.setItem('tg:initData', decoded);
-      return decoded;
+    const fromUrl = launchParam(location.hash) || launchParam(location.search);
+    if (fromUrl) {
+      sessionStorage.setItem('tg:initData', fromUrl);
+      return fromUrl;
     }
     return sessionStorage.getItem('tg:initData') || '';
   } catch {
@@ -54,9 +70,22 @@ function launchInitData() {
   }
 }
 
-const authHeaders = (): Record<string, string> => ({
-  Authorization: `tma ${launchInitData()}`,
-});
+async function waitForLaunchInitData(timeoutMs = 1600) {
+  const first = launchInitData();
+  if (first) return first;
+  const start = Date.now();
+  while (Date.now() - start < timeoutMs) {
+    await new Promise((resolve) => setTimeout(resolve, 60));
+    const next = launchInitData();
+    if (next) return next;
+  }
+  return '';
+}
+
+const authHeaders = async (): Promise<Record<string, string>> => {
+  const data = await waitForLaunchInitData();
+  return data ? { Authorization: `tma ${data}` } : {};
+};
 
 async function http<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`/api${path}`, init);
@@ -66,22 +95,22 @@ async function http<T>(path: string, init?: RequestInit): Promise<T> {
   return text ? (JSON.parse(text) as T) : (undefined as T);
 }
 
-const getJson = <T>(path: string) => http<T>(path, { headers: authHeaders() });
+const getJson = async <T>(path: string) => http<T>(path, { headers: await authHeaders() });
 
-const postJson = <T>(path: string, body?: unknown) =>
+const postJson = async <T>(path: string, body?: unknown) =>
   http<T>(path, {
     method: 'POST',
-    headers: { ...authHeaders(), 'Content-Type': 'application/json' },
+    headers: { ...(await authHeaders()), 'Content-Type': 'application/json' },
     body: body !== undefined ? JSON.stringify(body) : undefined,
   });
 
-const del = <T>(path: string) =>
-  http<T>(path, { method: 'DELETE', headers: authHeaders() });
+const del = async <T>(path: string) =>
+  http<T>(path, { method: 'DELETE', headers: await authHeaders() });
 
-const patch = <T>(path: string, body?: unknown) =>
+const patch = async <T>(path: string, body?: unknown) =>
   http<T>(path, {
     method: 'PATCH',
-    headers: { ...authHeaders(), 'Content-Type': 'application/json' },
+    headers: { ...(await authHeaders()), 'Content-Type': 'application/json' },
     body: body !== undefined ? JSON.stringify(body) : undefined,
   });
 
@@ -189,6 +218,8 @@ export const api = {
   // social graph
   myFollowers: () => getJson<PublicUser[]>('/me/followers'),
   myFollowing: () => getJson<PublicUser[]>('/me/following'),
+  userFollowers: (id: string) => getJson<PublicUser[]>(`/users/${id}/followers`),
+  userFollowing: (id: string) => getJson<PublicUser[]>(`/users/${id}/following`),
   searchUsers: (q: string) => getJson<PublicUser[]>(`/users/search?q=${encodeURIComponent(q)}`),
   userProfile: (id: string) => getJson<PublicProfile>(`/users/${id}/profile`),
   followUser: (id: string) => postJson<{ ok: boolean }>(`/users/${id}/follow`),
@@ -314,7 +345,7 @@ export const api = {
     fd.append('file', file);
     const res = await fetch('/api/uploads', {
       method: 'POST',
-      headers: authHeaders(),
+      headers: await authHeaders(),
       body: fd,
     });
     if (!res.ok) throw new Error(`upload HTTP ${res.status}`);
@@ -327,7 +358,7 @@ export const api = {
     const fd = new FormData();
     fd.append('file', file);
     fd.append('mode', mode);
-    const res = await fetch('/api/vision/recognize', { method: 'POST', headers: authHeaders(), body: fd });
+    const res = await fetch('/api/vision/recognize', { method: 'POST', headers: await authHeaders(), body: fd });
     if (!res.ok) {
       const text = await res.text().catch(() => '');
       throw new Error(`recognize HTTP ${res.status}${text ? `: ${text.slice(0, 180)}` : ''}`);

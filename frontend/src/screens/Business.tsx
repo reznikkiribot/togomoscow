@@ -53,7 +53,19 @@ export default function Business() {
     api.mySubmissions().then(setMySubs).catch(() => {});
   };
   useEffect(() => {
-    load();
+    let stop = false;
+    let tries = 0;
+    const attempt = () => {
+      if (stop) return;
+      load();
+      tries += 1;
+      if (tries < 8 && !me) setTimeout(attempt, Math.min(800 + tries * 550, 3200));
+    };
+    attempt();
+    return () => {
+      stop = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const isAdmin = me?.role === 'ADMIN';

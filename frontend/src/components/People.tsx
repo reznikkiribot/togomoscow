@@ -68,8 +68,8 @@ export function PeopleModal({
   const [results, setResults] = useState<PublicUser[] | null>(null);
 
   useEffect(() => {
-    api.myFollowers().then(setFollowers).catch(() => {});
-    api.myFollowing().then(setFollowing).catch(() => {});
+    api.userFollowers(userId).then(setFollowers).catch(() => {});
+    api.userFollowing(userId).then(setFollowing).catch(() => {});
   }, [userId]);
 
   useEffect(() => {
@@ -137,6 +137,7 @@ export function UserProfileModal({ id, onClose }: { id: string; onClose: () => v
   const [p, setP] = useState<PublicProfile | null>(null);
   const [openListing, setOpenListing] = useState<string | null>(null);
   const [photoReview, setPhotoReview] = useState<Review | null>(null); // Instagram-style photo view
+  const [people, setPeople] = useState<'followers' | 'following' | null>(null);
   const [closing, setClosing] = useState(false);
   useEffect(() => {
     api.userProfile(id).then(setP).catch(() => {});
@@ -162,12 +163,12 @@ export function UserProfileModal({ id, onClose }: { id: string; onClose: () => v
             <Avatar user={p} />
             <div className="me-name">{p.firstName ?? p.username ?? 'Гость'}</div>
             <div className="me-stats">
-              <span>
+              <button className="stat-btn" onClick={() => setPeople('followers')}>
                 <b>{p.followers}</b> подписчиков
-              </span>
-              <span>
+              </button>
+              <button className="stat-btn" onClick={() => setPeople('following')}>
                 <b>{p.following}</b> подписок
-              </span>
+              </button>
               <span>⭐ {p.reviews}</span>
             </div>
             {!p.isMe && (
@@ -263,6 +264,14 @@ export function UserProfileModal({ id, onClose }: { id: string; onClose: () => v
       )}
       {openListing && (
         <ListingDetailModal id={openListing} onClose={() => setOpenListing(null)} />
+      )}
+      {people && p && (
+        <PeopleModal
+          userId={p.id}
+          initialTab={people}
+          onClose={() => setPeople(null)}
+          onOpenUser={() => setPeople(null)}
+        />
       )}
       {photoReview && (
         <PhotoPostModal

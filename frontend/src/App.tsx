@@ -11,16 +11,29 @@ export default function App() {
   const [showQuiz, setShowQuiz] = useState(false);
 
   useEffect(() => {
-    api
-      .me()
-      .then((u) => setIsAdmin(u?.role === 'ADMIN'))
-      .catch(() => {});
+    let stop = false;
+    let meTries = 0;
+    const loadMe = () => {
+      api
+        .me()
+        .then((u) => {
+          if (!stop) setIsAdmin(u?.role === 'ADMIN');
+        })
+        .catch(() => {
+          meTries += 1;
+          if (!stop && meTries < 8) setTimeout(loadMe, Math.min(700 + meTries * 450, 2600));
+        });
+    };
+    loadMe();
     // first-run taste quiz (once per user, remembered by Telegram account)
     const forced = localStorage.getItem('force_quiz') === '1';
     api
       .onboarding()
       .then((o) => setShowQuiz(!o.onboarded || forced))
       .catch(() => setShowQuiz(forced));
+    return () => {
+      stop = true;
+    };
   }, []);
 
   return (

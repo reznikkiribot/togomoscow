@@ -5,10 +5,12 @@ export const initData = tg?.initData ?? '';
 
 export function initTelegram() {
   try {
-    tg?.ready();
-    tg?.expand();
+    const webApp = window.Telegram?.WebApp ?? tg;
+    if (webApp?.initData) sessionStorage.setItem('tg:initData', webApp.initData);
+    webApp?.ready();
+    webApp?.expand();
     // stop the app from collapsing when the user pulls a list down (Bot API 7.7+)
-    (tg as any)?.disableVerticalSwipes?.();
+    (webApp as any)?.disableVerticalSwipes?.();
     // global tactile feedback: a light tap on every button/interactive element press
     document.addEventListener(
       'pointerdown',

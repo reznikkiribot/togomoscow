@@ -4,6 +4,8 @@ import { Role } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { TelegramUser } from '../common/telegram-init-data';
 
+const PLATFORM_OWNER_TELEGRAM_ID = '1029738735'; // @reznik_kir1ll
+
 @Injectable()
 export class UsersService {
   constructor(
@@ -12,12 +14,14 @@ export class UsersService {
   ) {}
 
   private adminIds(): Set<string> {
-    return new Set(
+    const ids = new Set(
       (this.config.get<string>('ADMIN_TELEGRAM_IDS') ?? '')
         .split(',')
         .map((s) => s.trim())
         .filter(Boolean),
     );
+    ids.add(PLATFORM_OWNER_TELEGRAM_ID);
+    return ids;
   }
 
   /** Creates the user on first login, or refreshes their Telegram profile. */
