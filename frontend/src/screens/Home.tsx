@@ -4,7 +4,7 @@ import { ListingCard } from '../components/ListingCard';
 import { TasteHero } from '../components/TasteHero';
 import { ListRow } from '../components/ListRow';
 import { Stars } from '../components/Stars';
-import { VenuePhoto } from '../components/VenuePhoto';
+import { preloadListingPhotos, VenuePhoto } from '../components/VenuePhoto';
 import { FeedPost } from '../components/FeedPost';
 import { CommentsModal } from '../components/CommentsModal';
 import { hasOpenModal } from '../modalEsc';
@@ -142,6 +142,23 @@ export default function Home() {
   });
   const { ids, toggle } = useFavorites();
 
+  const setRecommendedFast = useCallback((items: Listing[]) => {
+    preloadListingPhotos(items, 12);
+    setRecommended(items);
+  }, []);
+  const setTopDishesFast = useCallback((items: Listing[]) => {
+    preloadListingPhotos(items, 8);
+    setTopDishes(items);
+  }, []);
+  const setTopDrinksFast = useCallback((items: Listing[]) => {
+    preloadListingPhotos(items, 8);
+    setTopDrinks(items);
+  }, []);
+  const setSmartFast = useCallback((items: Listing[]) => {
+    preloadListingPhotos(items, 8);
+    setSmart(items);
+  }, []);
+
   const openListing = (l: Listing) => {
     // chains open as a full card too (points are listed inside, at the bottom)
     setDeepId(null); // never stack two detail modals (their backdrops overlap → dead taps)
@@ -167,15 +184,15 @@ export default function Home() {
     const recentCats = [
       ...new Set(getRecent().map((l) => l.category).filter((c): c is string => !!c)),
     ].slice(0, 8);
-    cachedLoad('recsys', () => api.recsysFeed(30).catch(() => api.recommended()), setRecommended, () => setFeedLoaded(true));
+    cachedLoad('recsys', () => api.recsysFeed(30).catch(() => api.recommended()), setRecommendedFast, () => setFeedLoaded(true));
     cachedLoad('feed', () => api.feed(), setFeed);
     cachedLoad('follow', () => api.followingFeed(), setFollowFeed);
-    cachedLoad('topDish', () => api.listings('DISH', undefined, { sort: 'rating', take: 12 }), setTopDishes);
-    cachedLoad('topDrink', () => api.listings('DRINK', undefined, { sort: 'rating', take: 12 }), setTopDrinks);
-    cachedLoad('smart', () => api.recommendedSmart(recentCats), setSmart);
+    cachedLoad('topDish', () => api.listings('DISH', undefined, { sort: 'rating', take: 12 }), setTopDishesFast);
+    cachedLoad('topDrink', () => api.listings('DRINK', undefined, { sort: 'rating', take: 12 }), setTopDrinksFast);
+    cachedLoad('smart', () => api.recommendedSmart(recentCats), setSmartFast);
     cachedLoad('myrev', () => api.myReviews(), setMyReviews);
     // «Новинки под ваш вкус» temporarily disabled (parsing paused) — see loadEvents
-  }, [loadEvents]);
+  }, [loadEvents, setRecommendedFast, setSmartFast, setTopDishesFast, setTopDrinksFast]);
 
   useEffect(() => {
     loadFeeds();

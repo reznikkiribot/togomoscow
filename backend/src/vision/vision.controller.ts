@@ -19,7 +19,6 @@ import { VectorSearchService } from './vector-search.service';
 import { VisionRecognitionService, type RecognizeMode } from './vision-recognition.service';
 
 @Controller('vision')
-@UseGuards(TelegramAuthGuard)
 export class VisionController {
   constructor(
     private readonly recognition: VisionRecognitionService,
@@ -50,6 +49,7 @@ export class VisionController {
 
   /** Confirmation/correction → training data + a positive recsys signal. */
   @Post('feedback')
+  @UseGuards(TelegramAuthGuard)
   async feedback(
     @Req() req: any,
     @Body()
@@ -88,6 +88,7 @@ export class VisionController {
 
   /** "🤖 Похожие …" — gated: only for users who've rated enough to have a taste profile. */
   @Get('similar/:id')
+  @UseGuards(TelegramAuthGuard)
   async similar(@Req() req: any, @Param('id') id: string) {
     const user = await this.users.upsertFromTelegram(req.telegramUser);
     const min = Number(process.env.RECS_MIN_REVIEWS ?? 15);

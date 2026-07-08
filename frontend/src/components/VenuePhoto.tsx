@@ -22,29 +22,54 @@ function colorFromName(name: string): string {
   return `hsl(${h % 360} 42% 42%)`;
 }
 
+function isSlowExternalPhoto(src?: string | null) {
+  return !!src && /images\.unsplash|images\.pexels|pixabay|picsum/i.test(src);
+}
+
+export function listingPhotoCandidates(listing: Listing): string[] {
+  const domain = domainOf(listing.website);
+  const candidates: string[] = [];
+  const slowExternal = isSlowExternalPhoto(listing.photoUrl);
+  if (slowExternal && listing.placeholderPhoto) candidates.push(listing.placeholderPhoto);
+  if (listing.photoUrl) candidates.push(listing.photoUrl);
+  if (!slowExternal && listing.placeholderPhoto) candidates.push(listing.placeholderPhoto);
+  if (domain) {
+    candidates.push(`https://logo.clearbit.com/${domain}`);
+    candidates.push(`https://www.google.com/s2/favicons?domain=${domain}&sz=128`);
+  }
+  return candidates;
+}
+
+export function preloadListingPhotos(listings: Listing[], limit = 10) {
+  if (typeof Image === 'undefined') return;
+  const seen = new Set<string>();
+  for (const l of listings) {
+    const src = listingPhotoCandidates(l)[0];
+    if (!src || seen.has(src)) continue;
+    seen.add(src);
+    const img = new Image();
+    img.decoding = 'async';
+    img.src = src;
+    if (seen.size >= limit) break;
+  }
+}
+
 /**
  * Best available image for a venue, with graceful fallback on load error:
- * real photo → brand logo (Clearbit) → site favicon → monogram tile.
+ * real/local stock photo → brand logo (Clearbit) → site favicon → monogram tile.
  */
 export function VenuePhoto({
   listing,
   className = 'photo',
   draggable,
+  loading = 'eager',
 }: {
   listing: Listing;
   className?: string;
   draggable?: boolean;
+  loading?: 'eager' | 'lazy';
 }) {
-  const domain = domainOf(listing.website);
-  const candidates: string[] = [];
-  if (listing.photoUrl) candidates.push(listing.photoUrl);
-  // illustrative stock photo (food/interior) outranks brand logos / monogram so
-  // cards look appetizing instead of showing a letter tile.
-  if (listing.placeholderPhoto) candidates.push(listing.placeholderPhoto);
-  if (domain) {
-    candidates.push(`https://logo.clearbit.com/${domain}`);
-    candidates.push(`https://www.google.com/s2/favicons?domain=${domain}&sz=128`);
-  }
+  const candidates = listingPhotoCandidates(listing);
 
   const [idx, setIdx] = useState(0);
   // reset when the listing changes (component reused in the detail header)
@@ -60,7 +85,7 @@ export function VenuePhoto({
         className={`${className}${isLogo ? ' logo' : ''}`}
         src={src}
         alt={listing.name}
-        loading="lazy"
+        loading={loading}
         draggable={draggable}
         onError={() => setIdx((i) => i + 1)}
       />
