@@ -1,6 +1,6 @@
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 
-const APP_ORIGIN = (process.env.PUBLIC_APP_URL || 'https://togomoscow-production-f7b1.up.railway.app').replace(/\/$/, '');
+const APP_ORIGIN = (process.env.PUBLIC_APP_URL || 'https://togomoscow-production.up.railway.app').replace(/\/$/, '');
 const APP_URL = `${APP_ORIGIN}/tg-boot-225?v=225&from=start`;
 const OWNER_TELEGRAM_ID = '1029738735'; // @reznik_kir1ll
 

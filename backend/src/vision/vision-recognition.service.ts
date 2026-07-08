@@ -94,7 +94,7 @@ export class VisionRecognitionService implements OnModuleInit {
   private async backfillImageEmbeddings() {
     if (this.vectors.imageSize > 0) return;
     const limit = Math.max(1, Math.min(Number(process.env.VISION_AUTO_BACKFILL_LIMIT ?? 80), 250));
-    const origin = (process.env.PUBLIC_APP_URL || 'https://togomoscow-production-f7b1.up.railway.app').replace(/\/$/, '');
+    const origin = (process.env.PUBLIC_APP_URL || 'https://togomoscow-production.up.railway.app').replace(/\/$/, '');
     const rows = await this.prisma.$queryRawUnsafe<{ id: string; name: string; photoUrl: string }[]>(
       `SELECT id, name, photo_url AS "photoUrl"
          FROM listings
