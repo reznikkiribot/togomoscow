@@ -6,7 +6,7 @@
     "node": ">=20"
   },
   "scripts": {
-    "build": "npm --prefix backend ci && npm --prefix backend run railway:build",
-    "start": "npm --prefix backend run railway:start"
+    "build": "node scripts/railway-build.mjs",
+    "start": "node scripts/railway-start.mjs"
   }
 }
