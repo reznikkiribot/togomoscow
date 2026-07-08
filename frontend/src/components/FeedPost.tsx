@@ -11,18 +11,14 @@ const VOTE_LABEL: Record<VoteType, string> = {
 };
 
 // A user's activity post (Yelp-style): author + photo + the item/venue they reviewed.
-// Every post nudges the viewer to act: "а вы как оцените?".
 export function FeedPost({
   review,
   onOpen,
-  onRate,
   onComments,
   onOpenUser,
-  onOpenPhoto,
 }: {
   review: Review;
   onOpen: () => void;
-  onRate?: (rating: number) => void;
   onComments?: () => void;
   onOpenUser?: (userId: string) => void;
 }) {
@@ -30,8 +26,6 @@ export function FeedPost({
   const photo = review.photoUrls?.[0];
   const u = review.user;
   const initial = (u?.firstName ?? u?.username ?? '?').trim()[0]?.toUpperCase() ?? '?';
-  const [hover, setHover] = useState(0);
-  const isItem = review.listing?.type === 'DISH' || review.listing?.type === 'DRINK';
   const [vote, setVote] = useState<VoteState>({
     counts: review.voteCounts ?? { USEFUL: 0, FUNNY: 0, COOL: 0, OHNO: 0 },
     mine: [],
@@ -127,23 +121,8 @@ export function FeedPost({
         )}
       </div>
 
-      {isItem && onRate && (
-        <div className="post-cta" onClick={(e) => e.stopPropagation()}>
-          <span className="post-cta-q">А вы как оцените?</span>
-          <div className="post-cta-stars" onMouseLeave={() => setHover(0)}>
-            {[1, 2, 3, 4, 5].map((n) => (
-              <button
-                key={n}
-                className={'qr-star' + (n <= hover ? ' on' : '')}
-                onMouseEnter={() => setHover(n)}
-                onClick={() => onRate(n)}
-              >
-                ★
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
+      {/* no rate-CTA on someone else's review post (product decision): opening a
+          friend's tasting must not push the viewer to rate the same item */}
     </div>
   );
 }

@@ -272,12 +272,18 @@ export default function Home() {
   // your own posts are hidden — the feed is for discovering others' tastings.
   const wall = (() => {
     const seen = new Set<string>();
-    return [...followFeed, ...feed].filter(
-      (r) =>
-        (r.photoUrls?.length ?? 0) > 0 && // only posts where the user uploaded a photo
-        r.user?.id !== myId &&
-        (seen.has(r.id) ? false : seen.add(r.id)),
-    );
+    const seenListing = new Set<string>();
+    return [...followFeed, ...feed].filter((r) => {
+      if ((r.photoUrls?.length ?? 0) === 0) return false; // only posts with the user's own photo
+      if (r.user?.id === myId) return false;
+      if (seen.has(r.id)) return false;
+      // one post per dish/venue — several reviews of the same item must not repeat
+      const lid = r.listing?.id;
+      if (lid && seenListing.has(lid)) return false;
+      seen.add(r.id);
+      if (lid) seenListing.add(lid);
+      return true;
+    });
   })();
 
   const ratedIds = new Set(
@@ -619,11 +625,6 @@ export default function Home() {
                   key={r.id}
                   review={r}
                   onOpen={() => r.listing && openListing(r.listing)}
-                  onRate={(n) => {
-                    if (!r.listing) return;
-                    setAutoRate(n);
-                    setActive(r.listing);
-                  }}
                   onComments={() => setCommentsReview(r.id)}
                   onOpenUser={(uid) => setOpenUser(uid)}
                 />

@@ -199,7 +199,9 @@ export function ScanFab() {
       <button className="scan-fab" onClick={() => fileRef.current?.click()} aria-label="Сканировать блюдо или напиток">
         <CamIcon />
       </button>
-      <input ref={fileRef} type="file" accept="image/*" capture="environment" hidden onChange={onPick} />
+      {/* no `capture` attr: iOS/Telegram then offers BOTH camera and gallery;
+          on desktop (incl. Mac Photos) it opens the normal media picker */}
+      <input ref={fileRef} type="file" accept="image/*" hidden onChange={onPick} />
 
       {(busy || result) && (
         <ScanDialog

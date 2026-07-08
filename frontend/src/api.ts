@@ -87,6 +87,14 @@ const authHeaders = async (): Promise<Record<string, string>> => {
   return data ? { Authorization: `tma ${data}` } : {};
 };
 
+// Header for PUBLIC endpoints: attach initData only if it's ALREADY available —
+// never wait for it. The catalog/feed/search don't need auth, so the first screen
+// must not sit behind the up-to-1.6s initData wait on cold mobile starts.
+const instantHeaders = (): Record<string, string> => {
+  const data = launchInitData();
+  return data ? { Authorization: `tma ${data}` } : {};
+};
+
 async function http<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`/api${path}`, init);
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -96,6 +104,8 @@ async function http<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 const getJson = async <T>(path: string) => http<T>(path, { headers: await authHeaders() });
+// public GET: fires immediately (no initData wait) — for catalog/search/feed
+const getPublic = <T>(path: string) => http<T>(path, { headers: instantHeaders() });
 
 const postJson = async <T>(path: string, body?: unknown) =>
   http<T>(path, {
@@ -125,14 +135,15 @@ export interface CreateReviewInput {
 }
 
 export const api = {
-  recommended: () => getJson<Listing[]>('/listings/recommended'),
-  // AI-taste-profile ranked feed (Ollama-built profile); falls back to cold-start
-  recsysFeed: (take = 30) => getJson<Listing[]>(`/recsys/feed?take=${take}`),
+  recommended: () => getPublic<Listing[]>('/listings/recommended'),
+  // AI-taste-profile ranked feed (Ollama-built profile); falls back to cold-start.
+  // Personalization improves WITH auth, but must never block the first screen on it.
+  recsysFeed: (take = 30) => getPublic<Listing[]>(`/recsys/feed?take=${take}`),
   // find beer by the flavor/serving tags left in reviews
   beerByTags: (tags: string[]) =>
-    getJson<Listing[]>(`/listings/beer-by-tags?tags=${encodeURIComponent(tags.join(','))}`),
-  topWeekly: () => getJson<Listing[]>('/listings/top-weekly'),
-  geo: () => getJson<GeoPoint[]>('/listings/geo'),
+    getPublic<Listing[]>(`/listings/beer-by-tags?tags=${encodeURIComponent(tags.join(','))}`),
+  topWeekly: () => getPublic<Listing[]>('/listings/top-weekly'),
+  geo: () => getPublic<GeoPoint[]>('/listings/geo'),
   listings: (
     type?: ListingType,
     search?: string,
@@ -155,35 +166,35 @@ export const api = {
     if (opts?.category) q.set('category', opts.category);
     if (opts?.take) q.set('take', String(opts.take));
     const qs = q.toString();
-    return getJson<Listing[]>(`/listings${qs ? `?${qs}` : ''}`);
+    return getPublic<Listing[]>(`/listings${qs ? `?${qs}` : ''}`);
   },
-  feed: () => getJson<Review[]>('/listings/feed'),
+  feed: () => getPublic<Review[]>('/listings/feed'),
 
   // venues serving a dish/drink matching the query (Блюда / Напитки search)
   venuesServing: (type: 'DISH' | 'DRINK', q?: string) =>
-    getJson<Listing[]>(`/listings/venues-serving?type=${type}${q ? `&q=${encodeURIComponent(q)}` : ''}`),
+    getPublic<Listing[]>(`/listings/venues-serving?type=${type}${q ? `&q=${encodeURIComponent(q)}` : ''}`),
   itemSuggest: (type: 'DISH' | 'DRINK', q: string) =>
-    getJson<string[]>(`/listings/item-suggest?type=${type}&q=${encodeURIComponent(q)}`),
+    getPublic<string[]>(`/listings/item-suggest?type=${type}&q=${encodeURIComponent(q)}`),
   searchVenues: (q: string) =>
-    getJson<Listing[]>(`/listings/search-venues?q=${encodeURIComponent(q)}`),
+    getPublic<Listing[]>(`/listings/search-venues?q=${encodeURIComponent(q)}`),
   searchAll: (q: string) =>
-    getJson<Listing[]>(`/listings/search-all?q=${encodeURIComponent(q)}`),
+    getPublic<Listing[]>(`/listings/search-all?q=${encodeURIComponent(q)}`),
   suggest: (q: string) =>
-    getJson<{ name: string; kind: string }[]>(`/listings/suggest?q=${encodeURIComponent(q)}`),
+    getPublic<{ name: string; kind: string }[]>(`/listings/suggest?q=${encodeURIComponent(q)}`),
   searchItems: (type: 'DISH' | 'DRINK', q: string) =>
-    getJson<Listing[]>(`/listings/search-items?type=${type}&q=${encodeURIComponent(q)}`),
+    getPublic<Listing[]>(`/listings/search-items?type=${type}&q=${encodeURIComponent(q)}`),
   // real places to taste a given dish/drink (menu links + cuisine match)
-  placesForItem: (id: string) => getJson<Listing[]>(`/listings/${id}/where`),
+  placesForItem: (id: string) => getPublic<Listing[]>(`/listings/${id}/where`),
 
   // Q&A (ask the community)
-  questions: (listingId: string) => getJson<Question[]>(`/listings/${listingId}/questions`),
+  questions: (listingId: string) => getPublic<Question[]>(`/listings/${listingId}/questions`),
   askQuestion: (listingId: string, text: string) =>
     postJson<Question>(`/listings/${listingId}/questions`, { text }),
   answerQuestion: (questionId: string, text: string) =>
     postJson(`/questions/${questionId}/answers`, { text }),
-  listing: (id: string) => getJson<ListingDetail>(`/listings/${id}`),
+  listing: (id: string) => getPublic<ListingDetail>(`/listings/${id}`),
   group: (key: string, type?: ListingType) =>
-    getJson<Group>(
+    getPublic<Group>(
       `/listings/group?key=${encodeURIComponent(key)}${type ? `&type=${type}` : ''}`,
     ),
 
@@ -278,8 +289,8 @@ export const api = {
     }>('/me/category-progress'),
 
   // venue events parsed from their site & Telegram channel
-  events: (take = 30) => getJson<VenueEvent[]>(`/events?take=${take}`),
-  eventsFeed: (take = 24) => getJson<VenueEvent[]>(`/events/feed?take=${take}`),
+  events: (take = 30) => getPublic<VenueEvent[]>(`/events?take=${take}`),
+  eventsFeed: (take = 24) => getPublic<VenueEvent[]>(`/events/feed?take=${take}`),
   myEvents: () => getJson<VenueEvent[]>('/events/mine'),
 
   // recommender: implicit-feedback logging + transparent "probability you'll like"
