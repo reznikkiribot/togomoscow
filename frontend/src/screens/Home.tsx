@@ -274,6 +274,10 @@ export default function Home() {
     const seen = new Set<string>();
     const seenName = new Set<string>();
     const out: Listing[] = [];
+    const allowVenueLessFallback =
+      feedLoaded &&
+      recommended.length > 0 &&
+      recommended.every((l) => !(l as any).recVenue && !l.bestVenue);
     const add = (l?: Listing) => {
       const nm = l?.name?.toLowerCase().trim();
       // no breakfast and no alcohol in the deck — only "rich" food & non-alcoholic drinks
@@ -283,10 +287,9 @@ export default function Home() {
       const FOLK = /уха|борщ|окрошк|солянк|рассольник|пельмен|вареник|холодец|студень|винегрет|селёдк|сельдь|гречк|каша|оладь|драник|заливн|квашен|кисель|квас|морс/i;
       const RUSSIAN = /русск/i; // only restaurant-grade cuisine — no Russian/folk cuisine
       const tags = `${l?.category ?? ''} ${l?.name ?? ''}`;
-      // HARD RULE (root-level guard): a card must be attached to a venue. Only the
-      // recsys feed attaches recVenue; venue-less items (smart/top* fallbacks, or any
-      // future bug) are refused here so an "unattached" card can NEVER reach the deck.
-      const hasVenue = !!(l && ((l as any).recVenue || l.bestVenue));
+      // Keep venue-attached cards first. If Railway has items but no menu links after
+      // a DB move, allow that explicit fallback so the home screen is not empty.
+      const hasVenue = !!(l && ((l as any).recVenue || l.bestVenue || allowVenueLessFallback));
       if (
         l &&
         hasVenue &&

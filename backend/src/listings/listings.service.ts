@@ -369,14 +369,59 @@ export class ListingsService {
    * per product decision). Real personalization is a Phase 2 concern.
    */
   async recommended(take = 12) {
-    // taster-focused: surface dishes & drinks, not venues
+    const limit = Math.max(1, Number(take) || 12);
+
+    // Prefer cards that can say "try this at <venue>". After a fresh Railway DB
+    // restore/migration, links can be sparse, so keep a no-link fallback below.
+    const linked = await this.prisma.listing.findMany({
+      where: {
+        type: { in: ['DISH', 'DRINK'] },
+        servedAt: { some: { status: 'APPROVED' } },
+      },
+      include: {
+        servedAt: {
+          where: { status: 'APPROVED' },
+          select: { venue: { select: { id: true, name: true } }, price: true },
+          take: 30,
+        },
+      },
+      orderBy: [{ reviewCount: 'desc' }, { avgRating: 'desc' }],
+      take: Math.max(limit * 8, 80),
+    });
+
+    const shuffle = <T>(arr: T[]) => {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    };
+
+    if (linked.length) {
+      const seenName = new Set<string>();
+      const pick = shuffle(linked).filter((it) => {
+        const n = it.name.toLowerCase().trim();
+        if (seenName.has(n)) return false;
+        seenName.add(n);
+        return true;
+      }).slice(0, limit);
+      const cards = await this.enrichCards(pick);
+      return cards.map((c, i) => {
+        const links = ((pick[i] as any).servedAt ?? []).filter((l: any) => l.venue);
+        const link = links.length ? links[Math.floor(Math.random() * links.length)] : undefined;
+        const recVenue = link ? { ...link.venue, price: link.price ?? null } : undefined;
+        return { ...c, recReason: 'popular now', recVenue };
+      });
+    }
+
+    // Last resort: still show real items instead of leaving the home screen empty.
     const rows = await this.prisma.$queryRaw<{ id: string }[]>`
       SELECT id FROM listings WHERE type::text IN ('DISH', 'DRINK')
-      ORDER BY RANDOM() LIMIT ${Number(take)}
+      ORDER BY RANDOM() LIMIT ${limit}
     `;
     const ids = rows.map((r) => r.id);
     const items = await this.prisma.listing.findMany({ where: { id: { in: ids } } });
-    // preserve the random order returned by the query
     const byId = new Map(items.map((i) => [i.id, i]));
     const ordered = ids.map((id) => byId.get(id)).filter(Boolean) as typeof items;
     return this.enrichCards(ordered);
@@ -1690,4 +1735,3 @@ export class ListingsService {
       .catch(() => {});
   }
 }
-
