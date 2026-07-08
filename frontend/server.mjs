@@ -68,6 +68,17 @@ async function proxyApi(req, res) {
 }
 
 createServer((req, res) => {
+  if (/^\/tg-boot-(219|221|222|224)([/?#]|$)/.test(req.url || '')) {
+    const target = new URL('/tg-boot-225', `http://${req.headers.host || 'localhost'}`);
+    target.searchParams.set('v', '225');
+    target.searchParams.set('from', 'redirect');
+    res.writeHead(302, {
+      Location: target.pathname + target.search,
+      'Cache-Control': 'no-store, max-age=0',
+    });
+    res.end();
+    return;
+  }
   if (req.url?.startsWith('/api/')) {
     void proxyApi(req, res);
     return;
