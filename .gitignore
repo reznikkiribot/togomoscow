@@ -26,3 +26,4 @@ Thumbs.db
 
 # transient cloudflared logs
 .cloudflared.*
+backend/.railway-db-url

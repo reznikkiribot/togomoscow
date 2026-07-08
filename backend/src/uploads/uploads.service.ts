@@ -33,12 +33,14 @@ export class UploadsService implements OnModuleInit {
     if (this.useS3) {
       this.s3 = new S3Client({
         endpoint,
-        region: 'us-east-1',
+        region: this.config.get<string>('MINIO_REGION') ?? 'us-east-1',
         credentials: {
           accessKeyId: accessKeyId!,
           secretAccessKey: secretAccessKey!,
         },
-        forcePathStyle: true,
+        // local MinIO needs path-style; Railway buckets (t3.storageapi.dev) are
+        // virtual-host style → set MINIO_FORCE_PATH_STYLE=false there
+        forcePathStyle: (this.config.get<string>('MINIO_FORCE_PATH_STYLE') ?? 'true') !== 'false',
       });
     }
   }
