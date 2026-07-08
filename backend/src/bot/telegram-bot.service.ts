@@ -1,7 +1,10 @@
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 
 const APP_ORIGIN = (process.env.PUBLIC_APP_URL || 'https://togomoscow-production.up.railway.app').replace(/\/$/, '');
-const APP_URL = `${APP_ORIGIN}/tg-boot-225?v=225&from=start`;
+const WEBAPP_PATH = process.env.TELEGRAM_WEBAPP_PATH || '/tg-boot-225';
+const WEBAPP_VERSION = process.env.TELEGRAM_WEBAPP_VERSION || '225';
+const APP_URL = `${APP_ORIGIN}${WEBAPP_PATH}?v=${encodeURIComponent(WEBAPP_VERSION)}&from=start`;
+const MENU_URL = `${APP_ORIGIN}${WEBAPP_PATH}?v=${encodeURIComponent(WEBAPP_VERSION)}&from=menu-auto`;
 const OWNER_TELEGRAM_ID = '1029738735'; // @reznik_kir1ll
 
 // Lightweight long-polling bot: handles /start by offering a one-tap button
@@ -23,6 +26,7 @@ export class TelegramBotService implements OnModuleInit {
     } catch {
       /* ignore */
     }
+    await this.syncMenuButton();
     void this.poll();
     this.log.log('/start handler polling');
   }
@@ -34,6 +38,23 @@ export class TelegramBotService implements OnModuleInit {
       body: JSON.stringify(body),
     });
     return res.json();
+  }
+
+  private async syncMenuButton() {
+    if (process.env.TELEGRAM_AUTO_MENU_BUTTON === '0') return;
+    try {
+      const res: any = await this.call('setChatMenuButton', {
+        menu_button: {
+          type: 'web_app',
+          text: 'Открыть',
+          web_app: { url: MENU_URL },
+        },
+      });
+      if (res?.ok) this.log.log(`Menu button -> ${MENU_URL}`);
+      else this.log.warn(`Menu button update failed: ${res?.description || JSON.stringify(res)}`);
+    } catch (e: any) {
+      this.log.warn(`Menu button update failed: ${e?.message || e}`);
+    }
   }
 
   private async poll() {
