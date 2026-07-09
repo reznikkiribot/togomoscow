@@ -2,6 +2,7 @@ import { useEffect, useState, useRef} from 'react';
 import { api } from '../api';
 import { useEscClose } from '../modalEsc';
 import { useSwipeDismiss } from '../swipeDismiss';
+import { useSwipeBack } from '../swipeBack';
 import { ListingDetailModal } from './ListingDetail';
 import { PhotoPostModal } from './PhotoPostModal';
 import { ReviewCard, CategoryAverages } from './ReviewCard';
@@ -151,6 +152,7 @@ export function UserProfileModal({ id, onClose }: { id: string; onClose: () => v
   // swipe-down from the top closes the profile page too (app-wide pattern)
   const pageRef = useRef<HTMLDivElement>(null);
   useSwipeDismiss(pageRef, onClose, { fadeBackdrop: false });
+  useSwipeBack(pageRef, onClose); // edge swipe → back, like iOS navigation
 
   return (
     <div ref={pageRef} className={'userprofile' + (closing ? ' closing' : '')}>

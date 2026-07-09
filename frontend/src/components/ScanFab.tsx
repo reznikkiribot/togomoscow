@@ -146,6 +146,7 @@ function ScanDialog({
 export function ScanFab() {
   const cameraRef = useRef<HTMLInputElement>(null);
   const galleryRef = useRef<HTMLInputElement>(null);
+  const [srcMenu, setSrcMenu] = useState(false);
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<RecognizeResult | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -250,19 +251,30 @@ export function ScanFab() {
 
   return (
     <>
-      {/* tap the FAB → the CAMERA opens immediately (no intermediate sheet).
-          iOS won't let a web app inject a gallery button into its native camera,
-          so the gallery lives as a small satellite button right above the FAB. */}
-      <button className="scan-fab-gallery" onClick={() => galleryRef.current?.click()} aria-label="Из галереи">
-        🖼
-      </button>
-      <button className="scan-fab" onClick={() => cameraRef.current?.click()} aria-label="Сфотографировать блюдо или напиток">
+      <button className="scan-fab" onClick={() => setSrcMenu(true)} aria-label="Сканировать блюдо или напиток">
         <CamIcon />
       </button>
-      {/* ONLY photos: a capture input (camera) and a gallery input (images only) —
-          no generic file browser */}
+      {/* camera input: straight to the native camera.
+          gallery input: `multiple` makes iOS SKIP its source menu and open the photo
+          picker directly (we still use only the first file) — no "Файлы" step. */}
       <input ref={cameraRef} type="file" accept="image/*" capture="environment" hidden onChange={onPick} />
-      <input ref={galleryRef} type="file" accept="image/*" hidden onChange={onPick} />
+      <input ref={galleryRef} type="file" accept="image/*" multiple hidden onChange={onPick} />
+
+      {srcMenu && (
+        <div className="modal-backdrop" style={{ zIndex: 3590 }} onClick={() => setSrcMenu(false)}>
+          <div className="scan-src" onClick={(e) => e.stopPropagation()}>
+            <button className="scan-src-btn" onClick={() => { setSrcMenu(false); cameraRef.current?.click(); }}>
+              📷 Сделать фото
+            </button>
+            <button className="scan-src-btn" onClick={() => { setSrcMenu(false); galleryRef.current?.click(); }}>
+              🖼 Из галереи
+            </button>
+            <button className="scan-src-btn cancel" onClick={() => setSrcMenu(false)}>
+              Отмена
+            </button>
+          </div>
+        </div>
+      )}
 
       {(busy || result) && (
         <ScanDialog

@@ -7,6 +7,7 @@ import { ListingDetailModal } from './ListingDetail';
 import { MapView } from './MapView';
 import { useFavorites } from '../hooks/useFavorites';
 import { useEscClose } from '../modalEsc';
+import { useSwipeBack } from '../swipeBack';
 import { cuisineToken } from '../cuisine';
 
 export type BrowseCat = 'RESTAURANT' | 'BAR' | 'CAFE' | 'COFFEE' | 'DISH' | 'DRINK';
@@ -55,6 +56,8 @@ export function MapBrowse({ cat, onClose }: { cat: BrowseCat; onClose: () => voi
     setTimeout(onClose, 260);
   };
   useEscClose(close);
+  const pageRef = useRef<HTMLDivElement>(null);
+  useSwipeBack(pageRef, close); // edge swipe → back to home
   const { ids, toggle } = useFavorites();
 
   // current location → blue dot + map centering
@@ -168,7 +171,7 @@ export function MapBrowse({ cat, onClose }: { cat: BrowseCat; onClose: () => voi
   };
 
   return (
-    <div className={'mapbrowse' + (closing ? ' closing' : '')}>
+    <div ref={pageRef} className={'mapbrowse' + (closing ? ' closing' : '')}>
       <div className="mb-header">
         <button
           className="mb-back"
