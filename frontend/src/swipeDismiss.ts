@@ -77,13 +77,22 @@ export function useSwipeDismiss(
       const distanceThreshold = Math.max(200, el.clientHeight * 0.33);
       if (dy > distanceThreshold || (velocity > 1.0 && dy > 60)) {
         closed = true;
-        el.style.transition = 'transform 0.2s ease-out';
-        el.style.transform = 'translateY(100%)';
-        setTimeout(onDismiss, 190);
+        // soft exit: longer ease-out glide + the backdrop dissolves WITH the sheet
+        el.style.transition = 'transform 0.34s cubic-bezier(0.22, 0.61, 0.36, 1)';
+        el.style.transform = 'translateY(105%)';
+        if (backdrop) {
+          backdrop.style.transition = 'background 0.3s ease';
+          backdrop.style.background = 'rgba(0,0,0,0)';
+        }
+        setTimeout(onDismiss, 320);
       } else {
-        el.style.transition = 'transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.2)';
+        // gentle spring back — slow settle, barely-there overshoot
+        el.style.transition = 'transform 0.45s cubic-bezier(0.22, 1.1, 0.36, 1)';
         el.style.transform = '';
-        if (backdrop) backdrop.style.background = '';
+        if (backdrop) {
+          backdrop.style.transition = 'background 0.3s ease';
+          backdrop.style.background = '';
+        }
       }
     };
     el.addEventListener('touchstart', start, { passive: true });
