@@ -9,3 +9,9 @@ export function thumb(url: string | null | undefined, w: 200 | 400 | 600 | 900 =
   if (url.startsWith('https://')) return `/api/img?u=${encodeURIComponent(url)}&w=${w}`;
   return url;
 }
+
+// user-generated photo (uploaded through the app) vs licensed/stock/generated one —
+// non-UGC photos must carry the "информационный характер" disclaimer everywhere
+export function isUserPhoto(url: string | null | undefined): boolean {
+  return !!url && url.startsWith('/api/files/');
+}

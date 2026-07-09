@@ -15,21 +15,14 @@ import { ListingsService } from '../listings/listings.service';
  * `likeProbability`/`recommend` read that cache, falling back to cold-start here
  * whenever the user/item is unknown to the model. See docs/recsys-lightfm.md.
  */
-// The recommendation feed shows ONLY items whose photo was legally parsed from a
-// site/menu (real dish photo) — never a fetched stock image — PLUS coffee always.
+// PHOTO POLICY (2026-07-09): parsed chain photos are copyrighted and were replaced
+// with openly-licensed ones matched by dish name (or a neutral placeholder). Every
+// non-user photo is labeled "информационный характер" in the UI, so licensed stock
+// is now a legitimate catalog photo — the feed just requires SOME photo + coffee.
 const REAL_PHOTO_OR_COFFEE = {
   OR: [
     { category: { contains: 'Кофе', mode: 'insensitive' as const } },
-    {
-      photoUrl: { not: null },
-      NOT: [
-        { photoUrl: { contains: 'pexels' } },
-        { photoUrl: { contains: 'unsplash' } },
-        { photoUrl: { contains: 'wikimedia' } },
-        { photoUrl: { contains: 'pixabay' } },
-        { photoUrl: { contains: 'images.unsplash' } },
-      ],
-    },
+    { photoUrl: { not: null } },
   ],
 };
 

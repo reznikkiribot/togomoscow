@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Listing } from '../types';
+import { isUserPhoto } from '../img';
 import { ratingsWord } from '../plural';
 import { Stars } from './Stars';
 import { VenuePhoto } from './VenuePhoto';
@@ -29,6 +30,9 @@ export function ListingCard({
       <div className="card" onClick={onClick}>
         <div className="card-photo-wrap">
           <VenuePhoto listing={listing} className="photo" />
+          {!isUserPhoto(listing.photoUrl) && (
+            <span className="info-photo-badge">📷 Фото информационное</span>
+          )}
           {/* price on the photo (bottom-left) only when tied to a specific venue */}
           {listing.recVenue && (listing.recVenue as any).price != null && (
             <span className="newdish-price">{(listing.recVenue as any).price} ₽</span>

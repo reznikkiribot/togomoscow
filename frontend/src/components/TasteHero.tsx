@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import type { Listing } from '../types';
+import { isUserPhoto } from '../img';
 import { VenuePhoto } from './VenuePhoto';
 import { Stars } from './Stars';
 import { ratingsWord } from '../plural';
@@ -122,6 +123,9 @@ export function TasteHero({
         }}
       >
         <VenuePhoto listing={item} className="hero-photo" draggable={false} />
+        {!isUserPhoto(item.photoUrl) && (
+          <span className="info-photo-badge">📷 Фото информационное</span>
+        )}
         {item.recVenue && (item.recVenue as any).price != null && (
           <span className="newdish-price hero-price-badge">{(item.recVenue as any).price} ₽</span>
         )}
