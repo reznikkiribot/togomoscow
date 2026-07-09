@@ -75,13 +75,17 @@ export class SocialService {
     const u = await this.prisma.user.findUnique({ where: { id: targetId } });
     if (!u) throw new NotFoundException('User not found');
     const card = await this.publicUser(u, meId);
+    // PENDING included on purpose: the profile is a social surface like the follow
+    // feed — moderation gates public ratings/the general feed, not a person's page.
+    // Without this a fresh review shows on the wall but "disappears" on the profile.
     const reviewList = await this.prisma.review.findMany({
-      where: { userId: targetId, status: 'APPROVED' },
+      where: { userId: targetId, status: { in: ['APPROVED', 'PENDING'] } },
       include: { listing: true },
       orderBy: { createdAt: 'desc' },
       take: 50,
     });
     await this.attachItemVenues(reviewList);
+    await this.attachVoteCounts(reviewList); // reactions must show real counts
     return { ...card, reviewList };
   }
 
