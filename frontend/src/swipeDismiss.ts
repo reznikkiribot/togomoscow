@@ -11,12 +11,25 @@ import { useEffect, type RefObject } from 'react';
 export function useSwipeDismiss(
   sheetRef: RefObject<HTMLElement | null>,
   onDismiss: () => void,
-  opts: { fadeBackdrop?: boolean } = {},
+  opts: { fadeBackdrop?: boolean; deps?: unknown[] } = {},
 ) {
-  const { fadeBackdrop = true } = opts;
+  const { fadeBackdrop = true, deps = [] } = opts;
   useEffect(() => {
-    const el = sheetRef.current;
-    if (!el) return;
+    // the sheet may not exist on mount (cards render a loader until data arrives) —
+    // poll briefly until it appears, then attach. Pass `deps` to re-run on data load.
+    let raf = 0;
+    let cancelled = false;
+    let detach: (() => void) | null = null;
+    const tryAttach = () => {
+      if (cancelled) return;
+      const el = sheetRef.current;
+      if (!el) {
+        raf = requestAnimationFrame(tryAttach);
+        return;
+      }
+      detach = attach(el);
+    };
+    const attach = (el: HTMLElement): (() => void) => {
     const backdrop = fadeBackdrop ? el.parentElement : null;
     let startY = 0;
     let lastY = 0;
@@ -79,6 +92,13 @@ export function useSwipeDismiss(
       el.removeEventListener('touchend', end);
       el.removeEventListener('touchcancel', end);
     };
+    };
+    tryAttach();
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(raf);
+      detach?.();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, deps);
 }
