@@ -42,8 +42,11 @@ export function useSwipeDismiss(
       lastY = y;
       lastT = now;
       if (!dragging) {
-        if (armed && dy > 8 && el.scrollTop <= 0) dragging = true;
-        else return;
+        // decide on the FIRST move: on iOS the event stops being cancelable the
+        // moment native scroll wins, so an 8px threshold was already too late
+        if (armed && dy > 2 && el.scrollTop <= 0 && e.cancelable) dragging = true;
+        else if (dy < -2) { armed = false; return; } // scrolling content down → not ours
+        else if (!dragging) return;
       }
       if (e.cancelable) e.preventDefault(); // sheet follows the finger, not the scroll
       const t = Math.max(0, dy);

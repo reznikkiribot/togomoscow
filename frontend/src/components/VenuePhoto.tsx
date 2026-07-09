@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { Listing } from '../types';
+import { thumb } from '../img';
 
 export const TYPE_EMOJI: Record<Listing['type'], string> = {
   RESTAURANT: '🍽️',
@@ -29,6 +30,12 @@ function isSlowExternalPhoto(src?: string | null) {
 export function listingPhotoCandidates(listing: Listing): string[] {
   const domain = domainOf(listing.website);
   const candidates: string[] = [];
+  // real photo FIRST, but through our resize-proxy (small webp, our origin,
+  // immutable cache) — the raw external URL stays as the fallback candidate
+  if (listing.photoUrl) {
+    const proxied = thumb(listing.photoUrl, 600);
+    if (proxied && proxied !== listing.photoUrl) candidates.push(proxied);
+  }
   const slowExternal = isSlowExternalPhoto(listing.photoUrl);
   if (slowExternal && listing.placeholderPhoto) candidates.push(listing.placeholderPhoto);
   if (listing.photoUrl) candidates.push(listing.photoUrl);

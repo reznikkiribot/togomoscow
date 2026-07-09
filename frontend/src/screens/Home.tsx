@@ -287,6 +287,9 @@ export default function Home() {
       return true;
     });
   })();
+  // fresh order on EVERY visit to the home screen — the feed must not look static
+  const [visitSeed] = useState(() => Date.now());
+  const wallShuffled = seededShuffle(wall, visitSeed);
 
   const ratedIds = new Set(
     myReviews.map((r) => r.listing?.id).filter((x): x is string => !!x),
@@ -446,12 +449,15 @@ export default function Home() {
       <div className="search">
         <div className="search-wrap">
           <div className="search-bar">
-            {search ? (
+            {search || cat !== 'ALL' ? (
+              // one step back: from a search → clear it; from a category (Напитки,
+              // Блюда…) → back to the main screen
               <button
                 className="search-ico back"
                 onClick={() => {
                   setSearch('');
                   setCat('ALL');
+                  setResults(null);
                 }}
                 aria-label="Назад"
               >
@@ -622,7 +628,7 @@ export default function Home() {
           {wall.length > 0 && (
             <>
               <div className="section-title">Лента</div>
-              {wall.map((r) => (
+              {wallShuffled.map((r) => (
                 <FeedPost
                   key={r.id}
                   review={r}
