@@ -4725,6 +4725,25 @@ a.addr-line {
 .scan-fab:active {
   transform: scale(0.93);
 }
+/* gallery satellite: small white circle above the FAB (iOS won't let us put a
+   gallery button inside its native camera, so it lives next to the shutter) */
+.scan-fab-gallery {
+  position: fixed;
+  right: 26px;
+  bottom: calc(148px + env(safe-area-inset-bottom));
+  z-index: 1500;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
 .scan-backdrop {
   align-items: flex-end;
 }
