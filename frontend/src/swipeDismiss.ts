@@ -71,7 +71,11 @@ export function useSwipeDismiss(
       if (!dragging || closed) return;
       dragging = false;
       const dy = lastY - startY;
-      if (dy > 120 || velocity > 0.5) {
+      // iOS/Instagram-grade thresholds: a THIRD of the sheet height, or a real
+      // fling (~1000 px/s, like UIKit's velocity cutoff) that has already moved
+      // the sheet at least 60px — a casual short pull springs back.
+      const distanceThreshold = Math.max(200, el.clientHeight * 0.33);
+      if (dy > distanceThreshold || (velocity > 1.0 && dy > 60)) {
         closed = true;
         el.style.transition = 'transform 0.2s ease-out';
         el.style.transform = 'translateY(100%)';
