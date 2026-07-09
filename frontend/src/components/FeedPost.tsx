@@ -17,11 +17,13 @@ export function FeedPost({
   onOpen,
   onComments,
   onOpenUser,
+  onOpenPhoto,
 }: {
   review: Review;
   onOpen: () => void;
   onComments?: () => void;
   onOpenUser?: (userId: string) => void;
+  onOpenPhoto?: () => void; // tap the PHOTO → the review itself (check-in detail)
 }) {
   // the feed only contains posts where the user uploaded their own photo, so show that
   const photo = review.photoUrls?.[0];
@@ -57,8 +59,21 @@ export function FeedPost({
         </div>
       </button>
 
-      {/* the user's own upload, or the item's real photo — never a stock placeholder */}
-      {photo && <img className="post-photo" src={thumb(photo, 600)} alt="" loading="lazy" />}
+      {/* tap the photo → the REVIEW opens (the rest of the post opens the item card) */}
+      {photo && (
+        <img
+          className="post-photo"
+          src={thumb(photo, 600)}
+          alt=""
+          loading="lazy"
+          onClick={(e) => {
+            if (onOpenPhoto) {
+              e.stopPropagation();
+              onOpenPhoto();
+            }
+          }}
+        />
+      )}
 
       <div className="post-venue">
         <b>{review.listing?.name}</b>

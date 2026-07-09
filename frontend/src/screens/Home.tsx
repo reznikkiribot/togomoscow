@@ -6,6 +6,7 @@ import { ListRow } from '../components/ListRow';
 import { Stars } from '../components/Stars';
 import { preloadListingPhotos, VenuePhoto } from '../components/VenuePhoto';
 import { FeedPost } from '../components/FeedPost';
+import { PhotoPostModal } from '../components/PhotoPostModal';
 import { CommentsModal } from '../components/CommentsModal';
 import { hasOpenModal } from '../modalEsc';
 import { UserProfileModal } from '../components/People';
@@ -98,6 +99,7 @@ export default function Home() {
   const [myReviews, setMyReviews] = useState<Review[]>([]);
   const [feedLoaded, setFeedLoaded] = useState(false);
   const [commentsReview, setCommentsReview] = useState<string | null>(null);
+  const [photoReview, setPhotoReview] = useState<Review | null>(null); // tap feed photo → the review
   const [openUser, setOpenUser] = useState<string | null>(null);
   const [heroIdx, setHeroIdx] = useState(0);
   const [myId, setMyId] = useState<string | null>(null);
@@ -627,6 +629,7 @@ export default function Home() {
                   onOpen={() => r.listing && openListing(r.listing)}
                   onComments={() => setCommentsReview(r.id)}
                   onOpenUser={(uid) => setOpenUser(uid)}
+                  onOpenPhoto={() => setPhotoReview(r)}
                 />
               ))}
             </>
@@ -641,6 +644,23 @@ export default function Home() {
           onOpenUser={(uid) => {
             setCommentsReview(null);
             setOpenUser(uid);
+          }}
+        />
+      )}
+      {photoReview && (
+        <PhotoPostModal
+          review={photoReview}
+          onClose={() => setPhotoReview(null)}
+          onOpenUser={(uid) => { setPhotoReview(null); setOpenUser(uid); }}
+          onOpenListing={() => {
+            const l = photoReview.listing;
+            setPhotoReview(null);
+            if (l) openListing(l as Listing);
+          }}
+          onOpenVenue={() => {
+            const v = photoReview.venue;
+            setPhotoReview(null);
+            if (v?.id) openListing({ id: v.id, name: v.name } as Listing);
           }}
         />
       )}
