@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import type { Review } from '../types';
 import { Stars } from './Stars';
 import { thumb } from '../img';
@@ -33,15 +33,25 @@ export function ReviewCard({
   const u = review.user;
   const initial = (u?.firstName ?? u?.username ?? '?').trim()[0]?.toUpperCase() ?? '?';
   const stop = (e: React.MouseEvent) => e.stopPropagation();
+  // dead photo URLs (stale parsed CDNs) render as a broken-image icon and squash
+  // the card — hide the media block/thumb entirely when the image fails to load
+  const [photoBroken, setPhotoBroken] = useState(false);
+  const [thumbBroken, setThumbBroken] = useState(false);
 
   return (
     <div className="rc">
       <div className="rc-tap" onClick={onOpen}>
-        {photo && (
+        {photo && !photoBroken && (
           <div className="rc-photo-wrap">
             {/* blurred fill of the same photo → no black letterbox bars */}
             <div className="ph-blur" style={{ backgroundImage: `url("${thumb(photo, 200)}")` }} />
-            <img className="rc-photo" src={thumb(photo, 600)} alt="" loading="lazy" />
+            <img
+              className="rc-photo"
+              src={thumb(photo, 600)}
+              alt=""
+              loading="lazy"
+              onError={() => setPhotoBroken(true)}
+            />
             {/* author + place overlaid on the photo (same as the open post) */}
             {u && (
               <div className="rc-head">
@@ -72,8 +82,13 @@ export function ReviewCard({
         )}
         <div className="rc-card">
           <div className="rc-main">
-            {review.listing?.photoUrl && (
-              <img className="rc-thumb" src={thumb(review.listing.photoUrl, 200)} alt="" />
+            {review.listing?.photoUrl && !thumbBroken && (
+              <img
+                className="rc-thumb"
+                src={thumb(review.listing.photoUrl, 200)}
+                alt=""
+                onError={() => setThumbBroken(true)}
+              />
             )}
             <div className="rc-info">
               <b className="rc-name">{review.listing?.name}</b>

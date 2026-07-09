@@ -1,9 +1,10 @@
 import { useEffect, type RefObject } from 'react';
 
-// iOS-style edge swipe-back for FULL-SCREEN pushed pages (profile, category map):
-// start the touch near the LEFT edge, drag right — the page follows the finger;
-// release past a third of the width (or a real fling) → back, else spring home.
-// Full-screen navigations only — sheets/cards keep their swipe-DOWN gesture.
+// Swipe-back for FULL-SCREEN pushed pages (profile, category map): a rightward
+// drag from ANYWHERE (not just the edge) — the page sticks to the finger from the
+// very first pixels; release past a third of the width (or a fling) → back,
+// else it springs home. Touches that start inside horizontal scrollers
+// (carousels, chip rows) are left alone. Sheets/cards keep their swipe-DOWN.
 export function useSwipeBack(pageRef: RefObject<HTMLElement | null>, onBack: () => void) {
   useEffect(() => {
     let raf = 0;
@@ -28,12 +29,17 @@ export function useSwipeBack(pageRef: RefObject<HTMLElement | null>, onBack: () 
       let armed = false;
       let closed = false;
 
+      // horizontal scrollers keep their own gesture — a back-swipe must not
+      // hijack carousels / chip rows
+      const inHorizontalScroller = (t: EventTarget | null) =>
+        t instanceof Element &&
+        !!t.closest('.feed, .rc-carousel, .cat-bar, .opt-chips, .card-tags, .filterbar, .tabs, .leaflet-container');
       const start = (e: TouchEvent) => {
         startX = lastX = e.touches[0].clientX;
         startY = e.touches[0].clientY;
         lastT = performance.now();
         velocity = 0;
-        armed = startX <= 40; // only from the left edge, like iOS back-swipe
+        armed = !inHorizontalScroller(e.target); // anywhere on the page, not just the edge
         dragging = false;
       };
       const move = (e: TouchEvent) => {
@@ -46,8 +52,9 @@ export function useSwipeBack(pageRef: RefObject<HTMLElement | null>, onBack: () 
         lastX = x;
         lastT = now;
         if (!dragging) {
-          if (dx > 6 && dx > dyAbs * 1.4 && e.cancelable) dragging = true; // clearly horizontal
-          else if (dyAbs > 12) { armed = false; return; } // it's a vertical scroll
+          // react IMMEDIATELY: capture on the very first horizontal pixels
+          if (dx > 4 && dx > dyAbs * 1.2 && e.cancelable) dragging = true;
+          else if (dyAbs > 10) { armed = false; return; } // it's a vertical scroll
           else return;
         }
         if (e.cancelable) e.preventDefault();

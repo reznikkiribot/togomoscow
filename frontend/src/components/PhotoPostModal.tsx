@@ -37,6 +37,9 @@ export function PhotoPostModal({
   const u = review.user;
   const initial = (u?.firstName ?? u?.username ?? '?').trim()[0]?.toUpperCase() ?? '?';
   const [closing, setClosing] = useState(false);
+  // dead photo URL → hide the media instead of showing a broken-image icon
+  const [photoBroken, setPhotoBroken] = useState(false);
+  const [thumbBroken, setThumbBroken] = useState(false);
   const [menu, setMenu] = useState(false);
   const [toast, setToast] = useState('');
   const [vote, setVote] = useState<VoteState>({
@@ -108,8 +111,8 @@ export function PhotoPostModal({
         <div className="pp-hero">
           {/* SAME 600px asset the list card already loaded → appears instantly from
               the browser cache (900px was a different file = a visible re-fetch) */}
-          {photo && <div className="ph-blur" style={{ backgroundImage: `url("${thumb(photo, 200)}")` }} />}
-          {photo && <img className="pp-photo" src={thumb(photo, 600)} alt="" />}
+          {photo && !photoBroken && <div className="ph-blur" style={{ backgroundImage: `url("${thumb(photo, 200)}")` }} />}
+          {photo && !photoBroken && <img className="pp-photo" src={thumb(photo, 600)} alt="" onError={() => setPhotoBroken(true)} />}
           <button type="button" className="pp-head" onClick={() => u?.id && onOpenUser?.(u.id)}>
             {u?.photoUrl ? (
               <img className="pp-avatar" src={u.photoUrl} alt="" />
@@ -126,8 +129,8 @@ export function PhotoPostModal({
         {/* item card: thumb + name + place + style, then rating and caption */}
         <div className="pp-card">
           <button type="button" className="pp-card-main" onClick={onOpenListing}>
-            {review.listing?.photoUrl && (
-              <img className="pp-card-thumb" src={thumb(review.listing.photoUrl, 200)} alt="" />
+            {review.listing?.photoUrl && !thumbBroken && (
+              <img className="pp-card-thumb" src={thumb(review.listing.photoUrl, 200)} alt="" onError={() => setThumbBroken(true)} />
             )}
             <div className="pp-card-info">
               <b className="pp-card-name">{review.listing?.name}</b>

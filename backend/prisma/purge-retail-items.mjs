@@ -19,12 +19,17 @@ const p = new PrismaClient();
 // precise retail markers (kept tight so real dishes like "Блин с фаршем" survive)
 const RETAIL = /в зёрнах|в зернах|котлеты для бургеров|для бургеров|полуфабрикат|дрип[- ]?пакет|в капсул|капсул[аы]|чалд|молотый кофе|кофе молотый|для запекания|для жарки|для гриля|заготовк|набор для|мясо для/i;
 
+// menu MODIFIERS / add-ons ("Яйцо дополнительно", "Соус на выбор", "Приборы",
+// "Упаковка") — parsed from delivery menus but not tasteable dishes. Standing
+// parsing rule: run this purge after every import.
+const MODIFIER = /дополнительн|доп\.|добавка|топпинг|на выбор|прибор(ы|\b)|упаковк|пакет\b|доставк|сервисный сбор|контейнер|стаканчик пуст/i;
+
 const dry = process.argv.includes('--dry');
 const items = await p.listing.findMany({
   where: { type: { in: ['DISH', 'DRINK'] } },
   select: { id: true, name: true, category: true },
 });
-const junk = items.filter((it) => RETAIL.test(it.name));
+const junk = items.filter((it) => RETAIL.test(it.name) || MODIFIER.test(it.name));
 console.log(`${dry ? '[DRY] ' : ''}Найдено розничного мусора: ${junk.length}`);
 for (const j of junk) console.log(`  ✗ ${j.name}  [${j.category ?? '—'}]`);
 if (dry) { await p.$disconnect(); process.exit(0); }
