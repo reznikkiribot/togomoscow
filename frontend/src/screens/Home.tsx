@@ -630,6 +630,7 @@ export default function Home() {
                   onComments={() => setCommentsReview(r.id)}
                   onOpenUser={(uid) => setOpenUser(uid)}
                   onOpenPhoto={() => setPhotoReview(r)}
+                  onOpenVenue={() => r.venue?.id && openListing({ id: r.venue.id, name: r.venue.name } as Listing)}
                 />
               ))}
             </>
@@ -729,8 +730,7 @@ export default function Home() {
               setAutoRate(undefined);
               setHeroIdx((i) => i + 1); // move to the next item to rate
             }
-            // returning from a card lands on the top of the main menu, not mid-feed
-            window.scrollTo({ top: 0, behavior: 'auto' });
+            // stay where the card was opened — never jump back to the top
           }}
         />
       )}
@@ -739,7 +739,7 @@ export default function Home() {
           id={deepId}
           originVenue={deepVenue ?? undefined}
           onChanged={loadFeeds}
-          onClose={() => { setDeepId(null); setDeepVenue(null); window.scrollTo({ top: 0, behavior: 'auto' }); }}
+          onClose={() => { setDeepId(null); setDeepVenue(null); }}
         />
       )}
     </div>

@@ -40,10 +40,30 @@ function syncBackButton() {
 }
 
 // lock the page behind any open modal so scrolling the card never drags the
-// background (scroll-chaining / touch leaking to the home screen)
+// background (scroll-chaining / touch leaking to the home screen).
+// position:fixed + top compensation — plain overflow:hidden/height:100% RESETS the
+// scroll position, so closing a card used to jump the page back to the top.
+let lockedScrollY = 0;
 function syncBodyLock() {
   if (typeof document === 'undefined') return;
-  document.body.classList.toggle('modal-open', stack.length > 0);
+  const body = document.body;
+  const wantLock = stack.length > 0;
+  const isLocked = body.classList.contains('modal-open');
+  if (wantLock && !isLocked) {
+    lockedScrollY = window.scrollY;
+    body.classList.add('modal-open');
+    body.style.position = 'fixed';
+    body.style.top = `-${lockedScrollY}px`;
+    body.style.left = '0';
+    body.style.right = '0';
+  } else if (!wantLock && isLocked) {
+    body.classList.remove('modal-open');
+    body.style.position = '';
+    body.style.top = '';
+    body.style.left = '';
+    body.style.right = '';
+    window.scrollTo(0, lockedScrollY); // restore EXACTLY where the card was opened
+  }
 }
 
 /** Closes this modal/screen on Esc / Back (only when it's the top of the stack). */

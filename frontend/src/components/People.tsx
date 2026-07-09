@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef} from 'react';
 import { api } from '../api';
 import { useEscClose } from '../modalEsc';
+import { useSwipeDismiss } from '../swipeDismiss';
 import { ListingDetailModal } from './ListingDetail';
 import { PhotoPostModal } from './PhotoPostModal';
 import { ReviewCard, CategoryAverages } from './ReviewCard';
@@ -147,9 +148,12 @@ export function UserProfileModal({ id, onClose }: { id: string; onClose: () => v
     setTimeout(onClose, 240);
   };
   useEscClose(requestClose);
+  // swipe-down from the top closes the profile page too (app-wide pattern)
+  const pageRef = useRef<HTMLDivElement>(null);
+  useSwipeDismiss(pageRef, onClose, { fadeBackdrop: false });
 
   return (
-    <div className={'userprofile' + (closing ? ' closing' : '')}>
+    <div ref={pageRef} className={'userprofile' + (closing ? ' closing' : '')}>
       <div className="up-top">
         <button className="back-btn" onClick={requestClose}>
           ←

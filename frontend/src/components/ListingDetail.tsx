@@ -14,6 +14,7 @@ import { MapView } from './MapView';
 import { openExternal, telHref, callPhone, shareToStory, shareToChat, shareMessage } from '../telegram';
 import { ratingsWord, openStatus } from '../plural';
 import { useEscClose } from '../modalEsc';
+import { useSwipeDismiss } from '../swipeDismiss';
 import { pushRecent } from '../recent';
 import { cuisineTags } from '../cuisine';
 import { beerStyle } from '../tasting';
@@ -288,6 +289,9 @@ export function ListingDetailModal({
   // browser's overscroll and take over (pointer events get eaten by native scroll
   // in the iOS Telegram webview).
   const sheetRef = useRef<HTMLDivElement>(null);
+  // app-wide pattern: swipe down anywhere on the sheet (from its scroll top) closes —
+  // complements the photo-handle drag below (which stays for gallery-area gestures)
+  useSwipeDismiss(sheetRef, onClose);
   const mediaRef = useRef<HTMLDivElement>(null);
   const photoInputRef = useRef<HTMLInputElement>(null); // "Добавить фото" (no review)
   const [photoBusy, setPhotoBusy] = useState(false);

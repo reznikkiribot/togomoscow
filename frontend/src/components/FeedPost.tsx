@@ -18,12 +18,14 @@ export function FeedPost({
   onComments,
   onOpenUser,
   onOpenPhoto,
+  onOpenVenue,
 }: {
   review: Review;
   onOpen: () => void;
   onComments?: () => void;
   onOpenUser?: (userId: string) => void;
   onOpenPhoto?: () => void; // tap the PHOTO → the review itself (check-in detail)
+  onOpenVenue?: () => void; // tap the "📍 place" line → the venue card
 }) {
   // the feed only contains posts where the user uploaded their own photo, so show that
   const photo = review.photoUrls?.[0];
@@ -78,9 +80,19 @@ export function FeedPost({
       <div className="post-venue">
         <b>{review.listing?.name}</b>
         {review.venue && (
-          <div className="meta" style={{ color: 'var(--hint)', fontSize: 13, marginTop: 2 }}>
+          <button
+            type="button"
+            className="meta post-venue-link"
+            style={{ color: 'var(--hint)', fontSize: 13, marginTop: 2, background: 'none', border: 'none', padding: 0, cursor: 'pointer', display: 'block' }}
+            onClick={(e) => {
+              if (onOpenVenue) {
+                e.stopPropagation(); // venue tap opens the VENUE, not the item
+                onOpenVenue();
+              }
+            }}
+          >
             📍 {review.venue.name}
-          </div>
+          </button>
         )}
         <div style={{ display: 'flex', gap: 6, alignItems: 'center', marginTop: 3 }}>
           <Stars value={review.rating} />

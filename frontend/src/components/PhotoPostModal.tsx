@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { api } from '../api';
 import { useEscClose } from '../modalEsc';
+import { useSwipeDismiss } from '../swipeDismiss';
 import { tg, openExternal } from '../telegram';
 import type { Comment, Review, VoteState, VoteType } from '../types';
 import { Stars } from './Stars';
@@ -53,74 +54,9 @@ export function PhotoPostModal({
   };
   useEscClose(reqClose);
 
-  // Swipe-to-dismiss (Instagram/iOS-sheet pattern): when the sheet is scrolled to
-  // the top, dragging down moves it 1:1 with the finger and fades the backdrop;
-  // release past 120px OR a fast downward fling (>0.5 px/ms) dismisses, anything
-  // less springs back. Native listeners (passive:false) — React's synthetic
-  // touchmove can't preventDefault, and we must stop the scroll while dragging.
+  // swipe-down anywhere (from the scroll top) dismisses — shared app-wide pattern
   const sheetRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = sheetRef.current;
-    if (!el) return;
-    const backdrop = el.parentElement;
-    let startY = 0;
-    let lastY = 0;
-    let lastT = 0;
-    let velocity = 0;
-    let dragging = false;
-    let armed = false;
-    const start = (e: TouchEvent) => {
-      startY = lastY = e.touches[0].clientY;
-      lastT = performance.now();
-      velocity = 0;
-      armed = el.scrollTop <= 0; // only from the very top — otherwise it's a scroll
-      dragging = false;
-    };
-    const move = (e: TouchEvent) => {
-      const y = e.touches[0].clientY;
-      const dy = y - startY;
-      const now = performance.now();
-      velocity = (y - lastY) / Math.max(1, now - lastT);
-      lastY = y;
-      lastT = now;
-      if (!dragging) {
-        if (armed && dy > 8 && el.scrollTop <= 0) dragging = true;
-        else return;
-      }
-      e.preventDefault(); // the sheet follows the finger, the content must not scroll
-      const t = Math.max(0, dy);
-      el.style.transition = 'none';
-      el.style.transform = `translateY(${t}px)`;
-      if (backdrop) backdrop.style.background = `rgba(0,0,0,${Math.max(0.15, 0.5 - t / 600)})`;
-    };
-    const end = () => {
-      if (!dragging) return;
-      dragging = false;
-      const dy = lastY - startY;
-      if (dy > 120 || velocity > 0.5) {
-        // fling out: keep the momentum, then unmount
-        el.style.transition = 'transform 0.2s ease-out';
-        el.style.transform = 'translateY(100%)';
-        setTimeout(onClose, 190);
-      } else {
-        // spring back
-        el.style.transition = 'transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.2)';
-        el.style.transform = '';
-        if (backdrop) backdrop.style.background = '';
-      }
-    };
-    el.addEventListener('touchstart', start, { passive: true });
-    el.addEventListener('touchmove', move, { passive: false });
-    el.addEventListener('touchend', end, { passive: true });
-    el.addEventListener('touchcancel', end, { passive: true });
-    return () => {
-      el.removeEventListener('touchstart', start);
-      el.removeEventListener('touchmove', move);
-      el.removeEventListener('touchend', end);
-      el.removeEventListener('touchcancel', end);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  useSwipeDismiss(sheetRef, onClose);
 
   useEffect(() => {
     api.comments(review.id).then(setComments).catch(() => {});

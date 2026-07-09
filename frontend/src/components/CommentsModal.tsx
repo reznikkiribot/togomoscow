@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useRef} from 'react';
 import { api } from '../api';
 import { useEscClose } from '../modalEsc';
+import { useSwipeDismiss } from '../swipeDismiss';
 import type { Comment } from '../types';
 
 type Node = Comment & { children: Node[] };
@@ -145,6 +146,9 @@ export function CommentsModal({
     setTimeout(onClose, 220);
   };
   useEscClose(reqClose);
+  // swipe-down from the top dismisses (shared app-wide pattern)
+  const sheetRef = useRef<HTMLDivElement>(null);
+  useSwipeDismiss(sheetRef, onClose);
 
   const reply = async (parentId: string | undefined, t: string) => {
     setModErr('');
@@ -180,6 +184,7 @@ export function CommentsModal({
       }}
     >
       <div
+        ref={sheetRef}
         className={'modal cmt-modal' + (closing ? ' closing' : '')}
         onClick={(e) => e.stopPropagation()}
       >
