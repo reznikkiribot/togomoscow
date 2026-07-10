@@ -95,6 +95,43 @@ const instantHeaders = (): Record<string, string> => {
   return data ? { Authorization: `tma ${data}` } : {};
 };
 
+// Client-side photo shrink: decode → fit into 1600px → JPEG q0.82. Falls back to
+// the original file when decoding fails (odd formats) — the server still accepts it.
+async function compressImage(file: File): Promise<File> {
+  if (!/^image\//.test(file.type) && file.type !== '') return file;
+  if (file.size < 400_000) return file; // already small — don't touch
+  try {
+    const bitmap = await createImageBitmap(file).catch(async () => {
+      // Safari fallback: decode through an <img>
+      const url = URL.createObjectURL(file);
+      try {
+        const img = new Image();
+        await new Promise((res, rej) => { img.onload = res; img.onerror = rej; img.src = url; });
+        return img as unknown as ImageBitmap;
+      } finally {
+        URL.revokeObjectURL(url);
+      }
+    });
+    const w = (bitmap as any).width as number;
+    const h = (bitmap as any).height as number;
+    if (!w || !h) return file;
+    const scale = Math.min(1, 1600 / Math.max(w, h));
+    const cw = Math.round(w * scale);
+    const ch = Math.round(h * scale);
+    const canvas = document.createElement('canvas');
+    canvas.width = cw;
+    canvas.height = ch;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return file;
+    ctx.drawImage(bitmap as CanvasImageSource, 0, 0, cw, ch);
+    const blob: Blob | null = await new Promise((res) => canvas.toBlob(res, 'image/jpeg', 0.82));
+    if (!blob || blob.size >= file.size) return file;
+    return new File([blob], (file.name || 'photo').replace(/\.\w+$/, '') + '.jpg', { type: 'image/jpeg' });
+  } catch {
+    return file;
+  }
+}
+
 async function http<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`/api${path}`, init);
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -365,8 +402,12 @@ export const api = {
     postJson(`/admin/items/${venueId}/${itemId}`, body),
 
   async upload(file: File): Promise<string> {
+    // compress ON THE PHONE before sending: an 8MB camera shot over LTE takes
+    // many seconds and aborts ("Request aborted" in multer) — a 1600px JPEG
+    // (~300KB) uploads in well under a second and looks identical on cards
+    const body = await compressImage(file);
     const fd = new FormData();
-    fd.append('file', file);
+    fd.append('file', body, body.name);
     const res = await fetch('/api/uploads', {
       method: 'POST',
       headers: await authHeaders(),
@@ -379,8 +420,9 @@ export const api = {
 
   // ── photo recognition ──────────────────────────────────────────────────────
   async recognize(file: File, mode = 'auto'): Promise<import('./types').RecognizeResult> {
+    const body = await compressImage(file); // CLIP works on 224px crops — 1600px is plenty
     const fd = new FormData();
-    fd.append('file', file);
+    fd.append('file', body, body.name);
     fd.append('mode', mode);
     const res = await fetch('/api/vision/recognize', { method: 'POST', headers: await authHeaders(), body: fd });
     if (!res.ok) {
