@@ -19,6 +19,7 @@ import { pushRecent } from '../recent';
 import { cuisineTags } from '../cuisine';
 import { beerStyle } from '../tasting';
 import { useCategoryProgress } from '../categoryGate';
+import { composeStoryImage } from '../storyImage';
 
 const TYPE_LABEL: Record<Listing['type'], string> = {
   RESTAURANT: 'Ресторан',
@@ -1434,7 +1435,15 @@ export function ListingDetailModal({
             if (myMedia && data.type !== 'RESTAURANT' && !noStory) {
               // the user's own note becomes the story caption; fall back to the name
               const caption = media?.text?.trim() || `${data.name} — пробую в togomoscow 🍽`;
-              shareToStory(myMedia, caption, `l_${data.id}`);
+              if (media?.photo) {
+                // compose a real 9:16 slide: photo CONTAIN (horizontal shots no longer
+                // stretched) + the app link pill bottom-right baked into the image
+                composeStoryImage(media.photo).then((slide) =>
+                  shareToStory(slide ?? myMedia, caption, `l_${data.id}`),
+                );
+              } else {
+                shareToStory(myMedia, caption, `l_${data.id}`); // video → as-is
+              }
             }
             // instant meaning: where this lands in your personal ranking + what to taste next
             if (data.type !== 'RESTAURANT') {

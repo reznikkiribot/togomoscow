@@ -1,9 +1,11 @@
-import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { Prisma, Role, VoteType } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
+import { UploadsService } from '../uploads/uploads.service';
+import { ClipService } from '../vision/clip.service';
 
 // auto-moderation: obvious profanity / spam is rejected before a comment is saved
-const PROFANITY = /(?:\bхуй|хуё|хуя|пизд|\bебать|ебан|ёбан|бляд|\bсук[аи]\b|мудак|долбоёб|пидор|гандон|залуп)/i;
+const PROFANITY = /(?:\bхуй|хуё|хуя|пизд|\bебать|ебан|ёбан|бляд|\bсук[аи]\b|мудак|долбоёб|пидор|гандон|залуп|хер\b|хуе|мразь|тварь|шлюх|уёбок|уебок|ниггер|даун\b|дебил)/i;
 // NB: outer group is non-capturing so the `(.)\1{6,}` backreference points at the
 // `(.)` (group 1) — with a capturing outer group `\1` was empty and matched EVERY char.
 const SPAM = /(?:https?:\/\/|www\.|t\.me\/|@[a-z0-9_]{4,}|\b\d{10,}\b|(.)\1{6,})/i;
@@ -18,7 +20,33 @@ export interface CreateReviewDto {
 
 @Injectable()
 export class ReviewsService {
-  constructor(private readonly prisma: PrismaService) {}
+  private readonly log = new Logger('Reviews');
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly uploads: UploadsService,
+    private readonly clip: ClipService,
+  ) {}
+
+  /** CLIP zero-shot check of an uploaded review photo.
+   *  Returns { block } for explicit content (photo is dropped entirely) and
+   *  { promote } — whether it may become the ITEM CARD photo (must look like
+   *  food/drink; faces, screenshots and diagrams stay inside the review only). */
+  private async checkReviewPhoto(url: string): Promise<{ block: boolean; promote: boolean }> {
+    const key = url.match(/\/api\/files\/([\w-]+)/)?.[1];
+    if (!key) return { block: false, promote: false }; // external/unknown → never promote
+    try {
+      const obj = await this.uploads.get(key);
+      const chunks: Buffer[] = [];
+      for await (const c of obj.body) chunks.push(c as Buffer);
+      const m = await this.clip.moderatePhoto(Buffer.concat(chunks));
+      if (!m) return { block: false, promote: true }; // moderation down → don't punish users
+      if (m.nsfw > 0.5) return { block: true, promote: false };
+      // card faces must clearly be food/drink — selfies and screenshots stay in the review
+      return { block: false, promote: m.food >= 0.5 && m.person < 0.35 };
+    } catch {
+      return { block: false, promote: true };
+    }
+  }
 
   /** All comments on a review (flat, oldest first) — frontend builds the tree. */
   async comments(reviewId: string) {
@@ -83,13 +111,18 @@ export class ReviewsService {
    *  (a 2nd/3rd photo adds, never replaces) and sets the card face if there's none yet. */
   async addPhoto(_userId: string, listingId: string, url: string) {
     if (!url || !/^https?:\/\/|^\//.test(url)) throw new BadRequestException('bad url');
+    // same gate as review photos: no explicit content, only food lands on the card
+    const check = await this.checkReviewPhoto(url);
+    if (check.block) throw new BadRequestException('Фото не прошло модерацию');
+    if (!check.promote) throw new BadRequestException('На фото не похоже на блюдо или напиток');
     const l = await this.prisma.listing.findUnique({
       where: { id: listingId },
       select: { photoUrl: true, photos: true },
     });
     const photos = [...new Set([...(l?.photos ?? []), url])];
+    const faceIsUgc = !!l?.photoUrl?.startsWith('/api/files/');
     await this.prisma.listing
-      .update({ where: { id: listingId }, data: { photos, ...(l?.photoUrl ? {} : { photoUrl: url }) } })
+      .update({ where: { id: listingId }, data: { photos, ...(faceIsUgc ? {} : { photoUrl: url }) } })
       .catch(() => {});
     return { ok: true };
   }
@@ -98,6 +131,18 @@ export class ReviewsService {
     const rating = Math.max(1, Math.min(5, Number(dto.rating) || 0));
     // every review goes through moderation (admin approves in the cabinet)
     const status: 'APPROVED' | 'PENDING' = 'PENDING';
+    // photo moderation: explicit content is dropped entirely; non-food photos
+    // (selfies, screenshots) stay in the review but never become the card photo
+    let promoteToCard = false;
+    if (dto.photoUrls?.length) {
+      const check = await this.checkReviewPhoto(dto.photoUrls[0]);
+      if (check.block) {
+        this.log.warn(`review photo blocked (explicit) user=${userId} listing=${listingId}`);
+        dto.photoUrls = [];
+      } else {
+        promoteToCard = check.promote;
+      }
+    }
     const review = await this.prisma.review.upsert({
       where: { listingId_userId: { listingId, userId } },
       create: {
@@ -120,17 +165,20 @@ export class ReviewsService {
       },
     });
     // review photos ACCUMULATE into the listing gallery (deduped); the first real
-    // photo also becomes the card face if there isn't one yet.
-    if (dto.photoUrls?.length) {
+    // photo also becomes the card face if there isn't one yet — but ONLY photos
+    // that passed the food check (faces/screenshots never surface on catalog cards)
+    if (dto.photoUrls?.length && promoteToCard) {
       const l = await this.prisma.listing.findUnique({
         where: { id: listingId },
         select: { photoUrl: true, photos: true },
       });
       const photos = [...new Set([...(l?.photos ?? []), ...dto.photoUrls])];
+      const faceIsUgc = !!l?.photoUrl?.startsWith('/api/files/');
       await this.prisma.listing
         .update({
           where: { id: listingId },
-          data: { photos, ...(l?.photoUrl ? {} : { photoUrl: dto.photoUrls[0] }) },
+          // a real user FOOD photo beats a licensed/stock card face
+          data: { photos, ...(faceIsUgc ? {} : { photoUrl: dto.photoUrls[0] }) },
         })
         .catch(() => {});
     }

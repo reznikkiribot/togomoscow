@@ -55,4 +55,46 @@ export class ClipService implements OnModuleInit {
       return [];
     }
   }
+
+  // zero-shot moderation (same CLIP weights, text+image towers): label → score.
+  private zeroShot: any = null;
+  private zsLoading: Promise<any> | null = null;
+  private async loadZeroShot() {
+    if (this.zeroShot) return this.zeroShot;
+    if (this.zsLoading) return this.zsLoading;
+    this.zsLoading = (async () => {
+      const { pipeline, env } = await import('@xenova/transformers');
+      (env as any).cacheDir = process.env.CLIP_CACHE || './.models-cache';
+      this.zeroShot = await pipeline('zero-shot-image-classification', this.model);
+      this.log.log('CLIP zero-shot ready');
+      return this.zeroShot;
+    })();
+    return this.zsLoading;
+  }
+
+  /** Photo moderation: what IS this picture? Scores sum to ~1 across labels.
+   *  Used to keep NSFW out entirely and faces/documents off the catalog cards. */
+  async moderatePhoto(input: Buffer): Promise<{ food: number; person: number; nsfw: number; other: number } | null> {
+    try {
+      const zs = await this.loadZeroShot();
+      const img = await this.RawImage.fromBlob(new Blob([new Uint8Array(input)]));
+      const LABELS = [
+        'a photo of food or a drink', // food
+        'a photo of a person or a selfie', // person
+        'explicit adult content', // nsfw
+        'a screenshot, document or diagram', // other
+      ];
+      const out = await zs(img, LABELS);
+      const score = (label: string) => out.find((o: any) => o.label === label)?.score ?? 0;
+      return {
+        food: score(LABELS[0]),
+        person: score(LABELS[1]),
+        nsfw: score(LABELS[2]),
+        other: score(LABELS[3]),
+      };
+    } catch (e: any) {
+      this.log.warn(`moderatePhoto failed: ${e?.message}`);
+      return null; // moderation unavailable → don't block users
+    }
+  }
 }
