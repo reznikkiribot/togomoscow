@@ -80,10 +80,19 @@ export function ListingCard({
                 <span className="meta">({listing.reviewCount} {ratingsWord(listing.reviewCount)})</span>
               </>
             ) : (
-              // consistent everywhere: 5 grey stars + "Нет оценок"
+              // consistent everywhere: 5 grey stars + "Нет оценок". When others are
+              // already eyeing this card, say so — social proof beats a bare zero.
               <>
                 <Stars value={0} />
-                <span className="no-rating">Нет оценок</span>
+                {((listing as any).wantCount ?? 0) > 0 || ((listing as any).viewCount ?? 0) > 1 ? (
+                  <span className="no-rating proof">
+                    {((listing as any).viewCount ?? 0) > 1 ? `👀 ${(listing as any).viewCount}` : ''}
+                    {((listing as any).viewCount ?? 0) > 1 && ((listing as any).wantCount ?? 0) > 0 ? ' · ' : ''}
+                    {((listing as any).wantCount ?? 0) > 0 ? `❤️ ${(listing as any).wantCount}` : ''}
+                  </span>
+                ) : (
+                  <span className="no-rating">Нет оценок</span>
+                )}
               </>
             )}
           </div>

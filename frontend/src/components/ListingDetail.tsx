@@ -235,6 +235,8 @@ export function ListingDetailModal({
 }) {
   const [id, setId] = useState(initialId);
   const [data, setData] = useState<ListingDetail | null>(null);
+  // «Первый дегустатор» — the card's history starts with this person
+  const [firstTaster, setFirstTaster] = useState<{ user: { id: string; firstName?: string | null; username?: string | null }; at: string } | null>(null);
   // the viewer's own avatar for the "Оцените" block (cached per session)
   const [myAvatar, setMyAvatar] = useState<string | null>(() => {
     try { return sessionStorage.getItem('myAvatar'); } catch { return null; }
@@ -406,6 +408,11 @@ export function ListingDetailModal({
       .then((d) => {
         setData(d);
         pushRecent({ ...(d as Listing), placeholderPhoto: d.placeholderPhotos?.[0] ?? null });
+        // the card's history: who tasted it first (only when reviews exist)
+        setFirstTaster(null);
+        if (d.reviewCount > 0 && d.type !== 'RESTAURANT') {
+          api.firstTasterOf(id).then(setFirstTaster).catch(() => {});
+        }
       })
       .catch(() => {});
   }, [id]);
@@ -1234,6 +1241,13 @@ export function ListingDetailModal({
 
         <div ref={reviewsRef} className="feed-section">
           <div className="section-title big">Отзывы ({data.reviewCount})</div>
+          {firstTaster && (
+            <div className="first-taster-line">
+              🏅 Первый дегустатор: <b>{firstTaster.user.firstName || firstTaster.user.username || 'гурман'}</b>
+              {' · '}
+              {new Date(firstTaster.at).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })}
+            </div>
+          )}
           <div className="tab-pane">
             <div className="rate-block">
               <div className="rb-head">

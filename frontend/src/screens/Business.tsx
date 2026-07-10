@@ -37,6 +37,10 @@ export default function Business() {
   const [adminSupport, setAdminSupport] = useState<SupportMsg[]>([]);
   const [adminUsers, setAdminUsers] = useState<AdminUser[]>([]);
   const [adminChal, setAdminChal] = useState<AdminChallenge[]>([]);
+  // live gamification config: key → JSON text being edited
+  const [gameCfg, setGameCfg] = useState<Record<string, unknown> | null>(null);
+  const [cfgDraft, setCfgDraft] = useState<Record<string, string>>({});
+  const [cfgStatus, setCfgStatus] = useState<Record<string, string>>({});
   const [chForm, setChForm] = useState({ title: '', category: '', target: '5', days: '14' });
   const [openSec, setOpenSec] = useState<string | null>(null);
   const [mySubs, setMySubs] = useState<BusinessSubmission[]>([]);
@@ -78,6 +82,24 @@ export default function Business() {
     api.adminSupport().then(setAdminSupport).catch(() => {});
     api.adminUsers().then(setAdminUsers).catch(() => {});
     api.adminChallenges().then(setAdminChal).catch(() => {});
+    api.adminGameConfig().then((c) => setGameCfg(c.current)).catch(() => {});
+  };
+
+  const saveCfg = (key: string) => {
+    let value: unknown;
+    try {
+      value = JSON.parse(cfgDraft[key]);
+    } catch {
+      setCfgStatus((s) => ({ ...s, [key]: '⚠️ невалидный JSON' }));
+      return;
+    }
+    api
+      .adminGameConfigSet(key, value)
+      .then(() => {
+        setCfgStatus((s) => ({ ...s, [key]: '✓ сохранено, применится сразу' }));
+        setGameCfg((g) => (g ? { ...g, [key]: value } : g));
+      })
+      .catch(() => setCfgStatus((s) => ({ ...s, [key]: '⚠️ ошибка сохранения' })));
   };
 
   const createChallenge = () => {
@@ -353,6 +375,38 @@ export default function Business() {
               </div>
             </button>
           ))}
+          </Acc>
+
+          <Acc id="gamecfg" title="Геймификация (live-конфиг)" count={gameCfg ? Object.keys(gameCfg).length : 0} openSec={openSec} setOpenSec={setOpenSec}>
+            {!gameCfg ? (
+              <div className="empty">Загрузка…</div>
+            ) : (
+              <>
+                <div className="meta" style={{ color: 'var(--hint)', marginBottom: 8 }}>
+                  Пороги, уровни, достижения — правки применяются без деплоя (кэш до 60 сек).
+                </div>
+                {Object.entries(gameCfg).map(([key, value]) => (
+                  <div key={key} className="biz-card">
+                    <b>{key}</b>
+                    <textarea
+                      className="cfg-edit"
+                      rows={4}
+                      value={cfgDraft[key] ?? JSON.stringify(value, null, 1)}
+                      onChange={(e) => {
+                        setCfgDraft((d) => ({ ...d, [key]: e.target.value }));
+                        setCfgStatus((s) => ({ ...s, [key]: '' }));
+                      }}
+                    />
+                    <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginTop: 6 }}>
+                      <button className="btn" style={{ padding: '8px 14px' }} onClick={() => saveCfg(key)}>
+                        Сохранить
+                      </button>
+                      {cfgStatus[key] && <span className="meta">{cfgStatus[key]}</span>}
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
           </Acc>
         </>
       )}

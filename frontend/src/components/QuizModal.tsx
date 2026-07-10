@@ -48,6 +48,35 @@ export function QuizModal({ onDone }: { onDone: () => void }) {
       .catch(() => setBusy(false));
   };
 
+  // mission greeting — once, only for genuinely new users (not «Изменить вкусы»)
+  const [intro, setIntro] = useState(() => {
+    try { return !localStorage.getItem('welcomeSeen'); } catch { return false; }
+  });
+  const closeIntro = () => {
+    try { localStorage.setItem('welcomeSeen', '1'); } catch { /* private mode */ }
+    setIntro(false);
+  };
+
+  if (intro) {
+    return (
+      <div className="quiz">
+        <div className="quiz-inner">
+          <div className="quiz-hero">🥂</div>
+          <h2 className="quiz-h">Это клуб дегустаторов Москвы</h2>
+          <p className="quiz-sub">
+            Здесь не читают чужие обзоры — здесь пробуют сами.
+          </p>
+          <div className="welcome-points">
+            <div className="wp"><span>⭐</span> Оценивайте блюда и напитки — каждая оценка обучает ваши личные рекомендации</div>
+            <div className="wp"><span>🔓</span> Первые 5 оценок открывают рейтинги категории — вы видите лучшее по мнению клуба</div>
+            <div className="wp"><span>🏅</span> Попробовали первым — ваше имя останется в истории карточки навсегда</div>
+          </div>
+          <button className="btn" onClick={closeIntro}>Стать дегустатором</button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="quiz">
       <div className="quiz-inner">

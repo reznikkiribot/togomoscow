@@ -53,6 +53,7 @@ export default function MyRatings() {
     api.profile().then((p) => { setProfile(p); writeCache({ profile: p }); }).catch(() => {});
     api.myReviews().then((r) => { setReviews(r); writeCache({ reviews: r }); }).catch(() => {});
     api.tasteProfile().then((t) => { setTaste(t); writeCache({ taste: t }); }).catch(() => {});
+    api.specializations().then(setSpecs).catch(() => {});
     api.ownerVenues().then(setOwned).catch(() => {});
     setRecent(getRecent());
   };
@@ -156,6 +157,55 @@ export default function MyRatings() {
 
       {game && <GameCelebration game={game} />}
       {game && <GameProgress game={game} />}
+
+      {/* Карта дегустатора: specializations with live tiers (Знаток → Эксперт → Мастер) */}
+      {specs.some((s) => s.count > 0) && (
+        <div className="me-section">
+          <h2 className="me-h">🗺 Карта дегустатора</h2>
+          <div className="spec-grid">
+            {specs
+              .filter((s) => s.count > 0)
+              .sort((a, b) => b.count - a.count)
+              .map((s) => (
+                <div key={s.id} className={'spec-card' + (s.tier ? ' on' : '')}>
+                  <span className="spec-ico">{s.icon}</span>
+                  <div className="spec-body">
+                    <div className="spec-label">{s.tier ? `${s.tier} · ${s.label}` : s.label}</div>
+                    <div className="spec-meta">
+                      {s.count} дегустаций
+                      {s.next != null && ` · ещё ${s.next - s.count} до ${s.tier ? 'следующего звания' : 'звания «Знаток»'}`}
+                    </div>
+                  </div>
+                </div>
+              ))}
+          </div>
+        </div>
+      )}
+
+      {/* Репутация: как сообщество ценит ваши отзывы */}
+      {game && ((game.counters.useful ?? 0) > 0 || (game.counters.discoveries ?? 0) > 0 || game.achievements.some((a) => a.earned)) && (
+        <div className="me-section">
+          <h2 className="me-h">🏆 Репутация</h2>
+          <div className="rep-grid">
+            <div className="rep-item">
+              <b>{game.counters.useful ?? 0}</b>
+              <span>раз ваши отзывы отметили «полезно»</span>
+            </div>
+            <div className="rep-item">
+              <b>{game.counters.discoveries ?? 0}</b>
+              <span>первооткрытий — вы попробовали это первым</span>
+            </div>
+            <div className="rep-item">
+              <b>{game.achievements.filter((a) => a.earned).length}/{game.achievements.length}</b>
+              <span>достижений собрано</span>
+            </div>
+            <div className="rep-item">
+              <b>{game.counters.streak ?? 0}</b>
+              <span>дней подряд с дегустациями</span>
+            </div>
+          </div>
+        </div>
+      )}
 
       {taste && taste.topCategories && taste.topCategories.length > 0 && (
         <div className="me-section">

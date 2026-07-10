@@ -211,6 +211,14 @@ export const api = {
   profile: () => getJson<Profile>('/me/profile'),
   // gamification: unlock progress, level, achievements (+ awards new ones)
   gameState: () => getJson<import('./types').GameState>('/game/state'),
+  // admin: live gamification config (values apply within 60s, no deploy)
+  adminGameConfig: () => getJson<{ current: Record<string, unknown>; defaults: Record<string, unknown> }>('/admin/game/config'),
+  adminGameConfigSet: async (key: string, value: unknown) =>
+    http<{ ok: boolean }>('/admin/game/config', {
+      method: 'PUT',
+      headers: { ...(await authHeaders()), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ key, value }),
+    }),
   firstTasterItems: (take = 8) => getPublic<Listing[]>(`/listings/first-taster?take=${take}`),
   firstTasterOf: (listingId: string) =>
     getPublic<{ user: { id: string; firstName?: string | null; username?: string | null }; at: string } | null>(`/game/first-taster/${listingId}`),

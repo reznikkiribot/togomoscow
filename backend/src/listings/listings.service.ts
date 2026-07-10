@@ -315,10 +315,32 @@ export class ListingsService {
       }
     }
 
+    // social proof for cards with NO reviews yet: how many people are watching /
+    // want to try it ("вы не первый, кто присматривается")
+    const zeroIds = rows.filter((r) => (r as any).reviewCount === 0).map((r) => r.id);
+    const wantByListing = new Map<string, number>();
+    const viewsByListing = new Map<string, number>();
+    if (zeroIds.length) {
+      const favs = await this.prisma.favorite.groupBy({
+        by: ['listingId'],
+        where: { listingId: { in: zeroIds } },
+        _count: true,
+      });
+      for (const f of favs) wantByListing.set(f.listingId, f._count);
+      const views = await this.prisma.interaction.groupBy({
+        by: ['listingId'],
+        where: { listingId: { in: zeroIds }, type: 'VIEW' },
+        _count: true,
+      });
+      for (const v of views) viewsByListing.set(v.listingId, v._count);
+    }
+
     return rows.map((r) => ({
       ...r,
       snippet: snippetByListing.get(r.id) ?? null,
       bestVenue: bestByItem.get(r.id) ?? null,
+      wantCount: wantByListing.get(r.id) ?? undefined,
+      viewCount: viewsByListing.get(r.id) ?? undefined,
       // show at least the city when there's no street address yet
       cityLabel: inMoscow((r as any).lat, (r as any).lng) ? 'Москва' : undefined,
       metro: nearestMetro((r as any).lat, (r as any).lng), // nearest metro → "м. …" label
@@ -1361,6 +1383,12 @@ export class ListingsService {
       ...r,
       voteCounts: vmap[r.id] ?? { USEFUL: 0, FUNNY: 0, COOL: 0, OHNO: 0 },
     }));
+    // the most USEFUL reviews lead (community-curated), recency breaks ties
+    reviews.sort(
+      (a, b) =>
+        b.voteCounts.USEFUL - a.voteCounts.USEFUL ||
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+    );
 
     // for a dish/drink, tag each review with the place the user tasted it at
     let tastedAt: any[] = [];
