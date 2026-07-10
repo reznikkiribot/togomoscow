@@ -1090,6 +1090,21 @@ export class ListingsService {
     });
   }
 
+  /** Items with ZERO user reviews — "станьте первым дегустатором" (gamification).
+   *  Only real cards: with a photo and served somewhere; random pick per visit. */
+  async firstTasterItems(take = 8) {
+    const rows = await this.prisma.$queryRaw<{ id: string }[]>`
+      SELECT l.id FROM listings l
+      WHERE l.type::text IN ('DISH','DRINK')
+        AND l.review_count = 0
+        AND l.photo_url IS NOT NULL
+        AND EXISTS (SELECT 1 FROM menu_links m WHERE m.item_id = l.id AND m.status = 'APPROVED')
+      ORDER BY RANDOM() LIMIT ${Number(take)}`;
+    if (!rows.length) return [];
+    const items = await this.prisma.listing.findMany({ where: { id: { in: rows.map((r) => r.id) } } });
+    return this.enrichCards(items);
+  }
+
   /** "Топ-10 мест за неделю" — restaurants ranked by rating. */
   async topWeekly(take = 10) {
     const rows = await this.prisma.listing.findMany({

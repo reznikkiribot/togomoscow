@@ -209,6 +209,11 @@ export const api = {
     ),
 
   profile: () => getJson<Profile>('/me/profile'),
+  // gamification: unlock progress, level, achievements (+ awards new ones)
+  gameState: () => getJson<import('./types').GameState>('/game/state'),
+  firstTasterItems: (take = 8) => getPublic<Listing[]>(`/listings/first-taster?take=${take}`),
+  firstTasterOf: (listingId: string) =>
+    getPublic<{ user: { id: string; firstName?: string | null; username?: string | null }; at: string } | null>(`/game/first-taster/${listingId}`),
   stats: () => getJson<UserStats>('/me/stats'),
   specializations: () => getJson<Specialization[]>('/me/specializations'),
   tasteProfile: () => getJson<import('./types').TasteProfile>('/me/taste-profile'),

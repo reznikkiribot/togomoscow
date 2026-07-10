@@ -245,6 +245,12 @@ export class RecsysService {
     }
     const pick = pool.slice(0, Number(take));
 
+    // "match %" (unlocked after N ratings, gamification): calibrated from the
+    // internal score — 60% floor (it passed the filters) up to 97% (never a
+    // fake-certain 100). Only meaningful once the user HAS a taste profile.
+    const showPct = rated.length >= 10;
+    const maxS = Math.max(0.5, ...pool.map((x) => x.s));
+
     const cards = await this.listings.enrichCards(pick.map((x) => x.it));
     return cards.map((c, i) => {
       // pick one real venue for this dish (random among its places → variety)
@@ -252,7 +258,8 @@ export class RecsysService {
       const links = ((pick[i].it as any).servedAt ?? []).filter((l: any) => l.venue);
       const link = links.length ? links[Math.floor(Math.random() * links.length)] : undefined;
       const recVenue = link ? { ...link.venue, price: link.price ?? null } : undefined;
-      return { ...c, recReason: pick[i].why, recVenue };
+      const matchPct = showPct ? Math.round(60 + 37 * Math.max(0, Math.min(1, pick[i].s / maxS))) : undefined;
+      return { ...c, recReason: pick[i].why, recVenue, matchPct };
     });
   }
 

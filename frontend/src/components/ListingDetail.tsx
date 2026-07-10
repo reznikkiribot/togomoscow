@@ -296,6 +296,13 @@ export function ListingDetailModal({
   const mediaRef = useRef<HTMLDivElement>(null);
   const photoInputRef = useRef<HTMLInputElement>(null); // "Добавить фото" (no review)
   const [photoBusy, setPhotoBusy] = useState(false);
+  // human motivation after each rating — never "+10 XP" (gamification philosophy)
+  const [rateToast, setRateToast] = useState('');
+  const RATE_PHRASES = [
+    '✨ Теперь приложение лучше понимает ваш вкус',
+    '🎯 Ваш профиль стал точнее',
+    '🤖 Точность рекомендаций увеличилась',
+  ];
   const shareRef = useRef<{ photo?: string; text?: string }>({}); // last check-in's photo+note for "Отправить другу"
   const closeRef = useRef(requestClose);
   closeRef.current = requestClose;
@@ -1421,6 +1428,12 @@ export function ListingDetailModal({
           onSaved={(media) => {
             const ratedId = reviewTarget?.id ?? data.id;
             setShowReview(false);
+            // first review of the card → discovery phrase; else a rotating one
+            const phrase = data.reviewCount === 0
+              ? '🏅 Вы открыли это для сообщества — вы первый дегустатор!'
+              : RATE_PHRASES[Math.floor(Math.random() * RATE_PHRASES.length)];
+            setRateToast(phrase);
+            setTimeout(() => setRateToast(''), 3200);
             setReviewTarget(null);
             setReviewVenue(null);
             load();
@@ -1457,6 +1470,7 @@ export function ListingDetailModal({
           }}
         />
       )}
+      {rateToast && <div className="game-toast">{rateToast}</div>}
       {tasteResult && (
         <TasteResult
           data={tasteResult.data}

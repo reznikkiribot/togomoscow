@@ -64,7 +64,7 @@ export default function App() {
         </NavLink>
         <NavLink to="/favorites" className={cls}>
           <span className="ico">🔖</span>
-          Избранное
+          Хочу попробовать
         </NavLink>
         <NavLink to="/me" className={cls}>
           <span className="ico">👤</span>

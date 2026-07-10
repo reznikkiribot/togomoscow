@@ -7,6 +7,7 @@ import { ListingDetailModal } from '../components/ListingDetail';
 import { PeopleModal, UserProfileModal } from '../components/People';
 import { ReviewForm } from '../components/ReviewForm';
 import { ReviewCard, CategoryAverages } from '../components/ReviewCard';
+import { GameProgress, GameCelebration, useGameState } from '../components/GameProgress';
 import { PhotoPostModal } from '../components/PhotoPostModal';
 import { Stars } from '../components/Stars';
 import { VenuePhoto } from '../components/VenuePhoto';
@@ -46,6 +47,7 @@ export default function MyRatings() {
   const [recent, setRecent] = useState<Listing[]>([]);
   const [noStory, setNoStory] = useState(localStorage.getItem('noStoryOnReview') === '1');
   const [photoReview, setPhotoReview] = useState<Review | null>(null);
+  const game = useGameState();
 
   const load = () => {
     api.profile().then((p) => { setProfile(p); writeCache({ profile: p }); }).catch(() => {});
@@ -152,7 +154,8 @@ export default function MyRatings() {
         </button>
       </div>
 
-      {/* «Прогресс» и «Специализации» скрыты пока — логика ещё не доработана */}
+      {game && <GameCelebration game={game} />}
+      {game && <GameProgress game={game} />}
 
       {taste && taste.topCategories && taste.topCategories.length > 0 && (
         <div className="me-section">
@@ -178,6 +181,27 @@ export default function MyRatings() {
         </div>
       )}
 
+      {game && !game.unlocks.find((u) => u.key === 'tasteProfile')?.unlocked ? (
+        <div className="me-section">
+          <h2 className="me-h">🔒 Вкусовой профиль</h2>
+          {(() => {
+            const u = game.unlocks.find((x) => x.key === 'tasteProfile')!;
+            return (
+              <div className="game-unlock">
+                <span className="game-unlock-ico">🔒</span>
+                <div style={{ flex: 1 }}>
+                  <div className="acc-track" style={{ marginTop: 4 }}>
+                    <div className="acc-fill" style={{ width: `${Math.min(100, (u.have / u.need) * 100)}%` }} />
+                  </div>
+                  <div className="game-unlock-sub">
+                    {Math.min(u.have, u.need)}/{u.need} — оцените первые {u.need} блюд или напитков, и мы покажем: {u.teaser}
+                  </div>
+                </div>
+              </div>
+            );
+          })()}
+        </div>
+      ) : (
       <div className="me-section">
         <h2 className="me-h">О вкусе</h2>
         <div className="impact-tabs">
@@ -248,6 +272,8 @@ export default function MyRatings() {
         )}
       </div>
 
+      )}
+
       {reviews.length > 0 && (
         <div className="me-section">
           <h2 className="me-h">Оценки по категориям</h2>
@@ -291,7 +317,7 @@ export default function MyRatings() {
           <span className="chev">›</span>
         </button>
         <button className="contrib-row link" onClick={() => nav('/favorites?from=profile')}>
-          <span>🔖 Избранное</span>
+          <span>🔖 Хочу попробовать</span>
           <span className="chev">›</span>
         </button>
         <button

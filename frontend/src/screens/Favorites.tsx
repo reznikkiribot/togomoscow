@@ -51,10 +51,10 @@ export default function Favorites() {
             ←
           </button>
         )}
-        <h2>{type ? TITLE[type] : 'Избранное'}</h2>
+        <h2>{type ? TITLE[type] : 'Хочу попробовать'}</h2>
       </div>
       {shown.length === 0 ? (
-        <div className="empty">Пока пусто. Нажимай «В избранное» на карточках, чтобы сохранить.</div>
+        <div className="empty">Пока пусто. Нажимайте «Хочу попробовать» на карточках — они соберутся здесь.</div>
       ) : (
         <div className="grid">
           {shown.map((f) => (

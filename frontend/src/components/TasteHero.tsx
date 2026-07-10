@@ -126,10 +126,13 @@ export function TasteHero({
         {!isUserPhoto(item.photoUrl) && (
           <span className="info-photo-badge">📷 Фото информационное</span>
         )}
+        {(item as any).matchPct != null && (
+          <span className="match-pct">🤖 {(item as any).matchPct}% совпадение</span>
+        )}
         {item.recVenue && (item.recVenue as any).price != null && (
           <span className="newdish-price hero-price-badge">{(item.recVenue as any).price} ₽</span>
         )}
-        {hint === 'right' && <div className="swipe-tag like">♥ В избранное</div>}
+        {hint === 'right' && <div className="swipe-tag like">♥ Хочу попробовать</div>}
         {hint === 'left' && <div className="swipe-tag nope">Не люблю</div>}
         {hint === 'down' && <div className="swipe-tag nope">Скрыть ↓</div>}
       </div>
@@ -151,10 +154,10 @@ export function TasteHero({
             <span className="hero-rating-val no">Нет оценок</span>
           )}
         </div>
-        <div className="hero-rate-hint">← не люблю · в избранное →</div>
+        <div className="hero-rate-hint">← не люблю · хочу попробовать →</div>
         <div className="hero-actions">
           <button className="hero-btn fav" onClick={onFavorite}>
-            {favorite ? '♥ В избранном' : '♡ В избранное'}
+            {favorite ? '✓ Хочу попробовать' : '♡ Хочу попробовать'}
           </button>
         </div>
       </div>

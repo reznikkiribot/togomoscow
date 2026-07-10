@@ -99,6 +99,12 @@ export class ListingsController {
     return this.listings.topWeekly();
   }
 
+  // «Станьте первым дегустатором» — items nobody has reviewed yet (gamification)
+  @Get('first-taster')
+  firstTaster(@Query('take') take?: string) {
+    return this.listings.firstTasterItems(take ? Number(take) : undefined);
+  }
+
   // personalized picks from the user's chosen categories (quiz)
   @Get('recommended-for')
   recommendedFor(@Query('cats') cats?: string) {

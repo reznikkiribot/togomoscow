@@ -79,6 +79,7 @@ model User {
   dislikes        Dislike[]
   comments        Comment[]
   recognitionFeedback RecognitionFeedback[]
+  achievements        UserAchievement[]
 
   @@map("users")
 }
@@ -508,4 +509,29 @@ model RecognitionFeedback {
   @@index([userId, createdAt])
   @@index([chosenId])
   @@map("recognition_feedback")
+}
+
+// ===== Gamification (2026-07-10) =====
+// Live-editable config: levels, unlock thresholds, achievements, specializations —
+// admin changes apply instantly (no redeploy). One row per config key.
+model GameConfig {
+  key       String   @id
+  value     Json
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("game_config")
+}
+
+// Earned achievements / unlock celebrations already shown (so we congratulate once).
+model UserAchievement {
+  id       String   @id @default(uuid())
+  userId   String   @map("user_id")
+  key      String // achievement or unlock key from GameConfig
+  earnedAt DateTime @default(now()) @map("earned_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, key])
+  @@index([userId])
+  @@map("user_achievements")
 }

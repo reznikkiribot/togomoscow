@@ -363,3 +363,20 @@ export interface Claim {
   listing?: Listing;
   user?: { id: string; firstName?: string | null; username?: string | null; telegramId?: string };
 }
+
+// ===== gamification =====
+export interface GameUnlock {
+  key: string; title: string; icon: string; need: number; metric: string;
+  teaser: string; have: number; unlocked: boolean;
+}
+export interface GameAchievement {
+  key: string; title: string; icon: string; metric: string; need: number;
+  have: number; earned: boolean;
+}
+export interface GameState {
+  counters: Record<string, number>;
+  level: { key: string; title: string; icon: string; need: number; nextAt: number | null; nextTitle: string | null };
+  unlocks: GameUnlock[];
+  achievements: GameAchievement[];
+  justEarned: string[];
+}

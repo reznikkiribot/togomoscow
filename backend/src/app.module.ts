@@ -17,6 +17,7 @@ import { RecsysModule } from './recsys/recsys.module';
 import { EventsModule } from './events/events.module';
 import { SheetModule } from './sheet/sheet.module';
 import { VisionModule } from './vision/vision.module';
+import { GameModule } from './game/game.module';
 import { HealthController } from './health/health.controller';
 
 @Module({
@@ -39,6 +40,7 @@ import { HealthController } from './health/health.controller';
     EventsModule,
     SheetModule,
     VisionModule,
+    GameModule,
   ],
   controllers: [HealthController],
 })

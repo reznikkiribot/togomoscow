@@ -152,7 +152,7 @@ export function ListRow({
             className={'fav-btn' + (favorite ? ' on' : '')}
             onClick={(e) => { e.stopPropagation(); onToggleFavorite(); }}
           >
-            {favorite ? '♥ В избранном' : '♡ В избранное'}
+            {favorite ? '✓ Хочу попробовать' : '♡ Хочу попробовать'}
           </button>
         )}
         {listing.phone && (

@@ -33,6 +33,9 @@ export function ListingCard({
           {!isUserPhoto(listing.photoUrl) && (
             <span className="info-photo-badge">📷 Фото информационное</span>
           )}
+          {(listing as any).matchPct != null && (
+            <span className="match-pct">🤖 {(listing as any).matchPct}%</span>
+          )}
           {/* price on the photo (bottom-left) only when tied to a specific venue */}
           {listing.recVenue && (listing.recVenue as any).price != null && (
             <span className="newdish-price">{(listing.recVenue as any).price} ₽</span>
@@ -111,7 +114,7 @@ export function ListingCard({
                   onToggleFavorite();
                 }}
               >
-                {favorite ? '♥ В избранном' : '♡ В избранное'}
+                {favorite ? '✓ Хочу попробовать' : '♡ Хочу попробовать'}
               </button>
             )}
           </div>

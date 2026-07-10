@@ -122,6 +122,7 @@ export default function Home() {
   const [deepId, setDeepId] = useState<string | null>(null);
   const [deepVenue, setDeepVenue] = useState<{ id: string; name: string } | null>(null);
   const [events, setEvents] = useState<VenueEvent[]>([]);
+  const [firstTaster, setFirstTaster] = useState<Listing[]>([]);
   // taste-personalized new dishes — re-fetched by loadFeeds so they refresh on
   // every return to home (a fresh shuffled set), not only on first mount.
   const loadEvents = useCallback(() => {
@@ -189,6 +190,7 @@ export default function Home() {
     cachedLoad('recsys', () => api.recsysFeed(30).catch(() => api.recommended()), setRecommendedFast, () => setFeedLoaded(true));
     cachedLoad('feed', () => api.feed(), setFeed);
     cachedLoad('follow', () => api.followingFeed(), setFollowFeed);
+    cachedLoad('firstTaster', () => api.firstTasterItems(8), setFirstTaster);
     cachedLoad('topDish', () => api.listings('DISH', undefined, { sort: 'rating', take: 12 }), setTopDishesFast);
     cachedLoad('topDrink', () => api.listings('DRINK', undefined, { sort: 'rating', take: 12 }), setTopDrinksFast);
     cachedLoad('smart', () => api.recommendedSmart(recentCats), setSmartFast);
@@ -627,6 +629,13 @@ export default function Home() {
                   openListing(heroItem);
                 }}
               />
+            </>
+          )}
+          {firstTaster.length > 0 && (
+            <>
+              <div className="section-title">🏅 Станьте первым дегустатором</div>
+              <p className="ft-sub">Ваш отзыв станет частью истории карточки</p>
+              <div className="feed">{firstTaster.map(card)}</div>
             </>
           )}
           {ratePool.length > 1 && (

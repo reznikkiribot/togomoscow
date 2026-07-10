@@ -4964,3 +4964,33 @@ button:active,
   width: 100%;
   margin: 4px 0 14px;
 }
+
+/* gamification */
+.game-level { display: flex; gap: 12px; align-items: center; }
+.game-level-ico { font-size: 34px; }
+.game-level-title { font-weight: 800; font-size: 17px; }
+.game-level-sub, .game-unlock-sub { color: var(--hint); font-size: 12.5px; margin-top: 3px; }
+.game-unlock { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.game-unlock:last-child { border-bottom: none; }
+.game-unlock-ico { font-size: 22px; width: 28px; text-align: center; }
+.game-unlock-title { font-weight: 700; font-size: 14.5px; }
+.game-unlock.open .game-unlock-title { color: var(--text); }
+.game-unlock-sub.open { color: #2e7d32; font-weight: 600; }
+.game-achievements { display: flex; flex-wrap: wrap; gap: 8px; }
+.game-ach { display: flex; align-items: center; gap: 6px; background: #f5f5f5; border-radius: 999px; padding: 7px 12px; font-size: 13px; font-weight: 600; }
+.game-ach-ico { font-size: 16px; }
+.game-toast {
+  position: fixed; left: 50%; bottom: calc(96px + env(safe-area-inset-bottom));
+  transform: translateX(-50%); z-index: 4000;
+  background: var(--accent); color: #fff; font-weight: 700; font-size: 14px;
+  padding: 12px 18px; border-radius: 999px; box-shadow: 0 6px 20px rgba(211,35,35,0.4);
+  animation: fadeUp 0.3s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  max-width: 90vw; text-align: center;
+}
+.match-pct {
+  position: absolute; right: 8px; bottom: 8px; z-index: 2;
+  background: rgba(211,35,35,0.92); color: #fff; font-weight: 800; font-size: 13px;
+  padding: 4px 10px; border-radius: 999px;
+}
+
+.ft-sub { color: var(--hint); font-size: 12.5px; margin: -6px 2px 8px; }
