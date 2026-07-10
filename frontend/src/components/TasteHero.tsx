@@ -14,6 +14,7 @@ export function TasteHero({
   onSkip,
   onShuffle,
   onOpenItem,
+  onRate,
 }: {
   item: Listing;
   favorite?: boolean;
@@ -21,6 +22,7 @@ export function TasteHero({
   onSkip: () => void; // swipe left = "не люблю" (negative taste signal)
   onShuffle: () => void; // swipe down → next card
   onOpenItem: () => void;
+  onRate?: (rating: number) => void; // tap a star → rate flow with it preselected
 }) {
   const [dx, setDx] = useState(0);
   const [dy, setDy] = useState(0);
@@ -143,15 +145,33 @@ export function TasteHero({
         ) : (
           item.category && <div className="hero-cat">{item.category}</div>
         )}
-        {/* rating (grey stars + "Нет оценок" when none) — same style as the cards */}
+        {/* rating row. With onRate the stars are TAPPABLE (tap = start rating with
+            that many stars) — same qr-star affordance as the small cards. */}
         <div className="hero-rating">
-          <Stars value={item.reviewCount > 0 ? item.avgRating : 0} />
+          {onRate ? (
+            <div className="qr" onClick={(e) => e.stopPropagation()}>
+              {[1, 2, 3, 4, 5].map((n) => (
+                <button
+                  key={n}
+                  className="qr-star"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onRate(n);
+                  }}
+                >
+                  ★
+                </button>
+              ))}
+            </div>
+          ) : (
+            <Stars value={item.reviewCount > 0 ? item.avgRating : 0} />
+          )}
           {item.reviewCount > 0 ? (
             <span className="hero-rating-val">
               {item.avgRating.toFixed(1)} ({item.reviewCount} {ratingsWord(item.reviewCount)})
             </span>
           ) : (
-            <span className="hero-rating-val no">Нет оценок</span>
+            <span className="hero-rating-val no">{onRate ? 'Оцените первым' : 'Нет оценок'}</span>
           )}
         </div>
         <div className="hero-rate-hint">← не люблю · хочу попробовать →</div>

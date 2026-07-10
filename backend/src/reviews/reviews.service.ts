@@ -38,7 +38,11 @@ export class ReviewsService {
       const obj = await this.uploads.get(key);
       const chunks: Buffer[] = [];
       for await (const c of obj.body) chunks.push(c as Buffer);
-      const m = await this.clip.moderatePhoto(Buffer.concat(chunks));
+      // hard cap: moderation may NEVER hold a review save hostage
+      const m = await Promise.race([
+        this.clip.moderatePhoto(Buffer.concat(chunks)),
+        new Promise<null>((res) => setTimeout(() => res(null), 8000)),
+      ]);
       if (!m) return { block: false, promote: true }; // moderation down → don't punish users
       if (m.nsfw > 0.5) return { block: true, promote: false };
       // card faces must clearly be food/drink — selfies and screenshots stay in the review

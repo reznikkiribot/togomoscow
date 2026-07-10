@@ -56,42 +56,61 @@ export class ClipService implements OnModuleInit {
     }
   }
 
-  // zero-shot moderation (same CLIP weights, text+image towers): label → score.
-  private zeroShot: any = null;
-  private zsLoading: Promise<any> | null = null;
-  private async loadZeroShot() {
-    if (this.zeroShot) return this.zeroShot;
-    if (this.zsLoading) return this.zsLoading;
-    this.zsLoading = (async () => {
-      const { pipeline, env } = await import('@xenova/transformers');
+  // Moderation label embeddings via the CLIP TEXT tower only (~60MB quantized).
+  // The old zero-shot pipeline loaded a SECOND full copy of the vision tower and
+  // OOM-killed the whole container on Railway the moment someone saved a review
+  // with a photo. Now: image side reuses the warm extractor above; text side is
+  // 4 label vectors computed once and cached.
+  private labelVecs: number[][] | null = null;
+  private labelsLoading: Promise<number[][]> | null = null;
+  private static readonly MOD_LABELS = [
+    'a photo of food or a drink', // food
+    'a photo of a person or a selfie', // person
+    'explicit adult content', // nsfw
+    'a screenshot, document or diagram', // other
+  ];
+
+  private async loadLabelVecs(): Promise<number[][]> {
+    if (this.labelVecs) return this.labelVecs;
+    if (this.labelsLoading) return this.labelsLoading;
+    this.labelsLoading = (async () => {
+      const t0 = Date.now();
+      const { AutoTokenizer, CLIPTextModelWithProjection, env } = await import('@xenova/transformers');
       (env as any).cacheDir = process.env.CLIP_CACHE || './.models-cache';
-      this.zeroShot = await pipeline('zero-shot-image-classification', this.model);
-      this.log.log('CLIP zero-shot ready');
-      return this.zeroShot;
+      const tokenizer = await AutoTokenizer.from_pretrained(this.model);
+      const textModel = await CLIPTextModelWithProjection.from_pretrained(this.model);
+      const inputs = tokenizer(ClipService.MOD_LABELS, { padding: true, truncation: true });
+      const { text_embeds } = await textModel(inputs);
+      const [n, dim] = text_embeds.dims;
+      const vecs: number[][] = [];
+      for (let i = 0; i < n; i++) {
+        const v = Array.from(text_embeds.data.slice(i * dim, (i + 1) * dim) as Float32Array);
+        const norm = Math.hypot(...v) || 1;
+        vecs.push(v.map((x) => x / norm));
+      }
+      // free the text tower — the 4 vectors are all we ever need from it
+      await (textModel as any).dispose?.().catch?.(() => {});
+      this.labelVecs = vecs;
+      this.log.log(`CLIP moderation labels ready in ${((Date.now() - t0) / 1000).toFixed(1)}s`);
+      return vecs;
     })();
-    return this.zsLoading;
+    return this.labelsLoading;
   }
 
-  /** Photo moderation: what IS this picture? Scores sum to ~1 across labels.
+  /** Photo moderation: what IS this picture? Scores sum to ~1 across labels
+   *  (softmax over CLIP similarities — same math the zero-shot pipeline does).
    *  Used to keep NSFW out entirely and faces/documents off the catalog cards. */
   async moderatePhoto(input: Buffer): Promise<{ food: number; person: number; nsfw: number; other: number } | null> {
     try {
-      const zs = await this.loadZeroShot();
-      const img = await this.RawImage.fromBlob(new Blob([new Uint8Array(input)]));
-      const LABELS = [
-        'a photo of food or a drink', // food
-        'a photo of a person or a selfie', // person
-        'explicit adult content', // nsfw
-        'a screenshot, document or diagram', // other
-      ];
-      const out = await zs(img, LABELS);
-      const score = (label: string) => out.find((o: any) => o.label === label)?.score ?? 0;
-      return {
-        food: score(LABELS[0]),
-        person: score(LABELS[1]),
-        nsfw: score(LABELS[2]),
-        other: score(LABELS[3]),
-      };
+      const [labels, imgVec] = await Promise.all([this.loadLabelVecs(), this.embedImage(input)]);
+      if (!imgVec.length) return null;
+      // CLIP logit scale ≈ 100 for the ViT-B/32 checkpoint
+      const logits = labels.map((lv) => 100 * lv.reduce((s, x, i) => s + x * imgVec[i], 0));
+      const max = Math.max(...logits);
+      const exps = logits.map((l) => Math.exp(l - max));
+      const sum = exps.reduce((a, b) => a + b, 0);
+      const p = exps.map((e) => e / sum);
+      return { food: p[0], person: p[1], nsfw: p[2], other: p[3] };
     } catch (e: any) {
       this.log.warn(`moderatePhoto failed: ${e?.message}`);
       return null; // moderation unavailable → don't block users

@@ -1450,10 +1450,12 @@ export function ListingDetailModal({
               const caption = media?.text?.trim() || `${data.name} — пробую в togomoscow 🍽`;
               if (media?.photo) {
                 // compose a real 9:16 slide: photo CONTAIN (horizontal shots no longer
-                // stretched) + the app link pill bottom-right baked into the image
-                composeStoryImage(media.photo).then((slide) =>
-                  shareToStory(slide ?? myMedia, caption, `l_${data.id}`),
-                );
+                // stretched) + the app link pill bottom-right baked into the image.
+                // NO raw-photo fallback — Telegram stretches non-9:16 photos, so if the
+                // slide can't be built the story is simply skipped.
+                composeStoryImage(media.photo).then((slide) => {
+                  if (slide) shareToStory(slide, caption, `l_${data.id}`);
+                });
               } else {
                 shareToStory(myMedia, caption, `l_${data.id}`); // video → as-is
               }

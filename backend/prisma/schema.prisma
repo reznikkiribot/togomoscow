@@ -535,3 +535,16 @@ model UserAchievement {
   @@index([userId])
   @@map("user_achievements")
 }
+
+// One-time feed delivery: a review is SHOWN to a given viewer exactly once
+// (Instagram-style reach). A row here = "this viewer already got this post".
+model FeedImpression {
+  id       String   @id @default(uuid())
+  userId   String   @map("user_id")
+  reviewId String   @map("review_id")
+  at       DateTime @default(now())
+
+  @@unique([userId, reviewId])
+  @@index([userId])
+  @@map("feed_impressions")
+}

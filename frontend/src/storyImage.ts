@@ -93,7 +93,16 @@ export async function composeStoryImage(photoUrl: string): Promise<string | null
 
     const blob: Blob | null = await new Promise((res) => canvas.toBlob(res, 'image/jpeg', 0.88));
     if (!blob) return null;
-    const url = await api.upload(new File([blob], 'story.jpg', { type: 'image/jpeg' }));
+    const file = new File([blob], 'story.jpg', { type: 'image/jpeg' });
+    // the upload happens right after a review save — the backend may still be busy,
+    // so give it a second chance before giving up on the composed slide
+    let url: string | null = null;
+    try {
+      url = await api.upload(file);
+    } catch {
+      await new Promise((r) => setTimeout(r, 1500));
+      url = await api.upload(file).catch(() => null);
+    }
     return url ? `${location.origin}${url}` : null;
   } catch {
     return null;

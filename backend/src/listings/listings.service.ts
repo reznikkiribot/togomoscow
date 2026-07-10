@@ -427,6 +427,125 @@ export class ListingsService {
     return this.enrichCards(ordered);
   }
 
+  /**
+   * Instagram-grade ranked feed. Score = Quality × TasteMatch × Freshness × Boosts:
+   *  • Quality — text depth + engagement (useful×3, comments×2, reactions ×1);
+   *  • TasteMatch — the post's category vs the VIEWER's own taste profile;
+   *  • Freshness — exp(-age/7d);
+   *  • FIRST-POST BOOST ×5 (72h) — the author's first-ever review gets real reach;
+   *  • follow boost ×2 — people you follow rank higher in the same list.
+   * Delivery is ONE-TIME per viewer: served posts are recorded in feed_impressions
+   * and never returned to that viewer again ("Показать ещё" pages the next batch).
+   */
+  async feedRanked(viewerId: string | null, take = 20) {
+    if (!viewerId) return this.feed(take); // anonymous → public recency feed
+    const seenRows = await this.prisma.feedImpression.findMany({
+      where: { userId: viewerId },
+      select: { reviewId: true },
+    });
+    const seen = new Set(seenRows.map((x) => x.reviewId));
+    const candidates = await this.prisma.review.findMany({
+      where: {
+        status: 'APPROVED',
+        photoUrls: { isEmpty: false },
+        userId: { not: viewerId },
+      },
+      include: { user: true, listing: true },
+      orderBy: { createdAt: 'desc' },
+      take: 300,
+    });
+    const fresh = candidates.filter((r) => !seen.has(r.id));
+    if (!fresh.length) return [];
+
+    // engagement, batched: useful×3, other reactions ×1, comments ×2
+    const ids = fresh.map((r) => r.id);
+    const votes = await this.prisma.reviewVote.groupBy({
+      by: ['reviewId', 'type'],
+      where: { reviewId: { in: ids } },
+      _count: true,
+    });
+    const eng = new Map<string, number>();
+    for (const v of votes) {
+      const w = v.type === 'USEFUL' ? 3 : 1;
+      eng.set(v.reviewId, (eng.get(v.reviewId) ?? 0) + w * v._count);
+    }
+    const cms = await this.prisma.comment.groupBy({
+      by: ['reviewId'],
+      where: { reviewId: { in: ids } },
+      _count: true,
+    });
+    for (const c of cms) eng.set(c.reviewId, (eng.get(c.reviewId) ?? 0) + 2 * c._count);
+
+    // is this the author's FIRST post ever? (cold-start reach rule)
+    const authorIds = [...new Set(fresh.map((r) => r.userId))];
+    const authorCounts = await this.prisma.review.groupBy({
+      by: ['userId'],
+      where: { userId: { in: authorIds } },
+      _count: true,
+    });
+    const postCount = new Map(authorCounts.map((a) => [a.userId, a._count]));
+
+    // viewer's taste: top categories from their own ratings + onboarding quiz
+    const mine = await this.prisma.review.findMany({
+      where: { userId: viewerId },
+      select: { listing: { select: { category: true } } },
+    });
+    const catCnt = new Map<string, number>();
+    for (const m of mine) {
+      const cat = m.listing?.category?.toLowerCase();
+      if (cat) catCnt.set(cat, (catCnt.get(cat) ?? 0) + 1);
+    }
+    const viewer = await this.prisma.user.findUnique({
+      where: { id: viewerId },
+      select: { preferences: true },
+    });
+    for (const k of (((viewer?.preferences as any)?.categories ?? []) as string[])) {
+      catCnt.set(k.toLowerCase(), (catCnt.get(k.toLowerCase()) ?? 0) + 2);
+    }
+    const topCats = new Set(
+      [...catCnt.entries()].sort((a, b) => b[1] - a[1]).slice(0, 6).map(([k]) => k),
+    );
+    const followed = new Set(
+      (
+        await this.prisma.follow.findMany({
+          where: { followerId: viewerId },
+          select: { followingId: true },
+        })
+      ).map((f) => f.followingId),
+    );
+
+    const now = Date.now();
+    const scored = fresh
+      .map((r) => {
+        const textQ = Math.min(1, (r.text?.trim().length ?? 0) / 200) * 0.5;
+        const engQ = Math.min(1, Math.log1p(eng.get(r.id) ?? 0) / Math.log1p(20)) * 0.5;
+        const quality = 0.25 + textQ + engQ; // photo is guaranteed here → base 0.25
+        const cat = (r.listing?.category ?? '').toLowerCase();
+        const taste = topCats.size === 0 ? 1 : topCats.has(cat) ? 1.5 : 0.8;
+        const ageDays = (now - r.createdAt.getTime()) / 86_400_000;
+        const freshness = Math.exp(-ageDays / 7) + 0.05; // old posts never hit exactly 0
+        const firstPost = (postCount.get(r.userId) ?? 99) === 1 && ageDays < 3 ? 5 : 1;
+        const follow = followed.has(r.userId) ? 2 : 1;
+        return { r, score: quality * taste * freshness * firstPost * follow };
+      })
+      .sort((a, b) => b.score - a.score);
+
+    const page = scored.slice(0, Number(take)).map((x) => x.r);
+    // record the delivery — these will never be served to this viewer again
+    if (page.length) {
+      await this.prisma.feedImpression
+        .createMany({
+          data: page.map((r) => ({ userId: viewerId, reviewId: r.id })),
+          skipDuplicates: true,
+        })
+        .catch(() => {});
+    }
+    await this.attachVenuesToReviews(page);
+    await this.attachCommentPreview(page);
+    await this.attachVoteCounts(page);
+    return page;
+  }
+
   /** Activity wall: recent user posts. ONLY reviews where the user uploaded their OWN
    *  photo — a rating without a photo never shows in the recommendation feed. (The
    *  item's own internet-sourced photo is for its card, not the feed.) */

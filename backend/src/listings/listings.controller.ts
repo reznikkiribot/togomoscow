@@ -10,6 +10,8 @@ import {
 } from '@nestjs/common';
 import { ListingType } from '@prisma/client';
 import { TelegramAuthGuard } from '../common/telegram-auth.guard';
+import { validateTelegramInitData } from '../common/telegram-init-data';
+import { ConfigService } from '@nestjs/config';
 import { UsersService } from '../users/users.service';
 import { ListingsService } from './listings.service';
 
@@ -19,6 +21,7 @@ export class ListingsController {
   constructor(
     private readonly listings: ListingsService,
     private readonly users: UsersService,
+    private readonly config: ConfigService,
   ) {}
 
   // a logged-in user proposes a dish/drink for a venue (pending owner approval)
@@ -84,8 +87,15 @@ export class ListingsController {
   }
 
   @Get('feed')
-  feed(@Query('take') take?: string) {
-    return this.listings.feed(take ? Number(take) : undefined);
+  async feed(@Req() req: any, @Query('take') take?: string) {
+    // optional auth: a known viewer gets the PERSONALIZED one-time feed
+    // (impressions recorded); anonymous falls back to the public ranking
+    const auth: string = req.headers['authorization'] ?? '';
+    const [scheme, initData] = auth.split(' ');
+    const token = this.config.get<string>('TELEGRAM_BOT_TOKEN') ?? '';
+    const tgUser = scheme === 'tma' && initData && token ? validateTelegramInitData(initData, token, 0) : null;
+    const viewer = tgUser ? await this.users.upsertFromTelegram(tgUser) : null;
+    return this.listings.feedRanked(viewer?.id ?? null, take ? Number(take) : undefined);
   }
 
   // NOTE: specific routes must be declared before the ':id' wildcard.

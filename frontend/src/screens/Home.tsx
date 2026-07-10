@@ -69,17 +69,35 @@ function pushHistory(q: string) {
   try { localStorage.setItem(HISTORY_KEY, JSON.stringify(next)); } catch { /* quota */ }
 }
 
-// Render a feed from its cached copy INSTANTLY, then refresh in the background. On the
-// slow Cloudflare tunnel this turns a ~minute wait into an instant paint on repeat opens.
+// Stale-while-revalidate WITHOUT a live swap: the cached copy paints instantly and
+// STAYS on screen — the fresh fetch is stored silently for the NEXT visit. Cards
+// visibly reshuffling under the user's finger read as a "missed opportunity"
+// (loss aversion), so the on-screen set must never change after first paint.
 function cachedLoad<T>(key: string, fetcher: () => Promise<T>, setter: (v: T) => void, after?: () => void) {
+  let painted = false;
   try {
     const c = localStorage.getItem('hc_' + key);
-    if (c) { setter(JSON.parse(c)); after?.(); }
+    if (c) { setter(JSON.parse(c)); painted = true; after?.(); }
   } catch { /* ignore bad cache */ }
   fetcher()
-    .then((r) => { setter(r); try { localStorage.setItem('hc_' + key, JSON.stringify(r)); } catch { /* quota */ } })
+    .then((r) => {
+      if (!painted) setter(r); // first-ever visit: nothing on screen yet → render
+      try { localStorage.setItem('hc_' + key, JSON.stringify(r)); } catch { /* quota */ }
+    })
     .catch(() => {})
     .finally(() => after?.());
+}
+
+// ---- one-time feed queue ----
+// The server hands each post to a viewer ONCE (impressions). Fetched batches wait
+// in this local queue until actually displayed, so background refreshes never
+// burn posts the user hasn't seen. Each home visit advances to the next posts.
+const FEEDQ_KEY = 'hc_feed_queue';
+function readFeedQueue(): Review[] {
+  try { const a = JSON.parse(localStorage.getItem(FEEDQ_KEY) || '[]'); return Array.isArray(a) ? a : []; } catch { return []; }
+}
+function writeFeedQueue(q: Review[]) {
+  try { localStorage.setItem(FEEDQ_KEY, JSON.stringify(q.slice(0, 60))); } catch { /* quota */ }
 }
 
 const TILES: { key: Cat; icon: string; label: string }[] = [
@@ -107,8 +125,9 @@ export default function Home() {
   // changes every mount → home cards reshuffle each time you open / switch tabs
   const [seed, setSeed] = useState(() => Math.floor(Math.random() * 1e9));
   const [autoRate, setAutoRate] = useState<number | undefined>(undefined);
-  const [feed, setFeed] = useState<Review[]>([]);
-  const [followFeed, setFollowFeed] = useState<Review[]>([]);
+  // server-ranked one-time feed: displayed posts + "all caught up" flag
+  const [wallPosts, setWallPosts] = useState<Review[]>([]);
+  const [wallDone, setWallDone] = useState(false);
   const [search, setSearch] = useState('');
   const [suggestions, setSuggestions] = useState<Sugg[]>([]);
   const [searchFocused, setSearchFocused] = useState(false);
@@ -188,8 +207,6 @@ export default function Home() {
       ...new Set(getRecent().map((l) => l.category).filter((c): c is string => !!c)),
     ].slice(0, 8);
     cachedLoad('recsys', () => api.recsysFeed(30).catch(() => api.recommended()), setRecommendedFast, () => setFeedLoaded(true));
-    cachedLoad('feed', () => api.feed(), setFeed);
-    cachedLoad('follow', () => api.followingFeed(), setFollowFeed);
     cachedLoad('firstTaster', () => api.firstTasterItems(8), setFirstTaster);
     cachedLoad('topDish', () => api.listings('DISH', undefined, { sort: 'rating', take: 12 }), setTopDishesFast);
     cachedLoad('topDrink', () => api.listings('DRINK', undefined, { sort: 'rating', take: 12 }), setTopDrinksFast);
@@ -272,36 +289,47 @@ export default function Home() {
         ? suggestions.filter((s) => s.kind === 'venue')
         : suggestions;
 
-  // posts from people you follow appear first, then the general feed (deduped).
-  // your own posts are hidden — the feed is for discovering others' tastings.
-  const wall = (() => {
-    const seen = new Set<string>();
-    const seenListing = new Set<string>();
-    return [...followFeed, ...feed].filter((r) => {
-      if ((r.photoUrls?.length ?? 0) === 0) return false; // only posts with the user's own photo
-      if (r.user?.id === myId) return false;
-      if (seen.has(r.id)) return false;
-      // one post per dish/venue — several reviews of the same item must not repeat
-      const lid = r.listing?.id;
-      if (lid && seenListing.has(lid)) return false;
-      seen.add(r.id);
-      if (lid) seenListing.add(lid);
-      return true;
-    });
-  })();
-  // fresh order on EVERY visit to the home screen — the feed must not look static.
-  // UX Core (primacy effect): the FIRST post sets the tone of the whole list, so a
-  // positive review (4★+) leads whenever one exists — never open on a rant.
-  const [visitSeed] = useState(() => Date.now());
-  const [wallShown, setWallShown] = useState(5); // «Показать ещё» подгружает по 5
-  const wallShuffled = (() => {
-    const a = seededShuffle(wall, visitSeed);
-    if (a.length > 1 && a[0].rating < 4) {
-      const i = a.findIndex((r) => r.rating >= 4);
-      if (i > 0) [a[0], a[i]] = [a[i], a[0]];
+  // one-time feed: pull the next posts from the local queue onto the screen and
+  // top the queue up from the server (which never re-serves what it already gave).
+  const wallIds = useRef(new Set<string>());
+  const wallFetching = useRef(false);
+  const topUpQueue = useCallback(async () => {
+    if (wallFetching.current) return 0;
+    wallFetching.current = true;
+    try {
+      const batch = await api.feed();
+      const q = readFeedQueue();
+      const known = new Set([...q.map((r) => r.id), ...wallIds.current]);
+      const add = batch.filter((r) => !known.has(r.id) && r.user?.id !== myId);
+      if (add.length) writeFeedQueue([...q, ...add]);
+      return add.length;
+    } catch {
+      return 0;
+    } finally {
+      wallFetching.current = false;
     }
-    return a;
-  })();
+  }, [myId]);
+  const showNextPosts = useCallback((count = 5) => {
+    const q = readFeedQueue();
+    const next = q.filter((r) => !wallIds.current.has(r.id) && r.user?.id !== myId).slice(0, count);
+    if (next.length) {
+      for (const r of next) wallIds.current.add(r.id);
+      writeFeedQueue(q.filter((r) => !wallIds.current.has(r.id)));
+      setWallPosts((p) => [...p, ...next]);
+    }
+    // queue running low → silently fetch the next server batch for later
+    if (readFeedQueue().length < 10) {
+      topUpQueue().then((added) => {
+        if (!next.length && !added && readFeedQueue().length === 0) setWallDone(true);
+        else if (added && wallIds.current.size === 0) showNextPosts(5); // first visit, queue was empty
+      });
+    }
+    return next.length;
+  }, [myId, topUpQueue]);
+  useEffect(() => {
+    showNextPosts(5);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const ratedIds = new Set(
     myReviews.map((r) => r.listing?.id).filter((x): x is string => !!x),
@@ -577,7 +605,7 @@ export default function Home() {
             </div>
           )}
         </>
-      ) : !feedLoaded && ratePool.length === 0 && myReviews.length === 0 && wall.length === 0 ? (
+      ) : !feedLoaded && ratePool.length === 0 && myReviews.length === 0 && wallPosts.length === 0 ? (
         <div className="empty">Загрузка…</div>
       ) : (
         <>
@@ -628,6 +656,10 @@ export default function Home() {
                   setAutoRate(undefined);
                   openListing(heroItem);
                 }}
+                onRate={(n) => {
+                  setAutoRate(n);
+                  openListing(heroItem);
+                }}
               />
             </>
           )}
@@ -644,10 +676,10 @@ export default function Home() {
               <div className="feed">{ratePool.slice(heroIdx + 1, heroIdx + 9).map(card)}</div>
             </>
           )}
-          {wall.length > 0 && (
+          {(wallPosts.length > 0 || wallDone) && (
             <>
               <div className="section-title">Лента</div>
-              {wallShuffled.slice(0, wallShown).map((r) => (
+              {wallPosts.map((r) => (
                 <FeedPost
                   key={r.id}
                   review={r}
@@ -658,8 +690,16 @@ export default function Home() {
                   onOpenVenue={() => r.venue?.id && openListing({ id: r.venue.id, name: r.venue.name } as Listing)}
                 />
               ))}
-              {wallShuffled.length > wallShown && (
-                <button className="btn secondary show-more" onClick={() => setWallShown((n) => n + 5)}>
+              {wallDone ? (
+                <div className="empty">Вы посмотрели все новые отзывы ✅ Загляните позже</div>
+              ) : (
+                <button
+                  className="btn secondary show-more"
+                  onClick={() => {
+                    const shown = showNextPosts(5);
+                    if (!shown) topUpQueue().then((added) => { if (added) showNextPosts(5); else setWallDone(true); });
+                  }}
+                >
                   Показать ещё
                 </button>
               )}
