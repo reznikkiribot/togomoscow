@@ -711,20 +711,20 @@ export function ListingDetailModal({
           // no user photos yet → venue's own photo, marked illustrative (only here, inside the card)
           <div className={'stock-wrap' + (venuePrice != null ? ' has-price' : '')}>
             <VenuePhoto listing={data} className="detail-photo" />
-            <span className="stock-badge">📷 Фото носит информационный характер · обновится после отзыва с фото</span>
+            <span className="stock-badge">📷 Фото иллюстративное · обновится после отзыва с фото</span>
           </div>
         ) : data.placeholderPhotos && data.placeholderPhotos.length === 1 ? (
           // single illustrative photo → fill the whole card width (equal margins)
           <div className={'stock-wrap' + (venuePrice != null ? ' has-price' : '')}>
             <img className="detail-photo" src={data.placeholderPhotos[0]} alt="" loading="lazy" />
-            <span className="stock-badge">📷 Фото носит информационный характер · обновится после отзыва с фото</span>
+            <span className="stock-badge">📷 Фото иллюстративное · обновится после отзыва с фото</span>
           </div>
         ) : data.placeholderPhotos && data.placeholderPhotos.length > 0 ? (
           <div className="gallery">
             {data.placeholderPhotos.map((u, i) => (
               <div key={i} className="stock-wrap">
                 <img className="gallery-img" src={u} alt="" loading="lazy" />
-                <span className="stock-badge">📷 Фото носит информационный характер · обновится после отзыва с фото</span>
+                <span className="stock-badge">📷 Фото иллюстративное · обновится после отзыва с фото</span>
               </div>
             ))}
           </div>

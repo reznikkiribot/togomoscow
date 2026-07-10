@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import type { Listing } from '../types';
-import { isAiPhoto, isUserPhoto } from '../img';
+import { isUserPhoto } from '../img';
 import { VenuePhoto } from './VenuePhoto';
 import { Stars } from './Stars';
 import { ratingsWord } from '../plural';
@@ -139,11 +139,9 @@ export function TasteHero({
         }}
       >
         <VenuePhoto listing={item} className="hero-photo" draggable={false} />
-        {isAiPhoto(item.photoUrl) ? (
-          <span className="info-photo-badge">🖼 Сгенерировано ИИ</span>
-        ) : !isUserPhoto(item.photoUrl) ? (
-          <span className="info-photo-badge">📷 Фото информационное</span>
-        ) : null}
+        {!isUserPhoto(item.photoUrl) && (
+          <span className="info-photo-badge">📷 Фото иллюстративное</span>
+        )}
         {(item as any).matchPct != null && (
           <span className="match-pct">🤖 {(item as any).matchPct}% совпадение</span>
         )}
