@@ -19,7 +19,7 @@ import { pushRecent } from '../recent';
 import { cuisineTags } from '../cuisine';
 import { beerStyle } from '../tasting';
 import { useCategoryProgress } from '../categoryGate';
-import { composeStoryImage, portraitStoryFallback } from '../storyImage';
+import { composeStoryImage, portraitStoryFallback, storyAlreadyShared } from '../storyImage';
 
 const TYPE_LABEL: Record<Listing['type'], string> = {
   RESTAURANT: 'Ресторан',
@@ -1480,7 +1480,7 @@ export function ListingDetailModal({
             if (myMedia && data.type !== 'RESTAURANT' && !noStory) {
               // the user's own note becomes the story caption; fall back to the name
               const caption = media?.text?.trim() || `${data.name} — пробую в togomoscow 🍽`;
-              if (media?.photo) {
+              if (media?.photo && !storyAlreadyShared(media.photo)) {
                 // compose a real 9:16 slide: photo CONTAIN (horizontal shots no longer
                 // stretched) + the app link pill bottom-right baked into the image.
                 // If the slide can't be built, portrait/square shots still go raw

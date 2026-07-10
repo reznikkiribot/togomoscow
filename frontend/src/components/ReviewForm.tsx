@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState, useRef } from 'react';
 import { api } from '../api';
 import { useEscClose } from '../modalEsc';
 import type { Listing, PublicUser, Review } from '../types';
@@ -47,6 +47,7 @@ export function ReviewForm({
   const [photoUrls, setPhotoUrls] = useState<string[]>(existing?.photoUrls ?? initialPhotoUrls ?? []);
   const [videoUrls, setVideoUrls] = useState<string[]>(existing?.videoUrls ?? []);
   const [busy, setBusy] = useState(false);
+  const busyRef = useRef(false); // sync re-entry guard: iOS ghost-taps beat setState
   const [error, setError] = useState<string | null>(null);
 
   // tag friends (Untappd-style) — people you follow
@@ -99,6 +100,10 @@ export function ReviewForm({
   }
 
   async function save() {
+    // iOS can ghost-fire a second tap before the disabled state re-renders —
+    // that double-ran the whole save (and opened the story editor twice)
+    if (busyRef.current) return;
+    busyRef.current = true;
     setBusy(true);
     setError(null);
     try {
@@ -124,6 +129,7 @@ export function ReviewForm({
       onSaved({ photo: photoUrls[0], video: videoUrls[0], text: text.trim() || undefined });
     } catch {
       setError('Не удалось сохранить');
+      busyRef.current = false;
       setBusy(false);
     }
   }
