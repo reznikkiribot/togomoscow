@@ -265,6 +265,16 @@ export class RecsysService {
     const rated = await this.prisma.review.findMany({ where: { userId }, select: { listingId: true } });
     const disliked = await this.prisma.dislike.findMany({ where: { userId }, select: { itemId: true } });
     const exclude = new Set([...rated.map((r) => r.listingId), ...disliked.map((d) => d.itemId)]);
+    return this.buildColdFeed(exclude, take);
+  }
+
+  /** Anonymous cold-start feed — the home screen renders on the FIRST request even
+   *  before Telegram auth is ready (no user context, nothing to exclude). */
+  async anonFeed(take = 20) {
+    return this.buildColdFeed(new Set(), take);
+  }
+
+  private async buildColdFeed(exclude: Set<string>, take = 20) {
 
     // same shape as recommendByTaste (cards + recVenue) so a brand-new user (no
     // taste profile yet) still gets a real "dish in a place" deck, not a dropped feed.

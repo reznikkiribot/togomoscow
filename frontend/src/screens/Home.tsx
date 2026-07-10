@@ -291,6 +291,7 @@ export default function Home() {
   // UX Core (primacy effect): the FIRST post sets the tone of the whole list, so a
   // positive review (4★+) leads whenever one exists — never open on a rant.
   const [visitSeed] = useState(() => Date.now());
+  const [wallShown, setWallShown] = useState(5); // «Показать ещё» подгружает по 5
   const wallShuffled = (() => {
     const a = seededShuffle(wall, visitSeed);
     if (a.length > 1 && a[0].rating < 4) {
@@ -637,7 +638,7 @@ export default function Home() {
           {wall.length > 0 && (
             <>
               <div className="section-title">Лента</div>
-              {wallShuffled.map((r) => (
+              {wallShuffled.slice(0, wallShown).map((r) => (
                 <FeedPost
                   key={r.id}
                   review={r}
@@ -648,6 +649,11 @@ export default function Home() {
                   onOpenVenue={() => r.venue?.id && openListing({ id: r.venue.id, name: r.venue.name } as Listing)}
                 />
               ))}
+              {wallShuffled.length > wallShown && (
+                <button className="btn secondary show-more" onClick={() => setWallShown((n) => n + 5)}>
+                  Показать ещё
+                </button>
+              )}
             </>
           )}
         </>
