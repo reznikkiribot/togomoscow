@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useCategoryProgress } from '../categoryGate';
+import { pluralRu } from '../plural';
 
 // A few appetising categories to suggest when the user hasn't rated anything yet.
 const SEED_CATS = ['Фастфуд', 'Бургеры', 'Пицца', 'Кофе', 'Пиво', 'Вино', 'Суши', 'Десерты', 'Завтраки', 'Стейки'];
@@ -41,7 +42,7 @@ export function TrainingScale() {
       </p>
       <p className="train-desc train-tip">
         {shown.count > 0
-          ? `🔥 Осталось ${left} ${left === 1 ? 'оценка' : left < 5 ? 'оценки' : 'оценок'} — и откроются рейтинги категории «${shown.name}»!`
+          ? `🔥 Осталось ${left} ${pluralRu(left, ['оценка', 'оценки', 'оценок'])} — и откроются рейтинги категории «${shown.name}»!`
           : `💡 Для начала оцените ${threshold} блюд или напитков категории.`}
       </p>
       <div className="acc-row">
@@ -55,7 +56,8 @@ export function TrainingScale() {
       </div>
       {community && community.reviews > 10 && (
         <p className="train-social">
-          В клубе уже {community.reviews} оценок от {community.tasters} дегустаторов
+          В клубе уже {community.reviews} {pluralRu(community.reviews, ['оценка', 'оценки', 'оценок'])} от{' '}
+          {community.tasters} {pluralRu(community.tasters, ['дегустатора', 'дегустаторов', 'дегустаторов'])}
         </p>
       )}
     </div>
