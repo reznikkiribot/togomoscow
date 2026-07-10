@@ -1,6 +1,17 @@
 import { api } from './api';
 import { thumb } from './img';
 
+// story compose is phone-only code — failures must surface in server logs
+function report(step: string, detail?: string) {
+  try {
+    fetch('/api/health/client-error', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ where: 'story-compose', step, detail: (detail || '').slice(0, 300) }),
+    }).catch(() => {});
+  } catch { /* never break the flow */ }
+}
+
 // Composes a proper 9:16 Telegram story slide (1080×1920): the photo is drawn
 // CONTAIN (never stretched — that was the bug with horizontal shots) over a
 // soft-blurred copy of itself, with the app link on a pill bottom-right.
@@ -20,9 +31,12 @@ function loadImage(src: string): Promise<HTMLImageElement> {
 }
 
 export async function composeStoryImage(photoUrl: string): Promise<string | null> {
+  let step = 'start';
   try {
     const src = thumb(photoUrl, 900) ?? photoUrl; // same-origin (files or /api/img proxy)
+    step = 'load:' + src.slice(0, 60);
     const img = await loadImage(src);
+    step = 'canvas';
     const canvas = document.createElement('canvas');
     canvas.width = W;
     canvas.height = H;
@@ -91,8 +105,10 @@ export async function composeStoryImage(photoUrl: string): Promise<string | null
     ctx.textBaseline = 'middle';
     ctx.fillText(label, px + padX, py + pillH / 2 + 2);
 
+    step = 'toBlob';
     const blob: Blob | null = await new Promise((res) => canvas.toBlob(res, 'image/jpeg', 0.88));
-    if (!blob) return null;
+    if (!blob) { report('toBlob', 'null blob'); return null; }
+    step = 'upload';
     const file = new File([blob], 'story.jpg', { type: 'image/jpeg' });
     // the upload happens right after a review save — the backend may still be busy,
     // so give it a second chance before giving up on the composed slide
@@ -103,8 +119,23 @@ export async function composeStoryImage(photoUrl: string): Promise<string | null
       await new Promise((r) => setTimeout(r, 1500));
       url = await api.upload(file).catch(() => null);
     }
+    if (!url) report('upload', 'both attempts failed');
     return url ? `${location.origin}${url}` : null;
-  } catch {
+  } catch (e: any) {
+    report(step, e?.message || String(e));
     return null;
   }
+}
+
+/** Raw-photo escape hatch: portrait/square shots Telegram shows fine as-is.
+ *  Returns an absolute URL for shareToStory, or null for landscape (would stretch). */
+export async function portraitStoryFallback(photoUrl: string): Promise<string | null> {
+  try {
+    const src = thumb(photoUrl, 900) ?? photoUrl;
+    const img = await loadImage(src);
+    if (img.height >= img.width) {
+      return /^https?:/.test(photoUrl) ? photoUrl : `${location.origin}${photoUrl}`;
+    }
+  } catch { /* ignore */ }
+  return null;
 }

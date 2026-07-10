@@ -19,7 +19,7 @@ import { pushRecent } from '../recent';
 import { cuisineTags } from '../cuisine';
 import { beerStyle } from '../tasting';
 import { useCategoryProgress } from '../categoryGate';
-import { composeStoryImage } from '../storyImage';
+import { composeStoryImage, portraitStoryFallback } from '../storyImage';
 
 const TYPE_LABEL: Record<Listing['type'], string> = {
   RESTAURANT: 'Ресторан',
@@ -1483,10 +1483,11 @@ export function ListingDetailModal({
               if (media?.photo) {
                 // compose a real 9:16 slide: photo CONTAIN (horizontal shots no longer
                 // stretched) + the app link pill bottom-right baked into the image.
-                // NO raw-photo fallback — Telegram stretches non-9:16 photos, so if the
-                // slide can't be built the story is simply skipped.
-                composeStoryImage(media.photo).then((slide) => {
-                  if (slide) shareToStory(slide, caption, `l_${data.id}`);
+                // If the slide can't be built, portrait/square shots still go raw
+                // (Telegram shows those fine) — only landscape is never sent raw.
+                composeStoryImage(media.photo).then(async (slide) => {
+                  const url = slide ?? (await portraitStoryFallback(media.photo!));
+                  if (url) shareToStory(url, caption, `l_${data.id}`);
                 });
               } else {
                 shareToStory(myMedia, caption, `l_${data.id}`); // video → as-is
