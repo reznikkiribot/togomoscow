@@ -147,6 +147,16 @@ export function ScanFab() {
   const cameraRef = useRef<HTMLInputElement>(null);
   const galleryRef = useRef<HTMLInputElement>(null);
   const [srcMenu, setSrcMenu] = useState(false);
+  // one soft pulse per session draws the eye to the key action (UX Core: anchoring
+  // attention with motion — once, not constantly)
+  const [pulse, setPulse] = useState(false);
+  useEffect(() => {
+    if (sessionStorage.getItem('fabPulsed')) return;
+    sessionStorage.setItem('fabPulsed', '1');
+    setPulse(true);
+    const t = setTimeout(() => setPulse(false), 3600);
+    return () => clearTimeout(t);
+  }, []);
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<RecognizeResult | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -251,7 +261,7 @@ export function ScanFab() {
 
   return (
     <>
-      <button className="scan-fab" onClick={() => setSrcMenu(true)} aria-label="Сканировать блюдо или напиток">
+      <button className={'scan-fab' + (pulse ? ' pulse' : '')} onClick={() => setSrcMenu(true)} aria-label="Сканировать блюдо или напиток">
         <CamIcon />
       </button>
       {/* camera input: straight to the native camera.

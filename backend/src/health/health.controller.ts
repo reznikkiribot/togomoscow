@@ -23,6 +23,21 @@ export class HealthController {
     return { status: 'ok', db: 'up', time: new Date().toISOString() };
   }
 
+  // Public community counters — social proof for CTA blocks ("уже N оценок в
+  // клубе"). Cached in-memory for 5 min: it's shown on every home open.
+  private statsCache: { at: number; data: { reviews: number; tasters: number } } | null = null;
+  @Get('community')
+  async community() {
+    if (this.statsCache && Date.now() - this.statsCache.at < 300_000) return this.statsCache.data;
+    const [reviews, tasters] = await Promise.all([
+      this.prisma.review.count(),
+      this.prisma.user.count({ where: { reviews: { some: {} } } }),
+    ]);
+    const data = { reviews, tasters };
+    this.statsCache = { at: Date.now(), data };
+    return data;
+  }
+
   @Get('vision')
   async vision() {
     try {

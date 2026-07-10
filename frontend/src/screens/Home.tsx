@@ -287,9 +287,18 @@ export default function Home() {
       return true;
     });
   })();
-  // fresh order on EVERY visit to the home screen — the feed must not look static
+  // fresh order on EVERY visit to the home screen — the feed must not look static.
+  // UX Core (primacy effect): the FIRST post sets the tone of the whole list, so a
+  // positive review (4★+) leads whenever one exists — never open on a rant.
   const [visitSeed] = useState(() => Date.now());
-  const wallShuffled = seededShuffle(wall, visitSeed);
+  const wallShuffled = (() => {
+    const a = seededShuffle(wall, visitSeed);
+    if (a.length > 1 && a[0].rating < 4) {
+      const i = a.findIndex((r) => r.rating >= 4);
+      if (i > 0) [a[0], a[i]] = [a[i], a[0]];
+    }
+    return a;
+  })();
 
   const ratedIds = new Set(
     myReviews.map((r) => r.listing?.id).filter((x): x is string => !!x),
