@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import type { Listing } from '../types';
-import { isUserPhoto } from '../img';
+import { isAiPhoto, isUserPhoto } from '../img';
 import { VenuePhoto } from './VenuePhoto';
 import { Stars } from './Stars';
 import { ratingsWord } from '../plural';
@@ -27,6 +27,19 @@ export function TasteHero({
   const [dx, setDx] = useState(0);
   const [dy, setDy] = useState(0);
   const [dragging, setDragging] = useState(false);
+  // one-time swipe hint: the card nudges left-right on the first 2 visits so the
+  // Tinder gesture is discoverable without any tutorial overlay
+  const [hinting, setHinting] = useState(false);
+  useEffect(() => {
+    try {
+      const n = Number(localStorage.getItem('heroSwipeHint') || '0');
+      if (n >= 2) return;
+      localStorage.setItem('heroSwipeHint', String(n + 1));
+      setHinting(true);
+      const t = setTimeout(() => setHinting(false), 3200);
+      return () => clearTimeout(t);
+    } catch { /* private mode */ }
+  }, []);
   const [leaving, setLeaving] = useState<'left' | 'right' | 'down' | null>(null);
   const [instant, setInstant] = useState(false); // snap back with no animation after a swipe
   const startX = useRef(0);
@@ -91,6 +104,7 @@ export function TasteHero({
   }, [dragging]);
 
   const onPointerDown = (e: React.PointerEvent) => {
+    setHinting(false); // user touched the card → the hint served its purpose
     // let taps on buttons work normally — drag only on the rest of the card
     if ((e.target as HTMLElement).closest('button, a, input')) return;
     startX.current = e.clientX;
@@ -109,7 +123,7 @@ export function TasteHero({
 
   return (
     <div
-      className="hero swipeable"
+      className={'hero swipeable' + (hinting && !dragging ? ' hero-hint' : '')}
       onPointerDown={onPointerDown}
       onDragStart={(e) => e.preventDefault()}
       style={{
@@ -125,9 +139,11 @@ export function TasteHero({
         }}
       >
         <VenuePhoto listing={item} className="hero-photo" draggable={false} />
-        {!isUserPhoto(item.photoUrl) && (
+        {isAiPhoto(item.photoUrl) ? (
+          <span className="info-photo-badge">🖼 Сгенерировано ИИ</span>
+        ) : !isUserPhoto(item.photoUrl) ? (
           <span className="info-photo-badge">📷 Фото информационное</span>
-        )}
+        ) : null}
         {(item as any).matchPct != null && (
           <span className="match-pct">🤖 {(item as any).matchPct}% совпадение</span>
         )}

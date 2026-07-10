@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Listing } from '../types';
-import { isUserPhoto } from '../img';
+import { isAiPhoto, isUserPhoto } from '../img';
 import { ratingsWord } from '../plural';
 import { Stars } from './Stars';
 import { VenuePhoto } from './VenuePhoto';
@@ -30,9 +30,11 @@ export function ListingCard({
       <div className="card" onClick={onClick}>
         <div className="card-photo-wrap">
           <VenuePhoto listing={listing} className="photo" />
-          {!isUserPhoto(listing.photoUrl) && (
-            <span className="info-photo-badge">📷 Фото информационное</span>
-          )}
+          {isAiPhoto(listing.photoUrl) ? (
+          <span className="info-photo-badge">🖼 Сгенерировано ИИ</span>
+        ) : !isUserPhoto(listing.photoUrl) ? (
+          <span className="info-photo-badge">📷 Фото информационное</span>
+        ) : null}
           {(listing as any).matchPct != null && (
             <span className="match-pct">🤖 {(listing as any).matchPct}%</span>
           )}

@@ -63,18 +63,19 @@ export function FeedPost({
 
       {/* tap the photo → the REVIEW opens (the rest of the post opens the item card) */}
       {photo && (
-        <img
-          className="post-photo"
-          src={thumb(photo, 600)}
-          alt=""
-          loading="lazy"
+        <div
+          className="post-photo-wrap"
           onClick={(e) => {
             if (onOpenPhoto) {
               e.stopPropagation();
               onOpenPhoto();
             }
           }}
-        />
+        >
+          <img className="post-photo" src={thumb(photo, 600)} alt="" loading="lazy" />
+          {/* ↗ affordance: the photo IS tappable (opens the check-in) */}
+          {onOpenPhoto && <span className="post-photo-open">↗</span>}
+        </div>
       )}
 
       <div className="post-venue">

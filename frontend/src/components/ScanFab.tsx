@@ -259,10 +259,21 @@ export function ScanFab() {
     void pickCandidate(l.id, r);
   };
 
+  // "Скан" caption under the FAB for the first 2 sessions — after that the
+  // camera icon is assumed learned (obviousness without permanent clutter)
+  const [fabLabel] = useState(() => {
+    try {
+      const n = Number(localStorage.getItem('scanFabSeen') || '0');
+      if (n < 2) { localStorage.setItem('scanFabSeen', String(n + 1)); return true; }
+    } catch { /* private mode */ }
+    return false;
+  });
+
   return (
     <>
       <button className={'scan-fab' + (pulse ? ' pulse' : '')} onClick={() => setSrcMenu(true)} aria-label="Сканировать блюдо или напиток">
         <CamIcon />
+        {fabLabel && <span className="scan-fab-label">Скан</span>}
       </button>
       {/* camera input: straight to the native camera.
           gallery input: `multiple` makes iOS SKIP its source menu and open the photo

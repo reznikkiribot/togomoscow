@@ -10,8 +10,14 @@ export function thumb(url: string | null | undefined, w: 200 | 400 | 600 | 900 =
   return url;
 }
 
+// locally generated (Stable Diffusion) card images live under aigen-* keys and
+// must carry the "сгенерировано ИИ" disclaimer instead of the stock one
+export function isAiPhoto(url: string | null | undefined): boolean {
+  return !!url && url.startsWith('/api/files/aigen-');
+}
+
 // user-generated photo (uploaded through the app) vs licensed/stock/generated one —
 // non-UGC photos must carry the "информационный характер" disclaimer everywhere
 export function isUserPhoto(url: string | null | undefined): boolean {
-  return !!url && url.startsWith('/api/files/');
+  return !!url && url.startsWith('/api/files/') && !isAiPhoto(url);
 }
