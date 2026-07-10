@@ -235,6 +235,20 @@ export function ListingDetailModal({
 }) {
   const [id, setId] = useState(initialId);
   const [data, setData] = useState<ListingDetail | null>(null);
+  // the viewer's own avatar for the "Оцените" block (cached per session)
+  const [myAvatar, setMyAvatar] = useState<string | null>(() => {
+    try { return sessionStorage.getItem('myAvatar'); } catch { return null; }
+  });
+  useEffect(() => {
+    if (myAvatar) return;
+    api.me().then((u) => {
+      if (u?.photoUrl) {
+        setMyAvatar(u.photoUrl);
+        try { sessionStorage.setItem('myAvatar', u.photoUrl); } catch { /* private mode */ }
+      }
+    }).catch(() => {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const [showReview, setShowReview] = useState(false);
   const [reviewRating, setReviewRating] = useState<number | undefined>(undefined);
   const [reviewTarget, setReviewTarget] = useState<Listing | null>(null);
@@ -1223,7 +1237,11 @@ export function ListingDetailModal({
           <div className="tab-pane">
             <div className="rate-block">
               <div className="rb-head">
-                <div className="rb-avatar">👤</div>
+                {myAvatar ? (
+                  <img className="rb-avatar" src={myAvatar} alt="" style={{ objectFit: 'cover' }} />
+                ) : (
+                  <div className="rb-avatar">👤</div>
+                )}
                 <div>
                   <div className="rb-name">Оцените {isRestaurant ? 'заведение' : 'позицию'}</div>
                   <div className="rb-sub">Нажмите на звёзды или добавьте фото</div>

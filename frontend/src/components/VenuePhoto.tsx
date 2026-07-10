@@ -8,15 +8,6 @@ export const TYPE_EMOJI: Record<Listing['type'], string> = {
   DRINK: '🍷',
 };
 
-function domainOf(website?: string | null): string | null {
-  if (!website) return null;
-  try {
-    return new URL(website).hostname.replace(/^www\./, '');
-  } catch {
-    return null;
-  }
-}
-
 function colorFromName(name: string): string {
   let h = 0;
   for (const ch of name) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
@@ -28,7 +19,6 @@ function isSlowExternalPhoto(src?: string | null) {
 }
 
 export function listingPhotoCandidates(listing: Listing): string[] {
-  const domain = domainOf(listing.website);
   const candidates: string[] = [];
   // real photo FIRST, but through our resize-proxy (small webp, our origin,
   // immutable cache) — the raw external URL stays as the fallback candidate
@@ -40,10 +30,8 @@ export function listingPhotoCandidates(listing: Listing): string[] {
   if (slowExternal && listing.placeholderPhoto) candidates.push(listing.placeholderPhoto);
   if (listing.photoUrl) candidates.push(listing.photoUrl);
   if (!slowExternal && listing.placeholderPhoto) candidates.push(listing.placeholderPhoto);
-  if (domain) {
-    candidates.push(`https://logo.clearbit.com/${domain}`);
-    candidates.push(`https://www.google.com/s2/favicons?domain=${domain}&sz=128`);
-  }
+  // NO brand logos/favicons — запрещены в приложении. Venues without a photo get
+  // the licensed category stock (placeholderPhoto) or the letter tile below.
   return candidates;
 }
 
@@ -63,7 +51,7 @@ export function preloadListingPhotos(listings: Listing[], limit = 10) {
 
 /**
  * Best available image for a venue, with graceful fallback on load error:
- * real/local stock photo → brand logo (Clearbit) → site favicon → monogram tile.
+ * real/local photo → licensed category stock → monogram tile. Logos are BANNED.
  */
 export function VenuePhoto({
   listing,
@@ -86,10 +74,9 @@ export function VenuePhoto({
 
   if (idx < candidates.length) {
     const src = candidates[idx];
-    const isLogo = src.includes('clearbit') || src.includes('favicons');
     return (
       <img
-        className={`${className}${isLogo ? ' logo' : ''}`}
+        className={className}
         src={src}
         alt={listing.name}
         loading={loading}
