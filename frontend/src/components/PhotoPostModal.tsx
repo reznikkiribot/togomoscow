@@ -121,7 +121,14 @@ export function PhotoPostModal({
             )}
             <div className="pp-head-txt">
               <b>{u?.firstName ?? u?.username ?? 'Гость'}</b>
-              {review.venue && <span className="pp-head-venue">{review.venue.name} ›</span>}
+              {review.venue && (
+                <span
+                  className="pp-head-venue"
+                  onClick={(e) => { e.stopPropagation(); onOpenVenue?.(); }}
+                >
+                  {review.venue.name} ›
+                </span>
+              )}
             </div>
           </button>
         </div>
@@ -134,7 +141,14 @@ export function PhotoPostModal({
             )}
             <div className="pp-card-info">
               <b className="pp-card-name">{review.listing?.name}</b>
-              {review.venue && <span className="pp-card-sub">{review.venue.name}</span>}
+              {review.venue && (
+                <span
+                  className="pp-card-sub"
+                  onClick={(e) => { e.stopPropagation(); onOpenVenue?.(); }}
+                >
+                  {review.venue.name}
+                </span>
+              )}
               {review.listing?.category && !/^(блюдо|напиток)$/i.test(review.listing.category) && (
                 <span className="pp-card-style">{review.listing.category}</span>
               )}
