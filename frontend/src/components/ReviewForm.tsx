@@ -22,7 +22,7 @@ export function ReviewForm({
   initialPhotoUrls?: string[]; // e.g. the photo the user just scanned — prefilled
   knownPrice?: number | null; // item already has a price here → don't ask for it
   onClose: () => void;
-  onSaved: (media?: { photo?: string; video?: string; text?: string }) => void;
+  onSaved: (media?: { photo?: string; photos?: string[]; video?: string; text?: string }) => void;
 }) {
   const tpl = templateFor(listing);
   const prev = (existing?.attributes ?? {}) as Record<string, any>;
@@ -126,7 +126,7 @@ export function ReviewForm({
       };
       await api.createReview(listing.id, { rating, text, attributes, photoUrls, videoUrls });
       // pass the user's OWN media + their note so the story uses both
-      onSaved({ photo: photoUrls[0], video: videoUrls[0], text: text.trim() || undefined });
+      onSaved({ photo: photoUrls[0], photos: photoUrls, video: videoUrls[0], text: text.trim() || undefined });
     } catch {
       setError('Не удалось сохранить');
       busyRef.current = false;

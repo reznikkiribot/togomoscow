@@ -1487,7 +1487,29 @@ export function ListingDetailModal({
                 // (Telegram shows those fine) — only landscape is never sent raw.
                 composeStoryImage(media.photo).then(async (slide) => {
                   const url = slide ?? (await portraitStoryFallback(media.photo!));
-                  if (url) shareToStory(url, caption, `l_${data.id}`);
+                  if (!url) return;
+                  shareToStory(url, caption, `l_${data.id}`);
+                  // SECOND photo → a SECOND story after the first is posted: photo
+                  // only, no text (owner's spec). Wait for the app to regain
+                  // visibility (story editor closed), then open editor #2.
+                  const second = media.photos?.[1];
+                  if (!second || storyAlreadyShared(second)) return;
+                  let fired = false;
+                  const openSecond = async () => {
+                    if (fired) return;
+                    fired = true;
+                    document.removeEventListener('visibilitychange', onVis);
+                    const s2 = (await composeStoryImage(second)) ?? (await portraitStoryFallback(second));
+                    if (s2) shareToStory(s2, '', `l_${data.id}`);
+                  };
+                  const onVis = () => {
+                    if (document.visibilityState === 'visible') setTimeout(openSecond, 600);
+                  };
+                  document.addEventListener('visibilitychange', onVis);
+                  // editor variants that never hide the webview → open after a pause
+                  setTimeout(() => {
+                    if (document.visibilityState === 'visible') openSecond();
+                  }, 5000);
                 });
               } else {
                 shareToStory(myMedia, caption, `l_${data.id}`); // video → as-is
