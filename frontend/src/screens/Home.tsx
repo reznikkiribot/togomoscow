@@ -6,6 +6,7 @@ import { ListRow } from '../components/ListRow';
 import { Stars } from '../components/Stars';
 import { preloadListingPhotos, VenuePhoto } from '../components/VenuePhoto';
 import { FeedPost } from '../components/FeedPost';
+import { FeedRecCard } from '../components/FeedRecCard';
 import { PhotoPostModal } from '../components/PhotoPostModal';
 import { CommentsModal } from '../components/CommentsModal';
 import { hasOpenModal } from '../modalEsc';
@@ -130,7 +131,11 @@ export default function Home() {
   const [autoRate, setAutoRate] = useState<number | undefined>(undefined);
   // server-ranked one-time feed: displayed posts + "all caught up" flag
   const [wallPosts, setWallPosts] = useState<Review[]>([]);
-  const [wallDone, setWallDone] = useState(false);
+  // taste-based recommendation cards that keep the feed infinite once the
+  // one-time user posts run out («показать ещё» loads more of these)
+  const [recCards, setRecCards] = useState<Listing[]>([]);
+  const recSeen = useRef(new Set<string>());
+  const recFetching = useRef(false);
   const [search, setSearch] = useState('');
   const [suggestions, setSuggestions] = useState<Sugg[]>([]);
   const [searchFocused, setSearchFocused] = useState(false);
@@ -320,17 +325,35 @@ export default function Home() {
       writeFeedQueue(q.filter((r) => !wallIds.current.has(r.id)));
       setWallPosts((p) => [...p, ...next]);
     }
-    // queue running low → silently fetch the next server batch for later
-    if (readFeedQueue().length < 10) {
-      topUpQueue().then((added) => {
-        if (!next.length && !added && readFeedQueue().length === 0) setWallDone(true);
-        else if (added && wallIds.current.size === 0) showNextPosts(5); // first visit, queue was empty
-      });
-    }
     return next.length;
-  }, [myId, topUpQueue]);
+  }, []);
+  // taste-based rec cards: loaded when user posts run out so the feed never ends.
+  // recsysFeed shuffles a wide pool → each call returns fresh items; dedup here.
+  const loadMoreRec = useCallback(async (count = 6) => {
+    if (recFetching.current) return 0;
+    recFetching.current = true;
+    try {
+      // recsys already excludes items the user rated/disliked, server-side
+      const pool = await api.recsysFeed(30).catch(() => [] as Listing[]);
+      const fresh = pool.filter((l) => !recSeen.current.has(l.id) && !skipped.has(l.id));
+      const add = fresh.slice(0, count);
+      for (const l of add) recSeen.current.add(l.id);
+      if (add.length) setRecCards((p) => [...p, ...add]);
+      return add.length;
+    } finally {
+      recFetching.current = false;
+    }
+  }, [skipped]);
+  // the single "load more of the wall" action: user posts first, then — when
+  // those run out — an endless stream of taste-based recommendation cards.
+  const extendFeed = useCallback(async (count = 5) => {
+    if (showNextPosts(count) > 0) return;
+    const added = await topUpQueue();
+    if (added > 0 && showNextPosts(count) > 0) return;
+    await loadMoreRec(count + 1); // no more posts → recommendations keep it alive
+  }, [showNextPosts, topUpQueue, loadMoreRec]);
   useEffect(() => {
-    showNextPosts(5);
+    extendFeed(5);
     // clip telemetry: measure a real card once per session — if the footer is
     // clipped on THIS device, the exact numbers land in server logs
     const t = setTimeout(() => {
@@ -709,7 +732,7 @@ export default function Home() {
               <div className="feed">{ratePool.slice(heroIdx + 1, heroIdx + 9).map(card)}</div>
             </>
           )}
-          {(wallPosts.length > 0 || wallDone) && (
+          {(wallPosts.length > 0 || recCards.length > 0) && (
             <>
               <div className="section-title">Лента</div>
               {wallPosts.map((r) => (
@@ -723,19 +746,22 @@ export default function Home() {
                   onOpenVenue={() => r.venue?.id && openListing({ id: r.venue.id, name: r.venue.name } as Listing)}
                 />
               ))}
-              {wallDone ? (
-                <div className="empty">Вы посмотрели все новые отзывы ✅ Загляните позже</div>
-              ) : (
-                <button
-                  className="btn secondary show-more"
-                  onClick={() => {
-                    const shown = showNextPosts(5);
-                    if (!shown) topUpQueue().then((added) => { if (added) showNextPosts(5); else setWallDone(true); });
-                  }}
-                >
-                  Показать ещё
-                </button>
-              )}
+              {/* endless taste-based recommendations after the user posts */}
+              {recCards.map((l) => (
+                <FeedRecCard
+                  key={'rec-' + l.id}
+                  item={l}
+                  favorite={ids.has(l.id)}
+                  onOpen={() => { setAutoRate(undefined); openListing(l); }}
+                  onRate={(n) => { setAutoRate(n); openListing(l); }}
+                  onFavorite={() => toggle(l.id)}
+                  onOpenVenue={() => l.recVenue?.id && openListing({ id: l.recVenue.id, name: l.recVenue.name } as Listing)}
+                />
+              ))}
+              {/* the feed never ends: «показать ещё» always loads more */}
+              <button className="btn secondary show-more" onClick={() => extendFeed(5)}>
+                Показать ещё
+              </button>
             </>
           )}
         </>

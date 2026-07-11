@@ -101,17 +101,21 @@ function ScanDialog({
         ) : result && result.candidates.length ? (
           <>
             {result.labelText && <div className="scan-label-badge">🍷 Этикетка: {result.labelText}</div>}
-            <div className="scan-title">Похоже, это...</div>
+            <div className="scan-title">Что именно на фото? Подтвердите</div>
             <div className="scan-list">
-              {result.candidates.map((c) => (
-                <button key={c.id} className="scan-cand" onClick={() => onPickCandidate(c.id, result)}>
+              {result.candidates.map((c, i) => (
+                <button
+                  key={c.id}
+                  className={'scan-cand' + (i === 0 && result.topConfident ? ' top' : '')}
+                  onClick={() => onPickCandidate(c.id, result)}
+                >
                   <div className="scan-cand-thumb">
                     {c.photoUrl ? <img src={c.photoUrl} alt="" /> : <span>🍽</span>}
                   </div>
                   <div className="scan-cand-body">
                     <b>{c.name}</b>
                     <span className="scan-cand-meta">
-                      {c.reviewCount > 0 ? `★ ${c.avgRating.toFixed(1)} · ${c.reviewCount}` : 'Нет оценок'}
+                      {i === 0 && result.topConfident ? '✓ скорее всего это' : c.reviewCount > 0 ? `★ ${c.avgRating.toFixed(1)} · ${c.reviewCount}` : 'Нет оценок'}
                     </span>
                   </div>
                   <span className="scan-conf">{Math.round(c.confidence * 100)}%</span>
@@ -190,12 +194,10 @@ export function ScanFab() {
     setResult(null);
     try {
       const r = await api.recognize(file, 'auto');
-      if (r.autoOpen && r.candidates[0]) {
-        await pickCandidate(r.candidates[0].id, r);
-      } else {
-        setResult(r);
-        setBusy(false);
-      }
+      // NEVER auto-open (owner rule): always show the choices and let the user
+      // confirm — even when the AI is 100% sure. The top match is pre-highlighted.
+      setResult(r);
+      setBusy(false);
     } catch (e) {
       setResult({
         caption: '',

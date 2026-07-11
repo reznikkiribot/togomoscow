@@ -23,6 +23,7 @@ export interface RecognizeResult {
   mode: RecognizeMode;
   candidates: Candidate[];
   autoOpen: boolean;
+  topConfident?: boolean; // the top match is >0.9 — pre-highlight it, but never auto-open
   diagnostic?: string;
   labelText?: string; // Vivino-style: the brand read off a wine/beer label
 }
@@ -94,7 +95,10 @@ export class VisionRecognitionService implements OnModuleInit {
           caption: 'фото',
           mode,
           candidates,
-          autoOpen: top >= this.AUTO_OPEN,
+          // NEVER auto-open (owner rule): even at 100% confidence the human keeps
+          // the final say on which dish/drink it is. We only PRE-HIGHLIGHT the top.
+          autoOpen: false,
+          topConfident: top >= this.AUTO_OPEN,
           diagnostic: `clip:image top=${top.toFixed(2)} imageIndex=${this.vectors.imageSize}`,
         };
       }
@@ -193,7 +197,8 @@ export class VisionRecognitionService implements OnModuleInit {
       caption: query,
       mode,
       candidates,
-      autoOpen: (candidates[0]?.confidence ?? 0) >= 0.95,
+      autoOpen: false, // never auto-open — the user always confirms (owner rule)
+      topConfident: (candidates[0]?.confidence ?? 0) >= 0.95,
       diagnostic: `fallback:caption query="${query}" candidates=${candidates.length}`,
     };
   }

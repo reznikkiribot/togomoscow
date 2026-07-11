@@ -35,6 +35,8 @@ export interface Listing {
   snippet?: { text: string; rating: number } | null; // one review shown on cards
   bestVenue?: { name: string; rating: number } | null; // for dish/drink: best place to have it
   recVenue?: { id: string; name: string; price?: number | null } | null; // recommended place (+ its price for this item)
+  recReason?: string; // why recommended (taste match) — shown on feed rec cards
+  matchPct?: number; // % taste match (unlocked after 10 ratings)
   placeholderPhoto?: string | null; // stock photo when no real photo
   cityLabel?: string; // shown when there's no street address yet
   metro?: string | null; // nearest metro station → "м. …"
@@ -185,6 +187,7 @@ export interface RecognizeResult {
   mode: string;
   candidates: RecognizeCandidate[];
   autoOpen: boolean;
+  topConfident?: boolean; // AI is >0.9 sure of the top match (pre-highlight, still confirm)
   diagnostic?: string;
   labelText?: string; // wine/beer label brand read by OCR (Vivino-style)
 }

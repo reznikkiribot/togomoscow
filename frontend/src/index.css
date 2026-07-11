@@ -5298,3 +5298,58 @@ button:active,
   padding: 3px 9px;
   border-radius: 999px;
 }
+
+/* recommendation cards inside the wall feed (taste-based, endless) */
+.rec-post { padding-bottom: 4px; }
+.rec-tag {
+  display: inline-block;
+  margin: 12px 12px 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(211, 35, 35, 0.08);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+.rec-body { padding: 10px 14px 14px; }
+.rec-name { font-size: 17px; font-weight: 800; }
+.rec-venue {
+  display: block;
+  margin-top: 4px;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+}
+.rec-rating { display: flex; align-items: center; gap: 6px; margin-top: 6px; }
+.rec-rating-val { font-size: 13px; color: var(--hint); }
+.rec-rating-val.no { color: var(--hint); }
+.rec-snippet {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--fg);
+  font-style: italic;
+}
+.rec-reason { margin-top: 8px; font-size: 13.5px; color: var(--hint); }
+.rec-stars { display: flex; gap: 4px; margin: 10px 0; }
+.rec-star {
+  background: none;
+  border: none;
+  font-size: 30px;
+  line-height: 1;
+  color: var(--border);
+  cursor: pointer;
+  padding: 0 2px;
+  transition: color 0.12s;
+}
+.rec-star:hover, .rec-star:active { color: var(--accent); }
+
+/* scanner: pre-highlighted top candidate (AI is sure, user still confirms) */
+.scan-cand.top {
+  border: 2px solid var(--accent);
+  background: rgba(211, 35, 35, 0.05);
+}

@@ -9,6 +9,10 @@ const PROFANITY = /(?:\bхуй|хуё|хуя|пизд|\bебать|ебан|ёб
 // NB: outer group is non-capturing so the `(.)\1{6,}` backreference points at the
 // `(.)` (group 1) — with a capturing outer group `\1` was empty and matched EVERY char.
 const SPAM = /(?:https?:\/\/|www\.|t\.me\/|@[a-z0-9_]{4,}|\b\d{10,}\b|(.)\1{6,})/i;
+// CRUDE / non-constructive: not literal profanity, but disgusting/toxic language
+// that adds no signal ("параша", "блевал", "говно", "жрать невозможно"). A review
+// hitting this goes to human moderation instead of auto-publishing. Extend freely.
+const CRUDE = /параш|блев(ал|ать|ота|отн)|сблев|стошнил|говн|дерьм|гавн|обосра|зассан|помо[йи]|отрав(ился|иться|а)|потрав|тошнот|мерзост|отврат|гадост|уёбищ|уебищ|конч(еный|аный)|быдл|скотин|животное\b|жр(ать|али) невозможно|есть невозможно|нахер|нахрен|похер|похрен|днище|зашкварн?/i;
 
 export interface CreateReviewDto {
   rating: number;
@@ -65,7 +69,7 @@ export class ReviewsService {
   async addComment(userId: string, reviewId: string, text: string, parentId?: string) {
     const t = (text ?? '').trim();
     if (!t) return null;
-    if (PROFANITY.test(t)) throw new BadRequestException('Комментарий содержит недопустимую лексику');
+    if (PROFANITY.test(t) || CRUDE.test(t)) throw new BadRequestException('Комментарий содержит недопустимую лексику');
     if (SPAM.test(t)) throw new BadRequestException('Похоже на спам — ссылки и контакты запрещены');
     return this.prisma.comment.create({
       data: { reviewId, userId, text: t.slice(0, 1000), parentId: parentId ?? null },
@@ -138,8 +142,13 @@ export class ReviewsService {
     // photo sends the review to PENDING for a human look)
     let status: 'APPROVED' | 'PENDING' = 'APPROVED';
     const reviewText = (dto.text ?? '').trim();
-    if (reviewText && (PROFANITY.test(reviewText) || SPAM.test(reviewText))) {
-      status = 'PENDING'; // suspicious text → the admin cabinet, not the feed
+    if (reviewText && (PROFANITY.test(reviewText) || SPAM.test(reviewText) || CRUDE.test(reviewText))) {
+      status = 'PENDING'; // crude / non-constructive → the cabinet, not the feed
+    }
+    // toxic low-rating rant with no substance (e.g. "1★, отстой, не берите"):
+    // a 1-2★ review under ~20 chars and no useful noun is held for a human look
+    if (rating <= 2 && reviewText && reviewText.length < 20 && !/[а-яё]{5,}\s+[а-яё]{4,}/i.test(reviewText)) {
+      status = 'PENDING';
     }
     // photo moderation: explicit content is dropped entirely; non-food photos
     // (selfies, screenshots) stay in the review but never become the card photo
