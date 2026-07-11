@@ -727,7 +727,6 @@ export function ListingDetailModal({
           /* CAROUSEL: full-width snap slides; each photo names its venue */
           <div className="carousel">
             {media.map((m, i) => {
-              const meta = mediaMeta.get(m.u);
               return (
                 <div key={i} className="carousel-slide">
                   {m.t === 'img' ? (
@@ -735,12 +734,7 @@ export function ListingDetailModal({
                   ) : (
                     <video className="detail-photo" src={m.u} controls playsInline />
                   )}
-                  {(meta?.venue || meta?.user) && (
-                    <span className="carousel-cap">
-                      {meta?.venue ? `📍 ${meta.venue}` : ''}{meta?.venue && meta?.user ? ' · ' : ''}{meta?.user ?? ''}
-                    </span>
-                  )}
-                  <span className="carousel-count">{i + 1}/{media.length}</span>
+
                 </div>
               );
             })}
