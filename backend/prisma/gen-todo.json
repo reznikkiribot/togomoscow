@@ -1439,6 +1439,346 @@
    "id": "3d1a566c-068c-43f6-b234-76b123551b50",
    "name": "Яблочный крамбл",
    "en": "apple crumble"
+  },
+  {
+   "id": "45462fcd-affe-497e-bf37-4a5821ce59e5",
+   "name": "Улун",
+   "en": "tea in a glass"
+  },
+  {
+   "id": "1f3a4859-39cb-4c4a-b0f8-f7eff678f2a4",
+   "name": "Матча",
+   "en": "tea in a glass"
+  },
+  {
+   "id": "d89b686d-dd4d-48f0-a97d-51fbc7d979fc",
+   "name": "Травяной чай",
+   "en": "tea in a glass"
+  },
+  {
+   "id": "e322f85c-247a-4064-bb61-d81fefc24bc3",
+   "name": "Кортадо",
+   "en": "specialty coffee drink in a glass cup"
+  },
+  {
+   "id": "321c6f00-8a4c-4ee3-8bc0-30359d25cb8f",
+   "name": "Космополитен",
+   "en": "craft cocktail in a glass"
+  },
+  {
+   "id": "573e67db-d9b5-4264-b3d6-6e4bdb292789",
+   "name": "Олд фэшен",
+   "en": "craft cocktail in a glass"
+  },
+  {
+   "id": "06f41901-8c4f-40ca-adc6-be8a91254d78",
+   "name": "Компот",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "d4d643f3-03d4-4814-9221-ac779c0e9743",
+   "name": "Tuborg",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "e70788ab-b419-45b7-ab9a-1a635f6d2580",
+   "name": "Miller",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "0987a6a9-2943-4322-bbd4-a00cd8ede669",
+   "name": "Warsteiner",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "763f6d75-02eb-4dba-a54d-4516f9ed7c42",
+   "name": "Grimbergen",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "e1ca5836-d3e5-4330-804d-6eaba8a524ac",
+   "name": "Leffe",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "018a7274-28e5-4048-a585-2731a5cf13fc",
+   "name": "Edelweiss",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "14231cfd-28bf-49b2-8e10-80c1522a0b5e",
+   "name": "Bud",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "68da3bf0-557f-4ed4-8798-1091493beac9",
+   "name": "Purcari",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "48fec6d5-972c-4504-80ed-448853cab5ae",
+   "name": "Mateus",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "4f71cab6-5d00-4e86-bc97-9d748b9d18fa",
+   "name": "Frontera",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "7c84673e-b264-448f-a0d1-8b843f7455a9",
+   "name": "Матча капучино",
+   "en": "specialty coffee drink in a glass cup"
+  },
+  {
+   "id": "496b54be-fe6a-467b-840f-181d7362bc90",
+   "name": "Малиновый кофе",
+   "en": "specialty coffee drink in a glass cup"
+  },
+  {
+   "id": "8e83ca74-c02d-42ea-9384-d30fbdb12e8b",
+   "name": "Пикколо",
+   "en": "specialty coffee drink in a glass cup"
+  },
+  {
+   "id": "8b179902-d8c5-478d-8bc2-ea40ef4b3204",
+   "name": "hoop Эфиопия мытая",
+   "en": "specialty coffee drink in a glass cup"
+  },
+  {
+   "id": "f35d0dcf-7673-416f-8c92-aeac1e985393",
+   "name": "Фильтр-кофе Аласитас натуральная",
+   "en": "specialty coffee drink in a glass cup"
+  },
+  {
+   "id": "4de09091-b5ba-4fff-8429-66a50670ebd8",
+   "name": "hoop Эфиопия анаэробная",
+   "en": "specialty coffee drink in a glass cup"
+  },
+  {
+   "id": "7c53478e-f88c-4d49-8d10-26c38b42ef84",
+   "name": "Айс Ти Калина",
+   "en": "tea in a glass"
+  },
+  {
+   "id": "de911c7a-002c-4ae2-a5ec-c0eed5624cf1",
+   "name": "hoop Аласитас натуральная",
+   "en": "specialty coffee drink in a glass cup"
+  },
+  {
+   "id": "38d85a29-d857-4c8e-af7c-57367039d240",
+   "name": "Фокачча Аль Печино",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "e4cdfb63-c390-47fc-91bf-9db88b4a194f",
+   "name": "Тоник \"The Gardenist\" Birch Tree",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "c7498232-1669-48e8-9eb0-464f186436c7",
+   "name": "Иван-чай с листом вишни",
+   "en": "tea in a glass"
+  },
+  {
+   "id": "0e78e5c0-7ab5-4d6b-83a9-0727e1c0230d",
+   "name": "Чай чёрный с чабрецом",
+   "en": "tea in a glass"
+  },
+  {
+   "id": "ceb601bf-1a01-4724-9109-f0220bd5ba3c",
+   "name": "Чай Изумрудная почка",
+   "en": "tea in a glass"
+  },
+  {
+   "id": "a3796e31-ed82-43ed-9c36-686aaf8093cc",
+   "name": "Игристое вино ODDBIRD Blanc de Blancs б/а",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "c78195a4-f0d4-4d86-ac84-36aecdc1117c",
+   "name": "Пиво Eggenberg Freibier б/а",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "62795645-1a70-4b9b-827b-6458e5bfffa1",
+   "name": "Гречишный чай",
+   "en": "tea in a glass"
+  },
+  {
+   "id": "04ee3735-8fcd-493e-a4cf-87240a69dbf2",
+   "name": "Лимонад Манго и маракуйя",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "228313ba-d919-408c-9875-7cf097b237aa",
+   "name": "Детское Какао",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "817245b6-2e72-49fb-a2c4-32933648aac8",
+   "name": "Круассан с ветчиной из говядины",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "b2a8cec0-d306-4e3a-9acb-491cd3b859a2",
+   "name": "Сбер Капучино",
+   "en": "specialty coffee drink in a glass cup"
+  },
+  {
+   "id": "1a64f400-c9a5-4a60-89d0-15a5a3b0b469",
+   "name": "Добрый Лимон-Лайм",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "2f4417be-1ba8-4c86-b844-302ae035274e",
+   "name": "Кофе Карамельный капучино",
+   "en": "specialty coffee drink in a glass cup"
+  },
+  {
+   "id": "88a7fde5-1d89-429f-9a70-e75f4133e4b3",
+   "name": "Чай Черный Эрл Грей",
+   "en": "tea in a glass"
+  },
+  {
+   "id": "b40c4a1d-9836-46ab-8548-81d54784015c",
+   "name": "Пирожок и Кофе",
+   "en": "specialty coffee drink in a glass cup"
+  },
+  {
+   "id": "42e036c7-04a2-41b1-acbf-c5f7d224d8b1",
+   "name": "Питьевая вода Черноголовка газированная",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "3efc9c96-e99a-46a0-bf0d-cff2b59dc8f7",
+   "name": "Добрый Апельсин",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "8e607225-5487-4191-9d1b-a0598cc41c6a",
+   "name": "Сок апельсин Баринофф",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "f7e5574c-284c-467b-a2f6-77bbe17cc67e",
+   "name": "С пармской ветчиной круглая",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "acd58c2b-3f77-47ae-9b21-cc0e5d8a7927",
+   "name": "Сок J7 апельсин",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "53b05470-fac8-4be4-aa60-3e12f853039a",
+   "name": "С пармской ветчиной",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "7d81539c-6af5-4e65-a787-e7cf59bca1d1",
+   "name": "Аква Минерале с газом",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "906da241-91ae-4062-bda4-dcdf704d79fb",
+   "name": "Волковский лимонад Волчок \"Манго-Кокос\"",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "ed8af728-dcde-451c-8509-7d5a8a502608",
+   "name": "Добрый Лесные ягоды",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "0a927db7-c7ca-4324-9428-683c94a6192a",
+   "name": "Тоник Rich bitter Лемон",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "5af7616b-6721-4636-9644-748d047723cb",
+   "name": "Добрый Манго-маракуйя",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "283ca4d2-ecb0-4bbe-b335-7d9c9fbe74b0",
+   "name": "Чай черный",
+   "en": "tea in a glass"
+  },
+  {
+   "id": "59bf0856-20d0-4f41-be9b-dedc576a2d5e",
+   "name": "Апельсиновый бамбл",
+   "en": "specialty coffee drink in a glass cup"
+  },
+  {
+   "id": "dfebdff1-9210-4108-8497-8e879171279b",
+   "name": "Erdinger",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "6ccf52bf-fba3-45d3-a95b-64ead73fa3ed",
+   "name": "Gato Negro",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "293e5eb3-c477-468c-8ee8-d8023e425fc6",
+   "name": "Heineken",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "28310687-2e54-46bc-8c59-96f5861ce209",
+   "name": "Holsten",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "a960195d-039c-44a1-af3a-53b8537e5eea",
+   "name": "Löwenbräu",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "bd34d271-9a83-4879-b93f-6cf60672af38",
+   "name": "Velkopopovický Kozel",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "efd79a6d-681f-4968-89d5-7b6890642a67",
+   "name": "Самбука",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "047961d6-5e6b-4c85-87b8-26aca4c22c7a",
+   "name": "Franziskaner",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "9123a14c-29ef-48f0-bd39-f8084d96d722",
+   "name": "Бамбл",
+   "en": "specialty coffee drink in a glass cup"
+  },
+  {
+   "id": "b5475298-eca0-478c-8431-f16e45d5c7dd",
+   "name": "Виноградный улун",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "4e1bda92-65ac-4dcf-afd7-3588d46fe1fb",
+   "name": "Чёрный чай с горными травами",
+   "en": "tea in a glass"
+  },
+  {
+   "id": "b7f0815a-3827-46f9-bd9e-fff724b4c537",
+   "name": "Апельсиновый свежевыжатый сок",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "fc60d9dd-98ac-4b2c-b909-e5e6d80bc5cd",
+   "name": "Яйцо Бенедикт с ветчиной из говядины",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "0c76cae9-a002-4037-b6af-56d90833d262",
+   "name": "Эрл грей",
+   "en": "tea in a glass"
   }
  ]
 }

@@ -331,6 +331,38 @@ export default function Home() {
   }, [myId, topUpQueue]);
   useEffect(() => {
     showNextPosts(5);
+    // clip telemetry: measure a real card once per session — if the footer is
+    // clipped on THIS device, the exact numbers land in server logs
+    const t = setTimeout(() => {
+      try {
+        if (sessionStorage.getItem('clipProbe')) return;
+        const btn = document.querySelector('.feed .card .fav-btn') as HTMLElement | null;
+        const card = btn?.closest('.card') as HTMLElement | null;
+        if (!btn || !card) return;
+        sessionStorage.setItem('clipProbe', '1');
+        const b = btn.getBoundingClientRect();
+        const cr = card.getBoundingClientRect();
+        const clip = Math.round(b.bottom - cr.bottom);
+        if (clip > 2) {
+          const cs = (el: Element) => {
+            const s = getComputedStyle(el);
+            return { h: s.height, mh: s.minHeight, d: s.display, o: s.overflow, f: s.flex };
+          };
+          fetch('/api/health/client-error', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              where: 'card-clip', clip, btnH: Math.round(b.height),
+              card: cs(card),
+              wrap: card.parentElement ? cs(card.parentElement) : null,
+              cbody: card.querySelector('.body') ? cs(card.querySelector('.body')!) : null,
+              ua: navigator.userAgent.slice(0, 80),
+            }),
+          }).catch(() => {});
+        }
+      } catch { /* diagnostics only */ }
+    }, 2500);
+    return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
