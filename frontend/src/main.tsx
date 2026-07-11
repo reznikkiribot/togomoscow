@@ -1,15 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
-import 'leaflet/dist/leaflet.css';
-import 'leaflet.markercluster/dist/MarkerCluster.css';
-import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import './index.css';
 import App from './App';
 import Home from './screens/Home';
-import Favorites from './screens/Favorites';
-import MyRatings from './screens/MyRatings';
-import Business from './screens/Business';
+const Favorites = lazy(() => import('./screens/Favorites'));
+const MyRatings = lazy(() => import('./screens/MyRatings'));
+const Business = lazy(() => import('./screens/Business'));
 import { initTelegram, haptic, initData } from './telegram';
 import { api } from './api';
 
@@ -126,9 +123,9 @@ document.addEventListener(
 
 const appChildren = [
   { index: true, element: <Home /> },
-  { path: 'favorites', element: <Favorites /> },
-  { path: 'me', element: <MyRatings /> },
-  { path: 'business', element: <Business /> },
+  { path: 'favorites', element: <Suspense fallback={null}><Favorites /></Suspense> },
+  { path: 'me', element: <Suspense fallback={null}><MyRatings /></Suspense> },
+  { path: 'business', element: <Suspense fallback={null}><Business /></Suspense> },
 ];
 
 const router = createBrowserRouter([

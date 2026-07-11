@@ -1,6 +1,10 @@
 import { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet.markercluster';
+// leaflet styles ship WITH the (lazy) map chunk, not the eager main bundle
+import 'leaflet/dist/leaflet.css';
+import 'leaflet.markercluster/dist/MarkerCluster.css';
+import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import type { GeoPoint } from '../types';
 
 // Moscow center

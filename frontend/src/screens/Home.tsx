@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { api } from '../api';
 import { ListingCard } from '../components/ListingCard';
 import { TasteHero } from '../components/TasteHero';
@@ -11,10 +11,11 @@ import { PhotoPostModal } from '../components/PhotoPostModal';
 import { CommentsModal } from '../components/CommentsModal';
 import { hasOpenModal } from '../modalEsc';
 import { UserProfileModal } from '../components/People';
-import { ListingDetailModal } from '../components/ListingDetail';
+const ListingDetailModal = lazy(() => import('../components/ListingDetail').then((m) => ({ default: m.ListingDetailModal })));
 import { Filters, type FilterState } from '../components/Filters';
-import { MapBrowse, type BrowseCat } from '../components/MapBrowse';
-import { AddBusiness } from '../components/AddBusiness';
+import type { BrowseCat } from '../components/MapBrowse';
+const MapBrowse = lazy(() => import('../components/MapBrowse').then((m) => ({ default: m.MapBrowse })));
+const AddBusiness = lazy(() => import('../components/AddBusiness').then((m) => ({ default: m.AddBusiness })));
 import { VenuePicker } from '../components/VenuePicker';
 import { useFavorites } from '../hooks/useFavorites';
 import { getRecent } from '../recent';
@@ -796,6 +797,7 @@ export default function Home() {
       )}
       {openUser && <UserProfileModal id={openUser} onClose={() => setOpenUser(null)} />}
       {browse && (
+        <Suspense fallback={null}>
         <MapBrowse
           cat={browse}
           onClose={() => {
@@ -808,6 +810,7 @@ export default function Home() {
             refreshHome(); // returning to home from a section → fresh positions
           }}
         />
+        </Suspense>
       )}
       {/* choice: add a venue or add a dish/drink (label follows the search category) */}
       {showAdd && (
@@ -836,7 +839,7 @@ export default function Home() {
       {showAddBiz && (
         <div className="modal-backdrop" style={{ zIndex: 3200 }} onClick={() => setShowAddBiz(false)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <AddBusiness onClose={() => setShowAddBiz(false)} initialName={search.trim()} />
+            <Suspense fallback={null}><AddBusiness onClose={() => setShowAddBiz(false)} initialName={search.trim()} /></Suspense>
           </div>
         </div>
       )}
@@ -848,6 +851,7 @@ export default function Home() {
         />
       )}
       {active && (
+        <Suspense fallback={null}>
         <ListingDetailModal
           id={active.id}
           autoRate={autoRate}
@@ -862,14 +866,17 @@ export default function Home() {
             // stay where the card was opened — never jump back to the top
           }}
         />
+        </Suspense>
       )}
       {deepId && !active && (
+        <Suspense fallback={null}>
         <ListingDetailModal
           id={deepId}
           originVenue={deepVenue ?? undefined}
           onChanged={loadFeeds}
           onClose={() => { setDeepId(null); setDeepVenue(null); }}
         />
+        </Suspense>
       )}
     </div>
   );
