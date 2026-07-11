@@ -150,6 +150,22 @@ const LISTINGS_CUISINE_FOR: Record<string, { cuisine?: string[]; barLike?: boole
   сэндвичи: { cuisine: ['sandwich'] },
 };
 
+// filter-token → Russian category/name keywords (regex), so the sparse OSM
+// `cuisine` field isn't the only thing the cuisine filter can match
+const CUISINE_TOKEN_RU: Record<string, string> = {
+  russian: 'русск|борщ|пельмен|блин|окрошк|солянк',
+  georgian: 'грузин|хачапур|хинкал|чахохбил|сацив',
+  italian: 'итальян|паст|пицц|ризотто|лазань',
+  pizza: 'пицц',
+  sushi: 'суши|ролл|сашими|японск',
+  asian: 'азиатск|вок|том ям|фо бо|рамен|пад тай',
+  chinese: 'китайск|дим сам|вок',
+  burger: 'бургер',
+  coffee: 'кофе|латте|капучино|раф|эспрессо|американо',
+  barbecue: 'гриль|шашлык|барбекю|мангал|стейк',
+  fast_food: 'фастфуд|бургер|шаурм|шаверм|хот.?дог|наггетс|картофель фри',
+};
+
 function inMoscow(lat?: number | null, lng?: number | null): boolean {
   return (
     lat != null && lng != null && lat > 55.4 && lat < 56.05 && lng > 37.2 && lng < 37.95
@@ -204,7 +220,16 @@ export class ListingsService {
       conds.push(mc ?? Prisma.sql`name ILIKE ${'%' + search + '%'}`);
     }
     if (price) conds.push(Prisma.sql`price_level = ${Number(price)}`);
-    if (cuisine) conds.push(Prisma.sql`cuisine ILIKE ${'%' + cuisine + '%'}`);
+    if (cuisine) {
+      // the OSM `cuisine` field is sparse — also match the Russian category/name
+      // so filtering by "Грузинская" actually surfaces Georgian spots/dishes
+      const ru = CUISINE_TOKEN_RU[cuisine.toLowerCase()];
+      conds.push(
+        ru
+          ? Prisma.sql`(cuisine ILIKE ${'%' + cuisine + '%'} OR category ~* ${ru} OR name ~* ${ru})`
+          : Prisma.sql`cuisine ILIKE ${'%' + cuisine + '%'}`,
+      );
+    }
     if (category) {
       // "Кафе" also surfaces fast-food / shawarma / ice-cream / food-court (casual spots)
       if (/кафе/i.test(category)) {
@@ -222,10 +247,14 @@ export class ListingsService {
       ? Prisma.sql`WHERE ${Prisma.join(conds, ' AND ')}`
       : Prisma.empty;
 
+    // "Рекомендуемые" is a real TOP ranking: a Bayesian blend so a 5.0 with one
+    // review doesn't outrank a 4.6 with fifty (m=global mean 4.0, C=confidence 8).
     const orderSql =
       sort === 'rating'
         ? Prisma.sql`t."avgRating" DESC, t."reviewCount" DESC`
-        : Prisma.sql`t."reviewCount" DESC, t."avgRating" DESC`;
+        : sort === 'reviews'
+          ? Prisma.sql`t."reviewCount" DESC, t."avgRating" DESC`
+          : Prisma.sql`((t."reviewCount"::float * t."avgRating" + 8 * 4.0) / (t."reviewCount" + 8)) DESC, t."reviewCount" DESC`;
 
     // when filtering by "open now" we fetch a larger pool, then filter in JS
     const pool = openNow ? 300 : Number(take);
