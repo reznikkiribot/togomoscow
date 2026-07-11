@@ -191,7 +191,6 @@ export class RecsysService {
         type: { in: ['DISH', 'DRINK'] },
         id: { notIn: [...exclude] },
         NOT: this.excludeFilter(),
-        servedAt: { some: { status: 'APPROVED' } },
         ...REAL_PHOTO_OR_COFFEE, // feed shows only real (legally-parsed) photos + coffee
       },
       include: {
@@ -293,7 +292,6 @@ export class RecsysService {
         type: { in: ['DISH', 'DRINK'] },
         id: { notIn: [...exclude] },
         NOT: this.excludeFilter(),
-        servedAt: { some: { status: 'APPROVED' } },
         ...REAL_PHOTO_OR_COFFEE,
       },
       include: {
