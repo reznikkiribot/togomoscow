@@ -1859,12 +1859,12 @@ export class ListingsService {
   ) {
     const type: ListingType = dto.type === 'DRINK' ? 'DRINK' : 'DISH';
     // names always start with a capital letter, whatever the user typed
-    let name = dto.name.trim().replace(/s+/g, ' ');
+    let name = dto.name.trim().replace(/\s+/g, ' ');
     name = name.charAt(0).toUpperCase() + name.slice(1);
     // sanity gate for user-added names: no profanity, no links/handles, must
     // contain letters, not a bare number/emoji ("Шефбургер" is fine)
-    const BAD_NAME = /(?:хуй|хуё|пизд|ебат|ебан|бляд|мудак|пидор|гандон|шлюх|наркот|героин|кокаин|марихуан)/i;
-    const LINKY = /https?://|www.|t.me/|@[a-z0-9_]{4,}/i;
+    const BAD_NAME = /(?:\bхуй|хуё|пизд|\bебат|ебан|бляд|мудак|пидор|гандон|шлюх|наркот|героин|кокаин|марихуан)/i;
+    const LINKY = /https?:\/\/|www\.|t\.me\/|@[a-z0-9_]{4,}/i;
     if (name.length < 2 || name.length > 60) throw new BadRequestException('Название: от 2 до 60 символов');
     if (!/[а-яёa-z]/i.test(name)) throw new BadRequestException('Название должно содержать буквы');
     if (BAD_NAME.test(name)) throw new BadRequestException('Недопустимое название');

@@ -20,6 +20,14 @@ export class TelegramBotService implements OnModuleInit {
       this.log.warn('TELEGRAM_BOT_TOKEN missing — /start handler disabled');
       return;
     }
+    // a LOCAL dev backend must never touch the production bot: it used to
+    // rewrite the menu button to the stale default and steal getUpdates on
+    // every nest-watch restart. Bot logic runs only on Railway (or with an
+    // explicit TELEGRAM_BOT_LOCAL=1 override).
+    if (!process.env.RAILWAY_ENVIRONMENT && process.env.TELEGRAM_BOT_LOCAL !== '1') {
+      this.log.log('local run — bot polling/menu sync disabled');
+      return;
+    }
     // clear any backlog so a backend restart doesn't re-greet old chats
     try {
       await this.call('deleteWebhook', { drop_pending_updates: true });
