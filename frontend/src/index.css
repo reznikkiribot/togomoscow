@@ -5233,3 +5233,27 @@ button:active,
 .card .body {
   padding-bottom: 12px;
 }
+
+/* From on-device telemetry (btnH:2 on iPhone): WebKit under-sizes the flex row,
+   then SHRINKS footer children to fit. Forbid shrinking — the row may overflow
+   visually by a few px (overflow is visible), but the button is always whole. */
+.card .fav-btn,
+.myrate-card .fav-btn {
+  min-height: 36px;
+  flex-shrink: 0;
+}
+.card .qr,
+.card-foot,
+.card .row {
+  flex-shrink: 0;
+}
+/* photo-post: the grabber floats OVER the photo — no dead strip above it */
+.photo-post::before {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  z-index: 3;
+  background: rgba(255, 255, 255, 0.75);
+}

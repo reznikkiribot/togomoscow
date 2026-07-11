@@ -133,11 +133,10 @@ const appChildren = [
 
 const router = createBrowserRouter([
   { path: '/', element: <App />, children: appChildren },
-  { path: '/tg-boot-219', element: <App />, children: appChildren },
-  { path: '/tg-boot-221', element: <App />, children: appChildren },
-  { path: '/tg-boot-222', element: <App />, children: appChildren },
-  { path: '/tg-boot-224', element: <App />, children: appChildren },
-  { path: '/tg-boot-225', element: <App />, children: appChildren },
+  // ANY boot path, present and future — hardcoding versions here is what kept
+  // every new release 404ing inside Telegram
+  { path: '/tg-boot-:v', element: <App />, children: appChildren },
+  { path: '*', element: <Navigate to="/" replace /> },
 ]);
 
 function BootedRouter() {
