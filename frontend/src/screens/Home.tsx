@@ -343,7 +343,7 @@ export default function Home() {
         const b = btn.getBoundingClientRect();
         const cr = card.getBoundingClientRect();
         const clip = Math.round(b.bottom - cr.bottom);
-        if (clip > 2) {
+        { // always report once — real numbers beat guessing
           const cs = (el: Element) => {
             const s = getComputedStyle(el);
             return { h: s.height, mh: s.minHeight, d: s.display, o: s.overflow, f: s.flex };
@@ -352,7 +352,7 @@ export default function Home() {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              where: 'card-clip', clip, btnH: Math.round(b.height),
+              where: 'card-clip', clip, btnH: Math.round(b.height), cardH: Math.round(cr.height),
               card: cs(card),
               wrap: card.parentElement ? cs(card.parentElement) : null,
               cbody: card.querySelector('.body') ? cs(card.querySelector('.body')!) : null,

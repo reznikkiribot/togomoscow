@@ -5218,3 +5218,18 @@ button:active,
   min-height: 0;
   max-height: none;
 }
+
+/* «Хочу попробовать»: FIXED height, flex-centered label — no engine-dependent
+   padding math left at all. This is the terminal fix. */
+.card .fav-btn,
+.myrate-card .fav-btn {
+  height: 36px;
+  padding: 0 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+.card .body {
+  padding-bottom: 12px;
+}
