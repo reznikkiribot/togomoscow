@@ -5155,3 +5155,15 @@ button:active,
   font-size: 13.5px;
   margin: 8px 0 2px;
 }
+
+/* «Хочу попробовать» must ALWAYS fit: tighter type + padding inside narrow grid
+   cards; the emoji is dropped by JS on narrow cards below */
+.card .fav-btn,
+.myrate-card .fav-btn {
+  font-size: 12px;
+  padding: 10px 4px;
+  letter-spacing: -0.3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+}

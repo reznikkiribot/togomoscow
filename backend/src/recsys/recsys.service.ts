@@ -19,11 +19,14 @@ import { ListingsService } from '../listings/listings.service';
 // with openly-licensed ones matched by dish name (or a neutral placeholder). Every
 // non-user photo is labeled "информационный характер" in the UI, so licensed stock
 // is now a legitimate catalog photo — the feed just requires SOME photo + coffee.
+// OWNER RULE: a recommendation card must have a VENUE attachment AND a PRICE —
+// venue-less/price-less cards are banned from the discovery feed entirely.
 const REAL_PHOTO_OR_COFFEE = {
   OR: [
     { category: { contains: 'Кофе', mode: 'insensitive' as const } },
     { photoUrl: { not: null } },
   ],
+  servedAt: { some: { status: 'APPROVED' as const, price: { not: null } } },
 };
 
 @Injectable()

@@ -345,10 +345,6 @@ export default function Home() {
     const seen = new Set<string>();
     const seenName = new Set<string>();
     const out: Listing[] = [];
-    const allowVenueLessFallback =
-      feedLoaded &&
-      recommended.length > 0 &&
-      recommended.every((l) => !(l as any).recVenue && !l.bestVenue);
     const add = (l?: Listing) => {
       const nm = l?.name?.toLowerCase().trim();
       // no breakfast and no alcohol in the deck — only "rich" food & non-alcoholic drinks
@@ -360,7 +356,8 @@ export default function Home() {
       const tags = `${l?.category ?? ''} ${l?.name ?? ''}`;
       // Keep venue-attached cards first. If Railway has items but no menu links after
       // a DB move, allow that explicit fallback so the home screen is not empty.
-      const hasVenue = !!(l && ((l as any).recVenue || l.bestVenue || allowVenueLessFallback));
+      // OWNER RULE: no venue attachment → the card never enters the deck
+      const hasVenue = !!(l && ((l as any).recVenue || l.bestVenue));
       if (
         l &&
         hasVenue &&
