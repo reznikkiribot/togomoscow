@@ -186,6 +186,7 @@ export interface RecognizeResult {
   candidates: RecognizeCandidate[];
   autoOpen: boolean;
   diagnostic?: string;
+  labelText?: string; // wine/beer label brand read by OCR (Vivino-style)
 }
 
 export interface Favorite {

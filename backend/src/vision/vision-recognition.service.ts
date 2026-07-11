@@ -24,6 +24,7 @@ export interface RecognizeResult {
   candidates: Candidate[];
   autoOpen: boolean;
   diagnostic?: string;
+  labelText?: string; // Vivino-style: the brand read off a wine/beer label
 }
 
 function bigrams(s: string) {
@@ -66,8 +67,20 @@ export class VisionRecognitionService implements OnModuleInit {
   }
 
   async recognize(image: Buffer, mode: RecognizeMode = 'auto'): Promise<RecognizeResult> {
-    if (mode === 'wine') return this.recognizeWine(image);
+    if (mode === 'wine') return this.recognizeLabel(image);
     if (mode === 'menu') return this.recognizeMenu(image);
+
+    // Vivino-style: a photo of a BOTTLE/CAN label is recognized by its TEXT, not
+    // by image similarity (labels all look alike to CLIP). Auto-detect first.
+    if (mode === 'auto' || mode === 'drink') {
+      const probs = await this.clip.classify(image, [
+        'a photo of a wine bottle, beer bottle or can with a label',
+        'a photo of food or a dish on a plate',
+        'a photo of a drink in a cup or glass',
+        'a photo of an unrelated object or scene',
+      ]);
+      if (probs && probs[0] >= 0.45) return this.recognizeLabel(image);
+    }
 
     // PRIMARY: CLIP image-to-image — fast (~250ms) + accurate + language-independent
     const qvec = await this.clip.embedImage(image);
@@ -205,20 +218,58 @@ export class VisionRecognitionService implements OnModuleInit {
     return this.shape(scored);
   }
 
-  private async recognizeWine(image: Buffer): Promise<RecognizeResult> {
+  /** Vivino-style label recognition (wine AND beer): OCR the label, distil the
+   *  brand line, search the catalog + look the brand up on the open web
+   *  (Open Food Facts) so unknown bottles still resolve to a proper name. */
+  private async recognizeLabel(image: Buffer): Promise<RecognizeResult> {
     const raw = await this.ocr.text(image);
-    let query = raw;
-    if (raw) {
-      const parsed = await this.ollama.generate(
+    // brand line: the longest meaningful OCR lines (labels shout the brand)
+    const lines = this.ocr.lines(raw).slice(0, 6);
+    let query = lines
+      .sort((a, b) => b.length - a.length)
+      .slice(0, 2)
+      .join(' ')
+      .replace(/\b\d{4}\b/g, '') // vintage years only add noise
+      .replace(/\s+/g, ' ')
+      .trim()
+      .slice(0, 60);
+    // a local LLM (if present) distils the brand better than heuristics
+    const parsed = await this.ollama
+      .generate(
         this.ollama.textModel,
-        `Это текст с винной этикетки. Верни ТОЛЬКО название/производителя вина одной строкой:\n"${raw.slice(0, 400)}"`,
+        `Это текст с этикетки вина или пива. Верни ТОЛЬКО название бренда/напитка одной строкой:\n"${raw.slice(0, 400)}"`,
         undefined,
-        10000,
-      );
-      query = (parsed || raw).split('\n')[0].trim();
-    }
+        8000,
+      )
+      .catch(() => null);
+    if (parsed?.trim()) query = parsed.split('\n')[0].trim().slice(0, 60);
     const candidates = query ? await this.rankByText(query, 'DRINK') : [];
-    return { caption: query, mode: 'wine', candidates, autoOpen: false };
+    // web brand lookup (free, no key): confirms/officialises the name
+    let webName: string | null = null;
+    if (query) {
+      try {
+        const r = await fetch(
+          `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${encodeURIComponent(query)}&search_simple=1&action=process&json=1&page_size=3&fields=product_name,brands`,
+          { signal: AbortSignal.timeout(5000) },
+        );
+        if (r.ok) {
+          const j: any = await r.json();
+          const prod = (j.products ?? []).find((p: any) => p.product_name || p.brands);
+          if (prod) webName = [prod.brands, prod.product_name].filter(Boolean).join(' ').slice(0, 60);
+        }
+      } catch {
+        /* web lookup is best-effort */
+      }
+    }
+    const caption = webName || query || 'этикетка';
+    return {
+      caption: caption ? `🍷 Этикетка: ${caption}` : 'Этикетка не читается',
+      mode: 'wine',
+      candidates,
+      autoOpen: false,
+      labelText: caption || undefined,
+      diagnostic: `label ocr="${query}" web="${webName ?? ''}"`,
+    };
   }
 
   private async recognizeMenu(image: Buffer): Promise<RecognizeResult> {

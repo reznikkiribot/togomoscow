@@ -5144,3 +5144,14 @@ button:active,
   padding-right: 8px;
   letter-spacing: -0.2px;
 }
+
+/* wine/beer label read-out in the scanner */
+.scan-label-badge {
+  background: rgba(211, 35, 35, 0.07);
+  border: 1px solid rgba(211, 35, 35, 0.25);
+  color: var(--fg);
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 13.5px;
+  margin: 8px 0 2px;
+}

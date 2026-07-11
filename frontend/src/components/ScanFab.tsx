@@ -26,8 +26,8 @@ function BackIcon() {
 
 // Search inside the recognition sheet: when the AI didn't guess it, the user finds
 // the item manually — that correction is the strongest training signal we get.
-function ScanSearch({ onPick }: { onPick: (l: Listing) => void }) {
-  const [q, setQ] = useState('');
+function ScanSearch({ onPick, initial }: { onPick: (l: Listing) => void; initial?: string }) {
+  const [q, setQ] = useState(initial ?? '');
   const [found, setFound] = useState<Listing[]>([]);
   useEffect(() => {
     const query = q.trim();
@@ -100,6 +100,7 @@ function ScanDialog({
           </div>
         ) : result && result.candidates.length ? (
           <>
+            {result.labelText && <div className="scan-label-badge">🍷 Этикетка: {result.labelText}</div>}
             <div className="scan-title">Похоже, это...</div>
             <div className="scan-list">
               {result.candidates.map((c) => (
@@ -117,7 +118,7 @@ function ScanDialog({
                 </button>
               ))}
             </div>
-            <ScanSearch onPick={onPickSearch} />
+            <ScanSearch onPick={onPickSearch} initial={result.labelText} />
             <button className="scan-retry" onClick={onRetryAnalysis}>
               Попробовать еще раз
             </button>
@@ -127,9 +128,13 @@ function ScanDialog({
           </>
         ) : (
           <div className="scan-empty">
-            <div>Не удалось распознать 🤔</div>
-            {result?.diagnostic && <small>{result.diagnostic}</small>}
-            <ScanSearch onPick={onPickSearch} />
+            {result?.labelText ? (
+              <div>🍷 Этикетка: <b>{result.labelText}</b></div>
+            ) : (
+              <div>Не удалось распознать 🤔</div>
+            )}
+            {result?.diagnostic && !result?.labelText && <small>{result.diagnostic}</small>}
+            <ScanSearch onPick={onPickSearch} initial={result?.labelText} />
             <button className="scan-retry" onClick={onRetryAnalysis}>
               Попробовать еще раз
             </button>

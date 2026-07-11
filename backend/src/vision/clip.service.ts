@@ -97,6 +97,43 @@ export class ClipService implements OnModuleInit {
     return this.labelsLoading;
   }
 
+  // generic zero-shot over arbitrary label sets (text vectors cached per set) —
+  // same memory-safe text-tower approach as moderation
+  private classCache = new Map<string, number[][]>();
+  async classify(input: Buffer, labels: string[]): Promise<number[] | null> {
+    try {
+      const key = labels.join('|');
+      let vecs = this.classCache.get(key);
+      if (!vecs) {
+        const { AutoTokenizer, CLIPTextModelWithProjection, env } = await import('@xenova/transformers');
+        (env as any).cacheDir = process.env.CLIP_CACHE || './.models-cache';
+        const tokenizer = await AutoTokenizer.from_pretrained(this.model);
+        const textModel = await CLIPTextModelWithProjection.from_pretrained(this.model);
+        const inputs = tokenizer(labels, { padding: true, truncation: true });
+        const { text_embeds } = await textModel(inputs);
+        const [n, dim] = text_embeds.dims;
+        vecs = [];
+        for (let i = 0; i < n; i++) {
+          const v = Array.from(text_embeds.data.slice(i * dim, (i + 1) * dim) as Float32Array);
+          const norm = Math.hypot(...v) || 1;
+          vecs.push(v.map((x) => x / norm));
+        }
+        await (textModel as any).dispose?.().catch?.(() => {});
+        this.classCache.set(key, vecs);
+      }
+      const imgVec = await this.embedImage(input);
+      if (!imgVec.length) return null;
+      const logits = vecs.map((lv) => 100 * lv.reduce((s, x, i) => s + x * imgVec[i], 0));
+      const max = Math.max(...logits);
+      const exps = logits.map((l) => Math.exp(l - max));
+      const sum = exps.reduce((a, b) => a + b, 0);
+      return exps.map((e) => e / sum);
+    } catch (e: any) {
+      this.log.warn(`classify failed: ${e?.message}`);
+      return null;
+    }
+  }
+
   /** Photo moderation: what IS this picture? Scores sum to ~1 across labels
    *  (softmax over CLIP similarities — same math the zero-shot pipeline does).
    *  Used to keep NSFW out entirely and faces/documents off the catalog cards. */

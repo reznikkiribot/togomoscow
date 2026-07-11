@@ -193,7 +193,7 @@ function AddItemModal({
           <label className="upload-btn">
             <span className="up-ico">📷</span>
             {photoUrl ? 'Заменить фото' : 'Добавить фото'}
-            <input type="file" accept="image/*" hidden onChange={(e) => addPhoto(e.target.files)} />
+            <input type="file" accept="image/*" multiple hidden onChange={(e) => addPhoto(e.target.files)} />
           </label>
           {uploading && <span className="meta"> Загрузка…</span>}
           {photoUrl && (
@@ -1286,6 +1286,7 @@ export function ListingDetailModal({
                 ref={photoInputRef}
                 type="file"
                 accept="image/*"
+                multiple
                 style={{ display: 'none' }}
                 onChange={async (e) => {
                   const file = e.target.files?.[0];
