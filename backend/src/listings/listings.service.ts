@@ -469,7 +469,8 @@ export class ListingsService {
     const candidates = await this.prisma.review.findMany({
       where: {
         status: 'APPROVED',
-        photoUrls: { isEmpty: false },
+        // a post is a photo OR a written note — bare star-only ratings stay out
+        OR: [{ photoUrls: { isEmpty: false } }, { text: { gt: '' } }],
         userId: { not: viewerId },
       },
       include: { user: true, listing: true },
@@ -489,7 +490,7 @@ export class ListingsService {
       // no other people's posts exist at all (tiny community) → the viewer's own
       // posts keep the wall alive rather than showing an empty feed
       fresh = await this.prisma.review.findMany({
-        where: { status: 'APPROVED', photoUrls: { isEmpty: false }, userId: viewerId },
+        where: { status: 'APPROVED', OR: [{ photoUrls: { isEmpty: false } }, { text: { gt: '' } }], userId: viewerId },
         include: { user: true, listing: true },
         orderBy: { createdAt: 'desc' },
         take: 50,
@@ -571,6 +572,12 @@ export class ListingsService {
       })
       .sort((a, b) => b.score - a.score);
 
+    if (recycled) {
+      for (let i = scored.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [scored[i], scored[j]] = [scored[j], scored[i]];
+      }
+    }
     const page = scored.slice(0, recycled ? 100 : Number(take)).map((x) => x.r); // recycle serves a big page — the client dedupes
     for (const r of page) (r as any).recycled = recycled; // client-side session dedupe hint
     // record the delivery — these will never be served to this viewer again

@@ -276,7 +276,7 @@ export function ScanFab() {
 
   return (
     <>
-      <button className={'scan-fab' + (pulse ? ' pulse' : '')} onClick={() => setSrcMenu(true)} aria-label="Сканировать блюдо или напиток">
+      <button className={'scan-fab' + (pulse ? ' pulse' : '')} onClick={() => galleryRef.current?.click()} aria-label="Сканировать блюдо или напиток">
         <CamIcon />
         {fabLabel && <span className="scan-fab-label">Скан</span>}
       </button>

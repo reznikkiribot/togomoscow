@@ -668,7 +668,7 @@ export default function Home() {
             <>
               <div className="section-title">🏅 Станьте первым дегустатором</div>
               <p className="ft-sub">Ваш отзыв станет частью истории карточки</p>
-              <div className="feed">{firstTaster.map(card)}</div>
+              <div className="feed">{firstTaster.filter((l) => (l as any).recVenue).map(card)}</div>
             </>
           )}
           {ratePool.length > 1 && (
