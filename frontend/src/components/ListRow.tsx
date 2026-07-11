@@ -70,7 +70,7 @@ export function ListRow({
         {/* no best venue yet → a random venue that serves it */}
         {isItem && !listing.bestVenue && (listing as any).tryAt && (
           <div className="sub">
-            {listing.reviewCount === 0 ? 'Попробуйте в: ' : ''}📍{(listing as any).tryAt.name}
+            {listing.reviewCount === 0 ? 'Попробуйте в:' : ''}📍{(listing as any).tryAt.name}
           </div>
         )}
         {/* dish/drink: lead with WHERE it's best — visible as soon as it's known */}

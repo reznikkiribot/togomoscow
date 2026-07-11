@@ -62,7 +62,7 @@ export function ListingCard({
           ) : (listing as any).tryAt ? (
             // no best venue → a random place that serves it
             <div className="meta">
-              {listing.reviewCount === 0 ? 'Попробуйте в: ' : ''}📍{(listing as any).tryAt.name}
+              {listing.reviewCount === 0 ? 'Попробуйте в:' : ''}📍{(listing as any).tryAt.name}
             </div>
           ) : (
             <div className="meta">
