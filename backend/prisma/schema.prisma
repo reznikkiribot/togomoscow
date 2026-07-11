@@ -214,6 +214,11 @@ model MenuLink {
 
   status        MenuItemStatus @default(APPROVED)
   price         Int? // price in rubles, set by owner
+  // per-venue AI photo: our own image generated from THIS venue's menu photo of
+  // this dish. Shown when the card is attributed to this venue ("попробуйте в"),
+  // so rotating the venue rotates the photo. Falls back to the shared listing photo.
+  photoUrl      String?        @map("photo_url")
+  refImage      String?        @map("ref_image") // the official menu photo used as the generation reference
   addedByUserId String?        @map("added_by_user_id")
   addedBy       User?          @relation("ProposedItems", fields: [addedByUserId], references: [id], onDelete: SetNull)
 

@@ -352,20 +352,26 @@ export class ListingsService {
     const tryAtIds = rows
       .filter((r) => (r.type === 'DISH' || r.type === 'DRINK') && !bestByItem.has(r.id))
       .map((r) => r.id);
-    const tryAtByItem = new Map<string, { id: string; name: string }>();
+    // «Попробуйте в:» carries the venue AND that venue's own AI photo of the
+    // dish — rotating the venue rotates the photo (owner rule 12.07.2026)
+    const tryAtByItem = new Map<string, { id: string; name: string; photoUrl?: string | null }>();
     if (tryAtIds.length) {
       const linkRows = await this.prisma.menuLink.findMany({
         where: { itemId: { in: tryAtIds }, status: 'APPROVED' },
-        select: { itemId: true, venue: { select: { id: true, name: true } } },
+        select: { itemId: true, photoUrl: true, price: true, venue: { select: { id: true, name: true } } },
       });
-      const byItem = new Map<string, { id: string; name: string }[]>();
+      const byItem = new Map<string, { id: string; name: string; photoUrl?: string | null; price?: number | null }[]>();
       for (const l of linkRows) {
         if (!l.venue) continue;
         if (!byItem.has(l.itemId)) byItem.set(l.itemId, []);
-        byItem.get(l.itemId)!.push(l.venue);
+        byItem.get(l.itemId)!.push({ ...l.venue, photoUrl: l.photoUrl, price: l.price });
       }
       for (const [itemId, vs] of byItem) {
-        tryAtByItem.set(itemId, vs[Math.floor(Math.random() * vs.length)]);
+        // prefer a venue that actually HAS its own generated photo, so the card
+        // shows a venue-specific image rather than the generic shared one
+        const withPhoto = vs.filter((v) => v.photoUrl);
+        const pool = withPhoto.length ? withPhoto : vs;
+        tryAtByItem.set(itemId, pool[Math.floor(Math.random() * pool.length)]);
       }
     }
     const wantByListing = new Map<string, number>();
@@ -385,20 +391,28 @@ export class ListingsService {
       for (const v of views) viewsByListing.set(v.listingId, v._count);
     }
 
-    return rows.map((r) => ({
+    return rows.map((r) => {
+      const tryAt = tryAtByItem.get(r.id);
+      // when the card is attributed to a venue and NO user photos exist yet, show
+      // THAT venue's generated photo (so the image matches "попробуйте в: X")
+      const isUserPhoto = (r as any).photoUrl?.startsWith('/api/files/') && !(r as any).photoUrl?.startsWith('/api/files/aigen-');
+      const venuePhoto = !isUserPhoto && tryAt?.photoUrl ? tryAt.photoUrl : null;
+      return {
       ...r,
+      photoUrl: venuePhoto ?? (r as any).photoUrl,
       snippet: snippetByListing.get(r.id) ?? null,
       bestVenue: bestByItem.get(r.id) ?? null,
       wantCount: wantByListing.get(r.id) ?? undefined,
       viewCount: viewsByListing.get(r.id) ?? undefined,
-      tryAt: tryAtByItem.get(r.id) ?? undefined,
+      tryAt: tryAt ?? undefined,
       // show at least the city when there's no street address yet
       cityLabel: inMoscow((r as any).lat, (r as any).lng) ? 'Москва' : undefined,
       metro: nearestMetro((r as any).lat, (r as any).lng), // nearest metro → "м. …" label
       // always provide a stock fallback so even a broken/missing photoUrl shows
       // an appetizing photo instead of a monogram tile.
       placeholderPhoto: `/api/stock/${placeholderKeys(r.type ?? 'RESTAURANT', r.category, (r as any).name, r.id, 1)[0]}`,
-    }));
+      };
+    });
   }
 
   /** All branches of a chain (by group_key) + aggregated rating, for the map. */

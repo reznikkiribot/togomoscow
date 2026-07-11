@@ -1,0 +1,2240 @@
+{
+ "20000000-0000-4000-8000-000000000002": {
+  "name": "Карбонара",
+  "category": "Паста",
+  "ref": "https://coffeemania.ru/uploads/p550/e287a41ae569535.jpg",
+  "refOk": true
+ },
+ "e0f78ce7-e4e9-41b3-b73c-38b06f0f727f": {
+  "name": "Пицца Пепперони",
+  "category": "Пицца",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297677/99a157f6a7409c71491a0593f8d98b64.JPEG",
+  "refOk": true
+ },
+ "8118469d-015c-4779-8d38-38bf057b205b": {
+  "name": "Картофель фри",
+  "category": "Фастфуд",
+  "ref": "https://coffeemania.ru/uploads/p573/0659a1bace20451.jpg",
+  "refOk": true
+ },
+ "6b35f21e-10de-4f67-ba9c-f4b2fb4bea75": {
+  "name": "Краб",
+  "category": "Морепродукты",
+  "ref": "https://coffeemania.ru/uploads/p1068/97c50cbca3a0d2c.jpg",
+  "refOk": true
+ },
+ "f5dc51a8-1f64-4d43-a08d-90767ecfdad0": {
+  "name": "Яичница",
+  "category": "Завтраки",
+  "ref": "https://coffeemania.ru/uploads/p538/4bc7d63fc36dca8.jpg",
+  "refOk": true
+ },
+ "ac224cd8-b3df-42d0-963e-299e6ddfa7af": {
+  "name": "Круассан",
+  "category": "Выпечка",
+  "ref": "https://coffeemania.ru/uploads/p699/75bff173dcd2641.jpg",
+  "refOk": true
+ },
+ "1e32b055-3767-4963-95e1-bcd30723bc1b": {
+  "name": "Сырная",
+  "category": "Блюдо",
+  "ref": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/Cheese-Traditional.jpg",
+  "refOk": true
+ },
+ "5ee0529f-ac81-4efa-8512-df8aed8af784": {
+  "name": "Цыпленок Барбекю",
+  "category": "Блюдо",
+  "ref": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/d9f517f78c25f3944eb160b05b288e58.jpg",
+  "refOk": true
+ },
+ "94bd6506-a5e9-4838-a8ef-cbad02bc01df": {
+  "name": "Накаяма",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p8423/4b6cb6903f7cd64.jpg",
+  "refOk": true
+ },
+ "f6f86a81-6905-41c4-b657-bf65ecd48169": {
+  "name": "Шведский тост с лососем",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p616/379a0f0c16fd0ff.jpg",
+  "refOk": true
+ },
+ "08b08863-f163-464c-a498-83957fa8cb50": {
+  "name": "Цезарь с глазуньей",
+  "category": "Салаты",
+  "ref": "https://coffeemania.ru/uploads/p394/ef7076057a92a56.jpg",
+  "refOk": true
+ },
+ "e0cab7fc-8116-46b6-9468-2569a6ffde1d": {
+  "name": "Йогурт «Кофемания»",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p371/7047a29994d9552.jpg",
+  "refOk": true
+ },
+ "015ba771-2e26-4c30-a430-746d787580ae": {
+  "name": "Бефстроганов с картофельным пюре",
+  "category": "Фастфуд",
+  "ref": "https://coffeemania.ru/uploads/p3178/a1f6f787fcf55de.jpg",
+  "refOk": true
+ },
+ "5aea01b9-e9a3-460d-8410-0b6bf432337f": {
+  "name": "Жареный рис с морепродуктами",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p2368/c1f3de4309f8ac8.jpg",
+  "refOk": true
+ },
+ "83711994-a2de-4a70-af52-7c080be2405b": {
+  "name": "Кетолюкс",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p8438/20f34acc6d5a3b2.jpg",
+  "refOk": true
+ },
+ "52ca57df-11ce-4a4e-b677-c543be410945": {
+  "name": "Детокс",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p8445/bbf8c85fd38da19.jpg",
+  "refOk": true
+ },
+ "fb8eac7f-0b9f-40a8-9cf2-be6f563bc83e": {
+  "name": "Молодость",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p8446/cf6099a99b4091f.jpg",
+  "refOk": true
+ },
+ "8b6dc6e2-7e0f-4798-806d-aea6219a8e7e": {
+  "name": "Ванильные сырники",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p509/33f27aa41b82447.jpg",
+  "refOk": true
+ },
+ "fc6865b4-3156-4c5c-a637-3f2d6ce608b6": {
+  "name": "Афоня (на булочке)",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p442/aa3d7ac406f1aef.jpg",
+  "refOk": true
+ },
+ "2e17a4ba-3a7a-4120-b1b1-5755bfd1d650": {
+  "name": "Супербоул",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p8244/df7b29eade5d264.jpg",
+  "refOk": true
+ },
+ "c4ba1249-d445-4f01-9bef-d39dd6278277": {
+  "name": "Молодые кабачки со сметаной",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p497/70cbed467c86dad.jpg",
+  "refOk": true
+ },
+ "5f0ce437-7b9b-4c0d-a76e-e03570eeadbd": {
+  "name": "Шанхай",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p8093/a557f7e7cd0a1ea.jpg",
+  "refOk": true
+ },
+ "73672140-cc0b-45a2-b9c3-da16fb82e3ca": {
+  "name": "Поке с лососем",
+  "category": "Японская",
+  "ref": "https://coffeemania.ru/uploads/p1886/c94a863f1629d5b.jpg",
+  "refOk": true
+ },
+ "5f952ccf-b02b-4463-a6a1-9df687a825a7": {
+  "name": "Салат с крабом и авокадо",
+  "category": "Салаты",
+  "ref": "https://coffeemania.ru/uploads/p4234/9458825d497919f.jpg",
+  "refOk": true
+ },
+ "d1994462-d2fe-41e8-b949-79eb2a5971d5": {
+  "name": "Весенний салат",
+  "category": "Салаты",
+  "ref": "https://coffeemania.ru/uploads/p397/0f5c64a1dde1125.jpg",
+  "refOk": true
+ },
+ "ee4ff6ef-ab4a-4d59-bc04-088aba619dfa": {
+  "name": "Буррата",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p400/f0e5d8523fd3c63.jpg",
+  "refOk": true
+ },
+ "9e8ccf62-59d1-43f7-8dad-0dd7ad957ae7": {
+  "name": "Греко салат",
+  "category": "Салаты",
+  "ref": "https://coffeemania.ru/uploads/p2091/7fe2b6d6a9a4cb1.jpg",
+  "refOk": true
+ },
+ "e3084f13-7eb3-4663-8eee-cb266ff59c57": {
+  "name": "Салат из сочных бакинских помидоров",
+  "category": "Салаты",
+  "ref": "https://coffeemania.ru/uploads/p2051/b8eea0229da3fdb.jpg",
+  "refOk": true
+ },
+ "77bb8087-9d2c-49cf-ac5e-261e2a4c2efc": {
+  "name": "Икра Осетра",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p3554/8187017f664c9ad.jpg",
+  "refOk": true
+ },
+ "d5c56e96-e69e-4407-8cf8-d45b1ea66d8d": {
+  "name": "Домашняя лапша",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p567/096970ca2ad7061.jpg",
+  "refOk": true
+ },
+ "53a00f96-e295-45b7-92c2-ddd9c799692c": {
+  "name": "Кесадилья с курицей",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p553/d8e2c91ca28815f.jpg",
+  "refOk": true
+ },
+ "9bdec138-ca3b-4976-a996-f6c2480d6af6": {
+  "name": "Тортилья-ролл с курицей",
+  "category": "Японская",
+  "ref": "https://coffeemania.ru/uploads/p435/3964184843b6405.jpg",
+  "refOk": true
+ },
+ "b6daa7f6-8f42-4b86-ad01-ab97225d5b7e": {
+  "name": "Детский куриный суп",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p571/04ec2b1886077f0.jpg",
+  "refOk": true
+ },
+ "9107000b-6446-4501-83aa-93ebaccd596f": {
+  "name": "Шницель по-милански",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p1065/b88ec848e111187.jpg",
+  "refOk": true
+ },
+ "03749ea9-b469-4ec1-a085-e28ea3b554ea": {
+  "name": "Пельмени в бульоне",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p572/1f85b6b2fb8fd00.jpg",
+  "refOk": true
+ },
+ "77b331f7-20bb-479a-af23-3a80590ed5fd": {
+  "name": "Большая котлета из говядины",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p2375/f36914d08610872.jpg",
+  "refOk": true
+ },
+ "917ec898-e309-4f75-a52a-af829a15ee99": {
+  "name": "Палтус с соусом бер монте",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p7945/b53ac72805b457a.jpg",
+  "refOk": true
+ },
+ "d52584f9-cb1b-4ebe-a55f-c20c7b2732bf": {
+  "name": "Индейка на пару",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p464/67721faf74180aa.jpg",
+  "refOk": true
+ },
+ "e5aec383-e328-42f9-bf46-1398aaa80091": {
+  "name": "Пожарская котлета",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p3396/9542c1644b81a7f.jpg",
+  "refOk": true
+ },
+ "bbe273f4-75dc-4b92-a16a-d2e79f5391e8": {
+  "name": "Гречневая лапша с креветками",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p551/754cf6dcc50acac.jpg",
+  "refOk": true
+ },
+ "1b4dc9e8-9e9a-43d9-b861-47bcae03b45b": {
+  "name": "Гречневая лапша с телятиной",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p2094/a9205ed93fce294.jpg",
+  "refOk": true
+ },
+ "709a601e-b851-43f8-a218-b84b82261053": {
+  "name": "Рыбная котлета",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p3400/d03117b9b763a15.jpg",
+  "refOk": true
+ },
+ "bc9f91a7-ae69-4616-99fc-86bc139b156b": {
+  "name": "Крабовые котлетки с диким рисом",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p476/a187816c5b25f0d.jpg",
+  "refOk": true
+ },
+ "07fbb950-1efd-456b-badd-9c4424c1fdf9": {
+  "name": "Овощи на гриле",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p575/d82ca62415f5336.jpg",
+  "refOk": true
+ },
+ "9ea61f3a-1438-48ee-b7c1-ea94c83f4e1d": {
+  "name": "Гречка с луком",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p578/4178b90883a9c81.jpg",
+  "refOk": true
+ },
+ "8451b743-5fac-484c-882b-1922b35a982d": {
+  "name": "Брокколи на гриле",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p588/f710ff611c0655d.jpg",
+  "refOk": true
+ },
+ "b74215a0-b55a-4b52-8cec-ac8f32baed91": {
+  "name": "Киноа",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p583/f593eb61b3523f9.jpg",
+  "refOk": true
+ },
+ "987eb256-478e-401f-856b-f1c1e0be43f3": {
+  "name": "Дикий рис",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p576/2632f81ddbf534e.jpg",
+  "refOk": true
+ },
+ "8695081b-e16e-4322-b879-62f9d99c5c5d": {
+  "name": "Картофель фри с пармезаном",
+  "category": "Фастфуд",
+  "ref": "https://coffeemania.ru/uploads/p1091/c8c6b2e90111ef6.jpg",
+  "refOk": true
+ },
+ "d4fdcb3e-e7a2-4d61-90fe-bbedaa159adf": {
+  "name": "Картофель фри с трюфелем",
+  "category": "Фастфуд",
+  "ref": "https://coffeemania.ru/uploads/p1092/1edfa0b20d14c28.jpg",
+  "refOk": true
+ },
+ "8b7db3e3-e0cd-45f3-9d2b-d54680a695c9": {
+  "name": "Фри пармезан и трюфель",
+  "category": "Фастфуд",
+  "ref": "https://coffeemania.ru/uploads/p3053/a1a480719491043.jpg",
+  "refOk": true
+ },
+ "01e88732-c6a5-4390-80eb-a32539821a02": {
+  "name": "Картофельное пюре",
+  "category": "Фастфуд",
+  "ref": "https://coffeemania.ru/uploads/p574/b23daf6dad2fb14.jpg",
+  "refOk": true
+ },
+ "ea8d2b2b-52bc-40c9-9472-01df0e0a79c0": {
+  "name": "Шпинат",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p581/30d74f42f4e542c.jpg",
+  "refOk": true
+ },
+ "a3e7e1f3-136d-49d3-b7a4-a6035b41f07f": {
+  "name": "Спаржа на гриле",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p8316/b52abcd4edf10ab.jpg",
+  "refOk": true
+ },
+ "ccbc39e4-6da5-41b6-806f-15b0f1af71fa": {
+  "name": "Картофельные зразы",
+  "category": "Фастфуд",
+  "ref": "https://coffeemania.ru/uploads/p7279/b1c43bec41163dc.jpg",
+  "refOk": true
+ },
+ "78a63862-d85e-4935-ba29-2b16e4e4471c": {
+  "name": "Лапша рамен с трубачом",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p7978/90525f23c5ddf36.jpg",
+  "refOk": true
+ },
+ "f49bd55e-1b9f-4734-8cf5-fc2418ccaf1b": {
+  "name": "Пибимпаб",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p6614/2f0014a8ffc3677.jpg",
+  "refOk": true
+ },
+ "248715ef-0b02-4396-90d6-0d782b8de1eb": {
+  "name": "Бейгл с лососем домашнего посола",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p1099/1420869c4a0389d.jpg",
+  "refOk": true
+ },
+ "a8dc32aa-a0dd-4d25-a7d4-96215656cc57": {
+  "name": "Тост с красной икрой",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p3458/26d13f4730eba34.jpg",
+  "refOk": true
+ },
+ "0d57367f-e44f-4684-9d7e-70b179412acd": {
+  "name": "Аво соло",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p7274/d8c34e839cf7dda.jpg",
+  "refOk": true
+ },
+ "abf3a87a-9f42-4ffc-b5a5-2158c2a6500e": {
+  "name": "Капитан Барашек (на листьях салата)",
+  "category": "Салаты",
+  "ref": "https://coffeemania.ru/uploads/p444/dd7e57de62af041.jpg",
+  "refOk": true
+ },
+ "1d2a5655-1dac-4cb2-9625-7849cb31d922": {
+  "name": "Афоня (на листьях салата)",
+  "category": "Салаты",
+  "ref": "https://coffeemania.ru/uploads/p443/c1ffdfcef48e59a.jpg",
+  "refOk": true
+ },
+ "fd4001c7-44f1-4120-a77c-e346ab26a9bc": {
+  "name": "Хумус",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p405/206fa7ceb77d7c0.jpg",
+  "refOk": true
+ },
+ "1511e410-43b1-4593-8fc8-64afb7d39260": {
+  "name": "Свекольник с пастрами из утки",
+  "category": "Паста",
+  "ref": "https://coffeemania.ru/uploads/p569/734931395c8c9f0.jpg",
+  "refOk": true
+ },
+ "7df66307-4449-4e7d-9e4b-3610f050909a": {
+  "name": "Гаспачо с камчатским крабом",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p560/dfef88a98615d7e.jpg",
+  "refOk": true
+ },
+ "c8d4f565-7267-49a7-a3ac-ec09974542e1": {
+  "name": "Окрошка на квасе",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p562/469e970421f09de.jpg",
+  "refOk": true
+ },
+ "a7012ca9-0aa6-4970-bf51-202ef185196c": {
+  "name": "Грибной суп",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p563/5e6dd81c45d6dcb.jpg",
+  "refOk": true
+ },
+ "da364ea1-4870-4e68-b934-a661e066d291": {
+  "name": "Щавелевый горячий суп",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p564/c3a5e7f9da1c509.jpg",
+  "refOk": true
+ },
+ "62ffa778-b4fb-489b-bff2-bde764c26f89": {
+  "name": "Щавелевый холодный суп",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p565/1d2ef0ce9eba51e.jpg",
+  "refOk": true
+ },
+ "13cdee1a-e984-4b98-9a9a-e8fc0cac3d9c": {
+  "name": "Окрошка на кефире",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p561/a0a879421b79ec3.jpg",
+  "refOk": true
+ },
+ "3b684fcc-9ff4-4742-afbd-d10985be0ab0": {
+  "name": "Бекон говяжий",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p4781/84421a67cba33d6.jpg",
+  "refOk": true
+ },
+ "96e040a4-5a96-408e-8a40-c38adab69da8": {
+  "name": "Ветчина из говядины",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p520/7dd4fafa1b0043e.jpg",
+  "refOk": true
+ },
+ "3b26f183-55d8-48ad-b638-fd1ba6e7885d": {
+  "name": "Куриное филе",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p475/fd5d1d2f2b60614.jpg",
+  "refOk": true
+ },
+ "4eeb58cb-c432-4f8b-986d-a2d5bfc29609": {
+  "name": "Сыр",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p507/2c8ceaeba261bed.jpg",
+  "refOk": true
+ },
+ "388f0a96-9e43-4364-a2c7-6adc229c3b82": {
+  "name": "Лосось слабосолёный",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p429/c51758e0655e69c.jpg",
+  "refOk": true
+ },
+ "07b59f92-5343-4705-bb5b-e0572af8d626": {
+  "name": "Креветки на гриле",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p478/dc08d5da562a036.jpg",
+  "refOk": true
+ },
+ "d6af9707-836d-43c8-b72a-6d00bbbc4b32": {
+  "name": "Красная икра",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p430/7cbb181603d0d58.jpg",
+  "refOk": true
+ },
+ "c2c6dd5c-5510-4e99-9e8a-cceb6d9393a9": {
+  "name": "Кабачковая Икра",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p3934/4406b00a14d5b77.jpg",
+  "refOk": true
+ },
+ "6a3fac4d-e715-472b-8c61-ae4ea4cc4c42": {
+  "name": "Грибы",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p519/240fb4e8bfa616a.jpg",
+  "refOk": true
+ },
+ "e2378472-ee1c-4a6c-b7fa-66a156c9b6df": {
+  "name": "Халапеньо",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p414/d7a7b1c1f7bd4d3.jpg",
+  "refOk": true
+ },
+ "96fc3d2e-742b-4b12-9ea7-db267c48a027": {
+  "name": "Авокадо",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p514/0f734e7df75f95a.jpg",
+  "refOk": true
+ },
+ "0b753ce1-3f53-4757-a745-d72df4556af5": {
+  "name": "Лечо",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p590/f461e0d6c3db08c.jpg",
+  "refOk": true
+ },
+ "e0cb25e4-092f-4488-8499-d22a847afd2c": {
+  "name": "Мёд",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p74/b87e05e1d9efead.jpg",
+  "refOk": true
+ },
+ "79b5c38c-14a9-4434-acdf-7a097b7b1915": {
+  "name": "Грецкий орех",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p690/464d4e57fbc7965.jpg",
+  "refOk": true
+ },
+ "cf356bea-1f35-473f-8ea7-3e09f654c97e": {
+  "name": "Свежая клубника",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p698/42e9fad97a8a24f.jpg",
+  "refOk": true
+ },
+ "afd62c73-c901-4e6b-9e13-a4be9caa75bd": {
+  "name": "Клубника, протёртая с сахаром",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p603/0f065a46937140e.jpg",
+  "refOk": true
+ },
+ "377f88fe-6d36-44fb-9b35-0beb4958a65b": {
+  "name": "Малина, протёртая с сахаром",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p602/780afbd86835964.jpg",
+  "refOk": true
+ },
+ "c17cd236-e330-455a-a807-24460f83f169": {
+  "name": "Земляника, протёртая с сахаром",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p604/867236aba923240.jpg",
+  "refOk": true
+ },
+ "4659b6dc-7884-4ff2-ad4f-1faa1721a1d3": {
+  "name": "Сгущённое молоко",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p500/b829110eefedbbd.jpg",
+  "refOk": true
+ },
+ "752ff716-48fe-4217-a23f-bcfd4ad715ba": {
+  "name": "Курага",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p697/0f843a12322c9fd.jpg",
+  "refOk": true
+ },
+ "43942b21-5495-4b85-a48b-afc01e51ac33": {
+  "name": "Сухофрукты",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p691/e0c6b1079a1c8ac.jpg",
+  "refOk": true
+ },
+ "89e8d201-6901-4085-a9f8-05c1c79d58dd": {
+  "name": "Изюм",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p696/eeb9ed8a0a7d219.jpg",
+  "refOk": true
+ },
+ "3923d7e6-1efa-476a-841f-57a10450969e": {
+  "name": "Манговый лес",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p8302/4a219fefd304983.jpg",
+  "refOk": true
+ },
+ "fe2c7a1c-9222-4187-a008-04628dc37e56": {
+  "name": "Дос Потатос",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p703/0137af023fbb9f6.jpg",
+  "refOk": true
+ },
+ "2e7f39d1-8f3b-49be-a5b1-0bfbbe0e29e3": {
+  "name": "Кето-чизкейк",
+  "category": "Десерты",
+  "ref": "https://coffeemania.ru/uploads/p2705/9d3434c3a8aa1d3.jpg",
+  "refOk": true
+ },
+ "a204f306-1d87-44b4-8fd3-b07a8a87aa5d": {
+  "name": "Кокосовая Панна котта",
+  "category": "Десерты",
+  "ref": "https://coffeemania.ru/uploads/p1766/27a8b8c2791a015.jpg",
+  "refOk": true
+ },
+ "22e4ecc6-2e08-4491-b756-b58bc3725a2a": {
+  "name": "Эфенди",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p8303/9536c43c567790d.jpg",
+  "refOk": true
+ },
+ "b60b4baa-9065-474a-ae86-0fa2fe9f231c": {
+  "name": "Фигаро",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p7480/3de2b75d0d45a59.jpg",
+  "refOk": true
+ },
+ "fe766752-6f1d-4bcc-b900-7b5e691b928d": {
+  "name": "Чуча",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p7250/00587a187393318.jpg",
+  "refOk": true
+ },
+ "5eb74dbd-acbe-44e1-b175-0f73acbee3ab": {
+  "name": "Шато",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p705/dfa09980327f95d.jpg",
+  "refOk": true
+ },
+ "76d43ddc-f994-4a73-9f67-e8282f148bc8": {
+  "name": "Эклер ванильный",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p704/5b90cacb3894dbc.jpg",
+  "refOk": true
+ },
+ "8e109b07-4340-4b2a-a6f7-66e640124ece": {
+  "name": "Глория",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p5273/9f4d18ae64b7150.jpg",
+  "refOk": true
+ },
+ "de525ebd-63b0-4650-83bd-d098c2509d74": {
+  "name": "Французский торт",
+  "category": "Десерты",
+  "ref": "https://coffeemania.ru/uploads/p4499/1ee3b7c8339a075.jpg",
+  "refOk": true
+ },
+ "8e12405c-4b21-44ba-8162-b83b606fd6c4": {
+  "name": "Сметанник",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p56/86d486483a85186.jpg",
+  "refOk": true
+ },
+ "5cf35f8b-2395-4756-a3ed-58963b46a05d": {
+  "name": "Сорбет малиновый",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p3499/5f5919f75df27a9.jpg",
+  "refOk": true
+ },
+ "1bf3ddda-4454-4e0d-a061-99841662c408": {
+  "name": "Ванильное мороженое",
+  "category": "Десерты",
+  "ref": "https://coffeemania.ru/uploads/p3255/02816aea3f25328.jpg",
+  "refOk": true
+ },
+ "f4abda37-b5a7-46d9-9108-87b2ad19072b": {
+  "name": "Ассам Мокалбари",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p758/4e94c9aadc54045.jpg",
+  "refOk": true
+ },
+ "1e9c9dea-9863-429c-a38b-73f999d755ab": {
+  "name": "Илам-Дарджилинг",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p759/76c262137d5c963.jpg",
+  "refOk": true
+ },
+ "d35c1c25-73ff-46ae-8fae-c121690adb78": {
+  "name": "Эрл Грей",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p756/8c5f46de264697b.jpg",
+  "refOk": true
+ },
+ "c4725c0e-be2a-4e33-b693-7e87fe54c5d5": {
+  "name": "Лесной сбор",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p5365/fb2711dda545250.jpg",
+  "refOk": true
+ },
+ "bd5088b2-146b-42a5-81b0-faf15c36b20f": {
+  "name": "Травяной сбор",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p761/ecafdec19377f86.jpg",
+  "refOk": true
+ },
+ "8da73cc3-bb6d-4d83-b330-5fc3df6c8a36": {
+  "name": "Мятный",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p344/20ccb588930cc34.jpg",
+  "refOk": true
+ },
+ "15f04cf2-d32a-4370-bd41-dc4f0511eda8": {
+  "name": "Малиновый",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p346/812e289974ce222.jpg",
+  "refOk": true
+ },
+ "c07d0d58-8487-49f6-b7c2-d2b6ebf47435": {
+  "name": "Имбирный",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p345/7721c6c1b3d5f12.jpg",
+  "refOk": true
+ },
+ "4c614e40-9bcc-4aad-bba8-40a0128d1ceb": {
+  "name": "Milaf cola",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p7982/bcb1019f2193a6f.jpg",
+  "refOk": true
+ },
+ "1334bb44-6c3b-496c-b8c9-6f79e0d1b853": {
+  "name": "Манго и маракуйя в банке",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p4085/efd605f6e010ac1.jpg",
+  "refOk": true
+ },
+ "7e2dd0f9-95e8-4479-af84-fd3b94722fec": {
+  "name": "Ананас и базилик",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p6026/f4643cb00f91293.jpg",
+  "refOk": true
+ },
+ "a4ac3222-b882-4cab-b399-c947e5bad2c8": {
+  "name": "Груша и рукола",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p2494/e3ca3503465fd2c.jpg",
+  "refOk": true
+ },
+ "84d48c24-5339-415b-b813-8897323dce0c": {
+  "name": "Арахисовое молоко",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p7915/7c7c2d05350808b.jpg",
+  "refOk": true
+ },
+ "32f2afc8-b40b-4506-9896-e079759c2e86": {
+  "name": "Бургер Клёпа",
+  "category": "Бургеры",
+  "ref": "https://coffeemania.ru/uploads/p611/c0d436b96082814.jpg",
+  "refOk": true
+ },
+ "abbf77f0-fa8e-48f1-8d5c-16f4475c7aed": {
+  "name": "Детская пожарская котлета",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p4341/8534cdda9def8c4.jpg",
+  "refOk": true
+ },
+ "dfa0e105-3d0c-46b0-8d2d-61a78773a823": {
+  "name": "Куриные наггетсы-эскимо",
+  "category": "Фастфуд",
+  "ref": "https://coffeemania.ru/uploads/p4342/4ab199c35b66b73.jpg",
+  "refOk": true
+ },
+ "c07d0b7d-8e3d-4634-9299-328f8745742a": {
+  "name": "Детские колбаски",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p467/f695b83c34cb6cc.jpg",
+  "refOk": true
+ },
+ "085938f4-3103-4681-aaa6-3808640d14bc": {
+  "name": "Паста ракушки по–флотски",
+  "category": "Паста",
+  "ref": "https://coffeemania.ru/uploads/p4344/b631c3d20c8861f.jpg",
+  "refOk": true
+ },
+ "224298eb-d1f0-472b-aafc-a9e2a42df92c": {
+  "name": "Детское картофельное пюре",
+  "category": "Фастфуд",
+  "ref": "https://coffeemania.ru/uploads/p4190/7690456472f235c.jpg",
+  "refOk": true
+ },
+ "38b16dca-99c1-44f6-b18b-4992985add39": {
+  "name": "Детский картофель фри",
+  "category": "Фастфуд",
+  "ref": "https://coffeemania.ru/uploads/p4191/d75c3192e2354be.jpg",
+  "refOk": true
+ },
+ "ba3ed061-e3c5-4eb3-825d-d36eefa0c135": {
+  "name": "Паста «ракушки»",
+  "category": "Паста",
+  "ref": "https://coffeemania.ru/uploads/p586/9d71d4ce6a3cfea.jpg",
+  "refOk": true
+ },
+ "47b16ec0-2d47-4b39-b8ee-5b160513b167": {
+  "name": "Детские сырники",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p4552/43a75f82085a129.jpg",
+  "refOk": true
+ },
+ "d9a00d9f-e9d3-4ca8-a10b-1c1f0bba3050": {
+  "name": "Морозко",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p21/8536da789cdf2ab.jpg",
+  "refOk": true
+ },
+ "819e0c32-20a8-4077-9070-aa7dd517cdd9": {
+  "name": "Тальолини",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p585/9bad860e195c73d.jpg",
+  "refOk": true
+ },
+ "825c68f2-22b4-4492-9883-96eca032255e": {
+  "name": "Спагетти",
+  "category": "Паста",
+  "ref": "https://coffeemania.ru/uploads/p587/b4aa60b50a5e1d6.jpg",
+  "refOk": true
+ },
+ "dd386c38-b4cb-41a0-ab3c-4b18def18054": {
+  "name": "Маринованная курица",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p473/bb7243e8ec430d2.jpg",
+  "refOk": true
+ },
+ "2525f3ed-a013-4fdd-9645-2db5db635f99": {
+  "name": "Пшеничный хлеб Перле (четверть)",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p8012/97ae8192945931d.jpg",
+  "refOk": true
+ },
+ "1264384a-d446-471e-b00d-705296d150fb": {
+  "name": "Молоко 3,6%",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p8482/d60b1222079b294.jpg",
+  "refOk": true
+ },
+ "18c400f3-aff4-4c12-baf6-e097dcb2eeff": {
+  "name": "Молоко 8%",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p388/712c5fd0263e68b.jpg",
+  "refOk": true
+ },
+ "a37284e0-b914-4912-8d38-4e67d773a32c": {
+  "name": "Бородинский хлеб",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p239/d05547a409fa199.jpg",
+  "refOk": true
+ },
+ "ce40141c-36b1-4077-a462-2a3d582631d9": {
+  "name": "Яичница с лисичками",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p1084/62260ba866cdbe1.jpg",
+  "refOk": true
+ },
+ "0f2dd055-5965-4e85-85fc-ffbe8a2d05b9": {
+  "name": "Омлет Розе",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p5261/b68238365be654f.jpg",
+  "refOk": true
+ },
+ "48607475-6982-44cf-87a2-e4c6c93ee6ab": {
+  "name": "Яйцо Бенедикт с лососем",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p515/da4129dd894f069.jpg",
+  "refOk": true
+ },
+ "acc4ac0a-27c1-4781-a7a8-239cd95943fd": {
+  "name": "Аво-тост",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p613/fc4c0e9cbb94b63.jpg",
+  "refOk": true
+ },
+ "bdd11aac-91e3-4431-b68a-38d267699b4d": {
+  "name": "Драник с крабом",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p2377/0ccba935ea3879f.jpg",
+  "refOk": true
+ },
+ "1c50d1e7-4780-4bb3-90f3-22d77804634d": {
+  "name": "Лосось с драниками",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p498/ef279788811d6e8.jpg",
+  "refOk": true
+ },
+ "82d3f0bf-87fe-4eba-9f53-d4a7962b406f": {
+  "name": "Круассан с миндалём",
+  "category": "Десерты",
+  "ref": "https://coffeemania.ru/uploads/p238/2cafea9a4958855.jpg",
+  "refOk": true
+ },
+ "9f7565c4-59d9-4049-99e7-5afbd368f919": {
+  "name": "Круассан с сыром",
+  "category": "Десерты",
+  "ref": "https://coffeemania.ru/uploads/p607/5ca339ad7e5009f.jpg",
+  "refOk": true
+ },
+ "aedf18f5-0a5b-4401-9193-d7ea61ebecd0": {
+  "name": "Круассан с лососем",
+  "category": "Десерты",
+  "ref": "https://coffeemania.ru/uploads/p615/94478a84693a31b.jpg",
+  "refOk": true
+ },
+ "803e0749-e35d-4e4b-a823-b985d04c9747": {
+  "name": "Блин с красной икрой и крем-сыром",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p505/d9ccc7e3b63a00b.jpg",
+  "refOk": true
+ },
+ "bd09fe79-4f71-4f69-97ab-d00c51d0db21": {
+  "name": "Блин с лососем и крем-сыром",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p511/d82706b6f296048.jpg",
+  "refOk": true
+ },
+ "226b0732-0767-4d3a-9571-e54ae55535ec": {
+  "name": "Каша из злаков с яйцом пашот",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p4688/1bde14f0cae4bae.jpg",
+  "refOk": true
+ },
+ "9c962129-48e9-4ff7-8f97-e14b0f5da641": {
+  "name": "Драники из цукини с северной рыбой",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p8097/5e2ce1b24aa5516.jpg",
+  "refOk": true
+ },
+ "b429c56a-d311-49a5-adb3-024789f014c3": {
+  "name": "Овсяная каша безглютеновая",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p6770/db66def3174d0be.jpg",
+  "refOk": true
+ },
+ "b5dd3258-653d-440c-9cee-814b7e2cbc71": {
+  "name": "Омлет со спаржей и магаданскими креветками",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p8095/503c2422f75aa5c.jpg",
+  "refOk": true
+ },
+ "05fa4f6c-a627-4122-8eeb-11a2ce2032ad": {
+  "name": "Пшённая каша",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p546/76eea11dfe9c6f1.jpg",
+  "refOk": true
+ },
+ "7f6d4ea0-5e57-45cd-ae67-fea650e2be8b": {
+  "name": "Рисовая каша",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p545/3331e2848133c74.jpg",
+  "refOk": true
+ },
+ "c967faa7-ca5d-437f-b510-57e6645c09a5": {
+  "name": "Утка по-пекински",
+  "category": "Китайская",
+  "ref": "https://coffeemania.ru/uploads/p463/2d2352999a4c080.jpg",
+  "refOk": true
+ },
+ "2d8a5528-aee5-46e2-84c1-8aaa942a3991": {
+  "name": "Том ям",
+  "category": "Тайская",
+  "ref": "https://coffeemania.ru/uploads/p8096/6b6d469789daebb.jpg",
+  "refOk": true
+ },
+ "d0691f91-7237-48c2-a296-95d9d0f0ce86": {
+  "name": "Цыпленок ранч",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297657/0091d992660cc86c4f72c88cce6e4f70.JPEG",
+  "refOk": true
+ },
+ "134b1b85-bfd7-41f5-8ac1-f196ad8033cb": {
+  "name": "Двойная пепперони",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297662/5aab225f4a87cca380d4453f074a3ef4.JPEG",
+  "refOk": true
+ },
+ "ef8d5ad9-0184-4011-a5e6-d79373b2252b": {
+  "name": "Мексиканская",
+  "category": "Блюдо",
+  "ref": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/2b6e5de53cdf9b627b3e9b8e90e13843.jpg",
+  "refOk": true
+ },
+ "50699d64-44f8-4f65-b7d4-e93acabb348a": {
+  "name": "Чикен Джонер",
+  "category": "Блюдо",
+  "ref": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/b46e5f38ecd46572de1b7b80e5cd559c.jpg",
+  "refOk": true
+ },
+ "dde544f0-fcbf-41ed-aef6-714a599876b6": {
+  "name": "Картофельные дольки",
+  "category": "Фастфуд",
+  "ref": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/7af2704b2e259190c4ad5027d9bf45dd.jpg",
+  "refOk": true
+ },
+ "b4b7b65d-c06a-4e48-aefe-a03e68bb3693": {
+  "name": "Пепперони ролл",
+  "category": "Японская",
+  "ref": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/Pepperoni rolls.jpg",
+  "refOk": true
+ },
+ "cf827fbb-723b-4c37-81a9-3fbad3547c17": {
+  "name": "Пепперони Джонер",
+  "category": "Блюдо",
+  "ref": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/f6c8543d843c05e797eae692b8d15a3f.jpg",
+  "refOk": true
+ },
+ "f173b4cb-9c29-4088-b740-97d527074169": {
+  "name": "Узелки сладкие",
+  "category": "Блюдо",
+  "ref": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/Sweet knots.jpg",
+  "refOk": true
+ },
+ "7d68ee36-f53c-4f99-9c16-e12e9bc86bd6": {
+  "name": "Картофель с ветчиной и грибами",
+  "category": "Фастфуд",
+  "ref": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/1d6b8f0317beb8179d9dd89d9519e05a.jpg",
+  "refOk": true
+ },
+ "54d9f9f5-ee24-4666-a9cd-83c31ece4bac": {
+  "name": "Фрустайл Лимон-Лайм",
+  "category": "Блюдо",
+  "ref": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/177715522c9a401cb493b44b0d665428.jpg",
+  "refOk": true
+ },
+ "33736a57-b5cc-43f8-be11-f5270c2f2c9e": {
+  "name": "Фрустайл Апельсин",
+  "category": "Блюдо",
+  "ref": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/93d3c44bb451299a22f0f6021e2ada36.jpg",
+  "refOk": true
+ },
+ "230ab8ef-595d-4037-9373-7f9164f49d00": {
+  "name": "Evervess Cola",
+  "category": "Блюдо",
+  "ref": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/bdde4dc6269f12d096f68cc6874d7840.jpg",
+  "refOk": true
+ },
+ "ece6e1a5-6cc8-4b81-9dde-b3fdb5efb046": {
+  "name": "Особый Чесночный",
+  "category": "Блюдо",
+  "ref": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/c3c07493429475990214e7e818f9dbf0.png",
+  "refOk": true
+ },
+ "76538b3e-e2b5-49dd-b006-1857039cfeca": {
+  "name": "Кисло-сладкий",
+  "category": "Блюдо",
+  "ref": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/f46c30e9ad010c443993137ebf13c484.png",
+  "refOk": true
+ },
+ "d6e1290e-ed3f-4e97-ab90-ec61fe01df40": {
+  "name": "Evervess Cola без сахара",
+  "category": "Блюдо",
+  "ref": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/be76396c11cad2ce59b74f4fda4ddf83.jpg",
+  "refOk": true
+ },
+ "c255d8ef-300a-4939-b152-4bb274655e6d": {
+  "name": "Паста Барбекю с колбасками",
+  "category": "Паста",
+  "ref": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/7cf7f6dee66fd6fffe994e59903e9ac4.jpg",
+  "refOk": true
+ },
+ "214e8c26-9f10-4428-b286-687c4b8e2dd4": {
+  "name": "Ветчина и грибы",
+  "category": "Блюдо",
+  "ref": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/Ham-and-Mush-Traditional.jpg",
+  "refOk": true
+ },
+ "3fa65fbf-8ab5-47dd-a291-96eac5b20adb": {
+  "name": "Барбекю",
+  "category": "Блюдо",
+  "ref": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/cd678715efbc7d7ec071fb714b150ce4.png",
+  "refOk": true
+ },
+ "53fe0e58-48ff-42e2-abac-219a6e3db952": {
+  "name": "Картофель из печи",
+  "category": "Фастфуд",
+  "ref": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/0c295a86df5cace1b4576e26bca4ee3e.jpg",
+  "refOk": true
+ },
+ "80b37217-1e89-4d5b-8526-7741f73d48a9": {
+  "name": "Паста Карбонара",
+  "category": "Итальянская",
+  "ref": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/9f6ee5e02d168ab2f4fd912fea643293.jpg",
+  "refOk": true
+ },
+ "d1823198-27fc-4722-b787-1133cf7e9252": {
+  "name": "Сырный",
+  "category": "Блюдо",
+  "ref": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/ad6077f86a9f7758b78b305edc29c31f.png",
+  "refOk": true
+ },
+ "c509fa17-13f0-4b29-9baf-21216738284a": {
+  "name": "Острая Чоризо",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297675/7b9b23b46bf5438511b56f9a30d065a9.JPEG",
+  "refOk": true
+ },
+ "7ab51b0b-16db-4f4c-b6f8-4745a75f2afb": {
+  "name": "Чизбургер с рваной свининой",
+  "category": "Бургеры",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297620/347ca15922db0f2ce5780653ca1a4f79.JPEG",
+  "refOk": true
+ },
+ "04bd92f3-a6c8-4c72-8582-0f1f287fa016": {
+  "name": "Маффин шоколадный",
+  "category": "Десерты",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297762/d356c4c4cd87740b95bf13d2ec9956d2.JPEG",
+  "refOk": true
+ },
+ "d14d8b17-481f-438b-b860-74c97b2ac71a": {
+  "name": "Креветки и цукини",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297603/136858917a06685fe3b919ed444c65b7.JPEG",
+  "refOk": true
+ },
+ "f11fc00c-e7b9-471b-8851-adcb0d846dfc": {
+  "name": "Грибной жюльен со шпинатом",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297604/4ff7a8cd94445e1d47db9a80d46828bc.JPEG",
+  "refOk": true
+ },
+ "9b4f2735-af42-48f4-8c20-8029177f032e": {
+  "name": "Зеленый салат с креветками",
+  "category": "Салаты",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297600/fa12fd50b4d6b384439f47b54392be08.JPEG",
+  "refOk": true
+ },
+ "545c971c-6085-4d83-a4e8-3acec32b0386": {
+  "name": "7 мясных пицц",
+  "category": "Пицца",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297626/42212dbafe992883a5e9e1b01a51e649.JPEG",
+  "refOk": true
+ },
+ "c8f4e187-d215-4eca-9b1c-3dfa8640f0e4": {
+  "name": "Гавайская с цыпленком",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297605/3b1a273098f8b03a95cb3ed1e111e324.JPEG",
+  "refOk": true
+ },
+ "1fdf2a07-93b2-4644-b947-27e0e2956145": {
+  "name": "Гавайская с цыпленком круглая",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297606/835962295353a82dc4bd80cecae66a74.JPEG",
+  "refOk": true
+ },
+ "ecc3817d-97aa-487b-8ec8-a0fa20fecec8": {
+  "name": "Пирог яблочный",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297749/c144082145c3182fc009366e7464d442.JPEG",
+  "refOk": true
+ },
+ "7acd10bc-72ae-40e9-9e05-f159969d0b40": {
+  "name": "Рваная свинина по-азиатски",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297607/1637e29a9468dcdf1e5504376c7169c0.JPEG",
+  "refOk": true
+ },
+ "359f2cf6-591c-49b7-92a8-bb1f8ed263b5": {
+  "name": "5 топовых пицц",
+  "category": "Пицца",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297625/b227631eb342f137be093dc82b8fe5d6.JPEG",
+  "refOk": true
+ },
+ "a347223f-ff34-4352-b08a-00026385c697": {
+  "name": "Рваная свинина по-азиатски круглая",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297599/cda3fd5438318d7c7e5a66f4688caf68.JPEG",
+  "refOk": true
+ },
+ "3e4c6c47-826e-4e52-ac23-4be43212ae29": {
+  "name": "Торт миндальный",
+  "category": "Десерты",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297748/6dacdacd72ef6e900c016651e72aef0c.JPEG",
+  "refOk": true
+ },
+ "86449657-2a8a-4a81-ab4f-7438e5059401": {
+  "name": "Запеченный фалафель с соусом",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297596/fb761807935da9c3e75a802b40589fff.JPEG",
+  "refOk": true
+ },
+ "6d70c02a-57fd-4451-881c-cf196eec0e52": {
+  "name": "Ролл с фалафелем и овощами",
+  "category": "Японская",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297608/c26bd4386c4c942005a9858cec7bb1b0.JPEG",
+  "refOk": true
+ },
+ "67a8b609-55ff-4976-bb34-2ad5298aeadf": {
+  "name": "Запеченный батат с соусом",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297598/eaa1b2929a3d1598040933b7588ef7b4.JPEG",
+  "refOk": true
+ },
+ "4952801e-4299-4a80-9e3b-33cc60f6edb6": {
+  "name": "Маргарита круглая",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297645/22b0a679afbf775de15c007143e6b699.JPEG",
+  "refOk": true
+ },
+ "faf9940a-9e35-4d3b-bb77-9dd3f9dea51b": {
+  "name": "Десерт манго-маракуйя",
+  "category": "Десерты",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297751/7c73dc0ffa261913bd6b1a9ea4eabe1c.JPEG",
+  "refOk": true
+ },
+ "f4f81c66-faed-49dc-95b3-56a063aeecbb": {
+  "name": "Овсяная каша с манго и рафаэлло",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297601/6a9c265fdf4674c5ae90c28c76993a2d.JPEG",
+  "refOk": true
+ },
+ "781ad1e4-1b09-4f69-836f-d16f7a51a0de": {
+  "name": "Креветки и цукини круглая",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297609/68861da544d0789d3bf29a471fb30f2a.JPEG",
+  "refOk": true
+ },
+ "9240448c-ecde-44fb-a463-15713ae85cf3": {
+  "name": "Грибной жюльен со шпинатом круглая",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297622/f96bb9b5c6d35313d9b08420dbac5ce0.JPEG",
+  "refOk": true
+ },
+ "44664bd3-ea00-45b2-9b8b-26cfd383c79c": {
+  "name": "С базиликом и страчателлой круглая",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297646/affd51931c7effbd7ea09ca727c8cccc.JPEG",
+  "refOk": true
+ },
+ "a0846ccd-196c-4ddc-b148-5f073bd08298": {
+  "name": "Чизкейк с черничным соусом",
+  "category": "Десерты",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297753/2b282b84149367672dec149d85c0d9ad.JPEG",
+  "refOk": true
+ },
+ "eb859090-18be-4733-8b3f-b6aae1ee7258": {
+  "name": "Солянка с колбасками и цыпленком",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297732/85ea99a5976d1d0d2efd059b7c28fcac.JPEG",
+  "refOk": true
+ },
+ "8cb562a2-7f0f-4ade-b1a6-614acc8137fd": {
+  "name": "Чизбургер с рваной свининой круглая",
+  "category": "Бургеры",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297624/c06018f2707d368d02b88bcc5beedcde.JPEG",
+  "refOk": true
+ },
+ "f3ac5c71-217b-4f22-afdf-8d9af77a6e16": {
+  "name": "Пончик | Донат (ягодный)",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297757/48a48a9f0ad51cf49f0d2e5d78268924.JPEG",
+  "refOk": true
+ },
+ "9d4e0614-061e-4fce-a01b-58565ec773dd": {
+  "name": "Пончик | Донат( карамель)",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297745/ee9d74e029982a8f8b3ae2d9679f6d40.JPEG",
+  "refOk": true
+ },
+ "5cee52c3-7371-4191-bda8-def8cdf58b4a": {
+  "name": "Цыпленок Карри",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297660/9396455bcf57b0ea11596d37731eda7d.JPEG",
+  "refOk": true
+ },
+ "2a0e875e-9d5c-4f32-aea4-cc659498f10d": {
+  "name": "Супермясная круглая",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297647/1eca270ec7041ff3c663b07fd554db80.JPEG",
+  "refOk": true
+ },
+ "ab2b5314-375e-42ca-8cfc-be946ddba9e1": {
+  "name": "Суп томатный со страчателлой",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297731/8bb03f3753a82cd5b3b3929895ecf476.JPEG",
+  "refOk": true
+ },
+ "e463a09e-bcaa-49f8-bfa9-e05e54da71c4": {
+  "name": "Бульон куриный с гренками",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297746/d11a7233d3c38d957fd429832b7c5327.PNG",
+  "refOk": true
+ },
+ "ebb0b93c-a658-4706-a007-ad77ffab3fdb": {
+  "name": "Пепперони круглая",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297649/3ed98f575de422cd021aa372f764cc0d.JPEG",
+  "refOk": true
+ },
+ "df6ffdd2-0a83-4e6a-8c31-93bb62f48b13": {
+  "name": "Суп азиатский с креветками",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297736/7ff11ee7c16e00c83e2f67dbfadd5d35.JPEG",
+  "refOk": true
+ },
+ "68ba73c5-5e8d-4658-af16-bbb1496d10a0": {
+  "name": "Гаспачо классический",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297734/18b8eef17205b4f3cb854d0cf589372a.JPEG",
+  "refOk": true
+ },
+ "b87423bb-536e-4fc9-a6b9-b3957d9210aa": {
+  "name": "Салат Цезарь с цыплёнком",
+  "category": "Салаты",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297702/1b2a8debb161b0a4de122c4f382e0af2.JPEG",
+  "refOk": true
+ },
+ "3e3f7df2-d38a-4da3-9e11-128384318ccb": {
+  "name": "Гаспачо с фетой",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297735/971d7db764426f11df64a596eecc3f48.JPEG",
+  "refOk": true
+ },
+ "6693fa55-5ff1-4fbb-b534-18d8f7c7f510": {
+  "name": "Четыре сыра круглая",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297648/cf896a79f42c51bec5be906ee7dd0614.JPEG",
+  "refOk": true
+ },
+ "e934abf9-7226-4f54-a676-351c38f99367": {
+  "name": "Гаспачо со страчателлой",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297740/ecb7144ba5c0271bd341e82184fb4700.JPEG",
+  "refOk": true
+ },
+ "22d38afb-f227-4478-b5d7-42f5f7b0b679": {
+  "name": "Салат с пастрами из говядины",
+  "category": "Паста",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297705/b11740a5da6c4d9e2ad4c92c60045fd2.JPEG",
+  "refOk": true
+ },
+ "f8a6b627-4b50-46a1-a420-105a8a23a7ca": {
+  "name": "Цыпленок с песто",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297654/90ba9d6b13332b0e3c42b172e854978f.JPEG",
+  "refOk": true
+ },
+ "b573377a-a358-46e5-821d-447f3ac8ea80": {
+  "name": "Груша и горгонзола круглая",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297639/bca0348c63b174a4160aaaad06b46727.JPEG",
+  "refOk": true
+ },
+ "eb474ad3-f0a1-49dd-a90f-4d807d24e6f8": {
+  "name": "Мексиканская с начос",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297650/f8071a9aabec8fc15ae1940a8775f3a6.JPEG",
+  "refOk": true
+ },
+ "2f9226e8-b34a-495c-a43c-adf31b6a6c41": {
+  "name": "Маргарита с цыпленком",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297674/d3fab18a17d89a28e512d1ace0c07a7e.JPEG",
+  "refOk": true
+ },
+ "257663fc-8248-43a5-a101-b8bc1ab62a57": {
+  "name": "С лососем и каперсами круглая",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297640/4babff443c2f761f925dd28528bac928.JPEG",
+  "refOk": true
+ },
+ "50a48657-d614-478e-b874-856d579a4c61": {
+  "name": "Трюфельная пепперони",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297653/359466168a62600c042917bd90e685fd.JPEG",
+  "refOk": true
+ },
+ "57c48dd2-61a7-4cf2-a02d-4544fa71f4b3": {
+  "name": "Сырная карбонара круглая",
+  "category": "Паста",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297641/620f3e9c34f81e1ce258f6b1497106c3.JPEG",
+  "refOk": true
+ },
+ "d82d7c51-f6d3-43fd-996d-927bece1eb4f": {
+  "name": "Баварская мясная круглая",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297642/78aef9baa5350b27a4047d41853aa4dc.JPEG",
+  "refOk": true
+ },
+ "ab27287b-7440-4301-ac9e-6862bb1d1de1": {
+  "name": "Пицца Баварская мясная",
+  "category": "Пицца",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297659/1254143cfca3445e87b50de6df464a37.JPEG",
+  "refOk": true
+ },
+ "4bc40815-e3cf-446a-b767-b1524ecf4894": {
+  "name": "Четыре сыра",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297655/9be97d860bc62e468d39cc568c7196ba.JPEG",
+  "refOk": true
+ },
+ "02d825ef-8682-43ba-995b-e0c20608df63": {
+  "name": "Пицца Груша и горгонзола",
+  "category": "Пицца",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297651/baea08f714db0add86e9924adc764568.JPEG",
+  "refOk": true
+ },
+ "65bfd9d9-02d3-4649-bb8c-19dcce786a45": {
+  "name": "Ветчина и грибы круглая",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297628/88d5a13f1ff518316f12922e13ccc73b.JPEG",
+  "refOk": true
+ },
+ "d077a549-9fb1-4e41-adc1-09c452a2f135": {
+  "name": "Сырная круглая",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297629/2b7e4f3731644a58340f3ce02bf5eb19.JPEG",
+  "refOk": true
+ },
+ "1bf25897-9f23-42a5-8e81-c8e62c2201d3": {
+  "name": "Овощная круглая",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297630/4d011d9a59af1c6db426d7d5bb9ba4d6.JPEG",
+  "refOk": true
+ },
+ "92b0c93c-5e18-4a5f-94c1-8900f1ad8020": {
+  "name": "Пепперони без свинины круглая",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297631/61ef6245a0bb95db3b47300feabf4eac.JPEG",
+  "refOk": true
+ },
+ "fc7107b6-890a-4006-85c2-a5e41bdb0df2": {
+  "name": "Цыпленок барбекю круглая",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297632/48063aa4d846eb59d134bf426e20f81c.JPEG",
+  "refOk": true
+ },
+ "44d712c0-41c7-4cff-9ad4-aeda522ec1e3": {
+  "name": "Цыпленок ранч круглая",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297633/bc8fc1cb1300a40a12503eb3af49e1f9.JPEG",
+  "refOk": true
+ },
+ "05c91fca-540b-4994-9c0a-5cee1852febf": {
+  "name": "Трюфельная пепперони круглая",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297635/3961f5653dbd88929848a83f221822b8.JPEG",
+  "refOk": true
+ },
+ "227e31d0-65a5-49dc-babe-c842483ffd96": {
+  "name": "Пицца Сырная Карбонара",
+  "category": "Пицца",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297656/3efa34bd4b69b36a8930c7870c9cf3ed.JPEG",
+  "refOk": true
+ },
+ "43f909e8-2040-4651-9b4d-95814a4c2780": {
+  "name": "Цыпленок с песто круглая",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297627/0b46e8848a6e93d45e16915f3a9c27cb.JPEG",
+  "refOk": true
+ },
+ "983d0381-40d2-4d1e-bee8-04fb03424fd6": {
+  "name": "Создай свою пиццу",
+  "category": "Пицца",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297661/a13d5e81e3af3dbdc1aa5ba5eb95df34.JPEG",
+  "refOk": true
+ },
+ "ffb4bc32-67cd-4d03-a343-5ee8b3060dbb": {
+  "name": "Наггетсы с соусом",
+  "category": "Фастфуд",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297715/c306dba637062ce184570cbca279a074.JPEG",
+  "refOk": true
+ },
+ "adc82f48-35e0-4f67-8f33-9ca64f20126d": {
+  "name": "С базиликом и страчателлой",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297694/dee4b242708e94b8c67dbd9e0bbc7c92.JPEG",
+  "refOk": true
+ },
+ "65d797a2-87cc-47a1-9584-9da427ea6143": {
+  "name": "Пицца Супермясная",
+  "category": "Пицца",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297696/61434e03b0009cf5bcd4aa5c1643affb.JPEG",
+  "refOk": true
+ },
+ "6445e62e-ceaf-485f-8757-3d059480407c": {
+  "name": "Соус сальса",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297742/bcda1d23d60bf5879aa02d382e762050.JPEG",
+  "refOk": true
+ },
+ "268ca758-6587-4eff-8e9f-025198ba7614": {
+  "name": "Наггетсы с соусом двойные",
+  "category": "Фастфуд",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297724/f5cf7326a80ff4a275a69bdd14c5c905.JPEG",
+  "refOk": true
+ },
+ "7cc69beb-e3f9-4e18-9099-1426a6e2c3fa": {
+  "name": "Соус сырный чеддер",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297747/0339e92c7a77d8ee2a8486b822c84a15.JPEG",
+  "refOk": true
+ },
+ "e671bae2-d563-4e9e-919d-a74cc9e15a37": {
+  "name": "Соус Zotman",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297738/87b1b74e3280138a46caee433e5a9faf.JPEG",
+  "refOk": true
+ },
+ "c92f7a8c-4209-46f4-9300-058cd0bfcb70": {
+  "name": "Соус гриль",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297739/b3ce4f5fb6f919ce6d1c6feded236f5e.JPEG",
+  "refOk": true
+ },
+ "0034ce63-d07c-43cf-8fad-e4d48d1193e9": {
+  "name": "Овощная пицца",
+  "category": "Пицца",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297676/74dc6bc80bd5cb9261ac61c7dbea0c2d.JPEG",
+  "refOk": true
+ },
+ "02a3835a-a2c4-48ed-97e8-2a21487310f3": {
+  "name": "Куриный ролл",
+  "category": "Японская",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297727/1d4becd55913b233ef4089b6359956a3.JPEG",
+  "refOk": true
+ },
+ "671d7fcc-8fb2-421c-8f75-e39723fc901f": {
+  "name": "Пицца Ветчина и грибы",
+  "category": "Пицца",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297680/31ad59243ae8e0fb1fe01a1ea2d5a188.JPEG",
+  "refOk": true
+ },
+ "79cf8b64-9c01-480a-88f1-1854ff5d1686": {
+  "name": "Острый куриный ролл",
+  "category": "Японская",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297729/8742ce2a68a775c25db2dec6ad477fd0.JPEG",
+  "refOk": true
+ },
+ "074f00d9-3243-42e2-9e1d-758e2ea04069": {
+  "name": "Сырная пицца",
+  "category": "Пицца",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297679/e57ba7641421225e46edb37695e0a68e.JPEG",
+  "refOk": true
+ },
+ "a741e6e6-e76c-476c-9c2b-ffeeeb8c6f29": {
+  "name": "Сэндвич с моцареллой и томатами",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297716/be500fc4dc2349c8d56045ca8a53e82f.JPEG",
+  "refOk": true
+ },
+ "5a5b237b-8c13-415f-84db-beaf3978dd3f": {
+  "name": "Сэндвич с пастрами из говядины и баклажанами",
+  "category": "Паста",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297720/ab3e7d2f9a2140b321051a6beaf64bf5.JPEG",
+  "refOk": true
+ },
+ "56726e82-4a49-4689-b4bd-c3fd24d7bbd9": {
+  "name": "Сэндвич мортаделла и сливочным сыром",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297722/86ce7b9bcc80bfc79b7b8e16df99c2d1.JPEG",
+  "refOk": true
+ },
+ "fa3ef55d-509a-439c-8fc0-6eafa0cd4024": {
+  "name": "Набор мясных закусок",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297719/d8c7b1edee8bf61ea7592fa4ccbac89a.JPEG",
+  "refOk": true
+ },
+ "bcb87ff0-8624-4e94-a39e-073552f13c0c": {
+  "name": "Драники | Хашбрауны с форелью и каперсами",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297712/fb95f73379321030b7b6dc3991db401e.JPEG",
+  "refOk": true
+ },
+ "545bddb2-afef-46c8-a614-aa5b79dd950b": {
+  "name": "Драники | Хашбрауны",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297714/f920f7a5e945dfaa793fbbc663e18be3.JPEG",
+  "refOk": true
+ },
+ "b4243387-ced3-4b1a-a0de-cccd181eaaed": {
+  "name": "Драники | Хашбрауны 4 штуки",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297713/4693148a0f6d7b132d1f85dca6bc5a97.JPEG",
+  "refOk": true
+ },
+ "75f04edd-bbd5-4e81-a358-9fec8cc2f10e": {
+  "name": "Колбаска баварская улитка с соусом",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297708/bf45b61597d7f86c458e4960422d1bfe.JPEG",
+  "refOk": true
+ },
+ "49614a19-9f6b-410f-a6ef-f6fbfb390ea8": {
+  "name": "Ролл с мортаделлой",
+  "category": "Японская",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297710/8480b89428b16ba7e92f5d1c1aefc8ab.JPEG",
+  "refOk": true
+ },
+ "d92fd6a6-9028-4ed9-9e5c-d14ad5eb7ea5": {
+  "name": "Диабло",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297652/3ddc7aaa2539cc7a2545cfd4c790a557.JPEG",
+  "refOk": true
+ },
+ "6b5f5ebc-505a-41a2-bb58-faf2f87ee420": {
+  "name": "Салат Греческий",
+  "category": "Салаты",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297704/541007f8728b97fd2dfc79717f951d0c.JPEG",
+  "refOk": true
+ },
+ "0299dc90-cdf0-4785-ba3a-4bfc03d41d32": {
+  "name": "Панна котта",
+  "category": "Десерты",
+  "ref": "https://coffeemania.ru/uploads/p700/a023a6eafd0632c.jpg",
+  "refOk": true
+ },
+ "7ba0c62d-fa57-4777-a3bc-bf8d6f0446e7": {
+  "name": "С лососем и каперсами",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297693/5d4d3638d958e05205c83fcfe29ad0b1.JPEG",
+  "refOk": true
+ },
+ "8d74a3ff-e85b-4b45-9676-f7d33ad49a50": {
+  "name": "Пармезан",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p2803/b2a8587082853be.jpg",
+  "refOk": true
+ },
+ "690e3f31-cbae-4f81-b296-e9f8b0f99ebf": {
+  "name": "Гаспачо с креветками",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p8382/5fa0cb1caaa4a64.jpg",
+  "refOk": true
+ },
+ "a4ee5826-da97-4a78-8ab8-011ff5c18145": {
+  "name": "Coca-Cola",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p5409/e66ece7d0734407.jpg",
+  "refOk": true
+ },
+ "02bb508e-b81f-4a27-96d3-812e0b3647fc": {
+  "name": "Манго и маракуйя",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p348/272019fbc53741d.jpg",
+  "refOk": true
+ },
+ "2b48d50a-f9e8-4688-b7ce-9c4f43c15eff": {
+  "name": "Шашлык из курицы с трюфельным соусом",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p8246/973da5a03ca349e.jpg",
+  "refOk": true
+ },
+ "80500d51-156f-4866-9a08-78eae3acbf78": {
+  "name": "Пицца Маргарита",
+  "category": "Пицца",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297673/c5bf72d914fdb8a974a4260e41b0e7e8.JPEG",
+  "refOk": true
+ },
+ "2de6ddf3-8629-4c68-8bc1-60ef54095168": {
+  "name": "Лосось на гриле",
+  "category": "Морепродукты",
+  "ref": "https://coffeemania.ru/uploads/p477/4d55706e53b33f4.jpg",
+  "refOk": true
+ },
+ "927c1be0-37fc-4163-b2cc-df109e47593a": {
+  "name": "Пепперони",
+  "category": "Блюдо",
+  "ref": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/c9ae37cb879f4c6ec2660ce7f0990f49.jpg",
+  "refOk": true
+ },
+ "c602ff04-79bd-4e33-a8a0-664271c34ae1": {
+  "name": "Каламанси",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p8424/ae8c1062697155e.jpg",
+  "refOk": true
+ },
+ "123237b2-3609-426f-a86c-c3a009e6e2d7": {
+  "name": "Бора-Бора",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p395/9a1d99eb3ab7f3e.jpg",
+  "refOk": true
+ },
+ "6a960050-5e5a-4dbb-b98a-2dd450d44ef4": {
+  "name": "Курица с рисом и зелёным карри",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p522/8c4b859fb7b5990.jpg",
+  "refOk": true
+ },
+ "e6a689b7-7a60-44bf-b206-1aed832763b4": {
+  "name": "Утро в Кофемании",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p7787/2f160525aed549a.jpg",
+  "refOk": true
+ },
+ "d0f78d1b-9e4e-4713-9784-20dc3ed2390a": {
+  "name": "Боул с миксом зелёных салатов",
+  "category": "Салаты",
+  "ref": "https://coffeemania.ru/uploads/p5391/e4a17989deb7dd9.jpg",
+  "refOk": true
+ },
+ "e1719eaf-0e9e-4278-a92f-ee319f98aa70": {
+  "name": "Тёплый салат с морепродуктами",
+  "category": "Салаты",
+  "ref": "https://coffeemania.ru/uploads/p7636/67c186d5c6abc50.jpg",
+  "refOk": true
+ },
+ "6f15cbd0-4499-437e-ba06-674865758dc9": {
+  "name": "Хабюрза",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p399/2d6e074f1cc3d43.jpg",
+  "refOk": true
+ },
+ "b52cc9a1-3c75-4625-9a85-f821503163b9": {
+  "name": "Хумус с запечённым томатом",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p1056/70ad3a9f25c785e.jpg",
+  "refOk": true
+ },
+ "cbf31d05-d4a3-42f2-9b56-98e53bdae08c": {
+  "name": "Лосось терияки на гриле с брокколи",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p481/91dcf5eb46fb269.jpg",
+  "refOk": true
+ },
+ "5bd7940f-1601-474c-a672-3970e37f2e30": {
+  "name": "Лосось на пару",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p2804/748bdb9bf060811.jpg",
+  "refOk": true
+ },
+ "54e8e3f9-4690-44b9-94ca-2242b111a084": {
+  "name": "Японский рис Хаэнуки",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p577/03bc47196bdc349.jpg",
+  "refOk": true
+ },
+ "2f6cc6e9-637e-4332-9b3e-06b213818552": {
+  "name": "Картофель по-деревенски",
+  "category": "Фастфуд",
+  "ref": "https://coffeemania.ru/uploads/p4353/b9924d82b00c837.jpg",
+  "refOk": true
+ },
+ "0d1a762e-f791-4001-baf4-59c6f06c11bd": {
+  "name": "Капитан Барашек (на булочке)",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p441/bac6d261287fb98.jpg",
+  "refOk": true
+ },
+ "7bae46cf-9416-4d20-af5a-48c1a6d2baaf": {
+  "name": "Свекольник без мяса",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p570/af88fd490e382fa.jpg",
+  "refOk": true
+ },
+ "7206f53a-095b-432e-8e81-0aeed8c54fe7": {
+  "name": "Лосось жареный",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p807/65b5bd43c65d2c5.jpg",
+  "refOk": true
+ },
+ "baa9ca55-5ff9-4e79-8700-1ba1cca3468a": {
+  "name": "Майонез",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p3933/2fcaaa84f79aab8.jpg",
+  "refOk": true
+ },
+ "fb8c412b-823e-4be1-b490-a9d663fd5e3e": {
+  "name": "Смородина, протёртая с сахаром",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p1112/c1c23142b1b6704.jpg",
+  "refOk": true
+ },
+ "adf346f6-f94b-4742-9723-1b83f3a1a159": {
+  "name": "Воздушная запеканка",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p1075/36ae766d19447e6.jpg",
+  "refOk": true
+ },
+ "86f790af-904b-4e5c-8e17-53171928685b": {
+  "name": "Рейк",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p709/fe6264091d51bbb.jpg",
+  "refOk": true
+ },
+ "2c911839-44a3-42a5-82b2-640b7cf92e5d": {
+  "name": "Те Гуаньинь",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p355/ef0bd1ab0fd6253.jpg",
+  "refOk": true
+ },
+ "f78d1f3d-2963-4fa0-85e6-6ee3277fb587": {
+  "name": "Облепиховый",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p654/27ac98fb0202005.jpg",
+  "refOk": true
+ },
+ "4794bb83-b5e0-4145-9f2b-28c8ba204954": {
+  "name": "Гарденист Аранчата Rossa",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p7770/11b6e8a0de6b564.jpg",
+  "refOk": true
+ },
+ "72bb2eb6-f32c-4cc6-8541-6dc61aa8dee0": {
+  "name": "Детские котлетки из индейки",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p465/3e3272019805153.jpg",
+  "refOk": true
+ },
+ "e18b6547-4b9a-4104-bcd1-2cb72c2e836a": {
+  "name": "Мини-пельмени в бульоне",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p4055/8d3af8df8cf042b.jpg",
+  "refOk": true
+ },
+ "037747f2-4cff-4bb7-90f0-08f42481c22b": {
+  "name": "Детский картофель по-деревенски",
+  "category": "Фастфуд",
+  "ref": "https://coffeemania.ru/uploads/p4192/9d203cb8d37edda.jpg",
+  "refOk": true
+ },
+ "a45ccc75-cce9-4278-b700-35e41f02d1b3": {
+  "name": "Детские блинчики",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p1761/8d2cb285f8470ae.jpg",
+  "refOk": true
+ },
+ "d253f4bc-c4b5-4cb6-bac5-ebb7fbf2a3a8": {
+  "name": "Бородинский хлеб",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p239/d05547a409fa199.jpg",
+  "refOk": true
+ },
+ "3248a754-57a1-4fec-aaa2-375124eee5d6": {
+  "name": "Картофельный омлет с лососем",
+  "category": "Фастфуд",
+  "ref": "https://coffeemania.ru/uploads/p5809/ee8a5970ec1c67f.jpg",
+  "refOk": true
+ },
+ "104ebf2c-1e07-4f9b-8bfa-f01e4f8ca11e": {
+  "name": "Блин с фаршем из говядины и яйцом",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p506/7d4e52d739a7f5d.jpg",
+  "refOk": true
+ },
+ "0a0d9ca0-b444-48f7-b9e4-de1ffd1d1217": {
+  "name": "Блин классический с маслом",
+  "category": "Блюдо",
+  "ref": "https://coffeemania.ru/uploads/p504/c91946151f468df.jpg",
+  "refOk": true
+ },
+ "664a3f34-3210-4ed3-8a40-4a8a3adf8ebb": {
+  "name": "Котлета по-киевски",
+  "category": "Русская",
+  "ref": "https://coffeemania.ru/uploads/p2887/aff68c6b3668d45.jpg",
+  "refOk": true
+ },
+ "56d7c721-819d-46da-9e3f-9987eca6aa0f": {
+  "name": "Рогалики с колбасками",
+  "category": "Блюдо",
+  "ref": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/15cb1517676abd49315e7506d52289f3.png",
+  "refOk": true
+ },
+ "4f314756-407b-4b06-9636-1f0ff2c9d899": {
+  "name": "Картофель с беконом и халапеньо",
+  "category": "Фастфуд",
+  "ref": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/35514aff474ee422a09b60b0f9af48ae.jpg",
+  "refOk": true
+ },
+ "53e3da9f-3055-4928-a049-fa0246a220a0": {
+  "name": "Зеленый салат классический",
+  "category": "Салаты",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297595/9bbd0bf5a0ca347ada85ab66a9d1724f.JPEG",
+  "refOk": true
+ },
+ "15105b0f-da63-4fde-98d5-8b6b96ff0f0a": {
+  "name": "Зеленый салат со страчателлой",
+  "category": "Салаты",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297602/22c845d91a774cdbe7113edf40539a7c.JPEG",
+  "refOk": true
+ },
+ "ac631dad-3009-419a-88f4-e830966ad540": {
+  "name": "Чизкейк с малиновым соусом",
+  "category": "Десерты",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297752/c4bf973e12d5f1b2c1892cbb30d97a3a.JPEG",
+  "refOk": true
+ },
+ "de51f1b1-b623-434f-9133-db5d7811e83c": {
+  "name": "Двойная Пепперони круглая",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297643/8dbbe8db21bd748b2023189c763cd106.JPEG",
+  "refOk": true
+ },
+ "48113439-28e2-4c76-a5d9-2a54cfb9dc3d": {
+  "name": "Пепперони без свинины",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297678/3f2bcaab7d639c73f6658a71d6ac493d.JPEG",
+  "refOk": true
+ },
+ "af6a65b1-c236-4477-b63e-9df47ee9ac33": {
+  "name": "Маргарита с цыпленком круглая",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297638/4e72bcbed0e87d1ff22ebdf7d764c419.JPEG",
+  "refOk": true
+ },
+ "4b2b23c5-b8ae-49ce-9828-846a2d2c98a2": {
+  "name": "Сэндвич с ветчиной и сыром Чеддер",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297718/5aa9267d285d355b58d97fedef093eaa.JPEG",
+  "refOk": true
+ },
+ "abecb32e-4f4a-4d64-8571-5fbcc3bd97d2": {
+  "name": "С пастрами из говядины и сладким луком",
+  "category": "Паста",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297691/d4722b02af2e367ed99b24e9e4e33ed6.JPEG",
+  "refOk": true
+ },
+ "802e5077-5778-4119-915a-6d537e5855a0": {
+  "name": "Соус ореховый",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297737/f44e9fff1e1d69f84c9a1d8c1fe37e6c.JPEG",
+  "refOk": true
+ },
+ "805ed582-7703-4a54-9227-ae18a410cf06": {
+  "name": "Картофельные дольки с соусом",
+  "category": "Фастфуд",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297726/08b9d7f569bf109e65d04c10fc025750.JPEG",
+  "refOk": true
+ },
+ "f7665120-f7d9-4aab-9774-86b1f1a52f35": {
+  "name": "Сэндвич с цыпленком и сыром Чеддер",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297717/4e13abbdcce5756b479e40bf82d559cb.JPEG",
+  "refOk": true
+ },
+ "e4d8026c-3a9e-487c-a855-64b25e3b057d": {
+  "name": "Чизкейк \"Нью-Йорк\"",
+  "category": "Десерты",
+  "ref": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/d8472a931a6f6472cff33bc11b18a7ad.jpg",
+  "refOk": true
+ },
+ "fc60d9dd-98ac-4b2c-b909-e5e6d80bc5cd": {
+  "name": "Яйцо Бенедикт с ветчиной из говядины",
+  "category": "Завтраки",
+  "ref": "https://coffeemania.ru/uploads/p4205/2d050565ee4d9b3.jpg",
+  "refOk": true
+ },
+ "fd23412a-7e05-4399-a142-12408bd89527": {
+  "name": "Мортаделла и грибы",
+  "category": "Блюдо",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297692/5dc6359c9d9097e36b0d0adb5f39ac78.JPEG",
+  "refOk": true
+ },
+ "7f3eaf36-6a8f-4304-8540-d61e998d2f41": {
+  "name": "Маргарита",
+  "category": "Коктейль",
+  "ref": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/Margherita-Traditional.jpg",
+  "refOk": true
+ },
+ "7c84673e-b264-448f-a0d1-8b843f7455a9": {
+  "name": "Матча капучино",
+  "category": "Кофе",
+  "ref": "https://coffeemania.ru/uploads/p7751/0525f27fee7d873.jpg",
+  "refOk": true
+ },
+ "26987f64-3d22-423f-b7bd-b76d70575a92": {
+  "name": "Латте Халва",
+  "category": "Кофе",
+  "ref": "https://coffeemania.ru/uploads/p275/cf50861e2c0df80.jpg",
+  "refOk": true
+ },
+ "96178008-d58d-4969-8c88-22678685c5e1": {
+  "name": "Горячий Бамбл",
+  "category": "Кофе",
+  "ref": "https://coffeemania.ru/uploads/p7744/2bc57b7764c66c3.jpg",
+  "refOk": true
+ },
+ "496b54be-fe6a-467b-840f-181d7362bc90": {
+  "name": "Малиновый кофе",
+  "category": "Кофе",
+  "ref": "https://coffeemania.ru/uploads/p250/c78c2267d949a14.jpg",
+  "refOk": true
+ },
+ "59a7e7de-9661-46d0-89c2-2f24432914f5": {
+  "name": "Раф",
+  "category": "Кофе",
+  "ref": "https://coffeemania.ru/uploads/p1950/b8c1c83900a94f1.jpg",
+  "refOk": true
+ },
+ "f844571b-a5b7-42ff-8463-f58c09cbb323": {
+  "name": "Раф солёная карамель",
+  "category": "Кофе",
+  "ref": "https://coffeemania.ru/uploads/p7835/3ba70a7ca440983.jpg",
+  "refOk": true
+ },
+ "dd3e0643-4114-4019-8d79-8cba84fdaf75": {
+  "name": "Раф апельсиновый",
+  "category": "Кофе",
+  "ref": "https://coffeemania.ru/uploads/p292/66d38149b4098ff.jpg",
+  "refOk": true
+ },
+ "f07d038c-7215-42ca-aa75-5ebab24018cc": {
+  "name": "Раф Moss",
+  "category": "Кофе",
+  "ref": "https://coffeemania.ru/uploads/p350/367e493602800c9.jpg",
+  "refOk": true
+ },
+ "6c24ef37-7b63-4d5b-b511-8cd1b94ec8f4": {
+  "name": "Фильтр-кофе Эфиопия анаэробная",
+  "category": "Кофе",
+  "ref": "https://coffeemania.ru/uploads/p4389/a0dc74a5c484968.jpg",
+  "refOk": true
+ },
+ "8b179902-d8c5-478d-8bc2-ea40ef4b3204": {
+  "name": "Hoop Эфиопия мытая",
+  "category": "Кофе",
+  "ref": "https://coffeemania.ru/uploads/p5667/15354666c98013e.jpg",
+  "refOk": true
+ },
+ "4de09091-b5ba-4fff-8429-66a50670ebd8": {
+  "name": "Hoop Эфиопия анаэробная",
+  "category": "Кофе",
+  "ref": "https://coffeemania.ru/uploads/p6929/94bdb6df0d71d84.jpg",
+  "refOk": true
+ },
+ "de911c7a-002c-4ae2-a5ec-c0eed5624cf1": {
+  "name": "Hoop Аласитас натуральная",
+  "category": "Кофе",
+  "ref": "https://coffeemania.ru/uploads/p8583/b1712814661e0c1.jpg",
+  "refOk": true
+ },
+ "c4822e01-7d80-45fd-97b5-082083a4ae58": {
+  "name": "Эспрессо Доппио",
+  "category": "Кофе",
+  "ref": "https://coffeemania.ru/uploads/p10/63c95a4683ef5e3.jpg",
+  "refOk": true
+ },
+ "8e83ca74-c02d-42ea-9384-d30fbdb12e8b": {
+  "name": "Пикколо",
+  "category": "Кофе",
+  "ref": "https://coffeemania.ru/uploads/p243/64c471c7d941097.jpg",
+  "refOk": true
+ },
+ "90bfc3b5-d924-4362-ba9a-224561727b8c": {
+  "name": "Эспрессо Тоник",
+  "category": "Кофе",
+  "ref": "https://coffeemania.ru/uploads/p2756/fa08b466c91cb9e.jpg",
+  "refOk": true
+ },
+ "2a11f23e-e3af-425f-af85-da70eea41a65": {
+  "name": "Фильтр-кофе Эфиопия мытая",
+  "category": "Кофе",
+  "ref": "https://coffeemania.ru/uploads/p251/fc003b5db0af535.jpg",
+  "refOk": true
+ },
+ "f35d0dcf-7673-416f-8c92-aeac1e985393": {
+  "name": "Фильтр-кофе Аласитас натуральная",
+  "category": "Кофе",
+  "ref": "https://coffeemania.ru/uploads/p8584/4c124e3f44eae89.jpg",
+  "refOk": true
+ },
+ "7b65272d-c9c9-4b5e-9f21-e97e7fbc1da5": {
+  "name": "Фильтр-кофе Йемен анаэробная",
+  "category": "Кофе",
+  "ref": "https://coffeemania.ru/uploads/p8532/52a1675bc48c944.jpg",
+  "refOk": true
+ },
+ "abaaee33-027e-4380-a03f-967224a24eb4": {
+  "name": "Айс Латте в банке",
+  "category": "Кофе",
+  "ref": "https://coffeemania.ru/uploads/p5147/3cc0f355a908d92.jpg",
+  "refOk": true
+ },
+ "b309fe96-e2ee-485d-b6b5-95838dfe5d08": {
+  "name": "Айс Раф в банке",
+  "category": "Кофе",
+  "ref": "https://coffeemania.ru/uploads/p5148/c7634444c8c7a87.jpg",
+  "refOk": true
+ },
+ "98c32eb6-2860-4f1a-bf66-661783da09cb": {
+  "name": "Матча Тоник",
+  "category": "Чай",
+  "ref": "https://coffeemania.ru/uploads/p8419/aa27894503993db.jpg",
+  "refOk": true
+ },
+ "7c53478e-f88c-4d49-8d10-26c38b42ef84": {
+  "name": "Айс Ти Калина",
+  "category": "Чай",
+  "ref": "https://coffeemania.ru/uploads/p8425/2e3c93d60cccafe.jpg",
+  "refOk": true
+ },
+ "19a7f9df-bafb-4d9d-a895-a46e295258ae": {
+  "name": "Чиа-пудинг «Матча-Черника»",
+  "category": "Чай",
+  "ref": "https://coffeemania.ru/uploads/p8444/1fbeb2da9e35651.jpg",
+  "refOk": true
+ },
+ "38d85a29-d857-4c8e-af7c-57367039d240": {
+  "name": "Фокачча Аль Печино",
+  "category": "Напитки",
+  "ref": "https://coffeemania.ru/uploads/p7785/dae299e44eb58ad.jpg",
+  "refOk": true
+ },
+ "ceb601bf-1a01-4724-9109-f0220bd5ba3c": {
+  "name": "Чай Изумрудная почка",
+  "category": "Чай",
+  "ref": "https://coffeemania.ru/uploads/p2813/83d1d2bbcee86a8.jpg",
+  "refOk": true
+ },
+ "c7498232-1669-48e8-9eb0-464f186436c7": {
+  "name": "Иван-чай с листом вишни",
+  "category": "Чай",
+  "ref": "https://coffeemania.ru/uploads/p765/9c1ce85addbb0e3.jpg",
+  "refOk": true
+ },
+ "0e78e5c0-7ab5-4d6b-83a9-0727e1c0230d": {
+  "name": "Чай чёрный с чабрецом",
+  "category": "Чай",
+  "ref": "https://coffeemania.ru/uploads/p757/31fa48a347cea40.jpg",
+  "refOk": true
+ },
+ "e1fb11b1-ca59-453d-a8c3-2d9f55375062": {
+  "name": "Чай зелёный Моли Цзинь Чжэнь с жасмином",
+  "category": "Чай",
+  "ref": "https://coffeemania.ru/uploads/p354/7c5b6e4c5de1236.jpg",
+  "refOk": true
+ },
+ "62795645-1a70-4b9b-827b-6458e5bfffa1": {
+  "name": "Гречишный чай",
+  "category": "Чай",
+  "ref": "https://coffeemania.ru/uploads/p356/e96d4806078d5c9.jpg",
+  "refOk": true
+ },
+ "e4cdfb63-c390-47fc-91bf-9db88b4a194f": {
+  "name": "Тоник \"The Gardenist\" Birch Tree",
+  "category": "Безалкогольные",
+  "ref": "https://coffeemania.ru/uploads/p7209/cdbe9ec31402d8c.jpg",
+  "refOk": true
+ },
+ "a3796e31-ed82-43ed-9c36-686aaf8093cc": {
+  "name": "Игристое вино ODDBIRD Blanc de Blancs б/а",
+  "category": "Вино",
+  "ref": "https://coffeemania.ru/uploads/p4386/8c16e9fea2b844d.jpg",
+  "refOk": true
+ },
+ "c78195a4-f0d4-4d86-ac84-36aecdc1117c": {
+  "name": "Пиво Eggenberg Freibier б/а",
+  "category": "Пиво",
+  "ref": "https://coffeemania.ru/uploads/p6320/9e49683219365f2.jpg",
+  "refOk": true
+ },
+ "04ee3735-8fcd-493e-a4cf-87240a69dbf2": {
+  "name": "Лимонад Манго и маракуйя",
+  "category": "Безалкогольные",
+  "ref": "https://coffeemania.ru/uploads/p7075/3b11257354a6c13.jpg",
+  "refOk": true
+ },
+ "c8cae39f-736c-4d69-b83a-e460ebbdfadd": {
+  "name": "Смузи Манго",
+  "category": "Смузи",
+  "ref": "https://coffeemania.ru/uploads/p8258/1159999ed68e212.jpg",
+  "refOk": true
+ },
+ "dface5b4-1f77-4ab2-bbf8-95ca3ad9bf19": {
+  "name": "Грейпфрутовый свежевыжатый сок",
+  "category": "Безалкогольные",
+  "ref": "https://coffeemania.ru/uploads/p3533/c2c859aa1706159.jpg",
+  "refOk": true
+ },
+ "2969d3cc-9b60-4b3e-a728-1ff42a2c6bdc": {
+  "name": "Морковный свежевыжатый сок",
+  "category": "Безалкогольные",
+  "ref": "https://coffeemania.ru/uploads/p3534/31c67357a936072.jpg",
+  "refOk": true
+ },
+ "398f6136-2f16-4c39-a54c-653f2a6d9052": {
+  "name": "Сельдереевый свежевыжатый сок",
+  "category": "Безалкогольные",
+  "ref": "https://coffeemania.ru/uploads/p3639/1c4f20e6a354447.jpg",
+  "refOk": true
+ },
+ "f448ab7f-eb2f-4369-8f00-e9c8f7334a41": {
+  "name": "Арбузный свежевыжатый сок",
+  "category": "Безалкогольные",
+  "ref": "https://coffeemania.ru/uploads/p3914/ed93848311c82a3.jpg",
+  "refOk": true
+ },
+ "228313ba-d919-408c-9875-7cf097b237aa": {
+  "name": "Детское Какао",
+  "category": "Напитки",
+  "ref": "https://coffeemania.ru/uploads/p341/d8bf6e77e0d8f31.jpg",
+  "refOk": true
+ },
+ "02e9c8bb-70c1-4bcb-9014-8b7d8fdcb874": {
+  "name": "Детский Лимонад",
+  "category": "Безалкогольные",
+  "ref": "https://coffeemania.ru/uploads/p660/427b57a19f71b46.jpg",
+  "refOk": true
+ },
+ "817245b6-2e72-49fb-a2c4-32933648aac8": {
+  "name": "Круассан с ветчиной из говядины",
+  "category": "Напитки",
+  "ref": "https://coffeemania.ru/uploads/p4204/f5cd8775594ab62.jpg",
+  "refOk": true
+ },
+ "0454eb8e-7f67-4d99-8b4f-3cdc538d9c78": {
+  "name": "Флэт уайт",
+  "category": "Кофе",
+  "ref": "https://coffeemania.ru/uploads/p267/878b03697f0de76.jpg",
+  "refOk": true
+ },
+ "4ef5a38e-5300-473b-906c-829e6e12b4b6": {
+  "name": "Липтон Айс Ти Зеленый чай",
+  "category": "Чай",
+  "ref": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/51d4c8784559036e615913c4c2b56024.jpg",
+  "refOk": true
+ },
+ "f7e5574c-284c-467b-a2f6-77bbe17cc67e": {
+  "name": "С пармской ветчиной круглая",
+  "category": "Напитки",
+  "ref": "https://cdn.smt.bz/uploads/media/photo/8297637/7c271105db533418cc45d0a91214b0ac.JPEG",
+  "refOk": true
+ },
+ "30000000-0000-4000-8000-000000000001": {
+  "name": "Капучино",
+  "category": "Кофе",
+  "ref": "https://coffeemania.ru/uploads/p7629/c927d5af1158fb4.jpg",
+  "refOk": true
+ },
+ "8c0403fa-ca5e-4a0c-a2d2-ebf80e974f0a": {
+  "name": "Латте Матча",
+  "category": "Кофе",
+  "ref": "https://coffeemania.ru/uploads/p2349/2cbab1f7dd6a462.jpg",
+  "refOk": true
+ },
+ "dcb74119-9629-4130-9166-97ade16c86e8": {
+  "name": "Раф Цикорий",
+  "category": "Кофе",
+  "ref": "https://coffeemania.ru/uploads/p325/93f3ff720897bc3.jpg",
+  "refOk": true
+ },
+ "9123a14c-29ef-48f0-bd39-f8084d96d722": {
+  "name": "Бамбл",
+  "category": "Кофе",
+  "ref": "https://coffeemania.ru/uploads/p255/ac9fbcae664bf17.jpg",
+  "refOk": true
+ },
+ "b5475298-eca0-478c-8431-f16e45d5c7dd": {
+  "name": "Виноградный улун",
+  "category": "Вино",
+  "ref": "https://coffeemania.ru/uploads/p8437/da8eb77b6abe29a.jpg",
+  "refOk": true
+ },
+ "4e1bda92-65ac-4dcf-afd7-3588d46fe1fb": {
+  "name": "Чёрный чай с горными травами",
+  "category": "Чай",
+  "ref": "https://coffeemania.ru/uploads/p764/86e73b5f1fc79e8.jpg",
+  "refOk": true
+ },
+ "b7f0815a-3827-46f9-bd9e-fff724b4c537": {
+  "name": "Апельсиновый свежевыжатый сок",
+  "category": "Безалкогольные",
+  "ref": "https://coffeemania.ru/uploads/p3532/77e3a1f7cc0ba03.jpg",
+  "refOk": true
+ },
+ "0c76cae9-a002-4037-b6af-56d90833d262": {
+  "name": "Эрл грей",
+  "category": "Чай",
+  "ref": "https://coffeemania.ru/uploads/p756/8c5f46de264697b.jpg",
+  "refOk": true
+ },
+ "0f0c16c4-d5fa-43c6-b00a-f812a89a45cc": {
+  "name": "Hoop Йемен анаэробная",
+  "category": "Кофе",
+  "ref": "https://coffeemania.ru/uploads/p8531/3df2d9d3bf1b3e9.jpg",
+  "refOk": true
+ },
+ "8eff7e4e-b66e-493f-97fc-5851cfd62c1c": {
+  "name": "Эспрессо Тоник в банке",
+  "category": "Кофе",
+  "ref": "https://coffeemania.ru/uploads/p5149/dd44430754257fa.jpg",
+  "refOk": true
+ }
+}

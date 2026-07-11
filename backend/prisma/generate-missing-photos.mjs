@@ -113,8 +113,10 @@ let made = 0, failed = 0, checked = 0;
 for (const m of todo) {
   if (checked >= LIMIT) break;
   checked++;
-  const item = await p.listing.findUnique({ where: { id: m.id }, select: { photoUrl: true } });
-  if (!item || item.photoUrl) { done.add(m.id); fs.writeFileSync(doneFile, JSON.stringify([...done])); continue; }
+  // transient DB proxy drops must not mark items done — on error, generate anyway
+  let item;
+  try { item = await p.listing.findUnique({ where: { id: m.id }, select: { photoUrl: true } }); } catch { item = undefined; }
+  if (item === null || item?.photoUrl) { done.add(m.id); fs.writeFileSync(doneFile, JSON.stringify([...done])); continue; }
   const en = fixEn(m.name, m.en);
 
   if (STAGE !== 'check') {

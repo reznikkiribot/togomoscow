@@ -1779,6 +1779,131 @@
    "id": "0c76cae9-a002-4037-b6af-56d90833d262",
    "name": "Эрл грей",
    "en": "tea in a glass"
+  },
+  {
+   "id": "78a63862-d85e-4935-ba29-2b16e4e4471c",
+   "name": "Лапша рамен с трубачом",
+   "en": "japanese ramen noodle soup bowl with seafood"
+  },
+  {
+   "id": "a39794b0-8fae-48c1-a5c2-79e8de52c749",
+   "name": "Джин",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "431b7738-9546-4d27-b222-80e444ab8b25",
+   "name": "Ньокки",
+   "en": "restaurant plated dish, colorful"
+  },
+  {
+   "id": "f5dc51a8-1f64-4d43-a08d-90767ecfdad0",
+   "name": "Яичница",
+   "en": "restaurant plated dish, colorful"
+  },
+  {
+   "id": "b2bb3d56-4db3-4996-8fd2-0b48255e9be2",
+   "name": "Стейк Филе-миньон",
+   "en": "restaurant plated dish, colorful"
+  },
+  {
+   "id": "be387daa-00b1-4353-965f-f0538560923f",
+   "name": "Колд брю",
+   "en": "specialty coffee drink in a cup"
+  },
+  {
+   "id": "17bc6ad6-1269-4901-b5ab-be34419fe5eb",
+   "name": "Santa Rita",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "c34d4f5f-bc45-48a0-af32-b819cef9daab",
+   "name": "Биттер",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "bcdbabbc-a8c7-4ceb-80ba-43cd2ef845a7",
+   "name": "Американо",
+   "en": "specialty coffee drink in a cup"
+  },
+  {
+   "id": "06b461e5-d42a-44a9-b513-db62b12b041c",
+   "name": "Шиповник",
+   "en": "restaurant plated dish, colorful"
+  },
+  {
+   "id": "456572b1-38a9-48b3-92ad-a626ad5a31b2",
+   "name": "Минеральная Вода Филетте (Газированная)",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "7e2dd0f9-95e8-4479-af84-fd3b94722fec",
+   "name": "Ананас и базилик",
+   "en": "restaurant plated dish, colorful"
+  },
+  {
+   "id": "38424e9a-864e-4470-9c52-64c404319c00",
+   "name": "Колбаски из индейки",
+   "en": "restaurant plated dish, colorful"
+  },
+  {
+   "id": "1264384a-d446-471e-b00d-705296d150fb",
+   "name": "Молоко 3,6%",
+   "en": "restaurant plated dish, colorful"
+  },
+  {
+   "id": "8dca7eca-d8ad-42a9-90a6-17cb56254b22",
+   "name": "Добрый Кола",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "ab2c8810-5ce0-4114-a35a-1dca28161d80",
+   "name": "Американо (сред.)",
+   "en": "specialty coffee drink in a cup"
+  },
+  {
+   "id": "670f344f-164f-4fca-b43d-7c74673eebd4",
+   "name": "Физз Черноголовка Белая земляника",
+   "en": "restaurant plated dish, colorful"
+  },
+  {
+   "id": "9225cd2a-fb40-4a0f-b7e6-80b6f90122b6",
+   "name": "Суп томатный с базиликом",
+   "en": "restaurant plated dish, colorful"
+  },
+  {
+   "id": "feed791b-894b-4329-b9f0-a7e4c2109001",
+   "name": "Фанки Манки Кола классик",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "4d7da69e-678c-4081-9c78-a3f1290e7f82",
+   "name": "Аква Минерале без газа",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "30000000-0000-4000-8000-000000000001",
+   "name": "Капучино",
+   "en": "specialty coffee drink in a cup"
+  },
+  {
+   "id": "803d90dc-7ed3-4815-81e5-5ded292b92b9",
+   "name": "Айс латте",
+   "en": "specialty coffee drink in a cup"
+  },
+  {
+   "id": "1da6d2c8-7a92-4aec-b590-478c15b34b58",
+   "name": "Cinzano",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "8779a1be-f35c-448c-b9d4-d11eec4a382d",
+   "name": "Мохито",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "2c8fe888-04eb-444d-b575-38af673bae54",
+   "name": "Минеральная Вода Филетте (Негазированная)",
+   "en": "refreshing drink in a glass"
   }
  ]
 }

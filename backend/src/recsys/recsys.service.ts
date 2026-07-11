@@ -196,7 +196,7 @@ export class RecsysService {
       include: {
         servedAt: {
           where: { status: 'APPROVED' },
-          select: { venue: { select: { id: true, name: true } }, price: true },
+          select: { venue: { select: { id: true, name: true } }, price: true, photoUrl: true },
           take: 30,
         },
       },
@@ -255,13 +255,19 @@ export class RecsysService {
 
     const cards = await this.listings.enrichCards(pick.map((x) => x.it));
     return cards.map((c, i) => {
-      // pick one real venue for this dish (random among its places → variety)
-      // pick a real menu link (venue + its price for THIS item → shown on the card)
+      // pick one real venue for this dish. Prefer a venue that has ITS OWN
+      // generated photo, so the shown image matches "попробуйте в: X" and rotates
+      // with the venue (owner rule 12.07.2026).
       const links = ((pick[i].it as any).servedAt ?? []).filter((l: any) => l.venue);
-      const link = links.length ? links[Math.floor(Math.random() * links.length)] : undefined;
+      const withPhoto = links.filter((l: any) => l.photoUrl);
+      const pool = withPhoto.length ? withPhoto : links;
+      const link = pool.length ? pool[Math.floor(Math.random() * pool.length)] : undefined;
       const recVenue = link ? { ...link.venue, price: link.price ?? null } : undefined;
+      // user photos (on the shared card) always win; else the venue's own photo
+      const isUserPhoto = c.photoUrl?.startsWith('/api/files/') && !c.photoUrl?.startsWith('/api/files/aigen-');
+      const photoUrl = !isUserPhoto && link?.photoUrl ? link.photoUrl : c.photoUrl;
       const matchPct = showPct ? Math.round(60 + 37 * Math.max(0, Math.min(1, pick[i].s / maxS))) : undefined;
-      return { ...c, recReason: pick[i].why, recVenue, matchPct };
+      return { ...c, photoUrl, recReason: pick[i].why, recVenue, matchPct };
     });
   }
 
@@ -297,7 +303,7 @@ export class RecsysService {
       include: {
         servedAt: {
           where: { status: 'APPROVED' },
-          select: { venue: { select: { id: true, name: true } }, price: true },
+          select: { venue: { select: { id: true, name: true } }, price: true, photoUrl: true },
           take: 30,
         },
       },

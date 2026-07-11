@@ -192,11 +192,14 @@ async function main() {
         log.createdItems.push(item.id);
       }
       const price = raw.price > 0 && raw.price < 100000 ? Math.round(raw.price) : null;
+      // this venue's own menu photo → the reference for THIS venue's AI image
+      const refImage = typeof raw.image === 'string' && /^https?:\/\//.test(raw.image) ? raw.image : null;
       for (const v of venues) {
         await prisma.menuLink.upsert({
           where: { venueId_itemId: { venueId: v.id, itemId: item.id } },
-          create: { venueId: v.id, itemId: item.id, status, price },
-          update: { status, price },
+          create: { venueId: v.id, itemId: item.id, status, price, refImage },
+          // don't wipe an existing generated photo; only fill a missing reference
+          update: { status, price, ...(refImage ? { refImage } : {}) },
         });
         links++;
         log.links.push([v.id, item.id]);

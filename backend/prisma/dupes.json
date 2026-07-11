@@ -1,0 +1,274 @@
+[
+ [
+  {
+   "id": "20000000-0000-4000-8000-000000000002",
+   "name": "Карбонара",
+   "type": "DISH",
+   "reviewCount": 0
+  },
+  {
+   "id": "80b37217-1e89-4d5b-8526-7741f73d48a9",
+   "name": "Паста Карбонара",
+   "type": "DISH",
+   "reviewCount": 0
+  }
+ ],
+ [
+  {
+   "id": "20000000-0000-4000-8000-000000000003",
+   "name": "Стейк Рибай",
+   "type": "DISH",
+   "reviewCount": 0
+  },
+  {
+   "id": "48a9af91-b5e4-443a-8dfb-568dadb5755a",
+   "name": "Стейк Рибай",
+   "type": "DISH",
+   "reviewCount": 0
+  }
+ ],
+ [
+  {
+   "id": "3d55ecad-7961-4962-a830-c8ab06546c0e",
+   "name": "Паста Болоньезе",
+   "type": "DISH",
+   "reviewCount": 0
+  },
+  {
+   "id": "20000000-0000-4000-8000-000000000001",
+   "name": "Болоньезе",
+   "type": "DISH",
+   "reviewCount": 0
+  }
+ ],
+ [
+  {
+   "id": "e0f78ce7-e4e9-41b3-b73c-38b06f0f727f",
+   "name": "Пицца Пепперони",
+   "type": "DISH",
+   "reviewCount": 1
+  },
+  {
+   "id": "927c1be0-37fc-4163-b2cc-df109e47593a",
+   "name": "Пепперони",
+   "type": "DISH",
+   "reviewCount": 0
+  }
+ ],
+ [
+  {
+   "id": "05bac0fe-d972-49bc-a95c-2cd4cb77af0e",
+   "name": "Пицца Том ям",
+   "type": "DISH",
+   "reviewCount": 0
+  },
+  {
+   "id": "2d8a5528-aee5-46e2-84c1-8aaa942a3991",
+   "name": "Том ям",
+   "type": "DISH",
+   "reviewCount": 0
+  },
+  {
+   "id": "6ebff4ea-9ccc-428a-b943-e99e2f1bfba7",
+   "name": "Паста Том ям",
+   "type": "DISH",
+   "reviewCount": 0
+  }
+ ],
+ [
+  {
+   "id": "f899cf5f-6878-47a3-8913-cf06e575661d",
+   "name": "Паста Песто",
+   "type": "DISH",
+   "reviewCount": 0
+  },
+  {
+   "id": "0d24d80d-fe80-4387-8bf1-7e5c777501f5",
+   "name": "Песто",
+   "type": "DISH",
+   "reviewCount": 0
+  }
+ ],
+ [
+  {
+   "id": "819e0c32-20a8-4077-9070-aa7dd517cdd9",
+   "name": "Тальолини",
+   "type": "DISH",
+   "reviewCount": 0
+  },
+  {
+   "id": "eb0f5854-e596-490e-ab71-e32df98934a4",
+   "name": "Паста Тальолини",
+   "type": "DISH",
+   "reviewCount": 0
+  }
+ ],
+ [
+  {
+   "id": "a37284e0-b914-4912-8d38-4e67d773a32c",
+   "name": "Бородинский хлеб",
+   "type": "DISH",
+   "reviewCount": 0
+  },
+  {
+   "id": "d253f4bc-c4b5-4cb6-bac5-ebb7fbf2a3a8",
+   "name": "Бородинский хлеб",
+   "type": "DISH",
+   "reviewCount": 0
+  }
+ ],
+ [
+  {
+   "id": "184746cb-be42-4494-a355-198e1276222d",
+   "name": "Мясная",
+   "type": "DISH",
+   "reviewCount": 0
+  },
+  {
+   "id": "39ddc96b-0355-4f6d-8a3c-52d46c4cd6df",
+   "name": "Паста Мясная",
+   "type": "DISH",
+   "reviewCount": 0
+  }
+ ],
+ [
+  {
+   "id": "36670e09-5011-482f-9390-a8535990bd80",
+   "name": "Маргарита",
+   "type": "DISH",
+   "reviewCount": 0
+  },
+  {
+   "id": "80500d51-156f-4866-9a08-78eae3acbf78",
+   "name": "Пицца Маргарита",
+   "type": "DISH",
+   "reviewCount": 1
+  }
+ ],
+ [
+  {
+   "id": "5d8c77f6-40e7-487c-849a-979c2e5a6dad",
+   "name": "Паста Креветка и песто",
+   "type": "DISH",
+   "reviewCount": 0
+  },
+  {
+   "id": "cfc7bcee-6f75-459f-abdc-fc90e562d55f",
+   "name": "Креветка и песто",
+   "type": "DISH",
+   "reviewCount": 0
+  }
+ ],
+ [
+  {
+   "id": "214e8c26-9f10-4428-b286-687c4b8e2dd4",
+   "name": "Ветчина и грибы",
+   "type": "DISH",
+   "reviewCount": 0
+  },
+  {
+   "id": "671d7fcc-8fb2-421c-8f75-e39723fc901f",
+   "name": "Пицца Ветчина и грибы",
+   "type": "DISH",
+   "reviewCount": 0
+  }
+ ],
+ [
+  {
+   "id": "f73024be-da2b-426a-a871-57724dd43598",
+   "name": "Сырная карбонара",
+   "type": "DISH",
+   "reviewCount": 0
+  },
+  {
+   "id": "227e31d0-65a5-49dc-babe-c842483ffd96",
+   "name": "Пицца Сырная Карбонара",
+   "type": "DISH",
+   "reviewCount": 0
+  }
+ ],
+ [
+  {
+   "id": "ab27287b-7440-4301-ac9e-6862bb1d1de1",
+   "name": "Пицца Баварская мясная",
+   "type": "DISH",
+   "reviewCount": 0
+  },
+  {
+   "id": "c70cae99-ee72-411b-8e62-18cbb41aa899",
+   "name": "Баварская мясная",
+   "type": "DISH",
+   "reviewCount": 0
+  }
+ ],
+ [
+  {
+   "id": "02d825ef-8682-43ba-995b-e0c20608df63",
+   "name": "Пицца Груша и горгонзола",
+   "type": "DISH",
+   "reviewCount": 0
+  },
+  {
+   "id": "2b30e11c-1ee3-4a61-857b-62626840e788",
+   "name": "Груша и горгонзола",
+   "type": "DISH",
+   "reviewCount": 0
+  }
+ ],
+ [
+  {
+   "id": "333acd85-2843-4735-93fd-c7338026bfac",
+   "name": "Супермясная",
+   "type": "DISH",
+   "reviewCount": 0
+  },
+  {
+   "id": "65d797a2-87cc-47a1-9584-9da427ea6143",
+   "name": "Пицца Супермясная",
+   "type": "DISH",
+   "reviewCount": 0
+  }
+ ],
+ [
+  {
+   "id": "1b0e30e3-3a64-4ed4-a6cc-759347ea48fd",
+   "name": "Джин-тоник",
+   "type": "DRINK",
+   "reviewCount": 0
+  },
+  {
+   "id": "fcb45391-315b-4da6-981e-845f804053f7",
+   "name": "Джин тоник",
+   "type": "DRINK",
+   "reviewCount": 0
+  }
+ ],
+ [
+  {
+   "id": "92ee2811-b4cd-4ef2-b352-cd8e515329bd",
+   "name": "Лонг-Айленд",
+   "type": "DRINK",
+   "reviewCount": 0
+  },
+  {
+   "id": "9dc6b9a0-b00d-425a-b589-028e91dc3b40",
+   "name": "Лонг айленд",
+   "type": "DRINK",
+   "reviewCount": 0
+  }
+ ],
+ [
+  {
+   "id": "7d738a76-199f-482d-8ba0-d19c2ec484d3",
+   "name": "Айс-Латте",
+   "type": "DRINK",
+   "reviewCount": 0
+  },
+  {
+   "id": "803d90dc-7ed3-4815-81e5-5ded292b92b9",
+   "name": "Айс латте",
+   "type": "DRINK",
+   "reviewCount": 1
+  }
+ ]
+]
