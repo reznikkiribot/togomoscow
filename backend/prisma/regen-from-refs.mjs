@@ -37,6 +37,7 @@ const MAP_FILE = path.join(__dirname, 'i2i-map.json'); // id → {name, en, ref}
 const DONE_FILE = path.join(__dirname, 'i2i-done.json');
 const ACCEPT = 0.5;
 
+if (fs.existsSync(path.join(__dirname, 'i2i-stop'))) { console.log('STOP-флаг — выходим'); process.exit(0); }
 const norm = (s) => (s ?? '').toLowerCase().replace(/ё/g, 'е').replace(/[^a-zа-я0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
 
 if (STAGE === 'dl') {
@@ -73,7 +74,7 @@ if (STAGE === 'dl') {
       if (!r.ok) continue;
       const buf = Buffer.from(await r.arrayBuffer());
       // 512x512 cover — img2img wants the target aspect
-      await sharp(buf).resize(512, 512, { fit: 'cover' }).png().toFile(path.join(REF, `${l.id}.png`));
+      await sharp(buf).resize(472, 472, { fit: 'contain', background: { r: 250, g: 249, b: 247 } }).extend({ top: 20, bottom: 20, left: 20, right: 20, background: { r: 250, g: 249, b: 247 } }).png().toFile(path.join(REF, `${l.id}.png`));
       map[l.id] = { name: l.name, category: l.category, ref, refOk: true };
       dl++;
       if (dl % 25 === 0) { fs.writeFileSync(MAP_FILE, JSON.stringify(map, null, 1)); console.log(`  скачано ${dl}`); }
@@ -102,7 +103,7 @@ if (STAGE === 'gen') {
           '-m', 'sd_turbo.safetensors', '-i', refRel, '--strength', '0.45',
           '--steps', '6', '--cfg-scale', '1.0', '-W', '512', '-H', '512',
           '-s', String(2000 + a * 555), '-o', outRel,
-          '-p', `professional food photography, appetizing, natural light, high detail`,
+          '-p', `professional food photography, the whole dish fully visible and centered, appetizing, natural light, high detail`,
         ], { stdio: 'pipe', timeout: 300000, cwd: SD });
         made++;
       } catch (e) {

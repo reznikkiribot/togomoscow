@@ -318,6 +318,23 @@ export class ListingsService {
     // social proof for cards with NO reviews yet: how many people are watching /
     // want to try it ("вы не первый, кто присматривается")
     const zeroIds = rows.filter((r) => (r as any).reviewCount === 0).map((r) => r.id);
+    // «Попробуйте в:» — a zero-review dish names a RANDOM venue that serves it
+    const tryAtByItem = new Map<string, { id: string; name: string }>();
+    if (zeroIds.length) {
+      const linkRows = await this.prisma.menuLink.findMany({
+        where: { itemId: { in: zeroIds }, status: 'APPROVED' },
+        select: { itemId: true, venue: { select: { id: true, name: true } } },
+      });
+      const byItem = new Map<string, { id: string; name: string }[]>();
+      for (const l of linkRows) {
+        if (!l.venue) continue;
+        if (!byItem.has(l.itemId)) byItem.set(l.itemId, []);
+        byItem.get(l.itemId)!.push(l.venue);
+      }
+      for (const [itemId, vs] of byItem) {
+        tryAtByItem.set(itemId, vs[Math.floor(Math.random() * vs.length)]);
+      }
+    }
     const wantByListing = new Map<string, number>();
     const viewsByListing = new Map<string, number>();
     if (zeroIds.length) {
@@ -341,6 +358,7 @@ export class ListingsService {
       bestVenue: bestByItem.get(r.id) ?? null,
       wantCount: wantByListing.get(r.id) ?? undefined,
       viewCount: viewsByListing.get(r.id) ?? undefined,
+      tryAt: tryAtByItem.get(r.id) ?? undefined,
       // show at least the city when there's no street address yet
       cityLabel: inMoscow((r as any).lat, (r as any).lng) ? 'Москва' : undefined,
       metro: nearestMetro((r as any).lat, (r as any).lng), // nearest metro → "м. …" label
