@@ -67,12 +67,14 @@ export function ListRow({
           ) : null}
         </div>
 
-        {/* zero-review dish → a random venue that serves it («Попробуйте в:») */}
-        {isItem && listing.reviewCount === 0 && !listing.bestVenue && (listing as any).tryAt && (
-          <div className="sub">Попробуйте в: 📍 {(listing as any).tryAt.name}</div>
+        {/* no best venue yet → a random venue that serves it */}
+        {isItem && !listing.bestVenue && (listing as any).tryAt && (
+          <div className="sub">
+            {listing.reviewCount === 0 ? 'Попробуйте в: ' : ''}📍{(listing as any).tryAt.name}
+          </div>
         )}
-        {/* dish/drink: lead with WHERE it's best — only once the category is unlocked */}
-        {isItem && listing.bestVenue && isUnlocked(listing.category) && (
+        {/* dish/drink: lead with WHERE it's best — visible as soon as it's known */}
+        {isItem && listing.bestVenue && (
           <div className="sub" style={{ color: 'var(--accent)', fontWeight: 600 }}>
             🏆 Лучшее в: {listing.bestVenue.name}
           </div>

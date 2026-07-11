@@ -59,9 +59,11 @@ export function ListingCard({
           ) : listing.recVenue ? (
             // recommended dish "в конкретном месте" → venue name (price is on the photo)
             <div className="meta">📍 {listing.recVenue.name}</div>
-          ) : (listing as any).tryAt && listing.reviewCount === 0 ? (
-            // zero reviews → nudge with a random place that serves it
-            <div className="meta">Попробуйте в: 📍 {(listing as any).tryAt.name}</div>
+          ) : (listing as any).tryAt ? (
+            // no best venue → a random place that serves it
+            <div className="meta">
+              {listing.reviewCount === 0 ? 'Попробуйте в: ' : ''}📍{(listing as any).tryAt.name}
+            </div>
           ) : (
             <div className="meta">
               {listing.category && !/^(блюдо|напиток)$/i.test(listing.category) ? listing.category : ''}

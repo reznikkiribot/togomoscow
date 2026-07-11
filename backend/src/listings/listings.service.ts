@@ -318,11 +318,15 @@ export class ListingsService {
     // social proof for cards with NO reviews yet: how many people are watching /
     // want to try it ("вы не первый, кто присматривается")
     const zeroIds = rows.filter((r) => (r as any).reviewCount === 0).map((r) => r.id);
-    // «Попробуйте в:» — a zero-review dish names a RANDOM venue that serves it
+    // «Попробуйте в:» — any dish WITHOUT a computed best venue names a RANDOM
+    // venue that serves it (rated-but-venueless reviews included)
+    const tryAtIds = rows
+      .filter((r) => (r.type === 'DISH' || r.type === 'DRINK') && !bestByItem.has(r.id))
+      .map((r) => r.id);
     const tryAtByItem = new Map<string, { id: string; name: string }>();
-    if (zeroIds.length) {
+    if (tryAtIds.length) {
       const linkRows = await this.prisma.menuLink.findMany({
-        where: { itemId: { in: zeroIds }, status: 'APPROVED' },
+        where: { itemId: { in: tryAtIds }, status: 'APPROVED' },
         select: { itemId: true, venue: { select: { id: true, name: true } } },
       });
       const byItem = new Map<string, { id: string; name: string }[]>();
