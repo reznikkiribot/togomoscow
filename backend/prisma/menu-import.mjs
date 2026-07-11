@@ -152,7 +152,11 @@ async function main() {
       const name = sanitizeName(raw.name.trim().replace(/\s+/g, ' '));
       if (isJunk(name)) continue;
       const { type, category } = classify(name);
-      const photoUrl = typeof raw.image === 'string' && /^https?:\/\//.test(raw.image) ? raw.image : null;
+      // PHOTO POLICY: parsed photos are only a GENERATION REFERENCE, never shown
+      // directly. New items get NO direct photo here — regen-from-refs.mjs turns
+      // the official image into our own AI derivative. An existing aigen- photo
+      // is FINAL: future parses must never touch it (owner rule 11.07.2026).
+      const photoUrl = null;
       // find-or-create the shared catalog item (dedup by name + type)
       let item = await prisma.listing.findFirst({
         where: { type, name: { equals: name, mode: 'insensitive' } },
@@ -165,9 +169,6 @@ async function main() {
         });
         newItems++;
         log.createdItems.push(item.id);
-      } else if (!item.photoUrl && photoUrl) {
-        // backfill a real menu photo onto an existing item that had none
-        await prisma.listing.update({ where: { id: item.id }, data: { photoUrl } });
       }
       const price = raw.price > 0 && raw.price < 100000 ? Math.round(raw.price) : null;
       for (const v of venues) {
