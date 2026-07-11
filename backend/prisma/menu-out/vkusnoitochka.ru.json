@@ -1,0 +1,575 @@
+{
+  "domain": "vkusnoitochka.ru",
+  "method": "playwright-xhr",
+  "status": "ok",
+  "source": "window.appState",
+  "count": 113,
+  "withPhoto": 113,
+  "items": [
+    {
+      "name": "Биг Хит",
+      "price": 221,
+      "image": "https://vkusnoitochka.ru/upload/iblock/297/xlkkj0p7vp0alez9pyu5m4nspbwjhan0/large.png"
+    },
+    {
+      "name": "Биг Спешиал",
+      "price": 335,
+      "image": "https://vkusnoitochka.ru/upload/iblock/d9c/7px23sqfnyfw1alllvazfq914s3slt1f/large.png"
+    },
+    {
+      "name": "Гамбургер",
+      "price": 91,
+      "image": "https://vkusnoitochka.ru/upload/iblock/6c1/c0arfvar6h9acupz3k1oj2l2km0kx03e/large.png"
+    },
+    {
+      "name": "Двойной Гранд",
+      "price": 327,
+      "image": "https://vkusnoitochka.ru/upload/iblock/da6/jd061s6e8yvy10x5boa60wucf90d6cej/large.png"
+    },
+    {
+      "name": "Двойной Чизбургер",
+      "price": 183,
+      "image": "https://vkusnoitochka.ru/upload/iblock/598/5a6q27s7n0vh53ruoijo7ybnpiy6eqse/large.png"
+    },
+    {
+      "name": "Гранд",
+      "price": 244,
+      "image": "https://vkusnoitochka.ru/upload/iblock/a7a/w9ru7k4s8s12j0rv9iw0opwcbl4m2o9j/large.png"
+    },
+    {
+      "name": "Гранд Де Люкс",
+      "price": 265,
+      "image": "https://vkusnoitochka.ru/upload/iblock/462/2ltgv24tt9g9ihlrl79q0e815fgau8ka/large.png"
+    },
+    {
+      "name": "Чизбургер",
+      "price": 99,
+      "image": "https://vkusnoitochka.ru/upload/iblock/767/2qm58567gy1hu3ge4bsh5ne2hs0hqyog/large.png"
+    },
+    {
+      "name": "Чикен Премьер",
+      "price": 214,
+      "image": "https://vkusnoitochka.ru/upload/iblock/298/n524ieflsgbogf4pwqqktr3npvwelwqm/large.png"
+    },
+    {
+      "name": "Пирожок Вишневый",
+      "price": 84,
+      "image": "https://vkusnoitochka.ru/upload/iblock/46a/d3b4awhn4s8iv73rolm6hx6sw2kewe6b/large.png"
+    },
+    {
+      "name": "Яблочные дольки",
+      "price": 96,
+      "image": "https://vkusnoitochka.ru/upload/iblock/ae0/vyir8g7aybb0btdc6596hph0bx0eqgud/large.png"
+    },
+    {
+      "name": "Морковные палочки",
+      "price": 96,
+      "image": "https://vkusnoitochka.ru/upload/iblock/fc0/9m9hfgijloh8nlsn4ept3ngm4tnqsia7/large.png"
+    },
+    {
+      "name": "Двойной Эспрессо",
+      "price": 88,
+      "image": "https://vkusnoitochka.ru/upload/iblock/28e/8ur3vtltah8qedagp3dypkf4p4lfonyx/large.png"
+    },
+    {
+      "name": "Американо (сред.)",
+      "price": 101,
+      "image": "https://vkusnoitochka.ru/upload/iblock/a66/tsohugpy6dpwftrtp6yz5e5ev50v8go6/large.png"
+    },
+    {
+      "name": "Кетчуп",
+      "price": 46,
+      "image": "https://vkusnoitochka.ru/upload/iblock/fef/6ze2qc91rmcgpdidk5isexbym8tdiwiy/large.png"
+    },
+    {
+      "name": "Соус 1000 островов",
+      "price": 46,
+      "image": "https://vkusnoitochka.ru/upload/iblock/0fb/if0ss0ap8wrpreisfohv2omx0zyj46su/large.png"
+    },
+    {
+      "name": "Соус Барбекю",
+      "price": 46,
+      "image": "https://vkusnoitochka.ru/upload/iblock/1aa/evxenles9dz6w8efqje9hie6d9ydqipa/large.png"
+    },
+    {
+      "name": "Соус Горчичный",
+      "price": 46,
+      "image": "https://vkusnoitochka.ru/upload/iblock/346/g26189mihj6le0bken90j3chuy2hgddg/large.png"
+    },
+    {
+      "name": "Соус Кисло-сладкий",
+      "price": 46,
+      "image": "https://vkusnoitochka.ru/upload/iblock/a62/rat2zwf7ztpsxn3qfba5e1qxq3stbfke/large.png"
+    },
+    {
+      "name": "Соус Сладкий чили",
+      "price": 46,
+      "image": "https://vkusnoitochka.ru/upload/iblock/8ed/ww3a7ktpk67vdqvede6b2i15t2199ehf/large.png"
+    },
+    {
+      "name": "Соус Сырный",
+      "price": 46,
+      "image": "https://vkusnoitochka.ru/upload/iblock/b20/d9sg0n2enkw1242ca49haplyiqamw7ak/large.png"
+    },
+    {
+      "name": "Цезарь Ролл",
+      "price": 230,
+      "image": "https://vkusnoitochka.ru/upload/iblock/0b2/xiasnacevjlraxqf9vqz6s49cbysnj8e/large.png"
+    },
+    {
+      "name": "Макарони (1 шт.)",
+      "price": 85,
+      "image": "https://vkusnoitochka.ru/upload/iblock/406/ux2jksdba1rwfzymirvytvfd022aabvd/large.png"
+    },
+    {
+      "name": "Торт Шоколадный",
+      "price": 219,
+      "image": "https://vkusnoitochka.ru/upload/iblock/0ce/ojeldhl63el0da7x9f40ytrt8g6nkriu/large.png"
+    },
+    {
+      "name": "Клубничный Чизкейк",
+      "price": 219,
+      "image": "https://vkusnoitochka.ru/upload/iblock/925/hxhmyw46utucny9ylr3hq9m9davum4ff/large.png"
+    },
+    {
+      "name": "Двойной Биг Хит",
+      "price": 308,
+      "image": "https://vkusnoitochka.ru/upload/iblock/293/0xgu90v8hnrj66b1hyt0rofbdkxe3uvk/large.png"
+    },
+    {
+      "name": "Биг Спешиал Джуниор",
+      "price": 295,
+      "image": "https://vkusnoitochka.ru/upload/iblock/765/p8f1ro17w6dufvep624bkk1t9rjny9kq/large.png"
+    },
+    {
+      "name": "Двойной Биг Спешиал",
+      "price": 460,
+      "image": "https://vkusnoitochka.ru/upload/iblock/4ec/driq53eneathuihxd2mvhmbjbs0undxn/large.png"
+    },
+    {
+      "name": "Яблочное пюре",
+      "price": 96,
+      "image": "https://vkusnoitochka.ru/upload/iblock/ca9/1t9katw4pugpno3wh3rscuykbfd4grdw/large.png"
+    },
+    {
+      "name": "Оливковое масло",
+      "price": 41,
+      "image": "https://vkusnoitochka.ru/upload/iblock/cf1/42cucuraqglr9r1mbyh5gtzgmt25ixbs/large.png"
+    },
+    {
+      "name": "Сырный соус + Кисло-Сладкий соус",
+      "price": 87,
+      "image": "https://vkusnoitochka.ru/upload/iblock/413/25ntrgkymmfnedb2f5o00nc6sa26o2su/large.png"
+    },
+    {
+      "name": "Сырный соус + Сырный соус",
+      "price": 87,
+      "image": "https://vkusnoitochka.ru/upload/iblock/613/39epdtc17bc9pvfwtfqaki47piyp8kwu/large.png"
+    },
+    {
+      "name": "Соус Цезарь",
+      "price": 41,
+      "image": "https://vkusnoitochka.ru/upload/iblock/43b/4pst09yyiaupnpczb0t6829euqhk14my/large.png"
+    },
+    {
+      "name": "Чизкейк Классический",
+      "price": 219,
+      "image": "https://vkusnoitochka.ru/upload/iblock/452/faj58dp8wbz0iumxurfluylxtgw7gzib/large.png"
+    },
+    {
+      "name": "Снек Бокс",
+      "price": 203,
+      "image": "https://vkusnoitochka.ru/upload/iblock/568/nlr7bqqfofx3ds4ck169ogxnsrpzq833/large.png"
+    },
+    {
+      "name": "Артезианская вода Черноголовка негазированная 0,5 л",
+      "price": 111,
+      "image": "https://vkusnoitochka.ru/upload/iblock/a05/0v0z3pa0ky73t3fklrjgffu4vy6whr5x/large.png"
+    },
+    {
+      "name": "Кисло-сладкий соус + Кисло-сладкий соус",
+      "price": 87,
+      "image": "https://vkusnoitochka.ru/upload/iblock/99e/fakoywi3gue1kygtm6qgv8je9opvpzti/large.png"
+    },
+    {
+      "name": "Картофель Фри",
+      "price": 85,
+      "image": "https://vkusnoitochka.ru/upload/iblock/4b0/ij1pzijmuyilpkznoo8jbouc59bb0mr7/large.png"
+    },
+    {
+      "name": "Капучино",
+      "price": 89,
+      "image": "https://vkusnoitochka.ru/upload/iblock/a9f/qnflv55cwtjq9tn2knv9y51srj7tz6un/large.png"
+    },
+    {
+      "name": "Американо",
+      "price": 77,
+      "image": "https://vkusnoitochka.ru/upload/iblock/d1c/jq7qv6v315ijm1w6gklzoqwsaz2bqji0/large.png"
+    },
+    {
+      "name": "Латте",
+      "price": 120,
+      "image": "https://vkusnoitochka.ru/upload/iblock/d62/cqkhh1y1u768o830qu1iue69zd8zjjiw/large.png"
+    },
+    {
+      "name": "Апельсиновый сок",
+      "price": 134,
+      "image": "https://vkusnoitochka.ru/upload/iblock/e07/nrq6wdli3j40osppokik9w1ydpf9a0pm/large.png"
+    },
+    {
+      "name": "Яблочный сок",
+      "price": 128,
+      "image": "https://vkusnoitochka.ru/upload/iblock/1a3/lfiilzgpl0w2czniy96t4b84cg3pqsgl/large.png"
+    },
+    {
+      "name": "Стрипсы",
+      "price": 167,
+      "image": "https://vkusnoitochka.ru/upload/iblock/df5/zdxusuewlsx3jqnyr2qpktx4w5slpmd8/large.png"
+    },
+    {
+      "name": "Чай черный",
+      "price": 80,
+      "image": "https://vkusnoitochka.ru/upload/iblock/b0b/m3sgl3je4huz7aazuj4l2fhfa1yyqqym/large.png"
+    },
+    {
+      "name": "Чай зеленый",
+      "price": 80,
+      "image": "https://vkusnoitochka.ru/upload/iblock/500/rszzwwyzpswxtlu513q0piwu7du5swv5/large.png"
+    },
+    {
+      "name": "Чай Черный Эрл Грей",
+      "price": 80,
+      "image": "https://vkusnoitochka.ru/upload/iblock/745/3d8p2764wftr7ugm9gubw6juj6vseq00/large.png"
+    },
+    {
+      "name": "Наггетсы",
+      "price": 72,
+      "image": "https://vkusnoitochka.ru/upload/iblock/7db/2mu9kq3zm3dgwnvfcb3s7x7dm7s4x13t/large.png"
+    },
+    {
+      "name": "Добрый Апельсин",
+      "price": 111,
+      "image": "https://vkusnoitochka.ru/upload/iblock/345/077oh62hcswfy6mee8p0jkbhtk2sb9yw/large.png"
+    },
+    {
+      "name": "Добрый Лимон-Лайм",
+      "price": 111,
+      "image": "https://vkusnoitochka.ru/upload/iblock/ce4/7lemoajgd73ikskpezd82lpkav1r1jbw/large.png"
+    },
+    {
+      "name": "Биг Спешиал Джуниор Комбо",
+      "price": 448,
+      "image": "https://vkusnoitochka.ru/upload/iblock/cb8/73iwvgj8n22ugi0pn1vmnveo6g141e7v/large.png"
+    },
+    {
+      "name": "Двойной Биг Спешиал Комбо",
+      "price": 614,
+      "image": "https://vkusnoitochka.ru/upload/iblock/57b/5xh22kuxjr2hyxus6te4t320ttn1tiwe/large.png"
+    },
+    {
+      "name": "Биг Спешиал Комбо",
+      "price": 490,
+      "image": "https://vkusnoitochka.ru/upload/iblock/5e1/4jhu3tuxkqh335v2mnlfyr4v9i3vcjg3/large.png"
+    },
+    {
+      "name": "Цезарь Ролл Комбо",
+      "price": 392,
+      "image": "https://vkusnoitochka.ru/upload/iblock/1fc/7pbv8qf4yp5b4myod1vd3g7bc8siii91/large.png"
+    },
+    {
+      "name": "Гранд Де Люкс Комбо",
+      "price": 427,
+      "image": "https://vkusnoitochka.ru/upload/iblock/4a0/5knlckl6ie07nhst4u70rg6jx713pkiv/large.png"
+    },
+    {
+      "name": "Двойной Гранд Комбо",
+      "price": 482,
+      "image": "https://vkusnoitochka.ru/upload/iblock/44d/8e649aj5iyoskmbv35bp2nzcqz3uxiub/large.png"
+    },
+    {
+      "name": "Гранд  Комбо",
+      "price": 399,
+      "image": "https://vkusnoitochka.ru/upload/iblock/c35/6c9pc7v1wtimjxpki713u4zdglbbuzpi/large.png"
+    },
+    {
+      "name": "Двойной Чизбургер Комбо",
+      "price": 346,
+      "image": "https://vkusnoitochka.ru/upload/iblock/8f4/rxm0rc9tcumpwie35gu248qomest0ogl/large.png"
+    },
+    {
+      "name": "Чикен Хит Комбо",
+      "price": 309,
+      "image": "https://vkusnoitochka.ru/upload/iblock/b9d/ws7lka9qsoh8qlcnzalpngb8w0p01ask/large.png"
+    },
+    {
+      "name": "Стрипсы (5 шт.) Комбо",
+      "price": 425,
+      "image": "https://vkusnoitochka.ru/upload/iblock/e63/vcucuawjl8gxl3dwfp2kxfced0aztzyq/large.png"
+    },
+    {
+      "name": "Стрипсы (3 шт.) Комбо",
+      "price": 334,
+      "image": "https://vkusnoitochka.ru/upload/iblock/fc6/wn5rp2ncvlh78f7nxi6k5s20wgr09ede/large.png"
+    },
+    {
+      "name": "Наггетсы (9 шт.) Комбо",
+      "price": 302,
+      "image": "https://vkusnoitochka.ru/upload/iblock/f17/7syosg9ybhxbmvg9pyf3y6aaz1yhmicg/large.png"
+    },
+    {
+      "name": "Наггетсы (6 шт.) Комбо",
+      "price": 271,
+      "image": "https://vkusnoitochka.ru/upload/iblock/c4f/tzd2jomd4xwo282dm0tf2yrxn5yivplj/large.png"
+    },
+    {
+      "name": "Стрипсы (7 шт.) Комбо",
+      "price": 478,
+      "image": "https://vkusnoitochka.ru/upload/iblock/7a2/wub2g8qbwdap7r1hsqvyd3cjlgfpxi5u/large.png"
+    },
+    {
+      "name": "Биг Хит Комбо",
+      "price": 376,
+      "image": "https://vkusnoitochka.ru/upload/iblock/167/e0xx674bjd9ps1t3qm62jxgkjsu1q0lu/large.png"
+    },
+    {
+      "name": "Двойной Биг Хит Комбо",
+      "price": 466,
+      "image": "https://vkusnoitochka.ru/upload/iblock/4d1/2iecens3u6p3821r7fyyvex53tzhv2bi/large.png"
+    },
+    {
+      "name": "Кидз Комбо обед с книжкой Лабиринты",
+      "price": 329,
+      "image": "https://vkusnoitochka.ru/upload/iblock/b09/jmt9a6n7zd7vrf9qkayd8ekifd6nol39/large.png"
+    },
+    {
+      "name": "Книжка Лабиринты",
+      "price": 175,
+      "image": "https://vkusnoitochka.ru/upload/iblock/e78/p0g3lyad9wkkhxp9c1tkkrrn0gif21zn/large.png"
+    },
+    {
+      "name": "Физз Черноголовка Вишня",
+      "price": 126,
+      "image": "https://vkusnoitochka.ru/upload/iblock/55b/p388fjlmdwwgjx7xpteykwtifmf2kxjz/large.png"
+    },
+    {
+      "name": "Флэт Уайт",
+      "price": 140,
+      "image": "https://vkusnoitochka.ru/upload/iblock/6bc/f6xz2s9jg0q3ftii3sqz2vzt7qo5ib67/large.png"
+    },
+    {
+      "name": "Чикен Хит",
+      "price": 137,
+      "image": "https://vkusnoitochka.ru/upload/iblock/5b8/kyu10fc8z5swupzh10as50di042v05nz/large.png"
+    },
+    {
+      "name": "Пара с Шоколадным Молочным Коктейлем",
+      "price": 402,
+      "image": "https://vkusnoitochka.ru/upload/iblock/a7f/8dh70atx8z1k5cuig7s5dp7c7ie86n30/large.png"
+    },
+    {
+      "name": "Пара с Ванильным Молочным Коктейлем",
+      "price": 402,
+      "image": "https://vkusnoitochka.ru/upload/iblock/7b6/69ll49tc3t9azni30haecdsrjk4xho90/large.png"
+    },
+    {
+      "name": "Пара с Клубничным Молочным Коктейлем",
+      "price": 402,
+      "image": "https://vkusnoitochka.ru/upload/iblock/f75/4i31eq6z6abm6l6n6g1pmldtu50lu5fg/large.png"
+    },
+    {
+      "name": "Пара Латте",
+      "price": 306,
+      "image": "https://vkusnoitochka.ru/upload/iblock/539/dtwhm21oho7jyqi4cvjy1b256ox8muik/large.png"
+    },
+    {
+      "name": "Пирожок и Кофе",
+      "price": 236,
+      "image": "https://vkusnoitochka.ru/upload/iblock/eb5/s90rjrti56h2rf3zohsvxig4e9lojc9m/large.png"
+    },
+    {
+      "name": "Питьевая вода Черноголовка газированная 0,5л",
+      "price": 111,
+      "image": "https://vkusnoitochka.ru/upload/iblock/dfe/zjrtiot3hp8k1mjy4ttwfhrfkg3jw9hr/large.png"
+    },
+    {
+      "name": "Картофель Фри Двойной",
+      "price": 196,
+      "image": "https://vkusnoitochka.ru/upload/iblock/d3e/i1jjixb7ezquw1j9c97mjdj6ovr4fete/large.png"
+    },
+    {
+      "name": "Малиновый мусс",
+      "price": 199,
+      "image": "https://vkusnoitochka.ru/upload/iblock/94e/aeud7utv72urugit7lvddznrjpouospp/large.png"
+    },
+    {
+      "name": "Большой пакет с ручками",
+      "price": 15,
+      "image": "https://vkusnoitochka.ru/upload/iblock/8ac/isiesipjbv8lbj8c2c1yc7twbkksq1el/large.png"
+    },
+    {
+      "name": "Физз Черноголовка Белая земляника",
+      "price": 128,
+      "image": "https://vkusnoitochka.ru/upload/iblock/7e3/2imc8px5sm5z7eteu12pcjway81807kz/large.png"
+    },
+    {
+      "name": "Липтон Зеленый",
+      "price": 111,
+      "image": "https://vkusnoitochka.ru/upload/iblock/15a/zn4f1jxfnjozc27l3cvem3q5j4exay5x/large.png"
+    },
+    {
+      "name": "Добрый Кола без сахара",
+      "price": 111,
+      "image": "https://vkusnoitochka.ru/upload/iblock/401/11ioqmlzw33b450q3giydyg1mv81ytjx/large.png"
+    },
+    {
+      "name": "Добрый Кола",
+      "price": 111,
+      "image": "https://vkusnoitochka.ru/upload/iblock/60f/644vvri3gq11o4quyhcfq9ltit7fwe70/large.png"
+    },
+    {
+      "name": "Липтон Лимон",
+      "price": 111,
+      "image": "https://vkusnoitochka.ru/upload/iblock/a25/pjspoui81wv13ryy9wmssi33xj4ec1nn/large.png"
+    },
+    {
+      "name": "Стикеры в помощь детям 1 шт.",
+      "price": 59,
+      "image": "https://vkusnoitochka.ru/upload/iblock/e4f/isp8geggva7vveogjtnn2l5zto9swm04/large.png"
+    },
+    {
+      "name": "Тройной Чизбургер Три Сыра Комбо",
+      "price": 425,
+      "image": "https://vkusnoitochka.ru/upload/iblock/f11/m76vv2zg64kzi4ssc0shneqgh6f1tejg/large.png"
+    },
+    {
+      "name": "Кидз Комбо обед с настольной игрой Клевер",
+      "price": 329,
+      "image": "https://vkusnoitochka.ru/upload/iblock/797/pu8qxtrc8vmriycijcrt3pimf08yg5y0/large.png"
+    },
+    {
+      "name": "Кидз Комбо стартер или салат с настольной игрой Клевер",
+      "price": 329,
+      "image": "https://vkusnoitochka.ru/upload/iblock/120/4kae20vx0u1zy1llz1ib9idvyo29nisi/large.png"
+    },
+    {
+      "name": "Настольная игра Клевер",
+      "price": 175,
+      "image": "https://vkusnoitochka.ru/upload/iblock/5be/9pu0dtvy9m5gdznhtekk4jcsycgcsik3/large.png"
+    },
+    {
+      "name": "Мега Комбо с напитками Черноголовка",
+      "price": 864,
+      "image": "https://vkusnoitochka.ru/upload/iblock/0f9/bf1sl9krpy4r2qbute06vl9pffwtrwc3/large.png"
+    },
+    {
+      "name": "Соус Чили-лайм PIKADOR",
+      "price": 50,
+      "image": "https://vkusnoitochka.ru/upload/iblock/fbc/7apuxvjkpvswfvvlk7tejomim1ov32z0/large.png"
+    },
+    {
+      "name": "Пара Физз Черноголовка Вишня",
+      "price": 301,
+      "image": "https://vkusnoitochka.ru/upload/iblock/4ed/k23iuf99gskih3ouyzll10zaj2uqtn8k/large.png"
+    },
+    {
+      "name": "Тройной Чизбургер Три Сыра",
+      "price": 262,
+      "image": "https://vkusnoitochka.ru/upload/iblock/72b/7ugzrnjol1z2qzq1hmm8k0oe1890tbu6/large.png"
+    },
+    {
+      "name": "Сытный Сет с Роллом",
+      "price": 837,
+      "image": "https://vkusnoitochka.ru/upload/iblock/ba8/kayxq40iz3oxhw8se6x00ov93kszawcd/large.png"
+    },
+    {
+      "name": "Большой сет на компанию",
+      "price": 2606,
+      "image": "https://vkusnoitochka.ru/upload/iblock/74e/ngz62v5o77uihnx6yyok2nnyyrj5nhf6/large.png"
+    },
+    {
+      "name": "Сытный сет с бургером",
+      "price": 579,
+      "image": "https://vkusnoitochka.ru/upload/iblock/b36/7yuw3hlez1n4e033g2yqxnqvu39s4p3e/large.png"
+    },
+    {
+      "name": "Сытный Сет c Биг Хитом",
+      "price": 831,
+      "image": "https://vkusnoitochka.ru/upload/iblock/a0b/72uzsqil957goqtjk7d7yguf4viz9q05/large.png"
+    },
+    {
+      "name": "Сытный Сет с Чикен Премьером",
+      "price": 963,
+      "image": "https://vkusnoitochka.ru/upload/iblock/90d/1782puap3wvn9kg5vidgmjt1riu30ksq/large.png"
+    },
+    {
+      "name": "Перекус на компанию",
+      "price": 1184,
+      "image": "https://vkusnoitochka.ru/upload/iblock/756/8xoj2c9r5fx7q9vei7hftx726kuhhy53/large.png"
+    },
+    {
+      "name": "Соус Карри",
+      "price": 50,
+      "image": "https://vkusnoitochka.ru/upload/iblock/fdb/675g4266xptekxcyd5y8qqegcvpzryi6/large.png"
+    },
+    {
+      "name": "Брелок",
+      "price": 199,
+      "image": "https://vkusnoitochka.ru/upload/iblock/561/yuru07n73y4v5a37m5gh0owu48fruhex/large.png"
+    },
+    {
+      "name": "Кидз Комбо обед с брелоком",
+      "price": 329,
+      "image": "https://vkusnoitochka.ru/upload/iblock/799/iokriere85c8tt10t39udf4zm8hrajab/large.png"
+    },
+    {
+      "name": "Комбо Line Friends с Биг Хитом",
+      "price": 495,
+      "image": "https://vkusnoitochka.ru/upload/iblock/a61/go2pv7s9p7m5vy30xuyj6bcgzkb4xq66/large.png"
+    },
+    {
+      "name": "Комбо Line Friends с Биг Спешиал",
+      "price": 609,
+      "image": "https://vkusnoitochka.ru/upload/iblock/83a/ozsi6me8p81t2xiapobdwo38yrg5cr67/large.png"
+    },
+    {
+      "name": "Комбо Line Friends с Двойным Чизбургером",
+      "price": 459,
+      "image": "https://vkusnoitochka.ru/upload/iblock/9fe/rxesz603ek9mb3bk46weq9e36f0y4bda/large.png"
+    },
+    {
+      "name": "Комбо Line Friends с Чикен Премьером",
+      "price": 479,
+      "image": "https://vkusnoitochka.ru/upload/iblock/474/ub0cfhgn9lqquvcp30tuq6rpv6yz1h5i/large.png"
+    },
+    {
+      "name": "Комбо Line Friends с Чикен Хит",
+      "price": 415,
+      "image": "https://vkusnoitochka.ru/upload/iblock/e1b/7k92m6j1g5w9mhh4oc5g89h44dzxsoh2/large.png"
+    },
+    {
+      "name": "Биг Хит Большой Комбо",
+      "price": 412,
+      "image": "https://vkusnoitochka.ru/upload/iblock/59c/r3rv2pqoih4828g4ezpb9e3sckvc928b/large.png"
+    },
+    {
+      "name": "Чикен Премьер Большой Комбо",
+      "price": 402,
+      "image": "https://vkusnoitochka.ru/upload/iblock/282/hg0ckkhp9d5mvfewnaawf4k0v3dtxirm/large.png"
+    },
+    {
+      "name": "Двойной Чизбургер Большой Комбо",
+      "price": 369,
+      "image": "https://vkusnoitochka.ru/upload/iblock/33f/vs073j90ge65e9vt6rbv4asrmhe39nw5/large.png"
+    },
+    {
+      "name": "Панини Тоскана Большой Комбо",
+      "price": 530,
+      "image": "https://vkusnoitochka.ru/upload/iblock/255/7212fvsye27mj1pkdgn1bt3rqlp10knw/large.png"
+    },
+    {
+      "name": "Панини Тоскана Острый Большой Комбо",
+      "price": 540,
+      "image": "https://vkusnoitochka.ru/upload/iblock/127/0mn87rxt0agy5citfggefl3uxobfqy7w/large.png"
+    }
+  ]
+}

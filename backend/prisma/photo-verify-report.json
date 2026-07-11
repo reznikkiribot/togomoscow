@@ -1,0 +1,449 @@
+{
+ "checked": 741,
+ "keptOk": 561,
+ "replaced": 117,
+ "nulled": 63,
+ "mismatches": [
+  {
+   "id": "c07d0d58-8487-49f6-b7c2-d2b6ebf47435",
+   "name": "Имбирный",
+   "en": "ginger",
+   "old": "https://images.pexels.com/photos/35523332/pexels-photo-35523332.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.08
+  },
+  {
+   "id": "0d1a762e-f791-4001-baf4-59c6f06c11bd",
+   "name": "Капитан Барашек (на булочке)",
+   "en": "captain barashke on a bun",
+   "old": "https://images.pexels.com/photos/5446516/pexels-photo-5446516.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.07
+  },
+  {
+   "id": "a5db9c69-2eaf-464a-9ee2-daca4de650bc",
+   "name": "Капрезе",
+   "en": "caprese salad",
+   "old": "https://images.pexels.com/photos/19295809/pexels-photo-19295809.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.04
+  },
+  {
+   "id": "7543f912-8e9c-450d-b852-b01c8a481ae3",
+   "name": "Котлеты по-киевски",
+   "en": "kiev chopsques",
+   "old": "https://images.pexels.com/photos/12653368/pexels-photo-12653368.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.04
+  },
+  {
+   "id": "d6af9707-836d-43c8-b72a-6d00bbbc4b32",
+   "name": "Красная икра",
+   "en": "red caviar",
+   "old": "https://images.pexels.com/photos/8599609/pexels-photo-8599609.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.37
+  },
+  {
+   "id": "ac224cd8-b3df-42d0-963e-299e6ddfa7af",
+   "name": "Круассан",
+   "en": "kroissan pastry",
+   "old": "https://images.pexels.com/photos/15023803/pexels-photo-15023803.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.47
+  },
+  {
+   "id": "82d3f0bf-87fe-4eba-9f53-d4a7962b406f",
+   "name": "Круассан с миндалём",
+   "en": "kroissan almond",
+   "old": "https://images.pexels.com/photos/30714804/pexels-photo-30714804.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.01
+  },
+  {
+   "id": "752ff716-48fe-4217-a23f-bcfd4ad715ba",
+   "name": "Курага",
+   "en": "raisin",
+   "old": "https://images.pexels.com/photos/32567875/pexels-photo-32567875.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.07
+  },
+  {
+   "id": "0f90b4f7-742c-415c-9d68-da276c08d42a",
+   "name": "Куриный суп",
+   "en": "kuyriyin-sup",
+   "old": "https://images.pexels.com/photos/32655229/pexels-photo-32655229.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.01
+  },
+  {
+   "id": "0b753ce1-3f53-4757-a745-d72df4556af5",
+   "name": "Лечо",
+   "en": "leche cheese",
+   "old": "https://images.pexels.com/photos/18354021/pexels-photo-18354021.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.03
+  },
+  {
+   "id": "915a9176-c237-4478-a38a-d13270db13e0",
+   "name": "Лютеница",
+   "en": "luteneця",
+   "old": "https://images.pexels.com/photos/14458910/pexels-photo-14458910.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0
+  },
+  {
+   "id": "baa9ca55-5ff9-4e79-8700-1ba1cca3468a",
+   "name": "Майонез",
+   "en": "mayo sauce",
+   "old": "https://images.pexels.com/photos/9095759/pexels-photo-9095759.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.35
+  },
+  {
+   "id": "8f511586-355c-4f77-b67b-d8a439207c67",
+   "name": "Малиновый Арбуз",
+   "en": "malynoviy ambarus",
+   "old": "https://images.pexels.com/photos/105393/pexels-photo-105393.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.19
+  },
+  {
+   "id": "98c32eb6-2860-4f1a-bf66-661783da09cb",
+   "name": "Матча Тоник",
+   "en": "matcho tonic",
+   "old": "https://images.pexels.com/photos/34656437/pexels-photo-34656437.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.26
+  },
+  {
+   "id": "e0cb25e4-092f-4488-8499-d22a847afd2c",
+   "name": "Мёд",
+   "en": "honey",
+   "old": "https://images.pexels.com/photos/4921856/pexels-photo-4921856.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.17
+  },
+  {
+   "id": "6bb32580-b202-416a-8300-adfe6769db04",
+   "name": "Минестроне",
+   "en": "minestrone汤",
+   "old": "https://images.pexels.com/photos/8599864/pexels-photo-8599864.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.01
+  },
+  {
+   "id": "94bd6506-a5e9-4838-a8ef-cbad02bc01df",
+   "name": "Накаяма",
+   "en": "nakaya-ma",
+   "old": "https://images.pexels.com/photos/31251571/pexels-photo-31251571.png?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.01
+  },
+  {
+   "id": "1cf0b0e9-0420-4960-807a-566349b99c04",
+   "name": "Настольная игра Клевер",
+   "en": "knavespiel decklanze",
+   "old": "https://images.pexels.com/photos/32199624/pexels-photo-32199624.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.03
+  },
+  {
+   "id": "273ea13a-18c8-4e7f-aa11-19d2eb37d137",
+   "name": "Огурцы",
+   "en": "pickled黄瓜",
+   "old": "https://images.pexels.com/photos/9462571/pexels-photo-9462571.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.07
+  },
+  {
+   "id": "bf38146c-2217-487a-ac65-e8286ffc4423",
+   "name": "Оливье",
+   "en": "olivier salad",
+   "old": "https://images.pexels.com/photos/2349277/pexels-photo-2349277.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.1
+  },
+  {
+   "id": "ece6e1a5-6cc8-4b81-9dde-b3fdb5efb046",
+   "name": "Особый Чесночный",
+   "en": "special chive",
+   "old": "https://images.pexels.com/photos/13066289/pexels-photo-13066289.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.01
+  },
+  {
+   "id": "917ec898-e309-4f75-a52a-af829a15ee99",
+   "name": "Палтус с соусом бер монте",
+   "en": "palatus with bermont sauce",
+   "old": "https://images.pexels.com/photos/36009491/pexels-photo-36009491.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.01
+  },
+  {
+   "id": "0299dc90-cdf0-4785-ba3a-4bfc03d41d32",
+   "name": "Панна котта",
+   "en": "panna cotta",
+   "old": "https://images.pexels.com/photos/5640039/pexels-photo-5640039.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.1
+  },
+  {
+   "id": "06369a0e-4925-48a2-9857-35b830b11aa6",
+   "name": "Пара Физз Черноголовка Вишня",
+   "en": "vinnj cherry fizzy Chernogolovo",
+   "old": "https://images.pexels.com/photos/22711497/pexels-photo-22711497.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0
+  },
+  {
+   "id": "f49bd55e-1b9f-4734-8cf5-fc2418ccaf1b",
+   "name": "Пибимпаб",
+   "en": "pibimbap",
+   "old": "https://images.pexels.com/photos/10398945/pexels-photo-10398945.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.01
+  },
+  {
+   "id": "7d5078e8-e4cc-4126-a010-027f3e7677cc",
+   "name": "Пирожок Вишневый",
+   "en": "vzhivshoy-pirogк",
+   "old": "https://images.pexels.com/photos/764928/pexels-photo-764928.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0
+  },
+  {
+   "id": "9faf7bda-7c5b-4e97-a37c-26405d419579",
+   "name": "Плов",
+   "en": "plov rice pilaf",
+   "old": "https://images.pexels.com/photos/10541694/pexels-photo-10541694.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.16
+  },
+  {
+   "id": "b497d85a-74eb-4071-afb4-8aa70ea7947a",
+   "name": "Пожарские котлеты",
+   "en": "pazarshki chops",
+   "old": "https://images.pexels.com/photos/8880741/pexels-photo-8880741.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.01
+  },
+  {
+   "id": "f4585f50-1601-4b82-a4d6-d2db1ea2afe2",
+   "name": "Пхали",
+   "en": "pkali springs rolls",
+   "old": "https://images.pexels.com/photos/5898095/pexels-photo-5898095.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.1
+  },
+  {
+   "id": "f13c653d-8b0a-4500-8807-05b2b9881e84",
+   "name": "Расстегай",
+   "en": "rostkhaz meat腌肉",
+   "old": "https://images.pexels.com/photos/8599646/pexels-photo-8599646.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.1
+  },
+  {
+   "id": "86f790af-904b-4e5c-8e17-53171928685b",
+   "name": "Рейк",
+   "en": "reek cocktail",
+   "old": "https://images.pexels.com/photos/5531102/pexels-photo-5531102.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.01
+  },
+  {
+   "id": "6f7ca732-77c1-4c80-b0fb-6ce175907071",
+   "name": "Ризотто",
+   "en": "rizotto rice",
+   "old": "https://images.pexels.com/photos/5175549/pexels-photo-5175549.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.23
+  },
+  {
+   "id": "5d48f34f-0ccf-4eaa-a1ac-838077102377",
+   "name": "Роллы Калифорния",
+   "en": "california rolls",
+   "old": "https://images.pexels.com/photos/10296347/pexels-photo-10296347.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.11
+  },
+  {
+   "id": "709a601e-b851-43f8-a218-b84b82261053",
+   "name": "Рыбная котлета",
+   "en": "fish cutlet",
+   "old": "https://images.pexels.com/photos/35003728/pexels-photo-35003728.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.06
+  },
+  {
+   "id": "78d1b263-503a-427e-b20c-f09db07dd515",
+   "name": "Самса",
+   "en": "samosa",
+   "old": "https://images.pexels.com/photos/5196437/pexels-photo-5196437.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.12
+  },
+  {
+   "id": "e85b4e24-1788-45e1-a57a-00ac9d83a416",
+   "name": "Сациви",
+   "en": "sacivi cocktail",
+   "old": "https://images.pexels.com/photos/14909386/pexels-photo-14909386.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.01
+  },
+  {
+   "id": "10869cd6-0753-4214-9d9c-3e9cefcff97d",
+   "name": "Сбер Фильтр Боливия",
+   "en": "filter Bolivia",
+   "old": "https://images.pexels.com/photos/37106059/pexels-photo-37106059.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.27
+  },
+  {
+   "id": "7bae46cf-9416-4d20-af5a-48c1a6d2baaf",
+   "name": "Свекольник без мяса",
+   "en": "sweetering meatless",
+   "old": "https://images.pexels.com/photos/36525488/pexels-photo-36525488.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.09
+  },
+  {
+   "id": "7ba0c62d-fa57-4777-a3bc-bf8d6f0446e7",
+   "name": "С лососем и каперсами",
+   "en": "salmon capers",
+   "old": "https://images.pexels.com/photos/34644308/pexels-photo-34644308.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.25
+  },
+  {
+   "id": "39e1af2a-e2f0-439b-8016-48f8483c0b82",
+   "name": "Сметана 30%",
+   "en": "sour cream 30%",
+   "old": "https://images.pexels.com/photos/28895976/pexels-photo-28895976.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.09
+  },
+  {
+   "id": "dc26c063-7d11-4c4c-9aff-9d54e56d56d9",
+   "name": "Сок вишня Баринофф",
+   "en": "vyni juice",
+   "old": "https://images.pexels.com/photos/34693942/pexels-photo-34693942.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.08
+  },
+  {
+   "id": "0536e54f-d1a1-4112-ae7f-2454511c0adb",
+   "name": "Соус 1000 островов",
+   "en": "1000 islands sauce",
+   "old": "https://images.pexels.com/photos/15523395/pexels-photo-15523395.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.03
+  },
+  {
+   "id": "e671bae2-d563-4e9e-919d-a74cc9e15a37",
+   "name": "Соус Zotman",
+   "en": "zotman sauce",
+   "old": "https://images.pexels.com/photos/28893435/pexels-photo-28893435.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.09
+  },
+  {
+   "id": "ca3a0214-5fb9-4dbb-a252-115fa3d75b1c",
+   "name": "Соус Карри",
+   "en": "kari sauce",
+   "old": "https://images.pexels.com/photos/12557627/pexels-photo-12557627.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.12
+  },
+  {
+   "id": "802e5077-5778-4119-915a-6d537e5855a0",
+   "name": "Соус ореховый",
+   "en": "nut sauce",
+   "old": "https://images.pexels.com/photos/3763792/pexels-photo-3763792.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.02
+  },
+  {
+   "id": "df30cd07-9152-44b4-ac68-0bcfd4a581d7",
+   "name": "Соус Сладкий чили",
+   "en": "sweet chili sauce",
+   "old": "https://images.pexels.com/photos/28371796/pexels-photo-28371796.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.48
+  },
+  {
+   "id": "3d54e678-e369-4dc6-8b9b-a79a85822522",
+   "name": "Сытный Сет c Биг Хитом",
+   "en": "big hit set",
+   "old": "https://images.pexels.com/photos/6646211/pexels-photo-6646211.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.02
+  },
+  {
+   "id": "52024c40-bff3-4f02-8774-4d5ae5dd84ad",
+   "name": "Сытный Сет с Роллом",
+   "en": "sett with roll",
+   "old": "https://images.pexels.com/photos/29349529/pexels-photo-29349529.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.08
+  },
+  {
+   "id": "ae17b787-e34f-4ec3-8366-f4118f33f2b7",
+   "name": "Те Гуаньинь весовой",
+   "en": "scale te guaninwei",
+   "old": "https://images.pexels.com/photos/2377076/pexels-photo-2377076.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.33
+  },
+  {
+   "id": "8d191a2a-e49f-421a-9cfc-e336ce5e25da",
+   "name": "Темпура",
+   "en": "tempera dishes",
+   "old": "https://images.pexels.com/photos/10692535/pexels-photo-10692535.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.05
+  },
+  {
+   "id": "20000000-0000-4000-8000-000000000004",
+   "name": "Тирамису",
+   "en": "ti rami su",
+   "old": "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=900&q=80",
+   "oldScore": 0.03
+  },
+  {
+   "id": "2d8a5528-aee5-46e2-84c1-8aaa942a3991",
+   "name": "Том ям",
+   "en": "tom yam汤",
+   "old": "https://images.pexels.com/photos/10398943/pexels-photo-10398943.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.02
+  },
+  {
+   "id": "f173b4cb-9c29-4088-b740-97d527074169",
+   "name": "Узелки сладкие",
+   "en": "sweet nuts",
+   "old": "https://images.pexels.com/photos/28935569/pexels-photo-28935569.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.02
+  },
+  {
+   "id": "b60b4baa-9065-474a-ae86-0fa2fe9f231c",
+   "name": "Фигаро",
+   "en": "figaro appetizer",
+   "old": "https://images.pexels.com/photos/5196398/pexels-photo-5196398.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.22
+  },
+  {
+   "id": "de525ebd-63b0-4650-83bd-d098c2509d74",
+   "name": "Французский торт",
+   "en": "french torté",
+   "old": "https://images.pexels.com/photos/8350139/pexels-photo-8350139.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.1
+  },
+  {
+   "id": "fd4001c7-44f1-4120-a77c-e346ab26a9bc",
+   "name": "Хумус",
+   "en": "humus dip",
+   "old": "https://images.pexels.com/photos/27177296/pexels-photo-27177296.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.29
+  },
+  {
+   "id": "8186f8de-e41e-44a4-b968-27dbec49eef3",
+   "name": "Чахохбили",
+   "en": "chachohbilis",
+   "old": "https://images.pexels.com/photos/38003494/pexels-photo-38003494.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.01
+  },
+  {
+   "id": "4bc40815-e3cf-446a-b767-b1524ecf4894",
+   "name": "Четыре сыра",
+   "en": "four cheese",
+   "old": "https://images.pexels.com/photos/33458021/pexels-photo-33458021.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.4
+  },
+  {
+   "id": "9107000b-6446-4501-83aa-93ebaccd596f",
+   "name": "Шницель по-милански",
+   "en": "milan schnitzel",
+   "old": "https://images.pexels.com/photos/34636425/pexels-photo-34636425.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.25
+  },
+  {
+   "id": "8e9db0a7-98dd-4c8a-b055-1f76e79ea824",
+   "name": "Штрудель",
+   "en": "strudel",
+   "old": "https://images.pexels.com/photos/221059/pexels-photo-221059.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.03
+  },
+  {
+   "id": "22e4ecc6-2e08-4491-b756-b58bc3725a2a",
+   "name": "Эфенди",
+   "en": "efendi food",
+   "old": "https://images.pexels.com/photos/8585881/pexels-photo-8585881.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.37
+  },
+  {
+   "id": "5283853d-2d3b-4cd6-b86d-55f79590c978",
+   "name": "Ягодная тарталетка",
+   "en": "jogurt tartlet",
+   "old": "https://images.pexels.com/photos/32733935/pexels-photo-32733935.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.02
+  },
+  {
+   "id": "dbef1f78-5272-4164-8417-ef499eb71b65",
+   "name": "Яйца Бенедикт",
+   "en": "benedict eggs",
+   "old": "https://images.pexels.com/photos/7708514/pexels-photo-7708514.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+   "oldScore": 0.14
+  }
+ ]
+}

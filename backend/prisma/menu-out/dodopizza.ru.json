@@ -1,0 +1,920 @@
+{
+  "domain": "dodopizza.ru",
+  "method": "playwright-xhr",
+  "status": "ok",
+  "source": "https://dodopizza.ru/api/v5/menu/delivery/countries/643/localities/0000002b-0000-0000-0000-000000000000",
+  "count": 182,
+  "withPhoto": 0,
+  "items": [
+    {
+      "name": "Пицца Том ям",
+      "price": 579,
+      "image": null
+    },
+    {
+      "name": "Флотская",
+      "price": 469,
+      "image": null
+    },
+    {
+      "name": "Трюфельная",
+      "price": 599,
+      "image": null
+    },
+    {
+      "name": "Шашлык и сацебели",
+      "price": 699,
+      "image": null
+    },
+    {
+      "name": "Масала",
+      "price": 649,
+      "image": null
+    },
+    {
+      "name": "Додо",
+      "price": 859,
+      "image": null
+    },
+    {
+      "name": "Ветчина и огурчики",
+      "price": 369,
+      "image": null
+    },
+    {
+      "name": "Пепперони фреш",
+      "price": 369,
+      "image": null
+    },
+    {
+      "name": "Пепперони",
+      "price": 519,
+      "image": null
+    },
+    {
+      "name": "Чесночный цыпленок",
+      "price": 369,
+      "image": null
+    },
+    {
+      "name": "Терияки",
+      "price": 519,
+      "image": null
+    },
+    {
+      "name": "Сырная",
+      "price": 339,
+      "image": null
+    },
+    {
+      "name": "Мясной микс",
+      "price": 639,
+      "image": null
+    },
+    {
+      "name": "Ветчина и сыр",
+      "price": 479,
+      "image": null
+    },
+    {
+      "name": "Двойной цыпленок",
+      "price": 489,
+      "image": null
+    },
+    {
+      "name": "Креветка и песто",
+      "price": 749,
+      "image": null
+    },
+    {
+      "name": "Ветчина и грибы",
+      "price": 519,
+      "image": null
+    },
+    {
+      "name": "Аррива!",
+      "price": 669,
+      "image": null
+    },
+    {
+      "name": "Креветки со сладким чили",
+      "price": 719,
+      "image": null
+    },
+    {
+      "name": "Карбонара",
+      "price": 659,
+      "image": null
+    },
+    {
+      "name": "Жюльен",
+      "price": 619,
+      "image": null
+    },
+    {
+      "name": "Песто",
+      "price": 649,
+      "image": null
+    },
+    {
+      "name": "Мясная",
+      "price": 609,
+      "image": null
+    },
+    {
+      "name": "Бургер-пицца",
+      "price": 559,
+      "image": null
+    },
+    {
+      "name": "Сырный цыпленок",
+      "price": 669,
+      "image": null
+    },
+    {
+      "name": "Гавайская",
+      "price": 539,
+      "image": null
+    },
+    {
+      "name": "Цыпленок барбекю",
+      "price": 679,
+      "image": null
+    },
+    {
+      "name": "Цыпленок ранч",
+      "price": 629,
+      "image": null
+    },
+    {
+      "name": "Маргарита",
+      "price": 529,
+      "image": null
+    },
+    {
+      "name": "Диабло",
+      "price": 679,
+      "image": null
+    },
+    {
+      "name": "Двойная пепперони",
+      "price": 639,
+      "image": null
+    },
+    {
+      "name": "Четыре сезона",
+      "price": 529,
+      "image": null
+    },
+    {
+      "name": "Овощи и грибы",
+      "price": 609,
+      "image": null
+    },
+    {
+      "name": "Додо микс",
+      "price": 589,
+      "image": null
+    },
+    {
+      "name": "Соберите свою пиццу",
+      "price": 319,
+      "image": null
+    },
+    {
+      "name": "Римская Трюфельная",
+      "price": 779,
+      "image": null
+    },
+    {
+      "name": "Римская Сырная",
+      "price": 499,
+      "image": null
+    },
+    {
+      "name": "Римская Кон карне",
+      "price": 699,
+      "image": null
+    },
+    {
+      "name": "Римская Пепперони",
+      "price": 549,
+      "image": null
+    },
+    {
+      "name": "Римская Аррива!",
+      "price": 699,
+      "image": null
+    },
+    {
+      "name": "Римская Песто",
+      "price": 729,
+      "image": null
+    },
+    {
+      "name": "Римская Карбонара",
+      "price": 729,
+      "image": null
+    },
+    {
+      "name": "Паста Том ям",
+      "price": 435,
+      "image": null
+    },
+    {
+      "name": "Обед Шашлычный",
+      "price": 315,
+      "image": null
+    },
+    {
+      "name": "Покет-пицца сырная курочка",
+      "price": 335,
+      "image": null
+    },
+    {
+      "name": "Покет-пицца ветчина и сыр",
+      "price": 299,
+      "image": null
+    },
+    {
+      "name": "Покет-пицца чоризо барбекю",
+      "price": 315,
+      "image": null
+    },
+    {
+      "name": "Куриные крылья барбекю",
+      "price": 295,
+      "image": null
+    },
+    {
+      "name": "Ланчбокс с куриными крыльями",
+      "price": 409,
+      "image": null
+    },
+    {
+      "name": "Сырные палочки с песто",
+      "price": 299,
+      "image": null
+    },
+    {
+      "name": "Сырные палочки с чесноком",
+      "price": 299,
+      "image": null
+    },
+    {
+      "name": "Паста Мясная",
+      "price": 465,
+      "image": null
+    },
+    {
+      "name": "Холодный чикен ролл",
+      "price": 255,
+      "image": null
+    },
+    {
+      "name": "Додстер",
+      "price": 179,
+      "image": null
+    },
+    {
+      "name": "Додстер Чилл Грилл",
+      "price": 219,
+      "image": null
+    },
+    {
+      "name": "Супермясной Додстер",
+      "price": 219,
+      "image": null
+    },
+    {
+      "name": "Острый Додстер",
+      "price": 219,
+      "image": null
+    },
+    {
+      "name": "Картофель из печи с соусом",
+      "price": 180,
+      "image": null
+    },
+    {
+      "name": "Картофель из печи",
+      "price": 149,
+      "image": null
+    },
+    {
+      "name": "Картофель по-деревенски",
+      "price": 149,
+      "image": null
+    },
+    {
+      "name": "Хашбрауны",
+      "price": 139,
+      "image": null
+    },
+    {
+      "name": "Креветки",
+      "price": 229,
+      "image": null
+    },
+    {
+      "name": "Креветки терияки",
+      "price": 379,
+      "image": null
+    },
+    {
+      "name": "Куриные наггетсы",
+      "price": 119,
+      "image": null
+    },
+    {
+      "name": "Куриные кусочки",
+      "price": 329,
+      "image": null
+    },
+    {
+      "name": "Омлет с ветчиной и грибами",
+      "price": 229,
+      "image": null
+    },
+    {
+      "name": "Омлет с томатами",
+      "price": 195,
+      "image": null
+    },
+    {
+      "name": "Омлет с беконом",
+      "price": 229,
+      "image": null
+    },
+    {
+      "name": "Омлет сырный",
+      "price": 229,
+      "image": null
+    },
+    {
+      "name": "Омлет с пепперони",
+      "price": 229,
+      "image": null
+    },
+    {
+      "name": "Соберите свой омлет",
+      "price": 195,
+      "image": null
+    },
+    {
+      "name": "Паста Карбонара",
+      "price": 415,
+      "image": null
+    },
+    {
+      "name": "Паста Песто",
+      "price": 415,
+      "image": null
+    },
+    {
+      "name": "Паста Креветка и песто",
+      "price": 435,
+      "image": null
+    },
+    {
+      "name": "Ланчбокс с куриными кусочками",
+      "price": 349,
+      "image": null
+    },
+    {
+      "name": "Грибной Стартер",
+      "price": 265,
+      "image": null
+    },
+    {
+      "name": "Сырный Стартер",
+      "price": 265,
+      "image": null
+    },
+    {
+      "name": "Салат Овощной микс",
+      "price": 315,
+      "image": null
+    },
+    {
+      "name": "Салат Цезарь",
+      "price": 335,
+      "image": null
+    },
+    {
+      "name": "Айс капучино",
+      "price": 349,
+      "image": null
+    },
+    {
+      "name": "Кофе Карамельный капучино",
+      "price": 169,
+      "image": null
+    },
+    {
+      "name": "Кофе Ореховый латте",
+      "price": 169,
+      "image": null
+    },
+    {
+      "name": "Кофе Кокосовый латте",
+      "price": 169,
+      "image": null
+    },
+    {
+      "name": "Кофе Капучино",
+      "price": 159,
+      "image": null
+    },
+    {
+      "name": "Кофе Латте",
+      "price": 159,
+      "image": null
+    },
+    {
+      "name": "Кофе Американо",
+      "price": 119,
+      "image": null
+    },
+    {
+      "name": "Какао",
+      "price": 159,
+      "image": null
+    },
+    {
+      "name": "Кофе в зернах — фирменная смесь",
+      "price": 955,
+      "image": null
+    },
+    {
+      "name": "Айс-ти груша-фейхоа",
+      "price": 289,
+      "image": null
+    },
+    {
+      "name": "Айс-ти инжир-бузина",
+      "price": 289,
+      "image": null
+    },
+    {
+      "name": "Лимонад голубика-лайм",
+      "price": 289,
+      "image": null
+    },
+    {
+      "name": "Лимонад клубничный мохито",
+      "price": 279,
+      "image": null
+    },
+    {
+      "name": "Молочный коктейль Соленая карамель",
+      "price": 439,
+      "image": null
+    },
+    {
+      "name": "Молочный коктейль с печеньем Орео",
+      "price": 439,
+      "image": null
+    },
+    {
+      "name": "Классический молочный коктейль",
+      "price": 329,
+      "image": null
+    },
+    {
+      "name": "Клубничный молочный коктейль",
+      "price": 439,
+      "image": null
+    },
+    {
+      "name": "Шоколадный молочный коктейль",
+      "price": 439,
+      "image": null
+    },
+    {
+      "name": "Добрый Кола",
+      "price": 155,
+      "image": null
+    },
+    {
+      "name": "Добрый Кола без сахара",
+      "price": 155,
+      "image": null
+    },
+    {
+      "name": "Добрый Кола дыня",
+      "price": 155,
+      "image": null
+    },
+    {
+      "name": "Добрый Лимон-Лайм",
+      "price": 155,
+      "image": null
+    },
+    {
+      "name": "Добрый Апельсин",
+      "price": 155,
+      "image": null
+    },
+    {
+      "name": "Лимонад арбузный лайм",
+      "price": 159,
+      "image": null
+    },
+    {
+      "name": "Rich Tea Черный с лимоном",
+      "price": 159,
+      "image": null
+    },
+    {
+      "name": "Rich Tea Зеленый",
+      "price": 159,
+      "image": null
+    },
+    {
+      "name": "Rich Tea Зеленый с манго",
+      "price": 159,
+      "image": null
+    },
+    {
+      "name": "Сокосодержащий напиток Pulpy апельсин",
+      "price": 169,
+      "image": null
+    },
+    {
+      "name": "Морс Клюква",
+      "price": 189,
+      "image": null
+    },
+    {
+      "name": "Морс Черная смородина",
+      "price": 189,
+      "image": null
+    },
+    {
+      "name": "Морс Вишня",
+      "price": 189,
+      "image": null
+    },
+    {
+      "name": "Айсти зеленый со вкусом лесных ягод",
+      "price": 139,
+      "image": null
+    },
+    {
+      "name": "Айсти зеленый со вкусом лимона",
+      "price": 139,
+      "image": null
+    },
+    {
+      "name": "Сок Добрый Яблоко",
+      "price": 135,
+      "image": null
+    },
+    {
+      "name": "Сокосодержащий напиток Добрый апельсин-мандарин",
+      "price": 135,
+      "image": null
+    },
+    {
+      "name": "Нектар Добрый мультифрукт",
+      "price": 135,
+      "image": null
+    },
+    {
+      "name": "Нектар Добрый Яблоко–вишня–черноплодная рябина",
+      "price": 265,
+      "image": null
+    },
+    {
+      "name": "Вода BonaAqua негазированная",
+      "price": 100,
+      "image": null
+    },
+    {
+      "name": "Таежный чай, 10 пакетиков",
+      "price": 289,
+      "image": null
+    },
+    {
+      "name": "Сырники со сгущенным молоком",
+      "price": 195,
+      "image": null
+    },
+    {
+      "name": "Сырники",
+      "price": 179,
+      "image": null
+    },
+    {
+      "name": "Набор пирожных Макарон Ассорти",
+      "price": 209,
+      "image": null
+    },
+    {
+      "name": "Пирожное со вкусом Лимончелло",
+      "price": 215,
+      "image": null
+    },
+    {
+      "name": "Пломбир Додокрошка",
+      "price": 169,
+      "image": null
+    },
+    {
+      "name": "Торт Рикотта с грушей",
+      "price": 249,
+      "image": null
+    },
+    {
+      "name": "Сорбет Клубничный гранат",
+      "price": 165,
+      "image": null
+    },
+    {
+      "name": "Яблочный крамбл",
+      "price": 199,
+      "image": null
+    },
+    {
+      "name": "Пирожное Муравьешки",
+      "price": 169,
+      "image": null
+    },
+    {
+      "name": "Чизкейк Дубайский",
+      "price": 249,
+      "image": null
+    },
+    {
+      "name": "Чизкейк карамельный с арахисом",
+      "price": 189,
+      "image": null
+    },
+    {
+      "name": "Чизкейк Нью-Йорк",
+      "price": 189,
+      "image": null
+    },
+    {
+      "name": "Шоколадный кукис",
+      "price": 115,
+      "image": null
+    },
+    {
+      "name": "Маффин Три шоколада",
+      "price": 119,
+      "image": null
+    },
+    {
+      "name": "Маффин Соленая карамель",
+      "price": 119,
+      "image": null
+    },
+    {
+      "name": "Тирамису",
+      "price": 199,
+      "image": null
+    },
+    {
+      "name": "Фондан",
+      "price": 235,
+      "image": null
+    },
+    {
+      "name": "Сырники с малиновым соусом",
+      "price": 195,
+      "image": null
+    },
+    {
+      "name": "Тысяча островов",
+      "price": 49,
+      "image": null
+    },
+    {
+      "name": "Сырный",
+      "price": 49,
+      "image": null
+    },
+    {
+      "name": "Чесночный",
+      "price": 49,
+      "image": null
+    },
+    {
+      "name": "Барбекю",
+      "price": 49,
+      "image": null
+    },
+    {
+      "name": "Малиновый соус",
+      "price": 45,
+      "image": null
+    },
+    {
+      "name": "Сгущёнка в стиках, 7 г",
+      "price": 15,
+      "image": null
+    },
+    {
+      "name": "Акриловый брелок",
+      "price": 178,
+      "image": null
+    },
+    {
+      "name": "Плюшевая птичка Додо",
+      "price": 899,
+      "image": null
+    },
+    {
+      "name": "Додо Раскраска",
+      "price": 10,
+      "image": null
+    },
+    {
+      "name": "Додо Колпак",
+      "price": 10,
+      "image": null
+    },
+    {
+      "name": "Додо: от подвала до миллиарда",
+      "price": 569,
+      "image": null
+    },
+    {
+      "name": "Додо Книга",
+      "price": 100,
+      "image": null
+    },
+    {
+      "name": "Додо Книги 1+2",
+      "price": 195,
+      "image": null
+    },
+    {
+      "name": "Додо Клюв",
+      "price": 10,
+      "image": null
+    },
+    {
+      "name": "Кофе Флэт уайт",
+      "price": 129,
+      "image": null
+    },
+    {
+      "name": "Сокосодержащий напиток «Апельсин-мандарин» Добрый",
+      "price": 135,
+      "image": null
+    },
+    {
+      "name": "Пеппероби",
+      "price": 601,
+      "image": null
+    },
+    {
+      "name": "Нектар Добрый Мультифрукт",
+      "price": 135,
+      "image": null
+    },
+    {
+      "name": "Сгущённое молоко к сырникам",
+      "price": 30,
+      "image": null
+    },
+    {
+      "name": "Пицца и напиток",
+      "price": 250,
+      "image": null
+    },
+    {
+      "name": "3 пиццы 30 или 35 см",
+      "price": 1539,
+      "image": null
+    },
+    {
+      "name": "2 пиццы",
+      "price": 1025,
+      "image": null
+    },
+    {
+      "name": "3 любые пиццы",
+      "price": 915,
+      "image": null
+    },
+    {
+      "name": "Комбо с птичкой",
+      "price": 1039,
+      "image": null
+    },
+    {
+      "name": "Чикен бокс",
+      "price": 345,
+      "image": null
+    },
+    {
+      "name": "Покет-пицца и напиток",
+      "price": 355,
+      "image": null
+    },
+    {
+      "name": "Салат и закуска",
+      "price": 489,
+      "image": null
+    },
+    {
+      "name": "Четыре в одном",
+      "price": 675,
+      "image": null
+    },
+    {
+      "name": "Пять в одном с покет-пиццей",
+      "price": 735,
+      "image": null
+    },
+    {
+      "name": "Десерт и напиток",
+      "price": 215,
+      "image": null
+    },
+    {
+      "name": "Додо Бокс",
+      "price": 479,
+      "image": null
+    },
+    {
+      "name": "Завтрак на двоих",
+      "price": 505,
+      "image": null
+    },
+    {
+      "name": "Футбольное комбо",
+      "price": 925,
+      "image": null
+    },
+    {
+      "name": "4 Закуски",
+      "price": 889,
+      "image": null
+    },
+    {
+      "name": "Комбо Пеппероби",
+      "price": 685,
+      "image": null
+    },
+    {
+      "name": "5 пицц",
+      "price": 2655,
+      "image": null
+    },
+    {
+      "name": "7 пицц",
+      "price": 3915,
+      "image": null
+    },
+    {
+      "name": "10 пицц",
+      "price": 5525,
+      "image": null
+    },
+    {
+      "name": "2 соуса",
+      "price": 89,
+      "image": null
+    },
+    {
+      "name": "2 напитка",
+      "price": 285,
+      "image": null
+    },
+    {
+      "name": "2 фирменные закуски",
+      "price": 455,
+      "image": null
+    },
+    {
+      "name": "2 десерта",
+      "price": 215,
+      "image": null
+    },
+    {
+      "name": "2 кофе: Латте или Капучино",
+      "price": 289,
+      "image": null
+    },
+    {
+      "name": "Легендарное комбо",
+      "price": 1725,
+      "image": null
+    },
+    {
+      "name": "Римская пицца и закуска",
+      "price": 709,
+      "image": null
+    },
+    {
+      "name": "Римская пицца и напиток",
+      "price": 625,
+      "image": null
+    }
+  ]
+}

@@ -312,6 +312,7 @@ export function ScanFab() {
 
       {stage === 'pickVenue' && chosen && (
         <VenuePicker
+          itemId={chosen.id}
           onPick={(v) => {
             setVenue({ id: v.id, name: v.name });
             setStage('rate');

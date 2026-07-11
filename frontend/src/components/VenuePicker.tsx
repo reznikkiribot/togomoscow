@@ -17,10 +17,12 @@ function dedupeChains(list: Listing[]): (Listing & { branchCount?: number })[] {
 }
 
 export function VenuePicker({
+  itemId,
   onPick,
   onAdded,
   onClose,
 }: {
+  itemId?: string; // when set, the default list = venues that SERVE this item
   onPick: (venue: Listing) => void;
   // a new (pending-moderation) place was submitted → proceed to the review form
   onAdded?: (name: string) => void;
@@ -39,16 +41,19 @@ export function VenuePicker({
   useEffect(() => {
     const query = q.trim();
     const t = setTimeout(() => {
-      // translit-aware search (finds "Martinez" by "Мартинез"); empty → default list
+      // no query → venues that already SERVE this item (the honest default);
+      // typing → translit-aware search across all venues
       (query
         ? api.searchVenues(query)
-        : api.listings('RESTAURANT', undefined, { take: 25 })
+        : itemId
+          ? api.placesForItem(itemId).then((v) => (v.length ? v : api.listings('RESTAURANT', undefined, { take: 25 })))
+          : api.listings('RESTAURANT', undefined, { take: 25 })
       )
         .then(setResults)
         .catch(() => {});
     }, 180);
     return () => clearTimeout(t);
-  }, [q]);
+  }, [q, itemId]);
 
   const startAdd = () => {
     setName(q.trim());

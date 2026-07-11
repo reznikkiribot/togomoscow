@@ -1,0 +1,1030 @@
+{
+  "domain": "zotmanpizza.ru",
+  "method": "playwright-xhr",
+  "status": "ok",
+  "source": "https://zotmanpizza.ru/api/payload/get",
+  "count": 204,
+  "withPhoto": 204,
+  "items": [
+    {
+      "name": "Чизбургер с рваной свининой",
+      "price": 940,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297620/347ca15922db0f2ce5780653ca1a4f79.JPEG"
+    },
+    {
+      "name": "Маффин шоколадный 2шт.",
+      "price": 260,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297744/e2f83148284eac4cb8bfa4aa4616d897.JPEG"
+    },
+    {
+      "name": "Салат со страчателлой, пармской ветчиной и манго",
+      "price": 540,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297610/ca10f5d8609bca938b7230a12fffcfbe.JPEG"
+    },
+    {
+      "name": "Креветки и цукини",
+      "price": 870,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297603/136858917a06685fe3b919ed444c65b7.JPEG"
+    },
+    {
+      "name": "Картофельные дольки с колбасками, огуречным релишем и пармезаном",
+      "price": 495,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297612/de65d2126bae86718047b0cadfd8bdf9.JPEG"
+    },
+    {
+      "name": "10 идеальных пицц для офиса",
+      "price": 6999,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297623/1d40299e9ebd55f9c2f99cd1a3a3cafd.JPEG"
+    },
+    {
+      "name": "Грибной жюльен со шпинатом",
+      "price": 860,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297604/4ff7a8cd94445e1d47db9a80d46828bc.JPEG"
+    },
+    {
+      "name": "Зеленый салат классический",
+      "price": 290,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297595/9bbd0bf5a0ca347ada85ab66a9d1724f.JPEG"
+    },
+    {
+      "name": "Зеленый салат с креветками",
+      "price": 460,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297600/fa12fd50b4d6b384439f47b54392be08.JPEG"
+    },
+    {
+      "name": "Маффин шоколадный",
+      "price": 140,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297762/d356c4c4cd87740b95bf13d2ec9956d2.JPEG"
+    },
+    {
+      "name": "Зеленый салат с лососем",
+      "price": 485,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297592/aba311c1dff4fff1bf081603ca8cddac.JPEG"
+    },
+    {
+      "name": "Зеленый салат со страчателлой",
+      "price": 360,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297602/22c845d91a774cdbe7113edf40539a7c.JPEG"
+    },
+    {
+      "name": "7 мясных пицц",
+      "price": 4999,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297626/42212dbafe992883a5e9e1b01a51e649.JPEG"
+    },
+    {
+      "name": "Гавайская с цыпленком",
+      "price": 810,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297605/3b1a273098f8b03a95cb3ed1e111e324.JPEG"
+    },
+    {
+      "name": "Гавайская с цыпленком S",
+      "price": 710,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297593/51b26ff0c09953cfbd7caa339dfb385d.JPEG"
+    },
+    {
+      "name": "Гавайская с цыпленком круглая",
+      "price": 830,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297606/835962295353a82dc4bd80cecae66a74.JPEG"
+    },
+    {
+      "name": "Пирог яблочный",
+      "price": 310,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297749/c144082145c3182fc009366e7464d442.JPEG"
+    },
+    {
+      "name": "Рваная свинина по-азиатски",
+      "price": 860,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297607/1637e29a9468dcdf1e5504376c7169c0.JPEG"
+    },
+    {
+      "name": "5 топовых пицц",
+      "price": 3499,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297625/b227631eb342f137be093dc82b8fe5d6.JPEG"
+    },
+    {
+      "name": "Рваная свинина по-азиатски S",
+      "price": 790,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297597/b71f260ceca148deed8f5d780ccd5dbb.JPEG"
+    },
+    {
+      "name": "Набор | Комбо #1 на одного",
+      "price": 999,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297611/5ca66a92faa1f6d7cfde851f913dee90.JPEG"
+    },
+    {
+      "name": "Рваная свинина по-азиатски круглая",
+      "price": 870,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297599/cda3fd5438318d7c7e5a66f4688caf68.JPEG"
+    },
+    {
+      "name": "Торт миндальный",
+      "price": 250,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297748/6dacdacd72ef6e900c016651e72aef0c.JPEG"
+    },
+    {
+      "name": "Набор | Комбо #2 на одного",
+      "price": 969,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297617/5199ecbc586ad1d49d0ef9f15bb7c3a9.JPEG"
+    },
+    {
+      "name": "Пепперони S",
+      "price": 630,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297683/676f32f61fc2c2ebb8339c8d02868fd0.JPEG"
+    },
+    {
+      "name": "Запеченный фалафель с соусом",
+      "price": 455,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297596/fb761807935da9c3e75a802b40589fff.JPEG"
+    },
+    {
+      "name": "Мясной Набор | Комбо",
+      "price": 1646,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297621/8bfa1fe997e2f4203bf3d9df65a0a592.JPEG"
+    },
+    {
+      "name": "Ролл с фалафелем и овощами",
+      "price": 435,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297608/c26bd4386c4c942005a9858cec7bb1b0.JPEG"
+    },
+    {
+      "name": "Хит Набор | Комбо",
+      "price": 1499,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297594/6821f20c8be43282b33feeba924d69c5.JPEG"
+    },
+    {
+      "name": "Запеченный батат с соусом",
+      "price": 395,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297598/eaa1b2929a3d1598040933b7588ef7b4.JPEG"
+    },
+    {
+      "name": "Маргарита круглая",
+      "price": 550,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297645/22b0a679afbf775de15c007143e6b699.JPEG"
+    },
+    {
+      "name": "Батат с беконом, фетой и хрустящим жареным луком",
+      "price": 560,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297613/c41cbef20d174ac0807739a34335d44d.JPEG"
+    },
+    {
+      "name": "Студенческий набор | комбо  из 5 пицц",
+      "price": 2599,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297618/7403db50eca19404d0b28bba4ff60b21.JPEG"
+    },
+    {
+      "name": "Десерт манго-маракуйя",
+      "price": 410,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297751/7c73dc0ffa261913bd6b1a9ea4eabe1c.JPEG"
+    },
+    {
+      "name": "Креветки и цукини S",
+      "price": 770,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297614/908a74c56a31c6ea23c2484dfa1e5171.JPEG"
+    },
+    {
+      "name": "Студенческий набор | комбо из 10 пицц",
+      "price": 5499,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297619/ad9c7a00382d07eaaf4d1be8bd032156.JPEG"
+    },
+    {
+      "name": "Овсяная каша с манго и рафаэлло",
+      "price": 340,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297601/6a9c265fdf4674c5ae90c28c76993a2d.JPEG"
+    },
+    {
+      "name": "Креветки и цукини круглая",
+      "price": 890,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297609/68861da544d0789d3bf29a471fb30f2a.JPEG"
+    },
+    {
+      "name": "Шоколадный мусс",
+      "price": 410,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297754/270e34248b1e9f946ffa73e8467c2491.JPEG"
+    },
+    {
+      "name": "Грибной жюльен со шпинатом S",
+      "price": 790,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297615/bf213d378e4f0e804f7c876ea1349f98.JPEG"
+    },
+    {
+      "name": "Чизкейк с малиновым соусом",
+      "price": 350,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297752/c4bf973e12d5f1b2c1892cbb30d97a3a.JPEG"
+    },
+    {
+      "name": "Грибной жюльен со шпинатом круглая",
+      "price": 880,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297622/f96bb9b5c6d35313d9b08420dbac5ce0.JPEG"
+    },
+    {
+      "name": "С базиликом и страчателлой круглая",
+      "price": 820,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297646/affd51931c7effbd7ea09ca727c8cccc.JPEG"
+    },
+    {
+      "name": "Чизбургер с рваной свининой S",
+      "price": 790,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297616/9f9ee4ffe0c86a8568d59ccf1a70fe5d.JPEG"
+    },
+    {
+      "name": "Чизкейк с черничным соусом",
+      "price": 350,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297753/2b282b84149367672dec149d85c0d9ad.JPEG"
+    },
+    {
+      "name": "Солянка с колбасками и цыпленком",
+      "price": 450,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297732/85ea99a5976d1d0d2efd059b7c28fcac.JPEG"
+    },
+    {
+      "name": "Чизбургер с рваной свининой круглая",
+      "price": 950,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297624/c06018f2707d368d02b88bcc5beedcde.JPEG"
+    },
+    {
+      "name": "Пончик | Донат (ягодный)",
+      "price": 110,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297757/48a48a9f0ad51cf49f0d2e5d78268924.JPEG"
+    },
+    {
+      "name": "Сырная S",
+      "price": 490,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297685/ff8010451bdc2e5a86489d1fa1c8f41e.JPEG"
+    },
+    {
+      "name": "Овощная S",
+      "price": 640,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297687/e2da52b9853535b02862e3e902909247.JPEG"
+    },
+    {
+      "name": "Пончик | Донат( карамель)",
+      "price": 110,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297745/ee9d74e029982a8f8b3ae2d9679f6d40.JPEG"
+    },
+    {
+      "name": "Пончик | Донат (шоколад)",
+      "price": 110,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297763/d31d69d4f66994b264c4055217801fd6.JPEG"
+    },
+    {
+      "name": "Цыпленок Карри S",
+      "price": 680,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297663/1235fe625eb51877c924a67dbf9922fa.JPEG"
+    },
+    {
+      "name": "Супермясная круглая",
+      "price": 860,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297647/1eca270ec7041ff3c663b07fd554db80.JPEG"
+    },
+    {
+      "name": "Суп томатный со страчателлой",
+      "price": 370,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297731/8bb03f3753a82cd5b3b3929895ecf476.JPEG"
+    },
+    {
+      "name": "Бульон куриный с гренками",
+      "price": 190,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297746/d11a7233d3c38d957fd429832b7c5327.PNG"
+    },
+    {
+      "name": "Пепперони круглая",
+      "price": 670,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297649/3ed98f575de422cd021aa372f764cc0d.JPEG"
+    },
+    {
+      "name": "Суп азиатский с креветками",
+      "price": 310,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297736/7ff11ee7c16e00c83e2f67dbfadd5d35.JPEG"
+    },
+    {
+      "name": "Маргарита S",
+      "price": 510,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297686/c517b7b39ba2cf546644098ab6188e12.JPEG"
+    },
+    {
+      "name": "Цыпленок Барбекю S",
+      "price": 680,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297664/4b499977594901bbda3ed2b4d2638f62.JPEG"
+    },
+    {
+      "name": "Гаспачо классический",
+      "price": 265,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297734/18b8eef17205b4f3cb854d0cf589372a.JPEG"
+    },
+    {
+      "name": "Салат Цезарь с цыплёнком",
+      "price": 420,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297702/1b2a8debb161b0a4de122c4f382e0af2.JPEG"
+    },
+    {
+      "name": "Гаспачо с креветками",
+      "price": 390,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297733/82d1d9ec77fa68728614d9bcab581c57.JPEG"
+    },
+    {
+      "name": "Гаспачо с фетой",
+      "price": 290,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297735/971d7db764426f11df64a596eecc3f48.JPEG"
+    },
+    {
+      "name": "Четыре сыра круглая",
+      "price": 730,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297648/cf896a79f42c51bec5be906ee7dd0614.JPEG"
+    },
+    {
+      "name": "Салат Греческий",
+      "price": 380,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297704/541007f8728b97fd2dfc79717f951d0c.JPEG"
+    },
+    {
+      "name": "Гаспачо со страчателлой",
+      "price": 340,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297740/ecb7144ba5c0271bd341e82184fb4700.JPEG"
+    },
+    {
+      "name": "Суп томатный с базиликом",
+      "price": 290,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297730/4676b1cba71778d3b25ec458f875c95b.JPEG"
+    },
+    {
+      "name": "Салат с пастрами из говядины",
+      "price": 480,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297705/b11740a5da6c4d9e2ad4c92c60045fd2.JPEG"
+    },
+    {
+      "name": "Суп томатный с крутонами",
+      "price": 290,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297728/02609229ae6b10309f640e38d9987267.JPEG"
+    },
+    {
+      "name": "Двойная Пепперони круглая",
+      "price": 750,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297643/8dbbe8db21bd748b2023189c763cd106.JPEG"
+    },
+    {
+      "name": "Цыпленок с песто S",
+      "price": 660,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297665/fab8c9d891340cb65ce94bdcfffa2363.JPEG"
+    },
+    {
+      "name": "С пастрами из говядины и сладким луком круглая",
+      "price": 940,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297644/968c60a597a6945082df756257678e45.JPEG"
+    },
+    {
+      "name": "Двойная Пепперони S",
+      "price": 710,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297666/cbbc8d1b4df653fc27676195fbc47ba2.JPEG"
+    },
+    {
+      "name": "Острая Чоризо S",
+      "price": 620,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297688/63d8aa0189e2535af56c968b62702557.JPEG"
+    },
+    {
+      "name": "Ветчина и грибы S",
+      "price": 620,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297690/6aaa46d63002c59527138f7b22032fd8.JPEG"
+    },
+    {
+      "name": "Сырная карбонара S",
+      "price": 620,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297667/b22daa1433c29d79f06dc8fda0bdcf2c.JPEG"
+    },
+    {
+      "name": "Пепперони без свинины S",
+      "price": 660,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297689/9f1da35ad8a84fb3164d61cc9efa1809.JPEG"
+    },
+    {
+      "name": "Груша и горгонзола круглая",
+      "price": 790,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297639/bca0348c63b174a4160aaaad06b46727.JPEG"
+    },
+    {
+      "name": "Мексиканская с начос S",
+      "price": 710,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297682/6717c3b60ae0d444c400472cecaac443.JPEG"
+    },
+    {
+      "name": "Диабло S",
+      "price": 660,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297681/f0d4d19e295b0aeec54fa52341ec38ab.JPEG"
+    },
+    {
+      "name": "Маргарита с цыпленком S",
+      "price": 660,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297684/6a28d8ee95d24335d5c0352f82bd2417.JPEG"
+    },
+    {
+      "name": "С лососем и каперсами круглая",
+      "price": 990,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297640/4babff443c2f761f925dd28528bac928.JPEG"
+    },
+    {
+      "name": "Трюфельная пепперони S",
+      "price": 710,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297668/f2ed9aef949b989f1dc96e235f989ee7.JPEG"
+    },
+    {
+      "name": "Сырная карбонара круглая",
+      "price": 780,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297641/620f3e9c34f81e1ce258f6b1497106c3.JPEG"
+    },
+    {
+      "name": "Цыпленок Ранч S",
+      "price": 660,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297669/00c22666a60c50997560186df6b86a37.JPEG"
+    },
+    {
+      "name": "Баварская мясная круглая",
+      "price": 810,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297642/78aef9baa5350b27a4047d41853aa4dc.JPEG"
+    },
+    {
+      "name": "Пицца Баварская мясная",
+      "price": 790,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297659/1254143cfca3445e87b50de6df464a37.JPEG"
+    },
+    {
+      "name": "Маргарита с цыпленком круглая",
+      "price": 750,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297638/4e72bcbed0e87d1ff22ebdf7d764c419.JPEG"
+    },
+    {
+      "name": "Цыпленок Барбекю",
+      "price": 790,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297658/77be5c64697d8cff9c078bba80b040c8.JPEG"
+    },
+    {
+      "name": "Четыре сыра S",
+      "price": 630,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297671/9b1b9e78dc99f333b20170319dbfbde9.JPEG"
+    },
+    {
+      "name": "Пицца Груша и горгонзола",
+      "price": 770,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297651/baea08f714db0add86e9924adc764568.JPEG"
+    },
+    {
+      "name": "Ветчина и грибы круглая",
+      "price": 580,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297628/88d5a13f1ff518316f12922e13ccc73b.JPEG"
+    },
+    {
+      "name": "Сырная круглая",
+      "price": 590,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297629/2b7e4f3731644a58340f3ce02bf5eb19.JPEG"
+    },
+    {
+      "name": "Трюфельная пепперони",
+      "price": 790,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297653/359466168a62600c042917bd90e685fd.JPEG"
+    },
+    {
+      "name": "Овощная круглая",
+      "price": 690,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297630/4d011d9a59af1c6db426d7d5bb9ba4d6.JPEG"
+    },
+    {
+      "name": "Цыпленок Ранч",
+      "price": 780,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297657/0091d992660cc86c4f72c88cce6e4f70.JPEG"
+    },
+    {
+      "name": "Пепперони без свинины круглая",
+      "price": 690,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297631/61ef6245a0bb95db3b47300feabf4eac.JPEG"
+    },
+    {
+      "name": "Груша и горгонзола S",
+      "price": 720,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297670/239e83b29b81a4175dbc4e3827fcf2f7.JPEG"
+    },
+    {
+      "name": "Цыпленок барбекю круглая",
+      "price": 790,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297632/48063aa4d846eb59d134bf426e20f81c.JPEG"
+    },
+    {
+      "name": "Баварская мясная S",
+      "price": 730,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297672/701b3aecdf425713c5952cd6466db70f.JPEG"
+    },
+    {
+      "name": "Цыпленок ранч круглая",
+      "price": 690,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297633/bc8fc1cb1300a40a12503eb3af49e1f9.JPEG"
+    },
+    {
+      "name": "Диабло круглая",
+      "price": 660,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297634/fab253440a698a1208818e6ec56d6531.JPEG"
+    },
+    {
+      "name": "Трюфельная пепперони круглая",
+      "price": 780,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297635/3961f5653dbd88929848a83f221822b8.JPEG"
+    },
+    {
+      "name": "Четыре сыра",
+      "price": 770,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297655/9be97d860bc62e468d39cc568c7196ba.JPEG"
+    },
+    {
+      "name": "Сок апельсин Баринофф S",
+      "price": 180,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297750/dd45cb4d87929a7b3e4d4b40f7477438.JPEG"
+    },
+    {
+      "name": "Мортаделла и грибы круглая",
+      "price": 840,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297636/9333fa09dca9ab927455122b7ddd0f04.JPEG"
+    },
+    {
+      "name": "Двойная Пепперони",
+      "price": 790,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297662/5aab225f4a87cca380d4453f074a3ef4.JPEG"
+    },
+    {
+      "name": "С пармской ветчиной круглая",
+      "price": 980,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297637/7c271105db533418cc45d0a91214b0ac.JPEG"
+    },
+    {
+      "name": "Пицца Сырная Карбонара",
+      "price": 760,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297656/3efa34bd4b69b36a8930c7870c9cf3ed.JPEG"
+    },
+    {
+      "name": "Цыпленок с песто круглая",
+      "price": 810,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297627/0b46e8848a6e93d45e16915f3a9c27cb.JPEG"
+    },
+    {
+      "name": "Цыпленок Карри",
+      "price": 770,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297660/9396455bcf57b0ea11596d37731eda7d.JPEG"
+    },
+    {
+      "name": "Сок вишня Баринофф S",
+      "price": 180,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297756/0688af95838745bdfdfc750b9f8b55e7.JPEG"
+    },
+    {
+      "name": "Создай свою пиццу",
+      "price": 810,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297661/a13d5e81e3af3dbdc1aa5ba5eb95df34.JPEG"
+    },
+    {
+      "name": "Цыпленок с песто",
+      "price": 810,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297654/90ba9d6b13332b0e3c42b172e854978f.JPEG"
+    },
+    {
+      "name": "Мексиканская с начос",
+      "price": 810,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297650/f8071a9aabec8fc15ae1940a8775f3a6.JPEG"
+    },
+    {
+      "name": "Диабло",
+      "price": 740,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297652/3ddc7aaa2539cc7a2545cfd4c790a557.JPEG"
+    },
+    {
+      "name": "Сок яблоко Баринофф S",
+      "price": 180,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297758/f409b8467428211568e3b807285706c1.JPEG"
+    },
+    {
+      "name": "Сок J7 яблоко L",
+      "price": 340,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297760/d84fdf18bf66d2b1ac711125fdbdf19c.JPEG"
+    },
+    {
+      "name": "Сок J7 вишня L",
+      "price": 340,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297761/18418dd02cb99edb32d76028082b3d1c.JPEG"
+    },
+    {
+      "name": "Сок J7 апельсин L",
+      "price": 340,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297766/185e9abb1221ba07fe1ea783af041751.JPEG"
+    },
+    {
+      "name": "Морс живая ягода вишневый [AT]",
+      "price": 279,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297770/33a1db868a841e63f50f5b6ef8cb646e.JPEG"
+    },
+    {
+      "name": "Морс живая ягода клюквенный [AT]",
+      "price": 279,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297764/f78845701d5a710acb30796e5fabe3fb.JPEG"
+    },
+    {
+      "name": "Морс живая ягода черносмородиновый [AT]",
+      "price": 279,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297765/e31421a4533091af9ebd1cf41716d54d.JPEG"
+    },
+    {
+      "name": "Нектар Rich Апельсин L",
+      "price": 349,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297755/49c3be60593358b036c55b2b75beccac.JPEG"
+    },
+    {
+      "name": "Сэндвич с ветчиной и сыром Чеддер",
+      "price": 310,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297718/5aa9267d285d355b58d97fedef093eaa.JPEG"
+    },
+    {
+      "name": "Нектар Rich Вишня L",
+      "price": 349,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297790/d875cd67b9411a58218533e2a97e1a9f.JPEG"
+    },
+    {
+      "name": "Сок Rich Яблоко L",
+      "price": 349,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297759/54e5174473e825f91c557355c135e9b3.JPEG"
+    },
+    {
+      "name": "Мортаделла и грибы S",
+      "price": 820,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297700/7c6da027134348904f42201affbb2058.JPEG"
+    },
+    {
+      "name": "Наггетсы с соусом",
+      "price": 240,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297715/c306dba637062ce184570cbca279a074.JPEG"
+    },
+    {
+      "name": "Супермясная S",
+      "price": 790,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297697/f89434bd8a763dc1f08793a5ee462baa.JPEG"
+    },
+    {
+      "name": "С лососем и каперсами S",
+      "price": 840,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297699/d28036d33777b3beda146032e2e53d1a.JPEG"
+    },
+    {
+      "name": "С пармской ветчиной S",
+      "price": 840,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297701/5e7c6af93680a5a89cdaaa1bec260ab8.JPEG"
+    },
+    {
+      "name": "С базиликом и страчателлой S",
+      "price": 790,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297703/03f6a585ed01a52fe13cd959da7536b1.JPEG"
+    },
+    {
+      "name": "С пастрами из говядины и сладким луком S",
+      "price": 860,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297698/7b77105b672aa7c3a894ca60a76f0071.JPEG"
+    },
+    {
+      "name": "Маргарита 1+1",
+      "price": 460,
+      "image": "https://cdn.smt.bz/uploads/media/photo/5706012/bdd53eaef9637f0dc4ee5a65449303c6.JPEG"
+    },
+    {
+      "name": "Мортаделла и грибы",
+      "price": 890,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297692/5dc6359c9d9097e36b0d0adb5f39ac78.JPEG"
+    },
+    {
+      "name": "Пицца с пармской ветчиной",
+      "price": 980,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297695/ffa8953ec3531417cdc4a6dcff451a1d.PNG"
+    },
+    {
+      "name": "С базиликом и страчателлой",
+      "price": 840,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297694/dee4b242708e94b8c67dbd9e0bbc7c92.JPEG"
+    },
+    {
+      "name": "С лососем и каперсами",
+      "price": 980,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297693/5d4d3638d958e05205c83fcfe29ad0b1.JPEG"
+    },
+    {
+      "name": "Пицца Супермясная",
+      "price": 890,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297696/61434e03b0009cf5bcd4aa5c1643affb.JPEG"
+    },
+    {
+      "name": "С пастрами из говядины и сладким луком",
+      "price": 980,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297691/d4722b02af2e367ed99b24e9e4e33ed6.JPEG"
+    },
+    {
+      "name": "Соус  сальса",
+      "price": 80,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297742/bcda1d23d60bf5879aa02d382e762050.JPEG"
+    },
+    {
+      "name": "Соус барбекю",
+      "price": 80,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297741/e0d56063f3aeaa7f7adb1af97eb35329.JPEG"
+    },
+    {
+      "name": "Пепперони",
+      "price": 550,
+      "image": "https://cdn.smt.bz/uploads/media/photo/5706013/ac5cfe37eae31b9be38938129d249e25.JPEG"
+    },
+    {
+      "name": "Наггетсы с соусом двойные",
+      "price": 420,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297724/f5cf7326a80ff4a275a69bdd14c5c905.JPEG"
+    },
+    {
+      "name": "Соус сырный чеддер",
+      "price": 80,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297747/0339e92c7a77d8ee2a8486b822c84a15.JPEG"
+    },
+    {
+      "name": "Соус Zotman",
+      "price": 80,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297738/87b1b74e3280138a46caee433e5a9faf.JPEG"
+    },
+    {
+      "name": "Соус горчичный",
+      "price": 80,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297743/66eac1c109c8ac263ceb0e21b063185b.JPEG"
+    },
+    {
+      "name": "Соус ореховый",
+      "price": 80,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297737/f44e9fff1e1d69f84c9a1d8c1fe37e6c.JPEG"
+    },
+    {
+      "name": "Соус гриль",
+      "price": 80,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297739/b3ce4f5fb6f919ce6d1c6feded236f5e.JPEG"
+    },
+    {
+      "name": "Фанки Манки Кола классик S [AT]",
+      "price": 160,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297773/64784bbb386e8fe52d747f6c41ff5b57.JPEG"
+    },
+    {
+      "name": "Волковский лимонад Волчок \"Персик\" [AT]",
+      "price": 270,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297767/559082bf91ad17a914e6ef099414a1de.JPEG"
+    },
+    {
+      "name": "Аква Минерале с газом M",
+      "price": 110,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297771/3002f5691daa80df0309b8cb66bd8e21.JPEG"
+    },
+    {
+      "name": "Волковский лимонад Волчок \"Арбуз\" [AT]",
+      "price": 270,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297794/6084973d12f47bcbc9d3d5c7f8e756e7.JPEG"
+    },
+    {
+      "name": "Чай Липтон лимон M [AT]",
+      "price": 190,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297793/74526a48d9fc8a2d5b50ff491b86594b.JPEG"
+    },
+    {
+      "name": "Аква Минерале без газа M",
+      "price": 110,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297787/9b7dcfedb86191d54c46a9b9f46c9ea7.JPEG"
+    },
+    {
+      "name": "Лаймон Фрэш M [AT]",
+      "price": 180,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297779/e64ef0446af569b09eb4688905550bfa.JPEG"
+    },
+    {
+      "name": "Волковский лимонад Волчок \"Грейпфрут-Гибискус\" [AT]",
+      "price": 270,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297784/32d75f5561e3a138edce1b2611464bf2.JPEG"
+    },
+    {
+      "name": "Чай Липтон зеленый M [AT]",
+      "price": 190,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297785/96aa8588d99284752b82c790565eb95b.JPEG"
+    },
+    {
+      "name": "Волковский лимонад Волчок \"Манго-Кокос\" [AT]",
+      "price": 270,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297769/1565d5b56e0382004b76f80f81950ca9.JPEG"
+    },
+    {
+      "name": "Холодный зеленый чай Rich Манго M [AT]",
+      "price": 189,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297768/64f86e20c7e0815c81a9fd9bfd679908.JPEG"
+    },
+    {
+      "name": "Фанки Манки Кола классик M [AT]",
+      "price": 180,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297780/ddff919aa5bf26f390c919b57a8e57f7.JPEG"
+    },
+    {
+      "name": "Пицца Маргарита",
+      "price": 560,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297673/c5bf72d914fdb8a974a4260e41b0e7e8.JPEG"
+    },
+    {
+      "name": "Холодный черный чай Riсh Лимон M [AT]",
+      "price": 189,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297781/3e770982213ad1b476f8e9357e739ae7.JPEG"
+    },
+    {
+      "name": "Добрый кола M [AT]",
+      "price": 179,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297774/adbb67902934d0a69f8e9322a3b32d9a.JPEG"
+    },
+    {
+      "name": "Овощная пицца",
+      "price": 690,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297676/74dc6bc80bd5cb9261ac61c7dbea0c2d.JPEG"
+    },
+    {
+      "name": "Добрый кола без сахара M [AT]",
+      "price": 179,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297789/b691174659c11a58c73dbfbcd130936d.JPEG"
+    },
+    {
+      "name": "Острая Чоризо",
+      "price": 680,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297675/7b9b23b46bf5438511b56f9a30d065a9.JPEG"
+    },
+    {
+      "name": "Добрый кола Ваниль M [AT]",
+      "price": 179,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297788/163615ea51eff19ae4bf24f55a1ab2dd.JPEG"
+    },
+    {
+      "name": "Картофельные дольки с соусом",
+      "price": 230,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297726/08b9d7f569bf109e65d04c10fc025750.JPEG"
+    },
+    {
+      "name": "Добрый Апельсин M [AT]",
+      "price": 179,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297772/12e4ba360d16e379a0e57d94d452de41.JPEG"
+    },
+    {
+      "name": "Добрый Лесные ягоды M [AT]",
+      "price": 179,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297775/a1da1c1f7fb84b5a2bfa435459a48337.JPEG"
+    },
+    {
+      "name": "Пицца Пепперони",
+      "price": 690,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297677/99a157f6a7409c71491a0593f8d98b64.JPEG"
+    },
+    {
+      "name": "Куриный ролл",
+      "price": 330,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297727/1d4becd55913b233ef4089b6359956a3.JPEG"
+    },
+    {
+      "name": "Добрый Лимон-лайм M [AT]",
+      "price": 179,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297778/96710c31c2ffe44d7734e1e7cc70682a.JPEG"
+    },
+    {
+      "name": "Добрый Манго-маракуйя M [AT]",
+      "price": 179,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297777/2ad54ac660e72948051e030326c6dfdb.JPEG"
+    },
+    {
+      "name": "Пепперони без свинины",
+      "price": 740,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297678/3f2bcaab7d639c73f6658a71d6ac493d.JPEG"
+    },
+    {
+      "name": "Вода питьевая БонаАква газированная M",
+      "price": 129,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297792/8e5ee67279bcba4e2362852b9e47dd2f.JPEG"
+    },
+    {
+      "name": "Вода питьевая БонаАква негазированная M",
+      "price": 129,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297776/dae9f7aff3d4f161b4f301c3ccb44444.JPEG"
+    },
+    {
+      "name": "Тоник Rich bitter Лемон S [AT]",
+      "price": 199,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297782/00e87fa81542dda8e05ccd48d35bce1e.JPEG"
+    },
+    {
+      "name": "Пицца Ветчина и грибы",
+      "price": 690,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297680/31ad59243ae8e0fb1fe01a1ea2d5a188.JPEG"
+    },
+    {
+      "name": "Тоник Rich Cocktail Спритц Красный Апельсин S [AT]",
+      "price": 199,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297795/df9bae8b26acc74861d676797c64efff.JPEG"
+    },
+    {
+      "name": "Острый куриный ролл",
+      "price": 350,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297729/8742ce2a68a775c25db2dec6ad477fd0.JPEG"
+    },
+    {
+      "name": "Тоник Rich bitter Гранат S [AT]",
+      "price": 199,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297783/04585a6c7e073f7967f35885a6e4be05.JPEG"
+    },
+    {
+      "name": "Сырная пицца",
+      "price": 540,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297679/e57ba7641421225e46edb37695e0a68e.JPEG"
+    },
+    {
+      "name": "Сэндвич с цыпленком и сыром Чеддер",
+      "price": 310,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297717/4e13abbdcce5756b479e40bf82d559cb.JPEG"
+    },
+    {
+      "name": "Маргарита с цыпленком",
+      "price": 720,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297674/d3fab18a17d89a28e512d1ace0c07a7e.JPEG"
+    },
+    {
+      "name": "Сэндвич с моцареллой и томатами",
+      "price": 310,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297716/be500fc4dc2349c8d56045ca8a53e82f.JPEG"
+    },
+    {
+      "name": "Крылья куриные 6шт",
+      "price": 420,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297721/828d670cac417b9985a87aa595313854.JPEG"
+    },
+    {
+      "name": "Крылья куриные 12шт",
+      "price": 710,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297723/5333da426c99eea72fbbd852dd8df19c.JPEG"
+    },
+    {
+      "name": "Картофель из печи",
+      "price": 230,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297725/e8aa44b4aa7d3eee80f805f3529c1a25.JPEG"
+    },
+    {
+      "name": "Сэндвич с пастрами из говядины и баклажанами",
+      "price": 390,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297720/ab3e7d2f9a2140b321051a6beaf64bf5.JPEG"
+    },
+    {
+      "name": "Сэндвич мортаделла и сливочным сыром",
+      "price": 310,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297722/86ce7b9bcc80bfc79b7b8e16df99c2d1.JPEG"
+    },
+    {
+      "name": "Набор мясных закусок",
+      "price": 549,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297719/d8c7b1edee8bf61ea7592fa4ccbac89a.JPEG"
+    },
+    {
+      "name": "Драники | Хашбрауны с форелью и каперсами",
+      "price": 440,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297712/fb95f73379321030b7b6dc3991db401e.JPEG"
+    },
+    {
+      "name": "Драники | Хашбрауны",
+      "price": 290,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297714/f920f7a5e945dfaa793fbbc663e18be3.JPEG"
+    },
+    {
+      "name": "Драники | Хашбрауны с форелью и творожным сыром",
+      "price": 440,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297711/00d62a0d1408436e10a457c51c626487.JPEG"
+    },
+    {
+      "name": "Драники | Хашбрауны 4 штуки",
+      "price": 290,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297713/4693148a0f6d7b132d1f85dca6bc5a97.JPEG"
+    },
+    {
+      "name": "Колбаска баварская улитка с соусом",
+      "price": 290,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297708/bf45b61597d7f86c458e4960422d1bfe.JPEG"
+    },
+    {
+      "name": "Сэндвич с лососем и каперсами",
+      "price": 420,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297709/6341345db7f8286cb8d0c454e1606c70.JPEG"
+    },
+    {
+      "name": "Ролл с мортаделлой",
+      "price": 350,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297710/8480b89428b16ba7e92f5d1c1aefc8ab.JPEG"
+    },
+    {
+      "name": "Куриные крылышки 6шт",
+      "price": 420,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297706/080fbc59180f518eebd169e21086ff53.JPEG"
+    },
+    {
+      "name": "Куриные крылышки 12шт",
+      "price": 710,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8297707/473da9e2d38a5276d7e97d33686269ac.JPEG"
+    }
+  ]
+}

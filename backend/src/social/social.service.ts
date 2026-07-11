@@ -455,8 +455,6 @@ export class SocialService {
     });
     const SPECS = [
       { id: 'coffee', label: 'Эксперт по кофе', icon: '☕', keys: ['кофе', 'эспрессо', 'латте', 'капучино', 'раф'] },
-      { id: 'wine', label: 'Винный критик', icon: '🍷', keys: ['вино'] },
-      { id: 'beer', label: 'Пивной знаток', icon: '🍺', keys: ['пиво', 'ipa', 'эль', 'лагер', 'стаут'] },
       { id: 'steak', label: 'Мастер стейка', icon: '🥩', keys: ['стейк', 'рибай', 'миньон'] },
       { id: 'burger', label: 'Король бургеров', icon: '🍔', keys: ['бургер'] },
       { id: 'pizza', label: 'Легенда пиццы', icon: '🍕', keys: ['пицц'] },

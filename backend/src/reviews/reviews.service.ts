@@ -133,8 +133,14 @@ export class ReviewsService {
 
   async create(userId: string, listingId: string, dto: CreateReviewDto) {
     const rating = Math.max(1, Math.min(5, Number(dto.rating) || 0));
-    // every review goes through moderation (admin approves in the cabinet)
-    const status: 'APPROVED' | 'PENDING' = 'PENDING';
+    // AI moderation gate: clean reviews auto-publish instantly; ONLY violations
+    // land in the admin cabinet (profanity/spam text throws above, an explicit
+    // photo sends the review to PENDING for a human look)
+    let status: 'APPROVED' | 'PENDING' = 'APPROVED';
+    const reviewText = (dto.text ?? '').trim();
+    if (reviewText && (PROFANITY.test(reviewText) || SPAM.test(reviewText))) {
+      status = 'PENDING'; // suspicious text → the admin cabinet, not the feed
+    }
     // photo moderation: explicit content is dropped entirely; non-food photos
     // (selfies, screenshots) stay in the review but never become the card photo
     let promoteToCard = false;
@@ -143,6 +149,7 @@ export class ReviewsService {
       if (check.block) {
         this.log.warn(`review photo blocked (explicit) user=${userId} listing=${listingId}`);
         dto.photoUrls = [];
+        status = 'PENDING'; // violation → human moderation
       } else {
         promoteToCard = check.promote;
       }

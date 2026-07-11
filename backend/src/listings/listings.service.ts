@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { ListingType, Prisma } from '@prisma/client';
 import OpeningHours from 'opening_hours';
 import { PrismaService } from '../prisma/prisma.service';
@@ -476,7 +476,15 @@ export class ListingsService {
       orderBy: { createdAt: 'desc' },
       take: 300,
     });
-    const fresh = candidates.filter((r) => !seen.has(r.id));
+    // unseen posts lead; when they run out the feed RECYCLES already-seen posts
+    // (friends' and strangers' alike, ranked) so the wall is never empty — the
+    // client stops only when literally every post in the app has been shown
+    let fresh = candidates.filter((r) => !seen.has(r.id));
+    let recycled = false;
+    if (!fresh.length) {
+      fresh = candidates;
+      recycled = true;
+    }
     if (!fresh.length) return [];
 
     // engagement, batched: useful×3, other reactions ×1, comments ×2
@@ -552,9 +560,11 @@ export class ListingsService {
       })
       .sort((a, b) => b.score - a.score);
 
-    const page = scored.slice(0, Number(take)).map((x) => x.r);
+    const page = scored.slice(0, recycled ? 100 : Number(take)).map((x) => x.r); // recycle serves a big page — the client dedupes
+    for (const r of page) (r as any).recycled = recycled; // client-side session dedupe hint
     // record the delivery — these will never be served to this viewer again
-    if (page.length) {
+    // (recycled pages are already recorded — skip the write)
+    if (page.length && !recycled) {
       await this.prisma.feedImpression
         .createMany({
           data: page.map((r) => ({ userId: viewerId, reviewId: r.id })),
@@ -1234,12 +1244,13 @@ export class ListingsService {
   /** Items with ZERO user reviews — "станьте первым дегустатором" (gamification).
    *  Only real cards: with a photo and served somewhere; random pick per visit. */
   async firstTasterItems(take = 8) {
+    // hard rules from the owner: venue attachment AND a price — no exceptions
     const rows = await this.prisma.$queryRaw<{ id: string }[]>`
       SELECT l.id FROM listings l
       WHERE l.type::text IN ('DISH','DRINK')
         AND l.review_count = 0
         AND l.photo_url IS NOT NULL
-        AND EXISTS (SELECT 1 FROM menu_links m WHERE m.item_id = l.id AND m.status = 'APPROVED')
+        AND EXISTS (SELECT 1 FROM menu_links m WHERE m.item_id = l.id AND m.status = 'APPROVED' AND m.price IS NOT NULL)
       ORDER BY RANDOM() LIMIT ${Number(take)}`;
     if (!rows.length) return [];
     const items = await this.prisma.listing.findMany({ where: { id: { in: rows.map((r) => r.id) } } });
@@ -1847,7 +1858,17 @@ export class ListingsService {
     dto: { type: 'DISH' | 'DRINK'; name: string; description?: string; photoUrl?: string; category?: string },
   ) {
     const type: ListingType = dto.type === 'DRINK' ? 'DRINK' : 'DISH';
-    const name = dto.name.trim();
+    // names always start with a capital letter, whatever the user typed
+    let name = dto.name.trim().replace(/s+/g, ' ');
+    name = name.charAt(0).toUpperCase() + name.slice(1);
+    // sanity gate for user-added names: no profanity, no links/handles, must
+    // contain letters, not a bare number/emoji ("Шефбургер" is fine)
+    const BAD_NAME = /(?:хуй|хуё|пизд|ебат|ебан|бляд|мудак|пидор|гандон|шлюх|наркот|героин|кокаин|марихуан)/i;
+    const LINKY = /https?://|www.|t.me/|@[a-z0-9_]{4,}/i;
+    if (name.length < 2 || name.length > 60) throw new BadRequestException('Название: от 2 до 60 символов');
+    if (!/[а-яёa-z]/i.test(name)) throw new BadRequestException('Название должно содержать буквы');
+    if (BAD_NAME.test(name)) throw new BadRequestException('Недопустимое название');
+    if (LINKY.test(name)) throw new BadRequestException('Ссылки в названии запрещены');
     // find-or-create: reuse an existing same-name item (e.g. tapping a "новинка"
     // twice, or a dish already in the catalog) instead of making duplicates.
     let item = await this.prisma.listing.findFirst({

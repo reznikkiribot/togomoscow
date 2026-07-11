@@ -1,0 +1,155 @@
+{
+  "domain": "papajohns.ru",
+  "method": "playwright-xhr",
+  "status": "ok",
+  "source": "https://api.papajohns.ru/sailplay/gifts",
+  "count": 29,
+  "withPhoto": 28,
+  "items": [
+    {
+      "name": "Сырная",
+      "price": 830,
+      "image": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/Cheese-Traditional.jpg"
+    },
+    {
+      "name": "Цыпленок Барбекю",
+      "price": 990,
+      "image": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/d9f517f78c25f3944eb160b05b288e58.jpg"
+    },
+    {
+      "name": "Пепперони",
+      "price": 870,
+      "image": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/c9ae37cb879f4c6ec2660ce7f0990f49.jpg"
+    },
+    {
+      "name": "Баварская",
+      "price": 1180,
+      "image": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/5e89c23fd801dbae3b3a2148293a9042.jpg"
+    },
+    {
+      "name": "Ветчина и грибы",
+      "price": 690,
+      "image": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/Ham-and-Mush-Traditional.jpg"
+    },
+    {
+      "name": "Маргарита",
+      "price": 990,
+      "image": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/Margherita-Traditional.jpg"
+    },
+    {
+      "name": "Мексиканская",
+      "price": 1150,
+      "image": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/2b6e5de53cdf9b627b3e9b8e90e13843.jpg"
+    },
+    {
+      "name": "Чикен Джонер",
+      "price": 260,
+      "image": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/b46e5f38ecd46572de1b7b80e5cd559c.jpg"
+    },
+    {
+      "name": "Картофельные дольки",
+      "price": 270,
+      "image": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/7af2704b2e259190c4ad5027d9bf45dd.jpg"
+    },
+    {
+      "name": "Weight",
+      "price": 25,
+      "image": null
+    },
+    {
+      "name": "Пепперони ролл",
+      "price": 390,
+      "image": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/Pepperoni rolls.jpg"
+    },
+    {
+      "name": "Рогалики с колбасками",
+      "price": 290,
+      "image": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/15cb1517676abd49315e7506d52289f3.png"
+    },
+    {
+      "name": "Пепперони Джонер",
+      "price": 260,
+      "image": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/f6c8543d843c05e797eae692b8d15a3f.jpg"
+    },
+    {
+      "name": "Чизкейк \"Нью-Йорк\"",
+      "price": 350,
+      "image": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/d8472a931a6f6472cff33bc11b18a7ad.jpg"
+    },
+    {
+      "name": "Узелки сладкие",
+      "price": 150,
+      "image": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/Sweet knots.jpg"
+    },
+    {
+      "name": "Картофель с беконом и халапеньо",
+      "price": 350,
+      "image": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/35514aff474ee422a09b60b0f9af48ae.jpg"
+    },
+    {
+      "name": "Картофель с ветчиной и грибами",
+      "price": 350,
+      "image": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/1d6b8f0317beb8179d9dd89d9519e05a.jpg"
+    },
+    {
+      "name": "Липтон Айс Ти Зеленый чай",
+      "price": 210,
+      "image": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/51d4c8784559036e615913c4c2b56024.jpg"
+    },
+    {
+      "name": "Фрустайл Лимон-Лайм",
+      "price": 200,
+      "image": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/177715522c9a401cb493b44b0d665428.jpg"
+    },
+    {
+      "name": "Фрустайл Апельсин",
+      "price": 180,
+      "image": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/93d3c44bb451299a22f0f6021e2ada36.jpg"
+    },
+    {
+      "name": "Evervess Cola",
+      "price": 180,
+      "image": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/bdde4dc6269f12d096f68cc6874d7840.jpg"
+    },
+    {
+      "name": "Барбекю",
+      "price": 60,
+      "image": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/cd678715efbc7d7ec071fb714b150ce4.png"
+    },
+    {
+      "name": "Особый Чесночный",
+      "price": 60,
+      "image": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/c3c07493429475990214e7e818f9dbf0.png"
+    },
+    {
+      "name": "Кисло-сладкий",
+      "price": 60,
+      "image": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/f46c30e9ad010c443993137ebf13c484.png"
+    },
+    {
+      "name": "Evervess Cola без сахара",
+      "price": 200,
+      "image": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/be76396c11cad2ce59b74f4fda4ddf83.jpg"
+    },
+    {
+      "name": "Картофель из печи",
+      "price": 270,
+      "image": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/0c295a86df5cace1b4576e26bca4ee3e.jpg"
+    },
+    {
+      "name": "Паста Карбонара",
+      "price": 420,
+      "image": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/9f6ee5e02d168ab2f4fd912fea643293.jpg"
+    },
+    {
+      "name": "Паста Барбекю с колбасками",
+      "price": 420,
+      "image": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/7cf7f6dee66fd6fffe994e59903e9ac4.jpg"
+    },
+    {
+      "name": "Сырный",
+      "price": 60,
+      "image": "https://images.papajohns.ru/pjproduction/images/catalog/thumbs/cart/ad6077f86a9f7758b78b305edc29c31f.png"
+    }
+  ]
+}

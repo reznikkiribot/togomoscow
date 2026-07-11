@@ -31,9 +31,8 @@ const SD = path.join(__dirname, '..', '..', 'tools', 'sd');
 const ACCEPT = 0.5; // generated image must beat the distractors, same bar as real photos
 
 // heavy deps are stage-scoped: CLIP/S3/sharp only for check (gen must stay spawn-only)
-let zs = null, RawImage = null, s3 = null, creds = null, sharp = null, PutObjectCommand = null;
+let zs = null, RawImage = null, s3 = null, creds = null, PutObjectCommand = null;
 if (STAGE !== 'gen') {
-  sharp = (await import('sharp')).default;
   const aws = await import('@aws-sdk/client-s3');
   PutObjectCommand = aws.PutObjectCommand;
   creds = JSON.parse(
@@ -70,13 +69,34 @@ const EN_FIX = [
   [/матча/i, 'iced matcha tonic drink'], [/бараш/i, 'lamb burger on a bun'],
   [/красная икра/i, 'red salmon caviar in a bowl'], [/майонез/i, 'mayonnaise sauce in a bowl'],
   [/^мёд$|^мед$/i, 'honey in a glass jar'],
+  [/минестроне/i, 'minestrone vegetable soup'], [/огурц/i, 'pickled cucumbers on a plate'],
+  [/оливье/i, 'olivier russian salad with mayonnaise'], [/чесночн/i, 'garlic dip sauce in a small bowl'],
+  [/палтус/i, 'halibut fish fillet with butter sauce'], [/панна котта/i, 'panna cotta dessert with berry coulis'],
+  [/физз|черноголовка/i, 'glass of cherry soda with ice'], [/пибимпаб/i, 'korean bibimbap rice bowl with vegetables and egg'],
+  [/пирожок/i, 'baked hand pie pastry'], [/^плов/i, 'uzbek plov rice with lamb and carrots in a plate'],
+  [/пожарск/i, 'breaded chicken cutlets with mashed potatoes'], [/пхали/i, 'georgian pkhali vegetable balls with walnut'],
+  [/расстегай/i, 'russian rasstegai open-top baked pie'], [/ризотто/i, 'creamy italian risotto in a plate'],
+  [/калифорния|ролл/i, 'california sushi rolls with crab and avocado'], [/самса/i, 'uzbek samsa baked meat pastry'],
+  [/сациви/i, 'georgian satsivi chicken in walnut sauce'], [/свекольник/i, 'cold beet soup with sour cream'],
+  [/сок вишн|баринофф/i, 'glass of cherry juice'], [/сет/i, 'sushi and rolls set on a wooden platter'],
+  [/темпура/i, 'japanese shrimp tempura in batter'], [/тирамису/i, 'tiramisu dessert with cocoa on a plate'],
+  [/том ям/i, 'tom yum soup with shrimp and lime'], [/узелки/i, 'sweet knotted buns pastry'],
+  [/французский торт/i, 'french layered cream cake slice'], [/хумус/i, 'hummus plate with olive oil and pita'],
+  [/чахохбили/i, 'georgian chakhokhbili chicken stew with tomatoes'], [/четыре сыра/i, 'four cheese pizza'],
+  [/шницель/i, 'milanese breaded schnitzel cutlet'], [/штрудель/i, 'apple strudel with ice cream scoop'],
+  [/тарталетка/i, 'berry tartlet dessert'], [/бенедикт/i, 'eggs benedict with hollandaise sauce on english muffin'],
+  [/соус карри/i, 'curry sauce in a dipping bowl'], [/соус ореховый/i, 'walnut sauce in a dipping bowl'],
+  [/соус/i, 'sauce in a small dipping bowl'], [/накаяма|рейк|фигаро|эфенди/i, 'craft cocktail in a glass on a bar counter'],
+
 ];
 function fixEn(name, en) {
   for (const [re, q] of EN_FIX) if (re.test(name)) return q;
   return en;
 }
 
-const report = JSON.parse(fs.readFileSync(path.join(__dirname, 'photo-verify-report.json'), 'utf8'));
+const todoFile = fs.existsSync(path.join(__dirname, 'gen-todo.json')) ? 'gen-todo.json' : 'photo-verify-report.json';
+console.log('источник задания:', todoFile);
+const report = JSON.parse(fs.readFileSync(path.join(__dirname, todoFile), 'utf8'));
 const doneFile = path.join(__dirname, 'generated-ok.json');
 let done = new Set();
 try { done = new Set(JSON.parse(fs.readFileSync(doneFile, 'utf8'))); } catch { /* first run */ }
@@ -120,9 +140,9 @@ for (const m of todo) {
     }
     if (best.score >= ACCEPT && best.file) {
       const key = `aigen-${randomUUID()}`;
-      const webp = await sharp(best.file).resize(900, 900, { fit: 'inside' }).webp({ quality: 84 }).toBuffer();
+      const png = fs.readFileSync(best.file); // sharp+onnxruntime in one process segfault (GLib clash) — ship the 512px PNG, ?w= resizes on delivery
       if (!dry) {
-        await s3.send(new PutObjectCommand({ Bucket: creds.bucketName, Key: key, Body: webp, ContentType: 'image/webp' }));
+        await s3.send(new PutObjectCommand({ Bucket: creds.bucketName, Key: key, Body: png, ContentType: 'image/png' }));
         await p.listing.update({ where: { id: m.id }, data: { photoUrl: `/api/files/${key}` } });
       }
       made++;

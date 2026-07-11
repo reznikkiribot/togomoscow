@@ -1,0 +1,1444 @@
+{
+ "mismatches": [
+  {
+   "id": "7e57b4f0-59ec-4196-8afe-9824f11e6d26",
+   "name": "2 десерта",
+   "en": "plated dessert"
+  },
+  {
+   "id": "fb336df7-d100-4af2-86f5-f10ace7182b9",
+   "name": "2 кофе: Латте или Капучино",
+   "en": "cappuccino with latte art"
+  },
+  {
+   "id": "818e5cae-9ffe-4acf-8719-99e4e134d253",
+   "name": "2 напитка",
+   "en": "2 drink"
+  },
+  {
+   "id": "5b0aa6f1-9f56-438b-bf68-90b378e94671",
+   "name": "2 соуса",
+   "en": "two sauce bowls"
+  },
+  {
+   "id": "5a57773d-5aaa-45d4-b766-33eb009f221a",
+   "name": "2 фирменные закуски",
+   "en": "2 homemade snacks"
+  },
+  {
+   "id": "955b04d3-30ea-442a-9850-a9144a4d4a23",
+   "name": "4 Закуски",
+   "en": "4 snacks"
+  },
+  {
+   "id": "7b950933-5195-4bb3-bb16-f885d418d065",
+   "name": "Blanche de Bruxelles",
+   "en": "blanc du belgium meatballs"
+  },
+  {
+   "id": "a5e810be-207b-4cb7-aaa4-463da774be2a",
+   "name": "Chianti",
+   "en": "chianti wine"
+  },
+  {
+   "id": "230ab8ef-595d-4037-9373-7f9164f49d00",
+   "name": "Evervess Cola",
+   "en": "evervezz cola"
+  },
+  {
+   "id": "491ddb36-1ad9-4b2d-9b77-515f7eda2d61",
+   "name": "Hamilton gardens savignon blanc",
+   "en": "sauvignon blanc wine"
+  },
+  {
+   "id": "9db0ab8e-cfed-497b-ab20-ea4c9a82720a",
+   "name": "Lambrusco",
+   "en": "lambrusco wine"
+  },
+  {
+   "id": "5b98ec23-740e-45bc-94d1-deb3083424c0",
+   "name": "Rich Tea Зеленый",
+   "en": "green tea cocktail"
+  },
+  {
+   "id": "ee649649-1ce4-4ab3-9149-b1858dbbb00e",
+   "name": "Rich Tea Зеленый с манго",
+   "en": "rich tea green mango"
+  },
+  {
+   "id": "b8400a2b-74c3-4360-9c05-7b8b7d91cfc9",
+   "name": "Rich Tea Черный с лимоном",
+   "en": "rich tea black with lemon"
+  },
+  {
+   "id": "78f7d1bc-bce1-4517-899b-6a8d6f18d070",
+   "name": "Rioja",
+   "en": "red wine"
+  },
+  {
+   "id": "9d9d3d68-5a6f-4172-b15b-374e3f86c424",
+   "name": "Spaten",
+   "en": "studied beer"
+  },
+  {
+   "id": "de23fce9-c970-493c-af34-b543ef607992",
+   "name": "Trapiche",
+   "en": "trickery ice cream"
+  },
+  {
+   "id": "34c6cbce-4e8e-4be0-bde4-60c5bd9d0826",
+   "name": "Weight",
+   "en": "weight dish"
+  },
+  {
+   "id": "0c192a7c-f5c1-4211-9320-1ba23bc1efac",
+   "name": "Žatecký Gus",
+   "en": "gus from zatec"
+  },
+  {
+   "id": "8ca0e5ac-8172-46db-9532-88b54c2cdf74",
+   "name": "Абсент",
+   "en": "absent cocktail"
+  },
+  {
+   "id": "96fc3d2e-742b-4b12-9ea7-db267c48a027",
+   "name": "Авокадо",
+   "en": "avocado flesh"
+  },
+  {
+   "id": "23b0eec7-a544-492e-ae45-c93e1703cf60",
+   "name": "Айриш кофе",
+   "en": "aeropress coffee"
+  },
+  {
+   "id": "f53de5c9-ef1c-4631-b1de-bf456e6dc37e",
+   "name": "Айс капучино",
+   "en": "cappuccino with latte art"
+  },
+  {
+   "id": "b041114c-a3f1-45ae-990f-95e52a39db1d",
+   "name": "Айс-ти груша-фейхоа",
+   "en": "ice-grape feijoada"
+  },
+  {
+   "id": "1c20b2ef-89c9-48d6-b90d-a83f1a012740",
+   "name": "Айсти зеленый со вкусом лесных ягод",
+   "en": "green apple strudel"
+  },
+  {
+   "id": "9de236fc-fb37-49a8-991f-c6e5c6c56d82",
+   "name": "Айсти зеленый со вкусом лимона",
+   "en": "green lemon sorbet"
+  },
+  {
+   "id": "0ca48ab9-6643-41df-98b8-7f309684f04d",
+   "name": "Айс-ти инжир-бузина",
+   "en": "ice-cream-buzinessa"
+  },
+  {
+   "id": "27004150-1418-4d34-9615-571ba8aa3218",
+   "name": "Акриловый брелок",
+   "en": "acrylic bookmark"
+  },
+  {
+   "id": "087591a8-3f96-43d4-9469-8e694a2a69bc",
+   "name": "Алазанская долина",
+   "en": "alazansky valley"
+  },
+  {
+   "id": "e358ae30-ab29-4cc0-93ef-c3eb65e8db8f",
+   "name": "Алиготе",
+   "en": "glass of wine"
+  },
+  {
+   "id": "dd7ba0de-02eb-4f83-8043-f4f01babac63",
+   "name": "Альбариньо",
+   "en": "albarino wine"
+  },
+  {
+   "id": "0db677d8-5bb1-44a2-b184-3b0f517ee48d",
+   "name": "Апельсиновый фреш",
+   "en": "orange juice"
+  },
+  {
+   "id": "f60610f2-34ba-430f-a6f1-25f881f438de",
+   "name": "Арманьяк",
+   "en": "armagnac cocktail"
+  },
+  {
+   "id": "66ce479b-a4a9-4188-81df-a472cdbc29a9",
+   "name": "Аррива!",
+   "en": "apple pie"
+  },
+  {
+   "id": "cdb44065-de70-4c8b-8653-4fdbfd0a7324",
+   "name": "Б-52",
+   "en": "b52 steak"
+  },
+  {
+   "id": "092bb661-023f-4425-a9dc-a75df10b5522",
+   "name": "Балтика",
+   "en": "balcony cocktail"
+  },
+  {
+   "id": "13bb5d26-7d5e-41b2-ab50-05baf414ba1d",
+   "name": "Барбера",
+   "en": "barbecue ribs"
+  },
+  {
+   "id": "0d2576bb-5e8e-4118-aa2e-bd2d0daeed64",
+   "name": "Биг Спешиал",
+   "en": "big special dish"
+  },
+  {
+   "id": "0e4c0ed7-18bd-4036-aa41-142c4a665f48",
+   "name": "Биг Спешиал Джуниор",
+   "en": "big special junior"
+  },
+  {
+   "id": "d8ad6b2d-97dd-441f-af26-80d75260c634",
+   "name": "Большой сет на компанию",
+   "en": "big set for company"
+  },
+  {
+   "id": "5c0a4ac4-11e9-4382-a829-949aeb71c64f",
+   "name": "Брауни",
+   "en": "brownie"
+  },
+  {
+   "id": "9f04ac9a-bca7-4ce9-bedc-d9da005791a0",
+   "name": "Брускетта",
+   "en": "bruschetta"
+  },
+  {
+   "id": "e463a09e-bcaa-49f8-bfa9-e05e54da71c4",
+   "name": "Бульон куриный с гренками",
+   "en": "roasted chicken dish"
+  },
+  {
+   "id": "e5815002-a97c-47ed-85c8-a91b8b6782b7",
+   "name": "Бургер-пицца",
+   "en": "italian pizza"
+  },
+  {
+   "id": "420a451f-d2c5-4a0f-bd28-e28d4142405a",
+   "name": "Ванильное облако",
+   "en": "vanilla cloud"
+  },
+  {
+   "id": "655a1a2a-c576-4a75-9e31-eeccb12cdb80",
+   "name": "Василеостровское",
+   "en": "vasilievsky island"
+  },
+  {
+   "id": "5497c673-58fe-41c5-abf6-944a1396951d",
+   "name": "Вердехо",
+   "en": "verdecho cocktail"
+  },
+  {
+   "id": "76f349a7-cd66-479b-913a-d0ea4d982ae4",
+   "name": "Ветчина и огурчики",
+   "en": "restaurant plated dish"
+  },
+  {
+   "id": "095d8d64-7d7a-4c14-b5b1-db1ee523710e",
+   "name": "Ветчина и сыр",
+   "en": "restaurant plated dish"
+  },
+  {
+   "id": "9f07f7df-16b8-43ae-be3d-b58741111cfb",
+   "name": "Винегрет",
+   "en": "vinegarette"
+  },
+  {
+   "id": "9c06a606-88d2-4507-a99f-d0442942429f",
+   "name": "Вионье",
+   "en": "glass of wine"
+  },
+  {
+   "id": "91978ba5-25d2-438e-8ef3-8a6d00049f2d",
+   "name": "Вода BonaAqua негазированная",
+   "en": "bottled water"
+  },
+  {
+   "id": "4b2bafe2-b124-437d-ab98-f851aad85fb0",
+   "name": "Гавайская",
+   "en": "hawaiian pizza"
+  },
+  {
+   "id": "1fdf2a07-93b2-4644-b947-27e0e2956145",
+   "name": "Гавайская с цыпленком круглая",
+   "en": "roasted chicken dish"
+  },
+  {
+   "id": "183b2e48-75d0-408c-b33a-b171de79ac2e",
+   "name": "Гамэ",
+   "en": "gamjatang soup"
+  },
+  {
+   "id": "dfde4135-8cb3-456d-a7d1-619f5ab069d7",
+   "name": "Гарганега",
+   "en": "goat cheese"
+  },
+  {
+   "id": "68ba73c5-5e8d-4658-af16-bbb1496d10a0",
+   "name": "Гаспачо классический",
+   "en": "classic gazpacho"
+  },
+  {
+   "id": "3e3f7df2-d38a-4da3-9e11-128384318ccb",
+   "name": "Гаспачо с фетой",
+   "en": "ghapacho with feta"
+  },
+  {
+   "id": "f60669fa-8b91-44b0-b6c9-237e673c0b19",
+   "name": "Гевюрцтраминер",
+   "en": "green grape wine"
+  },
+  {
+   "id": "7a690909-861a-435a-90a1-c32d1d9d3f0b",
+   "name": "Гимлет",
+   "en": "ginger beer"
+  },
+  {
+   "id": "14d0426e-2054-45bc-9e94-64efe07da673",
+   "name": "Голубая лагуна",
+   "en": "blue lobster"
+  },
+  {
+   "id": "e3423ee7-1505-4abe-aa44-e38528f9bb1a",
+   "name": "Граппа",
+   "en": "grappa cocktail"
+  },
+  {
+   "id": "acf66797-4a94-4765-984b-968199fd59a6",
+   "name": "Гренаш",
+   "en": "grenache wine"
+  },
+  {
+   "id": "a21f2071-5646-427f-b097-59d72106828c",
+   "name": "Гречневая каша",
+   "en": "porridge bowl with berries"
+  },
+  {
+   "id": "bbe273f4-75dc-4b92-a16a-d2e79f5391e8",
+   "name": "Гречневая лапша с креветками",
+   "en": "grilled shrimp on a plate"
+  },
+  {
+   "id": "1b4dc9e8-9e9a-43d9-b861-47bcae03b45b",
+   "name": "Гречневая лапша с телятиной",
+   "en": "greek pea noodle with beef"
+  },
+  {
+   "id": "4650344c-4480-4089-be84-1e1e0e76a6e2",
+   "name": "Грибной Стартер",
+   "en": "gribny starter"
+  },
+  {
+   "id": "2b1be19c-53c4-442c-9880-3878123d8396",
+   "name": "Грибной суп-пюре",
+   "en": "soup in a bowl"
+  },
+  {
+   "id": "e1b59b81-42f8-4061-80d5-f21d9258ba25",
+   "name": "Грог",
+   "en": "ginger tea"
+  },
+  {
+   "id": "b573377a-a358-46e5-821d-447f3ac8ea80",
+   "name": "Груша и горгонзола круглая",
+   "en": "restaurant plated dish"
+  },
+  {
+   "id": "b63365d9-6e33-410b-8ecb-144d8b6f8da6",
+   "name": "Грюнер вельтлинер",
+   "en": "gruner verltliiner wine"
+  },
+  {
+   "id": "594624c3-7de5-4425-b3ed-d9641e2cd4f6",
+   "name": "Двойной Гранд",
+   "en": "double grand"
+  },
+  {
+   "id": "43c467e3-c03d-4822-92d7-3f0f8fa7b9af",
+   "name": "Двойной цыпленок",
+   "en": "roasted chicken dish"
+  },
+  {
+   "id": "c1fd421f-44e4-4e1b-a0dd-04fbfa603be2",
+   "name": "Десерт и напиток",
+   "en": "plated dessert"
+  },
+  {
+   "id": "fcb45391-315b-4da6-981e-845f804053f7",
+   "name": "Джин тоник",
+   "en": "gin tonic"
+  },
+  {
+   "id": "17b46b10-1eeb-4e8e-83bb-6ac131eae532",
+   "name": "Добрый кола Ваниль",
+   "en": "vanilla cola"
+  },
+  {
+   "id": "3d093620-b17e-43fb-9a5c-87583c80dc39",
+   "name": "Добрый Кола дыня",
+   "en": "coconut cola bite"
+  },
+  {
+   "id": "92f5f822-2656-49d9-962a-28f0bbb928c5",
+   "name": "Додо",
+   "en": "donut"
+  },
+  {
+   "id": "642c88b7-2b5d-4da9-a112-a8eaac78167e",
+   "name": "Додо Бокс",
+   "en": "donut box"
+  },
+  {
+   "id": "ff62742a-6ba7-4d19-9928-b6e7542912ff",
+   "name": "Додо Клюв",
+   "en": "duck leg"
+  },
+  {
+   "id": "6f893de1-c7d6-4933-8f75-59b0963bbae2",
+   "name": "Додо Книга",
+   "en": "dodo book"
+  },
+  {
+   "id": "ebf17c8f-a838-4ee8-9ad2-5fc09a47127a",
+   "name": "Додо Колпак",
+   "en": "doughnut"
+  },
+  {
+   "id": "62eb44d5-a651-400c-8527-aaa122291703",
+   "name": "Додо микс",
+   "en": "dodo mix"
+  },
+  {
+   "id": "893ddd6f-d2aa-4137-81d7-2ef38506b5db",
+   "name": "Додо: от подвала до миллиарда",
+   "en": "deep-fried doughnut"
+  },
+  {
+   "id": "be634fa2-cf96-43f9-b1ad-74730e15f8d0",
+   "name": "Додо Раскраска",
+   "en": "restaurant plated dish"
+  },
+  {
+   "id": "d515ac4d-2132-40ce-bb22-7d6f8998634c",
+   "name": "Додстер",
+   "en": "doner kebab"
+  },
+  {
+   "id": "ea4e88d7-1cb5-4170-acc3-729530c7bd65",
+   "name": "Додстер Чилл Грилл",
+   "en": "dodger grill"
+  },
+  {
+   "id": "4004329e-6d67-4f36-a30a-310ead516069",
+   "name": "Домашний лимонад",
+   "en": "lemonade with ice and citrus"
+  },
+  {
+   "id": "30aacb75-ffdb-445f-9916-93cfbe5f6834",
+   "name": "Драй мартини",
+   "en": "dry martini cocktail"
+  },
+  {
+   "id": "21c394fb-5ace-418b-9052-7fd683ba0947",
+   "name": "Жасминовый чай",
+   "en": "tea in a glass teapot"
+  },
+  {
+   "id": "f0b1d52e-fddd-4fde-83a1-639faf96074c",
+   "name": "Жюльен",
+   "en": "julienne salad"
+  },
+  {
+   "id": "b14a24f7-2b30-41ef-861b-bb2465ecb438",
+   "name": "Завтрак на двоих",
+   "en": "breakfast plate"
+  },
+  {
+   "id": "86449657-2a8a-4a81-ab4f-7438e5059401",
+   "name": "Запеченный фалафель с соусом",
+   "en": "falafel balls with sauce"
+  },
+  {
+   "id": "989c24b4-cc4a-4811-978c-3f6e95eb21df",
+   "name": "Зинфандель",
+   "en": "zinwandel wine"
+  },
+  {
+   "id": "62fdb7b8-e819-4515-b577-bd95004192c7",
+   "name": "Золотая Балка",
+   "en": "golden bulgogi"
+  },
+  {
+   "id": "89e8d201-6901-4085-a9f8-05c1c79d58dd",
+   "name": "Изюм",
+   "en": "raisin"
+  },
+  {
+   "id": "77bb8087-9d2c-49cf-ac5e-261e2a4c2efc",
+   "name": "Икра Осетра",
+   "en": "ossetra caviar"
+  },
+  {
+   "id": "38967cd3-ba35-4a2f-a198-9edd9620b64c",
+   "name": "Имбирный чай",
+   "en": "tea in a glass teapot"
+  },
+  {
+   "id": "24817b86-9f86-4972-bfb8-cf5f6f1f5fbc",
+   "name": "Имбирный эль",
+   "en": "ginger ale"
+  },
+  {
+   "id": "b1cc1e81-34c2-41c5-8757-8e3add03e28f",
+   "name": "Инкерман",
+   "en": "incherman seafood cocktail"
+  },
+  {
+   "id": "148ede3a-17c8-4cbb-b5d0-0d66c6f7506e",
+   "name": "Каберне совиньон",
+   "en": "cabernet sauvignon"
+  },
+  {
+   "id": "a35e5afd-3c8e-433f-b280-eb7a6c88ca45",
+   "name": "Кайпиринья",
+   "en": "khaypirinya"
+  },
+  {
+   "id": "4b2fd21a-27e8-48b3-9dff-5a2cede0d0a1",
+   "name": "Каркаде",
+   "en": "carrot juice"
+  },
+  {
+   "id": "9da598b5-a129-45cb-9b6e-c17a9a5ac51e",
+   "name": "Карменер",
+   "en": "carneasher meat"
+  },
+  {
+   "id": "44339fcd-0902-415c-893b-05c1b2b57e6b",
+   "name": "Картофель из печи с соусом",
+   "en": "potato casserole with sauce"
+  },
+  {
+   "id": "33eb029e-c3ba-406f-9a5b-ee82bac7f6ea",
+   "name": "Картофель фирменный из печи,",
+   "en": "baked potato"
+  },
+  {
+   "id": "6e21c079-8849-487a-a50a-d467729d243f",
+   "name": "Картофель фирменный из печи, маленький",
+   "en": "small baked potato dish"
+  },
+  {
+   "id": "cfa22bf5-fbab-4ab6-ba7d-51793d6def03",
+   "name": "Квас",
+   "en": "kvass dark bread drink"
+  },
+  {
+   "id": "5d3eaec2-9bcd-405f-aedf-7cd69d571b34",
+   "name": "Кир рояль",
+   "en": "royal kir cocktail"
+  },
+  {
+   "id": "6855a530-1e27-4fc2-847b-a299bd7e727e",
+   "name": "Классический молочный коктейль",
+   "en": "milkshake with whipped cream"
+  },
+  {
+   "id": "aa57430b-f30d-4603-88a7-f6bb41165333",
+   "name": "Клубничный молочный коктейль",
+   "en": "milkshake with whipped cream"
+  },
+  {
+   "id": "88c1b07e-35c4-4b74-ab88-8ef3626c7201",
+   "name": "Космополитан",
+   "en": "cosmopolitan cocktail"
+  },
+  {
+   "id": "9feeea8d-1dab-4da9-916a-12553b71a434",
+   "name": "Кофе Американо",
+   "en": "americano black coffee"
+  },
+  {
+   "id": "5b124ebd-ecb1-47be-b37f-ea6674b8e783",
+   "name": "Кофе Капучино",
+   "en": "cappuccino with latte art"
+  },
+  {
+   "id": "e9ea1079-904e-455e-9f0c-c15a474e8f5f",
+   "name": "Кофе Кокосовый латте",
+   "en": "latte coffee in a tall glass"
+  },
+  {
+   "id": "a5f5aa90-3591-4cb4-96cd-81bb5c6718bf",
+   "name": "Кофе Латте",
+   "en": "latte coffee in a tall glass"
+  },
+  {
+   "id": "2be591a5-97e5-4d89-96e0-0b81405223f1",
+   "name": "Кофе Ореховый латте",
+   "en": "latte coffee in a tall glass"
+  },
+  {
+   "id": "2b445a51-9ea6-41a2-81d8-a8030dc6a0ba",
+   "name": "Кофе Флэт уайт",
+   "en": "flat white coffee"
+  },
+  {
+   "id": "cfc7bcee-6f75-459f-abdc-fc90e562d55f",
+   "name": "Креветка и песто",
+   "en": "grilled shrimp on a plate"
+  },
+  {
+   "id": "3d0a9d09-5fce-42df-a22d-95a44877b617",
+   "name": "Креветки",
+   "en": "grilled shrimp on a plate"
+  },
+  {
+   "id": "f9fe231b-ecfe-4bb6-8a25-7daf07b3c54d",
+   "name": "Креветки со сладким чили",
+   "en": "grilled shrimp on a plate"
+  },
+  {
+   "id": "9b79e51b-e7dc-48ff-877f-0db3ff756f99",
+   "name": "Креветки терияки",
+   "en": "grilled shrimp on a plate"
+  },
+  {
+   "id": "934fe2ba-686f-49d3-8b66-2d86c18a3d5d",
+   "name": "Куриные крылья барбекю",
+   "en": "roasted chicken dish"
+  },
+  {
+   "id": "e4f2ca34-b570-49c4-805b-4c2794ed9708",
+   "name": "Куриные кусочки",
+   "en": "roasted chicken dish"
+  },
+  {
+   "id": "22cd9659-97bf-4d83-861f-9021104e74c5",
+   "name": "Куриные наггетсы",
+   "en": "crispy chicken nuggets"
+  },
+  {
+   "id": "db8911ea-0013-4b52-a091-3070497a40de",
+   "name": "Ламбруско",
+   "en": "lamborghini wine"
+  },
+  {
+   "id": "0cb0e5cf-bea1-4488-9d34-e05a0d0146d9",
+   "name": "Ланчбокс с куриными крыльями",
+   "en": "roasted chicken dish"
+  },
+  {
+   "id": "4d89d2b1-ac8d-4730-91e2-380d69002241",
+   "name": "Ланчбокс с куриными кусочками",
+   "en": "roasted chicken dish"
+  },
+  {
+   "id": "674b201f-35f9-413a-be5f-2ef9f68664f6",
+   "name": "Лефкадия",
+   "en": "fleur de lys salad"
+  },
+  {
+   "id": "4ef9a97a-6749-4f5e-83b2-3d0763cc3ca4",
+   "name": "Лимонад арбузный лайм",
+   "en": "lemonade with ice and citrus"
+  },
+  {
+   "id": "bda5880e-39ff-4d6d-97ba-335085bfb826",
+   "name": "Лимонад голубика-лайм",
+   "en": "lemonade with ice and citrus"
+  },
+  {
+   "id": "8996e0f3-d7c5-429e-aad4-dc214eb768fe",
+   "name": "Лимонад клубничный мохито",
+   "en": "lemonade with ice and citrus"
+  },
+  {
+   "id": "9dc6b9a0-b00d-425a-b589-028e91dc3b40",
+   "name": "Лонг айленд",
+   "en": "long island cocktail"
+  },
+  {
+   "id": "9d43a2e3-f955-41ad-91b6-cbe57d811a4b",
+   "name": "Май тай",
+   "en": "mai tai cocktail"
+  },
+  {
+   "id": "274ea353-1e9f-4793-a053-92e172a21b06",
+   "name": "Малиновый соус",
+   "en": "mulberry sauce"
+  },
+  {
+   "id": "79c6facf-135d-4d14-9666-0fba672926a3",
+   "name": "Мальбек",
+   "en": "malbec wine"
+  },
+  {
+   "id": "17fd2cdc-5774-405e-a37e-ecc0935b389d",
+   "name": "Манхэттен",
+   "en": "manhattan cocktail"
+  },
+  {
+   "id": "83aa5b97-a01e-4300-bee9-fc26d2576740",
+   "name": "Масала",
+   "en": "masala curry"
+  },
+  {
+   "id": "c610e500-9fdc-4e48-8fd3-d26d70042f91",
+   "name": "Маффин Соленая карамель",
+   "en": "salty caramel muffin"
+  },
+  {
+   "id": "389d85d1-2913-4930-a3a4-358c15128814",
+   "name": "Маффин Три шоколада",
+   "en": "triple chocolate muffin"
+  },
+  {
+   "id": "d24d37ac-059e-4505-a703-9fbb59f80e62",
+   "name": "Мерло",
+   "en": "merlot wine"
+  },
+  {
+   "id": "3071892c-f607-4b88-ac20-8d5805d2bf94",
+   "name": "Мимоза",
+   "en": "mimosa cocktail"
+  },
+  {
+   "id": "e7d44ac3-ad71-4601-a0e8-adf6e2aed083",
+   "name": "Минимальная сумма заказа",
+   "en": "order minimum"
+  },
+  {
+   "id": "aa4f9e1d-2daa-4db3-a5a2-525a329d3e4b",
+   "name": "Молочный коктейль Соленая карамель",
+   "en": "milkshake with whipped cream"
+  },
+  {
+   "id": "62c9be74-2e79-4a0a-9cbb-f344b7385c2e",
+   "name": "Молочный коктейль с печеньем Орео",
+   "en": "milkshake with whipped cream"
+  },
+  {
+   "id": "92fa088d-4306-4c37-b902-ac0c804fe82e",
+   "name": "Морс Вишня",
+   "en": "red berry drink mors in a glass"
+  },
+  {
+   "id": "93467768-c0a4-4199-be29-f8e1346d81f7",
+   "name": "Морс Клюква",
+   "en": "red berry drink mors in a glass"
+  },
+  {
+   "id": "2c184c84-e1fc-43ef-91e9-6f33c4fdb63a",
+   "name": "Морс Черная смородина",
+   "en": "red berry drink mors in a glass"
+  },
+  {
+   "id": "697ff221-a5d0-423b-a467-1cfeaf8c2791",
+   "name": "Москоу мюл",
+   "en": "mushroom cossack"
+  },
+  {
+   "id": "eb7616e4-dfc2-44ba-b794-4117ce2954e6",
+   "name": "Мурведр",
+   "en": "murex snail"
+  },
+  {
+   "id": "7213ebce-9721-4d07-a2f7-34a8748f3ac1",
+   "name": "Мускат",
+   "en": "muskat syrup"
+  },
+  {
+   "id": "184746cb-be42-4494-a355-198e1276222d",
+   "name": "Мясная",
+   "en": "meat dish"
+  },
+  {
+   "id": "b59b1542-28cc-4a18-a953-a4141f8c0622",
+   "name": "Мясной микс",
+   "en": "meat mix"
+  },
+  {
+   "id": "df67fe6a-8108-4a27-ba18-c74085ea9619",
+   "name": "Мятный чай",
+   "en": "tea in a glass teapot"
+  },
+  {
+   "id": "a6b38e64-30cd-4825-b219-98a69ca5305c",
+   "name": "Набор пирожных Макарон Ассорти",
+   "en": "macaron set"
+  },
+  {
+   "id": "ad4d5f2a-6c2c-4681-bb96-96081963769c",
+   "name": "Неббиоло",
+   "en": "glass of wine"
+  },
+  {
+   "id": "8843a626-537c-4af7-9ee9-6ca113cf8831",
+   "name": "Нектар Добрый мультифрукт",
+   "en": "nectar multi-fruit drink"
+  },
+  {
+   "id": "a1abd81d-ccba-4f35-90ef-db5adbe9abed",
+   "name": "Нектар Добрый Яблоко–вишня–черноплодная рябина",
+   "en": "apple-berry slush"
+  },
+  {
+   "id": "1f864695-3029-4464-b005-8fd134b89065",
+   "name": "Обед Шашлычный",
+   "en": "shashlik platter"
+  },
+  {
+   "id": "8a92d0a9-24f0-4d64-8f26-21e72159900a",
+   "name": "Облепиховый чай",
+   "en": "tea in a glass teapot"
+  },
+  {
+   "id": "3f4c87a6-9327-4fc3-ba00-d76b1abb7875",
+   "name": "Овощи и грибы",
+   "en": "vegetable and mushroom dish"
+  },
+  {
+   "id": "5da19a55-ae04-498c-b3fb-d3bcc80bc000",
+   "name": "Олд фэшнд",
+   "en": "old fashioned"
+  },
+  {
+   "id": "8921b0dc-c18e-4de6-9798-cb42b787dca6",
+   "name": "Омлет с беконом",
+   "en": "omelette with herbs"
+  },
+  {
+   "id": "8435f665-1dd5-429e-b723-49cbb006ea3e",
+   "name": "Омлет с ветчиной и грибами",
+   "en": "omelette with herbs"
+  },
+  {
+   "id": "e42bbd50-f7e6-4ff6-a42b-0e7894c05448",
+   "name": "Омлет с пепперони",
+   "en": "omelette with herbs"
+  },
+  {
+   "id": "4eb82c76-2746-41f3-96a9-a111225e1598",
+   "name": "Омлет с томатами",
+   "en": "omelette with herbs"
+  },
+  {
+   "id": "25a23f91-2948-4e2a-9800-e42477a2fe96",
+   "name": "Омлет сырный",
+   "en": "omelette with herbs"
+  },
+  {
+   "id": "b9386f15-6c3d-4392-b844-6d8056272002",
+   "name": "Острый Додстер",
+   "en": "hot dodger sandwich"
+  },
+  {
+   "id": "d717479d-4aea-4b98-b88d-042f5db4dffb",
+   "name": "Очаково",
+   "en": "okroshka"
+  },
+  {
+   "id": "3d55ecad-7961-4962-a830-c8ab06546c0e",
+   "name": "Паста Болоньезе",
+   "en": "italian pasta dish"
+  },
+  {
+   "id": "5d8c77f6-40e7-487c-849a-979c2e5a6dad",
+   "name": "Паста Креветка и песто",
+   "en": "italian pasta dish"
+  },
+  {
+   "id": "39ddc96b-0355-4f6d-8a3c-52d46c4cd6df",
+   "name": "Паста Мясная",
+   "en": "italian pasta dish"
+  },
+  {
+   "id": "f899cf5f-6878-47a3-8913-cf06e575661d",
+   "name": "Паста Песто",
+   "en": "italian pasta dish"
+  },
+  {
+   "id": "bef57fd8-0958-4b68-b24b-6c3eca92205f",
+   "name": "Паста с лососем в сливочным соусе",
+   "en": "italian pasta dish"
+  },
+  {
+   "id": "6ebff4ea-9ccc-428a-b943-e99e2f1bfba7",
+   "name": "Паста Том ям",
+   "en": "tom yum soup with shrimp"
+  },
+  {
+   "id": "3ef5d2e4-9cfd-437f-b1eb-f7b3728ab087",
+   "name": "Пеппероби",
+   "en": "pepperoni pizza"
+  },
+  {
+   "id": "781c5f51-a31a-465c-845c-5f89f00410d5",
+   "name": "Пепперони фреш",
+   "en": "pepperoni pizza"
+  },
+  {
+   "id": "0d24d80d-fe80-4387-8bf1-7e5c777501f5",
+   "name": "Песто",
+   "en": "pesto sauce"
+  },
+  {
+   "id": "acef135c-aae7-4df7-9736-57aa28c3d28c",
+   "name": "Пино гри",
+   "en": "pineapple pizza"
+  },
+  {
+   "id": "b6abbc1c-5432-420e-b259-7ca529782967",
+   "name": "Пино гриджио",
+   "en": "pinot grigio wine"
+  },
+  {
+   "id": "8d0161e3-4cb0-4619-bf7a-cb5e9f0335b1",
+   "name": "Пино нуар",
+   "en": "pinot noir wine"
+  },
+  {
+   "id": "df126eab-65f3-41bc-a6ff-01f0fb577664",
+   "name": "Пинотаж",
+   "en": "pinotage wine"
+  },
+  {
+   "id": "37942c08-d7f2-41f9-ad44-8ccffd5c0bd2",
+   "name": "Пирожное Муравьешки",
+   "en": "murmur cake"
+  },
+  {
+   "id": "a2119512-cbc2-4dc2-aeb1-8defe84e0c96",
+   "name": "Пирожное со вкусом Лимончелло",
+   "en": "limoncello cake"
+  },
+  {
+   "id": "159e958f-cebf-4656-a67b-e5a9e7f9bbcb",
+   "name": "Писко",
+   "en": "pisco cocktail"
+  },
+  {
+   "id": "ec967c25-8d7c-46da-8af7-5d5785f85f7a",
+   "name": "Пицца 4 сыра 28 см Тонкое",
+   "en": "italian pizza"
+  },
+  {
+   "id": "2adf8a28-a681-4e85-b00e-962be2f73ee5",
+   "name": "Пицца BBQ Микс 28 см Тонкое",
+   "en": "italian pizza"
+  },
+  {
+   "id": "905fef1d-00b6-4d49-aea0-f407a05dfc94",
+   "name": "Пицца Альфредо 28 см Тонкое",
+   "en": "italian pizza"
+  },
+  {
+   "id": "b84e03fd-4e7c-43ae-9569-46cb78ee3bca",
+   "name": "Пицца Гавайская Сальса 28 см Тонкое",
+   "en": "italian pizza"
+  },
+  {
+   "id": "d8c2f1a5-2280-4be1-ad5d-a5ea9a6cd6db",
+   "name": "Пицца Диабло 28 см Тонкое",
+   "en": "italian pizza"
+  },
+  {
+   "id": "d79dabc4-a41d-4ef6-b820-87edad33a32a",
+   "name": "Пицца Жюльен 28 см Тонкое",
+   "en": "italian pizza"
+  },
+  {
+   "id": "c9c8bbfd-3c9d-4cab-a324-456f36537c11",
+   "name": "Пицца и напиток",
+   "en": "italian pizza"
+  },
+  {
+   "id": "5da20c42-e2ba-4b31-b14a-2c5bf9638468",
+   "name": "Пицца Карбонара 28 см Тонкое",
+   "en": "pasta carbonara"
+  },
+  {
+   "id": "2260ceb2-d9e8-4d25-9438-0970ff160aca",
+   "name": "Пицца Маргарита 28 см Тонкое",
+   "en": "italian pizza"
+  },
+  {
+   "id": "c2ae2f87-dc99-42f9-b2bd-4c039cafaf46",
+   "name": "Пицца Мясная Сальса 28 см Тонкое",
+   "en": "italian pizza"
+  },
+  {
+   "id": "91af6f5a-3dcc-4cd9-bb41-5a9b6a4d7f2e",
+   "name": "Пицца Охотничья 28 см Тонкое",
+   "en": "italian pizza"
+  },
+  {
+   "id": "7d81b733-c0fc-4f5d-b997-c3f66a92273b",
+   "name": "Пицца Пепперони 28 см Тонкое",
+   "en": "italian pizza"
+  },
+  {
+   "id": "3bc33e41-1f58-417b-a122-cc028a415b91",
+   "name": "Пицца с говядиной и запеченными овощами Римское",
+   "en": "italian pizza"
+  },
+  {
+   "id": "bbdf398f-1c48-48a9-bdef-0d0c8f2ee8ac",
+   "name": "Пицца Сырная с ветчиной 28 см Тонкое",
+   "en": "italian pizza"
+  },
+  {
+   "id": "05bac0fe-d972-49bc-a95c-2cd4cb77af0e",
+   "name": "Пицца Том ям",
+   "en": "tom yum soup with shrimp"
+  },
+  {
+   "id": "28cd875c-a04e-4875-a56a-5c5b6fd149bc",
+   "name": "Пицца Чикен BBQ 28 см Тонкое",
+   "en": "italian pizza"
+  },
+  {
+   "id": "3acd0669-5d44-4c13-870f-7f29dddc25d7",
+   "name": "Пломбир Додокрошка",
+   "en": "okroshka cold soup"
+  },
+  {
+   "id": "b04c2924-fb4a-4d66-a665-eaf6c0083d99",
+   "name": "Плюшевая птичка Додо",
+   "en": "dodoos fluffy bird"
+  },
+  {
+   "id": "be7bea34-6fa4-431a-bad9-523fcece52c9",
+   "name": "Покет-пицца ветчина и сыр",
+   "en": "italian pizza"
+  },
+  {
+   "id": "e7cbcfda-bdfa-4e48-a364-7b29207486a5",
+   "name": "Покет-пицца и напиток",
+   "en": "italian pizza"
+  },
+  {
+   "id": "b013258f-169d-4367-b90c-24b5ceebfb6c",
+   "name": "Покет-пицца сырная курочка",
+   "en": "italian pizza"
+  },
+  {
+   "id": "4c80eace-9d74-4bf8-aab5-c4cfa850f0d8",
+   "name": "Покет-пицца чоризо барбекю",
+   "en": "italian pizza"
+  },
+  {
+   "id": "b9740d06-e1ed-46f4-8028-2c89aa58d26a",
+   "name": "Просекко",
+   "en": "prosecco cocktail"
+  },
+  {
+   "id": "4ffd5d0e-23fc-43e8-920b-0e140cde5061",
+   "name": "Пуэр",
+   "en": "puerco enchilado"
+  },
+  {
+   "id": "90feb850-1a67-47c6-b601-ec7117c9b324",
+   "name": "Пять в одном с покет-пиццей",
+   "en": "italian pizza"
+  },
+  {
+   "id": "be55bd2b-c134-4c36-a404-479d62877bc1",
+   "name": "Римская Аррива!",
+   "en": "romanian salad"
+  },
+  {
+   "id": "7a6bd643-0a83-4938-b47c-85bb4691b7ef",
+   "name": "Римская Карбонара",
+   "en": "pasta carbonara"
+  },
+  {
+   "id": "99017b25-c9dc-4077-9072-3a572075a9a3",
+   "name": "Римская Кон карне",
+   "en": "romanian carne luca"
+  },
+  {
+   "id": "3410e8d9-adb8-49ba-a871-3e9eee07dc0d",
+   "name": "Римская Пепперони",
+   "en": "pepperoni pizza"
+  },
+  {
+   "id": "c93db1da-2aef-4a69-9a6d-5efcc4b2923c",
+   "name": "Римская Песто",
+   "en": "pesto pasta"
+  },
+  {
+   "id": "1060b613-c68c-4dcb-aa64-f8139ae958d1",
+   "name": "Римская пицца и закуска",
+   "en": "italian pizza"
+  },
+  {
+   "id": "e4be4f88-1856-44d8-90fe-a71ae4bfb4a8",
+   "name": "Римская Сырная",
+   "en": "ricotta cheese pizza"
+  },
+  {
+   "id": "5190b7dc-be21-4024-927b-4ff6c32f75a7",
+   "name": "Римская Трюфельная",
+   "en": "truffle romanian dish"
+  },
+  {
+   "id": "1a473563-ebf4-4123-97c2-80f96bac2f5e",
+   "name": "Рислинг",
+   "en": "risotto dish"
+  },
+  {
+   "id": "bf7babf4-2e4e-4f1e-938e-4003e85c8e3b",
+   "name": "Ркацители",
+   "en": "glass of wine"
+  },
+  {
+   "id": "9f6daac9-62ef-4729-ace2-59b3736cd0ac",
+   "name": "Ройбуш",
+   "en": "red bush tea"
+  },
+  {
+   "id": "0c4a94b6-97f3-4802-9ba9-53e6cec3ccde",
+   "name": "Ролл пепперони 3 мяса",
+   "en": "sushi rolls on a plate"
+  },
+  {
+   "id": "164d2ae3-e5b2-4ffc-9046-259c702c389b",
+   "name": "Ролл с лососем и соусом песто",
+   "en": "sushi rolls on a plate"
+  },
+  {
+   "id": "13952d52-312a-4adc-9737-1e889c7db808",
+   "name": "Ром",
+   "en": "refreshing drink in a glass"
+  },
+  {
+   "id": "02d77772-b005-4d07-b497-9f39c03fe1b5",
+   "name": "Сазерак",
+   "en": "sazerac cocktail"
+  },
+  {
+   "id": "548a0561-1376-4f3c-b4af-cb053fb36e70",
+   "name": "Салат и закуска",
+   "en": "fresh salad plate"
+  },
+  {
+   "id": "97d474f6-f49d-468b-a4d2-f115f80bda69",
+   "name": "Салат Овощной микс",
+   "en": "fresh salad plate"
+  },
+  {
+   "id": "b5501504-111f-4404-a0b5-2d4e1cc96302",
+   "name": "Салат Цезарь",
+   "en": "caesar salad with chicken"
+  },
+  {
+   "id": "6f38bcbc-d1a6-4c97-b15d-cdd5b0eb40a5",
+   "name": "Санджовезе",
+   "en": "sandwiches"
+  },
+  {
+   "id": "43e4b9a8-a709-48df-8821-fd32496dc00e",
+   "name": "Сгущёнка в стиках,",
+   "en": "sour cream cubes"
+  },
+  {
+   "id": "92e296f1-c245-4f16-94ef-f699eff67098",
+   "name": "Сгущённое молоко к сырникам",
+   "en": "syrniki cottage cheese pancakes"
+  },
+  {
+   "id": "727fd99b-f09a-4d13-b248-a08923009260",
+   "name": "Секс на пляже",
+   "en": "beach sex"
+  },
+  {
+   "id": "9796c503-3c53-47bb-8206-3023da8e045c",
+   "name": "Семильон",
+   "en": "glass of wine"
+  },
+  {
+   "id": "4f9660b8-c5f4-454f-906e-287f97582239",
+   "name": "Сенча",
+   "en": "sencak"
+  },
+  {
+   "id": "8ac77280-1424-4a8c-b8eb-c632a419bbe2",
+   "name": "Сибирская корона",
+   "en": "siberian crown cocktail"
+  },
+  {
+   "id": "33903034-a35b-4728-bbc3-cabf9ba7058d",
+   "name": "Сира",
+   "en": "irish whiskey"
+  },
+  {
+   "id": "ed060617-de85-468e-97d4-fa7651a7b4f3",
+   "name": "Совиньон блан",
+   "en": "sauvignon blanc wine"
+  },
+  {
+   "id": "d4d198b5-f02c-4f65-9466-29fdd62b74e0",
+   "name": "Содовая",
+   "en": "soda drink"
+  },
+  {
+   "id": "a2f0090d-7a34-4d8d-aa01-532a73bd37b5",
+   "name": "Сок Добрый Яблоко",
+   "en": "glass of fresh juice"
+  },
+  {
+   "id": "66b27310-b28a-4aae-90e8-afc7e159c11f",
+   "name": "Сокосодержащий напиток Pulpy апельсин",
+   "en": "glass of fresh juice"
+  },
+  {
+   "id": "54350a92-2119-41c2-92b9-3a41b2a6f2d7",
+   "name": "Сокосодержащий напиток Добрый апельсин-мандарин",
+   "en": "glass of fresh juice"
+  },
+  {
+   "id": "e4140a1d-0ff9-4f9c-9c09-a6862757daa3",
+   "name": "Сорбет Клубничный гранат",
+   "en": "grapeberry sorbet"
+  },
+  {
+   "id": "ba88aac3-e8aa-4693-bf4a-744a2fbedd41",
+   "name": "Старый мельник",
+   "en": "old mill dish"
+  },
+  {
+   "id": "65e1b5c2-e529-477a-b7dd-c39edaa5071c",
+   "name": "Супермясной Додстер",
+   "en": "soup in a bowl"
+  },
+  {
+   "id": "25a65939-0a30-4f07-8d4f-b94e0ff50c4f",
+   "name": "Сырники с малиновым соусом",
+   "en": "syrniki cottage cheese pancakes"
+  },
+  {
+   "id": "a0ea41be-5a86-46e5-b8d4-6625c062fc5c",
+   "name": "Сырники со сгущенным молоком",
+   "en": "syrniki cottage cheese pancakes"
+  },
+  {
+   "id": "08804922-a3f6-4e8f-b5ff-5ed3650e0564",
+   "name": "Сырные палочки с песто",
+   "en": "pesto cheese sticks"
+  },
+  {
+   "id": "d0f992a9-15ac-4dd2-9b72-01199a6a0c0f",
+   "name": "Сырные палочки с чесноком",
+   "en": "cheese sticks with garlic"
+  },
+  {
+   "id": "4ea54a2b-5062-4c3e-9c3e-ad2606ee82ae",
+   "name": "Сырный Стартер",
+   "en": "cheese patty"
+  },
+  {
+   "id": "0f7a06e0-3d54-468b-84dc-bfbd1ffbd054",
+   "name": "Сырный цыпленок",
+   "en": "roasted chicken dish"
+  },
+  {
+   "id": "18bc3077-18f1-4d13-b725-e08ae90c141e",
+   "name": "Таежный чай, 10 пакетиков",
+   "en": "tea in a glass teapot"
+  },
+  {
+   "id": "99ab8e3c-31cc-411f-92da-461b03241de0",
+   "name": "Текила",
+   "en": "tequila cocktail"
+  },
+  {
+   "id": "33171428-35b4-4bf3-8b76-d2314ba2729f",
+   "name": "Текила санрайз",
+   "en": "tequila sunrise"
+  },
+  {
+   "id": "35df8d7f-cf1b-4b9a-88b5-c3bfc76ebc0f",
+   "name": "Тёмный ром",
+   "en": "dark rum"
+  },
+  {
+   "id": "893736c5-0128-457f-83a2-3422947696cf",
+   "name": "Темпранильо",
+   "en": "tempranillo wine"
+  },
+  {
+   "id": "da8ff682-1ecb-45ff-96b8-6355084cac1c",
+   "name": "Терияки",
+   "en": "teriyaki seafood salad"
+  },
+  {
+   "id": "d36b5330-1ba5-4893-b5b3-ca0d9efa0174",
+   "name": "Тибон",
+   "en": "tibetan tea"
+  },
+  {
+   "id": "b7c54d49-0732-40be-9b3e-a7cee3f13624",
+   "name": "Торт Рикотта с грушей",
+   "en": "ricotta cheesecake with cherries"
+  },
+  {
+   "id": "083085b5-7240-42ee-84fa-2bbc21e45bc2",
+   "name": "Треббьяно",
+   "en": "trappanova wine"
+  },
+  {
+   "id": "ee0557db-e580-4dfa-b52b-1b30fda26a88",
+   "name": "Трюфельная",
+   "en": "truffle dish"
+  },
+  {
+   "id": "cbb63d60-ede6-4990-8c0f-3b3f10226e02",
+   "name": "Тысяча островов",
+   "en": "islands cutlet"
+  },
+  {
+   "id": "ffd7a90d-6fce-4fba-8f71-70bdacc1c7db",
+   "name": "Уайт рашн",
+   "en": "white sauce"
+  },
+  {
+   "id": "3e7454ad-e021-4060-ba46-736086559695",
+   "name": "Усадьба Дивноморское",
+   "en": "red berry drink mors in a glass"
+  },
+  {
+   "id": "0ecf7432-305f-4a22-ac95-7ac512770949",
+   "name": "Фанагория",
+   "en": "anise cake"
+  },
+  {
+   "id": "d98772a3-bf32-4b56-9047-aa21a61284d4",
+   "name": "Флотская",
+   "en": "flotka vodka"
+  },
+  {
+   "id": "aad27ce1-8e44-4cf9-a166-559052be9120",
+   "name": "Фондан",
+   "en": "fon dan"
+  },
+  {
+   "id": "4d323c8f-d70f-404f-bf42-6cb98f0a619f",
+   "name": "Хамовники",
+   "en": "hamovniks"
+  },
+  {
+   "id": "18fbcbb7-5e0e-4a15-90fd-a5c48c4d12ba",
+   "name": "Хашбрауны",
+   "en": "hash browns"
+  },
+  {
+   "id": "1adc372d-2073-4e5a-b779-0a3029366535",
+   "name": "Холодный чикен ролл",
+   "en": "sushi rolls on a plate"
+  },
+  {
+   "id": "09d03b3c-a943-4a9c-8d8e-f2f0527493a7",
+   "name": "Чача",
+   "en": "chai cocktail"
+  },
+  {
+   "id": "a069bd7f-7f6e-430d-b390-1a004f085f44",
+   "name": "Чесночный",
+   "en": "chive bread"
+  },
+  {
+   "id": "ebdfd67a-6efc-4a9d-8d98-0c4ca59212ea",
+   "name": "Чесночный цыпленок",
+   "en": "roasted chicken dish"
+  },
+  {
+   "id": "03e398a3-1fe9-434c-9b25-6935c1a744c9",
+   "name": "Четыре в одном",
+   "en": "four-in-one dish"
+  },
+  {
+   "id": "381458b0-ec30-45e5-be44-af6113cd43fe",
+   "name": "Четыре сезона",
+   "en": "four seasons pizza"
+  },
+  {
+   "id": "822d57e3-04a8-48dd-bdcd-1b84a314aaa4",
+   "name": "Чизкейк Дубайский",
+   "en": "cheesecake slice with berries"
+  },
+  {
+   "id": "11294097-f9d0-4fd3-bde3-fb728f4bc5ae",
+   "name": "Чизкейк карамельный с арахисом",
+   "en": "cheesecake slice with berries"
+  },
+  {
+   "id": "15d13dca-80ec-472d-9937-a3de29bfa2e2",
+   "name": "Чикен бокс",
+   "en": "chicken baozi"
+  },
+  {
+   "id": "b2a803cd-f74c-44dc-971e-450c23b82075",
+   "name": "Шампанское",
+   "en": "champagne"
+  },
+  {
+   "id": "0df34593-012b-480e-b6ed-a42a779adc27",
+   "name": "Шардоне",
+   "en": "shiraz wine"
+  },
+  {
+   "id": "2665ded8-d82b-4711-b259-e882dfc58b74",
+   "name": "Шато Тамань",
+   "en": "shato tamany"
+  },
+  {
+   "id": "b24280c9-293a-42f8-adf3-e12b20c3738c",
+   "name": "Шашлык и сацебели",
+   "en": "shashlyk and satsobe"
+  },
+  {
+   "id": "1bfd514a-861f-447f-9241-1aee7a767e2f",
+   "name": "Шенен блан",
+   "en": "shenen blan"
+  },
+  {
+   "id": "4871ff63-eae0-4d49-aeb6-9adf564957ef",
+   "name": "шефбургер",
+   "en": "burger with beef patty"
+  },
+  {
+   "id": "e117f774-7975-49b3-ad8e-2e5535e3f80f",
+   "name": "Шираз",
+   "en": "shiraz wine"
+  },
+  {
+   "id": "1b2ac33f-fc21-4fa2-b279-123d7d51305e",
+   "name": "Шоколадный кукис",
+   "en": "chocolate cookies"
+  },
+  {
+   "id": "ed6a73b9-4cdd-411b-bbb2-480415db3237",
+   "name": "Шоколадный молочный коктейль",
+   "en": "milkshake with whipped cream"
+  },
+  {
+   "id": "8c48f441-4d9f-4f68-a440-5cdf8c1d1105",
+   "name": "Эспрессо мартини",
+   "en": "espresso shot in a small cup"
+  },
+  {
+   "id": "3d1a566c-068c-43f6-b234-76b123551b50",
+   "name": "Яблочный крамбл",
+   "en": "apple crumble"
+  }
+ ]
+}

@@ -1,0 +1,1805 @@
+{
+  "domain": "coffeemania.ru",
+  "method": "__NEXT_DATA__",
+  "status": "ok",
+  "source": "/",
+  "count": 359,
+  "withPhoto": 357,
+  "items": [
+    {
+      "name": "Эспрессо Тоник в банке",
+      "price": 610,
+      "image": "https://coffeemania.ru/uploads/p5149/dd44430754257fa.jpg"
+    },
+    {
+      "name": "Американо 70 мл",
+      "price": 550,
+      "image": "https://coffeemania.ru/uploads/p7625/4885cb72f308bfe.jpg"
+    },
+    {
+      "name": "Американо 100мл",
+      "price": 590,
+      "image": "https://coffeemania.ru/uploads/p245/5d1a3338bfedb4b.jpg"
+    },
+    {
+      "name": "Капучино",
+      "price": 550,
+      "image": "https://coffeemania.ru/uploads/p7629/c927d5af1158fb4.jpg"
+    },
+    {
+      "name": "Матча капучино",
+      "price": 790,
+      "image": "https://coffeemania.ru/uploads/p7751/0525f27fee7d873.jpg"
+    },
+    {
+      "name": "Капучино Гранде",
+      "price": 780,
+      "image": "https://coffeemania.ru/uploads/p17/61607ff725490ad.jpg"
+    },
+    {
+      "name": "Латте 300мл",
+      "price": 780,
+      "image": "https://coffeemania.ru/uploads/p260/c848883d619a1ef.jpg"
+    },
+    {
+      "name": "Латте 400мл",
+      "price": 810,
+      "image": "https://coffeemania.ru/uploads/p248/696c663cffd682d.jpg"
+    },
+    {
+      "name": "Латте Матча",
+      "price": 820,
+      "image": "https://coffeemania.ru/uploads/p2349/2cbab1f7dd6a462.jpg"
+    },
+    {
+      "name": "Латте Халва",
+      "price": 800,
+      "image": "https://coffeemania.ru/uploads/p275/cf50861e2c0df80.jpg"
+    },
+    {
+      "name": "Латте Сингапур 230мл",
+      "price": 760,
+      "image": "https://coffeemania.ru/uploads/p274/ea58275cec765b1.jpg"
+    },
+    {
+      "name": "Латте Сингапур 400мл",
+      "price": 840,
+      "image": "https://coffeemania.ru/uploads/p276/c5a3dda5d3407e8.jpg"
+    },
+    {
+      "name": "Горячий Бамбл",
+      "price": 800,
+      "image": "https://coffeemania.ru/uploads/p7744/2bc57b7764c66c3.jpg"
+    },
+    {
+      "name": "Малиновый кофе",
+      "price": 840,
+      "image": "https://coffeemania.ru/uploads/p250/c78c2267d949a14.jpg"
+    },
+    {
+      "name": "Раф",
+      "price": 800,
+      "image": "https://coffeemania.ru/uploads/p1950/b8c1c83900a94f1.jpg"
+    },
+    {
+      "name": "Раф солёная карамель",
+      "price": 800,
+      "image": "https://coffeemania.ru/uploads/p7835/3ba70a7ca440983.jpg"
+    },
+    {
+      "name": "Раф апельсиновый",
+      "price": 800,
+      "image": "https://coffeemania.ru/uploads/p292/66d38149b4098ff.jpg"
+    },
+    {
+      "name": "Раф Moss",
+      "price": 820,
+      "image": "https://coffeemania.ru/uploads/p350/367e493602800c9.jpg"
+    },
+    {
+      "name": "Раф Цикорий",
+      "price": 800,
+      "image": "https://coffeemania.ru/uploads/p325/93f3ff720897bc3.jpg"
+    },
+    {
+      "name": "Флэт уайт",
+      "price": 780,
+      "image": "https://coffeemania.ru/uploads/p267/878b03697f0de76.jpg"
+    },
+    {
+      "name": "Какао 300мл",
+      "price": 820,
+      "image": "https://coffeemania.ru/uploads/p337/6b03c20d13f1876.jpg"
+    },
+    {
+      "name": "Какао 400мл",
+      "price": 880,
+      "image": "https://coffeemania.ru/uploads/p336/e81f444880cd0cf.jpg"
+    },
+    {
+      "name": "Фильтр-кофе Эфиопия анаэробная",
+      "price": 660,
+      "image": "https://coffeemania.ru/uploads/p4389/a0dc74a5c484968.jpg"
+    },
+    {
+      "name": "hoop Эфиопия мытая",
+      "price": 660,
+      "image": "https://coffeemania.ru/uploads/p5667/15354666c98013e.jpg"
+    },
+    {
+      "name": "hoop Эфиопия анаэробная",
+      "price": 660,
+      "image": "https://coffeemania.ru/uploads/p6929/94bdb6df0d71d84.jpg"
+    },
+    {
+      "name": "hoop Аласитас натуральная",
+      "price": 660,
+      "image": "https://coffeemania.ru/uploads/p8583/b1712814661e0c1.jpg"
+    },
+    {
+      "name": "hoop Йемен анаэробная",
+      "price": 660,
+      "image": "https://coffeemania.ru/uploads/p8531/3df2d9d3bf1b3e9.jpg"
+    },
+    {
+      "name": "Эспрессо Доппио",
+      "price": 550,
+      "image": "https://coffeemania.ru/uploads/p10/63c95a4683ef5e3.jpg"
+    },
+    {
+      "name": "Пикколо",
+      "price": 550,
+      "image": "https://coffeemania.ru/uploads/p243/64c471c7d941097.jpg"
+    },
+    {
+      "name": "Эспрессо Тоник",
+      "price": 800,
+      "image": "https://coffeemania.ru/uploads/p2756/fa08b466c91cb9e.jpg"
+    },
+    {
+      "name": "Фильтр-кофе Эфиопия мытая",
+      "price": 660,
+      "image": "https://coffeemania.ru/uploads/p251/fc003b5db0af535.jpg"
+    },
+    {
+      "name": "Фильтр-кофе Аласитас натуральная",
+      "price": 660,
+      "image": "https://coffeemania.ru/uploads/p8584/4c124e3f44eae89.jpg"
+    },
+    {
+      "name": "Фильтр-кофе Йемен анаэробная",
+      "price": 660,
+      "image": "https://coffeemania.ru/uploads/p8532/52a1675bc48c944.jpg"
+    },
+    {
+      "name": "Айс-Латте 300мл",
+      "price": 780,
+      "image": "https://coffeemania.ru/uploads/p300/152676315ece07a.jpg"
+    },
+    {
+      "name": "Айс-Латте 460мл",
+      "price": 820,
+      "image": "https://coffeemania.ru/uploads/p283/91b31030d9ab272.jpg"
+    },
+    {
+      "name": "Айс-Латте Матча 300мл",
+      "price": 800,
+      "image": "https://coffeemania.ru/uploads/p351/4b86ef352d66c1d.jpg"
+    },
+    {
+      "name": "Айс-Латте Матча 460мл",
+      "price": 840,
+      "image": "https://coffeemania.ru/uploads/p3843/e8d94bf570d1158.jpg"
+    },
+    {
+      "name": "Бамбл",
+      "price": 860,
+      "image": "https://coffeemania.ru/uploads/p255/ac9fbcae664bf17.jpg"
+    },
+    {
+      "name": "Айс Латте в банке",
+      "price": 610,
+      "image": "https://coffeemania.ru/uploads/p5147/3cc0f355a908d92.jpg"
+    },
+    {
+      "name": "Айс Раф в банке",
+      "price": 610,
+      "image": "https://coffeemania.ru/uploads/p5148/c7634444c8c7a87.jpg"
+    },
+    {
+      "name": "Айс Раф 300мл",
+      "price": 800,
+      "image": "https://coffeemania.ru/uploads/p2861/927d064f6f70d56.jpg"
+    },
+    {
+      "name": "Айс Раф Moss 300мл",
+      "price": 820,
+      "image": "https://coffeemania.ru/uploads/p2862/9a3d9f931c6ba3e.jpg"
+    },
+    {
+      "name": "Матча Тоник",
+      "price": 850,
+      "image": "https://coffeemania.ru/uploads/p8419/aa27894503993db.jpg"
+    },
+    {
+      "name": "Виноградный улун",
+      "price": 990,
+      "image": "https://coffeemania.ru/uploads/p8437/da8eb77b6abe29a.jpg"
+    },
+    {
+      "name": "Каламанси",
+      "price": 930,
+      "image": "https://coffeemania.ru/uploads/p8424/ae8c1062697155e.jpg"
+    },
+    {
+      "name": "Айс Ти Калина",
+      "price": 890,
+      "image": "https://coffeemania.ru/uploads/p8425/2e3c93d60cccafe.jpg"
+    },
+    {
+      "name": "Накаяма",
+      "price": 930,
+      "image": "https://coffeemania.ru/uploads/p8423/4b6cb6903f7cd64.jpg"
+    },
+    {
+      "name": "Утка по-пекински",
+      "price": 1700,
+      "image": "https://coffeemania.ru/uploads/p463/2d2352999a4c080.jpg"
+    },
+    {
+      "name": "Бора-Бора",
+      "price": 1600,
+      "image": "https://coffeemania.ru/uploads/p395/9a1d99eb3ab7f3e.jpg"
+    },
+    {
+      "name": "Шведский тост с лососем",
+      "price": 1500,
+      "image": "https://coffeemania.ru/uploads/p616/379a0f0c16fd0ff.jpg"
+    },
+    {
+      "name": "Цезарь с глазуньей",
+      "price": 1500,
+      "image": "https://coffeemania.ru/uploads/p394/ef7076057a92a56.jpg"
+    },
+    {
+      "name": "Курица с рисом и зелёным карри",
+      "price": 1600,
+      "image": "https://coffeemania.ru/uploads/p522/8c4b859fb7b5990.jpg"
+    },
+    {
+      "name": "Йогурт «Кофемания»",
+      "price": 780,
+      "image": "https://coffeemania.ru/uploads/p371/7047a29994d9552.jpg"
+    },
+    {
+      "name": "Бефстроганов с картофельным пюре",
+      "price": 1900,
+      "image": "https://coffeemania.ru/uploads/p3178/a1f6f787fcf55de.jpg"
+    },
+    {
+      "name": "Жареный рис с морепродуктами",
+      "price": 1400,
+      "image": "https://coffeemania.ru/uploads/p2368/c1f3de4309f8ac8.jpg"
+    },
+    {
+      "name": "Кетолюкс",
+      "price": 1100,
+      "image": "https://coffeemania.ru/uploads/p8438/20f34acc6d5a3b2.jpg"
+    },
+    {
+      "name": "Детокс",
+      "price": 950,
+      "image": "https://coffeemania.ru/uploads/p8445/bbf8c85fd38da19.jpg"
+    },
+    {
+      "name": "Молодость",
+      "price": 1100,
+      "image": "https://coffeemania.ru/uploads/p8446/cf6099a99b4091f.jpg"
+    },
+    {
+      "name": "Чиа-пудинг «Матча-Черника»",
+      "price": 950,
+      "image": "https://coffeemania.ru/uploads/p8444/1fbeb2da9e35651.jpg"
+    },
+    {
+      "name": "Ванильные сырники",
+      "price": 1100,
+      "image": "https://coffeemania.ru/uploads/p509/33f27aa41b82447.jpg"
+    },
+    {
+      "name": "Утро в Кофемании",
+      "price": 1700,
+      "image": "https://coffeemania.ru/uploads/p7787/2f160525aed549a.jpg"
+    },
+    {
+      "name": "Афоня (на булочке)",
+      "price": 1800,
+      "image": "https://coffeemania.ru/uploads/p442/aa3d7ac406f1aef.jpg"
+    },
+    {
+      "name": "Супербоул",
+      "price": 1300,
+      "image": "https://coffeemania.ru/uploads/p8244/df7b29eade5d264.jpg"
+    },
+    {
+      "name": "Молодые кабачки со сметаной",
+      "price": 950,
+      "image": "https://coffeemania.ru/uploads/p497/70cbed467c86dad.jpg"
+    },
+    {
+      "name": "Шанхай",
+      "price": 1100,
+      "image": "https://coffeemania.ru/uploads/p8093/a557f7e7cd0a1ea.jpg"
+    },
+    {
+      "name": "Поке с лососем",
+      "price": 1600,
+      "image": "https://coffeemania.ru/uploads/p1886/c94a863f1629d5b.jpg"
+    },
+    {
+      "name": "Боул с миксом зелёных салатов",
+      "price": 790,
+      "image": "https://coffeemania.ru/uploads/p5391/e4a17989deb7dd9.jpg"
+    },
+    {
+      "name": "Салат с крабом и авокадо",
+      "price": 2100,
+      "image": "https://coffeemania.ru/uploads/p4234/9458825d497919f.jpg"
+    },
+    {
+      "name": "Весенний салат",
+      "price": 1300,
+      "image": "https://coffeemania.ru/uploads/p397/0f5c64a1dde1125.jpg"
+    },
+    {
+      "name": "Буррата",
+      "price": 1700,
+      "image": "https://coffeemania.ru/uploads/p400/f0e5d8523fd3c63.jpg"
+    },
+    {
+      "name": "Греко салат",
+      "price": 1600,
+      "image": "https://coffeemania.ru/uploads/p2091/7fe2b6d6a9a4cb1.jpg"
+    },
+    {
+      "name": "Салат из сочных бакинских помидоров",
+      "price": 1200,
+      "image": "https://coffeemania.ru/uploads/p2051/b8eea0229da3fdb.jpg"
+    },
+    {
+      "name": "Большой зелёный салат",
+      "price": 1500,
+      "image": "https://coffeemania.ru/uploads/p1053/cafadde630cbd49.jpg"
+    },
+    {
+      "name": "Тёплый салат с морепродуктами",
+      "price": 2500,
+      "image": "https://coffeemania.ru/uploads/p7636/67c186d5c6abc50.jpg"
+    },
+    {
+      "name": "Тако на листьях романо с тартаром из пекинской утки",
+      "price": 950,
+      "image": "https://coffeemania.ru/uploads/p6435/27627c409c1262e.jpg"
+    },
+    {
+      "name": "Хабюрза",
+      "price": 950,
+      "image": "https://coffeemania.ru/uploads/p399/2d6e074f1cc3d43.jpg"
+    },
+    {
+      "name": "Тартар из говядины",
+      "price": 2100,
+      "image": "https://coffeemania.ru/uploads/p7000/5b21e57f6a4ea95.jpg"
+    },
+    {
+      "name": "Хумус с запечённым томатом",
+      "price": 1300,
+      "image": "https://coffeemania.ru/uploads/p1056/70ad3a9f25c785e.jpg"
+    },
+    {
+      "name": "Икра Осетра",
+      "price": 6500,
+      "image": "https://coffeemania.ru/uploads/p3554/8187017f664c9ad.jpg"
+    },
+    {
+      "name": "Домашние котлетки из индейки 300г",
+      "price": 1300,
+      "image": "https://coffeemania.ru/uploads/p460/328124d442153bf.jpg"
+    },
+    {
+      "name": "Домашняя лапша",
+      "price": 890,
+      "image": "https://coffeemania.ru/uploads/p567/096970ca2ad7061.jpg"
+    },
+    {
+      "name": "Кесадилья с курицей",
+      "price": 1300,
+      "image": "https://coffeemania.ru/uploads/p553/d8e2c91ca28815f.jpg"
+    },
+    {
+      "name": "Тортилья-ролл с курицей",
+      "price": 1200,
+      "image": "https://coffeemania.ru/uploads/p435/3964184843b6405.jpg"
+    },
+    {
+      "name": "Фокачча Аль Печино",
+      "price": 1100,
+      "image": "https://coffeemania.ru/uploads/p7785/dae299e44eb58ad.jpg"
+    },
+    {
+      "name": "Детский куриный суп",
+      "price": 810,
+      "image": "https://coffeemania.ru/uploads/p571/04ec2b1886077f0.jpg"
+    },
+    {
+      "name": "Лосось терияки на гриле с брокколи",
+      "price": 2500,
+      "image": "https://coffeemania.ru/uploads/p481/91dcf5eb46fb269.jpg"
+    },
+    {
+      "name": "Котлета по-киевски",
+      "price": 2100,
+      "image": "https://coffeemania.ru/uploads/p2887/aff68c6b3668d45.jpg"
+    },
+    {
+      "name": "Шницель по-милански",
+      "price": 2100,
+      "image": "https://coffeemania.ru/uploads/p1065/b88ec848e111187.jpg"
+    },
+    {
+      "name": "Пельмени 250г",
+      "price": 1300,
+      "image": "https://coffeemania.ru/uploads/p496/81f2d49161d09dd.jpg"
+    },
+    {
+      "name": "Пельмени в бульоне",
+      "price": 1300,
+      "image": "https://coffeemania.ru/uploads/p572/1f85b6b2fb8fd00.jpg"
+    },
+    {
+      "name": "Вареники с вишней 250г",
+      "price": 1300,
+      "image": "https://coffeemania.ru/uploads/p495/3cbb05b4ef2040c.jpg"
+    },
+    {
+      "name": "Большая котлета из говядины",
+      "price": 1700,
+      "image": "https://coffeemania.ru/uploads/p2375/f36914d08610872.jpg"
+    },
+    {
+      "name": "Палтус с соусом бер монте",
+      "price": 1900,
+      "image": "https://coffeemania.ru/uploads/p7945/b53ac72805b457a.jpg"
+    },
+    {
+      "name": "Индейка на пару",
+      "price": 1200,
+      "image": "https://coffeemania.ru/uploads/p464/67721faf74180aa.jpg"
+    },
+    {
+      "name": "Пожарская котлета",
+      "price": 1700,
+      "image": "https://coffeemania.ru/uploads/p3396/9542c1644b81a7f.jpg"
+    },
+    {
+      "name": "Лосось на гриле",
+      "price": 1900,
+      "image": "https://coffeemania.ru/uploads/p477/4d55706e53b33f4.jpg"
+    },
+    {
+      "name": "Лосось на пару",
+      "price": 1900,
+      "image": "https://coffeemania.ru/uploads/p2804/748bdb9bf060811.jpg"
+    },
+    {
+      "name": "Гречневая лапша с креветками",
+      "price": 1400,
+      "image": "https://coffeemania.ru/uploads/p551/754cf6dcc50acac.jpg"
+    },
+    {
+      "name": "Гречневая лапша с телятиной",
+      "price": 1300,
+      "image": "https://coffeemania.ru/uploads/p2094/a9205ed93fce294.jpg"
+    },
+    {
+      "name": "Рыбная котлета",
+      "price": 1400,
+      "image": "https://coffeemania.ru/uploads/p3400/d03117b9b763a15.jpg"
+    },
+    {
+      "name": "Крабовые котлетки с диким рисом",
+      "price": 2200,
+      "image": "https://coffeemania.ru/uploads/p476/a187816c5b25f0d.jpg"
+    },
+    {
+      "name": "Овощи на гриле",
+      "price": 850,
+      "image": "https://coffeemania.ru/uploads/p575/d82ca62415f5336.jpg"
+    },
+    {
+      "name": "Японский рис Хаэнуки",
+      "price": 670,
+      "image": "https://coffeemania.ru/uploads/p577/03bc47196bdc349.jpg"
+    },
+    {
+      "name": "Гречка с луком",
+      "price": 570,
+      "image": "https://coffeemania.ru/uploads/p578/4178b90883a9c81.jpg"
+    },
+    {
+      "name": "Брокколи на гриле",
+      "price": 850,
+      "image": "https://coffeemania.ru/uploads/p588/f710ff611c0655d.jpg"
+    },
+    {
+      "name": "Киноа",
+      "price": 790,
+      "image": "https://coffeemania.ru/uploads/p583/f593eb61b3523f9.jpg"
+    },
+    {
+      "name": "Дикий рис",
+      "price": 890,
+      "image": "https://coffeemania.ru/uploads/p576/2632f81ddbf534e.jpg"
+    },
+    {
+      "name": "Картофель фри",
+      "price": 650,
+      "image": "https://coffeemania.ru/uploads/p573/0659a1bace20451.jpg"
+    },
+    {
+      "name": "Картофель фри с пармезаном",
+      "price": 830,
+      "image": "https://coffeemania.ru/uploads/p1091/c8c6b2e90111ef6.jpg"
+    },
+    {
+      "name": "Картофель фри с трюфелем",
+      "price": 830,
+      "image": "https://coffeemania.ru/uploads/p1092/1edfa0b20d14c28.jpg"
+    },
+    {
+      "name": "Фри пармезан и трюфель",
+      "price": 830,
+      "image": "https://coffeemania.ru/uploads/p3053/a1a480719491043.jpg"
+    },
+    {
+      "name": "Картофельное пюре",
+      "price": 690,
+      "image": "https://coffeemania.ru/uploads/p574/b23daf6dad2fb14.jpg"
+    },
+    {
+      "name": "Картофель по-деревенски",
+      "price": 690,
+      "image": "https://coffeemania.ru/uploads/p4353/b9924d82b00c837.jpg"
+    },
+    {
+      "name": "Шпинат",
+      "price": 890,
+      "image": "https://coffeemania.ru/uploads/p581/30d74f42f4e542c.jpg"
+    },
+    {
+      "name": "Спаржа на гриле",
+      "price": 1300,
+      "image": "https://coffeemania.ru/uploads/p8316/b52abcd4edf10ab.jpg"
+    },
+    {
+      "name": "Шашлык из курицы с трюфельным соусом",
+      "price": 1200,
+      "image": "https://coffeemania.ru/uploads/p8246/973da5a03ca349e.jpg"
+    },
+    {
+      "name": "Картофельные зразы",
+      "price": 1300,
+      "image": "https://coffeemania.ru/uploads/p7279/b1c43bec41163dc.jpg"
+    },
+    {
+      "name": "Карбонара",
+      "price": 1300,
+      "image": "https://coffeemania.ru/uploads/p550/e287a41ae569535.jpg"
+    },
+    {
+      "name": "Лапша рамен с трубачом",
+      "price": 1300,
+      "image": "https://coffeemania.ru/uploads/p7978/90525f23c5ddf36.jpg"
+    },
+    {
+      "name": "Пибимпаб",
+      "price": 2100,
+      "image": "https://coffeemania.ru/uploads/p6614/2f0014a8ffc3677.jpg"
+    },
+    {
+      "name": "Бейгл с лососем домашнего посола",
+      "price": 1500,
+      "image": "https://coffeemania.ru/uploads/p1099/1420869c4a0389d.jpg"
+    },
+    {
+      "name": "Тост с красной икрой",
+      "price": 1500,
+      "image": "https://coffeemania.ru/uploads/p3458/26d13f4730eba34.jpg"
+    },
+    {
+      "name": "Аво соло",
+      "price": 1100,
+      "image": "https://coffeemania.ru/uploads/p7274/d8c34e839cf7dda.jpg"
+    },
+    {
+      "name": "Капитан Барашек (на булочке)",
+      "price": 1800,
+      "image": "https://coffeemania.ru/uploads/p441/bac6d261287fb98.jpg"
+    },
+    {
+      "name": "Капитан Барашек (на листьях салата)",
+      "price": 1800,
+      "image": "https://coffeemania.ru/uploads/p444/dd7e57de62af041.jpg"
+    },
+    {
+      "name": "Афоня (на листьях салата)",
+      "price": 1800,
+      "image": "https://coffeemania.ru/uploads/p443/c1ffdfcef48e59a.jpg"
+    },
+    {
+      "name": "Большой зелёный салат XL",
+      "price": 2700,
+      "image": "https://coffeemania.ru/uploads/p7950/a504bfc37f65cbd.jpg"
+    },
+    {
+      "name": "Бора-Бора XL",
+      "price": 4300,
+      "image": "https://coffeemania.ru/uploads/p7949/aaadc380e6706c3.jpg"
+    },
+    {
+      "name": "Буррата XL",
+      "price": 3100,
+      "image": "https://coffeemania.ru/uploads/p7953/0f6a775421fc733.jpg"
+    },
+    {
+      "name": "Весенний салат XL",
+      "price": 3500,
+      "image": "https://coffeemania.ru/uploads/p7954/203e276aa5ebf3b.jpg"
+    },
+    {
+      "name": "Жареный рис с морепродуктами XL",
+      "price": 4050,
+      "image": "https://coffeemania.ru/uploads/p7962/034133f3d401c48.jpg"
+    },
+    {
+      "name": "Котлеты по-киевски XL",
+      "price": 5900,
+      "image": "https://coffeemania.ru/uploads/p7959/cfb9f75930a60fb.jpg"
+    },
+    {
+      "name": "Лосось на гриле XL",
+      "price": 5100,
+      "image": "https://coffeemania.ru/uploads/p7960/195eda802e43977.jpg"
+    },
+    {
+      "name": "Мини-бургеры с говядиной и картофелем фри XL",
+      "price": 2900,
+      "image": "https://coffeemania.ru/uploads/p7963/8d6138d0ffc7d17.jpg"
+    },
+    {
+      "name": "Салат из помидоров XL",
+      "price": 3250,
+      "image": "https://coffeemania.ru/uploads/p7958/59632cf51e39c0e.jpg"
+    },
+    {
+      "name": "Утка по-пекински XL",
+      "price": 3250,
+      "image": "https://coffeemania.ru/uploads/p7961/33c9da43fa90ac0.jpg"
+    },
+    {
+      "name": "Шведский тост с лососем XL",
+      "price": 2700,
+      "image": "https://coffeemania.ru/uploads/p7957/35bab367020d727.jpg"
+    },
+    {
+      "name": "Кесадилья XL",
+      "price": 2700,
+      "image": "https://coffeemania.ru/uploads/p7956/194ff234f486e42.jpg"
+    },
+    {
+      "name": "Хумус XL",
+      "price": 2350,
+      "image": "https://coffeemania.ru/uploads/p7955/77cbbc7ce6ead93.jpg"
+    },
+    {
+      "name": "Свекольник без мяса",
+      "price": 950,
+      "image": "https://coffeemania.ru/uploads/p570/af88fd490e382fa.jpg"
+    },
+    {
+      "name": "Свекольник с пастрами из утки",
+      "price": 950,
+      "image": "https://coffeemania.ru/uploads/p569/734931395c8c9f0.jpg"
+    },
+    {
+      "name": "Гаспачо с камчатским крабом",
+      "price": 2100,
+      "image": "https://coffeemania.ru/uploads/p560/dfef88a98615d7e.jpg"
+    },
+    {
+      "name": "Том ям",
+      "price": 1800,
+      "image": "https://coffeemania.ru/uploads/p8096/6b6d469789daebb.jpg"
+    },
+    {
+      "name": "Гаспачо с креветками",
+      "price": 1500,
+      "image": "https://coffeemania.ru/uploads/p8382/5fa0cb1caaa4a64.jpg"
+    },
+    {
+      "name": "Окрошка на квасе",
+      "price": 890,
+      "image": "https://coffeemania.ru/uploads/p562/469e970421f09de.jpg"
+    },
+    {
+      "name": "Грибной суп",
+      "price": 990,
+      "image": "https://coffeemania.ru/uploads/p563/5e6dd81c45d6dcb.jpg"
+    },
+    {
+      "name": "Щавелевый горячий суп",
+      "price": 890,
+      "image": "https://coffeemania.ru/uploads/p564/c3a5e7f9da1c509.jpg"
+    },
+    {
+      "name": "Щавелевый холодный суп",
+      "price": 890,
+      "image": "https://coffeemania.ru/uploads/p565/1d2ef0ce9eba51e.jpg"
+    },
+    {
+      "name": "Окрошка на кефире",
+      "price": 890,
+      "image": "https://coffeemania.ru/uploads/p561/a0a879421b79ec3.jpg"
+    },
+    {
+      "name": "Бекон говяжий",
+      "price": 590,
+      "image": "https://coffeemania.ru/uploads/p4781/84421a67cba33d6.jpg"
+    },
+    {
+      "name": "Ветчина из говядины",
+      "price": 300,
+      "image": "https://coffeemania.ru/uploads/p520/7dd4fafa1b0043e.jpg"
+    },
+    {
+      "name": "Куриное филе",
+      "price": 490,
+      "image": "https://coffeemania.ru/uploads/p475/fd5d1d2f2b60614.jpg"
+    },
+    {
+      "name": "Сыр",
+      "price": 250,
+      "image": "https://coffeemania.ru/uploads/p507/2c8ceaeba261bed.jpg"
+    },
+    {
+      "name": "Пармезан",
+      "price": 870,
+      "image": "https://coffeemania.ru/uploads/p2803/b2a8587082853be.jpg"
+    },
+    {
+      "name": "Лосось слабосолёный",
+      "price": 850,
+      "image": "https://coffeemania.ru/uploads/p429/c51758e0655e69c.jpg"
+    },
+    {
+      "name": "Лосось жареный",
+      "price": 850,
+      "image": "https://coffeemania.ru/uploads/p807/65b5bd43c65d2c5.jpg"
+    },
+    {
+      "name": "Креветки на гриле",
+      "price": 850,
+      "image": "https://coffeemania.ru/uploads/p478/dc08d5da562a036.jpg"
+    },
+    {
+      "name": "Краб",
+      "price": 890,
+      "image": "https://coffeemania.ru/uploads/p1068/97c50cbca3a0d2c.jpg"
+    },
+    {
+      "name": "Красная икра",
+      "price": 850,
+      "image": "https://coffeemania.ru/uploads/p430/7cbb181603d0d58.jpg"
+    },
+    {
+      "name": "Кабачковая Икра",
+      "price": 200,
+      "image": "https://coffeemania.ru/uploads/p3934/4406b00a14d5b77.jpg"
+    },
+    {
+      "name": "Грибы",
+      "price": 250,
+      "image": "https://coffeemania.ru/uploads/p519/240fb4e8bfa616a.jpg"
+    },
+    {
+      "name": "Помидоры 40г",
+      "price": 250,
+      "image": "https://coffeemania.ru/uploads/p516/abbe70443750ad1.jpg"
+    },
+    {
+      "name": "Болгарский перец 40г",
+      "price": 250,
+      "image": "https://coffeemania.ru/uploads/p517/38f8837b20c9116.jpg"
+    },
+    {
+      "name": "Огурцы 50г",
+      "price": 250,
+      "image": "https://coffeemania.ru/uploads/p525/1c4c1e6d26e7a09.jpg"
+    },
+    {
+      "name": "Огурцы 100г",
+      "price": 350,
+      "image": "https://coffeemania.ru/uploads/p392/e550c94ba95862d.jpg"
+    },
+    {
+      "name": "Шпинат 40г",
+      "price": 250,
+      "image": "https://coffeemania.ru/uploads/p518/95811490a35951c.jpg"
+    },
+    {
+      "name": "Халапеньо",
+      "price": 200,
+      "image": "https://coffeemania.ru/uploads/p414/d7a7b1c1f7bd4d3.jpg"
+    },
+    {
+      "name": "Авокадо",
+      "price": 450,
+      "image": "https://coffeemania.ru/uploads/p514/0f734e7df75f95a.jpg"
+    },
+    {
+      "name": "Яйцо дополнительно",
+      "price": 150,
+      "image": "https://coffeemania.ru/uploads/p499/f916a8d2c1a985e.jpg"
+    },
+    {
+      "name": "Лечо",
+      "price": 150,
+      "image": "https://coffeemania.ru/uploads/p590/f461e0d6c3db08c.jpg"
+    },
+    {
+      "name": "Сметана 30%",
+      "price": 200,
+      "image": "https://coffeemania.ru/uploads/p501/998003bb0bd9839.jpg"
+    },
+    {
+      "name": "Майонез",
+      "price": 150,
+      "image": "https://coffeemania.ru/uploads/p3933/2fcaaa84f79aab8.jpg"
+    },
+    {
+      "name": "Мёд",
+      "price": 200,
+      "image": "https://coffeemania.ru/uploads/p74/b87e05e1d9efead.jpg"
+    },
+    {
+      "name": "Грецкий орех",
+      "price": 250,
+      "image": "https://coffeemania.ru/uploads/p690/464d4e57fbc7965.jpg"
+    },
+    {
+      "name": "Свежая клубника",
+      "price": 550,
+      "image": "https://coffeemania.ru/uploads/p698/42e9fad97a8a24f.jpg"
+    },
+    {
+      "name": "Смородина, протёртая с сахаром",
+      "price": 200,
+      "image": "https://coffeemania.ru/uploads/p1112/c1c23142b1b6704.jpg"
+    },
+    {
+      "name": "Клубника, протёртая с сахаром",
+      "price": 390,
+      "image": "https://coffeemania.ru/uploads/p603/0f065a46937140e.jpg"
+    },
+    {
+      "name": "Малина, протёртая с сахаром",
+      "price": 390,
+      "image": "https://coffeemania.ru/uploads/p602/780afbd86835964.jpg"
+    },
+    {
+      "name": "Земляника, протёртая с сахаром",
+      "price": 550,
+      "image": "https://coffeemania.ru/uploads/p604/867236aba923240.jpg"
+    },
+    {
+      "name": "Сгущённое молоко",
+      "price": 250,
+      "image": "https://coffeemania.ru/uploads/p500/b829110eefedbbd.jpg"
+    },
+    {
+      "name": "Крем-чиз",
+      "price": 150,
+      "image": "https://coffeemania.ru/uploads/p528/cc71a890b62b350.jpg"
+    },
+    {
+      "name": "Трюфельная сметана",
+      "price": 250,
+      "image": "https://coffeemania.ru/uploads/p5808/43b00323cd4f4e2.jpg"
+    },
+    {
+      "name": "Натуральный горный мёд",
+      "price": 200,
+      "image": "https://coffeemania.ru/uploads/p524/e996df30f11e350.jpg"
+    },
+    {
+      "name": "Курага",
+      "price": 200,
+      "image": "https://coffeemania.ru/uploads/p697/0f843a12322c9fd.jpg"
+    },
+    {
+      "name": "Сухофрукты",
+      "price": 200,
+      "image": "https://coffeemania.ru/uploads/p691/e0c6b1079a1c8ac.jpg"
+    },
+    {
+      "name": "Изюм",
+      "price": 200,
+      "image": "https://coffeemania.ru/uploads/p696/eeb9ed8a0a7d219.jpg"
+    },
+    {
+      "name": "Манговый лес",
+      "price": 950,
+      "image": "https://coffeemania.ru/uploads/p8302/4a219fefd304983.jpg"
+    },
+    {
+      "name": "Дос Потатос",
+      "price": 950,
+      "image": "https://coffeemania.ru/uploads/p703/0137af023fbb9f6.jpg"
+    },
+    {
+      "name": "Кето-чизкейк",
+      "price": 970,
+      "image": "https://coffeemania.ru/uploads/p2705/9d3434c3a8aa1d3.jpg"
+    },
+    {
+      "name": "Воздушная запеканка",
+      "price": 1400,
+      "image": "https://coffeemania.ru/uploads/p1075/36ae766d19447e6.jpg"
+    },
+    {
+      "name": "Кокосовая Панна котта",
+      "price": 1100,
+      "image": "https://coffeemania.ru/uploads/p1766/27a8b8c2791a015.jpg"
+    },
+    {
+      "name": "Эфенди",
+      "price": 950,
+      "image": "https://coffeemania.ru/uploads/p8303/9536c43c567790d.jpg"
+    },
+    {
+      "name": "Фигаро",
+      "price": 950,
+      "image": "https://coffeemania.ru/uploads/p7480/3de2b75d0d45a59.jpg"
+    },
+    {
+      "name": "Чуча",
+      "price": 970,
+      "image": "https://coffeemania.ru/uploads/p7250/00587a187393318.jpg"
+    },
+    {
+      "name": "Шато",
+      "price": 970,
+      "image": "https://coffeemania.ru/uploads/p705/dfa09980327f95d.jpg"
+    },
+    {
+      "name": "Эклер ванильный",
+      "price": 730,
+      "image": "https://coffeemania.ru/uploads/p704/5b90cacb3894dbc.jpg"
+    },
+    {
+      "name": "Рейк",
+      "price": 1200,
+      "image": "https://coffeemania.ru/uploads/p709/fe6264091d51bbb.jpg"
+    },
+    {
+      "name": "Глория",
+      "price": 970,
+      "image": "https://coffeemania.ru/uploads/p5273/9f4d18ae64b7150.jpg"
+    },
+    {
+      "name": "Панна котта",
+      "price": 1100,
+      "image": "https://coffeemania.ru/uploads/p700/a023a6eafd0632c.jpg"
+    },
+    {
+      "name": "Французский торт",
+      "price": 990,
+      "image": "https://coffeemania.ru/uploads/p4499/1ee3b7c8339a075.jpg"
+    },
+    {
+      "name": "Сметанник",
+      "price": 1100,
+      "image": "https://coffeemania.ru/uploads/p56/86d486483a85186.jpg"
+    },
+    {
+      "name": "Сорбет малиновый",
+      "price": 350,
+      "image": "https://coffeemania.ru/uploads/p3499/5f5919f75df27a9.jpg"
+    },
+    {
+      "name": "Ванильное мороженое",
+      "price": 350,
+      "image": "https://coffeemania.ru/uploads/p3255/02816aea3f25328.jpg"
+    },
+    {
+      "name": "Чай Изумрудная почка",
+      "price": 990,
+      "image": "https://coffeemania.ru/uploads/p2813/83d1d2bbcee86a8.jpg"
+    },
+    {
+      "name": "Ассам Мокалбари",
+      "price": 990,
+      "image": "https://coffeemania.ru/uploads/p758/4e94c9aadc54045.jpg"
+    },
+    {
+      "name": "Иван-чай с листом вишни",
+      "price": 990,
+      "image": "https://coffeemania.ru/uploads/p765/9c1ce85addbb0e3.jpg"
+    },
+    {
+      "name": "Илам-Дарджилинг",
+      "price": 990,
+      "image": "https://coffeemania.ru/uploads/p759/76c262137d5c963.jpg"
+    },
+    {
+      "name": "Чёрный чай с горными травами",
+      "price": 990,
+      "image": "https://coffeemania.ru/uploads/p764/86e73b5f1fc79e8.jpg"
+    },
+    {
+      "name": "Эрл Грей",
+      "price": 990,
+      "image": "https://coffeemania.ru/uploads/p756/8c5f46de264697b.jpg"
+    },
+    {
+      "name": "Те Гуаньинь",
+      "price": 1050,
+      "image": "https://coffeemania.ru/uploads/p355/ef0bd1ab0fd6253.jpg"
+    },
+    {
+      "name": "Чай чёрный с чабрецом",
+      "price": 990,
+      "image": "https://coffeemania.ru/uploads/p757/31fa48a347cea40.jpg"
+    },
+    {
+      "name": "Лесной сбор",
+      "price": 990,
+      "image": "https://coffeemania.ru/uploads/p5365/fb2711dda545250.jpg"
+    },
+    {
+      "name": "Чай зелёный Моли Цзинь Чжэнь с жасмином",
+      "price": 990,
+      "image": "https://coffeemania.ru/uploads/p354/7c5b6e4c5de1236.jpg"
+    },
+    {
+      "name": "Гречишный чай",
+      "price": 990,
+      "image": "https://coffeemania.ru/uploads/p356/e96d4806078d5c9.jpg"
+    },
+    {
+      "name": "Травяной сбор",
+      "price": 990,
+      "image": "https://coffeemania.ru/uploads/p761/ecafdec19377f86.jpg"
+    },
+    {
+      "name": "Мятный",
+      "price": 790,
+      "image": "https://coffeemania.ru/uploads/p344/20ccb588930cc34.jpg"
+    },
+    {
+      "name": "Малиновый",
+      "price": 1170,
+      "image": "https://coffeemania.ru/uploads/p346/812e289974ce222.jpg"
+    },
+    {
+      "name": "Облепиховый",
+      "price": 1010,
+      "image": "https://coffeemania.ru/uploads/p654/27ac98fb0202005.jpg"
+    },
+    {
+      "name": "Имбирный",
+      "price": 1050,
+      "image": "https://coffeemania.ru/uploads/p345/7721c6c1b3d5f12.jpg"
+    },
+    {
+      "name": "Манго и маракуйя",
+      "price": 1170,
+      "image": "https://coffeemania.ru/uploads/p348/272019fbc53741d.jpg"
+    },
+    {
+      "name": "Шиповник 260мл",
+      "price": 810,
+      "image": "https://coffeemania.ru/uploads/p763/d2b0e78c1c1fe13.jpg"
+    },
+    {
+      "name": "Шиповник 500 мл",
+      "price": 990,
+      "image": "https://coffeemania.ru/uploads/p762/b4d53ab6dcabbe5.jpg"
+    },
+    {
+      "name": "Крем Сода «Кофемания» 350мл",
+      "price": 950,
+      "image": "https://coffeemania.ru/uploads/p8261/1c63c9419047b61.jpg"
+    },
+    {
+      "name": "Тоник \"The Gardenist\" Birch Tree",
+      "price": 470,
+      "image": "https://coffeemania.ru/uploads/p7209/cdbe9ec31402d8c.jpg"
+    },
+    {
+      "name": "Минеральная Вода Филетте (Негазированная) 375мл",
+      "price": 860,
+      "image": "https://coffeemania.ru/uploads/p212/d046ce697bde106.jpg"
+    },
+    {
+      "name": "Минеральная Вода Филетте (Негазированная) 750мл",
+      "price": 1200,
+      "image": "https://coffeemania.ru/uploads/p213/b5f5e6a5cc18a38.jpg"
+    },
+    {
+      "name": "Минеральная Вода Филетте (Газированная) 375мл",
+      "price": 860,
+      "image": "https://coffeemania.ru/uploads/p214/7038ac9179c16d6.jpg"
+    },
+    {
+      "name": "Минеральная Вода Филетте (Газированная) 750мл",
+      "price": 1200,
+      "image": "https://coffeemania.ru/uploads/p215/2f70893d8a2ff01.jpg"
+    },
+    {
+      "name": "Игристое вино ODDBIRD Blanc de Blancs б/а",
+      "price": 2600,
+      "image": "https://coffeemania.ru/uploads/p4386/8c16e9fea2b844d.jpg"
+    },
+    {
+      "name": "Белое вино Le Naturel Zero Zero Blanco б/а",
+      "price": 3900,
+      "image": "https://coffeemania.ru/uploads/p6258/c55913bc3a21c09.jpg"
+    },
+    {
+      "name": "Пиво Eggenberg Freibier б/а",
+      "price": 940,
+      "image": "https://coffeemania.ru/uploads/p6320/9e49683219365f2.jpg"
+    },
+    {
+      "name": "Гарденист Аранчата Rossa",
+      "price": 470,
+      "image": "https://coffeemania.ru/uploads/p7770/11b6e8a0de6b564.jpg"
+    },
+    {
+      "name": "Milaf cola",
+      "price": 370,
+      "image": "https://coffeemania.ru/uploads/p7982/bcb1019f2193a6f.jpg"
+    },
+    {
+      "name": "Coca-Cola",
+      "price": 510,
+      "image": "https://coffeemania.ru/uploads/p5409/e66ece7d0734407.jpg"
+    },
+    {
+      "name": "Малиновый Арбуз 350мл",
+      "price": 990,
+      "image": "https://coffeemania.ru/uploads/p655/43e651db7354aa0.jpg"
+    },
+    {
+      "name": "Малиновый Арбуз 460мл",
+      "price": 1090,
+      "image": "https://coffeemania.ru/uploads/p667/ecbf953a817acf6.jpg"
+    },
+    {
+      "name": "Лимонад Манго и маракуйя",
+      "price": 950,
+      "image": "https://coffeemania.ru/uploads/p7075/3b11257354a6c13.jpg"
+    },
+    {
+      "name": "Манго и маракуйя в банке",
+      "price": 690,
+      "image": "https://coffeemania.ru/uploads/p4085/efd605f6e010ac1.jpg"
+    },
+    {
+      "name": "Яблоко & Ёлка & Лимон 350мл",
+      "price": 950,
+      "image": "https://coffeemania.ru/uploads/p7072/6577e90eff8654a.jpg"
+    },
+    {
+      "name": "Ананас и базилик",
+      "price": 990,
+      "image": "https://coffeemania.ru/uploads/p6026/f4643cb00f91293.jpg"
+    },
+    {
+      "name": "Груша и рукола",
+      "price": 990,
+      "image": "https://coffeemania.ru/uploads/p2494/e3ca3503465fd2c.jpg"
+    },
+    {
+      "name": "Ла Нинья 350мл",
+      "price": 1000,
+      "image": "https://coffeemania.ru/uploads/p3539/0f6b0be79b7c6a7.jpg"
+    },
+    {
+      "name": "Смузи Манго",
+      "price": 930,
+      "image": "https://coffeemania.ru/uploads/p8258/1159999ed68e212.jpg"
+    },
+    {
+      "name": "Зелёный микс 350мл",
+      "price": 1190,
+      "image": "https://coffeemania.ru/uploads/p3536/348f350d69ddacc.jpg"
+    },
+    {
+      "name": "Фреш грин 350мл",
+      "price": 880,
+      "image": "https://coffeemania.ru/uploads/p632/8fd9cd899682064.jpg"
+    },
+    {
+      "name": "Фреш грин 460мл",
+      "price": 1020,
+      "image": "https://coffeemania.ru/uploads/p651/e20518f159a9c0a.jpg"
+    },
+    {
+      "name": "Апельсиновый свежевыжатый сок",
+      "price": 600,
+      "image": "https://coffeemania.ru/uploads/p3532/77e3a1f7cc0ba03.jpg"
+    },
+    {
+      "name": "Яблочный свежевыжатый сок 175мл",
+      "price": 600,
+      "image": "https://coffeemania.ru/uploads/p3531/4332234ef63d636.jpg"
+    },
+    {
+      "name": "Грейпфрутовый свежевыжатый сок",
+      "price": 600,
+      "image": "https://coffeemania.ru/uploads/p3533/c2c859aa1706159.jpg"
+    },
+    {
+      "name": "Морковный свежевыжатый сок",
+      "price": 600,
+      "image": "https://coffeemania.ru/uploads/p3534/31c67357a936072.jpg"
+    },
+    {
+      "name": "Сельдереевый свежевыжатый сок",
+      "price": 600,
+      "image": "https://coffeemania.ru/uploads/p3639/1c4f20e6a354447.jpg"
+    },
+    {
+      "name": "Крем Сода «Кофемания» 460мл",
+      "price": 990,
+      "image": "https://coffeemania.ru/uploads/p8252/c5d0ac05c0a71d7.jpg"
+    },
+    {
+      "name": "Яблоко & Ёлка & Лимон 460мл",
+      "price": 990,
+      "image": "https://coffeemania.ru/uploads/p6023/23f0657ee35cf22.jpg"
+    },
+    {
+      "name": "Манго и маракуйя 300мл",
+      "price": 880,
+      "image": "https://coffeemania.ru/uploads/p656/fd6358c7c4c1cf2.jpg"
+    },
+    {
+      "name": "Манго и маракуйя 460мл",
+      "price": 1060,
+      "image": "https://coffeemania.ru/uploads/p666/c8d1a39c4b05ab9.jpg"
+    },
+    {
+      "name": "Ла Нинья 220мл",
+      "price": 880,
+      "image": "https://coffeemania.ru/uploads/p4845/34a7a28460e9732.jpg"
+    },
+    {
+      "name": "Зелёный микс 220мл",
+      "price": 1040,
+      "image": "https://coffeemania.ru/uploads/p658/b8c93063116f011.jpg"
+    },
+    {
+      "name": "Арбузный свежевыжатый сок",
+      "price": 600,
+      "image": "https://coffeemania.ru/uploads/p3914/ed93848311c82a3.jpg"
+    },
+    {
+      "name": "Яблочный свежевыжатый сок",
+      "price": 410,
+      "image": null
+    },
+    {
+      "name": "Арахисовое молоко",
+      "price": 640,
+      "image": "https://coffeemania.ru/uploads/p7915/7c7c2d05350808b.jpg"
+    },
+    {
+      "name": "Бургер Клёпа",
+      "price": 890,
+      "image": "https://coffeemania.ru/uploads/p611/c0d436b96082814.jpg"
+    },
+    {
+      "name": "Детские котлетки из индейки",
+      "price": 670,
+      "image": "https://coffeemania.ru/uploads/p465/3e3272019805153.jpg"
+    },
+    {
+      "name": "Детская пожарская котлета",
+      "price": 890,
+      "image": "https://coffeemania.ru/uploads/p4341/8534cdda9def8c4.jpg"
+    },
+    {
+      "name": "Куриные наггетсы-эскимо",
+      "price": 790,
+      "image": "https://coffeemania.ru/uploads/p4342/4ab199c35b66b73.jpg"
+    },
+    {
+      "name": "Детские колбаски",
+      "price": 790,
+      "image": "https://coffeemania.ru/uploads/p467/f695b83c34cb6cc.jpg"
+    },
+    {
+      "name": "Мини-пельмени 150г",
+      "price": 950,
+      "image": "https://coffeemania.ru/uploads/p503/b6d0901faba18a3.jpg"
+    },
+    {
+      "name": "Мини-пельмени в бульоне",
+      "price": 950,
+      "image": "https://coffeemania.ru/uploads/p4055/8d3af8df8cf042b.jpg"
+    },
+    {
+      "name": "Паста ракушки по–флотски",
+      "price": 790,
+      "image": "https://coffeemania.ru/uploads/p4344/b631c3d20c8861f.jpg"
+    },
+    {
+      "name": "Детское картофельное пюре",
+      "price": 490,
+      "image": "https://coffeemania.ru/uploads/p4190/7690456472f235c.jpg"
+    },
+    {
+      "name": "Детский картофель по-деревенски",
+      "price": 490,
+      "image": "https://coffeemania.ru/uploads/p4192/9d203cb8d37edda.jpg"
+    },
+    {
+      "name": "Детский картофель фри",
+      "price": 490,
+      "image": "https://coffeemania.ru/uploads/p4191/d75c3192e2354be.jpg"
+    },
+    {
+      "name": "Паста «ракушки»",
+      "price": 490,
+      "image": "https://coffeemania.ru/uploads/p586/9d71d4ce6a3cfea.jpg"
+    },
+    {
+      "name": "Детские сырники",
+      "price": 790,
+      "image": "https://coffeemania.ru/uploads/p4552/43a75f82085a129.jpg"
+    },
+    {
+      "name": "Детское Какао",
+      "price": 640,
+      "image": "https://coffeemania.ru/uploads/p341/d8bf6e77e0d8f31.jpg"
+    },
+    {
+      "name": "Морозко",
+      "price": 620,
+      "image": "https://coffeemania.ru/uploads/p21/8536da789cdf2ab.jpg"
+    },
+    {
+      "name": "Ванильное облако",
+      "price": 540,
+      "image": "https://coffeemania.ru/uploads/p375/9283eea35f2922b.jpg"
+    },
+    {
+      "name": "Детский Лимонад",
+      "price": 620,
+      "image": "https://coffeemania.ru/uploads/p660/427b57a19f71b46.jpg"
+    },
+    {
+      "name": "Тальолини",
+      "price": 490,
+      "image": "https://coffeemania.ru/uploads/p585/9bad860e195c73d.jpg"
+    },
+    {
+      "name": "Спагетти",
+      "price": 490,
+      "image": "https://coffeemania.ru/uploads/p587/b4aa60b50a5e1d6.jpg"
+    },
+    {
+      "name": "Детские блинчики",
+      "price": 630,
+      "image": "https://coffeemania.ru/uploads/p1761/8d2cb285f8470ae.jpg"
+    },
+    {
+      "name": "Ассам деджу весовой",
+      "price": 1560,
+      "image": "https://coffeemania.ru/uploads/p3414/4fb5e6cd7a03a52.jpg"
+    },
+    {
+      "name": "Жасмин «птичьи язычки» весовой",
+      "price": 2360,
+      "image": "https://coffeemania.ru/uploads/p3411/1db2eecf5ed4749.jpg"
+    },
+    {
+      "name": "Изумрудная почка весовой",
+      "price": 1560,
+      "image": "https://coffeemania.ru/uploads/p3412/277486cc54d1808.jpg"
+    },
+    {
+      "name": "Те Гуаньинь весовой",
+      "price": 2780,
+      "image": "https://coffeemania.ru/uploads/p3409/4ab1fde0b0bbe93.jpg"
+    },
+    {
+      "name": "Иван чай с листом вишни весовой",
+      "price": 1370,
+      "image": "https://coffeemania.ru/uploads/p3556/8fdfb9837d07ed1.jpg"
+    },
+    {
+      "name": "Илам-Дарджилинг весовой",
+      "price": 1560,
+      "image": "https://coffeemania.ru/uploads/p3404/3a315aed3c9972e.jpg"
+    },
+    {
+      "name": "Эрл Грей весовой",
+      "price": 1420,
+      "image": "https://coffeemania.ru/uploads/p3403/bbdd47e0cebb584.jpg"
+    },
+    {
+      "name": "Гречишный чай весовой",
+      "price": 1560,
+      "image": "https://coffeemania.ru/uploads/p3408/843add4ef0df8c6.jpg"
+    },
+    {
+      "name": "Травяной сбор весовой",
+      "price": 1560,
+      "image": "https://coffeemania.ru/uploads/p3407/bd11f04179ca8eb.jpg"
+    },
+    {
+      "name": "Чёрный чай с горными травами весовой",
+      "price": 1560,
+      "image": "https://coffeemania.ru/uploads/p4271/f3df57ddbe847fa.jpg"
+    },
+    {
+      "name": "Лесной сбор весовой",
+      "price": 1420,
+      "image": "https://coffeemania.ru/uploads/p5438/92db12b8c65dcc2.jpg"
+    },
+    {
+      "name": "Эспрессо 1кг",
+      "price": 6600,
+      "image": "https://coffeemania.ru/uploads/p211/4937c21cb6d194d.jpg"
+    },
+    {
+      "name": "Дрип-пакеты «Кофемания», 8 шт",
+      "price": 1490,
+      "image": "https://coffeemania.ru/uploads/p7966/d7bbd93249ae8a3.jpg"
+    },
+    {
+      "name": "Кофе в зёрнах Эфиопия Арбегона",
+      "price": 2300,
+      "image": "https://coffeemania.ru/uploads/p7772/9b2affd1f1ff999.jpg"
+    },
+    {
+      "name": "Кофе в зёрнах Эспрессо 250г",
+      "price": 2300,
+      "image": "https://coffeemania.ru/uploads/p28/02eb7e1b594bc18.jpg"
+    },
+    {
+      "name": "Кофе в зёрнах Декаф Колумбия",
+      "price": 2300,
+      "image": "https://coffeemania.ru/uploads/p7198/0be4b1a65a5982a.jpg"
+    },
+    {
+      "name": "Кофе в зёрнах Эфиопия Йяйе",
+      "price": 2300,
+      "image": "https://coffeemania.ru/uploads/p7655/662890ea342fd3d.jpg"
+    },
+    {
+      "name": "Кофе в зёрнах Йемен Аль Хайма",
+      "price": 2100,
+      "image": "https://coffeemania.ru/uploads/p8528/4a0dd4b830b3352.jpg"
+    },
+    {
+      "name": "Кофе в капсулах",
+      "price": 1090,
+      "image": "https://coffeemania.ru/uploads/p4467/6ee0e84361ad32d.jpg"
+    },
+    {
+      "name": "Кофе в зёрнах Боливия Аласитас",
+      "price": 2300,
+      "image": "https://coffeemania.ru/uploads/p8580/223806945e9ba57.jpg"
+    },
+    {
+      "name": "Котлеты для бургеров из ягнёнка 4 шт",
+      "price": 2700,
+      "image": "https://coffeemania.ru/uploads/p456/2023bba16d56d3f.jpg"
+    },
+    {
+      "name": "Котлеты для бургеров из ягнёнка 6 шт",
+      "price": 4300,
+      "image": "https://coffeemania.ru/uploads/p448/d3c58a5c723762a.jpg"
+    },
+    {
+      "name": "Котлеты для бургеров из говядины 4 шт",
+      "price": 2800,
+      "image": "https://coffeemania.ru/uploads/p457/4042c07435ea5d3.jpg"
+    },
+    {
+      "name": "Котлеты для бургеров из говядины 6 шт",
+      "price": 4100,
+      "image": "https://coffeemania.ru/uploads/p449/50203682885efba.jpg"
+    },
+    {
+      "name": "Колбаски из индейки 480г",
+      "price": 1500,
+      "image": "https://coffeemania.ru/uploads/p470/e772a9aa1916165.jpg"
+    },
+    {
+      "name": "Маринованная курица",
+      "price": 2200,
+      "image": "https://coffeemania.ru/uploads/p473/bb7243e8ec430d2.jpg"
+    },
+    {
+      "name": "Лосось 480г",
+      "price": 3600,
+      "image": "https://coffeemania.ru/uploads/p493/2713b0ef7e6d645.jpg"
+    },
+    {
+      "name": "Креветки очищенные 500г",
+      "price": 3400,
+      "image": "https://coffeemania.ru/uploads/p492/bc5fc60ba905784.jpg"
+    },
+    {
+      "name": "Креветки очищенные 1кг",
+      "price": 4900,
+      "image": "https://coffeemania.ru/uploads/p491/b4fc33924a22255.jpg"
+    },
+    {
+      "name": "Паста Тальолини 500г",
+      "price": 1500,
+      "image": "https://coffeemania.ru/uploads/p557/09911e4d62fe322.jpg"
+    },
+    {
+      "name": "Вареники с вишней 1кг",
+      "price": 2200,
+      "image": "https://coffeemania.ru/uploads/p530/27b85cdf1b003c2.jpg"
+    },
+    {
+      "name": "Пельмени 1кг",
+      "price": 3100,
+      "image": "https://coffeemania.ru/uploads/p445/7dbb70921c4f2d8.jpg"
+    },
+    {
+      "name": "Мини-пельмени 1кг",
+      "price": 3100,
+      "image": "https://coffeemania.ru/uploads/p446/804dfc5a9bf8802.jpg"
+    },
+    {
+      "name": "Сырники 6 шт",
+      "price": 1700,
+      "image": "https://coffeemania.ru/uploads/p549/73acaadca071694.jpg"
+    },
+    {
+      "name": "Сырники 12 шт",
+      "price": 2900,
+      "image": "https://coffeemania.ru/uploads/p548/f5083f5f02fb13e.jpg"
+    },
+    {
+      "name": "Лосось домашнего посола 200г",
+      "price": 2800,
+      "image": "https://coffeemania.ru/uploads/p433/4358179a344920d.jpg"
+    },
+    {
+      "name": "Ветчина из говядины 200г",
+      "price": 800,
+      "image": "https://coffeemania.ru/uploads/p413/b80e452b0df60c0.jpg"
+    },
+    {
+      "name": "Пшеничный хлеб Перле (половина)",
+      "price": 1100,
+      "image": "https://coffeemania.ru/uploads/p83/7b5694294bb28fb.jpg"
+    },
+    {
+      "name": "Пшеничный хлеб Перле (четверть)",
+      "price": 750,
+      "image": "https://coffeemania.ru/uploads/p8012/97ae8192945931d.jpg"
+    },
+    {
+      "name": "Чёрный хлеб с семечками (половина)",
+      "price": 970,
+      "image": "https://coffeemania.ru/uploads/p8013/227306d02d36a44.jpg"
+    },
+    {
+      "name": "Домашние котлетки из индейки 450г",
+      "price": 2400,
+      "image": "https://coffeemania.ru/uploads/p6774/061676578b049b2.jpg"
+    },
+    {
+      "name": "Молоко 3,6%",
+      "price": 400,
+      "image": "https://coffeemania.ru/uploads/p8482/d60b1222079b294.jpg"
+    },
+    {
+      "name": "Молоко 8%",
+      "price": 400,
+      "image": "https://coffeemania.ru/uploads/p388/712c5fd0263e68b.jpg"
+    },
+    {
+      "name": "Хумус",
+      "price": 1300,
+      "image": "https://coffeemania.ru/uploads/p405/206fa7ceb77d7c0.jpg"
+    },
+    {
+      "name": "Бородинский хлеб",
+      "price": 910,
+      "image": "https://coffeemania.ru/uploads/p239/d05547a409fa199.jpg"
+    },
+    {
+      "name": "Бородинский хлеб (половина)",
+      "price": 630,
+      "image": "https://coffeemania.ru/uploads/p8014/95dd94102297550.jpg"
+    },
+    {
+      "name": "Сбер Флэт Уайт 230мл",
+      "price": 780,
+      "image": "https://coffeemania.ru/uploads/p8366/fffe45cd00194cd.jpg"
+    },
+    {
+      "name": "Сбер Кофе Латте 300мл",
+      "price": 780,
+      "image": "https://coffeemania.ru/uploads/p8342/6795edc905e11c3.jpg"
+    },
+    {
+      "name": "Сбер Капучино Гранде 350мл",
+      "price": 780,
+      "image": "https://coffeemania.ru/uploads/p8343/832ab409901de8e.jpg"
+    },
+    {
+      "name": "Сбер Айс Латте 300мл",
+      "price": 780,
+      "image": "https://coffeemania.ru/uploads/p8481/38a7c239d6baab4.jpg"
+    },
+    {
+      "name": "Сбер фильтр Эфиопия W 250мл",
+      "price": 660,
+      "image": "https://coffeemania.ru/uploads/p8344/6f266f355906be5.jpg"
+    },
+    {
+      "name": "Сбер фильтр Эфиопия А 250мл",
+      "price": 660,
+      "image": "https://coffeemania.ru/uploads/p8345/15c92b4a048c26c.jpg"
+    },
+    {
+      "name": "Сбер Фильтр Боливия 250мл",
+      "price": 660,
+      "image": "https://coffeemania.ru/uploads/p8410/043e97a34e24116.jpg"
+    },
+    {
+      "name": "Яичница",
+      "price": 650,
+      "image": "https://coffeemania.ru/uploads/p538/4bc7d63fc36dca8.jpg"
+    },
+    {
+      "name": "Яичница с лисичками",
+      "price": 1300,
+      "image": "https://coffeemania.ru/uploads/p1084/62260ba866cdbe1.jpg"
+    },
+    {
+      "name": "Омлет Розе",
+      "price": 650,
+      "image": "https://coffeemania.ru/uploads/p5261/b68238365be654f.jpg"
+    },
+    {
+      "name": "Яйцо Бенедикт с ветчиной из говядины",
+      "price": 1300,
+      "image": "https://coffeemania.ru/uploads/p4205/2d050565ee4d9b3.jpg"
+    },
+    {
+      "name": "Яйцо Бенедикт с лососем",
+      "price": 1500,
+      "image": "https://coffeemania.ru/uploads/p515/da4129dd894f069.jpg"
+    },
+    {
+      "name": "Аво-тост",
+      "price": 1400,
+      "image": "https://coffeemania.ru/uploads/p613/fc4c0e9cbb94b63.jpg"
+    },
+    {
+      "name": "Картофельный омлет с лососем",
+      "price": 1500,
+      "image": "https://coffeemania.ru/uploads/p5809/ee8a5970ec1c67f.jpg"
+    },
+    {
+      "name": "Драник с крабом",
+      "price": 2100,
+      "image": "https://coffeemania.ru/uploads/p2377/0ccba935ea3879f.jpg"
+    },
+    {
+      "name": "Лосось с драниками",
+      "price": 1700,
+      "image": "https://coffeemania.ru/uploads/p498/ef279788811d6e8.jpg"
+    },
+    {
+      "name": "Колбаски из индейки 150г",
+      "price": 990,
+      "image": "https://coffeemania.ru/uploads/p468/db555d9265e5b93.jpg"
+    },
+    {
+      "name": "Круассан",
+      "price": 450,
+      "image": "https://coffeemania.ru/uploads/p699/75bff173dcd2641.jpg"
+    },
+    {
+      "name": "Круассан с миндалём",
+      "price": 650,
+      "image": "https://coffeemania.ru/uploads/p238/2cafea9a4958855.jpg"
+    },
+    {
+      "name": "Круассан с сыром",
+      "price": 950,
+      "image": "https://coffeemania.ru/uploads/p607/5ca339ad7e5009f.jpg"
+    },
+    {
+      "name": "Круассан с ветчиной из говядины",
+      "price": 1100,
+      "image": "https://coffeemania.ru/uploads/p4204/f5cd8775594ab62.jpg"
+    },
+    {
+      "name": "Круассан с лососем",
+      "price": 1200,
+      "image": "https://coffeemania.ru/uploads/p615/94478a84693a31b.jpg"
+    },
+    {
+      "name": "Блин с красной икрой и крем-сыром",
+      "price": 1400,
+      "image": "https://coffeemania.ru/uploads/p505/d9ccc7e3b63a00b.jpg"
+    },
+    {
+      "name": "Блин с фаршем из говядины и яйцом",
+      "price": 970,
+      "image": "https://coffeemania.ru/uploads/p506/7d4e52d739a7f5d.jpg"
+    },
+    {
+      "name": "Блин с лососем и крем-сыром",
+      "price": 1500,
+      "image": "https://coffeemania.ru/uploads/p511/d82706b6f296048.jpg"
+    },
+    {
+      "name": "Каша из злаков с яйцом пашот",
+      "price": 990,
+      "image": "https://coffeemania.ru/uploads/p4688/1bde14f0cae4bae.jpg"
+    },
+    {
+      "name": "Блин классический с маслом",
+      "price": 590,
+      "image": "https://coffeemania.ru/uploads/p504/c91946151f468df.jpg"
+    },
+    {
+      "name": "Драники из цукини с северной рыбой",
+      "price": 1600,
+      "image": "https://coffeemania.ru/uploads/p8097/5e2ce1b24aa5516.jpg"
+    },
+    {
+      "name": "Овсяная каша безглютеновая",
+      "price": 650,
+      "image": "https://coffeemania.ru/uploads/p6770/db66def3174d0be.jpg"
+    },
+    {
+      "name": "Омлет со спаржей и магаданскими креветками",
+      "price": 1500,
+      "image": "https://coffeemania.ru/uploads/p8095/503c2422f75aa5c.jpg"
+    },
+    {
+      "name": "Пшённая каша",
+      "price": 650,
+      "image": "https://coffeemania.ru/uploads/p546/76eea11dfe9c6f1.jpg"
+    },
+    {
+      "name": "Рисовая каша",
+      "price": 650,
+      "image": "https://coffeemania.ru/uploads/p545/3331e2848133c74.jpg"
+    },
+    {
+      "name": "Минимальная сумма заказа",
+      "price": 35,
+      "image": null
+    }
+  ]
+}

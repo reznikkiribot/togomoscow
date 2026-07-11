@@ -120,6 +120,9 @@ export default function Home() {
   const [photoReview, setPhotoReview] = useState<Review | null>(null); // tap feed photo → the review
   const [openUser, setOpenUser] = useState<string | null>(null);
   const [heroIdx, setHeroIdx] = useState(0);
+  // pin: opening the hero card must NOT advance the deck — the same card is
+  // waiting when the user comes back (it leaves only after a rating/skip)
+  const [heroPinId, setHeroPinId] = useState<string | null>(null);
   const [myId, setMyId] = useState<string | null>(null);
   const [skipped, setSkipped] = useState<Set<string>>(new Set());
   // changes every mount → home cards reshuffle each time you open / switch tabs
@@ -387,7 +390,8 @@ export default function Home() {
     }
     return out;
   })();
-  const heroItem = ratePool.length ? ratePool[heroIdx % ratePool.length] : null;
+  const pinned = heroPinId ? ratePool.find((l) => l.id === heroPinId) : undefined;
+  const heroItem = pinned ?? (ratePool.length ? ratePool[heroIdx % ratePool.length] : null);
 
   useEffect(() => {
     const q = search.trim();
@@ -651,7 +655,7 @@ export default function Home() {
                   setSkipped((s) => new Set(s).add(heroItem.id));
                   setHeroIdx((i) => i + 1);
                 }}
-                onShuffle={() => setHeroIdx((i) => i + 1)}
+                onShuffle={() => { setHeroPinId(null); setHeroIdx((i) => i + 1); }}
                 onOpenItem={() => {
                   setAutoRate(undefined);
                   openListing(heroItem);

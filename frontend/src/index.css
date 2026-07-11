@@ -5122,3 +5122,25 @@ button:active,
 
 /* social proof on zero-review cards */
 .no-rating.proof { color: var(--fg); font-weight: 600; }
+
+/* «О вкусе»: tab pane slides in softly on switch (swipe or tap) */
+.impact-pane {
+  animation: paneIn 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+@keyframes paneIn {
+  from { opacity: 0; transform: translateX(14px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* «Хочу попробовать» always fits its button */
+.fav-btn, .hero-btn, .call-btn {
+  white-space: nowrap;
+  overflow: hidden;
+  min-width: 0;
+}
+.card .fav-btn {
+  font-size: clamp(11px, 3.3vw, 13.5px);
+  padding-left: 8px;
+  padding-right: 8px;
+  letter-spacing: -0.2px;
+}

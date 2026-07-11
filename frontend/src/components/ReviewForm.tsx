@@ -1,5 +1,7 @@
 import {useEffect, useState, useRef } from 'react';
 import { api } from '../api';
+import { composeStoryImage } from '../storyImage';
+import { useSwipeDismiss } from '../swipeDismiss';
 import { useEscClose } from '../modalEsc';
 import type { Listing, PublicUser, Review } from '../types';
 import { StarInput } from './StarInput';
@@ -22,7 +24,7 @@ export function ReviewForm({
   initialPhotoUrls?: string[]; // e.g. the photo the user just scanned — prefilled
   knownPrice?: number | null; // item already has a price here → don't ask for it
   onClose: () => void;
-  onSaved: (media?: { photo?: string; photos?: string[]; video?: string; text?: string }) => void;
+  onSaved: (media?: { photo?: string; photos?: string[]; video?: string; text?: string; slides?: Record<string, string> }) => void;
 }) {
   const tpl = templateFor(listing);
   const prev = (existing?.attributes ?? {}) as Record<string, any>;
@@ -48,6 +50,15 @@ export function ReviewForm({
   const [videoUrls, setVideoUrls] = useState<string[]>(existing?.videoUrls ?? []);
   const [busy, setBusy] = useState(false);
   const busyRef = useRef(false); // sync re-entry guard: iOS ghost-taps beat setState
+  // the form is a bottom sheet — pull-down closes it, same as feed posts
+  const sheetRef = useRef<HTMLDivElement>(null);
+  useSwipeDismiss(sheetRef, onClose);
+  // story slides pre-compose WHILE the user types — so the editor opens the
+  // instant they hit «Опубликовать» instead of seconds later (or never)
+  const slides = useRef(new Map<string, string>());
+  const precompose = (url: string) => {
+    composeStoryImage(url).then((s) => { if (s) slides.current.set(url, s); }).catch(() => {});
+  };
   const [error, setError] = useState<string | null>(null);
 
   // tag friends (Untappd-style) — people you follow
@@ -80,6 +91,7 @@ export function ReviewForm({
     try {
       const urls = await Promise.all(Array.from(files).map((f) => api.upload(f)));
       setPhotoUrls((p) => [...p, ...urls]);
+      urls.slice(0, 2).forEach(precompose); // stories use the first two photos
     } catch {
       setError('Не удалось загрузить фото');
     } finally {
@@ -126,7 +138,7 @@ export function ReviewForm({
       };
       await api.createReview(listing.id, { rating, text, attributes, photoUrls, videoUrls });
       // pass the user's OWN media + their note so the story uses both
-      onSaved({ photo: photoUrls[0], photos: photoUrls, video: videoUrls[0], text: text.trim() || undefined });
+      onSaved({ photo: photoUrls[0], photos: photoUrls, video: videoUrls[0], text: text.trim() || undefined, slides: Object.fromEntries(slides.current) });
     } catch {
       setError('Не удалось сохранить');
       busyRef.current = false;
@@ -143,7 +155,7 @@ export function ReviewForm({
         onClose();
       }}
     >
-      <div className="modal" onClick={(e) => e.stopPropagation()}>
+      <div className="modal" ref={sheetRef} onClick={(e) => e.stopPropagation()}>
         <h3>{listing.name}</h3>
         {venue && (
           <div className="meta" style={{ fontSize: 14, fontWeight: 600, marginTop: 2 }}>

@@ -142,6 +142,53 @@ export function MapBrowse({ cat, onClose }: { cat: BrowseCat; onClose: () => voi
   // the Telegram webview), then snap open/closed on release.
   const sheetRef = useRef<HTMLDivElement>(null);
   const collapsedPx = () => window.innerHeight * 0.86 - 220;
+  // pull-down from INSIDE the list (feed-post logic): when the list is scrolled
+  // to the top, dragging down grabs the whole sheet and collapses it to the map;
+  // scrolled lists keep scrolling — the decision is made on the FIRST move.
+  const listRef = useRef<HTMLDivElement>(null);
+  const onListDown = (e: React.PointerEvent) => {
+    if (!expanded) return; // collapsed sheet: the handle already does this
+    const list = listRef.current;
+    if (list && list.scrollTop > 0) return; // mid-scroll → native scrolling
+    const startY = e.clientY;
+    const startX = e.clientX;
+    let decided = false;
+    const sheet = sheetRef.current;
+    const move = (ev: PointerEvent) => {
+      const dy = ev.clientY - startY;
+      const dx = ev.clientX - startX;
+      if (!decided) {
+        if (Math.abs(dy) < 4 && Math.abs(dx) < 4) return;
+        // downward pull wins only when clearly vertical
+        if (dy <= 0 || Math.abs(dx) > Math.abs(dy)) { cleanup(); return; }
+        decided = true;
+        sheet?.classList.add('dragging');
+      }
+      ev.preventDefault();
+      const t = Math.max(0, Math.min(collapsedPx(), dy));
+      if (sheet) sheet.style.transform = `translateY(${t}px)`;
+    };
+    const up = (ev: PointerEvent) => {
+      cleanup();
+      if (!decided) return;
+      if (sheet) {
+        sheet.classList.remove('dragging');
+        sheet.style.transform = '';
+      }
+      const dy = ev.clientY - startY;
+      setExpanded(dy < collapsedPx() / 3); // a firm pull → the map
+    };
+    const cleanup = () => {
+      document.removeEventListener('pointermove', move);
+      document.removeEventListener('pointerup', up);
+      document.removeEventListener('pointercancel', up);
+      if (!decided && sheet) { sheet.classList.remove('dragging'); sheet.style.transform = ''; }
+    };
+    document.addEventListener('pointermove', move, { passive: false });
+    document.addEventListener('pointerup', up);
+    document.addEventListener('pointercancel', up);
+  };
+
   const onDown = (e: React.PointerEvent) => {
     if ((e.target as HTMLElement).closest('button, input, a')) return; // let controls work
     const startY = e.clientY;
@@ -270,7 +317,7 @@ export function MapBrowse({ cat, onClose }: { cat: BrowseCat; onClose: () => voi
                 ? `Найдено: ${results.length}`
                 : 'Ничего не найдено'}
         </div>
-        <div className="mb-list">
+        <div className="mb-list" ref={listRef} onPointerDown={onListDown}>
           {results.map((l) => (
             <ListRow
               key={l.id}

@@ -252,7 +252,38 @@ export default function MyRatings() {
           })()}
         </div>
       ) : (
-      <div className="me-section">
+      <div
+        className="me-section"
+        onPointerDown={(e) => {
+          // horizontal swipe flips the «О вкусе» tabs (Профиль ⇄ Фото)
+          const x0 = e.clientX;
+          const y0 = e.clientY;
+          let decided = false;
+          const move = (ev: PointerEvent) => {
+            const dx = ev.clientX - x0;
+            const dy = ev.clientY - y0;
+            if (!decided) {
+              if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+              if (Math.abs(dx) <= Math.abs(dy)) { cleanup(); return; } // vertical → scroll
+              decided = true;
+            }
+          };
+          const up = (ev: PointerEvent) => {
+            const dx = ev.clientX - x0;
+            cleanup();
+            if (!decided || Math.abs(dx) < 48) return;
+            setImpactTab(dx < 0 ? 'photos' : 'taste');
+          };
+          const cleanup = () => {
+            document.removeEventListener('pointermove', move);
+            document.removeEventListener('pointerup', up);
+            document.removeEventListener('pointercancel', up);
+          };
+          document.addEventListener('pointermove', move);
+          document.addEventListener('pointerup', up);
+          document.addEventListener('pointercancel', up);
+        }}
+      >
         <h2 className="me-h">О вкусе</h2>
         <div className="impact-tabs">
           <button
@@ -269,6 +300,7 @@ export default function MyRatings() {
           </button>
         </div>
 
+        <div key={impactTab} className="impact-pane">
         {impactTab === 'taste' ? (
           !taste || taste.total === 0 ? (
             <>
@@ -320,6 +352,7 @@ export default function MyRatings() {
             ))}
           </div>
         )}
+        </div>
       </div>
 
       )}

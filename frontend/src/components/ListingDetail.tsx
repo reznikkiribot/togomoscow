@@ -1481,14 +1481,20 @@ export function ListingDetailModal({
               // the user's own note becomes the story caption; fall back to the name
               const caption = media?.text?.trim() || `${data.name} — пробую в togomoscow 🍽`;
               if (media?.photo && !storyAlreadyShared(media.photo)) {
-                // compose a real 9:16 slide: photo CONTAIN (horizontal shots no longer
-                // stretched) + the app link pill bottom-right baked into the image.
-                // If the slide can't be built, portrait/square shots still go raw
-                // (Telegram shows those fine) — only landscape is never sent raw.
-                composeStoryImage(media.photo).then(async (slide) => {
-                  const url = slide ?? (await portraitStoryFallback(media.photo!));
-                  if (!url) return;
+                // the slide was PRE-COMPOSED while the user typed (ReviewForm) —
+                // the story editor opens INSTANTLY on publish. Fallbacks: compose
+                // now → raw portrait photo. Landscape never goes raw (stretches).
+                const prebuilt = media.slides?.[media.photo];
+                const shareFirst = async () => {
+                  const url = prebuilt
+                    ?? (await composeStoryImage(media.photo!))
+                    ?? (await portraitStoryFallback(media.photo!));
+                  if (!url) return false;
                   shareToStory(url, caption, `l_${data.id}`);
+                  return true;
+                };
+                void shareFirst().then((shared) => {
+                  if (!shared) return;
                   // SECOND photo → a SECOND story after the first is posted: photo
                   // only, no text (owner's spec). Wait for the app to regain
                   // visibility (story editor closed), then open editor #2.
@@ -1499,7 +1505,9 @@ export function ListingDetailModal({
                     if (fired) return;
                     fired = true;
                     document.removeEventListener('visibilitychange', onVis);
-                    const s2 = (await composeStoryImage(second)) ?? (await portraitStoryFallback(second));
+                    const s2 = media.slides?.[second]
+                      ?? (await composeStoryImage(second))
+                      ?? (await portraitStoryFallback(second));
                     if (s2) shareToStory(s2, '', `l_${data.id}`);
                   };
                   const onVis = () => {
@@ -1558,6 +1566,7 @@ export function ListingDetailModal({
       )}
       {showVenuePicker && (
         <VenuePicker
+          itemId={data.id}
           onClose={() => setShowVenuePicker(false)}
           onPick={(venue) => {
             api.linkItemToVenue(data.id, venue.id).catch(() => {});
