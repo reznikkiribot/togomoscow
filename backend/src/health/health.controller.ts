@@ -23,6 +23,23 @@ export class HealthController {
     return { status: 'ok', db: 'up', time: new Date().toISOString() };
   }
 
+  // Current frontend bundle name — the client compares it with its own script
+  // src and reloads itself when the server has a newer build. This kills the
+  // "eternally stale Telegram session" problem for good.
+  private bundleCache: { at: number; js: string } | null = null;
+  @Get('bundle')
+  bundle() {
+    if (this.bundleCache && Date.now() - this.bundleCache.at < 60_000) return { js: this.bundleCache.js };
+    try {
+      const html = fs.readFileSync(`${process.cwd()}/public/index.html`, 'utf8');
+      const js = html.match(/\/assets\/(index-[\w-]+\.js)/)?.[1] ?? '';
+      this.bundleCache = { at: Date.now(), js };
+      return { js };
+    } catch {
+      return { js: '' };
+    }
+  }
+
   // Public community counters — social proof for CTA blocks ("уже N оценок в
   // клубе"). Cached in-memory for 5 min: it's shown on every home open.
   private statsCache: { at: number; data: { reviews: number; tasters: number } } | null = null;

@@ -31,8 +31,32 @@ export default function App() {
       .onboarding()
       .then((o) => setShowQuiz(!o.onboarded || forced))
       .catch(() => setShowQuiz(forced));
+    // SELF-UPDATE: Telegram keeps mini-app sessions alive for hours, so users
+    // kept seeing builds from the morning. Whenever the app regains focus we
+    // compare our bundle name with the server's — a mismatch reloads the app
+    // (never mid-modal, so no typed review is ever lost).
+    let lastCheck = 0;
+    const myBundle = (document.querySelector('script[src*="/assets/index-"]') as HTMLScriptElement | null)?.src.match(/index-[w-]+.js/)?.[0];
+    const checkFresh = () => {
+      if (!myBundle || Date.now() - lastCheck < 30_000) return;
+      lastCheck = Date.now();
+      fetch('/api/health/bundle')
+        .then((r) => r.json())
+        .then(({ js }) => {
+          if (js && js !== myBundle && !document.querySelector('.modal-backdrop, .quiz')) {
+            window.location.reload();
+          }
+        })
+        .catch(() => {});
+    };
+    const onVis = () => { if (!document.hidden) checkFresh(); };
+    document.addEventListener('visibilitychange', onVis);
+    const iv = setInterval(checkFresh, 300_000);
+    checkFresh();
     return () => {
       stop = true;
+      document.removeEventListener('visibilitychange', onVis);
+      clearInterval(iv);
     };
   }, []);
 

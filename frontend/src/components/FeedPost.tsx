@@ -81,7 +81,7 @@ export function FeedPost({
       ) : cardPhoto ? (
         <div className="post-photo-wrap">
           <img className="post-photo" src={thumb(cardPhoto, 600)} alt="" loading="lazy" />
-          <span className="info-photo-badge">📷 Фото иллюстративное</span>
+          
         </div>
       ) : null}
 

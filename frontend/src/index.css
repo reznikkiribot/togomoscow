@@ -5212,3 +5212,9 @@ button:active,
   border-radius: 16px 16px 0 0;
   position: relative;
 }
+
+/* name hugs the venue line — no empty reserved second line (owner request) */
+.card-wrap .card .name {
+  min-height: 0;
+  max-height: none;
+}
