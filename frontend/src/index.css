@@ -5167,3 +5167,20 @@ button:active,
   overflow: hidden;
   text-overflow: clip;
 }
+
+/* iOS WebKit resolves %-heights inside flex rows against the FIRST layout pass,
+   which cut card footers off ("Хочу попробовать" half-hidden). Cards may only
+   GROW with their content — stretch via min-height, never a hard height. */
+.feed .card-wrap,
+.grid .card-wrap {
+  height: auto;
+  align-self: stretch;
+}
+.feed .card-wrap .card,
+.grid .card-wrap .card {
+  height: auto;
+  min-height: 100%;
+}
+.card-foot {
+  flex-shrink: 0; /* the button row never gets squeezed out */
+}

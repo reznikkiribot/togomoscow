@@ -485,6 +485,17 @@ export class ListingsService {
       fresh = candidates;
       recycled = true;
     }
+    if (!fresh.length) {
+      // no other people's posts exist at all (tiny community) → the viewer's own
+      // posts keep the wall alive rather than showing an empty feed
+      fresh = await this.prisma.review.findMany({
+        where: { status: 'APPROVED', photoUrls: { isEmpty: false }, userId: viewerId },
+        include: { user: true, listing: true },
+        orderBy: { createdAt: 'desc' },
+        take: 50,
+      });
+      recycled = true;
+    }
     if (!fresh.length) return [];
 
     // engagement, batched: useful×3, other reactions ×1, comments ×2
@@ -1253,8 +1264,26 @@ export class ListingsService {
         AND EXISTS (SELECT 1 FROM menu_links m WHERE m.item_id = l.id AND m.status = 'APPROVED' AND m.price IS NOT NULL)
       ORDER BY RANDOM() LIMIT ${Number(take)}`;
     if (!rows.length) return [];
-    const items = await this.prisma.listing.findMany({ where: { id: { in: rows.map((r) => r.id) } } });
-    return this.enrichCards(items);
+    const items = await this.prisma.listing.findMany({
+      where: { id: { in: rows.map((r) => r.id) } },
+      include: {
+        servedAt: {
+          where: { status: 'APPROVED', price: { not: null } },
+          select: { venue: { select: { id: true, name: true } }, price: true },
+          take: 1,
+        },
+      },
+    });
+    const enriched = await this.enrichCards(items);
+    // zero-review cards have no bestVenue — surface the menu-link venue + price
+    // (the owner's rule: every discovery card names its place and its price)
+    return enriched.map((l: any) => ({
+      ...l,
+      recVenue: l.servedAt?.[0]
+        ? { id: l.servedAt[0].venue.id, name: l.servedAt[0].venue.name, price: l.servedAt[0].price }
+        : null,
+      servedAt: undefined,
+    }));
   }
 
   /** "Топ-10 мест за неделю" — restaurants ranked by rating. */

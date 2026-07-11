@@ -303,7 +303,7 @@ export default function Home() {
       const batch = await api.feed();
       const q = readFeedQueue();
       const known = new Set([...q.map((r) => r.id), ...wallIds.current]);
-      const add = batch.filter((r) => !known.has(r.id) && r.user?.id !== myId);
+      const add = batch.filter((r) => !known.has(r.id)); // the server decides whose posts show
       if (add.length) writeFeedQueue([...q, ...add]);
       return add.length;
     } catch {
@@ -314,7 +314,7 @@ export default function Home() {
   }, [myId]);
   const showNextPosts = useCallback((count = 5) => {
     const q = readFeedQueue();
-    const next = q.filter((r) => !wallIds.current.has(r.id) && r.user?.id !== myId).slice(0, count);
+    const next = q.filter((r) => !wallIds.current.has(r.id)).slice(0, count);
     if (next.length) {
       for (const r of next) wallIds.current.add(r.id);
       writeFeedQueue(q.filter((r) => !wallIds.current.has(r.id)));
