@@ -157,11 +157,32 @@ async function main() {
       // the official image into our own AI derivative. An existing aigen- photo
       // is FINAL: future parses must never touch it (owner rule 11.07.2026).
       const photoUrl = null;
-      // find-or-create the shared catalog item (dedup by name + type)
+      // find-or-create the shared catalog item (dedup by name + type).
+      // ANTI-DUPE RULE (owner, 11.07.2026): «Карбонара» and «Паста Карбонара»
+      // are the same item — match the stripped form too (same dish kind only).
+      const stripped = name.toLowerCase().replace(/ё/g, 'е').replace(/^(паста|пицца|салат|суп|ролл|роллы|напиток|коктейль)\s+/, '');
       let item = await prisma.listing.findFirst({
         where: { type, name: { equals: name, mode: 'insensitive' } },
         select: { id: true, photoUrl: true },
       });
+      if (!item) {
+        const near = await prisma.listing.findMany({
+          where: { type, OR: [
+            { name: { equals: stripped, mode: 'insensitive' } },
+            { name: { endsWith: ' ' + stripped, mode: 'insensitive' } },
+          ] },
+          select: { id: true, photoUrl: true, name: true, category: true },
+        });
+        const kindOf = (n, cat) => {
+          const s = (n ?? '').toLowerCase(); const cc = (cat ?? '').toLowerCase();
+          if (/^пицца |пицц/.test(s + ' ' + cc)) return 'pizza';
+          if (/^паста |паст/.test(s + ' ' + cc)) return 'pasta';
+          if (/^суп |суп/.test(s + ' ' + cc)) return 'soup';
+          return 'any';
+        };
+        const myKind = kindOf(name, category);
+        item = near.find((x) => { const k = kindOf(x.name, x.category); return k === 'any' || myKind === 'any' || k === myKind; }) ?? null;
+      }
       if (!item) {
         item = await prisma.listing.create({
           data: { type, name, category, groupKey: name.toLowerCase(), source: 'menu-import', photoUrl },
