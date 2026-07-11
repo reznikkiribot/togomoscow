@@ -27,8 +27,10 @@ export function FeedPost({
   onOpenPhoto?: () => void; // tap the PHOTO → the review itself (check-in detail)
   onOpenVenue?: () => void; // tap the "📍 place" line → the venue card
 }) {
-  // the feed only contains posts where the user uploaded their own photo, so show that
+  // the user's own photo leads; text-only posts fall back to the dish's card
+  // photo (illustrative, labeled) so the wall never looks broken/empty
   const photo = review.photoUrls?.[0];
+  const cardPhoto = !photo ? review.listing?.photoUrl : null;
   const u = review.user;
   const initial = (u?.firstName ?? u?.username ?? '?').trim()[0]?.toUpperCase() ?? '?';
   const [vote, setVote] = useState<VoteState>({
@@ -62,7 +64,7 @@ export function FeedPost({
       </button>
 
       {/* tap the photo → the REVIEW opens (the rest of the post opens the item card) */}
-      {photo && (
+      {photo ? (
         <div
           className="post-photo-wrap"
           onClick={(e) => {
@@ -76,7 +78,12 @@ export function FeedPost({
           {/* ↗ affordance: the photo IS tappable (opens the check-in) */}
           {onOpenPhoto && <span className="post-photo-open">↗</span>}
         </div>
-      )}
+      ) : cardPhoto ? (
+        <div className="post-photo-wrap">
+          <img className="post-photo" src={thumb(cardPhoto, 600)} alt="" loading="lazy" />
+          <span className="info-photo-badge">📷 Фото иллюстративное</span>
+        </div>
+      ) : null}
 
       <div className="post-venue">
         <b>{review.listing?.name}</b>

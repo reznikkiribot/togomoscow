@@ -5184,3 +5184,20 @@ button:active,
 .card-foot {
   flex-shrink: 0; /* the button row never gets squeezed out */
 }
+
+/* FINAL card geometry (июль 2026): NO percentage heights anywhere in card rows —
+   iOS WebKit resolves them against a stale first layout pass and CLIPS footers.
+   Equal-height stretching is done by pure flex, identical in every engine. */
+.card-wrap {
+  height: auto;
+  display: flex; /* the card fills the wrap without % heights */
+  position: relative; /* .heart anchors here */
+}
+.card-wrap .card,
+.feed .card-wrap .card,
+.grid .card-wrap .card {
+  height: auto;
+  min-height: 0;
+  flex: 1 1 auto;
+  width: 100%;
+}
