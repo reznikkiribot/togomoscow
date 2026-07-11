@@ -16,6 +16,7 @@ import { ratingsWord, openStatus } from '../plural';
 import { useEscClose } from '../modalEsc';
 import { useSwipeDismiss } from '../swipeDismiss';
 import { pushRecent } from '../recent';
+import { thumb } from '../img';
 import { cuisineTags } from '../cuisine';
 import { beerStyle } from '../tasting';
 import { useCategoryProgress } from '../categoryGate';
@@ -548,10 +549,20 @@ export function ListingDetailModal({
     ]),
   );
   const galleryVideos = Array.from(new Set(data.reviews.flatMap((r) => r.videoUrls ?? [])));
+  // every review photo remembers WHERE it was tasted and by whom — the carousel
+  // captions come from here (photo → dish at a specific venue → shared card)
+  const mediaMeta = new Map<string, { venue?: string; user?: string }>();
+  for (const r of data.reviews) {
+    for (const u of r.photoUrls ?? []) {
+      if (!mediaMeta.has(u)) mediaMeta.set(u, { venue: (r as any).venue?.name, user: r.user?.firstName ?? undefined });
+    }
+  }
   const media: { t: 'img' | 'video'; u: string }[] = [
     ...galleryPhotos.map((u) => ({ t: 'img' as const, u })),
     ...galleryVideos.map((u) => ({ t: 'video' as const, u })),
   ];
+
+  const thumbUrl = (u: string) => thumb(u, 600) ?? u;
 
   const VOTE_LABEL: Record<VoteType, string> = {
     USEFUL: '👍 Полезно',
@@ -713,14 +724,26 @@ export function ListingDetailModal({
             </div>
           )}
           {media.length > 1 ? (
-          <div className="gallery">
-            {media.map((m, i) =>
-              m.t === 'img' ? (
-                <img key={i} className="gallery-img" src={m.u} alt="" loading="lazy" />
-              ) : (
-                <video key={i} className="gallery-img" src={m.u} controls playsInline />
-              ),
-            )}
+          /* CAROUSEL: full-width snap slides; each photo names its venue */
+          <div className="carousel">
+            {media.map((m, i) => {
+              const meta = mediaMeta.get(m.u);
+              return (
+                <div key={i} className="carousel-slide">
+                  {m.t === 'img' ? (
+                    <img className="detail-photo" src={thumbUrl(m.u)} alt="" loading={i > 0 ? 'lazy' : 'eager'} />
+                  ) : (
+                    <video className="detail-photo" src={m.u} controls playsInline />
+                  )}
+                  {(meta?.venue || meta?.user) && (
+                    <span className="carousel-cap">
+                      {meta?.venue ? `📍 ${meta.venue}` : ''}{meta?.venue && meta?.user ? ' · ' : ''}{meta?.user ?? ''}
+                    </span>
+                  )}
+                  <span className="carousel-count">{i + 1}/{media.length}</span>
+                </div>
+              );
+            })}
           </div>
         ) : media.length === 1 ? (
           media[0].t === 'img' ? (
