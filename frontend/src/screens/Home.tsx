@@ -20,6 +20,8 @@ import { useFavorites } from '../hooks/useFavorites';
 import { getRecent } from '../recent';
 import { TrainingScale } from '../components/TrainingScale';
 import { loadCategoryProgress } from '../categoryGate';
+import { haptic } from '../telegram';
+import { IcRestaurant, IcCoffee, IcCake, IcBar, IcDish, IcWine } from '../components/Icons';
 import type { Listing, ListingType, Review, VenueEvent } from '../types';
 
 type Cat = ListingType | 'ALL' | 'BAR' | 'CAFE' | 'COFFEE';
@@ -101,6 +103,10 @@ function writeFeedQueue(q: Review[]) {
   try { localStorage.setItem(FEEDQ_KEY, JSON.stringify(q.slice(0, 60))); } catch { /* quota */ }
 }
 
+const TILE_ICON: Record<string, JSX.Element> = {
+  RESTAURANT: <IcRestaurant />, COFFEE: <IcCoffee />, CAFE: <IcCake />,
+  BAR: <IcBar />, DISH: <IcDish />, DRINK: <IcWine />,
+};
 const TILES: { key: Cat; icon: string; label: string }[] = [
   { key: 'RESTAURANT', icon: '🍽️', label: 'Рестораны' },
   { key: 'COFFEE', icon: '☕', label: 'Кофейни' },
@@ -544,7 +550,7 @@ export default function Home() {
                 setBrowse(t.key as BrowseCat);
             }}
           >
-            <span className="cat-ico">{t.icon}</span>
+            <span className="cat-ico">{TILE_ICON[t.key] ?? null}</span>
             {t.label}
           </button>
         ))}
@@ -670,7 +676,18 @@ export default function Home() {
           )}
         </>
       ) : !feedLoaded && ratePool.length === 0 && myReviews.length === 0 && wallPosts.length === 0 ? (
-        <div className="empty">Загрузка…</div>
+        <div style={{ padding: '4px 2px' }}>
+          {[0, 1, 2].map((i) => (
+            <div key={i} className="sk-card">
+              <div className="sk sk-photo" />
+              <div className="sk-lines">
+                <div className="sk sk-line w70" />
+                <div className="sk sk-line w40" />
+                <div className="sk sk-line btn" />
+              </div>
+            </div>
+          ))}
+        </div>
       ) : (
         <>
           <TrainingScale />
@@ -773,14 +790,17 @@ export default function Home() {
           )}
         </>
       )}
-      {/* after «показать ещё» — a floating "up" button jumps back to the top */}
+      {/* after «показать ещё» — a premium frosted "up" button (chevron, fades +
+          scales in, haptic) jumps back to the top */}
       {showScrollTop && (
         <button
           className="scroll-top-btn"
           aria-label="Наверх"
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          onClick={() => { haptic('light'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
         >
-          ↑
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M18 15l-6-6-6 6" />
+          </svg>
         </button>
       )}
 

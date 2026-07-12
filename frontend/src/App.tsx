@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import { api } from './api';
+import { IcHome, IcBookmark, IcUser, IcTools } from './components/Icons';
 import { QuizModal } from './components/QuizModal';
 import { CategoryCelebration } from './components/CategoryCelebration';
 import { ScanFab } from './components/ScanFab';
@@ -83,20 +84,20 @@ export default function App() {
           className={cls}
           onClick={() => window.dispatchEvent(new CustomEvent('home-reset'))}
         >
-          <span className="ico">🏠</span>
+          <span className="ico"><IcHome /></span>
           Главная
         </NavLink>
         <NavLink to="/favorites" className={cls}>
-          <span className="ico">🔖</span>
+          <span className="ico"><IcBookmark /></span>
           Хочу попробовать
         </NavLink>
         <NavLink to="/me" className={cls}>
-          <span className="ico">👤</span>
+          <span className="ico"><IcUser /></span>
           Профиль
         </NavLink>
         {isAdmin && (
           <NavLink to="/business" className={cls}>
-            <span className="ico">🛠</span>
+            <span className="ico"><IcTools /></span>
             Кабинет
           </NavLink>
         )}
