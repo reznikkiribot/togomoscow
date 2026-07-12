@@ -18,5 +18,6 @@ export const IcRestaurant = ({ size }: P) => svg(<><path d="M6 3v8a2 2 0 0 0 4 0
 export const IcCoffee = ({ size }: P) => svg(<><path d="M4 8h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V8Z" /><path d="M17 9h2.5a2.5 2.5 0 0 1 0 5H17" /><path d="M8 2c-.5 1 .5 1.5 0 2.5M12 2c-.5 1 .5 1.5 0 2.5" /></>, size);
 export const IcCake = ({ size }: P) => svg(<><path d="M4 21h16v-7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7Z" /><path d="M4 16c1.5 1.4 2.5 1.4 4 0s2.5-1.4 4 0 2.5 1.4 4 0 2.5-1.4 4 0" /><path d="M12 5v4M12 3v.01" /></>, size);
 export const IcBar = ({ size }: P) => svg(<><path d="M5 4h14l-7 8-7-8Z" /><path d="M12 12v7M8 21h8" /></>, size);
-export const IcDish = ({ size }: P) => svg(<><circle cx="12" cy="13" r="8" /><circle cx="12" cy="13" r="3.5" /></>, size);
+// served dish under a cloche (distinct from the fork/knife «Рестораны» icon)
+export const IcDish = ({ size }: P) => svg(<><path d="M4 16a8 8 0 0 1 16 0" /><path d="M3 16h18" /><path d="M12 8V6" /></>, size);
 export const IcWine = ({ size }: P) => svg(<><path d="M7 3h10c0 5-2 8-5 8s-5-3-5-8Z" /><path d="M12 11v7M8 21h8" /></>, size);

@@ -21,6 +21,7 @@ import { getRecent } from '../recent';
 import { TrainingScale } from '../components/TrainingScale';
 import { loadCategoryProgress } from '../categoryGate';
 import { haptic } from '../telegram';
+import { useSwipeBack } from '../swipeBack';
 import { IcRestaurant, IcCoffee, IcCake, IcBar, IcDish, IcWine } from '../components/Icons';
 import type { Listing, ListingType, Review, VenueEvent } from '../types';
 
@@ -143,6 +144,9 @@ export default function Home() {
   const [recCards, setRecCards] = useState<Listing[]>([]);
   const recSeen = useRef(new Set<string>());
   const recFetching = useRef(false);
+  // swipe left→right returns from a category/search view to the home feed (iOS
+  // interactive-pop pattern) — active ONLY while a filter/category is on screen
+  const homeRef = useRef<HTMLDivElement>(null);
   const [scrollArmed, setScrollArmed] = useState(false); // «показать ещё» was tapped
   const [scrolledDown, setScrolledDown] = useState(false); // page is scrolled down
   const showScrollTop = scrollArmed && scrolledDown;
@@ -254,6 +258,14 @@ export default function Home() {
   // latest filter state for the Esc handler (avoids stale closure)
   const escStateRef = useRef({ cat, search, results });
   escStateRef.current = { cat, search, results };
+
+  // a category/search view is on screen → enable swipe-back to the home feed
+  const browsingCategory = cat !== 'ALL' || !!search.trim() || !!results;
+  useSwipeBack(
+    homeRef,
+    () => window.dispatchEvent(new Event('home-reset')),
+    browsingCategory,
+  );
 
   // tapping "Главная" in the nav clears search and returns to the start screen
   useEffect(() => {
@@ -533,7 +545,7 @@ export default function Home() {
   );
 
   return (
-    <div>
+    <div ref={homeRef}>
       <div className="cat-bar">
         {TILES.map((t) => (
           <button

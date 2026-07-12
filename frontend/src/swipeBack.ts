@@ -5,8 +5,13 @@ import { useEffect, type RefObject } from 'react';
 // very first pixels; release past a third of the width (or a fling) → back,
 // else it springs home. Touches that start inside horizontal scrollers
 // (carousels, chip rows) are left alone. Sheets/cards keep their swipe-DOWN.
-export function useSwipeBack(pageRef: RefObject<HTMLElement | null>, onBack: () => void) {
+export function useSwipeBack(
+  pageRef: RefObject<HTMLElement | null>,
+  onBack: () => void,
+  enabled = true,
+) {
   useEffect(() => {
+    if (!enabled) return;
     let raf = 0;
     let cancelled = false;
     let detach: (() => void) | null = null;
@@ -69,7 +74,14 @@ export function useSwipeBack(pageRef: RefObject<HTMLElement | null>, onBack: () 
           closed = true;
           el.style.transition = 'transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1)';
           el.style.transform = 'translateX(105%)';
-          setTimeout(onBack, 280);
+          setTimeout(() => {
+            onBack();
+            // pages that DON'T unmount (e.g. the home screen returning from a
+            // category view) must be snapped back to place, not left off-screen
+            el.style.transition = 'none';
+            el.style.transform = '';
+            closed = false;
+          }, 280);
         } else {
           el.style.transition = 'transform 0.4s cubic-bezier(0.22, 1.1, 0.36, 1)';
           el.style.transform = '';
@@ -93,5 +105,5 @@ export function useSwipeBack(pageRef: RefObject<HTMLElement | null>, onBack: () 
       detach?.();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [enabled]);
 }
