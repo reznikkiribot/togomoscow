@@ -219,6 +219,14 @@ export class ListingsService {
       const mc = this.matchCond(search, 'AND', false);
       conds.push(mc ?? Prisma.sql`name ILIKE ${'%' + search + '%'}`);
     }
+    // OWNER RULE (12.07.2026): dishes/drinks with NO venue link are hidden from the
+    // menu/browse (Блюда/Напитки tabs) — they only surface on a DIRECT search.
+    // They stay in the DB and reappear automatically once a parse links a venue.
+    if ((type === 'DISH' || type === 'DRINK') && !search) {
+      conds.push(
+        Prisma.sql`EXISTS (SELECT 1 FROM menu_links ml WHERE ml.item_id = listings.id AND ml.status = 'APPROVED')`,
+      );
+    }
     if (price) conds.push(Prisma.sql`price_level = ${Number(price)}`);
     if (cuisine) {
       // the OSM `cuisine` field is sparse — also match the Russian category/name
