@@ -108,12 +108,13 @@ const TILE_ICON: Record<string, JSX.Element> = {
   BAR: <IcBar />, DISH: <IcDish />, DRINK: <IcWine />,
 };
 const TILES: { key: Cat; icon: string; label: string }[] = [
-  { key: 'RESTAURANT', icon: '🍽️', label: 'Рестораны' },
-  { key: 'COFFEE', icon: '☕', label: 'Кофейни' },
-  { key: 'CAFE', icon: '🍰', label: 'Кафе' },
-  { key: 'BAR', icon: '🍸', label: 'Бары' },
+  // dishes & drinks lead — that's the core "что попробовать" loop
   { key: 'DISH', icon: '🍝', label: 'Блюда' },
   { key: 'DRINK', icon: '🍷', label: 'Напитки' },
+  { key: 'RESTAURANT', icon: '🍽️', label: 'Рестораны' },
+  { key: 'CAFE', icon: '🍰', label: 'Кафе' },
+  { key: 'BAR', icon: '🍸', label: 'Бары' },
+  { key: 'COFFEE', icon: '☕', label: 'Кофейни' },
 ];
 
 export default function Home() {
