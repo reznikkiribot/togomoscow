@@ -312,9 +312,10 @@ export class ListingsService {
       }
     }
 
-    // for dishes/drinks: the venue where this item scores highest — shown on the card
+    // for dishes/drinks: the venue where this item scores highest — shown on the
+    // card WITH that venue's own photo (the image follows «Лучшее в:» too)
     const itemIds = rows.filter((r) => r.type === 'DISH' || r.type === 'DRINK').map((r) => r.id);
-    const bestByItem = new Map<string, { name: string; rating: number }>();
+    const bestByItem = new Map<string, { id: string; name: string; rating: number; photoUrl?: string | null }>();
     if (itemIds.length) {
       const agg = await this.prisma.$queryRaw<
         { listing_id: string; vid: string; avg: number }[]
@@ -337,9 +338,15 @@ export class ListingsService {
           select: { id: true, name: true },
         });
         const nameById = new Map(vs.map((v) => [v.id, v.name]));
+        // the best (venue, item)'s own generated photo, if any
+        const bestLinks = await this.prisma.menuLink.findMany({
+          where: { OR: [...topByItem.entries()].map(([lid, t]) => ({ itemId: lid, venueId: t.vid })) },
+          select: { itemId: true, venueId: true, photoUrl: true },
+        });
+        const linkPhoto = new Map(bestLinks.map((l) => [`${l.itemId}|${l.venueId}`, l.photoUrl]));
         for (const [lid, t] of topByItem) {
           const name = nameById.get(t.vid);
-          if (name) bestByItem.set(lid, { name, rating: t.avg });
+          if (name) bestByItem.set(lid, { id: t.vid, name, rating: t.avg, photoUrl: linkPhoto.get(`${lid}|${t.vid}`) });
         }
       }
     }
@@ -392,16 +399,18 @@ export class ListingsService {
     }
 
     return rows.map((r) => {
+      const best = bestByItem.get(r.id);
       const tryAt = tryAtByItem.get(r.id);
-      // when the card is attributed to a venue and NO user photos exist yet, show
-      // THAT venue's generated photo (so the image matches "попробуйте в: X")
+      // the photo follows the venue the card is attributed to: «Лучшее в:» first,
+      // then «Попробуйте в:». User photos always win; venue photo only when no
+      // real user photo exists yet.
       const isUserPhoto = (r as any).photoUrl?.startsWith('/api/files/') && !(r as any).photoUrl?.startsWith('/api/files/aigen-');
-      const venuePhoto = !isUserPhoto && tryAt?.photoUrl ? tryAt.photoUrl : null;
+      const venuePhoto = !isUserPhoto ? (best?.photoUrl || tryAt?.photoUrl || null) : null;
       return {
       ...r,
       photoUrl: venuePhoto ?? (r as any).photoUrl,
       snippet: snippetByListing.get(r.id) ?? null,
-      bestVenue: bestByItem.get(r.id) ?? null,
+      bestVenue: best ?? null,
       wantCount: wantByListing.get(r.id) ?? undefined,
       viewCount: viewsByListing.get(r.id) ?? undefined,
       tryAt: tryAt ?? undefined,
