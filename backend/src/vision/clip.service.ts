@@ -12,9 +12,24 @@ export class ClipService implements OnModuleInit {
   private loading: Promise<any> | null = null;
   readonly model = process.env.CLIP_MODEL || 'Xenova/clip-vit-base-patch32';
 
+  // the label sets the scanner uses on every recognition — warmed at startup so
+  // the FIRST scan isn't a 7s "load the text model" spike
+  static readonly BOTTLE_LABELS = [
+    'a photo of a wine bottle, beer bottle or can with a label',
+    'a photo of food or a dish on a plate',
+    'a photo of a drink in a cup or glass',
+    'a photo of an unrelated object or scene',
+  ];
+
   async onModuleInit() {
     // warm the model at startup (background) so the first scan isn't slow
-    this.load().catch((e) => this.log.warn(`CLIP preload failed: ${e?.message}`));
+    this.load()
+      .then(() => {
+        // precompute + cache the bottle/moderation label vectors while idle
+        this.classifyVec(new Array(512).fill(0), ClipService.BOTTLE_LABELS).catch(() => {});
+        this.loadLabelVecs().catch(() => {});
+      })
+      .catch((e) => this.log.warn(`CLIP preload failed: ${e?.message}`));
   }
 
   private async load() {

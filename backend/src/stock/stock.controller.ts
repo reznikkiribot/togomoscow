@@ -11,7 +11,7 @@ export class StockController {
   // Deterministic pretty placeholder for ANY listing (venue/dish/drink) with no
   // real photo — a licensed category stock, NEVER a brand logo or a letter tile.
   // The client points a broken/missing image here as its final fallback.
-  @Get('stock/pick')
+  @Get('venue-stock')
   pick(
     @Res() res: Response,
     @Query('type') type = 'RESTAURANT',

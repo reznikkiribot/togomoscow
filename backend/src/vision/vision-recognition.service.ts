@@ -77,12 +77,7 @@ export class VisionRecognitionService implements OnModuleInit {
     // Vivino-style: a BOTTLE/CAN label is recognized by its TEXT (labels all look
     // alike to CLIP). Detect via the SAME embedding, then OCR.
     if ((mode === 'auto' || mode === 'drink') && qvec.length) {
-      const probs = await this.clip.classifyVec(qvec, [
-        'a photo of a wine bottle, beer bottle or can with a label',
-        'a photo of food or a dish on a plate',
-        'a photo of a drink in a cup or glass',
-        'a photo of an unrelated object or scene',
-      ]);
+      const probs = await this.clip.classifyVec(qvec, ClipService.BOTTLE_LABELS);
       if (probs && probs[0] >= 0.45) return this.recognizeLabel(image);
     }
     if (qvec.length) {

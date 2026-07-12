@@ -34,7 +34,7 @@ export function listingPhotoCandidates(listing: Listing): string[] {
   // listing (venues in «Где ещё попробовать» etc. that have no placeholderPhoto):
   // a deterministic licensed category stock, never a bare letter tile.
   candidates.push(
-    `/api/stock/pick?type=${listing.type}&category=${encodeURIComponent(listing.category ?? '')}` +
+    `/api/venue-stock?type=${listing.type}&category=${encodeURIComponent(listing.category ?? '')}` +
       `&name=${encodeURIComponent(listing.name ?? '')}&seed=${encodeURIComponent(listing.id ?? listing.name ?? '')}`,
   );
   return candidates;
