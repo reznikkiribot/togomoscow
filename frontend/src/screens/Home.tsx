@@ -147,6 +147,7 @@ export default function Home() {
   // swipe left→right returns from a category/search view to the home feed (iOS
   // interactive-pop pattern) — active ONLY while a filter/category is on screen
   const homeRef = useRef<HTMLDivElement>(null);
+  const homeScrollY = useRef(0); // home scroll position saved when entering a category
   const [scrollArmed, setScrollArmed] = useState(false); // «показать ещё» was tapped
   const [scrolledDown, setScrolledDown] = useState(false); // page is scrolled down
   const showScrollTop = scrollArmed && scrolledDown;
@@ -263,7 +264,7 @@ export default function Home() {
   const browsingCategory = cat !== 'ALL' || !!search.trim() || !!results;
   useSwipeBack(
     homeRef,
-    () => window.dispatchEvent(new Event('home-reset')),
+    () => window.dispatchEvent(new Event('home-back')), // light return, no reload
     browsingCategory,
   );
 
@@ -288,10 +289,24 @@ export default function Home() {
       const { cat, search, results } = escStateRef.current;
       if (cat !== 'ALL' || search.trim() || results) reset();
     };
+    // LIGHT return (swipe-back): just clear the category/search and restore the
+    // home scroll position — DON'T reload/reshuffle the already-loaded feed
+    const back = () => {
+      setSearch('');
+      setCat('ALL');
+      setResults(null);
+      setFilters({ sort: 'recommended', price: 0, openNow: false, cuisine: '' });
+      setActive(null);
+      setBrowse(null);
+      const y = homeScrollY.current;
+      requestAnimationFrame(() => window.scrollTo({ top: y, behavior: 'auto' }));
+    };
     window.addEventListener('home-reset', reset);
+    window.addEventListener('home-back', back);
     window.addEventListener('keydown', onKey);
     return () => {
       window.removeEventListener('home-reset', reset);
+      window.removeEventListener('home-back', back);
       window.removeEventListener('keydown', onKey);
     };
   }, [refreshHome]);
@@ -554,9 +569,11 @@ export default function Home() {
             onClick={() => {
               // tapping the already-active category deselects it → back to the start screen
               if (cat === t.key) {
-                window.dispatchEvent(new Event('home-reset'));
+                window.dispatchEvent(new Event('home-back'));
                 return;
               }
+              // remember where we were so swipe-back restores the home scroll
+              if (cat === 'ALL' && !search.trim()) homeScrollY.current = window.scrollY;
               setCat(t.key as Cat);
               // places → map; dishes/drinks → list (item first, then venues)
               if (t.key === 'RESTAURANT' || t.key === 'BAR' || t.key === 'CAFE' || t.key === 'COFFEE')
@@ -603,7 +620,7 @@ export default function Home() {
               }
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              onFocus={() => setSearchFocused(true)}
+              onFocus={() => { if (cat === 'ALL' && !search.trim()) homeScrollY.current = window.scrollY; setSearchFocused(true); }}
               onBlur={() => setTimeout(() => setSearchFocused(false), 150)}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
