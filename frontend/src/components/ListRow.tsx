@@ -67,8 +67,14 @@ export function ListRow({
           ) : null}
         </div>
 
+        {/* recommendation card → the recommended place (from recsys) */}
+        {isItem && !listing.bestVenue && listing.recVenue && (
+          <div className="sub" style={{ color: 'var(--accent)', fontWeight: 600 }}>
+            {listing.reviewCount === 0 ? 'Попробуйте в:' : ''}📍{listing.recVenue.name}
+          </div>
+        )}
         {/* no best venue yet → a random venue that serves it */}
-        {isItem && !listing.bestVenue && (listing as any).tryAt && (
+        {isItem && !listing.bestVenue && !listing.recVenue && (listing as any).tryAt && (
           <div className="sub">
             {listing.reviewCount === 0 ? 'Попробуйте в:' : ''}📍{(listing as any).tryAt.name}
           </div>

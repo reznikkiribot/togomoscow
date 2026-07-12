@@ -132,12 +132,27 @@ export class VisionController {
     const min = Number(process.env.RECS_MIN_REVIEWS ?? 15);
     const count = await this.prisma.review.count({ where: { userId: user.id } });
     if (count < min) return { locked: true, items: [] };
-    const hits = this.vectors.similarTo(id, 8);
+    // the source item's kind — «похожие» must stay in the same lane (a smoothie
+    // is not "similar" to a matcha latte just because the stock photos rhyme)
+    const src = await this.prisma.listing.findUnique({ where: { id }, select: { type: true, category: true } });
+    const hits = this.vectors.similarTo(id, 24); // over-fetch, then filter by kind
     if (!hits.length) return { locked: false, items: [] };
     const rows = await this.prisma.listing.findMany({ where: { id: { in: hits.map((h) => h.id) } } });
     const byId = new Map(rows.map((r) => [r.id, r]));
-    const ordered = hits.map((h) => byId.get(h.id)).filter(Boolean) as typeof rows;
-    const items = await this.listings.enrichCards(ordered);
+    const catToken = (c?: string | null) => (c ?? '').toLowerCase().replace(/\s.*/, '');
+    const srcCat = catToken(src?.category);
+    let ordered = hits
+      .map((h) => byId.get(h.id))
+      .filter((r): r is NonNullable<typeof r> => !!r && r.id !== id)
+      // same TYPE (dish/drink); same broad category when the source has one
+      .filter((r) => (!src?.type || r.type === src.type) && (!srcCat || catToken(r.category) === srcCat));
+    // if the category filter is too strict (few results), relax to same type only
+    if (ordered.length < 3) {
+      ordered = hits
+        .map((h) => byId.get(h.id))
+        .filter((r): r is NonNullable<typeof r> => !!r && r.id !== id && (!src?.type || r.type === src.type));
+    }
+    const items = await this.listings.enrichCards(ordered.slice(0, 8));
     return { locked: false, items };
   }
 }

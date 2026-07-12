@@ -6,7 +6,6 @@ import { ListRow } from '../components/ListRow';
 import { Stars } from '../components/Stars';
 import { preloadListingPhotos, VenuePhoto } from '../components/VenuePhoto';
 import { FeedPost } from '../components/FeedPost';
-import { FeedRecCard } from '../components/FeedRecCard';
 import { PhotoPostModal } from '../components/PhotoPostModal';
 import { CommentsModal } from '../components/CommentsModal';
 import { hasOpenModal } from '../modalEsc';
@@ -137,6 +136,7 @@ export default function Home() {
   const [recCards, setRecCards] = useState<Listing[]>([]);
   const recSeen = useRef(new Set<string>());
   const recFetching = useRef(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
   const [search, setSearch] = useState('');
   const [suggestions, setSuggestions] = useState<Sugg[]>([]);
   const [searchFocused, setSearchFocused] = useState(false);
@@ -747,25 +747,34 @@ export default function Home() {
                   onOpenVenue={() => r.venue?.id && openListing({ id: r.venue.id, name: r.venue.name } as Listing)}
                 />
               ))}
-              {/* endless taste-based recommendations after the user posts */}
+              {/* endless taste-based recommendations after the user posts — SAME
+                  format as search results (ListRow: photo on top), just tagged */}
               {recCards.map((l) => (
-                <FeedRecCard
-                  key={'rec-' + l.id}
-                  item={l}
-                  favorite={ids.has(l.id)}
-                  onOpen={() => { setAutoRate(undefined); openListing(l); }}
-                  onRate={(n) => { setAutoRate(n); openListing(l); }}
-                  onFavorite={() => toggle(l.id)}
-                  onOpenVenue={() => l.recVenue?.id && openListing({ id: l.recVenue.id, name: l.recVenue.name } as Listing)}
-                />
+                <div key={'rec-' + l.id} className="rec-wrap">
+                  <div className="rec-tag">✨ Вам может понравиться</div>
+                  {row(l)}
+                </div>
               ))}
               {/* the feed never ends: «показать ещё» always loads more */}
-              <button className="btn secondary show-more" onClick={() => extendFeed(5)}>
+              <button
+                className="btn secondary show-more"
+                onClick={() => { extendFeed(5); setShowScrollTop(true); }}
+              >
                 Показать ещё
               </button>
             </>
           )}
         </>
+      )}
+      {/* after «показать ещё» — a floating "up" button jumps back to the top */}
+      {showScrollTop && (
+        <button
+          className="scroll-top-btn"
+          aria-label="Наверх"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        >
+          ↑
+        </button>
       )}
 
       {commentsReview && (

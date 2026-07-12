@@ -43,13 +43,21 @@ export const STOCK: Record<string, string> = {
   drink_tea: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=600&q=70',
   drink_cocktail: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=600&q=70',
   drink_beer: 'https://images.unsplash.com/photo-1608270586620-248524c67de9?w=600&q=70',
+  // beer «красиво наливающееся» variations (commercial-free, Unsplash)
+  drink_beer2: 'https://images.unsplash.com/photo-1566633806327-68e152aaf26d?w=600&q=70',
+  drink_beer3: 'https://images.unsplash.com/photo-1571613316887-6f8d5cbf7ef7?w=600&q=70',
+  drink_beer4: 'https://images.unsplash.com/photo-1618183479302-1e0aa382c36b?w=600&q=70',
   drink_wine: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=600&q=70',
+  drink_wine2: 'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=600&q=70',
+  drink_wine3: 'https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=600&q=70',
   drink_lemonade: 'https://images.unsplash.com/photo-1437418747212-8d9709afab22?w=600&q=70',
   drink_hotchoc: 'https://images.unsplash.com/photo-1542990253-a781e04c0082?w=600&q=70',
 };
 
 const POOLS: Record<string, string[]> = {
   restaurant: ['rest_1', 'rest_2', 'rest_3', 'rest_4', 'rest_5', 'dish_1', 'dish_3'],
+  beer: ['drink_beer', 'drink_beer2', 'drink_beer3', 'drink_beer4'],
+  wine: ['drink_wine', 'drink_wine2', 'drink_wine3'],
   bar: ['bar_1', 'bar_2', 'bar_3', 'drink_1', 'drink_3'],
   dish: ['dish_1', 'dish_2', 'dish_3', 'dish_4', 'dish_5'],
   drink: ['drink_1', 'drink_2', 'drink_3', 'bar_1'],
@@ -101,11 +109,17 @@ export function placeholderKeys(
     return null;
   };
   if (type === 'DRINK') {
-    // name+category aware: beer→beer, wine→wine, tea→tea… (fall back to a food kind
-    // for the odd drink miscategorised, then a generic drink)
-    const k = findIn(DRINK_MAP) ?? findIn(FOOD_MAP);
-    if (k) return [k];
-    pool = POOLS.drink;
+    // beer/wine BRANDS get a rotating pool (owner: no AI for beer/wine, use nice
+    // stock — «красиво наливающееся пиво и разные его вариации»)
+    if (/пив|beer|ipa|лагер|эль|стаут|портер|пшенич|kozel|козел/i.test(text)) pool = POOLS.beer;
+    else if (/вино|wine|шампан|игрист|просекко|prosecco|розе|мерло|каберне|шардоне|фанагор|саперави/i.test(text)) pool = POOLS.wine;
+    else {
+      // name+category aware: tea→tea, coffee→coffee… (fall back to a food kind for
+      // the odd drink miscategorised, then a generic drink)
+      const k = findIn(DRINK_MAP) ?? findIn(FOOD_MAP);
+      if (k) return [k];
+      pool = POOLS.drink;
+    }
   } else if (type === 'DISH') {
     // burgers, pizza, sushi… detected from the name even when category is just "Блюдо";
     // teas/coffees miscategorised as DISH still get the right drink stock

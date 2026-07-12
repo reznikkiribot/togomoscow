@@ -52,6 +52,10 @@ export class ReviewsService {
       ]);
       if (!m) return { block: false, promote: true }; // moderation down → don't punish users
       if (m.nsfw > 0.5) return { block: true, promote: false };
+      // screenshots / charts / documents are NOT a review photo of a dish — block
+      // entirely (a spline-interpolation graph is not food). 'other' = the
+      // screenshot/diagram label from moderatePhoto.
+      if (m.other > 0.5 && m.food < 0.3) return { block: true, promote: false };
       // card faces must clearly be food/drink — selfies and screenshots stay in the review
       return { block: false, promote: m.food >= 0.5 && m.person < 0.35 };
     } catch {

@@ -1613,10 +1613,12 @@ button:active,
 }
 /* «Сообщить о неточности» row — equal gap above (Инфо) and below (Отзывы) */
 .report-line {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   width: 100%;
   text-align: left;
-  padding: 12px 2px;
+  padding: 12px 0;
   margin: 8px 0 2px;
   line-height: 1.3;
 }
@@ -5352,4 +5354,35 @@ button:active,
 .scan-cand.top {
   border: 2px solid var(--accent);
   background: rgba(211, 35, 35, 0.05);
+}
+
+/* recommendation card in the feed = a search-result row with a tag on top */
+.rec-wrap { margin-bottom: 4px; }
+.rec-wrap .rec-tag {
+  display: inline-block;
+  margin: 8px 4px 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(211, 35, 35, 0.08);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+/* floating "scroll to top" button (left side), appears after «показать ещё» */
+.scroll-top-btn {
+  position: fixed;
+  left: 16px;
+  bottom: calc(80px + env(safe-area-inset-bottom));
+  z-index: 1400;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
 }

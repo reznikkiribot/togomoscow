@@ -15,6 +15,7 @@ import { openExternal, telHref, callPhone, shareToStory, shareToChat, shareMessa
 import { ratingsWord, openStatus } from '../plural';
 import { useEscClose } from '../modalEsc';
 import { useSwipeDismiss } from '../swipeDismiss';
+import { useSwipeBack } from '../swipeBack';
 import { pushRecent } from '../recent';
 import { thumb } from '../img';
 import { cuisineTags } from '../cuisine';
@@ -310,6 +311,8 @@ export function ListingDetailModal({
   // app-wide pattern: swipe down anywhere on the sheet (from its scroll top) closes —
   // complements the photo-handle drag below (which stays for gallery-area gestures)
   useSwipeDismiss(sheetRef, onClose);
+  // AND swipe left→right (edge) closes, same as the back arrow — app-wide (owner)
+  useSwipeBack(sheetRef, onClose);
   const mediaRef = useRef<HTMLDivElement>(null);
   const photoInputRef = useRef<HTMLInputElement>(null); // "Добавить фото" (no review)
   const [photoBusy, setPhotoBusy] = useState(false);
@@ -1008,7 +1011,7 @@ export function ListingDetailModal({
             [
               ['menu', 'Меню'],
               ['info', 'Инфо'],
-              ['reviews', `Отзывы (${data.reviewCount})`],
+              ['reviews', `Отзывы (${data.reviews.length})`],
               ['qa', 'Вопросы'],
             ] as const
           ).map(([k, label]) => (
@@ -1259,14 +1262,7 @@ export function ListingDetailModal({
         {!isRestaurant && <SimilarItems id={data.id} onOpen={(lid) => setId(lid)} />}
 
         <div ref={reviewsRef} className="feed-section">
-          <div className="section-title big">Отзывы ({data.reviewCount})</div>
-          {firstTaster && (
-            <div className="first-taster-line">
-              🏅 Первый дегустатор: <b>{firstTaster.user.firstName || firstTaster.user.username || 'гурман'}</b>
-              {' · '}
-              {new Date(firstTaster.at).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })}
-            </div>
-          )}
+          <div className="section-title big">Отзывы ({data.reviews.length})</div>
           <div className="tab-pane">
             <div className="rate-block">
               <div className="rb-head">
