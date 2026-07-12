@@ -103,7 +103,9 @@ export class SocialService {
       (r) => (r.text?.trim().length ?? 0) >= 30 || (r.photoUrls?.length ?? 0) > 0,
     ).length;
     const level = [...LEVELS].reverse().find((l) => quality >= l.need) ?? LEVELS[0];
-    return { ...card, reviewList, level: { title: level.title, icon: level.icon, quality } };
+    // taster map (specializations) — everyone can see it on anyone's profile
+    const specializations = (await this.specializations(targetId)).filter((s: any) => s.count > 0);
+    return { ...card, reviewList, level: { title: level.title, icon: level.icon, quality }, specializations };
   }
 
   /** For dish/drink reviews, attach the venue that serves the item. */

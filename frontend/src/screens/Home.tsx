@@ -136,7 +136,14 @@ export default function Home() {
   const [recCards, setRecCards] = useState<Listing[]>([]);
   const recSeen = useRef(new Set<string>());
   const recFetching = useRef(false);
-  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [scrollArmed, setScrollArmed] = useState(false); // «показать ещё» was tapped
+  const [scrolledDown, setScrolledDown] = useState(false); // page is scrolled down
+  const showScrollTop = scrollArmed && scrolledDown;
+  useEffect(() => {
+    const onScroll = () => setScrolledDown(window.scrollY > 400);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
   const [search, setSearch] = useState('');
   const [suggestions, setSuggestions] = useState<Sugg[]>([]);
   const [searchFocused, setSearchFocused] = useState(false);
@@ -758,7 +765,7 @@ export default function Home() {
               {/* the feed never ends: «показать ещё» always loads more */}
               <button
                 className="btn secondary show-more"
-                onClick={() => { extendFeed(5); setShowScrollTop(true); }}
+                onClick={() => { extendFeed(5); setScrollArmed(true); }}
               >
                 Показать ещё
               </button>

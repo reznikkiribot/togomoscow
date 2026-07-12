@@ -187,6 +187,27 @@ export function UserProfileModal({ id, onClose }: { id: string; onClose: () => v
             )}
           </div>
 
+          {/* Карта дегустатора — visible on ANY user's profile */}
+          {Array.isArray((p as any).specializations) && (p as any).specializations.length > 0 && (
+            <div className="me-section">
+              <h2 className="me-h">🗺 Карта дегустатора</h2>
+              <div className="spec-grid">
+                {(p as any).specializations
+                  .slice()
+                  .sort((a: any, b: any) => b.count - a.count)
+                  .map((s: any) => (
+                    <div key={s.id} className={'spec-card' + (s.tier ? ' on' : '')}>
+                      <span className="spec-ico">{s.icon}</span>
+                      <div className="spec-body">
+                        <div className="spec-label">{s.tier ? `${s.tier} · ${s.label}` : s.label}</div>
+                        <div className="spec-meta">{s.count} дегустаций</div>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          )}
+
           {(() => {
             // fill the author from the profile owner (reviewList items carry no `user`)
             const withUser = (r: Review): Review =>
