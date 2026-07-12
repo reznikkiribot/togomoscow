@@ -13,6 +13,9 @@ const SPAM = /(?:https?:\/\/|www\.|t\.me\/|@[a-z0-9_]{4,}|\b\d{10,}\b|(.)\1{6,})
 // that adds no signal ("параша", "блевал", "говно", "жрать невозможно"). A review
 // hitting this goes to human moderation instead of auto-publishing. Extend freely.
 const CRUDE = /параш|блев(ал|ать|ота|отн)|сблев|стошнил|говн|дерьм|гавн|обосра|зассан|помо[йи]|отрав(ился|иться|а)|потрав|тошнот|мерзост|отврат|гадост|уёбищ|уебищ|конч(еный|аный)|быдл|скотин|животное\b|жр(ать|али) невозможно|есть невозможно|нахер|нахрен|похер|похрен|днище|зашкварн?/i;
+// GIBBERISH: repeated 2-3 char syllables ("траляля", "трулюлю", "бла бла бла",
+// "ляляля") or a single-char run — no informational content → human moderation
+const GIBBERISH = /([а-яёa-z]{2,3})\1{2,}|(.)\2{5,}|^(?:(\w+)\s+)\3{2,}$/i;
 
 export interface CreateReviewDto {
   rating: number;
@@ -142,8 +145,8 @@ export class ReviewsService {
     // photo sends the review to PENDING for a human look)
     let status: 'APPROVED' | 'PENDING' = 'APPROVED';
     const reviewText = (dto.text ?? '').trim();
-    if (reviewText && (PROFANITY.test(reviewText) || SPAM.test(reviewText) || CRUDE.test(reviewText))) {
-      status = 'PENDING'; // crude / non-constructive → the cabinet, not the feed
+    if (reviewText && (PROFANITY.test(reviewText) || SPAM.test(reviewText) || CRUDE.test(reviewText) || GIBBERISH.test(reviewText))) {
+      status = 'PENDING'; // crude / gibberish / non-constructive → the cabinet, not the feed
     }
     // toxic low-rating rant with no substance (e.g. "1★, отстой, не берите"):
     // a 1-2★ review under ~20 chars and no useful noun is held for a human look
@@ -206,7 +209,13 @@ export class ReviewsService {
     // is on that venue's menu (and on every branch of the chain). Done server-side
     // so it works no matter which rating path the client used.
     const venueId = (dto.attributes as any)?.venueId;
-    const price = (dto.attributes as any)?.price;
+    // sane price cap: a dish/drink over 100 000 ₽ is a typo/troll → clamp so the
+    // catalog never shows "1000000 ₽"
+    let price = (dto.attributes as any)?.price;
+    if (price != null) {
+      price = Math.max(0, Math.min(100000, Math.round(Number(price) || 0))) || undefined;
+      if (dto.attributes && typeof dto.attributes === 'object') (dto.attributes as any).price = price;
+    }
     if (venueId) await this.linkChain(userId, listingId, venueId, price);
     // implicit-feedback signal for the recommender (high ratings = strong positive)
     const recType = rating >= 5 ? 'RATE_HIGH' : rating >= 4 ? 'RATE_GOOD' : null;

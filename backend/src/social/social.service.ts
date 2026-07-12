@@ -86,7 +86,24 @@ export class SocialService {
     });
     await this.attachItemVenues(reviewList);
     await this.attachVoteCounts(reviewList); // reactions must show real counts
-    return { ...card, reviewList };
+    // taster LEVEL (same ladder as gamification) — shown on the public profile
+    const LEVELS = [
+      { title: 'Новичок', icon: '🌱', need: 0 },
+      { title: 'Исследователь', icon: '🧭', need: 5 },
+      { title: 'Гурман', icon: '🍷', need: 15 },
+      { title: 'Критик', icon: '✒️', need: 30 },
+      { title: 'Эксперт', icon: '🎓', need: 60 },
+      { title: 'Амбассадор', icon: '👑', need: 120 },
+    ];
+    const allReviews = await this.prisma.review.findMany({
+      where: { userId: targetId },
+      select: { text: true, photoUrls: true },
+    });
+    const quality = allReviews.filter(
+      (r) => (r.text?.trim().length ?? 0) >= 30 || (r.photoUrls?.length ?? 0) > 0,
+    ).length;
+    const level = [...LEVELS].reverse().find((l) => quality >= l.need) ?? LEVELS[0];
+    return { ...card, reviewList, level: { title: level.title, icon: level.icon, quality } };
   }
 
   /** For dish/drink reviews, attach the venue that serves the item. */

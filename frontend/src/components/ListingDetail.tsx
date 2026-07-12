@@ -541,11 +541,13 @@ export function ListingDetailModal({
   // Only REAL user photos populate the hero gallery; the seeded brand logo
   // (data.photoUrl) stays as the list thumbnail via VenuePhoto. When there are
   // no user photos, the backend supplies labeled stock placeholders instead.
+  // the shared-card carousel shows ONLY food-verified photos (checkins + photos
+  // promoted by moderation) — a selfie/face review photo stays inside its own
+  // review but never leads the dish card (owner rule 12.07.2026)
   const galleryPhotos = Array.from(
     new Set([
       ...(data.checkinPhotos ?? []),
-      ...(data.photos ?? []), // photos added straight to the card (no review)
-      ...data.reviews.flatMap((r) => r.photoUrls ?? []),
+      ...(data.photos ?? []),
     ]),
   );
   const galleryVideos = Array.from(new Set(data.reviews.flatMap((r) => r.videoUrls ?? [])));

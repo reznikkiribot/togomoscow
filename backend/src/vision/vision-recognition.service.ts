@@ -71,10 +71,13 @@ export class VisionRecognitionService implements OnModuleInit {
     if (mode === 'wine') return this.recognizeLabel(image);
     if (mode === 'menu') return this.recognizeMenu(image);
 
-    // Vivino-style: a photo of a BOTTLE/CAN label is recognized by its TEXT, not
-    // by image similarity (labels all look alike to CLIP). Auto-detect first.
-    if (mode === 'auto' || mode === 'drink') {
-      const probs = await this.clip.classify(image, [
+    // PRIMARY: CLIP image-to-image — fast (~250ms) + accurate + language-independent.
+    // Embed ONCE and reuse for bottle-detection (no second embed → faster).
+    const qvec = await this.clip.embedImage(image);
+    // Vivino-style: a BOTTLE/CAN label is recognized by its TEXT (labels all look
+    // alike to CLIP). Detect via the SAME embedding, then OCR.
+    if ((mode === 'auto' || mode === 'drink') && qvec.length) {
+      const probs = await this.clip.classifyVec(qvec, [
         'a photo of a wine bottle, beer bottle or can with a label',
         'a photo of food or a dish on a plate',
         'a photo of a drink in a cup or glass',
@@ -82,9 +85,6 @@ export class VisionRecognitionService implements OnModuleInit {
       ]);
       if (probs && probs[0] >= 0.45) return this.recognizeLabel(image);
     }
-
-    // PRIMARY: CLIP image-to-image — fast (~250ms) + accurate + language-independent
-    const qvec = await this.clip.embedImage(image);
     if (qvec.length) {
       const type = mode === 'drink' ? 'DRINK' : mode === 'dish' ? 'DISH' : undefined;
       const hits = this.vectors.searchImage(qvec, { type, limit: 8 });

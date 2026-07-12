@@ -290,8 +290,13 @@ export function ReviewForm({
               type="number"
               inputMode="numeric"
               placeholder="напр. 350"
+              max={100000}
               value={price}
-              onChange={(e) => setPrice(e.target.value)}
+              onChange={(e) => {
+                // cap at 100 000 ₽ — no "1000000 ₽" typos in the catalog
+                const n = Math.min(100000, Math.max(0, Number(e.target.value) || 0));
+                setPrice(e.target.value === '' ? '' : String(n));
+              }}
             />
             <span className="meta" style={{ color: 'var(--hint)', fontSize: 12 }}>
               Появится в меню заведения после проверки модератором.

@@ -168,6 +168,9 @@ export function UserProfileModal({ id, onClose }: { id: string; onClose: () => v
           <div className="me-head">
             <Avatar user={p} />
             <div className="me-name">{p.firstName ?? p.username ?? 'Гость'}</div>
+            {(p as any).level && (
+              <div className="up-level">{(p as any).level.icon} {(p as any).level.title}</div>
+            )}
             <div className="me-stats">
               <button className="stat-btn" onClick={() => setPeople('followers')}>
                 <b>{p.followers}</b> подписчиков
