@@ -528,12 +528,21 @@ export default function Home() {
   }, [search, cat, filters]);
 
 
+  // «Не интересно» (YouTube-style): hide the card everywhere it shows AND send a
+  // negative signal so the recommender learns to show less of this category
+  const notInterested = (l: Listing) => {
+    api.skip(l.id, l.category ?? undefined).catch(() => {});
+    setSkipped((s) => new Set(s).add(l.id));
+    setRecCards((p) => p.filter((x) => x.id !== l.id));
+  };
+
   const card = (l: Listing) => (
     <ListingCard
       key={l.id}
       listing={l}
       favorite={ids.has(l.id)}
       onToggleFavorite={() => toggle(l.id)}
+      onNotInterested={() => notInterested(l)}
       onClick={() => {
         setAutoRate(undefined);
         openListing(l);
@@ -552,6 +561,7 @@ export default function Home() {
       rank={rank}
       favorite={ids.has(l.id)}
       onToggleFavorite={() => toggle(l.id)}
+      onNotInterested={() => notInterested(l)}
       onClick={() => openListing(l)}
       onTagClick={(tag) => {
         // tapping a tag → put it in the search bar; venue search matches the cuisine

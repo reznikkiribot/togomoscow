@@ -3,6 +3,7 @@ import type { Listing } from '../types';
 import { ratingsWord } from '../plural';
 import { Stars } from './Stars';
 import { VenuePhoto } from './VenuePhoto';
+import { NotInterested } from './NotInterested';
 
 const TYPE_LABEL: Record<Listing['type'], string> = {
   RESTAURANT: 'Ресторан',
@@ -16,12 +17,14 @@ export function ListingCard({
   onToggleFavorite,
   onClick,
   onRate,
+  onNotInterested,
 }: {
   listing: Listing;
   favorite?: boolean;
   onToggleFavorite?: () => void;
   onClick?: () => void;
   onRate?: (rating: number) => void; // tap a star → ask where → fill card
+  onNotInterested?: () => void;
 }) {
   const [hover, setHover] = useState(0);
   return (
@@ -141,6 +144,7 @@ export function ListingCard({
           {favorite ? '♥' : '♡'}
         </button>
       )}
+      {onNotInterested && <NotInterested onNotInterested={onNotInterested} />}
     </div>
   );
 }

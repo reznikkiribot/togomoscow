@@ -5,6 +5,7 @@ import { useCategoryProgress } from '../categoryGate';
 import { ratingsWord, openStatus } from '../plural';
 import { Stars } from './Stars';
 import { VenuePhoto } from './VenuePhoto';
+import { NotInterested } from './NotInterested';
 
 const TYPE_LABEL: Record<Listing['type'], string> = {
   RESTAURANT: 'Ресторан',
@@ -20,6 +21,7 @@ export function ListRow({
   onToggleFavorite,
   onClick,
   onTagClick,
+  onNotInterested,
 }: {
   listing: Listing;
   rank?: number;
@@ -27,6 +29,7 @@ export function ListRow({
   onToggleFavorite?: () => void;
   onClick?: () => void;
   onTagClick?: (tag: string) => void;
+  onNotInterested?: () => void;
 }) {
   const isItem = listing.type === 'DISH' || listing.type === 'DRINK';
   const { isUnlocked } = useCategoryProgress();
@@ -54,6 +57,7 @@ export function ListRow({
             {favorite ? '♥' : '♡'}
           </button>
         )}
+        {onNotInterested && <NotInterested onNotInterested={onNotInterested} />}
       </div>
 
       <div className="vcard-body">

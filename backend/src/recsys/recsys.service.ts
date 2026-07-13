@@ -163,6 +163,33 @@ export class RecsysService {
     const swiped = await this.prisma.dislike.findMany({ where: { userId }, select: { itemId: true } });
     const exclude = new Set([...rated.map((r) => r.listingId), ...swiped.map((d) => d.itemId)]);
 
+    // ── YouTube-style CATEGORY AFFINITY: learn what the user likes from EVERY
+    //    signal (ratings, favorites, opens, dislikes/«не интересно»). The more
+    //    they engage with a category, the more it's recommended — and less of
+    //    what they reject. Rebuilt on each request, so it adapts every visit.
+    const catAffinity = new Map<string, number>();
+    const bump = (cat: string | null | undefined, w: number) => {
+      const k = (cat ?? '').toLowerCase().trim();
+      if (k) catAffinity.set(k, (catAffinity.get(k) ?? 0) + w);
+    };
+    const [ratedFull, favs, opens] = await Promise.all([
+      this.prisma.review.findMany({ where: { userId }, select: { rating: true, listing: { select: { category: true } } } }),
+      this.prisma.favorite.findMany({ where: { userId }, select: { listing: { select: { category: true } } } }),
+      this.prisma.interaction.groupBy({ by: ['listingId'], where: { userId, type: { in: ['OPEN', 'VIEW'] } }, _count: true }),
+    ]);
+    for (const r of ratedFull) bump(r.listing?.category, r.rating >= 4 ? 2.5 : r.rating <= 2 ? -2.5 : 0.3);
+    for (const f of favs) bump(f.listing?.category, 1.5);
+    for (const d of swiped) bump((d as any).category, -3); // dislike / «не интересно»
+    if (opens.length) {
+      const oids = opens.map((o) => o.listingId);
+      const oCats = await this.prisma.listing.findMany({ where: { id: { in: oids } }, select: { id: true, category: true } });
+      const catById = new Map(oCats.map((c) => [c.id, c.category]));
+      for (const o of opens) bump(catById.get(o.listingId), Math.min(1, 0.4 * o._count));
+    }
+    // normalize to [-1, 1] so it blends with the other score terms
+    const maxAbs = Math.max(1, ...[...catAffinity.values()].map((v) => Math.abs(v)));
+    for (const [k, v] of catAffinity) catAffinity.set(k, v / maxAbs);
+
     // price affinity: learn the user's comfortable price band from the menu prices of
     // items they've already rated, then favour recommendations inside that range.
     const ratedIds = rated.map((r) => r.listingId);
@@ -212,6 +239,14 @@ export class RecsysService {
         for (const c of cuisines) if (hay.includes(c)) { s += 2; why ||= `вы любите ${c}`; }
         for (const l of loves) if (hay.includes(l)) { s += 3; why = `похоже на «${l}», что вам нравится`; }
         for (const d of dislikes) if (hay.includes(d)) s -= 4;
+        // learned category affinity (YouTube-style): strong pull toward categories
+        // the user engages with, push away from ones they reject
+        const aff = catAffinity.get((it.category ?? '').toLowerCase().trim());
+        if (aff) {
+          s += aff * 3;
+          if (aff > 0.4 && !why) why = 'вы часто выбираете такое';
+          if (aff < -0.4) s -= 1; // extra damping for actively-rejected categories
+        }
         // price affinity: reward items in the user's usual price band, gently penalise
         // ones well outside it (too cheap or too pricey for their habits)
         if (hasPriceProfile) {

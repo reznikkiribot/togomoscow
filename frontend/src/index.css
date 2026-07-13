@@ -5487,3 +5487,39 @@ button:active,
   z-index: 2;
   will-change: transform;
 }
+
+/* «⋯ → Не интересно» card control (YouTube-style), top-right; heart moves left */
+.vcard-media .heart, .card-wrap .heart { right: 46px; }
+.ni-wrap { position: absolute; top: 8px; right: 8px; z-index: 3; }
+.ni-dots {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  border: none;
+  display: grid; place-items: center;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.42);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  cursor: pointer;
+}
+.ni-dots:active { transform: scale(0.9); }
+.ni-pop {
+  position: absolute; top: 40px; right: 0;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+  animation: fdropIn 0.18s cubic-bezier(0.34, 1.2, 0.64, 1);
+  min-width: 172px;
+}
+.ni-item {
+  display: block; width: 100%;
+  text-align: left;
+  padding: 12px 14px;
+  background: none; border: none;
+  font-size: 14.5px; font-weight: 600;
+  color: var(--fg);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.ni-item:active { background: rgba(0,0,0,0.05); }
