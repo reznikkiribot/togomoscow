@@ -87,11 +87,19 @@ function isJunk(name) {
   if (n.split(/\s+/).length > 7) return true; // a sentence/description, not a menu name
   if (/^\d+\s*(любые|пицц|штук|шт\b)/.test(n)) return true; // "3 любые пиццы"
   if (/любые пицц|комбо|\bсет\b|\bнабор\b|меню дня|за \d+\s*₽|выгодн|подарок|конструктор|собери|акци|скидк|сертификат|доставк|для офиса|идеальных|\+ ?\d|\d ?\+ ?\d/.test(n)) return true;
+  // OWNER RULE (13.07.2026): a SINGLE adjective is not a dish name ("Малиновый",
+  // "Сырный", "Ванильный") — it's missing the noun. Reject one-word names that
+  // are just an adjective (Russian adjective endings).
+  const words = n.split(/\s+/).filter(Boolean);
+  if (words.length === 1 && /(ый|ий|ой|ая|яя|ое|ее|ые|ими|ого|осн?ый)$/.test(words[0]) && words[0].length >= 5) return true;
   // mostly non-letters (codes/garbage)
   const letters = (n.match(/[а-яёa-z]/gi) || []).length;
   if (letters < n.length * 0.5) return true;
   return false;
 }
+
+// mass fast-food chains the owner doesn't want in the catalog — skipped on parse
+const FASTFOOD_BLOCK = /burgerking|burger.?king|бургер.?кинг|vkusnoitochka|вкусно.?и.?точка|rostics|rostic|ростикс|kfc|макдо|mcdonald|додо.?экспресс|subway|сабвэй|carls|hesburger|теремок|крошка.?картошка|стардог|stardog/i;
 
 async function undo() {
   const { PrismaClient } = await import('@prisma/client');
@@ -135,6 +143,7 @@ async function main() {
   const log = { at: new Date().toISOString(), status, createdItems: [], links: [] };
 
   for (const domain of domains) {
+    if (FASTFOOD_BLOCK.test(domain)) { console.log(`${domain}: mass fast-food — skip (owner rule)`); continue; }
     const file = path.join(OUT, domain.replace(/[^\w.-]/g, '_') + '.json');
     if (!fs.existsSync(file)) { console.log(`${domain}: no extract file, skip`); continue; }
     const data = JSON.parse(fs.readFileSync(file, 'utf8'));

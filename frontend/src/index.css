@@ -5461,3 +5461,15 @@ button:active,
 .sk-line.w70 { width: 70%; }
 .sk-line.w40 { width: 40%; }
 .sk-line.btn { height: 40px; border-radius: 12px; margin-top: 4px; }
+
+/* «Показать ещё» premium loading: inline spinner in the button */
+.btn.show-more { min-height: 44px; display: flex; align-items: center; justify-content: center; }
+.btn.show-more:disabled { opacity: 0.85; }
+.btn-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid rgba(211, 35, 35, 0.25);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}

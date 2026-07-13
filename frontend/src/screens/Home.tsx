@@ -149,6 +149,7 @@ export default function Home() {
   const homeRef = useRef<HTMLDivElement>(null);
   const homeScrollY = useRef(0); // home scroll position saved when entering a category
   const [scrollArmed, setScrollArmed] = useState(false); // «показать ещё» was tapped
+  const [loadingMore, setLoadingMore] = useState(false); // «показать ещё» spinner
   const [scrolledDown, setScrolledDown] = useState(false); // page is scrolled down
   const showScrollTop = scrollArmed && scrolledDown;
   useEffect(() => {
@@ -809,12 +810,22 @@ export default function Home() {
                   {row(l)}
                 </div>
               ))}
-              {/* the feed never ends: «показать ещё» always loads more */}
+              {/* the feed never ends: «показать ещё» always loads more. Premium
+                  feedback — the button shows a spinner while the next batch loads */}
               <button
                 className="btn secondary show-more"
-                onClick={() => { extendFeed(5); setScrollArmed(true); }}
+                disabled={loadingMore}
+                onClick={async () => {
+                  if (loadingMore) return;
+                  haptic('light');
+                  setLoadingMore(true);
+                  setScrollArmed(true);
+                  // min 400ms so the spinner is always felt (premium — no jarring flash)
+                  try { await Promise.all([extendFeed(5), new Promise((r) => setTimeout(r, 400))]); }
+                  finally { setLoadingMore(false); }
+                }}
               >
-                Показать ещё
+                {loadingMore ? <span className="btn-spinner" /> : 'Показать ещё'}
               </button>
             </>
           )}
