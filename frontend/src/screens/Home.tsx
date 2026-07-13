@@ -147,6 +147,7 @@ export default function Home() {
   // swipe left→right returns from a category/search view to the home feed (iOS
   // interactive-pop pattern) — active ONLY while a filter/category is on screen
   const homeRef = useRef<HTMLDivElement>(null);
+  const catRef = useRef<HTMLDivElement>(null); // the category/search results overlay layer
   const homeScrollY = useRef(0); // home scroll position saved when entering a category
   const [scrollArmed, setScrollArmed] = useState(false); // «показать ещё» was tapped
   const [loadingMore, setLoadingMore] = useState(false); // «показать ещё» spinner
@@ -262,11 +263,11 @@ export default function Home() {
   escStateRef.current = { cat, search, results };
 
   // a category/search view is on screen → enable swipe-back to the home feed
-  const browsingCategory = cat !== 'ALL' || !!search.trim() || !!results;
+  // swipe the RESULTS overlay away → the home feed beneath is revealed (iOS pop)
   useSwipeBack(
-    homeRef,
+    catRef,
     () => window.dispatchEvent(new Event('home-back')), // light return, no reload
-    browsingCategory,
+    !!results,
   );
 
   // tapping "Главная" in the nav clears search and returns to the start screen
@@ -684,8 +685,11 @@ export default function Home() {
         )}
       </div>
 
-      {results ? (
-        <>
+      <div className="home-content">
+      {/* category/search results OVERLAY the home feed (iOS interactive-pop):
+          swiping this layer away reveals the already-loaded home beneath it */}
+      {results && (
+        <div ref={catRef} className="cat-results-layer">
           <div className="section-title">Результаты</div>
           {results.length === 0 ? (
             <div className="empty">Ничего не найдено</div>
@@ -705,8 +709,10 @@ export default function Home() {
               })()}
             </div>
           )}
-        </>
-      ) : !feedLoaded && ratePool.length === 0 && myReviews.length === 0 && wallPosts.length === 0 ? (
+        </div>
+      )}
+      {/* base layer: the home feed, always mounted so it shows behind a swipe */}
+      {!feedLoaded && ratePool.length === 0 && myReviews.length === 0 && wallPosts.length === 0 ? (
         <div style={{ padding: '4px 2px' }}>
           {[0, 1, 2].map((i) => (
             <div key={i} className="sk-card">
@@ -831,6 +837,7 @@ export default function Home() {
           )}
         </>
       )}
+      </div>
       {/* after «показать ещё» — a premium frosted "up" button (chevron, fades +
           scales in, haptic) jumps back to the top */}
       {showScrollTop && (
