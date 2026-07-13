@@ -190,6 +190,25 @@ export class RecsysService {
     const maxAbs = Math.max(1, ...[...catAffinity.values()].map((v) => Math.abs(v)));
     for (const [k, v] of catAffinity) catAffinity.set(k, v / maxAbs);
 
+    // ── VENUE AFFINITY: engaged with a venue's items (rated/opened dishes there,
+    //    favorited or opened the venue) → recommend THAT venue's dishes & drinks
+    //    (owner rule 13.07.2026). Learns which places the user gravitates to.
+    const venueAffinity = new Map<string, number>();
+    const vbump = (id: string | null | undefined, w: number) => {
+      if (id) venueAffinity.set(id, (venueAffinity.get(id) ?? 0) + w);
+    };
+    const [venueReviews, venueFavs, venueOpens] = await Promise.all([
+      this.prisma.review.findMany({ where: { userId }, select: { rating: true, attributes: true } }),
+      this.prisma.favorite.findMany({ where: { userId, listing: { type: 'RESTAURANT' } }, select: { listingId: true } }),
+      this.prisma.interaction.groupBy({ by: ['listingId'], where: { userId, type: { in: ['OPEN', 'VIEW'] }, listing: { type: 'RESTAURANT' } }, _count: true }),
+    ]);
+    // tasted a dish AT a venue → that venue gains (weighted by how you rated it)
+    for (const r of venueReviews) vbump((r.attributes as any)?.venueId, r.rating >= 4 ? 2 : r.rating <= 2 ? -1.5 : 0.5);
+    for (const f of venueFavs) vbump(f.listingId, 1.5);
+    for (const o of venueOpens) vbump(o.listingId, Math.min(1.5, 0.5 * o._count));
+    const vMax = Math.max(1, ...[...venueAffinity.values()].map((v) => Math.abs(v)));
+    for (const [k, v] of venueAffinity) venueAffinity.set(k, v / vMax);
+
     // price affinity: learn the user's comfortable price band from the menu prices of
     // items they've already rated, then favour recommendations inside that range.
     const ratedIds = rated.map((r) => r.listingId);
@@ -247,6 +266,16 @@ export class RecsysService {
           if (aff > 0.4 && !why) why = 'вы часто выбираете такое';
           if (aff < -0.4) s -= 1; // extra damping for actively-rejected categories
         }
+        // venue affinity: this dish/drink is served at a venue the user gravitates
+        // to → boost it (strongest serving-venue affinity wins)
+        const vAff = Math.max(0, ...(((it as any).servedAt ?? []).map((l: any) => venueAffinity.get(l.venue?.id) ?? 0)));
+        if (vAff > 0) {
+          s += vAff * 2.5;
+          if (vAff > 0.5 && !why) {
+            const vn = ((it as any).servedAt ?? []).find((l: any) => (venueAffinity.get(l.venue?.id) ?? 0) === vAff)?.venue?.name;
+            why = vn ? `из «${vn}», где вам нравится` : 'из заведения, которое вам нравится';
+          }
+        }
         // price affinity: reward items in the user's usual price band, gently penalise
         // ones well outside it (too cheap or too pricey for their habits)
         if (hasPriceProfile) {
@@ -294,8 +323,11 @@ export class RecsysService {
       // generated photo, so the shown image matches "попробуйте в: X" and rotates
       // with the venue (owner rule 12.07.2026).
       const links = ((pick[i].it as any).servedAt ?? []).filter((l: any) => l.venue);
-      const withPhoto = links.filter((l: any) => l.photoUrl);
-      const pool = withPhoto.length ? withPhoto : links;
+      // prefer a venue the user GRAVITATES to (venue affinity), then one that has
+      // its own generated photo, else any
+      const liked = links.filter((l: any) => (venueAffinity.get(l.venue?.id) ?? 0) > 0.3);
+      const withPhoto = (liked.length ? liked : links).filter((l: any) => l.photoUrl);
+      const pool = liked.length ? liked : withPhoto.length ? withPhoto : links;
       const link = pool.length ? pool[Math.floor(Math.random() * pool.length)] : undefined;
       const recVenue = link ? { ...link.venue, price: link.price ?? null } : undefined;
       // user photos (on the shared card) always win; else the venue's own photo
