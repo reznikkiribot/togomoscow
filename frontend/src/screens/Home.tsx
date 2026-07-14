@@ -807,25 +807,45 @@ export default function Home() {
           {(wallPosts.length > 0 || recCards.length > 0) && (
             <>
               <div className="section-title">Лента</div>
-              {wallPosts.map((r) => (
-                <FeedPost
-                  key={r.id}
-                  review={r}
-                  onOpen={() => r.listing && openListing(r.listing)}
-                  onComments={() => setCommentsReview(r.id)}
-                  onOpenUser={(uid) => setOpenUser(uid)}
-                  onOpenPhoto={() => setPhotoReview(r)}
-                  onOpenVenue={() => r.venue?.id && openListing({ id: r.venue.id, name: r.venue.name } as Listing)}
-                />
-              ))}
-              {/* endless taste-based recommendations after the user posts — SAME
-                  format as search results (ListRow: photo on top), just tagged */}
-              {recCards.map((l) => (
-                <div key={'rec-' + l.id} className="rec-wrap">
-                  <div className="rec-tag">✨ Вам может понравиться</div>
-                  {row(l)}
-                </div>
-              ))}
+              {/* posts and taste-based recommendation cards INTERLEAVED: friends'
+                  posts lead (feedRanked orders them first), then a rec card is
+                  woven in after every 3 posts so the feed mixes people + picks */}
+              {(() => {
+                const rec = [...recCards];
+                const out: JSX.Element[] = [];
+                wallPosts.forEach((r, i) => {
+                  out.push(
+                    <FeedPost
+                      key={r.id}
+                      review={r}
+                      onOpen={() => r.listing && openListing(r.listing)}
+                      onComments={() => setCommentsReview(r.id)}
+                      onOpenUser={(uid) => setOpenUser(uid)}
+                      onOpenPhoto={() => setPhotoReview(r)}
+                      onOpenVenue={() => r.venue?.id && openListing({ id: r.venue.id, name: r.venue.name } as Listing)}
+                    />,
+                  );
+                  if ((i + 1) % 3 === 0 && rec.length) {
+                    const l = rec.shift()!;
+                    out.push(
+                      <div key={'rec-' + l.id} className="rec-wrap">
+                        <div className="rec-tag">✨ Вам может понравиться</div>
+                        {row(l)}
+                      </div>,
+                    );
+                  }
+                });
+                // any leftover recommendations tail the feed
+                for (const l of rec) {
+                  out.push(
+                    <div key={'rec-' + l.id} className="rec-wrap">
+                      <div className="rec-tag">✨ Вам может понравиться</div>
+                      {row(l)}
+                    </div>,
+                  );
+                }
+                return out;
+              })()}
               {/* the feed never ends: «показать ещё» always loads more. Premium
                   feedback — the button shows a spinner while the next batch loads */}
               <button

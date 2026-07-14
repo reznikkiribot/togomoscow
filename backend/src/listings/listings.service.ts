@@ -660,10 +660,13 @@ export class ListingsService {
         const ageDays = (now - r.createdAt.getTime()) / 86_400_000;
         const freshness = Math.exp(-ageDays / 7) + 0.05; // old posts never hit exactly 0
         const firstPost = (postCount.get(r.userId) ?? 99) === 1 && ageDays < 3 ? 5 : 1;
-        const follow = followed.has(r.userId) ? 2 : 1;
-        return { r, score: quality * taste * freshness * firstPost * follow };
+        const isFriend = followed.has(r.userId);
+        const follow = isFriend ? 2 : 1;
+        return { r, isFriend, score: quality * taste * freshness * firstPost * follow };
       })
-      .sort((a, b) => b.score - a.score);
+      // FRIENDS STRICTLY FIRST, then everyone else by the recommendation score
+      // (owner rule 13.07.2026: сначала друзей, потом рандомные по рекомендациям)
+      .sort((a, b) => Number(b.isFriend) - Number(a.isFriend) || b.score - a.score);
 
     if (recycled) {
       for (let i = scored.length - 1; i > 0; i--) {
