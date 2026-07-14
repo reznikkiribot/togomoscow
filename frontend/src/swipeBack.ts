@@ -64,27 +64,36 @@ export function useSwipeBack(
         }
         if (e.cancelable) e.preventDefault();
         el.style.transition = 'none';
-        el.style.transform = `translateX(${Math.max(0, dx)}px)`;
+        // 1:1 follow like iOS, with a soft rubber-band past the width so it never
+        // feels twitchy, and a depth shadow on the leading edge
+        const w = el.clientWidth || 1;
+        const t = dx <= w ? dx : w + (dx - w) * 0.35;
+        el.style.transform = `translateX(${Math.max(0, t)}px)`;
+        el.style.boxShadow = '-14px 0 32px rgba(0,0,0,0.16)';
       };
       const end = () => {
         if (!dragging || closed) return;
         dragging = false;
         const dx = lastX - startX;
-        if (dx > el.clientWidth * 0.33 || (velocity > 0.8 && dx > 50)) {
+        if (dx > el.clientWidth * 0.33 || (velocity > 0.6 && dx > 40)) {
           closed = true;
-          el.style.transition = 'transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1)';
-          el.style.transform = 'translateX(105%)';
+          // gentle iOS-like glide out (decelerating ease-out, slightly longer)
+          el.style.transition = 'transform 0.36s cubic-bezier(0.32, 0.72, 0, 1)';
+          el.style.transform = 'translateX(100%)';
           setTimeout(() => {
             onBack();
             // pages that DON'T unmount (e.g. the home screen returning from a
             // category view) must be snapped back to place, not left off-screen
             el.style.transition = 'none';
             el.style.transform = '';
+            el.style.boxShadow = '';
             closed = false;
-          }, 280);
+          }, 330);
         } else {
-          el.style.transition = 'transform 0.4s cubic-bezier(0.22, 1.1, 0.36, 1)';
+          // soft settle back — no hard bounce
+          el.style.transition = 'transform 0.42s cubic-bezier(0.32, 0.72, 0, 1), box-shadow 0.3s ease';
           el.style.transform = '';
+          el.style.boxShadow = '';
         }
       };
       el.addEventListener('touchstart', start, { passive: true });

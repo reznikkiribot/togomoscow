@@ -98,19 +98,6 @@ export function ReviewForm({
       setBusy(false);
     }
   }
-  async function addVideos(files: FileList | null) {
-    if (!files) return;
-    setBusy(true);
-    try {
-      const urls = await Promise.all(Array.from(files).map((f) => api.upload(f)));
-      setVideoUrls((p) => [...p, ...urls]);
-    } catch {
-      setError('Не удалось загрузить видео (макс. 80 МБ)');
-    } finally {
-      setBusy(false);
-    }
-  }
-
   async function save() {
     // iOS can ghost-fire a second tap before the disabled state re-renders —
     // that double-ran the whole save (and opened the story editor twice)
@@ -187,11 +174,7 @@ export function ReviewForm({
               <input type="file" accept="image/*" multiple hidden onChange={(e) => addPhotos(e.target.files)} />
             </label>
           </div>
-          <label className="upload-btn small" style={{ marginTop: 8 }}>
-            <span className="up-ico">🎬</span>
-            Добавить видео
-            <input type="file" accept="video/*" multiple hidden onChange={(e) => addVideos(e.target.files)} />
-          </label>
+          {/* video upload removed (owner rule 13.07.2026) — photos only */}
           {(photoUrls.length > 0 || videoUrls.length > 0) && (
             <div className="photo-thumbs">
               {photoUrls.map((u) => (

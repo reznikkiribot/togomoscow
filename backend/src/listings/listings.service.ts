@@ -257,12 +257,23 @@ export class ListingsService {
 
     // "Рекомендуемые" is a real TOP ranking: a Bayesian blend so a 5.0 with one
     // review doesn't outrank a 4.6 with fifty (m=global mean 4.0, C=confidence 8).
-    const orderSql =
+    const baseOrder =
       sort === 'rating'
         ? Prisma.sql`t."avgRating" DESC, t."reviewCount" DESC`
         : sort === 'reviews'
           ? Prisma.sql`t."reviewCount" DESC, t."avgRating" DESC`
           : Prisma.sql`((t."reviewCount"::float * t."avgRating" + 8 * 4.0) / (t."reviewCount" + 8)) DESC, t."reviewCount" DESC`;
+    // «Напитки»: coffee first, then the rest of the non-alcoholic drinks, alcohol
+    // LAST (owner rule 13.07.2026)
+    const orderSql =
+      type === 'DRINK'
+        ? Prisma.sql`
+            CASE
+              WHEN t.category ~* 'кофе|coffee|латте|капучино|раф|эспрессо|американо|флэт' THEN 0
+              WHEN t.category ~* 'вино|wine|пиво|beer|коктейл|cocktail|крепк|виски|водк|ликёр|ликер|ром|джин|текил|коньяк|бренди|шампанск|игрист|сидр|наливк|настойк|аперитив|вермут|бар\b' THEN 2
+              ELSE 1
+            END ASC, ${baseOrder}`
+        : baseOrder;
 
     // when filtering by "open now" we fetch a larger pool, then filter in JS
     const pool = openNow ? 300 : Number(take);

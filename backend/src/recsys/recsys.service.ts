@@ -55,6 +55,13 @@ export class RecsysService {
     // not a drink to taste, and its "photo" is often just packaging.
     'в зёрнах', 'в зернах', 'зернах', 'зерновой', 'молот', 'дрип-пакет', 'дрип пакет',
     'капсул', 'чалда', 'помол',
+    // NON-STANDALONE: garnishes, single ingredients, condiments, add-ons — not a
+    // dish you "рекомендуешь попробовать" on its own (owner rule 13.07.2026)
+    'халапеньо', 'халапенью', 'соус', 'кетчуп', 'майонез', 'горчиц', 'васаби',
+    'сметан', 'сироп', 'топпинг', 'посыпк', 'джем', 'варень', 'мёд\b', 'мед\b',
+    'приправ', 'специ', 'зелень', 'гарнир', 'хлеб\b', 'булочк', 'лаваш',
+    'маслин', 'оливк', 'лимон\b', 'лайм\b', 'лёд', 'лед\b', 'сахар', 'молоко\b',
+    'сливки', 'взбитые', 'корица', 'имбирь\b', 'мята\b',
   ];
 
   // Prisma OR-filter of everything we never recommend (use inside `NOT:`).
