@@ -82,6 +82,20 @@ export class VisionRecognitionService implements OnModuleInit {
     }
     if (qvec.length) {
       const type = mode === 'drink' ? 'DRINK' : mode === 'dish' ? 'DISH' : undefined;
+      // GUARD: don't guess a dish for a photo that clearly ISN'T food (a selfie,
+      // a person, a screenshot). Reuse the one embedding — no extra work.
+      const kind = await this.clip.classifyVec(qvec, [
+        'a photo of food or a drink',
+        'a photo of a person, face or selfie',
+        'a photo of a screenshot, text or an unrelated object',
+      ]);
+      if (kind && (kind[1] > 0.5 || kind[2] > 0.55) && kind[0] < 0.4) {
+        return {
+          caption: kind[1] > kind[2] ? 'На фото человек, а не блюдо' : 'На фото не блюдо и не напиток',
+          mode, candidates: [], autoOpen: false,
+          diagnostic: `not-food food=${kind[0].toFixed(2)} person=${kind[1].toFixed(2)} other=${kind[2].toFixed(2)}`,
+        };
+      }
       const hits = this.vectors.searchImage(qvec, { type, limit: 8 });
       const candidates = await this.shape(hits.map((h) => ({ id: h.id, confidence: h.score })));
       const top = candidates[0]?.confidence ?? 0;

@@ -20,6 +20,7 @@ const GIBBERISH = /([а-яёa-z]{2,3})\1{2,}|(.)\2{5,}|^(?:(\w+)\s+)\3{2,}$/i;
 // RU dish/drink name → a short English CLIP query, so the photo-name check works
 // (CLIP ViT-B/32 reads English). Dictionary of classics first, then category.
 const FOOD_DICT: [RegExp, string][] = [
+  [/пицц/i, 'pizza'], [/клубник/i, 'fresh strawberries'], [/малин/i, 'raspberries'],
   [/пельмен/i, 'pelmeni dumplings'], [/сырник/i, 'cottage cheese pancakes'], [/борщ/i, 'borscht beet soup'],
   [/блин/i, 'russian crepes'], [/оливье/i, 'olivier salad'], [/хачапур/i, 'khachapuri cheese bread'],
   [/хинкал/i, 'khinkali dumplings'], [/пицц/i, 'pizza'], [/бургер/i, 'burger'], [/паста|спагетти|карбонара|болонье/i, 'pasta'],
