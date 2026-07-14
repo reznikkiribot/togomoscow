@@ -9,9 +9,11 @@ const MyRatings = lazy(() => import('./screens/MyRatings'));
 const Business = lazy(() => import('./screens/Business'));
 import { initTelegram, haptic, initData } from './telegram';
 import { api } from './api';
+import { initAnalytics } from './analytics';
 
 reportClient('module-start', 'main.tsx loaded');
 initTelegram();
+initAnalytics();
 
 function reportClient(kind: string, detail: unknown) {
   try {

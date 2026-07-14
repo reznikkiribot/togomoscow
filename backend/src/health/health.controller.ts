@@ -5,6 +5,7 @@ import { ClipService } from '../vision/clip.service';
 import { VectorSearchService } from '../vision/vector-search.service';
 
 const CLIENT_LOG = process.env.CLIENT_LOG_PATH || '.client-error.log';
+const BEHAVIOR_LOG = process.env.BEHAVIOR_LOG_PATH || '.behavior.log';
 
 // Unauthenticated health checks and early client diagnostics. The client
 // endpoints intentionally do not require Telegram initData: they must work
@@ -105,6 +106,65 @@ export class HealthController {
     } catch (e) {
       return { ok: false, lines: [], error: String((e as Error).message || e) };
     }
+  }
+
+  // ── behavior analytics: the app posts a session summary on exit (screens
+  //    visited, time on each, scroll depth, where it ended). Stored to a log we
+  //    then analyse for UX improvement suggestions.
+  @Post('behavior')
+  behavior(@Body() body: any) {
+    try {
+      fs.appendFileSync(BEHAVIOR_LOG, `${new Date().toISOString()} :: ${JSON.stringify(body).slice(0, 1500)}\n`);
+    } catch { /* ignore */ }
+    return { ok: true };
+  }
+
+  /** AI-style UX insights from behavior data: session length, where people drop
+   *  off / get stuck, and concrete improvement suggestions. Read by the cabinet. */
+  @Get('ux-insights')
+  uxInsights() {
+    let rows: any[] = [];
+    try {
+      const text = fs.existsSync(BEHAVIOR_LOG) ? fs.readFileSync(BEHAVIOR_LOG, 'utf8') : '';
+      rows = text.trim().split(/\r?\n/).filter(Boolean).slice(-2000).map((l) => {
+        try { return JSON.parse(l.split(' :: ')[1]); } catch { return null; }
+      }).filter(Boolean);
+    } catch { /* none */ }
+    if (!rows.length) return { sessions: 0, insights: [], screens: [] };
+
+    const durs = rows.map((r) => Number(r.totalMs) || 0).filter((d) => d > 0);
+    const avgSec = Math.round(durs.reduce((a, b) => a + b, 0) / Math.max(1, durs.length) / 1000);
+    // per-screen: total time, visits, avg scroll depth, how often the session ENDED here
+    const perScreen = new Map<string, { ms: number; visits: number; scroll: number; scrollN: number; exits: number }>();
+    const g = (k: string) => perScreen.get(k) ?? perScreen.set(k, { ms: 0, visits: 0, scroll: 0, scrollN: 0, exits: 0 }).get(k)!;
+    for (const r of rows) {
+      for (const s of r.screens ?? []) {
+        const e = g(s.name || '?');
+        e.ms += Number(s.ms) || 0; e.visits += 1;
+        if (s.maxScroll != null) { e.scroll += Number(s.maxScroll); e.scrollN += 1; }
+      }
+      if (r.lastScreen) g(r.lastScreen).exits += 1;
+    }
+    const screens = [...perScreen.entries()].map(([name, v]) => ({
+      name,
+      visits: v.visits,
+      avgSec: Math.round(v.ms / Math.max(1, v.visits) / 1000),
+      avgScroll: v.scrollN ? Math.round((v.scroll / v.scrollN) * 100) : null,
+      exitRate: Math.round((v.exits / rows.length) * 100),
+    })).sort((a, b) => b.visits - a.visits);
+
+    // heuristic AI-style suggestions
+    const insights: string[] = [];
+    if (avgSec < 20) insights.push(`⏱ Средняя сессия всего ${avgSec}с — пользователи уходят быстро. Усильте первый экран: сразу показывать «Что пробуем?» и одну оценку в один тап.`);
+    const topExit = screens.slice().sort((a, b) => b.exitRate - a.exitRate)[0];
+    if (topExit && topExit.exitRate >= 30) insights.push(`🚪 Чаще всего выходят с экрана «${topExit.name}» (${topExit.exitRate}%). Проверьте, не тупик ли это — добавьте следующий шаг/CTA.`);
+    const stuck = screens.find((s) => s.avgSec >= 25 && (s.avgScroll ?? 100) < 25);
+    if (stuck) insights.push(`🧭 На «${stuck.name}» проводят ${stuck.avgSec}с, но почти не скроллят (${stuck.avgScroll}%) — вероятно, застревают/ищут. Упростите экран или подскажите действие.`);
+    const shallow = screens.find((s) => s.visits >= 5 && (s.avgScroll ?? 0) < 15 && s.avgSec < 8);
+    if (shallow) insights.push(`👀 «${shallow.name}» пролистывают за ${shallow.avgSec}с без прокрутки — контент не цепляет. Пересмотрите порядок карточек/заголовок.`);
+    if (!insights.length) insights.push('✅ Явных проблем в поведении не видно. Копите больше сессий для точных выводов.');
+
+    return { sessions: rows.length, avgSec, screens, insights };
   }
 
   private appendClientEvent(req: any, body: any) {

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useLocation } from 'react-router-dom';
+import { trackScreen } from './analytics';
 import { api } from './api';
 import { IcHome, IcBookmark, IcUser, IcTools } from './components/Icons';
 import { QuizModal } from './components/QuizModal';
@@ -7,6 +8,14 @@ import { CategoryCelebration } from './components/CategoryCelebration';
 import { ScanFab } from './components/ScanFab';
 
 export default function App() {
+  const loc = useLocation();
+  useEffect(() => {
+    const name = loc.pathname === '/' || /^\/tg-boot/.test(loc.pathname) ? 'Главная'
+      : loc.pathname.startsWith('/favorites') ? 'Хочу попробовать'
+      : loc.pathname.startsWith('/me') ? 'Профиль'
+      : loc.pathname.startsWith('/business') ? 'Кабинет' : loc.pathname;
+    trackScreen(name);
+  }, [loc.pathname]);
   const cls = ({ isActive }: { isActive: boolean }) => (isActive ? 'active' : '');
   const [isAdmin, setIsAdmin] = useState(false);
   const [showQuiz, setShowQuiz] = useState(false);

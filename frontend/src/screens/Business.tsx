@@ -38,6 +38,7 @@ export default function Business() {
   const [adminUsers, setAdminUsers] = useState<AdminUser[]>([]);
   const [adminChal, setAdminChal] = useState<AdminChallenge[]>([]);
   // live gamification config: key → JSON text being edited
+  const [ux, setUx] = useState<Awaited<ReturnType<typeof api.uxInsights>> | null>(null);
   const [gameCfg, setGameCfg] = useState<Record<string, unknown> | null>(null);
   const [cfgDraft, setCfgDraft] = useState<Record<string, string>>({});
   const [cfgStatus, setCfgStatus] = useState<Record<string, string>>({});
@@ -83,6 +84,7 @@ export default function Business() {
     api.adminUsers().then(setAdminUsers).catch(() => {});
     api.adminChallenges().then(setAdminChal).catch(() => {});
     api.adminGameConfig().then((c) => setGameCfg(c.current)).catch(() => {});
+    api.uxInsights().then(setUx).catch(() => {});
   };
 
   const saveCfg = (key: string) => {
@@ -402,6 +404,33 @@ export default function Business() {
                         Сохранить
                       </button>
                       {cfgStatus[key] && <span className="meta">{cfgStatus[key]}</span>}
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
+          </Acc>
+
+          <Acc id="ux" title="ИИ-аналитика поведения" count={ux?.sessions ?? 0} openSec={openSec} setOpenSec={setOpenSec}>
+            {!ux ? (
+              <div className="empty">Загрузка…</div>
+            ) : ux.sessions === 0 ? (
+              <div className="empty">Пока нет данных о поведении. Появятся по мере использования.</div>
+            ) : (
+              <>
+                <div className="meta" style={{ color: 'var(--hint)', marginBottom: 8 }}>
+                  {ux.sessions} сессий · средняя длительность {ux.avgSec}с
+                </div>
+                {ux.insights.map((t, i) => (
+                  <div key={i} className="biz-card" style={{ lineHeight: 1.4 }}>{t}</div>
+                ))}
+                <div className="section-title" style={{ fontSize: 15, marginTop: 10 }}>По экранам</div>
+                {ux.screens.map((s) => (
+                  <div key={s.name} className="biz-card">
+                    <b>{s.name}</b>
+                    <div className="meta" style={{ color: 'var(--hint)' }}>
+                      {s.visits} визитов · {s.avgSec}с в среднем
+                      {s.avgScroll != null ? ` · прокрутка ${s.avgScroll}%` : ''} · выходят {s.exitRate}%
                     </div>
                   </div>
                 ))}
