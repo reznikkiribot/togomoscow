@@ -251,7 +251,7 @@ export const api = {
   // admin: live gamification config (values apply within 60s, no deploy)
   adminGameConfig: () => getJson<{ current: Record<string, unknown>; defaults: Record<string, unknown> }>('/admin/game/config'),
   // AI-style UX insights from behavior analytics (public read — admin-gated in UI)
-  uxInsights: () => getPublic<{ sessions: number; avgSec?: number; insights: string[]; screens: { name: string; visits: number; avgSec: number; avgScroll: number | null; exitRate: number }[] }>('/health/ux-insights'),
+  uxInsights: () => getPublic<{ sessions: number; avgSec?: number; insights: string[]; screens: { name: string; visits: number; avgSec: number; avgScroll: number | null; exitRate: number }[]; topTaps?: { el: string; n: number }[]; totalTaps?: number }>('/health/ux-insights'),
   adminGameConfigSet: async (key: string, value: unknown) =>
     http<{ ok: boolean }>('/admin/game/config', {
       method: 'PUT',

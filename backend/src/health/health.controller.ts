@@ -123,14 +123,22 @@ export class HealthController {
    *  off / get stuck, and concrete improvement suggestions. Read by the cabinet. */
   @Get('ux-insights')
   uxInsights() {
-    let rows: any[] = [];
+    let all: any[] = [];
     try {
       const text = fs.existsSync(BEHAVIOR_LOG) ? fs.readFileSync(BEHAVIOR_LOG, 'utf8') : '';
-      rows = text.trim().split(/\r?\n/).filter(Boolean).slice(-2000).map((l) => {
+      all = text.trim().split(/\r?\n/).filter(Boolean).slice(-8000).map((l) => {
         try { return JSON.parse(l.split(' :: ')[1]); } catch { return null; }
       }).filter(Boolean);
     } catch { /* none */ }
-    if (!rows.length) return { sessions: 0, insights: [], screens: [] };
+    const rows = all.filter((r) => r.kind === 'session' || r.totalMs != null);
+    // aggregate EVERY tap → what people actually press most
+    const tapCount = new Map<string, number>();
+    let totalTaps = 0;
+    for (const r of all.filter((r) => r.kind === 'taps')) {
+      for (const t of r.taps ?? []) { tapCount.set(t.el, (tapCount.get(t.el) ?? 0) + 1); totalTaps += 1; }
+    }
+    const topTaps = [...tapCount.entries()].sort((a, b) => b[1] - a[1]).slice(0, 20).map(([el, n]) => ({ el, n }));
+    if (!rows.length && !totalTaps) return { sessions: 0, insights: [], screens: [], topTaps: [], totalTaps: 0 };
 
     const durs = rows.map((r) => Number(r.totalMs) || 0).filter((d) => d > 0);
     const avgSec = Math.round(durs.reduce((a, b) => a + b, 0) / Math.max(1, durs.length) / 1000);
@@ -164,7 +172,7 @@ export class HealthController {
     if (shallow) insights.push(`👀 «${shallow.name}» пролистывают за ${shallow.avgSec}с без прокрутки — контент не цепляет. Пересмотрите порядок карточек/заголовок.`);
     if (!insights.length) insights.push('✅ Явных проблем в поведении не видно. Копите больше сессий для точных выводов.');
 
-    return { sessions: rows.length, avgSec, screens, insights };
+    return { sessions: rows.length, avgSec, screens, insights, topTaps, totalTaps };
   }
 
   private appendClientEvent(req: any, body: any) {

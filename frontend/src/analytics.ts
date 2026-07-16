@@ -8,6 +8,33 @@ const screens: ScreenStat[] = [];
 const sessionStart = Date.now();
 let sent = false;
 
+// EVERY tap the user makes (compact descriptor), so behavior can be analysed later
+type Tap = { t: number; screen: string; el: string };
+let taps: Tap[] = [];
+
+// a short human-readable descriptor of the tapped element
+function describe(el: Element | null): string {
+  if (!el) return '?';
+  const target = (el.closest('button, a, [role="button"], .card, .vcard, .post, .cat-tile, .mini, .chip, .qr-star, .rec-star, .heart, .ni-dots, input, .nav a, .search-sugg-item, .scan-fab, .fav-btn') as Element) || el;
+  const tag = target.tagName.toLowerCase();
+  const cls = (target.className && typeof target.className === 'string') ? '.' + target.className.trim().split(/\s+/)[0] : '';
+  let label = (target.getAttribute?.('aria-label') || target.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 40);
+  if (!label && target.getAttribute?.('placeholder')) label = 'input:' + target.getAttribute('placeholder')!.slice(0, 24);
+  return `${tag}${cls}${label ? ` «${label}»` : ''}`;
+}
+
+function sendTaps(force = false) {
+  if (!taps.length && !force) return;
+  const batch = taps;
+  taps = [];
+  if (!batch.length) return;
+  try {
+    const body = JSON.stringify({ kind: 'taps', screen: current?.name ?? null, taps: batch });
+    if (navigator.sendBeacon) navigator.sendBeacon('/api/health/behavior', new Blob([body], { type: 'application/json' }));
+    else fetch('/api/health/behavior', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body, keepalive: true });
+  } catch { /* ignore */ }
+}
+
 function flushCurrent() {
   if (!current) return;
   const ms = Date.now() - current.enteredAt;
@@ -54,7 +81,18 @@ function sendSummary() {
 
 export function initAnalytics() {
   window.addEventListener('scroll', trackScroll, { passive: true });
+  // record EVERY tap (capture phase → fires even if the handler stops propagation)
+  document.addEventListener(
+    'pointerdown',
+    (e) => {
+      taps.push({ t: Date.now() - sessionStart, screen: current?.name ?? '?', el: describe(e.target as Element) });
+      if (taps.length >= 25) sendTaps(); // flush in batches so nothing is lost
+    },
+    { capture: true, passive: true },
+  );
+  // periodic flush so taps survive even if the app is killed without pagehide
+  setInterval(() => sendTaps(), 15000);
   // Telegram/iOS: the app closing fires pagehide / visibility-hidden most reliably
-  window.addEventListener('pagehide', sendSummary);
-  document.addEventListener('visibilitychange', () => { if (document.hidden) sendSummary(); });
+  window.addEventListener('pagehide', () => { sendTaps(true); sendSummary(); });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) { sendTaps(true); sendSummary(); } });
 }

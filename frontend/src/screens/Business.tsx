@@ -424,6 +424,19 @@ export default function Business() {
                 {ux.insights.map((t, i) => (
                   <div key={i} className="biz-card" style={{ lineHeight: 1.4 }}>{t}</div>
                 ))}
+                {(ux.topTaps?.length ?? 0) > 0 && (
+                  <>
+                    <div className="section-title" style={{ fontSize: 15, marginTop: 10 }}>
+                      Топ нажатий{ux.totalTaps ? ` (всего ${ux.totalTaps})` : ''}
+                    </div>
+                    {ux.topTaps!.slice(0, 10).map((t) => (
+                      <div key={t.el} className="biz-card" style={{ display: 'flex', justifyContent: 'space-between', gap: 8 }}>
+                        <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{t.el}</span>
+                        <b>{t.n}</b>
+                      </div>
+                    ))}
+                  </>
+                )}
                 <div className="section-title" style={{ fontSize: 15, marginTop: 10 }}>По экранам</div>
                 {ux.screens.map((s) => (
                   <div key={s.name} className="biz-card">
