@@ -41,8 +41,9 @@ const MAP_FILE = path.join(__dirname, 'perv-map.json');
 const DONE_FILE = path.join(__dirname, 'perv-done.json');
 const ACCEPT = 0.5;
 const norm = (s) => (s ?? '').toLowerCase().replace(/ё/g, 'е').replace(/[^a-zа-я0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
-const slug = (s) => norm(s).replace(/ /g, '_').slice(0, 40);
-const key = (domain, name) => `${domain}__${slug(name)}`;
+// ASCII-only key — sd-cli.exe cannot open Cyrillic file paths on Windows
+const hash = (s) => { let h = 0; for (const c of s) h = (h * 31 + c.charCodeAt(0)) >>> 0; return h.toString(36); };
+const key = (domain, name) => `${domain.replace(/[^a-z0-9]/gi, '').slice(0, 12)}_${hash(domain + '|' + norm(name))}`;
 
 if (STAGE === 'dl') {
   const sharp = (await import('sharp')).default;
@@ -78,9 +79,13 @@ if (STAGE === 'dl') {
         const r = await fetch(it.image, { signal: AbortSignal.timeout(20000) });
         if (!r.ok) continue;
         const buf = Buffer.from(await r.arrayBuffer());
-        await sharp(buf).resize(472, 472, { fit: 'contain', background: { r: 250, g: 249, b: 247 } })
-          .extend({ top: 20, bottom: 20, left: 20, right: 20, background: { r: 250, g: 249, b: 247 } })
-          .png().toFile(path.join(REF, k + '.png'));
+        // OWNER FRAMING RULE (12.07.2026): the dish fills ~75% of the frame and
+        // sits slightly HIGH, so the card crop (top band) shows the food while the
+        // lower part revealed on open is just background. Cover-crop keeps it large.
+        await sharp(buf)
+          .resize(512, 512, { fit: 'cover', position: 'top' })
+          .png()
+          .toFile(path.join(REF, k + '.png'));
         dl++;
         if (dl % 25 === 0) { fs.writeFileSync(MAP_FILE, JSON.stringify(map)); console.log(`  скачано ${dl}`); }
       } catch { /* skip */ }
@@ -109,7 +114,7 @@ if (STAGE === 'gen') {
           '-m', 'sd_turbo.safetensors', '-i', ref, '--strength', '0.45',
           '--steps', '6', '--cfg-scale', '1.0', '-W', '512', '-H', '512',
           '-s', String(3000 + a * 555), '-o', outRel,
-          '-p', `professional food photography, the whole dish fully visible and centered, appetizing, natural light, high detail`,
+          '-p', `professional food photography, the dish fills most of the frame in the upper part, appetizing, natural light, soft blurred background below, high detail`,
         ], { stdio: 'pipe', timeout: 300000, cwd: SD });
         made++;
       } catch (e) { console.log(`gen FAIL ${k} #${a}: ${String(e.message || '').slice(0, 70)}`); }
@@ -121,7 +126,19 @@ if (STAGE === 'gen') {
 
 if (STAGE === 'check') {
   const aws = await import('@aws-sdk/client-s3');
-  const creds = JSON.parse(execSync('railway bucket credentials --bucket uploads --json', { cwd: path.join(__dirname, '..', '..'), encoding: 'utf8' }));
+  // railway CLI hits backboard over the network — transient resets (10054) killed
+  // whole runs before, so retry with backoff instead of dying on the first drop
+  let creds = null;
+  for (let att = 1; att <= 5; att++) {
+    try {
+      creds = JSON.parse(execSync('railway bucket credentials --bucket uploads --json', { cwd: path.join(__dirname, '..', '..'), encoding: 'utf8' }));
+      break;
+    } catch (e) {
+      console.log(`bucket credentials attempt ${att}/5 failed: ${String(e.message || '').split('\n')[0].slice(0, 90)}`);
+      if (att === 5) throw e;
+      await new Promise((r) => setTimeout(r, att * 5000));
+    }
+  }
   const s3 = new aws.S3Client({
     endpoint: creds.endpoint, region: creds.region,
     credentials: { accessKeyId: creds.accessKeyId, secretAccessKey: creds.secretAccessKey },

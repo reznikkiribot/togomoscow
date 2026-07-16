@@ -84,6 +84,9 @@ const EN_FIX = [
   [/сациви/i, 'georgian satsivi chicken in walnut sauce'], [/свекольник/i, 'cold beet soup with sour cream'],
   [/сок вишн|баринофф/i, 'glass of cherry juice'], [/сет/i, 'sushi and rolls set on a wooden platter'],
   [/темпура/i, 'japanese shrimp tempura in batter'], [/тирамису/i, 'tiramisu dessert with cocoa on a plate'],
+  // ORDER MATTERS: «Пицца Том ям» must hit the pizza rule, not the soup rule
+  [/пицц.*том ям|том ям.*пицц/i, 'tom yum pizza with shrimp, mozzarella and spicy sauce, whole round pizza'],
+  [/клубник/i, 'fresh red strawberries with green stems on a plate'],
   [/том ям/i, 'tom yum soup with shrimp and lime'], [/узелки/i, 'sweet knotted buns pastry'],
   [/французский торт/i, 'french layered cream cake slice'], [/хумус/i, 'hummus plate with olive oil and pita'],
   [/чахохбили/i, 'georgian chakhokhbili chicken stew with tomatoes'], [/четыре сыра/i, 'four cheese pizza'],
