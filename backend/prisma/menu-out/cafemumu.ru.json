@@ -1,0 +1,920 @@
+{
+  "domain": "cafemumu.ru",
+  "method": "browser-manual",
+  "status": "ok",
+  "source": "https://cafemumu.ru/menu/",
+  "count": 182,
+  "withPhoto": 182,
+  "items": [
+    {
+      "name": "Греческий салат с фетой",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/ed0/ohcw2a8jcbkgd3owqupkrkw31b2rvc66/329_240_2/b1006de1-f013-413c-9b75-68c781937f37.jpg"
+    },
+    {
+      "name": "Рулетики из ветчины с сыром и орехами",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/b0d/fvvx9ctgb07bysruozn7817wt1edxa21/329_240_2/1197e06c-4038-42b4-96c8-9a9e74411b77.jpg"
+    },
+    {
+      "name": "Салат с фунчозой и овощами",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/e5c/ib5kwrsaqlnx33v4h7uy7wg3wppndgye/329_240_2/dfcf83d4-f87e-41f7-b4f5-00ccd8e8e9b4.jpg"
+    },
+    {
+      "name": "Салат Оливье Праздничная порция",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/b87/v83kfcit32atwvw8bp7cd6xyqw2pp1g4/73821_5bfbe56e-88c0-4bab-a7f8-d116f9922c28.jpg"
+    },
+    {
+      "name": "Азиатский салат с баклажанами",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/439/d5l7kqtm4293or34xnzz5qg1stgyigej/329_240_2/16f918e9-11bf-4fa0-a4b0-eb0d9a27d6d2.png"
+    },
+    {
+      "name": "Мясной салат \"МУ-МУ\"",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/246/zunwkfw5zjfah2yajdzpxz81v1y4rprg/329_240_2/df69befc-e851-461f-8b8d-2eb86b4d5409.jpg"
+    },
+    {
+      "name": "Салат с морской капустой",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/23c/ziwf3ve5evpaicdvshr53kx70f2h6fuw/329_240_2/a826e9e6-0885-44c2-9791-f61a9e006c9d.png"
+    },
+    {
+      "name": "Свекольный салат",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/26b/z67fiin67rr87cqj6tye8c84uwt1iko1/329_240_2/2af3e827-cd88-431e-8abb-0bd4ffc19de7.jpg"
+    },
+    {
+      "name": "Сельдь под шубой",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/8c5/hvyib2k9vgpg0589y21tnrllr3hy5bni/329_240_2/02b5761f-935a-41e6-b9ce-d3174ed90162.jpg"
+    },
+    {
+      "name": "Салат овощной",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/d83/ejfamejf46ssvbv63ptese9ufu1ktsfp/329_240_2/9f0a7aac-2de5-4772-8e90-becb04f564bc.jpg"
+    },
+    {
+      "name": "Салат с крабом",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/b81/v52vyc5f7nndqva77j193xa0rth841pg/329_240_2/3fcd7a56-9975-46b3-be2a-597d78fde58b.jpg"
+    },
+    {
+      "name": "Салат капустный с огурцом",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/613/d4u2bscbhljn8qo308363w3s2me97k2v/329_240_2/50319f2a-e419-435c-afcc-d69dc5aaf4b6.png"
+    },
+    {
+      "name": "Ролл с крабом",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/240/eun96j4s8eqehovaxfpje2y6wkem1e47/329_240_2/291f2192-0307-4260-b5e6-6b2b6a719e9e.jpg"
+    },
+    {
+      "name": "Салат Оливье",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/464/92amqn4ugzt9if8q2on6tegchh3l4vdh/11913c10-05d0-443d-8435-9422f216cbf7.jpg"
+    },
+    {
+      "name": "Гренки ржаные с чесноком",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/7c5/t1yeqq4r9ajjg35gueyebdkl3nvsrck1/8e737037-c12c-412b-b663-5ec02410688e.jpg"
+    },
+    {
+      "name": "Селедочка с луком",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/582/2asq9pmwsukgdn1eu4op9g9htzi9g6lu/a9d780cb-02cc-4bd1-b181-4f8eaa4dab6c.jpg"
+    },
+    {
+      "name": "Двойной Оливье",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/7a1/zpjs044akt3a095260k890yhqr74745g/73821_1a4d7d98-6390-469a-bae2-637ceee71d2b.jpg"
+    },
+    {
+      "name": "Тройной Оливье",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/b20/0fthrbtdopriu7p36nseszvy1kinoovy/73821_214e43ce-f6ed-444e-b81e-9e7f0f4ac6a2.jpg"
+    },
+    {
+      "name": "Салат куриный сытный",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/e24/88bg2i37ij3vmw2pfekhw7eywpvauzpl/dbaab544-cba2-40f2-b140-fdd78876a034.jpg"
+    },
+    {
+      "name": "Двойный куриный сытный",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/4a5/vgo0hmh7okts0dhfkyxtp5ol87ksxiss/fa703a1b-4f97-404c-8a1e-8242c031fc64.jpg"
+    },
+    {
+      "name": "Тройной куриный сытный",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/32e/5wt7ann83uac1tt5k3y0aq4q2nkwb32c/8fb68da9-bb9a-40a4-9baa-6936e1c0b411.jpg"
+    },
+    {
+      "name": "Салат Цезарь с куриным филе",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/ce6/15xxg10sh6vlwo4idqqwxbziut00zal7/7608f862-54ae-4070-aca6-6122de24eae9.jpg"
+    },
+    {
+      "name": "Винегрет",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/eb9/madd6uiacd02l2vlx282og2ads82h826/329_240_2/1d1e587e-9cda-4096-9aae-57460a8d2292.png"
+    },
+    {
+      "name": "Борщ с говядиной",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/504/b5ex2q95fl40b1p4q0uz5m42evl528tj/329_240_2/ff73f686-80a4-4ee6-80b2-efc245265d02.jpg"
+    },
+    {
+      "name": "Борщ фермерский На компанию",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/487/lafw5iardbsi7p5sikj9t1kdprfl3qm3/ad9ee922-43c8-4f90-9043-dd0c85fd9889.jpg"
+    },
+    {
+      "name": "Суп-лапша куриная На компанию",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/c22/pw7ab3lzpl05a6kwpulst0mwi3dj85mt/5c5280f6-852e-4593-b073-95e0174fc489.png"
+    },
+    {
+      "name": "Окрошка с колбасой",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/94f/ialfpibt1leg0s3orah3kz0jxxh2jh46/329_240_2/7831a1f1-86c9-4188-81b3-a2837ec17ae7.jpg"
+    },
+    {
+      "name": "Суп Том Ям с курицей (СР)",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/121/k7k5oig0zfzotta3dfnopwv1es1dto5j/329_240_2/8cbda784-0fe3-4ce0-847d-c6254860bc05.png"
+    },
+    {
+      "name": "Суп грибная лапша (ПН)",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/169/86wgo3dd5bnfani76avtlr8mcpxkt7b9/329_240_2/edb5fcae-85b0-4a67-bcac-4f61bc832468.jpg"
+    },
+    {
+      "name": "Уха по-фински (СБ)",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/857/urxnfav00n6bwcexmdr5noe48v3vcn7j/2635c863-66e3-420f-8783-e102784a74c0.png"
+    },
+    {
+      "name": "Суп-пюре из шампиньонов (ВС)",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/831/vrc8v06h7couggx3djo3m85a25b3fh8o/329_240_2/2d9cacdd-8aae-4f2f-ad25-fa76dff51edc.jpg"
+    },
+    {
+      "name": "Рамен с говядиной (ВТ)",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/6ec/1k50ju05huyqttzep1vczq77vdhjv8eh/5af45800-9cf2-45d0-8212-eff4f0d344ff.png"
+    },
+    {
+      "name": "Суп-лапша куриная",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/4f5/grrc3bm3bdys3txa9xqqgrs72o8eashp/aa5be139-35d6-46a5-a8d4-490edd557e25.jpg"
+    },
+    {
+      "name": "Рыба под медово-горчичным маринадом",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/a4a/60zxu4r82p8888rneen0zkcd31s2zzg3/329_240_2/1a88b449-bab0-46d0-a6f8-22af01072cc6.jpg"
+    },
+    {
+      "name": "Говядина по-корельски",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/0e5/3rhnxe7mmpbllbunul3pr4wtnfd0jqii/329_240_2/7a0abd4f-0f80-488b-8e7b-587c27d77abf.jpg"
+    },
+    {
+      "name": "Котлета по-киевски",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/1c6/omrxauzugik4q1hksubd9gkgr9ridi7k/329_240_2/defe939c-554b-4ddc-a8cc-010c7e8186d1.jpg"
+    },
+    {
+      "name": "Блинчик фри Пина колада",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/987/hltd981uib7nyon9hbtzksf82ruivxsr/329_240_2/8b0557f8-a5df-432f-909c-3108512f2cab.jpg"
+    },
+    {
+      "name": "Котлета Пожарская",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/243/n7euzgxfi54jq1u15yz1r7yzfbm7f5nf/7bdd9b7a-a367-45b4-b0d6-b0b9cf30ea37.jpg"
+    },
+    {
+      "name": "Блинчик фри Яблоко- брусника",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/7f9/8j73uxln7yn32fkkmzz5kslyyy6myvap/329_240_2/c8e3d088-6a70-4d40-b0bf-a7febf41bb31.jpg"
+    },
+    {
+      "name": "Котлета мясная с томатным соусом",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/13f/0hd15vx2wwo5zwnxt7mb3xrr13xo4x44/329_240_2/73821_bb972e87-9c3a-40a7-84e8-cda500920353.png"
+    },
+    {
+      "name": "Шкмерули",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/082/ghml2lj586kizbqplq4em04irn9ce1uc/329_240_2/b30772a8-73b4-4363-b47f-43830f0a085a.jpg"
+    },
+    {
+      "name": "Оджахури",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/ac5/hmxqgkcgwmrasm7srzgpp91a81qw8ddw/329_240_2/41c8f384-afa4-4316-8884-34ade8466acb.jpg"
+    },
+    {
+      "name": "Кёфте из курицы в соусе терияки (2 шт)",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/e54/riqudajfxzx9p4nx4m0z00evb64nq7au/329_240_2/86155894-fb99-4d44-8248-6cbea9f21e0e.jpg"
+    },
+    {
+      "name": "Фрикадельки по-домашнему",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/093/3m3k01ksw8hmqdeo1fiuaw4xk53iat55/4593b5c2-056e-41d1-ae6e-63b3f557ddc1.jpg"
+    },
+    {
+      "name": "Картофель жаренный с грибами",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/802/mza79hqmfnzf48fg7bfrd26ka8axc7mx/ff214516-b01f-4f75-a8a3-c47c7f7b13cb.jpg"
+    },
+    {
+      "name": "Свиные рёбра барбекю",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/6eb/z5rhsghsfrnzkcu389x9fo17nyhumbk9/329_240_2/c3748d51-af4a-4480-aca1-de9ab267ce2a.jpg"
+    },
+    {
+      "name": "Котлета куриная паровая",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/e2e/hyc74jievhgxiijejmte4iguzzfd81av/0302fcb6-8898-4b46-9cb5-8e82b9da906d.jpg"
+    },
+    {
+      "name": "Котлета подмосковная",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/d1d/dejbbsc73kefqptmsuviau6h2wxtzzs6/329_240_2/24de8392-16fd-4ce8-a370-b45ea5a2a332.jpg"
+    },
+    {
+      "name": "Шашлык из курицы",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/ddd/79az0op12df16cdfm7wh70qpv2cah0cg/329_240_2/aa0b70da-0c24-4c9e-9282-46592a699e9d.jpg"
+    },
+    {
+      "name": "Шашлык Свиной Грузинский",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/1a2/8thxcn3bzxnvd7at8qogbdsakxhaak0t/329_240_2/062ef856-d4db-472f-a45b-e8bb32052bfb.jpg"
+    },
+    {
+      "name": "Куриный оладушек Кокорито",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/022/pp3i97qszrq5ub769okrdy3n1ocujfmw/48065417-33f7-4f60-8955-2e183d5fb22b.jpg"
+    },
+    {
+      "name": "Колобок с грибами",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/908/e2eduqyhthwrj1lt517s91k2xfi8zsoc/329_240_2/73821_1904032c-840e-4b89-9747-518ada26dff9.jpg"
+    },
+    {
+      "name": "Рыба запеченная в соусе тартар",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/5fe/wqwkwums3kq0albp75suwpl4h0kyj0cx/3e829445-a99f-4445-8387-40b63cce65a2.jpg"
+    },
+    {
+      "name": "Блинчик с мясом",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/951/x7s397d3qdk7idga3pmws39gqg6dbv67/f32ed7ac-83f7-49f1-946d-5bfe3597ad7c.jpg"
+    },
+    {
+      "name": "Ёжик с томатным соусом",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/adf/k6bsg64p73dh79mixgmwl6240wrcy7aa/329_240_2/73821_fa792470-12eb-4adc-918a-7e2de09f065a.png"
+    },
+    {
+      "name": "Говядина жареная",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/1f1/x3vkou28hbl3ebyjxw4ickyno3nx1kh3/329_240_2/8c8a118d-6304-426b-bdc0-c40fbc1829b8.jpg"
+    },
+    {
+      "name": "Сырник",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/e8e/sg37u9ud9p87yjz0e9894qx0bx57uiib/f3070b73-1602-440f-ba6c-a0b0b9e21b54.jpg"
+    },
+    {
+      "name": "Котлета Светлогорская",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/bfa/vmxhlpyud16zycstddkp203k6jsyf92h/329_240_2/1c2d9593-242a-45e8-98e6-951ccf5243b6.jpg"
+    },
+    {
+      "name": "Жюльен грибной",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/27d/zxabb9hshkp0qej7dz3r8zmuu3u3pzyc/1397e0eb-f87d-45a0-9f30-5d007844f531.jpg"
+    },
+    {
+      "name": "Стейк из свинины на косточке",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/108/h22bdfftgti59t3vnzalx3kw94yb5p9s/329_240_2/b4458294-1f47-411d-9fb0-1b6665454204.jpg"
+    },
+    {
+      "name": "Шницель куриный",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/880/m1gp71glb7ltv754y2pxv0ccib2ibo9d/ea9cdfbc-6b70-4121-92cc-92322018e29d.jpg"
+    },
+    {
+      "name": "Картофель запеченный",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/541/ygs8jhj46bdtfjctdp8pt720k2vm7tef/329_240_2/8ad4be11-58bc-4918-a429-006140d6521b.jpg"
+    },
+    {
+      "name": "Двойное пюре картофельное",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/de0/9kzj4i0gnklj4vxctuthqt4b7haalov3/9044e7e4-e720-42f0-b567-726e197f0343.jpg"
+    },
+    {
+      "name": "Рис с зелёным горошком",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/f41/cwohgl74c2faebbsp1oxtm9lpwxb3x30/329_240_2/adb6422b-5ae0-4f9f-9a66-2e1348cd3e1e.jpg"
+    },
+    {
+      "name": "Макароны со сливочным маслом",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/d3e/ldstjuj6zrvbr8m2frljoencpztvmmv8/8f6915b7-f0fb-4c09-af76-d2572a7de59c.jpg"
+    },
+    {
+      "name": "Гречка с овощами",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/939/su8lrg3hudhrhc6dprtnlw1eh8503r6w/31514aa9-969f-42c7-a4e8-fe85132d4f40.jpg"
+    },
+    {
+      "name": "Пюре картофельное На компанию",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/3aa/y00uh6tgx4sw0qugyzvre5v7dwubs2yp/ad00e6fd-8660-4dad-8a03-3d9df20dc883.jpg"
+    },
+    {
+      "name": "Пюре картофельное",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/3a0/jhz8poekt7d2sr9s5s0292ydp5vedjhj/55866138-c349-4538-b124-2e3d9fe561bc.jpg"
+    },
+    {
+      "name": "Соус сальса",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/36f/tznk95vq3eitlwd5bn8qg889eh1zi124/13d241f4-8aeb-4dcd-b0a3-fee2661595e4.jpg"
+    },
+    {
+      "name": "Соус барбекю",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/132/n3x2v6bztj2rxydgy72s92qxxfzljoyk/329_240_2/7e1f4fb5-9db5-49f5-9e94-c74fe8130e23.jpg"
+    },
+    {
+      "name": "Соус грибной",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/c51/i09le0mdt2uxse0jwjbx6rp0fesd0byh/e8227b96-01bf-462e-8ee9-b48373ed9f7d.jpg"
+    },
+    {
+      "name": "Кетчуп",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/ac1/8kmpu7cohkc5ekzmf6pvelq1w7f190l7/be8cf812-77e5-4cbb-b2a0-ae97796b0c07.jpg"
+    },
+    {
+      "name": "Джем клубника",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/5d5/cb3jz1wufa4gl3m3836qkp73q1fvyw11/bd0321e0-400f-42eb-a319-01b6e7951452.jpg"
+    },
+    {
+      "name": "Джем вишня",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/4bd/03ncobf0qxjd5njnci8um3hmw87fyjod/619758ba-72db-426f-bd52-1d1c6d4786f7.jpg"
+    },
+    {
+      "name": "Горчица",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/350/0t0y3mcwu5oa4gzkzhgjpvq25c7r1xj0/c0c056ac-280d-4ed9-a2fe-1640f8f5e97d.jpg"
+    },
+    {
+      "name": "Майонез",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/86a/rg6pp04jms4f71zly7n6ql24b56xwkt6/96325a0a-19c8-4d0e-9867-6e60c7bd8284.jpg"
+    },
+    {
+      "name": "Молоко сгущенное",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/ced/foq67r5agtlo2b402kyudwubo3nazavc/bccd3186-59cf-4148-946a-38893656f4dd.jpg"
+    },
+    {
+      "name": "Сметанная заправка",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/51e/19u1pf97lvybeh6zyqdg12zkb4owhiu0/73821_1ad485b9-1907-4965-a7f9-53f287b2dbbe.jpg"
+    },
+    {
+      "name": "Соус сырный",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/af3/uuhaddhf7k514oeii4uenhagaep46v7q/af7a8149-4933-4481-8ebb-7ce05704a31a.jpg"
+    },
+    {
+      "name": "Соус тартар",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/67e/7az248bqpf4rkcbt15a4wz01bxolnhdu/c288fde1-a9bb-469b-ace0-6e0ae1051a9a.jpg"
+    },
+    {
+      "name": "Соус медово-горчичный",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/560/1j1txksi5udg1dcm77chzpo83i5hn0w4/e0966be8-4088-47f1-802a-2a1d76b71ad6.jpg"
+    },
+    {
+      "name": "Рогалик с шоколадным заварным кремом",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/070/g33gfk9k04jnclc1ieujo57a1m4jym6m/329_240_2/d0a9096c-2b60-482a-9640-dba2afb4d1d7.jpg"
+    },
+    {
+      "name": "Круассан миндальный",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/7d1/avw8lokx0ywfrlxjzn66c22dvkvdemwb/329_240_2/9797d8e2-0a87-433c-8d4f-c1e2e2b0e32d.jpg"
+    },
+    {
+      "name": "Маковая булочка в шоколаде",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/5d5/j1klc8brhe0xuord3ug9qdy6h151lmvw/c4d3666e-490f-4b1b-8786-e4203c9052da.jpg"
+    },
+    {
+      "name": "Краффин с апельсиновым кремом",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/b0d/cbyoezo6d6gmcoq14x6pjpa30wnu34tg/329_240_2/2533cace-7344-4239-9b2b-9d57bcc88f9a.jpg"
+    },
+    {
+      "name": "Пирожное Яблоко/черная смородина",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/fb6/7xu6l46mexj4w9jzo11jzdo72ulbbzj4/c04f025f-a377-4018-8979-37451813ea22.jpg"
+    },
+    {
+      "name": "Пирожное Вуппи кук",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/f5f/dra6exkrm7pjvgjs3y0effx3jm1qu4kl/329_240_2/d6ad69f4-34a0-4a2f-95cd-56f3da716dd5.jpg"
+    },
+    {
+      "name": "Берлинское печенье",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/188/q9ya2rawv961oal60es4g03mfn59tz0w/b7449918-71b6-4132-9d39-516cffb5b4d7.jpg"
+    },
+    {
+      "name": "Маковый рулет",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/adf/z00s7thxrzla5x6reqggd17w96pdsgtf/d80a4e1b-f4b3-4d99-aec5-98f3a08dfbe0.jpg"
+    },
+    {
+      "name": "Торт Манго",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/dc9/e70c5jay8y5e3hxbj892g24rges13cgk/329_240_2/04cb4f66-df43-4fc6-9f29-94b693a59a2c.jpg"
+    },
+    {
+      "name": "Пирожок с яблоком и черной смородиной",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/498/tigm8ma5n3yhbcfo4q4poimja11k077u/633c6140-686e-40da-9355-228b3696cb8e.jpg"
+    },
+    {
+      "name": "Пирожное Картошка",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/a52/2y9o2aq167c9o0janjbnvxatadmgqyzu/d71d5c74-82ef-4684-b0c0-59adce9c2fc0.jpg"
+    },
+    {
+      "name": "Торт Чизкейк",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/8ae/i7wqfy8ber22q4khrbsgdp69l3a71k5o/329_240_2/b699c84c-9e89-4b11-8d42-dd13c86f59ff.jpg"
+    },
+    {
+      "name": "Сочник с творогом",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/d07/ff1lujj660v3ocm9nm2ln0mpdnseu7mn/329_240_2/b8eff0cc-e5c6-4268-954e-df363c68b621.jpg"
+    },
+    {
+      "name": "Торт Красный бархат",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/fc7/2t0kp1mq2ztxlwqktjvqpv2oauhmoe6b/329_240_2/1af0e43c-87ef-4287-98c8-cbdabdfade06.jpg"
+    },
+    {
+      "name": "Пирожок с мясом",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/c7e/rxxgtk829k2yxuxjdtjwbz6li5peljsz/a88f1365-32b9-47d1-800f-0115970f6d28.jpg"
+    },
+    {
+      "name": "Кольцо творожное",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/b63/sj3siby6dztm0ykumwmfrhfcw3nfqm6n/329_240_2/d867504d-5170-4762-ac8b-c01ed5ff8096.jpg"
+    },
+    {
+      "name": "Косичка с кленовым сиропом и грецким орехом",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/141/7da5b4rbm3a51rcbzr8gu0npf9t4lt47/329_240_2/09910ece-e2dd-489f-bb30-6ab60173a2cc.jpg"
+    },
+    {
+      "name": "Трубочка со сгущенкой",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/ed5/fjbkwo1nl98ndxel9ql3sax4mnfkd7ka/329_240_2/e79a0e81-50a1-4fa1-8168-521bfb640cc5.jpg"
+    },
+    {
+      "name": "Пирожок с капустой",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/5a7/eaekeyum5qhm0en7sgfojamhwws8uw3j/ecaf25f7-69e1-4329-8bc1-431c4d6118de.jpg"
+    },
+    {
+      "name": "Пирожное миндальное Макарони",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/33b/iehpjd5o9t2tp3mreuik2g3i084k2mwn/329_240_2/825a2128-1737-424e-a3fc-2c92a5e528c2.jpg"
+    },
+    {
+      "name": "Пирожное Наполеон",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/072/82ww0ntqux4nh3ksm4chmm13p2uz4x90/6304e5dd-b96b-403a-8faf-4e2ec11ccef6.jpg"
+    },
+    {
+      "name": "Торт Медовик",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/91d/yhq5923vdh2om5n4zov5lc7dwalzk81h/a558ac75-8eac-432f-9ec2-20e4a4ca4ae0.jpg"
+    },
+    {
+      "name": "Торт Шоколадный",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/642/b1dexu2cxovfd00kmld1f9gqd0e84r7t/21ceaa9f-f216-43ee-a791-769a002794cd.jpg"
+    },
+    {
+      "name": "Кола Добрый",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/36b/rxqqay1qvbu1viab9dzquciyd60smjn5/329_240_2/511e4c33-69f9-426d-877c-fb73820c1134.jpg"
+    },
+    {
+      "name": "Вода питьевая Святой Источник без газа",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/c64/wygpi2ia9aglqwpzj9t6pszuq1gj9fnp/542f6549-3a60-4106-983f-81c138f630f4.jpg"
+    },
+    {
+      "name": "Напиток Апельсин с витамином С Добрый",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/806/9gd1e4rvbswly19qf06f905bwiy0y719/329_240_2/6039a721-d0fd-4804-9b86-393a7afa992f.jpg"
+    },
+    {
+      "name": "Напиток Лимон-лайм Добрый",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/d68/m5s7p044x7oi1865luppe7220dddn19x/329_240_2/9a4fed22-c5ac-4d0b-ac92-7d8b59a3f8c0.jpg"
+    },
+    {
+      "name": "Напиток Кола без сахара Добрый",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/bd1/52oqt13lg4ylwprzhlxw7ee13wyg1t9i/329_240_2/ed1f3214-1021-47c6-8a2a-337576d49d54.jpg"
+    },
+    {
+      "name": "Напиток безалкогольный Святой Источник лимон",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/0ff/k2o0cajlb3ew6jl3nfekoqgtulgr5yuw/329_240_2/4128f00c-d086-4394-9488-c6060f482c52.jpg"
+    },
+    {
+      "name": "Чай пакетированный зеленый",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/39a/elbfrj3my8jbgg5e3ny043ojj60w6vyh/329_240_2/a17fe50b-9da5-4f01-a22b-299db2889b8a.jpg"
+    },
+    {
+      "name": "Квас Яхонт Трапезный",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/357/kbq95sc3c0hvflewu2qzyory68h82swx/743ef701-691a-45a6-bcc9-909b7b8a5e74.jpg"
+    },
+    {
+      "name": "Чай пакетированный черный",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/9ec/xytv9c2rezahr98acwdi7c2c3deaq2ti/329_240_2/548789e0-3d92-4c12-a07c-90ea7b4c3f7b.jpg"
+    },
+    {
+      "name": "Вода минеральная Боржоми",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/ec4/6ch4jzxalp02lpjt7eaeot20qojov69u/9406f645-599c-47a3-a144-70e58ccbb4ee.jpg"
+    },
+    {
+      "name": "Булочка",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/2b7/omueh3md5un70lidj99866398647mwls/c80d8c1a-f33c-4515-ae5c-c6113d70c7a1.jpg"
+    },
+    {
+      "name": "Хлеб хуторской",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/23e/s69u84im422veqbksuzlgq2pfuuls39y/2995361d-c87b-4a45-8bf1-4e5bb2bd089f.jpg"
+    },
+    {
+      "name": "Жевательная резинка Орбит без сахара \"Баблминт\"",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/8f2/mhikhethhpf8jz0yjm913l3na04hpw4j/c2d3a571-11cf-44be-bd4d-166c0ff7c177.jpg"
+    },
+    {
+      "name": "Жевательная резинка Орбит без сахара \"Винтерфреш\"",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/07a/y914zppubhlzkvn2cpc9x8nvyi5zwapz/6e7d1701-574f-4ea7-94c2-52a487119de8.jpg"
+    },
+    {
+      "name": "Жевательная резинка Орбит без сахара \"Классический\"",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/012/ftjq5ji21xhchze4tnezkiqxjuo7cios/7377f45f-f721-4d73-b139-156f1964a015.jpg"
+    },
+    {
+      "name": "Жевательная резинка Орбит без сахара \"Нежная мята\"",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/d61/ez2uh0by0v3zwrg98soigoinusj35um5/6a417a3f-8f8e-443c-8677-202d390ede23.jpg"
+    },
+    {
+      "name": "Жевательная резинка Орбит без сахара \"Освежающая мята\"",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/ce7/5lbdu9yq07ltzao9atfkf9m6jquvx2lp/f511e9ad-7124-4df3-bf59-c2f3f2d480b9.jpg"
+    },
+    {
+      "name": "Жевательная резинка Орбит без сахара \"Сладкая мята\"",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/cc5/nh7dt8ynwvvl2yyh6jb06a7scb9tt9kt/66ecb399-a0f7-4243-9e82-70da8c1bf898.jpg"
+    },
+    {
+      "name": "Жевательная резинка Орбит без сахара \"Сочный арбуз\"",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/fd2/goa4eyf3ge2oo71o4bapnrtfr957x76w/3b74e7b1-698e-43ad-955a-5753f906e756.jpg"
+    },
+    {
+      "name": "Сельдь под шубой Праздничная порция",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/494/blswn36ivx47d4f810avccixu2ismjwm/329_240_2/472bb5f6-3e2a-46cd-9368-ba93bd972414.jpg"
+    },
+    {
+      "name": "Салат Греческий На компанию",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/f6f/nbmukoeqok0ozgwfqof8pl51i40g1z2y/3b228878-e6e5-4840-8c6a-eee6cd4f2f01.jpg"
+    },
+    {
+      "name": "Салат Цезарь с курицей На компанию",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/4df/hbmilsic0sadeun3l2n1u9nmqvias7th/e7698632-1d82-4158-ba49-e68b6b612ac9.jpg"
+    },
+    {
+      "name": "Салат куриный сытный На компанию",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/b8d/t6l2rjzmosv3ayytwd7vq5wrw4z3f66a/7ee9ee18-644c-42f5-bf76-c02785166dec.jpg"
+    },
+    {
+      "name": "Винегрет На компанию",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/9ef/pjbxluxve426d646sf0d5y7abcl2e34q/329_240_2/0199dc80-558b-4150-9557-577dd443081b.jpg"
+    },
+    {
+      "name": "Сырники На компанию",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/dfc/7e836rydfmsbghs928e7iy8h1o2906jl/0a99443b-ad2c-4324-bc7a-bd036ed3c861.jpg"
+    },
+    {
+      "name": "Салат Оливье На компанию",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/6a2/o2r9wi6gmm4y4oiqdrz48deldupb244v/73821_8ab2581e-5380-447d-a442-bfd650faedd8.jpg"
+    },
+    {
+      "name": "Блинчики с мясом На компанию",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/9ab/n3qsvxmgm4p1ehhptfxj0cjtidw2mfx7/6a478aef-ecf9-4f9e-90ed-347ce9e2e43b.jpg"
+    },
+    {
+      "name": "Котлеты Пожарские На команию",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/26b/ywe2kqji9luubls1dqs29e4h7ybdgrpc/c90c6817-df6d-43cc-b63d-1d1808a244ee.jpg"
+    },
+    {
+      "name": "Шницель куриный На компанию",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/a48/8f93wd1dg0yws3n7w03xm3ah0ncqacwy/9002c34f-ac20-4073-970c-57a1447d9b9d.jpg"
+    },
+    {
+      "name": "Рис с овощами На компанию",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/726/6n90090r8l1069i6hryls0x2t46wmmrh/503432e1-2d2a-4f6a-b42f-beb7d2064194.png"
+    },
+    {
+      "name": "Борщ с говядиной На компанию",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/0c4/dfwbtrgeub5ki6688eeug6cam91rtfwf/d3365f84-086b-43e9-85b9-475201f47433.jpg"
+    },
+    {
+      "name": "Хачапури",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/635/7p32lp0x5pli86imtuse9zcvpw9mo3io/329_240_2/cda6ca65-d7f5-4bd2-86cf-f54976caddf4.jpg"
+    },
+    {
+      "name": "Пицца 4-е сыра",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/ced/ahpu8ur1t4ejdw8ezkwb5lcq08aoph2e/329_240_2/ae78c247-2e9d-4d3f-8182-2d24605b4407.jpg"
+    },
+    {
+      "name": "Пицца Ветчина грибы",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/dba/38nahelv302ag92geeqk3mo51gw5eako/329_240_2/dacb18cd-6d07-49cb-8dc4-1930312261c2.jpg"
+    },
+    {
+      "name": "Пицца Дьяболо с чоризо \"пеперони\"",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/226/4ps8bo0foq2vpuk23kl0t5michdhr01v/329_240_2/92c2026b-6ddb-4834-944a-711cf86ba638.jpg"
+    },
+    {
+      "name": "Пицца «Маргарита»",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/2ac/4rq8uzvcv1dgqhfca4tnakm0fkyy7lsn/329_240_2/a8d6f5c3-152b-4b3d-a631-0c3047801694.jpg"
+    },
+    {
+      "name": "Пицца мясная BBQ",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/669/oak83usd9s1e5mrwpjr53uwzixlsuwt5/329_240_2/8eda6419-5ee4-45e2-89df-d26ba95b43eb.jpg"
+    },
+    {
+      "name": "Спагетти Карбонара",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/f4b/4nrz2wzmilgj0ow1s43rggw3rrjmbsbp/329_240_2/43ac1d5d-e8b3-4f25-ad99-a69c443866ce.jpg"
+    },
+    {
+      "name": "Тальятелле с грибами и беконом",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/f33/vtv3ul3s1gdy8r7ffira7v0tjtjfhlxt/329_240_2/03697d76-7247-42da-bbd6-8e22aa085499.jpg"
+    },
+    {
+      "name": "Теплый сендвич Канадский",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/43e/016dlveqtiwqcadmybqvbvqzzo23vp5c/2946b6db-7110-419e-a172-941be348f29c.jpg"
+    },
+    {
+      "name": "Теплый сэндвич Калифорния",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/1b8/727r2ig26vm9j0cyg8bkb5vpp3n76buy/aba3d199-617a-436a-8506-3e28567a0066.jpg"
+    },
+    {
+      "name": "Теплый сэндвич Филадельфия",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/39a/e5f5vjffbk1zvnmf56szfztpdn3e9mw0/3ca6ac5a-9cc2-4b52-ac71-cf5f1dade858.jpg"
+    },
+    {
+      "name": "Ролл Вулкан",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/ded/1uyzfrgydk0nslt0l1tx1gjw7b1bqphk/8d630b39-3249-4836-afe8-b4755179ee0a.jpg"
+    },
+    {
+      "name": "Острый ролл с креветкой",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/679/1d4x3nq7cn68nus6lmnsiwedspis8bit/157616c3-ec34-4410-9d7e-803882e7f99b.jpg"
+    },
+    {
+      "name": "Ролл Аляска",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/843/cag18mshe2o40zch8826v18xj83fv372/0003b831-eef1-4caf-983b-f61de3f85db1.jpg"
+    },
+    {
+      "name": "Острый ролл с лососем",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/a57/9aw9z8ad99c38t0lg6wsgye85wmndvds/4ba7e3a0-e730-4553-a517-27ddc32bf745.jpg"
+    },
+    {
+      "name": "Острый ролл с крабом",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/c33/5u6u1en912ng1x942ix7xw4q6us541pt/af77b815-5ebd-4ea6-86aa-cbe1a5a78c2a.jpg"
+    },
+    {
+      "name": "Гункан с лососем спайси",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/a70/1z94fev4wsap79t58521ehc8qg6694tc/1f663012-a930-4a11-83d7-fef4c93553d7.jpg"
+    },
+    {
+      "name": "Соевый соус",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/43e/1lj7ljt1r8slqf4jvezpiexemyjf2mf8/45de9ac7-12e4-40b9-9165-46051f83d0f2.jpg"
+    },
+    {
+      "name": "Гункан с крабовым мясом спайси",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/403/f3olq5afvmne391cz6fpak8ax1b33027/a5292d19-c02d-4f04-a717-622e07b5baaa.jpg"
+    },
+    {
+      "name": "Гункан с креветкой спайси",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/3df/u22h4y8x0p9w3gnpl0kngae89fl20d31/5f0f588e-826b-4dc1-9048-c254cddbe7e1.jpg"
+    },
+    {
+      "name": "Гункан с угрем спайси",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/bc5/gtvayzx43d4ogk1dtoae5v7n0fnmrs0o/d1b868a8-ec4e-417c-b4f1-8120ff1ac6fb.jpg"
+    },
+    {
+      "name": "Имбирь",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/f37/22zvsvl7dxgjl7t3gwd2mwo41swygs4k/7cd51344-f699-4d93-a2cb-79dff1d17bf5.jpg"
+    },
+    {
+      "name": "Васаби",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/592/7niwzc01i1hvqgfbe7yzuuhvkswbm5j2/509a110d-7b91-43fe-b3fa-cb134fdfe386.jpg"
+    },
+    {
+      "name": "Ролл Филадельфия",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/82b/oflsz22sgqks26jkgqlellnuny7bd9tp/e2302b27-4939-4687-9d16-2a30aed9a360.jpg"
+    },
+    {
+      "name": "Ролл Филадельфия люкс",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/245/etton3y5uzguyqdhu2h0sabh7yli3za7/a32c29c2-8fe1-4252-a47a-504d5443fd51.jpg"
+    },
+    {
+      "name": "Ролл Калифорния с крабом",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/efe/p923iakdve1lb9ug75ntipy6c2pkohun/ce4d7b8d-102f-4425-97b2-504ea5a8a786.jpg"
+    },
+    {
+      "name": "Ролл Калифорния с лососем",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/499/dvtfguq08n49u0f4xznvhnvrgw4cei97/44492a39-9d69-43c3-8789-3711e2d8fdd1.jpg"
+    },
+    {
+      "name": "Ролл Канада",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/cf1/f3z7jk07u2ijfkbwmtn81wzyqce91aed/fc01a0ae-1bbd-4554-8693-8cf2924e7a61.jpg"
+    },
+    {
+      "name": "Ролл с крабовым мясом и сыром",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/8be/zmeyls664hnx6awl6wuezf9jy3ei2pc5/a869bbd1-ea3c-4c3d-b489-ae60db6b8d56.png"
+    },
+    {
+      "name": "Ролл с огурцом",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/ee7/ksoypmc5n94ehgd928rbqwi9sbgdxt0n/c42d05e1-34fc-4f1d-8fa1-6e26f1ad2426.jpg"
+    },
+    {
+      "name": "Ролл Сливочный лосось",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/607/3zrayh3q4mhmqzmb0cuxes2q6npmwbmr/556383b8-cf66-4511-a1ca-10744d94a278.jpg"
+    },
+    {
+      "name": "Горячий ролл Цезарь",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/fcb/kp6hbci00pg7fg3k2j288m5hdpnu0lis/ea90dca7-1be8-4973-8e3f-983ce16e5284.jpg"
+    },
+    {
+      "name": "Суши с креветкой",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/c4f/304wkah9r9fy3kkex7iydaj2e08pygfi/a7c6d5f2-47cf-4c17-be76-8542987af961.jpg"
+    },
+    {
+      "name": "Суши с лососем",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/32e/gwg1kknse6s22pje9nih6grsrrumfprr/49293ee6-3bfe-40c8-9f4d-4305a0adb57f.jpg"
+    },
+    {
+      "name": "Сет Банзай",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/8e9/xhx1ixrqd63ldfx0p1db0amkvfp3aj1b/a792939d-ab57-4727-b4f0-680ee1f48c50.jpg"
+    },
+    {
+      "name": "Сет Смайл",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/5a3/k5pmd34pusfu7uxh9ww06jcpxcafnw90/fd395fa5-c62a-483c-9627-31678f958000.jpg"
+    },
+    {
+      "name": "Мега сет",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/iblock/f0c/krmggux5omps74m0d7wrjajjrzzuit2g/ea13fa02-3bd2-43af-a7dd-f6066746fe5e.jpg"
+    },
+    {
+      "name": "Пельмени Домашние (замороженные)",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/2f1/x4vva3peef2x270649px5n5ykwmwjj91/329_240_2/e4b69544-fd66-4ff1-8611-f2b5e272b768.jpg"
+    },
+    {
+      "name": "Боул с цыпленком",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/ab8/268mlk3s394sae1mm3r3zzixlt725axb/329_240_2/e41bec02-0c32-4b59-a98c-7f63e2fb63b4.jpg"
+    },
+    {
+      "name": "Боул с говядиной",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/567/7abhtu151tgfnjg0g72vuvutwain1vsu/329_240_2/d934fbb5-1af9-4966-a6c3-220b1831dd27.jpg"
+    },
+    {
+      "name": "Боул с лососем и авокадо",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/05f/enzj2pfwjepotk0304tobvxqzvcmdfi7/329_240_2/609a6584-e9b6-4911-a010-920d1de4150e.jpg"
+    },
+    {
+      "name": "Боул с риетом из тунца",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/ceb/1w8rer54xb99wk4el6yh0gsbydcn2ier/329_240_2/39efd609-2730-4b80-98c4-b7bf4bc855ed.jpg"
+    },
+    {
+      "name": "Боул с брынзой",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/09e/1m6mzqi1dn2vbftro05giapjs6ba07ni/329_240_2/7755552c-ad3b-40f5-b950-22803acd39c6.jpg"
+    },
+    {
+      "name": "Комбо с супом",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/1d8/e9be1cyu30du38rv5q56r624847gpbdy/329_240_2/5e618420-4d4b-4cb3-ba5a-87fb294c3bf1.png"
+    },
+    {
+      "name": "Комбо с рыбой",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/228/179pwuyfhyom4mjj9z2b4762hzsuazzj/329_240_2/bfcb20b5-4fe5-491d-9f1f-ee67fba5a31c.png"
+    },
+    {
+      "name": "Комбо Стандарт",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/db8/5l1di4tnqkv4rcjschcged2p3udd6b40/329_240_2/38514957-ff3a-4e00-80ea-a30acd159f57.png"
+    },
+    {
+      "name": "Комбо Завтрак 24/7",
+      "price": null,
+      "image": "https://cafemumu.ru/upload/resize_cache/iblock/680/90emghgq2jarft12a8i4rz17ihiczx13/329_240_2/4f2aba87-3e97-4457-8d2c-556436cd8353.png"
+    }
+  ]
+}

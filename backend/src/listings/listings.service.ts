@@ -704,8 +704,12 @@ export class ListingsService {
         [scored[i], scored[j]] = [scored[j], scored[i]];
       }
     }
+    const maxScore = Math.max(1e-9, ...scored.map((x) => x.score));
     const page = scored.slice(0, recycled ? 100 : Number(take)).map((x) => {
-      (x.r as any).isFriend = x.isFriend; // client: rec cards never cut into the friends block
+      (x.r as any).isFriend = x.isFriend;
+      // unified 0..1 score — rec CARDS compete with posts on equal footing
+      // (owner 17.07.2026: если карточка подходит больше — она выше поста друга)
+      (x.r as any).normScore = x.score / maxScore;
       return x.r;
     });
     for (const r of page) (r as any).recycled = recycled; // client-side session dedupe hint

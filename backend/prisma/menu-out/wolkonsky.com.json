@@ -1,0 +1,130 @@
+{
+  "domain": "wolkonsky.com",
+  "method": "browser-manual",
+  "status": "ok",
+  "source": "https://wolkonsky.com/catalog/*",
+  "count": 24,
+  "withPhoto": 24,
+  "items": [
+    {
+      "name": "Печенье Гречишное",
+      "price": null,
+      "image": "https://wolkonsky.com/upload/iblock/cb2/06v6o2nxymvluy323lwz1oke3ww30xks/32764608ff20f0401f1ffaf75aca4015.WEBP"
+    },
+    {
+      "name": "Бретон малина",
+      "price": null,
+      "image": "https://wolkonsky.com/upload/iblock/c5f/1icv84z3b9nmlbydbcdps7eydxp20rus/a4888ac92795d9305227431f6234d54e.WEBP"
+    },
+    {
+      "name": "Тарт лимонный",
+      "price": null,
+      "image": "https://wolkonsky.com/upload/iblock/d84/86n3b2pobplyvdy1joytnb38l5ihniyl/36f112adefa57b591473b92733d93bfc.WEBP"
+    },
+    {
+      "name": "Пирожное Шу",
+      "price": null,
+      "image": "https://wolkonsky.com/upload/iblock/ccc/lrtmlvubz9emehv69vy5mqsopw18v62m/349e0fccb1575aabb3d795e8ea8aa689.WEBP"
+    },
+    {
+      "name": "Эклер фисташковый",
+      "price": null,
+      "image": "https://wolkonsky.com/upload/iblock/edd/n4n3oldyzu58qouy7dl3zqku52oi821k/17246610cb149c644717f02906db1dcd.WEBP"
+    },
+    {
+      "name": "Эклер шоколадный",
+      "price": null,
+      "image": "https://wolkonsky.com/upload/iblock/48a/w84peopmq3911ft0kk04dsqyzh4dgfuu/2a61db427dbcf5c4f12f3ef8103726fd.WEBP"
+    },
+    {
+      "name": "Эклер малиновый",
+      "price": null,
+      "image": "https://wolkonsky.com/upload/iblock/f50/7lebmnxdvjk4dl1v6debbbz5qn1o5e79/133a5ba6ee33ae39064f9272facba27f.WEBP"
+    },
+    {
+      "name": "Эклер ванильный",
+      "price": null,
+      "image": "https://wolkonsky.com/upload/iblock/6c6/pdp8xr6yakig4jppfrmv4tulppcqpdc3/f767164244a6b3ca241330ea988770bf.WEBP"
+    },
+    {
+      "name": "Чизкейк Сан Себастьян",
+      "price": null,
+      "image": "https://wolkonsky.com/upload/iblock/11b/ltl3oce9itvez0w1u108d8p5qlb3zcmx/a23f79260eb616316a8250e7dc0ff32b.PNG"
+    },
+    {
+      "name": "Печенье Сабли",
+      "price": null,
+      "image": "https://wolkonsky.com/upload/iblock/f76/n6r3i8lo7khzazy7gfut39c5vdl8q80h/ce2288d73f693e1ef0037a0a6ec144c1.WEBP"
+    },
+    {
+      "name": "Панна-котта с клубникой",
+      "price": null,
+      "image": "https://wolkonsky.com/upload/iblock/2c2/4n6lkm6qlgrpftegpr9gfizqpfy3j73r/4d227e2773b6bb620eaeda5d862b9731.WEBP"
+    },
+    {
+      "name": "Печенье Куркума",
+      "price": null,
+      "image": "https://wolkonsky.com/upload/iblock/757/0nw6a93ene3mkf1ebf0iqjrv85zfhq4e/80770f0f73581246d3a56c460780a52b.WEBP"
+    },
+    {
+      "name": "Канле",
+      "price": null,
+      "image": "https://wolkonsky.com/upload/iblock/c29/pxgtfe1306mh6kx7ac9gr68q3713g5r7/16551b9451cb58fa9b07bd4db12a6029.WEBP"
+    },
+    {
+      "name": "Круассан классический",
+      "price": null,
+      "image": "https://wolkonsky.com/upload/iblock/113/zxhgg5i1jz7cg5hvw8lcwqtd8berv6n6/AV_06334.jpg"
+    },
+    {
+      "name": "Хлеб из однозернянки",
+      "price": null,
+      "image": "https://wolkonsky.com/upload/iblock/675/ob3wij8jjam34tfhkyp5z122x07aqgxp/f5f8b9ce8b2292ca245a0ac6d25fdc2a.WEBP"
+    },
+    {
+      "name": "Слойка миндальная с черной смородиной",
+      "price": null,
+      "image": "https://wolkonsky.com/upload/iblock/1b9/xw07fy11e8q0y4fhvy22gtd74nfj9npg/b4173bfc34d62e80c342511248deee18.WEBP"
+    },
+    {
+      "name": "Хлеб из полбы",
+      "price": null,
+      "image": "https://wolkonsky.com/upload/iblock/e3c/mv2cckck02pb0n8z95qh9o07yh33x534/30050ba08789cee147135cd07b80a7ed.WEBP"
+    },
+    {
+      "name": "Пирог Довиль яблочный",
+      "price": null,
+      "image": "https://wolkonsky.com/upload/iblock/484/o8io7q3jka8k8z8jbp8vi5myjsgnd7g8/70b605fd2b06e3150bbbe74623458cf3.WEBP"
+    },
+    {
+      "name": "Хлеб из спельты",
+      "price": null,
+      "image": "https://wolkonsky.com/upload/iblock/2f7/yst4ctufwv7x28zvlxfz05amj78grl1q/b2e62e9cf986411051a7ba33e9ff55e9.WEBP"
+    },
+    {
+      "name": "Круассан с миндальным кремом",
+      "price": null,
+      "image": "https://wolkonsky.com/upload/iblock/5fe/qynm44219cv1xi0t0l8m48g93lkrjctc/62d5a434004554c125205ddfe18dcc5e.WEBP"
+    },
+    {
+      "name": "Даниш с брусникой",
+      "price": null,
+      "image": "https://wolkonsky.com/upload/iblock/e67/igvft1mkf7m2tu1h6z4dmx8ioljywkku/530e649ef6f0e13c4e748d08dbe3d191.WEBP"
+    },
+    {
+      "name": "Плие с шоколадом",
+      "price": null,
+      "image": "https://wolkonsky.com/upload/iblock/63c/78vju6o8yfvqvbcnv1ps80v2h10wys9k/02cf661ac8ca09ca2ff2ab8453adeeda.WEBP"
+    },
+    {
+      "name": "Шукеты с сахаром 1шт",
+      "price": null,
+      "image": "https://wolkonsky.com/upload/iblock/51b/neg9c21tawgifja60926dtzmth35gymn/fef8da190e8ffa7b9c202a79a5b2356c.WEBP"
+    },
+    {
+      "name": "Шукеты с сыром 1шт",
+      "price": null,
+      "image": "https://wolkonsky.com/upload/iblock/3ef/i1ly9514yfejhz9v5cezwleif2tlsa84/7cc09709adf539c49cbf5bf5a33b626f.WEBP"
+    }
+  ]
+}

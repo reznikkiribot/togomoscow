@@ -308,7 +308,9 @@ export class RecsysService {
       const isUserPhoto = c.photoUrl?.startsWith('/api/files/') && !c.photoUrl?.startsWith('/api/files/aigen-');
       const photoUrl = !isUserPhoto && link?.photoUrl ? link.photoUrl : c.photoUrl;
       const matchPct = showPct ? Math.round(60 + 37 * Math.max(0, Math.min(1, pick[i].s / maxS))) : undefined;
-      return { ...c, photoUrl, recReason: pick[i].why, recVenue, matchPct };
+      // unified 0..1 score so rec cards can outrank friends' posts in the feed
+      const normScore = Math.max(0, Math.min(1, pick[i].s / maxS));
+      return { ...c, photoUrl, recReason: pick[i].why, recVenue, matchPct, normScore };
     });
   }
 

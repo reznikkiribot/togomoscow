@@ -825,46 +825,47 @@ export default function Home() {
           {(wallPosts.length > 0 || recCards.length > 0) && (
             <>
               <div className="section-title" ref={feedTopRef}>Лента</div>
-              {/* posts and taste-based recommendation cards INTERLEAVED — but the
-                  FRIENDS block is sacred: rec cards only weave in after it ends
-                  (owner rule 16.07.2026: ничего между постами друзей) */}
+              {/* ONE ranked feed (owner rule 17.07.2026): posts and rec cards are
+                  merged by a unified 0..1 score — a recommendation that fits the
+                  user's taste better OUTRANKS a friend's post. Friends still get
+                  their boost inside the score, not a hard block. */}
               {(() => {
-                const rec = [...recCards];
-                const out: JSX.Element[] = [];
-                let pastFriends = 0; // non-friend posts rendered so far
-                wallPosts.forEach((r) => {
-                  out.push(
-                    <FeedPost
-                      key={r.id}
-                      review={r}
-                      onOpen={() => r.listing && openListing(r.listing)}
-                      onComments={() => setCommentsReview(r.id)}
-                      onOpenUser={(uid) => setOpenUser(uid)}
-                      onOpenPhoto={() => setPhotoReview(r)}
-                      onOpenVenue={() => r.venue?.id && openListing({ id: r.venue.id, name: r.venue.name } as Listing)}
-                    />,
-                  );
-                  if (!(r as any).isFriend) pastFriends++;
-                  if (pastFriends > 0 && pastFriends % 3 === 0 && rec.length) {
-                    const l = rec.shift()!;
-                    out.push(
+                type Entry = { s: number; el: JSX.Element };
+                const entries: Entry[] = [];
+                wallPosts.forEach((r, i) => {
+                  const s = Number((r as any).normScore ?? Math.max(0.05, 1 - i * 0.04));
+                  entries.push({
+                    s,
+                    el: (
+                      <FeedPost
+                        key={r.id}
+                        review={r}
+                        onOpen={() => r.listing && openListing(r.listing)}
+                        onComments={() => setCommentsReview(r.id)}
+                        onOpenUser={(uid) => setOpenUser(uid)}
+                        onOpenPhoto={() => setPhotoReview(r)}
+                        onOpenVenue={() => r.venue?.id && openListing({ id: r.venue.id, name: r.venue.name } as Listing)}
+                      />
+                    ),
+                  });
+                });
+                recCards.forEach((l, i) => {
+                  const s = Number((l as any).normScore ?? Math.max(0.05, 0.9 - i * 0.04));
+                  entries.push({
+                    s,
+                    el: (
                       <div key={'rec-' + l.id} className="rec-wrap">
                         <div className="rec-tag">✨ Вам может понравиться</div>
                         {card(l)}
-                      </div>,
-                    );
-                  }
+                      </div>
+                    ),
+                  });
                 });
-                // any leftover recommendations tail the feed
-                for (const l of rec) {
-                  out.push(
-                    <div key={'rec-' + l.id} className="rec-wrap">
-                      <div className="rec-tag">✨ Вам может понравиться</div>
-                      {card(l)}
-                    </div>,
-                  );
-                }
-                return out;
+                // stable merge: higher score first; equal scores keep post-first order
+                return entries
+                  .map((e, i) => ({ ...e, i }))
+                  .sort((a, b) => b.s - a.s || a.i - b.i)
+                  .map((e) => e.el);
               })()}
               {/* the feed never ends: «показать ещё» always loads more. Premium
                   feedback — the button shows a spinner while the next batch loads */}

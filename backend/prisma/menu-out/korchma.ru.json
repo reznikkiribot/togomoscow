@@ -1,0 +1,135 @@
+{
+  "domain": "korchma.ru",
+  "method": "browser-manual",
+  "status": "ok",
+  "source": "https://korchma.ru/shop/api/v5/products",
+  "count": 25,
+  "withPhoto": 25,
+  "items": [
+    {
+      "name": "Сало соленое",
+      "price": 470,
+      "image": "https://korchma.ru/wa-data/public/shop/products/44/00/44/images/2625/2625.1280x853.jpg"
+    },
+    {
+      "name": "Сало копченое",
+      "price": 470,
+      "image": "https://korchma.ru/wa-data/public/shop/products/45/00/45/images/2287/2287.1280x853.jpg"
+    },
+    {
+      "name": "Крученики с салом и черемшой",
+      "price": 470,
+      "image": "https://korchma.ru/wa-data/public/shop/products/46/00/46/images/2623/2623.1280x853.jpg"
+    },
+    {
+      "name": "Сельдь домашнего посола",
+      "price": 470,
+      "image": "https://korchma.ru/wa-data/public/shop/products/21/00/21/images/2516/2516.1280x853.jpg"
+    },
+    {
+      "name": "Сырная тарелка",
+      "price": 770,
+      "image": "https://korchma.ru/wa-data/public/shop/products/26/00/26/images/2629/2629.1280x853.jpg"
+    },
+    {
+      "name": "Огурцы соленые",
+      "price": 130,
+      "image": "https://korchma.ru/wa-data/public/shop/products/90/04/490/images/1519/1519.1280x853.jpg"
+    },
+    {
+      "name": "Любимый с детства «Оливье» с колбасой",
+      "price": 470,
+      "image": "https://korchma.ru/wa-data/public/shop/products/63/00/63/images/2260/2260.1280x853.jpg"
+    },
+    {
+      "name": "Свежевыжатый сок Апельсиновый",
+      "price": 590,
+      "image": "https://korchma.ru/wa-data/public/shop/products/94/01/194/images/2344/2344.1280x853.jpg"
+    },
+    {
+      "name": "Свежевыжатый сок Яблочный",
+      "price": 570,
+      "image": "https://korchma.ru/wa-data/public/shop/products/01/02/201/images/2345/2345.1280x853.jpg"
+    },
+    {
+      "name": "Свежевыжатый сок Морковный",
+      "price": 470,
+      "image": "https://korchma.ru/wa-data/public/shop/products/99/01/199/images/2346/2346.1280x853.jpg"
+    },
+    {
+      "name": "Квас домашний 300 мл",
+      "price": 210,
+      "image": "https://korchma.ru/wa-data/public/shop/products/60/01/160/images/2349/2349.1280x853.jpg"
+    },
+    {
+      "name": "Морс клюквенный домашний 300 мл",
+      "price": 330,
+      "image": "https://korchma.ru/wa-data/public/shop/products/66/01/166/images/2355/2355.1280x853.jpg"
+    },
+    {
+      "name": "Морс вишнёвый домашний 300 мл",
+      "price": 330,
+      "image": "https://korchma.ru/wa-data/public/shop/products/64/01/164/images/2371/2371.1280x853.jpg"
+    },
+    {
+      "name": "Морс брусничный домашний 300 мл",
+      "price": 330,
+      "image": "https://korchma.ru/wa-data/public/shop/products/12/11/1112/images/2361/2361.1280x853.jpg"
+    },
+    {
+      "name": "Морс облепиховый 300 мл",
+      "price": 330,
+      "image": "https://korchma.ru/wa-data/public/shop/products/11/06/611/images/2364/2364.1280x853.jpg"
+    },
+    {
+      "name": "Морс черносмородиновый домашний 300 мл",
+      "price": 330,
+      "image": "https://korchma.ru/wa-data/public/shop/products/67/11/1167/images/2367/2367.1280x853.jpg"
+    },
+    {
+      "name": "Узвар 300 мл",
+      "price": 210,
+      "image": "https://korchma.ru/wa-data/public/shop/products/73/01/173/images/2690/2690.1280x853.jpg"
+    },
+    {
+      "name": "Фреш Огуречно-сельдереево-яблочный 300 мл",
+      "price": 410,
+      "image": "https://korchma.ru/wa-data/public/shop/products/67/09/967/images/2348/2348.1280x853.jpg"
+    },
+    {
+      "name": "Картофель молодой отварной с чесноком и укропом",
+      "price": 410,
+      "image": "https://korchma.ru/wa-data/public/shop/products/77/06/677/images/2901/2901.1280x853.jpg"
+    },
+    {
+      "name": "Фирменные вареники с маком",
+      "price": 430,
+      "image": "https://korchma.ru/wa-data/public/shop/products/22/01/122/images/2109/2109.1280x853.jpg"
+    },
+    {
+      "name": "Яйца отварные с сыром и со сливочным маслом и с гренками из пшеничного хлеба",
+      "price": 390,
+      "image": "https://korchma.ru/wa-data/public/shop/products/25/08/825/images/2515/2515.1280x853.jpg"
+    },
+    {
+      "name": "Шакшука",
+      "price": 510,
+      "image": "https://korchma.ru/wa-data/public/shop/products/64/09/964/images/2185/2185.1280x853.jpg"
+    },
+    {
+      "name": "Глазунья из двух яиц",
+      "price": 310,
+      "image": "https://korchma.ru/wa-data/public/shop/products/29/02/229/images/2268/2268.1280x853.jpg"
+    },
+    {
+      "name": "Омлет из деревенских яиц",
+      "price": 330,
+      "image": "https://korchma.ru/wa-data/public/shop/products/28/02/228/images/2269/2269.1280x853.jpg"
+    },
+    {
+      "name": "Какао",
+      "price": 230,
+      "image": "https://korchma.ru/wa-data/public/shop/products/37/02/237/images/2284/2284.1280x853.jpg"
+    }
+  ]
+}
