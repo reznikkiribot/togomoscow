@@ -829,6 +829,8 @@ export function ListingDetailModal({
             {data.cityLabel && <span className="tag city">📍 {data.cityLabel}</span>}
             {data.tags
               ?.filter((t) => !/^(блюдо|напиток)$/i.test(t))
+              // the category already shows in the info line — a same-named tag is noise
+              .filter((t) => t.toLowerCase() !== (data.category ?? '').toLowerCase())
               .map((t) => (
                 <span key={t} className="tag">
                   {t}

@@ -110,10 +110,11 @@ if (STAGE === 'gen') {
       const outRel = `outv/${k}-${a}.png`;
       if (fs.existsSync(path.join(SD, outRel))) { made++; continue; }
       try {
-        // strength 0.45 mutated ingredients (strawberries → raspberries, 16.07.2026);
-        // 0.35 keeps the dish faithful while still redrawing the details
+        // OWNER RULE 16.07.2026: strength 0.2 — the copy stays maximally faithful
+        // to the official reference (0.45 mutated strawberries into raspberries,
+        // 0.35 turned a wok pasta into a soup); we only "re-shoot", not re-invent
         execFileSync('./sd-cli.exe', [
-          '-m', 'sd_turbo.safetensors', '-i', ref, '--strength', '0.35',
+          '-m', 'sd_turbo.safetensors', '-i', ref, '--strength', '0.2',
           '--steps', '6', '--cfg-scale', '1.0', '-W', '512', '-H', '512',
           '-s', String(3000 + a * 555), '-o', outRel,
           '-p', `professional food photography, the dish fills most of the frame in the upper part, appetizing, natural light, soft blurred background below, high detail`,
