@@ -80,6 +80,7 @@ model User {
   comments        Comment[]
   recognitionFeedback RecognitionFeedback[]
   achievements        UserAchievement[]
+  notifications       Notification[]
 
   @@map("users")
 }
@@ -410,6 +411,25 @@ model Follow {
 
   @@id([followerId, followingId])
   @@map("follows")
+}
+
+// Notification center (bell in the bottom nav). One row per social event:
+// vote/comment on my review, new follower, new post by someone I follow.
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id") // the recipient
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  kind      String // vote | comment | follow | friend_post
+  actorId   String?  @map("actor_id") // who did it (tap → their profile)
+  actorName String?  @map("actor_name")
+  reviewId  String?  @map("review_id") // tap → the source review, when relevant
+  text      String // ready-to-render line («Михаил оценил ваш отзыв 😄»)
+  pushed    Boolean  @default(false) // sent as a bot push (max 1/day per user)
+  readAt    DateTime? @map("read_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([userId, createdAt])
+  @@map("notifications")
 }
 
 // A venue's public content source: its own website or its OPEN Telegram channel

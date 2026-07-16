@@ -5524,3 +5524,49 @@ button:active,
   cursor: pointer;
 }
 .ni-item:active { background: rgba(0,0,0,0.05); }
+
+/* ── notification center (bell) ── */
+.bell-wrap { position: relative; display: inline-flex; }
+.nav-badge {
+  position: absolute;
+  top: -5px;
+  right: -9px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 9px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 16px;
+  text-align: center;
+  box-shadow: 0 1px 4px rgba(211, 35, 35, 0.4);
+}
+.alert-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 12px;
+  border-radius: 14px;
+  background: var(--card, #fff);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+.alert-row:active { transform: scale(0.985); }
+.alert-row.fresh { border-color: rgba(211, 35, 35, 0.35); background: #fff6f6; }
+.alert-ico { font-size: 20px; line-height: 1.2; }
+.alert-body { flex: 1; min-width: 0; }
+.alert-text { font-size: 14px; line-height: 1.35; }
+.alert-meta { font-size: 12px; color: var(--hint, #888); margin-top: 3px; }
+.alert-user { color: var(--accent); font-weight: 700; }
+.alert-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin-top: 6px;
+  flex-shrink: 0;
+}

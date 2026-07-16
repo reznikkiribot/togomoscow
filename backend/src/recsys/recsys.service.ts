@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { isNonStandalone } from '../common/non-standalone';
+import { buildAffinities } from '../common/taste-affinity';
 import { PrismaService } from '../prisma/prisma.service';
 import { ListingsService } from '../listings/listings.service';
 
@@ -111,6 +112,10 @@ export class RecsysService {
    * and onboarding-quiz interests. Clamped to a friendly 40–97% band.
    */
   async likeProbability(userId: string, listingId: string) {
+    // OWNER RULE 16.07.2026: the % is shown only when the taste profile is real —
+    // after 25 ratings. Before that it's noise dressed as precision.
+    const myRatings = await this.prisma.review.count({ where: { userId } });
+    if (myRatings < 25) return { probability: null, reason: '' };
     const item = await this.prisma.listing.findUnique({ where: { id: listingId } });
     if (!item) return { probability: null, reason: '' };
 
@@ -172,51 +177,10 @@ export class RecsysService {
     const swiped = await this.prisma.dislike.findMany({ where: { userId }, select: { itemId: true } });
     const exclude = new Set([...rated.map((r) => r.listingId), ...swiped.map((d) => d.itemId)]);
 
-    // ── YouTube-style CATEGORY AFFINITY: learn what the user likes from EVERY
-    //    signal (ratings, favorites, opens, dislikes/«не интересно»). The more
-    //    they engage with a category, the more it's recommended — and less of
-    //    what they reject. Rebuilt on each request, so it adapts every visit.
-    const catAffinity = new Map<string, number>();
-    const bump = (cat: string | null | undefined, w: number) => {
-      const k = (cat ?? '').toLowerCase().trim();
-      if (k) catAffinity.set(k, (catAffinity.get(k) ?? 0) + w);
-    };
-    const [ratedFull, favs, opens] = await Promise.all([
-      this.prisma.review.findMany({ where: { userId }, select: { rating: true, listing: { select: { category: true } } } }),
-      this.prisma.favorite.findMany({ where: { userId }, select: { listing: { select: { category: true } } } }),
-      this.prisma.interaction.groupBy({ by: ['listingId'], where: { userId, type: { in: ['OPEN', 'VIEW'] } }, _count: true }),
-    ]);
-    for (const r of ratedFull) bump(r.listing?.category, r.rating >= 4 ? 2.5 : r.rating <= 2 ? -2.5 : 0.3);
-    for (const f of favs) bump(f.listing?.category, 1.5);
-    for (const d of swiped) bump((d as any).category, -3); // dislike / «не интересно»
-    if (opens.length) {
-      const oids = opens.map((o) => o.listingId);
-      const oCats = await this.prisma.listing.findMany({ where: { id: { in: oids } }, select: { id: true, category: true } });
-      const catById = new Map(oCats.map((c) => [c.id, c.category]));
-      for (const o of opens) bump(catById.get(o.listingId), Math.min(1, 0.4 * o._count));
-    }
-    // normalize to [-1, 1] so it blends with the other score terms
-    const maxAbs = Math.max(1, ...[...catAffinity.values()].map((v) => Math.abs(v)));
-    for (const [k, v] of catAffinity) catAffinity.set(k, v / maxAbs);
-
-    // ── VENUE AFFINITY: engaged with a venue's items (rated/opened dishes there,
-    //    favorited or opened the venue) → recommend THAT venue's dishes & drinks
-    //    (owner rule 13.07.2026). Learns which places the user gravitates to.
-    const venueAffinity = new Map<string, number>();
-    const vbump = (id: string | null | undefined, w: number) => {
-      if (id) venueAffinity.set(id, (venueAffinity.get(id) ?? 0) + w);
-    };
-    const [venueReviews, venueFavs, venueOpens] = await Promise.all([
-      this.prisma.review.findMany({ where: { userId }, select: { rating: true, attributes: true } }),
-      this.prisma.favorite.findMany({ where: { userId, listing: { type: 'RESTAURANT' } }, select: { listingId: true } }),
-      this.prisma.interaction.groupBy({ by: ['listingId'], where: { userId, type: { in: ['OPEN', 'VIEW'] }, listing: { type: 'RESTAURANT' } }, _count: true }),
-    ]);
-    // tasted a dish AT a venue → that venue gains (weighted by how you rated it)
-    for (const r of venueReviews) vbump((r.attributes as any)?.venueId, r.rating >= 4 ? 2 : r.rating <= 2 ? -1.5 : 0.5);
-    for (const f of venueFavs) vbump(f.listingId, 1.5);
-    for (const o of venueOpens) vbump(o.listingId, Math.min(1.5, 0.5 * o._count));
-    const vMax = Math.max(1, ...[...venueAffinity.values()].map((v) => Math.abs(v)));
-    for (const [k, v] of venueAffinity) venueAffinity.set(k, v / vMax);
+    // ── YouTube-style CATEGORY + VENUE AFFINITY — shared with the catalog
+    //    «Рекомендуемые» sort (common/taste-affinity.ts). Rebuilt on each
+    //    request, so it adapts after every action.
+    const { catAffinity, venueAffinity } = await buildAffinities(this.prisma, userId);
 
     // price affinity: learn the user's comfortable price band from the menu prices of
     // items they've already rated, then favour recommendations inside that range.

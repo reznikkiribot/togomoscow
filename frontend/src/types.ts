@@ -100,6 +100,20 @@ export interface Review {
   topComment?: Comment | null;
 }
 
+// bell / notification-center item
+export interface AppNotification {
+  id: string;
+  kind: 'vote' | 'comment' | 'follow' | 'friend_post';
+  text: string;
+  actorId?: string | null;
+  actorName?: string | null;
+  reviewId?: string | null;
+  listingId?: string | null;
+  listingName?: string | null;
+  readAt?: string | null;
+  createdAt: string;
+}
+
 export type VoteType = 'USEFUL' | 'FUNNY' | 'COOL' | 'OHNO';
 export interface VoteState {
   counts: { USEFUL: number; FUNNY: number; COOL: number; OHNO: number };

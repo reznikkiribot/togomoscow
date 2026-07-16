@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { trackScreen } from './analytics';
 import { api } from './api';
-import { IcHome, IcBookmark, IcUser, IcTools } from './components/Icons';
+import { IcHome, IcBookmark, IcBell, IcUser, IcTools } from './components/Icons';
 import { QuizModal } from './components/QuizModal';
 import { CategoryCelebration } from './components/CategoryCelebration';
 import { ScanFab } from './components/ScanFab';
@@ -12,6 +12,7 @@ export default function App() {
   useEffect(() => {
     const name = loc.pathname === '/' || /^\/tg-boot/.test(loc.pathname) ? 'Главная'
       : loc.pathname.startsWith('/favorites') ? 'Хочу попробовать'
+      : loc.pathname.startsWith('/alerts') ? 'Уведомления'
       : loc.pathname.startsWith('/me') ? 'Профиль'
       : loc.pathname.startsWith('/business') ? 'Кабинет' : loc.pathname;
     trackScreen(name);
@@ -19,6 +20,19 @@ export default function App() {
   const cls = ({ isActive }: { isActive: boolean }) => (isActive ? 'active' : '');
   const [isAdmin, setIsAdmin] = useState(false);
   const [showQuiz, setShowQuiz] = useState(false);
+  // unread badge on the bell — polled lightly + reset by the alerts screen
+  const [unread, setUnread] = useState(0);
+  useEffect(() => {
+    let stop = false;
+    const poll = () => api.notificationsUnread().then((r) => { if (!stop) setUnread(r.unread); }).catch(() => {});
+    poll();
+    const iv = setInterval(poll, 90_000);
+    const onVis = () => { if (!document.hidden) poll(); };
+    const onRead = () => setUnread(0);
+    document.addEventListener('visibilitychange', onVis);
+    window.addEventListener('alerts-read', onRead);
+    return () => { stop = true; clearInterval(iv); document.removeEventListener('visibilitychange', onVis); window.removeEventListener('alerts-read', onRead); };
+  }, []);
 
   useEffect(() => {
     let stop = false;
@@ -99,6 +113,13 @@ export default function App() {
         <NavLink to="/favorites" className={cls}>
           <span className="ico"><IcBookmark /></span>
           Хочу попробовать
+        </NavLink>
+        <NavLink to="/alerts" className={cls}>
+          <span className="ico bell-wrap">
+            <IcBell />
+            {unread > 0 && <span className="nav-badge">{unread > 9 ? '9+' : unread}</span>}
+          </span>
+          Уведомления
         </NavLink>
         <NavLink to="/me" className={cls}>
           <span className="ico"><IcUser /></span>

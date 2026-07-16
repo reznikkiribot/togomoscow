@@ -5,6 +5,7 @@ import './index.css';
 import App from './App';
 import Home from './screens/Home';
 const Favorites = lazy(() => import('./screens/Favorites'));
+const Alerts = lazy(() => import('./screens/Alerts'));
 const MyRatings = lazy(() => import('./screens/MyRatings'));
 const Business = lazy(() => import('./screens/Business'));
 import { initTelegram, haptic, initData } from './telegram';
@@ -126,6 +127,7 @@ document.addEventListener(
 const appChildren = [
   { index: true, element: <Home /> },
   { path: 'favorites', element: <Suspense fallback={null}><Favorites /></Suspense> },
+  { path: 'alerts', element: <Suspense fallback={null}><Alerts /></Suspense> },
   { path: 'me', element: <Suspense fallback={null}><MyRatings /></Suspense> },
   { path: 'business', element: <Suspense fallback={null}><Business /></Suspense> },
 ];

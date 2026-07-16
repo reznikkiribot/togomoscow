@@ -2,6 +2,7 @@ import { initData } from './telegram';
 import type {
   AdminChallenge,
   AdminUser,
+  AppNotification,
   BusinessSubmission,
   Challenge,
   BusinessSubmissionInput,
@@ -306,6 +307,10 @@ export const api = {
   removeFavorite: (id: string) => del<{ ok: boolean }>(`/me/favorites/${id}`),
   createReview: (id: string, dto: CreateReviewInput) =>
     postJson<Review>(`/listings/${id}/reviews`, dto),
+  // notification center (bell): list + unread badge + mark-all-read
+  notifications: () => getJson<{ items: AppNotification[]; unread: number }>('/notifications'),
+  notificationsUnread: () => getJson<{ unread: number }>('/notifications/unread'),
+  notificationsRead: () => postJson<{ ok: boolean }>('/notifications/read'),
   deleteReview: (reviewId: string) => del<{ ok: boolean }>(`/reviews/${reviewId}`),
   vote: (reviewId: string, type: VoteType) =>
     postJson<VoteState>(`/reviews/${reviewId}/vote`, { type }),

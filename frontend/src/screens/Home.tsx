@@ -29,7 +29,7 @@ type Cat = ListingType | 'ALL' | 'BAR' | 'CAFE' | 'COFFEE';
 
 // non-standalone add-ons (sauces/bread/honey…) — the backend bans them
 // permanently; this client net also catches stale cached decks (hc_feed_queue)
-const NONSTD = /^соус([^а-яёa-z0-9]|$)|соус\)?$|кетчуп|майонез|горчиц|васаби|сироп|топпинг|посыпк|варень|сгущ[её]нк|сметан|гарнир|халапень|лаваш|гренк|сухарик|приправ|заправк|(^|[^а-яёa-z0-9])(м[её]д|хлеб|зелень|лимон|лайм|молоко|сливки|сахар|л[её]д|рис|пюре|сыр|яйцо|бекон)([^а-яёa-z0-9]|$)/i;
+const NONSTD = /^соус([^а-яёa-z0-9]|$)|соус\)?$|кетчуп|майонез|горчиц|васаби|сироп|топпинг|посыпк|варень|сгущ[её]нк|сметан|гарнир|халапень|лаваш|гренк|сухарик|приправ|заправк|минеральн|аква минерале|бонаква|боржоми|нарзан|пеллегрино|(^|[^а-яёa-z0-9])(м[её]д|хлеб|зелень|лимон|лайм|молоко|сливки|сахар|л[её]д|рис|пюре|сыр|яйцо|бекон|вод[аы])([^а-яёa-z0-9]|$)/i;
 
 // deterministic shuffle for a given seed → stable within a session, fresh per mount
 function seededShuffle<T>(arr: T[], seed: number): T[] {
@@ -825,13 +825,14 @@ export default function Home() {
           {(wallPosts.length > 0 || recCards.length > 0) && (
             <>
               <div className="section-title" ref={feedTopRef}>Лента</div>
-              {/* posts and taste-based recommendation cards INTERLEAVED: friends'
-                  posts lead (feedRanked orders them first), then a rec card is
-                  woven in after every 3 posts so the feed mixes people + picks */}
+              {/* posts and taste-based recommendation cards INTERLEAVED — but the
+                  FRIENDS block is sacred: rec cards only weave in after it ends
+                  (owner rule 16.07.2026: ничего между постами друзей) */}
               {(() => {
                 const rec = [...recCards];
                 const out: JSX.Element[] = [];
-                wallPosts.forEach((r, i) => {
+                let pastFriends = 0; // non-friend posts rendered so far
+                wallPosts.forEach((r) => {
                   out.push(
                     <FeedPost
                       key={r.id}
@@ -843,12 +844,13 @@ export default function Home() {
                       onOpenVenue={() => r.venue?.id && openListing({ id: r.venue.id, name: r.venue.name } as Listing)}
                     />,
                   );
-                  if ((i + 1) % 3 === 0 && rec.length) {
+                  if (!(r as any).isFriend) pastFriends++;
+                  if (pastFriends > 0 && pastFriends % 3 === 0 && rec.length) {
                     const l = rec.shift()!;
                     out.push(
                       <div key={'rec-' + l.id} className="rec-wrap">
                         <div className="rec-tag">✨ Вам может понравиться</div>
-                        {row(l)}
+                        {card(l)}
                       </div>,
                     );
                   }
@@ -858,7 +860,7 @@ export default function Home() {
                   out.push(
                     <div key={'rec-' + l.id} className="rec-wrap">
                       <div className="rec-tag">✨ Вам может понравиться</div>
-                      {row(l)}
+                      {card(l)}
                     </div>,
                   );
                 }

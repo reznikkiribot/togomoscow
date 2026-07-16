@@ -64,7 +64,8 @@ export class ListingsController {
   }
 
   @Get()
-  list(
+  async list(
+    @Req() req: any,
     @Query('type') type?: ListingType,
     @Query('search') search?: string,
     @Query('take') take?: string,
@@ -74,6 +75,12 @@ export class ListingsController {
     @Query('cuisine') cuisine?: string,
     @Query('category') category?: string,
   ) {
+    // optional auth: a known viewer gets «Рекомендуемые» ranked by THEIR taste
+    const auth: string = req.headers['authorization'] ?? '';
+    const [scheme, initData] = auth.split(' ');
+    const token = this.config.get<string>('TELEGRAM_BOT_TOKEN') ?? '';
+    const tgUser = scheme === 'tma' && initData && token ? validateTelegramInitData(initData, token, 0) : null;
+    const viewer = tgUser ? await this.users.upsertFromTelegram(tgUser) : null;
     return this.listings.list({
       type,
       search,
@@ -83,6 +90,7 @@ export class ListingsController {
       openNow: openNow === '1' || openNow === 'true',
       cuisine,
       category,
+      viewerId: viewer?.id ?? null,
     });
   }
 

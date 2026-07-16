@@ -18,6 +18,7 @@ import { EventsModule } from './events/events.module';
 import { SheetModule } from './sheet/sheet.module';
 import { VisionModule } from './vision/vision.module';
 import { GameModule } from './game/game.module';
+import { NotificationsModule } from './notifications/notifications.module';
 import { HealthController } from './health/health.controller';
 
 @Module({
@@ -41,6 +42,7 @@ import { HealthController } from './health/health.controller';
     SheetModule,
     VisionModule,
     GameModule,
+    NotificationsModule,
   ],
   controllers: [HealthController],
 })

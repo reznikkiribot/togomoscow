@@ -24,7 +24,7 @@ export function ReviewForm({
   initialPhotoUrls?: string[]; // e.g. the photo the user just scanned — prefilled
   knownPrice?: number | null; // item already has a price here → don't ask for it
   onClose: () => void;
-  onSaved: (media?: { photo?: string; photos?: string[]; video?: string; text?: string; slides?: Record<string, string> }) => void;
+  onSaved: (media?: { photo?: string; photos?: string[]; video?: string; text?: string; slides?: Record<string, string>; review?: import('../types').Review }) => void;
 }) {
   const tpl = templateFor(listing);
   const prev = (existing?.attributes ?? {}) as Record<string, any>;
@@ -123,9 +123,10 @@ export function ReviewForm({
         ...(showDate ? { visitDate } : {}),
         ...(taggedUsers.length ? { taggedUsers } : {}),
       };
-      await api.createReview(listing.id, { rating, text, attributes, photoUrls, videoUrls });
-      // pass the user's OWN media + their note so the story uses both
-      onSaved({ photo: photoUrls[0], photos: photoUrls, video: videoUrls[0], text: text.trim() || undefined, slides: Object.fromEntries(slides.current) });
+      const saved = await api.createReview(listing.id, { rating, text, attributes, photoUrls, videoUrls });
+      // pass the user's OWN media + their note so the story uses both; the saved
+      // review object lets the card show it INSTANTLY (no reload / moderation wait)
+      onSaved({ photo: photoUrls[0], photos: photoUrls, video: videoUrls[0], text: text.trim() || undefined, slides: Object.fromEntries(slides.current), review: saved });
     } catch {
       setError('Не удалось сохранить');
       busyRef.current = false;

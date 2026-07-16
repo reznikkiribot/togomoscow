@@ -12,6 +12,7 @@ export const IcHome = ({ size }: P) => svg(<><path d="M3 10.5 12 3l9 7.5" /><pat
 export const IcBookmark = ({ size }: P) => svg(<path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1Z" />, size);
 export const IcUser = ({ size }: P) => svg(<><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6" /></>, size);
 export const IcTools = ({ size }: P) => svg(<><path d="M14.7 6.3a4 4 0 0 0-5.2 5.2L3 18v3h3l6.5-6.5a4 4 0 0 0 5.2-5.2l-2.6 2.6-2.1-.5-.5-2.1 2.7-2.5Z" /></>, size);
+export const IcBell = ({ size }: P) => svg(<><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6Z" /><path d="M10 19a2 2 0 0 0 4 0" /></>, size);
 
 // ---- category tiles ----
 export const IcRestaurant = ({ size }: P) => svg(<><path d="M6 3v8a2 2 0 0 0 4 0V3M8 11v10" /><path d="M17 3c-1.5 0-2.5 1.6-2.5 4s1 4 2.5 4v10" /></>, size);

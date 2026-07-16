@@ -2,6 +2,7 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import { ListingType, Prisma } from '@prisma/client';
 import OpeningHours from 'opening_hours';
 import { isNonStandalone } from '../common/non-standalone';
+import { buildAffinities } from '../common/taste-affinity';
 import { PrismaService } from '../prisma/prisma.service';
 import { placeholderKeys } from '../stock/stock.data';
 import { cuisineLabel, cuisineToken } from './cuisine';
@@ -202,6 +203,7 @@ export class ListingsService {
     openNow?: boolean;
     cuisine?: string;
     category?: string;
+    viewerId?: string | null;
   }) {
     const {
       type,
@@ -212,6 +214,7 @@ export class ListingsService {
       openNow,
       cuisine,
       category,
+      viewerId,
     } = params;
     const conds: Prisma.Sql[] = [];
     if (type) conds.push(Prisma.sql`type = ${type}::"ListingType"`);
@@ -305,9 +308,35 @@ export class ListingsService {
           return false;
         }
       });
-      return this.enrichCards(open.slice(0, Number(take)));
+      return this.personalSort(await this.enrichCards(open.slice(0, Number(take))), sort, viewerId, !!search);
     }
-    return this.enrichCards(rows);
+    return this.personalSort(await this.enrichCards(rows), sort, viewerId, !!search);
+  }
+
+  /** «Рекомендуемые» in EVERY catalog list ranks with the same taste profile as
+   *  the feed (owner rule 16.07.2026): category + venue affinity re-rank on top
+   *  of the base quality order. Search keeps its relevance order untouched. */
+  private async personalSort(cards: any[], sort: string, viewerId?: string | null, isSearch = false) {
+    if (sort !== 'recommended' || !viewerId || isSearch || cards.length < 3) return cards;
+    try {
+      const { catAffinity, venueAffinity } = await buildAffinities(this.prisma, viewerId);
+      if (!catAffinity.size && !venueAffinity.size) return cards;
+      return cards
+        .map((c, i) => {
+          const aff = catAffinity.get((c.category ?? '').toLowerCase().trim()) ?? 0;
+          const vAff = Math.max(
+            venueAffinity.get(c.id) ?? 0, // the venue itself (restaurant lists)
+            venueAffinity.get(c.bestVenue?.id) ?? 0,
+            venueAffinity.get(c.tryAt?.id) ?? 0,
+          );
+          // base keeps the original (quality) order as a small stabilizer
+          return { c, s: aff * 3 + Math.max(0, vAff) * 2.5 - i * 0.01 };
+        })
+        .sort((a, b) => b.s - a.s)
+        .map((x) => x.c);
+    } catch {
+      return cards;
+    }
   }
 
   /**
@@ -675,7 +704,10 @@ export class ListingsService {
         [scored[i], scored[j]] = [scored[j], scored[i]];
       }
     }
-    const page = scored.slice(0, recycled ? 100 : Number(take)).map((x) => x.r); // recycle serves a big page — the client dedupes
+    const page = scored.slice(0, recycled ? 100 : Number(take)).map((x) => {
+      (x.r as any).isFriend = x.isFriend; // client: rec cards never cut into the friends block
+      return x.r;
+    });
     for (const r of page) (r as any).recycled = recycled; // client-side session dedupe hint
     // record the delivery — these will never be served to this viewer again
     // (recycled pages are already recorded — skip the write)
@@ -1434,6 +1466,7 @@ export class ListingsService {
     let topDrinks: unknown[] = [];
     let venues: unknown[] = [];
     let pendingItems: unknown[] = [];
+    let itemLinks: { venueId: string; photoUrl: string | null }[] = [];
 
     if (listing.type === 'RESTAURANT') {
       const links = await this.prisma.menuLink.findMany({
@@ -1505,6 +1538,7 @@ export class ListingsService {
         where: { itemId: id, status: 'APPROVED' },
         include: { venue: true },
       });
+      itemLinks = links; // kept for the venue-photo rule below
       venues = links
         // keep the menu price so "Где попробовать" shows how much the item costs there
         .map((l) => ({ ...l.venue, menuPrice: l.price }))
@@ -1611,6 +1645,16 @@ export class ListingsService {
           .sort((a, b) => (b.avgRating ?? 0) - (a.avgRating ?? 0));
         if (ranked.length) bestVenue = { name: ranked[0].name, rating: ranked[0].avgRating, count: ranked[0].reviewCount };
       }
+      // OWNER RULE 16.07.2026: the detail photo is the photo of THIS venue's menu
+      // link — exactly what the outer card shows. Priority: best venue's link,
+      // then any link with a photo. Different venue → its own photo, by design.
+      const linkByVenue = new Map(itemLinks.map((l) => [l.venueId, l.photoUrl]));
+      const venuePhoto =
+        (top && linkByVenue.get(top.vid)) ||
+        (venues as any[]).map((v) => linkByVenue.get(v.id)).find(Boolean) ||
+        itemLinks.map((l) => l.photoUrl).find(Boolean) ||
+        null;
+      if (venuePhoto) (listing as any).photoUrl = venuePhoto;
     }
 
     let openNow: boolean | null = null;

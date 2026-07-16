@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { NotificationsService } from '../notifications/notifications.service';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
@@ -7,6 +8,7 @@ export class SocialService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly config: ConfigService,
+    private readonly notifications: NotificationsService,
   ) {}
 
   /** Public user card with counts + whether the current user follows them. */
@@ -538,8 +540,20 @@ export class SocialService {
       create: { followerId: userId, followingId: targetId },
       update: {},
     });
-    // Notifications disabled per product decision — no follow push.
-    void existing;
+    // bell notification + capped bot push (owner re-enabled 16.07.2026)
+    if (!existing) {
+      void (async () => {
+        const me = await this.prisma.user.findUnique({ where: { id: userId }, select: { firstName: true, username: true } });
+        const name = me?.firstName || me?.username || 'Кто-то';
+        await this.notifications.add({
+          userId: targetId,
+          kind: 'follow',
+          actorId: userId,
+          actorName: name,
+          text: `${name} подписался(лась) на вас`,
+        });
+      })().catch(() => {});
+    }
     return { ok: true };
   }
 

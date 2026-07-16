@@ -406,10 +406,20 @@ export function ListingDetailModal({
   const [qDraft, setQDraft] = useState('');
   const [aDraft, setADraft] = useState<Record<string, string>>({});
 
+  // reviews just posted from THIS session — re-merged after every refetch so the
+  // user's own review never blinks away while server moderation catches up
+  const freshReviews = useRef<any[]>([]);
   const load = useCallback(() => {
     api
       .listing(id)
       .then((d) => {
+        if (freshReviews.current.length && d.type !== 'RESTAURANT') {
+          const have = new Set((d.reviews ?? []).map((r: any) => r.id));
+          const missing = freshReviews.current.filter((r) => !have.has(r.id));
+          if (missing.length) {
+            d = { ...d, reviews: [...missing, ...(d.reviews ?? [])], reviewCount: (d.reviewCount ?? 0) + missing.length };
+          }
+        }
         setData(d);
         pushRecent({ ...(d as Listing), placeholderPhoto: d.placeholderPhotos?.[0] ?? null });
         // the card's history: who tasted it first (only when reviews exist)
@@ -423,6 +433,7 @@ export function ListingDetailModal({
 
   useEffect(() => {
     setData(null);
+    freshReviews.current = []; // fresh reviews belong to the previous card
     setQuestions(null);
     setTab('menu');
     load();
@@ -1478,6 +1489,18 @@ export function ListingDetailModal({
           onSaved={(media) => {
             const ratedId = reviewTarget?.id ?? data.id;
             setShowReview(false);
+            // the fresh review appears on the card INSTANTLY (moderation may lag
+            // behind load() — the user must never need a page refresh to see it)
+            if (media?.review && ratedId === data.id) {
+              freshReviews.current = [media.review, ...freshReviews.current].slice(0, 5);
+              setData((d) => {
+                if (!d || d.reviews?.some((r: any) => r.id === (media.review as any).id)) return d;
+                const rv: any = { voteCounts: { USEFUL: 0, FUNNY: 0, COOL: 0, OHNO: 0 }, ...media.review };
+                const count = (d.reviewCount ?? 0) + 1;
+                const avg = ((d.avgRating ?? 0) * (d.reviewCount ?? 0) + rv.rating) / count;
+                return { ...d, reviews: [rv, ...(d.reviews ?? [])], reviewCount: count, avgRating: avg };
+              });
+            }
             // first review of the card → discovery phrase; else a rotating one
             const phrase = data.reviewCount === 0
               ? '🏅 Вы открыли это для сообщества — вы первый дегустатор!'

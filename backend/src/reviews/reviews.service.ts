@@ -1,5 +1,6 @@
 import { BadRequestException, ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { Prisma, Role, VoteType } from '@prisma/client';
+import { NotificationsService } from '../notifications/notifications.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { UploadsService } from '../uploads/uploads.service';
 import { ClipService } from '../vision/clip.service';
@@ -62,7 +63,13 @@ export class ReviewsService {
     private readonly prisma: PrismaService,
     private readonly uploads: UploadsService,
     private readonly clip: ClipService,
+    private readonly notifications: NotificationsService,
   ) {}
+
+  private async actorName(userId: string) {
+    const u = await this.prisma.user.findUnique({ where: { id: userId }, select: { firstName: true, username: true } });
+    return u?.firstName || u?.username || 'Кто-то';
+  }
 
   /** CLIP zero-shot check of an uploaded review photo.
    *  Returns { block } for explicit content (photo is dropped entirely) and
@@ -123,10 +130,28 @@ export class ReviewsService {
     if (!t) return null;
     if (PROFANITY.test(t) || CRUDE.test(t)) throw new BadRequestException('Комментарий содержит недопустимую лексику');
     if (SPAM.test(t)) throw new BadRequestException('Похоже на спам — ссылки и контакты запрещены');
-    return this.prisma.comment.create({
+    const created = await this.prisma.comment.create({
       data: { reviewId, userId, text: t.slice(0, 1000), parentId: parentId ?? null },
       include: { user: { select: { id: true, firstName: true, username: true, photoUrl: true } } },
     });
+    // notify the review's author (bell + capped bot push), fire-and-forget
+    void (async () => {
+      const review = await this.prisma.review.findUnique({
+        where: { id: reviewId },
+        select: { userId: true, listing: { select: { name: true } } },
+      });
+      if (!review || review.userId === userId) return;
+      const name = created.user?.firstName || created.user?.username || 'Кто-то';
+      await this.notifications.add({
+        userId: review.userId,
+        kind: 'comment',
+        actorId: userId,
+        actorName: name,
+        reviewId,
+        text: `${name} прокомментировал(а) ваш отзыв о «${review.listing?.name ?? ''}»: ${t.slice(0, 60)}`,
+      });
+    })().catch(() => {});
+    return created;
   }
 
   /** Delete a comment. Allowed for its author, or for an admin (@reznik_kir1ll).
@@ -276,6 +301,23 @@ export class ReviewsService {
         .catch(() => {});
     }
     await this.recompute(listingId);
+    // notify FOLLOWERS about the new post (bell + capped push), fire-and-forget
+    void (async () => {
+      const followers = await this.prisma.follow.findMany({ where: { followingId: userId }, select: { followerId: true } });
+      if (!followers.length) return;
+      const listing = await this.prisma.listing.findUnique({ where: { id: listingId }, select: { name: true } });
+      const name = await this.actorName(userId);
+      for (const f of followers) {
+        await this.notifications.add({
+          userId: f.followerId,
+          kind: 'friend_post',
+          actorId: userId,
+          actorName: name,
+          reviewId: review.id,
+          text: `${name} оставил(а) новый отзыв — «${listing?.name ?? ''}» ${rating}★`,
+        });
+      }
+    })().catch(() => {});
     return review;
   }
 
@@ -384,6 +426,24 @@ export class ReviewsService {
       await this.prisma.reviewVote.delete({ where });
     } else {
       await this.prisma.reviewVote.create({ data: { reviewId, userId, type } });
+      // notify the review's author (bell + capped bot push), fire-and-forget
+      void (async () => {
+        const review = await this.prisma.review.findUnique({
+          where: { id: reviewId },
+          select: { userId: true, listing: { select: { name: true } } },
+        });
+        if (!review || review.userId === userId) return;
+        const emoji = { USEFUL: '👍', FUNNY: '😄', COOL: '😎', OHNO: '🙀' }[type] ?? '👍';
+        const name = await this.actorName(userId);
+        await this.notifications.add({
+          userId: review.userId,
+          kind: 'vote',
+          actorId: userId,
+          actorName: name,
+          reviewId,
+          text: `${name} отметил(а) ваш отзыв о «${review.listing?.name ?? ''}» ${emoji}`,
+        });
+      })().catch(() => {});
     }
     return this.voteState(reviewId, userId);
   }
