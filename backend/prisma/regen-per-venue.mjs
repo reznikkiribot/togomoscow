@@ -110,8 +110,10 @@ if (STAGE === 'gen') {
       const outRel = `outv/${k}-${a}.png`;
       if (fs.existsSync(path.join(SD, outRel))) { made++; continue; }
       try {
+        // strength 0.45 mutated ingredients (strawberries → raspberries, 16.07.2026);
+        // 0.35 keeps the dish faithful while still redrawing the details
         execFileSync('./sd-cli.exe', [
-          '-m', 'sd_turbo.safetensors', '-i', ref, '--strength', '0.45',
+          '-m', 'sd_turbo.safetensors', '-i', ref, '--strength', '0.35',
           '--steps', '6', '--cfg-scale', '1.0', '-W', '512', '-H', '512',
           '-s', String(3000 + a * 555), '-o', outRel,
           '-p', `professional food photography, the dish fills most of the frame in the upper part, appetizing, natural light, soft blurred background below, high detail`,
@@ -147,8 +149,45 @@ if (STAGE === 'check') {
   console.log('загружаю CLIP…');
   const t = await import('@xenova/transformers');
   t.env.cacheDir = path.join(__dirname, '..', '.models-cache');
-  const zs = await t.pipeline('zero-shot-image-classification', 'Xenova/clip-vit-base-patch32');
-  const { RawImage } = t;
+  // ONE vision tower (feature-extraction) + text tower for labels — the zero-shot
+  // pipeline would load a second full vision copy (OOM lesson). Embeddings let us
+  // also verify the result against the official REFERENCE, not just the name.
+  const MODEL = 'Xenova/clip-vit-base-patch32';
+  const embedder = await t.pipeline('image-feature-extraction', MODEL);
+  const { RawImage, AutoTokenizer, CLIPTextModelWithProjection } = t;
+  const tokenizer = await AutoTokenizer.from_pretrained(MODEL);
+  const textModel = await CLIPTextModelWithProjection.from_pretrained(MODEL);
+  const textVecCache = new Map();
+  async function textVecs(labels) {
+    const ck = labels.join('|');
+    if (textVecCache.has(ck)) return textVecCache.get(ck);
+    const { text_embeds } = await textModel(tokenizer(labels, { padding: true, truncation: true }));
+    const [nn, dim] = text_embeds.dims;
+    const vecs = [];
+    for (let i = 0; i < nn; i++) {
+      const v = Array.from(text_embeds.data.slice(i * dim, (i + 1) * dim));
+      const nrm = Math.hypot(...v) || 1;
+      vecs.push(v.map((x) => x / nrm));
+    }
+    textVecCache.set(ck, vecs);
+    return vecs;
+  }
+  const cos = (a, b) => a.reduce((s, x, i) => s + x * b[i], 0);
+  async function embedFile(file) {
+    const img = await RawImage.fromBlob(new Blob([new Uint8Array(fs.readFileSync(file))]));
+    const out = await embedder(img, { pooling: 'mean', normalize: true });
+    const v = Array.from(out.data);
+    const nrm = Math.hypot(...v) || 1; // pipeline output is NOT unit-length — normalize
+    return v.map((x) => x / nrm);
+  }
+  // softmax over cosine sims ×100 (CLIP logit scale) — same math as the backend
+  function textScore(imgVec, vecs) {
+    const logits = vecs.map((v) => cos(imgVec, v) * 100);
+    const mx = Math.max(...logits);
+    const exps = logits.map((l) => Math.exp(l - mx));
+    return exps[0] / exps.reduce((a, b) => a + b, 0);
+  }
+  const REF_SIM = 0.82; // generated image must stay CLOSE to the official reference
   console.log('CLIP готов');
   // dish english labels from gen-todo (best-effort)
   let enByName = {};
@@ -163,20 +202,29 @@ if (STAGE === 'check') {
     if (n >= LIMIT) break;
     const m = map[k];
     const en = enByName[norm(m.name)] ?? 'restaurant plated dish';
+    const labels = await textVecs([`a photo of ${en}`, 'a photo of an unrelated object or scene']);
+    // the official reference embedding — the generated shot must stay close to it
+    let refVec = null;
+    const refFile = path.join(REF, `${k}.png`);
+    if (fs.existsSync(refFile)) { try { refVec = await embedFile(refFile); } catch { /* no ref check */ } }
     let best = null;
     for (let a = 0; a < 2; a++) {
       const file = path.join(OUT, `${k}-${a}.png`);
       if (!fs.existsSync(file)) continue;
       try {
-        const img = await RawImage.fromBlob(new Blob([new Uint8Array(fs.readFileSync(file))]));
-        const out = await zs(img, [`a photo of ${en}`, 'a photo of an unrelated object or scene']);
-        const s = out.find((o) => o.label === `a photo of ${en}`)?.score ?? 0;
-        if (!best || s > best.s) best = { s, file };
+        const imgVec = await embedFile(file);
+        const s = textScore(imgVec, labels);
+        const refSim = refVec ? cos(imgVec, refVec) : null;
+        if (!best || s + (refSim ?? 0) > best.s + (best.refSim ?? 0)) best = { s, refSim, file };
       } catch { /* skip variant */ }
     }
     if (!best) continue;
     n++;
-    if (best.s < ACCEPT) { skip++; continue; }
+    if (best.s < ACCEPT || (best.refSim != null && best.refSim < REF_SIM)) {
+      skip++;
+      if (best.refSim != null && best.refSim < REF_SIM) console.log(`  reject ${m.name}: ушло от референса (sim=${best.refSim.toFixed(2)})`);
+      continue;
+    }
     const keyName = `aigen-${randomUUID()}`;
     try {
       await s3.send(new aws.PutObjectCommand({ Bucket: creds.bucketName, Key: keyName, Body: fs.readFileSync(best.file), ContentType: 'image/png' }));
