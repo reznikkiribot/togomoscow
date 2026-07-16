@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { isNonStandalone } from '../common/non-standalone';
 import { PrismaService } from '../prisma/prisma.service';
 import { ListingsService } from '../listings/listings.service';
 
@@ -55,13 +56,14 @@ export class RecsysService {
     // not a drink to taste, and its "photo" is often just packaging.
     'в зёрнах', 'в зернах', 'зернах', 'зерновой', 'молот', 'дрип-пакет', 'дрип пакет',
     'капсул', 'чалда', 'помол',
-    // NON-STANDALONE: garnishes, single ingredients, condiments, add-ons — not a
-    // dish you "рекомендуешь попробовать" on its own (owner rule 13.07.2026)
-    'халапеньо', 'халапенью', 'соус', 'кетчуп', 'майонез', 'горчиц', 'васаби',
-    'сметан', 'сироп', 'топпинг', 'посыпк', 'джем', 'варень', 'мёд\b', 'мед\b',
-    'приправ', 'специ', 'зелень', 'гарнир', 'хлеб\b', 'булочк', 'лаваш',
-    'маслин', 'оливк', 'лимон\b', 'лайм\b', 'лёд', 'лед\b', 'сахар', 'молоко\b',
-    'сливки', 'взбитые', 'корица', 'имбирь\b', 'мята\b',
+    // NON-STANDALONE substrings safe for SQL `contains` (owner rule 13.07.2026).
+    // Word-boundary cases (мёд, хлеб, лимон, соус…) CANNOT be expressed here —
+    // '\b' inside a JS string is a literal backspace, so those entries silently
+    // matched nothing. They are enforced by the isNonStandalone() post-filter.
+    'халапеньо', 'халапенью', 'кетчуп', 'майонез', 'горчиц', 'васаби',
+    'сметан', 'сироп', 'топпинг', 'посыпк', 'варень',
+    'приправ', 'гарнир', 'булочк', 'лаваш',
+    'маслин', 'оливк', 'сахар', 'взбитые', 'корица',
   ];
 
   // Prisma OR-filter of everything we never recommend (use inside `NOT:`).
@@ -258,6 +260,7 @@ export class RecsysService {
     });
 
     let scored = items
+      .filter((it) => !isNonStandalone(it.name)) // permanent ban: sauces/ingredients/sides
       .map((it) => {
         const hay = `${it.name} ${it.category ?? ''} ${it.cuisine ?? ''}`.toLowerCase();
         let s = (it.avgRating - 3) * 0.3; // base quality
@@ -388,6 +391,7 @@ export class RecsysService {
     // one per dish name, then shuffle a generous top pool for variety on each load
     const seenName = new Set<string>();
     const uniq = items.filter((it) => {
+      if (isNonStandalone(it.name)) return false; // permanent ban: sauces/ingredients/sides
       const n = it.name.toLowerCase().trim();
       if (seenName.has(n)) return false;
       seenName.add(n);

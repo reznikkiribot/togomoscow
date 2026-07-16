@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { ListingType, Prisma } from '@prisma/client';
 import OpeningHours from 'opening_hours';
+import { isNonStandalone } from '../common/non-standalone';
 import { PrismaService } from '../prisma/prisma.service';
 import { placeholderKeys } from '../stock/stock.data';
 import { cuisineLabel, cuisineToken } from './cuisine';
@@ -1358,17 +1359,19 @@ export class ListingsService {
   /** Items with ZERO user reviews — "станьте первым дегустатором" (gamification).
    *  Only real cards: with a photo and served somewhere; random pick per visit. */
   async firstTasterItems(take = 8) {
-    // hard rules from the owner: venue attachment AND a price — no exceptions
-    const rows = await this.prisma.$queryRaw<{ id: string }[]>`
-      SELECT l.id FROM listings l
+    // hard rules from the owner: venue attachment AND a price — no exceptions;
+    // plus the permanent non-standalone ban (sauces/bread/ingredients never here)
+    const rows = await this.prisma.$queryRaw<{ id: string; name: string }[]>`
+      SELECT l.id, l.name FROM listings l
       WHERE l.type::text IN ('DISH','DRINK')
         AND l.review_count = 0
         AND l.photo_url IS NOT NULL
         AND EXISTS (SELECT 1 FROM menu_links m WHERE m.item_id = l.id AND m.status = 'APPROVED' AND m.price IS NOT NULL)
-      ORDER BY RANDOM() LIMIT ${Number(take)}`;
-    if (!rows.length) return [];
+      ORDER BY RANDOM() LIMIT ${Number(take) * 4}`;
+    const picked = rows.filter((r) => !isNonStandalone(r.name)).slice(0, Number(take));
+    if (!picked.length) return [];
     const items = await this.prisma.listing.findMany({
-      where: { id: { in: rows.map((r) => r.id) } },
+      where: { id: { in: picked.map((r) => r.id) } },
       include: {
         servedAt: {
           where: { status: 'APPROVED', price: { not: null } },

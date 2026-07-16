@@ -27,6 +27,10 @@ import type { Listing, ListingType, Review, VenueEvent } from '../types';
 
 type Cat = ListingType | 'ALL' | 'BAR' | 'CAFE' | 'COFFEE';
 
+// non-standalone add-ons (sauces/bread/honey…) — the backend bans them
+// permanently; this client net also catches stale cached decks (hc_feed_queue)
+const NONSTD = /^соус([^а-яёa-z0-9]|$)|соус\)?$|кетчуп|майонез|горчиц|васаби|сироп|топпинг|посыпк|варень|сгущ[её]нк|сметан|гарнир|халапень|лаваш|гренк|сухарик|приправ|заправк|(^|[^а-яёa-z0-9])(м[её]д|хлеб|зелень|лимон|лайм|молоко|сливки|сахар|л[её]д|рис|пюре|сыр|яйцо|бекон)([^а-яёa-z0-9]|$)/i;
+
 // deterministic shuffle for a given seed → stable within a session, fresh per mount
 function seededShuffle<T>(arr: T[], seed: number): T[] {
   const a = arr.slice();
@@ -149,12 +153,20 @@ export default function Home() {
   const homeRef = useRef<HTMLDivElement>(null);
   const catRef = useRef<HTMLDivElement>(null); // the category/search results overlay layer
   const homeScrollY = useRef(0); // home scroll position saved when entering a category
-  const [scrollArmed, setScrollArmed] = useState(false); // «показать ещё» was tapped
   const [loadingMore, setLoadingMore] = useState(false); // «показать ещё» spinner
-  const [scrolledDown, setScrolledDown] = useState(false); // page is scrolled down
-  const showScrollTop = scrollArmed && scrolledDown;
+  // «наверх»: auto-appears once you scroll INTO the feed section, auto-hides
+  // when tapped or when you rise back above the feed (owner spec 16.07.2026)
+  const feedTopRef = useRef<HTMLDivElement>(null); // the «Лента» section title
+  const [inFeed, setInFeed] = useState(false);
+  const [topDismissed, setTopDismissed] = useState(false);
+  const showScrollTop = inFeed && !topDismissed;
   useEffect(() => {
-    const onScroll = () => setScrolledDown(window.scrollY > 400);
+    const onScroll = () => {
+      const top = feedTopRef.current ? feedTopRef.current.getBoundingClientRect().top + window.scrollY : Infinity;
+      const past = window.scrollY > top - window.innerHeight * 0.5;
+      setInFeed(past);
+      if (!past) setTopDismissed(false); // rose above the feed → re-arm
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -464,6 +476,7 @@ export default function Home() {
         !SKIP_CAT.test(l.category ?? '') &&
         !ALCOHOL.test(tags) &&
         !FOLK.test(l.name ?? '') &&
+        !NONSTD.test(l.name ?? '') &&
         !RUSSIAN.test(`${l.category ?? ''} ${l.cuisine ?? ''}`) &&
         !seen.has(l.id) &&
         !(nm && seenName.has(nm)) && // no duplicate dish names (e.g. two "Глинтвейн")
@@ -532,8 +545,10 @@ export default function Home() {
   // negative signal so the recommender learns to show less of this category
   const notInterested = (l: Listing) => {
     api.skip(l.id, l.category ?? undefined).catch(() => {});
+    // optimistic: the card vanishes from EVERY section the moment you tap
     setSkipped((s) => new Set(s).add(l.id));
     setRecCards((p) => p.filter((x) => x.id !== l.id));
+    setFirstTaster((p) => p.filter((x) => x.id !== l.id));
   };
 
   const card = (l: Listing) => (
@@ -791,13 +806,16 @@ export default function Home() {
               />
             </>
           )}
-          {firstTaster.length > 0 && (
-            <>
-              <div className="section-title">🏅 Станьте первым дегустатором</div>
-              <p className="ft-sub">Ваш отзыв станет частью истории карточки</p>
-              <div className="feed">{firstTaster.filter((l) => (l as any).recVenue).map(card)}</div>
-            </>
-          )}
+          {(() => {
+            const ft = firstTaster.filter((l) => (l as any).recVenue && !skipped.has(l.id) && !NONSTD.test(l.name ?? ''));
+            return ft.length > 0 && (
+              <>
+                <div className="section-title">🏅 Станьте первым дегустатором</div>
+                <p className="ft-sub">Ваш отзыв станет частью истории карточки</p>
+                <div className="feed">{ft.map(card)}</div>
+              </>
+            );
+          })()}
           {ratePool.length > 1 && (
             <>
               <div className="section-title">Ещё на оценку</div>
@@ -806,7 +824,7 @@ export default function Home() {
           )}
           {(wallPosts.length > 0 || recCards.length > 0) && (
             <>
-              <div className="section-title">Лента</div>
+              <div className="section-title" ref={feedTopRef}>Лента</div>
               {/* posts and taste-based recommendation cards INTERLEAVED: friends'
                   posts lead (feedRanked orders them first), then a rec card is
                   woven in after every 3 posts so the feed mixes people + picks */}
@@ -855,7 +873,6 @@ export default function Home() {
                   if (loadingMore) return;
                   haptic('light');
                   setLoadingMore(true);
-                  setScrollArmed(true);
                   // min 400ms so the spinner is always felt (premium — no jarring flash)
                   try { await Promise.all([extendFeed(5), new Promise((r) => setTimeout(r, 400))]); }
                   finally { setLoadingMore(false); }
@@ -868,13 +885,13 @@ export default function Home() {
         </>
       )}
       </div>
-      {/* after «показать ещё» — a premium frosted "up" button (chevron, fades +
-          scales in, haptic) jumps back to the top */}
+      {/* frosted "up" button above the camera fab: auto-appears in the feed,
+          hides on tap or when you rise back above the feed */}
       {showScrollTop && (
         <button
           className="scroll-top-btn"
           aria-label="Наверх"
-          onClick={() => { haptic('light'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+          onClick={() => { haptic('light'); setTopDismissed(true); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
         >
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
             <path d="M18 15l-6-6-6 6" />

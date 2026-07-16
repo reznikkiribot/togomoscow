@@ -5371,9 +5371,10 @@ button:active,
 
 /* floating "scroll to top" button (left side), appears after «показать ещё» */
 .scroll-top-btn {
+  /* sits right ABOVE the camera scan-fab (owner spec 16.07.2026) */
   position: fixed;
-  left: 16px;
-  bottom: calc(80px + env(safe-area-inset-bottom));
+  right: 23px; /* centered over the 60px fab: 16 + (60-46)/2 */
+  bottom: calc(80px + 60px + 12px + env(safe-area-inset-bottom));
   z-index: 1400;
   width: 46px;
   height: 46px;
