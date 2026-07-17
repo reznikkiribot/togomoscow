@@ -197,7 +197,13 @@ export class ListingsController {
   }
 
   @Get(':id')
-  byId(@Param('id') id: string) {
-    return this.listings.byId(id);
+  async byId(@Req() req: any, @Param('id') id: string) {
+    // optional auth: a known viewer sees their own likes lit on first render
+    const auth: string = req.headers['authorization'] ?? '';
+    const [scheme, initData] = auth.split(' ');
+    const token = this.config.get<string>('TELEGRAM_BOT_TOKEN') ?? '';
+    const tgUser = scheme === 'tma' && initData && token ? validateTelegramInitData(initData, token, 0) : null;
+    const viewer = tgUser ? await this.users.upsertFromTelegram(tgUser) : null;
+    return this.listings.byId(id, viewer?.id ?? null);
   }
 }

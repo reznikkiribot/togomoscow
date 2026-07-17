@@ -725,7 +725,7 @@ export class ListingsService {
     }
     await this.attachVenuesToReviews(page);
     await this.attachCommentPreview(page);
-    await this.attachVoteCounts(page);
+    await this.attachVoteCounts(page, viewerId);
     // text-only posts fall back to the ITEM's card photo; after the stock purge
     // that may be null while the menu LINKS still hold the venue's aigen photo —
     // use it (prefer the venue the review was tasted at) so posts never go blank
@@ -768,20 +768,33 @@ export class ListingsService {
   }
 
   /** Adds reaction counts (👍😄😎🙀) to each review so the feed shows them. */
-  async attachVoteCounts(reviews: any[]) {
+  async attachVoteCounts(reviews: any[], viewerId?: string | null) {
     const ids = reviews.map((r) => r.id);
     if (!ids.length) return;
-    const grouped = await this.prisma.reviewVote.groupBy({
-      by: ['reviewId', 'type'],
-      where: { reviewId: { in: ids } },
-      _count: true,
-    });
+    const [grouped, mine] = await Promise.all([
+      this.prisma.reviewVote.groupBy({
+        by: ['reviewId', 'type'],
+        where: { reviewId: { in: ids } },
+        _count: true,
+      }),
+      // the viewer's OWN votes ride along, so hearts/likes are lit on first
+      // render — no lazy per-review fetch (Codex P0: лайк «не показан» до тапа)
+      viewerId
+        ? this.prisma.reviewVote.findMany({
+            where: { reviewId: { in: ids }, userId: viewerId },
+            select: { reviewId: true, type: true },
+          })
+        : Promise.resolve([] as { reviewId: string; type: string }[]),
+    ]);
     const vmap: Record<string, Record<string, number>> = {};
     for (const g of grouped) {
       (vmap[g.reviewId] ??= { USEFUL: 0, FUNNY: 0, COOL: 0, OHNO: 0 })[g.type] = g._count;
     }
+    const mineMap = new Map<string, string[]>();
+    for (const m of mine) (mineMap.get(m.reviewId) ?? mineMap.set(m.reviewId, []).get(m.reviewId)!).push(m.type);
     for (const r of reviews) {
       r.voteCounts = vmap[r.id] ?? { USEFUL: 0, FUNNY: 0, COOL: 0, OHNO: 0 };
+      r.myVotes = mineMap.get(r.id) ?? [];
     }
   }
 
@@ -1457,7 +1470,7 @@ export class ListingsService {
     return this.enrichCards(rows);
   }
 
-  async byId(id: string) {
+  async byId(id: string, viewerId?: string | null) {
     const listing = await this.prisma.listing.findUnique({
       where: { id },
       include: {
@@ -1571,20 +1584,31 @@ export class ListingsService {
 
     // attach vote counts (useful/funny/cool) to each review
     const reviewIds = listing.reviews.map((r) => r.id);
-    const grouped = reviewIds.length
-      ? await this.prisma.reviewVote.groupBy({
-          by: ['reviewId', 'type'],
-          where: { reviewId: { in: reviewIds } },
-          _count: true,
-        })
-      : [];
+    const [grouped, mineVotes] = reviewIds.length
+      ? await Promise.all([
+          this.prisma.reviewVote.groupBy({
+            by: ['reviewId', 'type'],
+            where: { reviewId: { in: reviewIds } },
+            _count: true,
+          }),
+          viewerId
+            ? this.prisma.reviewVote.findMany({
+                where: { reviewId: { in: reviewIds }, userId: viewerId },
+                select: { reviewId: true, type: true },
+              })
+            : Promise.resolve([]),
+        ])
+      : [[], []];
     const vmap: Record<string, Record<string, number>> = {};
-    for (const g of grouped) {
+    for (const g of grouped as any[]) {
       (vmap[g.reviewId] ??= { USEFUL: 0, FUNNY: 0, COOL: 0, OHNO: 0 })[g.type] = g._count;
     }
+    const mineMap = new Map<string, string[]>();
+    for (const m of mineVotes as any[]) (mineMap.get(m.reviewId) ?? mineMap.set(m.reviewId, []).get(m.reviewId)!).push(m.type);
     const reviews: any[] = listing.reviews.map((r) => ({
       ...r,
       voteCounts: vmap[r.id] ?? { USEFUL: 0, FUNNY: 0, COOL: 0, OHNO: 0 },
+      myVotes: mineMap.get(r.id) ?? [],
     }));
     // the most USEFUL reviews lead (community-curated), recency breaks ties
     reviews.sort(

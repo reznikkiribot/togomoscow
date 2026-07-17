@@ -52,7 +52,8 @@ export function FeedPost({
   const initial = (u?.firstName ?? u?.username ?? '?').trim()[0]?.toUpperCase() ?? '?';
   const [vote, setVote] = useState<VoteState>({
     counts: review.voteCounts ?? { USEFUL: 0, FUNNY: 0, COOL: 0, OHNO: 0 },
-    mine: [],
+    // server hydrates the viewer's own votes → likes are lit on first render
+    mine: ((review as any).myVotes ?? []) as VoteType[],
   });
   const doVote = (t: VoteType) =>
     api.vote(review.id, t).then(setVote).catch(() => {});

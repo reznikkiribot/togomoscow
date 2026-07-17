@@ -589,7 +589,8 @@ export function ListingDetailModal({
   const voteState = (r: Review): VoteState =>
     votes[r.id] ?? {
       counts: r.voteCounts ?? { USEFUL: 0, FUNNY: 0, COOL: 0, OHNO: 0 },
-      mine: [],
+      // server-hydrated own votes: the like is lit the moment the card opens
+      mine: (((r as any).myVotes ?? []) as VoteType[]),
     };
   const doVote = (reviewId: string, type: VoteType) => {
     api
