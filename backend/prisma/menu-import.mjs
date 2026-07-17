@@ -71,6 +71,26 @@ const DAY_TOKEN = '(?:пн|вт|ср|чт|пт|сб|вс|понедельник(
 const AMOUNT_TOKEN = '\\d+(?:[.,]\\d+)?(?:\\s*[/xх×]\\s*\\d+(?:[.,]\\d+)?)*';
 const UNIT_TOKEN = '(?:мм|см|cm|мл|ml|cl|дл|литр(?:а|ов)?|л|l|кг|kg|гр|г|g|oz|шт(?:ук(?:а|и)?)?)';
 const PURE_SIZE_RE = new RegExp(`^\\s*(?:[ø⌀]\\s*)?${AMOUNT_TOKEN}\\s*${UNIT_TOKEN}\\.?\\s*$|^\\s*(?:xxl|xl|xs|[sml])\\s*$`, 'i');
+const MARKETING_PREFIX_RE = /^(?:(?:🔥|★)\s*|(?:new|хит)(?=\s|[!★🔥:–—-]|$)\s*[!★🔥]*\s*(?:[:–—-]\s*)?)+/i;
+
+function sentenceCaseAllCaps(name) {
+  const letters = name.match(/[a-zа-яё]/gi) ?? [];
+  if (!letters.length || letters.some((letter) => letter !== letter.toLocaleUpperCase('ru-RU'))) return name;
+
+  const shortWords = new Set(['RED', 'THE']);
+  let phraseStarted = false;
+  return name.replace(/[a-zа-яё]+/gi, (word) => {
+    // Short all-caps menu abbreviations carry meaning (BBQ, BBW, IPA).
+    if (/^[A-Z]{2,3}$/.test(word) && !shortWords.has(word)) {
+      phraseStarted = true;
+      return word;
+    }
+    const lower = word.toLocaleLowerCase('ru-RU');
+    if (phraseStarted) return lower;
+    phraseStarted = true;
+    return lower[0].toLocaleUpperCase('ru-RU') + lower.slice(1);
+  });
+}
 
 // Keep the semantic dish name while removing parser/UI metadata. The same
 // function is imported by clean-names.mjs, so new and historical rows converge.
@@ -79,6 +99,7 @@ export function normalizeMenuName(name) {
   if (!n) return '';
 
   n = n
+    .replace(MARKETING_PREFIX_RE, ' ')
     .replace(/&#\d+;/g, ' ')
     .replace(/\s*\[[^\]]*\]/g, ' ') // [NEW], [AT], internal menu codes
     .replace(new RegExp(`\\(\\s*(?:${DAY_TOKEN}|\\d+[.,]\\d+|xxl|xl|xs|[sml]|сред\\.?|м3|m3|зона\\s*\\d+|ночн[а-яё]*|new|hit|хит|арт(?:икул)?\\s*[:№#-]?\\s*[a-zа-яё0-9_-]+|код\\s*[:№#-]?\\s*[a-zа-яё0-9_-]+)\\s*\\)`, 'gi'), ' ')
@@ -100,12 +121,13 @@ export function normalizeMenuName(name) {
     .replace(/(?<![а-яёa-z])(?:большая|средняя|маленькая|малая)\s+порци(?:я|и)(?![а-яёa-z])/gi, ' ')
     .replace(/\s+(гранде|венти|grande|venti|tall|большой|больш(?:ая|ое)|сред(?:\.|ний|няя|нее)|маленьк[а-яёa-z]*|мал(?:ый|ая))(?![а-яё])/gi, ' ')
     .replace(/\s+(xxl|xl|xs|[sml])\s*$/i, ' ')
+    .replace(/\s*(?:[/|]\s*)?(?:[-–—]\s*)?(?:от\s*)?\d+(?:[.,]\d+)?\s*(?:₽|руб(?:\.|лей?)?)\s*$/i, ' ')
     .replace(/[(){}]/g, ' ') // unwrap meaningful parenthetical text
     .replace(/\s*[-–—,:;/]+\s*$/g, ' ')
     .replace(/^\s*[-–—,:;/]+\s*/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
-  return n;
+  return sentenceCaseAllCaps(n);
 }
 // skip non-dish noise the engine sometimes catches (combos / banners / sets / descriptions)
 export function isJunk(name) {
@@ -116,6 +138,8 @@ export function isJunk(name) {
   if (/^меню(?:\s+на)?$/i.test(n)) return true;
   if (new RegExp(`^\\d+\\s*(?:любые|пицц|штук|шт(?![${WORD_CH}]))`).test(n)) return true; // "3 любые пиццы"
   if (new RegExp(`любые пицц|комбо|(?<![${WORD_CH}])сет(?![${WORD_CH}])|(?<![${WORD_CH}])набор(?![${WORD_CH}])|меню дня|за \\d+\\s*₽|выгодн|подарок|конструктор|собери|акци|скидк|сертификат|доставк|для офиса|идеальных|\\+ ?\\d|\\d ?\\+ ?\\d`).test(n)) return true;
+  if (/beer\s*pong|каждый\s+день|до\s+пенсии|мастер-класс|творческ[а-яё]*\s+встреч/i.test(n)) return true;
+  if (/^\s*\d+(?:[.,]\d+)?\s*%\s*$/.test(n)) return true;
   // «X и закуска», «пицца и напиток» — combos in disguise (their photos are collages)
   if (new RegExp(`(?<![${WORD_CH}])и\\s+(?:закуск|напит|десерт|салат)|(?<![${WORD_CH}])с\\s+напитк|ассорти из \\d`).test(n)) return true;
   // Retail/DIY products do not belong in a restaurant dish catalog.
