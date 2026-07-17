@@ -1,0 +1,140 @@
+{
+  "domain": "skuratovcoffee.ru",
+  "method": "public Tilda HTML",
+  "status": "ok",
+  "source": "https://skuratovcoffee.ru/msk/menu",
+  "count": 26,
+  "withPhoto": 0,
+  "items": [
+    {
+      "name": "ПЕЧЕНЬЕ ОВСЯНОЕ",
+      "price": 230,
+      "image": null
+    },
+    {
+      "name": "ТО САМОЕ ШОКОЛАДНОЕ ПЕЧЕНЬЕ",
+      "price": 260,
+      "image": null
+    },
+    {
+      "name": "ПЕЧЕНЬЕ АРАХИСОВОЕ",
+      "price": 230,
+      "image": null
+    },
+    {
+      "name": "КРУАССАН КЛАССИЧЕСКИЙ",
+      "price": 275,
+      "image": null
+    },
+    {
+      "name": "КРУАССАН МИНДАЛЬНЫЙ",
+      "price": 460,
+      "image": null
+    },
+    {
+      "name": "КАНЕЛЕ",
+      "price": 250,
+      "image": null
+    },
+    {
+      "name": "БАНАНОВЫЙ ХЛЕБ",
+      "price": 280,
+      "image": null
+    },
+    {
+      "name": "МОРКОВНЫЙ КЕКС",
+      "price": 330,
+      "image": null
+    },
+    {
+      "name": "КЕЙК С ВИШНЕЙ И КОКОСОМ",
+      "price": 350,
+      "image": null
+    },
+    {
+      "name": "ГРЕЧКА-КЕЙК С ИНЖИРОМ И КЕШЬЮ",
+      "price": 350,
+      "image": null
+    },
+    {
+      "name": "КЕЙК ИЗ ЗЕЛЁНОЙ ГРЕЧКИ С КЛЮКВОЙ И МИНДАЛЁМ",
+      "price": 350,
+      "image": null
+    },
+    {
+      "name": "ТРУБОЧКА СО СГУЩЕНКОЙ",
+      "price": 280,
+      "image": null
+    },
+    {
+      "name": "БУЛКА С МАКОМ",
+      "price": 290,
+      "image": null
+    },
+    {
+      "name": "БУЛКА С КАРДАМОНОМ",
+      "price": 320,
+      "image": null
+    },
+    {
+      "name": "ДЭНИШ С ГОЛУБИКОЙ",
+      "price": 530,
+      "image": null
+    },
+    {
+      "name": "ГАЛЕТА СО СМОРОДИНОЙ",
+      "price": 330,
+      "image": null
+    },
+    {
+      "name": "СЭНДВИЧ С КУРИЦЕЙ В МЕДОВО-ГОРЧИЧНОМ СОУСЕ",
+      "price": 590,
+      "image": null
+    },
+    {
+      "name": "СЭНДВИЧ ПАСТРАМИ ИЗ ИНДЕЙКИ И ТОМЛЕНАЯ ВИШНЯ",
+      "price": 560,
+      "image": null
+    },
+    {
+      "name": "СЭНДВИЧ С ПЕПЕРОНИ И СОУСОМ ИЗ ПАРМСКИХ ТОМАТОВ И ПЕРЦА РАМИРО",
+      "price": 670,
+      "image": null
+    },
+    {
+      "name": "КРУАССАН С КУРОЙ СУ-ВИД",
+      "price": 610,
+      "image": null
+    },
+    {
+      "name": "КРУАССАН С ВЕТЧИНОЙ И СЫРОМ ЭМЕНТАЛЬ",
+      "price": 610,
+      "image": null
+    },
+    {
+      "name": "КРУАССАН С ЛОСОСЕМ И ОГУРЦОМ",
+      "price": 695,
+      "image": null
+    },
+    {
+      "name": "ЧЕРНИЧНЫЙ ПИРОГ",
+      "price": 470,
+      "image": null
+    },
+    {
+      "name": "ЧИЗКЕЙК САН-СЕБАСТЬЯН",
+      "price": 490,
+      "image": null
+    },
+    {
+      "name": "ЗЛАКОВАЯ ХОЛОДНАЯ КАША",
+      "price": 330,
+      "image": null
+    },
+    {
+      "name": "ГРАНОЛА С КЛУБНИКОЙ И ЙОГУРТОМ",
+      "price": 360,
+      "image": null
+    }
+  ]
+}

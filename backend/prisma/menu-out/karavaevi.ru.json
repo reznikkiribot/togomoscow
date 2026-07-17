@@ -1,0 +1,540 @@
+{
+  "domain": "karavaevi.ru",
+  "method": "playwright-xhr",
+  "status": "ok",
+  "source": "https://prod-api.karavaevi.ru/api/2/v9/menu/list",
+  "count": 106,
+  "withPhoto": 106,
+  "items": [
+    {
+      "name": "Детское комбо Гречка с куриной котлетой",
+      "price": 615,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/50622235-9674-4c26-83b7-259f987c398c.png"
+    },
+    {
+      "name": "Детское комбо Рис с фрикадельками",
+      "price": 615,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/59351768-3e5f-45df-a90f-d64cea0e05f7.png"
+    },
+    {
+      "name": "Детское комбо Картофельное пюре и шницель",
+      "price": 615,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/22355ae9-6afe-46b2-80a2-61eb5e4871c6.png"
+    },
+    {
+      "name": "Салат из свежих овощей",
+      "price": 350,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/0dd5f435-ad74-48c2-aeb9-bc69cbe66ad6.png"
+    },
+    {
+      "name": "Салат из баклажанов с томатами",
+      "price": 380,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/6ee69bfb-cb9a-4101-8c0a-3a20e6e20372.png"
+    },
+    {
+      "name": "Салат Греческий",
+      "price": 390,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/e1ef4fb2-ebfd-4782-9564-f88ab5a4caef.png"
+    },
+    {
+      "name": "Филе куриное су-вид",
+      "price": 410,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/739e93d3-b8b3-4c77-a340-cdd28f9def9a.png"
+    },
+    {
+      "name": "Рис отварной",
+      "price": 220,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/ede554fb-0056-42e1-80b2-e20193c1d1e4.png"
+    },
+    {
+      "name": "Лосось терияки",
+      "price": 925,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/2198596f-2537-4770-a91c-098439ab805a.png"
+    },
+    {
+      "name": "Лосось слабосолёный",
+      "price": 690,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/234a81f6-d118-468c-9520-0c98c3c22010.png"
+    },
+    {
+      "name": "Оладьи куриные с кейлом",
+      "price": 350,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/91cb46e6-32a4-4b46-8f46-cc1e4f78431f.png"
+    },
+    {
+      "name": "Овощи запеченные",
+      "price": 390,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/e1edfbe7-eed1-4405-9694-86674f477708.png"
+    },
+    {
+      "name": "Гречка с овощами",
+      "price": 220,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/abbbcfbc-2734-4d96-804d-f58ea8986252.png"
+    },
+    {
+      "name": "Творожники по-кавказски",
+      "price": 110,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/646c6cec-8327-4881-9e97-a932d5b7501b.png"
+    },
+    {
+      "name": "Налистники с творогом и клубникой",
+      "price": 300,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/be3e1d96-e426-4524-b8e3-81bee23c14d1.png"
+    },
+    {
+      "name": "Английский завтрак",
+      "price": 540,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/108300c0-608a-48ef-80b6-3c2cd786ad5b.png"
+    },
+    {
+      "name": "Блин с мясом",
+      "price": 155,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/f062cdb4-db69-43e6-b52b-38ee71dae7ed.png"
+    },
+    {
+      "name": "Ролл говядина и морковь по-корейски",
+      "price": 370,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/4a464704-31a3-45fe-bdab-048ffc4071f6.png"
+    },
+    {
+      "name": "Блин рваная говядина",
+      "price": 150,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/17190a5c-83c3-424d-856e-ec25f8408ea7.png"
+    },
+    {
+      "name": "Ролл тунец",
+      "price": 410,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/864004d0-5c9f-40c1-9c8a-76636da8eb39.png"
+    },
+    {
+      "name": "Бутер сыр-ветчина-омлет",
+      "price": 365,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/107856e6-b71c-4c88-afaf-614cca9e27d9.png"
+    },
+    {
+      "name": "Салат с пиканьей",
+      "price": 490,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/482117d0-1ab2-48bf-9996-b4300e952b7f.png"
+    },
+    {
+      "name": "Салат Весенний",
+      "price": 350,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/93a8da78-15b1-4dc1-bd64-48f2238f3337.png"
+    },
+    {
+      "name": "Салат с авокадо",
+      "price": 380,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/d471cca9-51ab-4ffd-af63-4c8b3142e33a.png"
+    },
+    {
+      "name": "Салат Мимоза",
+      "price": 310,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/70fa581b-0c2d-41b4-a0fd-aa206e792657.png"
+    },
+    {
+      "name": "Салат Оливье",
+      "price": 260,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/b41ffa90-44d6-4938-b7a1-5d6cf99d95c5.png"
+    },
+    {
+      "name": "Суп куриный с фрикадельками",
+      "price": 195,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/fc51bf4e-7211-4f45-a3f5-5140ad1c8ad0.png"
+    },
+    {
+      "name": "Суп борщ",
+      "price": 245,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/09b5d3ea-870d-4758-98aa-d593ccf59e15.png"
+    },
+    {
+      "name": "Бульон куриный с зеленью",
+      "price": 195,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/54163d1e-5e7c-47bb-a462-2f1fe13b239d.png"
+    },
+    {
+      "name": "Кордон блю",
+      "price": 235,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/b14a8efe-e8ce-4108-b9ac-92cd516e6e00.png"
+    },
+    {
+      "name": "Паста средиземноморская",
+      "price": 450,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/839511e6-2e0b-4a93-81ff-4d1b50498e7d.png"
+    },
+    {
+      "name": "Говядина пикантная",
+      "price": 650,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/96fd1d88-e4d8-404e-aa60-4df6f889634d.png"
+    },
+    {
+      "name": "Индейка кокос-лемонграсс-имбирь",
+      "price": 430,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/1dc27f2f-41cc-42a7-ab0f-0679785acb37.png"
+    },
+    {
+      "name": "Картофель жареный с грибами",
+      "price": 270,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/2939fbaa-8574-450b-8257-05f2d3fb452e.png"
+    },
+    {
+      "name": "Крылья куриные по-сингапурски",
+      "price": 195,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/9ec05a4f-d55b-454e-b2c4-a4fbe0bff886.png"
+    },
+    {
+      "name": "Оладьи куриные с зеленью",
+      "price": 350,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/8b513d4c-171e-45dc-ab7d-6650c59cadeb.png"
+    },
+    {
+      "name": "Домашняя куриная котлета",
+      "price": 115,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/9ba58874-394e-45a1-9bc6-3b19e5b93ff3.png"
+    },
+    {
+      "name": "Паста с грибами",
+      "price": 340,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/f0798c49-5d3b-4564-9ca0-6e542162a86a.png"
+    },
+    {
+      "name": "Сочная курица",
+      "price": 430,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/c551c360-8d98-468e-8a06-b46ad5648fa4.png"
+    },
+    {
+      "name": "Курица по-гавайски",
+      "price": 380,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/2cb89b91-ba07-4bf4-ae9d-53d097318756.png"
+    },
+    {
+      "name": "Шницель куриный",
+      "price": 205,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/0bb7e99e-d05d-4070-9174-b8d5818ac753.png"
+    },
+    {
+      "name": "Лосось слабосоленый",
+      "price": 690,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/d03154b9-0c4a-4bc5-a18e-3a36f2a1a37c.png"
+    },
+    {
+      "name": "Котлета \"Морская\"",
+      "price": 430,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/d2719143-87e6-4ff9-8b8e-243dbc325610.png"
+    },
+    {
+      "name": "Лосось Терияки",
+      "price": 925,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/e8e39c35-dad0-425e-ab3e-f014422999dd.png"
+    },
+    {
+      "name": "Лазанья Мясная",
+      "price": 470,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/888575f5-e8f8-4488-81ac-5b664a6cd54a.png"
+    },
+    {
+      "name": "Плов с Уткой",
+      "price": 330,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/65befa50-c51a-4ac9-987c-16cf732173ac.png"
+    },
+    {
+      "name": "Пирог Мурманский палтус-треска",
+      "price": 585,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/41fe6f18-6750-4f14-825d-abaa841a8d19.png"
+    },
+    {
+      "name": "Итальянские спагетти с маслинами",
+      "price": 200,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/d5df42e4-043d-4020-8882-dd0407366fc9.png"
+    },
+    {
+      "name": "Картофельное пюре",
+      "price": 220,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/eca83dc4-2cfd-4f71-b2ce-494f6ffccd25.png"
+    },
+    {
+      "name": "Круассан с Шоколадом",
+      "price": 265,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/94c812a2-fcc7-438b-9259-d5d32bd46947.png"
+    },
+    {
+      "name": "Сладкое Сердце",
+      "price": 145,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/f18a9d8d-7462-4810-8c1a-40dd6d0443cf.png"
+    },
+    {
+      "name": "Ром Баба",
+      "price": 185,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/cc99741a-8481-43d2-b494-cf8082316823.png"
+    },
+    {
+      "name": "Круассан французский с сыром",
+      "price": 160,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/f3c0bad9-3e9b-409d-acff-0e74b1e01ecf.png"
+    },
+    {
+      "name": "Шоколадная салями",
+      "price": 175,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/ea572076-0647-48b2-878a-5512e333fc26.png"
+    },
+    {
+      "name": "Торт Три шоколада",
+      "price": 285,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/5e94d6bd-9528-4cbd-8d53-ab141b44b255.png"
+    },
+    {
+      "name": "Панна-котта манго-персик-кокос",
+      "price": 290,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/321e4f58-b4e9-423f-aa99-001d3a8ff76b.png"
+    },
+    {
+      "name": "Эклер пряный латте",
+      "price": 180,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/653ea21c-f27f-48a7-8fc1-54aed3a7d27b.png"
+    },
+    {
+      "name": "Эклер ванильный",
+      "price": 180,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/8c7f00ab-d888-4f08-8b39-9730667f1d83.png"
+    },
+    {
+      "name": "Эклер шоколадный",
+      "price": 180,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/0dfc5dbd-ebb3-4c39-ab14-d19c028d1d81.png"
+    },
+    {
+      "name": "Бакинский слоеный с вишней",
+      "price": 350,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/f1780fbb-ebb6-47d2-9ab9-ecbff0f35f30.png"
+    },
+    {
+      "name": "Чизкейк Сан-Себастьян",
+      "price": 265,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/6e4fe63c-0ef1-4b3f-8dea-a2e641d24dbd.png"
+    },
+    {
+      "name": "Кольцо творожное",
+      "price": 190,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/73b8cbfb-91b0-424f-8a43-e9f0e53a117f.png"
+    },
+    {
+      "name": "Канеле с ванилью",
+      "price": 135,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/1e122a51-02e6-4f6f-a60f-5436ca83ffea.png"
+    },
+    {
+      "name": "Macaronika Чизкейк клубничный",
+      "price": 110,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/d05b80b1-7047-42a8-bb3d-d49358bdf505.png"
+    },
+    {
+      "name": "Macaronika Ванильный пломбир",
+      "price": 110,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/582c9761-f92c-4520-baa7-2ea47b005ecb.png"
+    },
+    {
+      "name": "Macaronika Итальянская горгонзола",
+      "price": 110,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/33b9bcd5-27e8-4fea-a665-d3fcf695fc7a.png"
+    },
+    {
+      "name": "Macaronika Манго-маракуйя",
+      "price": 110,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/31bae3e6-ec99-4944-a657-06c7d5fd1723.png"
+    },
+    {
+      "name": "Торт Ягодный бархат",
+      "price": 890,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/43609e87-1686-4494-a55c-d461095d704e.png"
+    },
+    {
+      "name": "Мармелад жевательный из комбучи классика",
+      "price": 440,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/98b6bede-525a-4e63-98e0-aa5c8482a925.png"
+    },
+    {
+      "name": "Мармелад жевательный из комбучи лимон и мята",
+      "price": 440,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/e1be7e6d-6af9-47a9-a04f-448f31a6abc3.png"
+    },
+    {
+      "name": "Смузи Антистресс",
+      "price": 550,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/f976d235-a927-4305-b204-22781277278b.png"
+    },
+    {
+      "name": "Смузи Зеленый детокс",
+      "price": 550,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/73529ffa-10ef-415d-ac78-661b21f29e70.png"
+    },
+    {
+      "name": "Смузи Антиоксидантный микс",
+      "price": 550,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/3c9a3681-4230-49f2-ab97-bab289bd7fe3.png"
+    },
+    {
+      "name": "Смузи Мягкая энергия",
+      "price": 550,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/12ab6e37-e8fb-422f-9712-2b578df971ff.png"
+    },
+    {
+      "name": "Смузи Иммунный заряд",
+      "price": 550,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/d5e508f0-16ed-469d-a4a2-d2e7028e8c59.png"
+    },
+    {
+      "name": "Смузи Эликсир молодости",
+      "price": 550,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/97c51fc3-acea-47d2-95e0-97008103460b.png"
+    },
+    {
+      "name": "Смузи Водный баланс",
+      "price": 550,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/d23918f2-b6d0-416f-964c-90ed61370175.png"
+    },
+    {
+      "name": "Смузи Протеиновый заряд, 450 мл",
+      "price": 550,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/0fbe18ef-2c1a-4d94-8d36-1c1cd2c84446.png"
+    },
+    {
+      "name": "Протеиновый коктейль Голубая спирулина",
+      "price": 395,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/fdc8f3b3-93b0-4cc3-aff8-907286ffa00c.png"
+    },
+    {
+      "name": "Лимонад клубника-базилик",
+      "price": 390,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/43033706-887d-4d80-9abd-29c8776c80fe.png"
+    },
+    {
+      "name": "Лимонад груша",
+      "price": 390,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/f0bf4af3-f33a-4ed9-831e-549730b24adb.png"
+    },
+    {
+      "name": "Лимонад Клубника-цитрус",
+      "price": 195,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/bf6572c5-b526-4687-87ce-15f10741762c.png"
+    },
+    {
+      "name": "Морс черная смородина",
+      "price": 195,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/05dd7939-4aeb-487d-a184-543601e1f099.png"
+    },
+    {
+      "name": "Морс клюква-брусника",
+      "price": 195,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/ddd2e333-f8fb-4418-a6d6-7e30fb858324.png"
+    },
+    {
+      "name": "Протеиновый коктейль ванильный",
+      "price": 395,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/9ce9b3d8-17cd-4b4e-bace-cb1efbbefbb6.png"
+    },
+    {
+      "name": "Протеиновый коктейль малиновый",
+      "price": 395,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/c7c5352f-818e-4249-b3ed-1442c2f741bf.png"
+    },
+    {
+      "name": "Американо 300 мл",
+      "price": 240,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/5a82c267-d4cf-45a7-a494-5daff0a72395.png"
+    },
+    {
+      "name": "Американо 400 мл",
+      "price": 270,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/2b222e12-31fe-4bbf-8a74-c873a2a81e0f.png"
+    },
+    {
+      "name": "Латте 400 мл",
+      "price": 305,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/2fecab41-30d9-4cd1-807e-1f25951d3759.png"
+    },
+    {
+      "name": "Латте 300 мл",
+      "price": 275,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/764bab51-4c71-4462-bfd7-6de1c23f6181.png"
+    },
+    {
+      "name": "Капучино 300 мл",
+      "price": 275,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/8f03ce3a-1909-401e-8b95-f7270464584e.png"
+    },
+    {
+      "name": "Капучино 400 мл",
+      "price": 305,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/77673733-237a-423a-9061-b0f002c94058.png"
+    },
+    {
+      "name": "Хлеб Бородинский",
+      "price": 115,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/6318a522-eb5c-4ab6-91d3-a651908e3375.png"
+    },
+    {
+      "name": "Хлеб чесночный",
+      "price": 105,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/136c6575-f9b0-4241-9021-1ada435feaca.png"
+    },
+    {
+      "name": "Кофе жареный в зернах Бразилия",
+      "price": 2655,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/45ac9fd5-f1fe-4654-9d88-cb7ea125aa9d.png"
+    },
+    {
+      "name": "Кофе жареный в зернах Эфиопия",
+      "price": 3100,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/b1ae5743-793a-444e-8623-cbb6e947314c.png"
+    },
+    {
+      "name": "Кофе жареный в зернах Эфиопия/Кения",
+      "price": 3100,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/7f108452-a4cb-4daa-b914-d4c1c14b94ee.png"
+    },
+    {
+      "name": "Кофе жареный в зернах Эфиопия/Бразилия",
+      "price": 2800,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/3436e017-44bb-4371-a899-19f577f446b0.png"
+    },
+    {
+      "name": "Кофе в дрип-пакетах Бразилия",
+      "price": 420,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/d896b2af-82b6-4486-82f0-2354342df6bc.png"
+    },
+    {
+      "name": "Кофе в дрип-пакетах Эфиопия",
+      "price": 420,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/a611d57e-03f3-41d9-9684-718fd26e3964.png"
+    },
+    {
+      "name": "Кофе в дрип-пакетах Кения",
+      "price": 420,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/12e14e3b-d527-481c-866f-79e645e69176.png"
+    },
+    {
+      "name": "Кофе в дрип-пакетах в ассортименте",
+      "price": 420,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/68cfe2c7-626e-41e0-8125-61c0be2572e2.png"
+    },
+    {
+      "name": "Кофе в капсулах Бразилия",
+      "price": 450,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/15e23e70-1dee-4664-80e6-0f088905f435.png"
+    },
+    {
+      "name": "Кофе в капсулах Эфиопия",
+      "price": 450,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/3022f6ef-07c6-4b63-9c61-69a518e9a644.png"
+    },
+    {
+      "name": "Кофе в капсулах Руанда",
+      "price": 450,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/63dbbb13-d696-47f4-890c-58e7ff6160c5.png"
+    },
+    {
+      "name": "Кофе в капсулах Колумбия",
+      "price": 450,
+      "image": "https://ce6e1bcc-e329-4500-b965-54d06a22bcc8.selstorage.ru/3661277/9189016e-f60b-433b-aaf6-746913aaf7c0.png"
+    }
+  ]
+}

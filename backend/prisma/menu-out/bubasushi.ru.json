@@ -1,0 +1,710 @@
+{
+  "domain": "bubasushi.ru",
+  "method": "playwright-xhr",
+  "status": "ok",
+  "source": "https://bubasushi.ru/api/v2/menu",
+  "count": 140,
+  "withPhoto": 0,
+  "items": [
+    {
+      "name": "\"Унаги-сет\"",
+      "price": 3210,
+      "image": null
+    },
+    {
+      "name": "Сет мини-Поке",
+      "price": 1980,
+      "image": null
+    },
+    {
+      "name": "Сет Праздничный",
+      "price": 24320,
+      "image": null
+    },
+    {
+      "name": "Сет Level Up",
+      "price": 8170,
+      "image": null
+    },
+    {
+      "name": "Сет Счастливый",
+      "price": 23940,
+      "image": null
+    },
+    {
+      "name": "Набор из 5 порций",
+      "price": 5810,
+      "image": null
+    },
+    {
+      "name": "Сет Family & Friends",
+      "price": 14990,
+      "image": null
+    },
+    {
+      "name": "Сашими сет",
+      "price": 12490,
+      "image": null
+    },
+    {
+      "name": "Суши-сет",
+      "price": 6480,
+      "image": null
+    },
+    {
+      "name": "Сет Classic",
+      "price": 7100,
+      "image": null
+    },
+    {
+      "name": "\"Эби-сет\"",
+      "price": 2930,
+      "image": null
+    },
+    {
+      "name": "Набор из 10 порций",
+      "price": 12990,
+      "image": null
+    },
+    {
+      "name": "Набор из 7 порций",
+      "price": 7920,
+      "image": null
+    },
+    {
+      "name": "Набор из 6 порций",
+      "price": 7590,
+      "image": null
+    },
+    {
+      "name": "\"Сяке-сет\"",
+      "price": 3230,
+      "image": null
+    },
+    {
+      "name": "Ролл Гребешок в остром соусе",
+      "price": 1280,
+      "image": null
+    },
+    {
+      "name": "Ролл Абури с лососем",
+      "price": 1460,
+      "image": null
+    },
+    {
+      "name": "Ролл острый с угрем и креветкой",
+      "price": 1290,
+      "image": null
+    },
+    {
+      "name": "Маки с тунцом и авокадо",
+      "price": 920,
+      "image": null
+    },
+    {
+      "name": "Ролл хрустящий с лососем",
+      "price": 1170,
+      "image": null
+    },
+    {
+      "name": "Ролл Salmon Wrap",
+      "price": 1380,
+      "image": null
+    },
+    {
+      "name": "Ролл Дорадо с трюфельным соусом",
+      "price": 1370,
+      "image": null
+    },
+    {
+      "name": "Ролл Креветка темпура",
+      "price": 1180,
+      "image": null
+    },
+    {
+      "name": "Ролл In&Out",
+      "price": 1240,
+      "image": null
+    },
+    {
+      "name": "Ролл Нагано",
+      "price": 1390,
+      "image": null
+    },
+    {
+      "name": "Ролл Калифорния в остром соусе",
+      "price": 1390,
+      "image": null
+    },
+    {
+      "name": "Маки с лососем и авокадо",
+      "price": 890,
+      "image": null
+    },
+    {
+      "name": "Ролл с угрем и миндальным соусом",
+      "price": 1370,
+      "image": null
+    },
+    {
+      "name": "Ролл Лосось тартар",
+      "price": 1350,
+      "image": null
+    },
+    {
+      "name": "Ролл фирменная Филадельфия с лососем",
+      "price": 1240,
+      "image": null
+    },
+    {
+      "name": "Ролл Филадельфия",
+      "price": 1390,
+      "image": null
+    },
+    {
+      "name": "Ролл хрустящий с угрем",
+      "price": 1170,
+      "image": null
+    },
+    {
+      "name": "Ролл с креветкой и трюфельным соусом",
+      "price": 1370,
+      "image": null
+    },
+    {
+      "name": "Ролл фирменная Филадельфия с угрем",
+      "price": 1230,
+      "image": null
+    },
+    {
+      "name": "Ролл с огурцом",
+      "price": 480,
+      "image": null
+    },
+    {
+      "name": "Ролл специальный BUBA",
+      "price": 1280,
+      "image": null
+    },
+    {
+      "name": "Ролл Тунец в остром соусе",
+      "price": 1320,
+      "image": null
+    },
+    {
+      "name": "Ролл с авокадо",
+      "price": 490,
+      "image": null
+    },
+    {
+      "name": "Ролл Калифорния с крабом",
+      "price": 1390,
+      "image": null
+    },
+    {
+      "name": "Ролл KING CRAB",
+      "price": 1680,
+      "image": null
+    },
+    {
+      "name": "Ролл с крабом и манго",
+      "price": 1380,
+      "image": null
+    },
+    {
+      "name": "Ручной ролл с угрем и кожей лосося",
+      "price": 860,
+      "image": null
+    },
+    {
+      "name": "Ручной ролл с тунцом в остром соусе",
+      "price": 930,
+      "image": null
+    },
+    {
+      "name": "Ручной ролл с лососем в остром соусе",
+      "price": 920,
+      "image": null
+    },
+    {
+      "name": "Ручной ролл с крабом в остром соусе",
+      "price": 980,
+      "image": null
+    },
+    {
+      "name": "Суши Дорадо",
+      "price": 320,
+      "image": null
+    },
+    {
+      "name": "Суши Гребешок",
+      "price": 370,
+      "image": null
+    },
+    {
+      "name": "Суши Угорь",
+      "price": 320,
+      "image": null
+    },
+    {
+      "name": "Суши Тобико",
+      "price": 280,
+      "image": null
+    },
+    {
+      "name": "Суши Сладкая креветка",
+      "price": 390,
+      "image": null
+    },
+    {
+      "name": "Суши Лосось",
+      "price": 340,
+      "image": null
+    },
+    {
+      "name": "Суши Тунец",
+      "price": 390,
+      "image": null
+    },
+    {
+      "name": "Суши Креветка",
+      "price": 290,
+      "image": null
+    },
+    {
+      "name": "Суши Тамаго",
+      "price": 210,
+      "image": null
+    },
+    {
+      "name": "Суши острые Тамаго",
+      "price": 240,
+      "image": null
+    },
+    {
+      "name": "Суши острые Тобико",
+      "price": 310,
+      "image": null
+    },
+    {
+      "name": "Суши острые Креветка",
+      "price": 320,
+      "image": null
+    },
+    {
+      "name": "Суши острые Угорь",
+      "price": 350,
+      "image": null
+    },
+    {
+      "name": "Суши острые Дорадо",
+      "price": 350,
+      "image": null
+    },
+    {
+      "name": "Суши острые Гребешок",
+      "price": 400,
+      "image": null
+    },
+    {
+      "name": "Суши острые Сладкая креветка",
+      "price": 420,
+      "image": null
+    },
+    {
+      "name": "Суши острые Краб",
+      "price": 520,
+      "image": null
+    },
+    {
+      "name": "Суши острые Тунец",
+      "price": 420,
+      "image": null
+    },
+    {
+      "name": "Суши острые Лосось",
+      "price": 370,
+      "image": null
+    },
+    {
+      "name": "Сашими Тунец",
+      "price": 1150,
+      "image": null
+    },
+    {
+      "name": "Сашими Тамаго",
+      "price": 470,
+      "image": null
+    },
+    {
+      "name": "Сашими Креветка",
+      "price": 690,
+      "image": null
+    },
+    {
+      "name": "Сашими Дорадо",
+      "price": 740,
+      "image": null
+    },
+    {
+      "name": "Сашими Сладкая креветка",
+      "price": 990,
+      "image": null
+    },
+    {
+      "name": "Сашими Угорь",
+      "price": 950,
+      "image": null
+    },
+    {
+      "name": "Сашими Лосось",
+      "price": 950,
+      "image": null
+    },
+    {
+      "name": "Сашими Гребешок",
+      "price": 1140,
+      "image": null
+    },
+    {
+      "name": "Том Ям",
+      "price": 950,
+      "image": null
+    },
+    {
+      "name": "Вакаме-бульон с морепродуктами",
+      "price": 570,
+      "image": null
+    },
+    {
+      "name": "Суп Пикантный кимчи с телятиной",
+      "price": 760,
+      "image": null
+    },
+    {
+      "name": "Суп с ломтиками лосося",
+      "price": 720,
+      "image": null
+    },
+    {
+      "name": "Суп Мисо",
+      "price": 390,
+      "image": null
+    },
+    {
+      "name": "Битые огурцы",
+      "price": 490,
+      "image": null
+    },
+    {
+      "name": "Эдамаме спайси",
+      "price": 360,
+      "image": null
+    },
+    {
+      "name": "Паровая булочка с лососем",
+      "price": 860,
+      "image": null
+    },
+    {
+      "name": "Гедза мясные",
+      "price": 820,
+      "image": null
+    },
+    {
+      "name": "Спринг-ролл с уткой",
+      "price": 780,
+      "image": null
+    },
+    {
+      "name": "Кимчи",
+      "price": 520,
+      "image": null
+    },
+    {
+      "name": "Утка по-Пекински (2 персоны)",
+      "price": 1590,
+      "image": null
+    },
+    {
+      "name": "Паровая булочка с говяжьими щечками",
+      "price": 840,
+      "image": null
+    },
+    {
+      "name": "Гедза с креветками",
+      "price": 840,
+      "image": null
+    },
+    {
+      "name": "Хрустящие крабовые мешочки",
+      "price": 1180,
+      "image": null
+    },
+    {
+      "name": "Паровая булочка с крабом",
+      "price": 940,
+      "image": null
+    },
+    {
+      "name": "Хрустящий кальмар",
+      "price": 870,
+      "image": null
+    },
+    {
+      "name": "Эдамаме",
+      "price": 340,
+      "image": null
+    },
+    {
+      "name": "Креветки попкорн",
+      "price": 890,
+      "image": null
+    },
+    {
+      "name": "Темпура Креветка",
+      "price": 220,
+      "image": null
+    },
+    {
+      "name": "Салат из двух видов рыб: лосося и тунца с пикантным соусом",
+      "price": 1380,
+      "image": null
+    },
+    {
+      "name": "Кани-салат",
+      "price": 1290,
+      "image": null
+    },
+    {
+      "name": "Салат Сашими",
+      "price": 1350,
+      "image": null
+    },
+    {
+      "name": "Салат Кайсо",
+      "price": 580,
+      "image": null
+    },
+    {
+      "name": "Зеленый салат с лангустинами",
+      "price": 1270,
+      "image": null
+    },
+    {
+      "name": "Рис жареный с курицей",
+      "price": 760,
+      "image": null
+    },
+    {
+      "name": "Рис жареный с овощами",
+      "price": 640,
+      "image": null
+    },
+    {
+      "name": "Рис жареный с морепродуктами",
+      "price": 970,
+      "image": null
+    },
+    {
+      "name": "Лапша удон с морепродуктами",
+      "price": 970,
+      "image": null
+    },
+    {
+      "name": "Лапша удон с овощами",
+      "price": 640,
+      "image": null
+    },
+    {
+      "name": "Лапша удон с курицей",
+      "price": 760,
+      "image": null
+    },
+    {
+      "name": "Лапша удон с острой курицей",
+      "price": 760,
+      "image": null
+    },
+    {
+      "name": "Курица Карааге с рисом",
+      "price": 780,
+      "image": null
+    },
+    {
+      "name": "Угорь на рисе",
+      "price": 1100,
+      "image": null
+    },
+    {
+      "name": "Говядина с устричным грибом",
+      "price": 1250,
+      "image": null
+    },
+    {
+      "name": "Куриное филе на рисе в соусе терияки",
+      "price": 760,
+      "image": null
+    },
+    {
+      "name": "Треска в мисо-соусе",
+      "price": 1240,
+      "image": null
+    },
+    {
+      "name": "Лосось в мисо-соусе",
+      "price": 1370,
+      "image": null
+    },
+    {
+      "name": "Рис на пару",
+      "price": 280,
+      "image": null
+    },
+    {
+      "name": "Креветки васаби",
+      "price": 840,
+      "image": null
+    },
+    {
+      "name": "Поке с тунцом",
+      "price": 1390,
+      "image": null
+    },
+    {
+      "name": "Поке с крабом",
+      "price": 1370,
+      "image": null
+    },
+    {
+      "name": "Поке с угрем",
+      "price": 1240,
+      "image": null
+    },
+    {
+      "name": "Поке с лососем",
+      "price": 1280,
+      "image": null
+    },
+    {
+      "name": "Лимонад Малина-маракуйя домашний",
+      "price": 550,
+      "image": null
+    },
+    {
+      "name": "Лимонад грушевый домашний",
+      "price": 550,
+      "image": null
+    },
+    {
+      "name": "Вода Surgiva газированная",
+      "price": 580,
+      "image": null
+    },
+    {
+      "name": "Вода Surgiva негазированная",
+      "price": 580,
+      "image": null
+    },
+    {
+      "name": "Coca-Cola zero",
+      "price": 330,
+      "image": null
+    },
+    {
+      "name": "Coca-Cola",
+      "price": 330,
+      "image": null
+    },
+    {
+      "name": "Фреш грейпфрутовый свежевыжатый",
+      "price": 590,
+      "image": null
+    },
+    {
+      "name": "Фреш апельсиновый свежевыжатый",
+      "price": 590,
+      "image": null
+    },
+    {
+      "name": "Фреш морковный свежевыжатый",
+      "price": 590,
+      "image": null
+    },
+    {
+      "name": "Detox Me собственного приготовления",
+      "price": 590,
+      "image": null
+    },
+    {
+      "name": "Nordiс собственного приготовления",
+      "price": 590,
+      "image": null
+    },
+    {
+      "name": "Vitamin Bomb собственного приготовления",
+      "price": 590,
+      "image": null
+    },
+    {
+      "name": "Муравейник",
+      "price": 590,
+      "image": null
+    },
+    {
+      "name": "Мochi Персик-маракуйя",
+      "price": 430,
+      "image": null
+    },
+    {
+      "name": "Мochi Бобы тонка-вишня",
+      "price": 430,
+      "image": null
+    },
+    {
+      "name": "Мochi Зеленый чай",
+      "price": 430,
+      "image": null
+    },
+    {
+      "name": "Мochi Шоколад",
+      "price": 430,
+      "image": null
+    },
+    {
+      "name": "Мochi Клубника",
+      "price": 430,
+      "image": null
+    },
+    {
+      "name": "Мochi Манго",
+      "price": 430,
+      "image": null
+    },
+    {
+      "name": "Сет из mochi",
+      "price": 2380,
+      "image": null
+    },
+    {
+      "name": "Чизкейк Зеленый чай",
+      "price": 570,
+      "image": null
+    },
+    {
+      "name": "Сертификат 3000 рублей",
+      "price": 3000,
+      "image": null
+    },
+    {
+      "name": "Сертификат 5000 рублей",
+      "price": 5000,
+      "image": null
+    },
+    {
+      "name": "Сертификат 7000 рублей",
+      "price": 7000,
+      "image": null
+    }
+  ]
+}

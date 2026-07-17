@@ -83,11 +83,16 @@ export function ListRow({
             {listing.reviewCount === 0 ? 'Попробуйте в:' : ''}📍{(listing as any).tryAt.name}
           </div>
         )}
-        {/* dish/drink: lead with WHERE it's best — visible as soon as it's known */}
+        {/* dish/drink: «Лучшее в» is earned by ratings — zero reviews means it's
+            just a place to try, not the best one */}
         {isItem && listing.bestVenue && (
-          <div className="sub" style={{ color: 'var(--accent)', fontWeight: 600 }}>
-            🏆 Лучшее в: {listing.bestVenue.name}
-          </div>
+          listing.reviewCount > 0 ? (
+            <div className="sub" style={{ color: 'var(--accent)', fontWeight: 600 }}>
+              🏆 Лучшее в: {listing.bestVenue.name}
+            </div>
+          ) : (
+            <div className="sub">Попробуйте в: 📍{listing.bestVenue.name}</div>
+          )
         )}
         {/* searched a dish/drink → this venue shows ITS name above the rating */}
         {matched && (

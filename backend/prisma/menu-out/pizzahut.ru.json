@@ -1,0 +1,525 @@
+{
+  "domain": "pizzahut.ru",
+  "method": "__NEXT_DATA__",
+  "status": "ok",
+  "source": "/",
+  "count": 103,
+  "withPhoto": 0,
+  "items": [
+    {
+      "name": "Колбаса пепперони с/к",
+      "price": 159,
+      "image": null
+    },
+    {
+      "name": "Топпинг из говядины",
+      "price": 219,
+      "image": null
+    },
+    {
+      "name": "Бекон",
+      "price": 159,
+      "image": null
+    },
+    {
+      "name": "Колбаски мини",
+      "price": 159,
+      "image": null
+    },
+    {
+      "name": "Ветчина свиная",
+      "price": 159,
+      "image": null
+    },
+    {
+      "name": "Топпинг из свинины",
+      "price": 199,
+      "image": null
+    },
+    {
+      "name": "Куриное филе",
+      "price": 159,
+      "image": null
+    },
+    {
+      "name": "Мясная смесь",
+      "price": 199,
+      "image": null
+    },
+    {
+      "name": "Маслины",
+      "price": 99,
+      "image": null
+    },
+    {
+      "name": "Томаты",
+      "price": 99,
+      "image": null
+    },
+    {
+      "name": "Овощная смесь",
+      "price": 99,
+      "image": null
+    },
+    {
+      "name": "Лук жареный",
+      "price": 99,
+      "image": null
+    },
+    {
+      "name": "Лук репчатый красный",
+      "price": 99,
+      "image": null
+    },
+    {
+      "name": "Огурцы маринованные",
+      "price": 99,
+      "image": null
+    },
+    {
+      "name": "Перец Халапеньо",
+      "price": 99,
+      "image": null
+    },
+    {
+      "name": "Ананасы",
+      "price": 99,
+      "image": null
+    },
+    {
+      "name": "Зеленый перец D30",
+      "price": 119,
+      "image": null
+    },
+    {
+      "name": "Грибы шампиньоны",
+      "price": 99,
+      "image": null
+    },
+    {
+      "name": "Помидоры Черри",
+      "price": 99,
+      "image": null
+    },
+    {
+      "name": "Сыр Реджанито",
+      "price": 119,
+      "image": null
+    },
+    {
+      "name": "Сыр с голубой плесенью",
+      "price": 139,
+      "image": null
+    },
+    {
+      "name": "Сыр Чеддер D30",
+      "price": 119,
+      "image": null
+    },
+    {
+      "name": "Сыр Моцарелла",
+      "price": 119,
+      "image": null
+    },
+    {
+      "name": "Хот-дог борт 30",
+      "price": 279,
+      "image": null
+    },
+    {
+      "name": "Сырный борт 30",
+      "price": 249,
+      "image": null
+    },
+    {
+      "name": "Помидоры Черри D23",
+      "price": 79,
+      "image": null
+    },
+    {
+      "name": "Зеленый перец",
+      "price": 99,
+      "image": null
+    },
+    {
+      "name": "Сыр Чеддер",
+      "price": 99,
+      "image": null
+    },
+    {
+      "name": "Грибы",
+      "price": 79,
+      "image": null
+    },
+    {
+      "name": "Топпинг из говядины D23",
+      "price": 119,
+      "image": null
+    },
+    {
+      "name": "Огурцы маринованные D23",
+      "price": 79,
+      "image": null
+    },
+    {
+      "name": "Ананас",
+      "price": 79,
+      "image": null
+    },
+    {
+      "name": "Перец халапеньо D23",
+      "price": 79,
+      "image": null
+    },
+    {
+      "name": "Топпинг из свинины D23",
+      "price": 99,
+      "image": null
+    },
+    {
+      "name": "Хот-дог борт 36",
+      "price": 309,
+      "image": null
+    },
+    {
+      "name": "Сырный борт 36",
+      "price": 299,
+      "image": null
+    },
+    {
+      "name": "Бекон D36",
+      "price": 199,
+      "image": null
+    },
+    {
+      "name": "Топпинг из свинины D36",
+      "price": 279,
+      "image": null
+    },
+    {
+      "name": "Колбаса пепперони с/к D36",
+      "price": 199,
+      "image": null
+    },
+    {
+      "name": "Мясная смесь D36",
+      "price": 279,
+      "image": null
+    },
+    {
+      "name": "Ветчина свиная D36",
+      "price": 199,
+      "image": null
+    },
+    {
+      "name": "Куриное филе D36",
+      "price": 199,
+      "image": null
+    },
+    {
+      "name": "Топпинг из говядины D36",
+      "price": 299,
+      "image": null
+    },
+    {
+      "name": "Огурцы маринованные D36",
+      "price": 119,
+      "image": null
+    },
+    {
+      "name": "Овощная смесь D36",
+      "price": 119,
+      "image": null
+    },
+    {
+      "name": "Грибы шампиньоны D36",
+      "price": 119,
+      "image": null
+    },
+    {
+      "name": "Перец Халапеньо D36",
+      "price": 119,
+      "image": null
+    },
+    {
+      "name": "Ананасы D36",
+      "price": 119,
+      "image": null
+    },
+    {
+      "name": "Лук жареный D36",
+      "price": 119,
+      "image": null
+    },
+    {
+      "name": "Помидоры Черри D36",
+      "price": 119,
+      "image": null
+    },
+    {
+      "name": "Томаты D36",
+      "price": 119,
+      "image": null
+    },
+    {
+      "name": "Зеленый перец D36",
+      "price": 159,
+      "image": null
+    },
+    {
+      "name": "Лук репчатый красный D36",
+      "price": 119,
+      "image": null
+    },
+    {
+      "name": "Сыр Чеддер D36",
+      "price": 139,
+      "image": null
+    },
+    {
+      "name": "Сыр Реджанито D36",
+      "price": 139,
+      "image": null
+    },
+    {
+      "name": "Сыр Моцарелла D36",
+      "price": 139,
+      "image": null
+    },
+    {
+      "name": "Сыр с голубой плесенью D36",
+      "price": 159,
+      "image": null
+    },
+    {
+      "name": "Хот-дог борт 23",
+      "price": 239,
+      "image": null
+    },
+    {
+      "name": "Сырный борт 23",
+      "price": 159,
+      "image": null
+    },
+    {
+      "name": "Ветчина свиная  D23",
+      "price": 99,
+      "image": null
+    },
+    {
+      "name": "Ананас D23",
+      "price": 79,
+      "image": null
+    },
+    {
+      "name": "Грибы D23",
+      "price": 79,
+      "image": null
+    },
+    {
+      "name": "Зеленый перец D23",
+      "price": 99,
+      "image": null
+    },
+    {
+      "name": "Лук жареный D23",
+      "price": 79,
+      "image": null
+    },
+    {
+      "name": "Овощная смесь  D23",
+      "price": 79,
+      "image": null
+    },
+    {
+      "name": "Лук репчатый красный D23",
+      "price": 79,
+      "image": null
+    },
+    {
+      "name": "Томаты D23",
+      "price": 79,
+      "image": null
+    },
+    {
+      "name": "Сыр Чеддер  D23",
+      "price": 99,
+      "image": null
+    },
+    {
+      "name": "Сыр с голубой плесенью  D23",
+      "price": 109,
+      "image": null
+    },
+    {
+      "name": "Сыр Реджанито  D23",
+      "price": 99,
+      "image": null
+    },
+    {
+      "name": "Сыр Моцарелла  D23",
+      "price": 99,
+      "image": null
+    },
+    {
+      "name": "Мясная смесь D30",
+      "price": 199,
+      "image": null
+    },
+    {
+      "name": "Лук репчатый красный D30",
+      "price": 99,
+      "image": null
+    },
+    {
+      "name": "Томаты D30",
+      "price": 99,
+      "image": null
+    },
+    {
+      "name": "Колбаса пепперони с/к D30",
+      "price": 159,
+      "image": null
+    },
+    {
+      "name": "Овощная смесь D30",
+      "price": 99,
+      "image": null
+    },
+    {
+      "name": "Топпинг из свинины D30",
+      "price": 199,
+      "image": null
+    },
+    {
+      "name": "Грибы шампиньоны D30",
+      "price": 99,
+      "image": null
+    },
+    {
+      "name": "Лук жареный D30",
+      "price": 99,
+      "image": null
+    },
+    {
+      "name": "Топпинг из говядины D30",
+      "price": 219,
+      "image": null
+    },
+    {
+      "name": "Сыр Реджанито D30",
+      "price": 119,
+      "image": null
+    },
+    {
+      "name": "Куриное филе D30",
+      "price": 159,
+      "image": null
+    },
+    {
+      "name": "Помидоры Черри D30",
+      "price": 99,
+      "image": null
+    },
+    {
+      "name": "Ветчина свиная D30",
+      "price": 159,
+      "image": null
+    },
+    {
+      "name": "Сыр с голубой плесенью D30",
+      "price": 139,
+      "image": null
+    },
+    {
+      "name": "Огурцы маринованные D30",
+      "price": 99,
+      "image": null
+    },
+    {
+      "name": "Ананасы D30",
+      "price": 99,
+      "image": null
+    },
+    {
+      "name": "Бекон D30",
+      "price": 159,
+      "image": null
+    },
+    {
+      "name": "Перец Халапеньо D30",
+      "price": 99,
+      "image": null
+    },
+    {
+      "name": "Сыр Моцарелла D30",
+      "price": 119,
+      "image": null
+    },
+    {
+      "name": "Сырный борт",
+      "price": 249,
+      "image": null
+    },
+    {
+      "name": "Соус BBQ",
+      "price": 45,
+      "image": null
+    },
+    {
+      "name": "Соус карри",
+      "price": 45,
+      "image": null
+    },
+    {
+      "name": "Соус 1000 островов",
+      "price": 45,
+      "image": null
+    },
+    {
+      "name": "Кетчуп",
+      "price": 45,
+      "image": null
+    },
+    {
+      "name": "Соус сладкий чили",
+      "price": 45,
+      "image": null
+    },
+    {
+      "name": "Соус Сырный",
+      "price": 45,
+      "image": null
+    },
+    {
+      "name": "Соус сырный с халапеньо",
+      "price": 45,
+      "image": null
+    },
+    {
+      "name": "Соус Чесночный",
+      "price": 45,
+      "image": null
+    },
+    {
+      "name": "Банан 30 гр",
+      "price": 55,
+      "image": null
+    },
+    {
+      "name": "Клубника 30гр",
+      "price": 115,
+      "image": null
+    },
+    {
+      "name": "Маршмеллоу 16гр",
+      "price": 69,
+      "image": null
+    },
+    {
+      "name": "Драже MMs 30гр",
+      "price": 99,
+      "image": null
+    }
+  ]
+}

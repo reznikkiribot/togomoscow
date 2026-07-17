@@ -1,0 +1,55 @@
+{
+  "domain": "niyama.ru",
+  "method": "playwright-xhr",
+  "status": "ok",
+  "source": "https://niyama.ru/api/app/order/recommendations/",
+  "count": 9,
+  "withPhoto": 0,
+  "items": [
+    {
+      "name": "Филадельфия",
+      "price": 839,
+      "image": null
+    },
+    {
+      "name": "Сяке манго",
+      "price": 649,
+      "image": null
+    },
+    {
+      "name": "Дружеский сет",
+      "price": 4199,
+      "image": null
+    },
+    {
+      "name": "Сяке люкс",
+      "price": 1049,
+      "image": null
+    },
+    {
+      "name": "Мэджик сет",
+      "price": 4319,
+      "image": null
+    },
+    {
+      "name": "Дальневосточный",
+      "price": 729,
+      "image": null
+    },
+    {
+      "name": "Охио трюфель",
+      "price": 729,
+      "image": null
+    },
+    {
+      "name": "Яки ясай",
+      "price": 539,
+      "image": null
+    },
+    {
+      "name": "Большое торжество",
+      "price": 10999,
+      "image": null
+    }
+  ]
+}

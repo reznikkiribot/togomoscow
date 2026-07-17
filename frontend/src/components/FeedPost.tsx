@@ -11,6 +11,23 @@ const VOTE_LABEL: Record<VoteType, string> = {
   OHNO: '🙀 О нет',
 };
 
+// Feed image that NEVER silently stays black: resize-proxy → raw URL →
+// cache-busted retry. Only after all three fail does the area collapse.
+function PostImg({ src }: { src: string }) {
+  const candidates = [thumb(src, 600), src, `${src}${src.includes('?') ? '&' : '?'}r=${Date.now() % 1e6}`];
+  const [idx, setIdx] = useState(0);
+  if (idx >= candidates.length) return null;
+  return (
+    <img
+      className="post-photo"
+      src={candidates[idx]}
+      alt=""
+      loading="lazy"
+      onError={() => setIdx((i) => i + 1)}
+    />
+  );
+}
+
 // A user's activity post (Yelp-style): author + photo + the item/venue they reviewed.
 export function FeedPost({
   review,
@@ -74,14 +91,13 @@ export function FeedPost({
             }
           }}
         >
-          <img className="post-photo" src={thumb(photo, 600)} alt="" loading="lazy" />
+          <PostImg src={photo} />
           {/* ↗ affordance: the photo IS tappable (opens the check-in) */}
           {onOpenPhoto && <span className="post-photo-open">↗</span>}
         </div>
       ) : cardPhoto ? (
         <div className="post-photo-wrap">
-          <img className="post-photo" src={thumb(cardPhoto, 600)} alt="" loading="lazy" />
-          
+          <PostImg src={cardPhoto} />
         </div>
       ) : null}
 

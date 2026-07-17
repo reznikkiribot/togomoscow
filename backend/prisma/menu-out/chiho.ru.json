@@ -1,0 +1,385 @@
+{
+  "domain": "chiho.ru",
+  "method": "__NEXT_DATA__",
+  "status": "ok",
+  "source": "/",
+  "count": 75,
+  "withPhoto": 71,
+  "items": [
+    {
+      "name": "разогрев",
+      "price": 490,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/dbb267e5d22fad4022bf4acabb1046a7701443ff-1024x1024.jpg"
+    },
+    {
+      "name": "- Домашний холодный чай",
+      "price": 90,
+      "image": null
+    },
+    {
+      "name": "удон с говядиной и грибами",
+      "price": 690,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/734ff1d0f245a186b440091d54d5135f3d254526-1024x1024.jpg"
+    },
+    {
+      "name": "- древесные грибы",
+      "price": 360,
+      "image": null
+    },
+    {
+      "name": "- куриная грудка 30г",
+      "price": 170,
+      "image": null
+    },
+    {
+      "name": "курица гунбао S",
+      "price": 350,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/32307ad22c456efd08287f34e7222b9cf7dcd5f9-1024x1024.png"
+    },
+    {
+      "name": "mесо",
+      "price": 390,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/47fa4a27d9e4866e7d3786f7fae2b5a17f2d7a96-1668x943.png"
+    },
+    {
+      "name": "молочный коктейль “Hi baby”",
+      "price": 450,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/3a8fa6ce0ae573a079b189e6291f11e62e1f4b6e-1668x943.png"
+    },
+    {
+      "name": "бао с креветками",
+      "price": 670,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/42a12687a2d2d69b858b629d7d827d17a9c90d36-1900x1900.jpg"
+    },
+    {
+      "name": "суп с вонтонами из говядины",
+      "price": 590,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/ff9fca1a8d2063bb583dfcd42b1ec71a55f0f2ec-1254x1254.png"
+    },
+    {
+      "name": "курица коулун кусочки",
+      "price": 490,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/9c5de321573df91c953226ef201cf968dd8c1e59-1024x1024.jpg"
+    },
+    {
+      "name": "футболка чихо one size",
+      "price": 2999,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/73714668734c162d332cd440d6ad9cfad736ab51-1098x1457.png"
+    },
+    {
+      "name": "Гонконгский арахисовый тост",
+      "price": 330,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/6105b45f6ae645126c38bffc088f86ea07cdb637-1024x1024.jpg"
+    },
+    {
+      "name": "бао с копченым фаршем и зеленым луком",
+      "price": 650,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/c9c620f474c3ae271d24c28ce13bd4fa1f2dc1cc-1280x850.jpg"
+    },
+    {
+      "name": "фруктовый чай улун",
+      "price": 390,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/f82de95094f892b365bfd761d116aea7755fd616-1672x941.png"
+    },
+    {
+      "name": "классика",
+      "price": 550,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/deb0ab37f6bc95e441d660a10e7b67f340e3de06-1024x1024.jpg"
+    },
+    {
+      "name": "Сырный тост с индейкой по-китайски",
+      "price": 430,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/67eddb731492202a0e100fe6e0a4a2f94c08cb1f-1024x1024.jpg"
+    },
+    {
+      "name": "суп с вонтонами из курицы",
+      "price": 590,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/e1ae5fff5dec062d28cc264a11844dc0c784c06f-512x512.png"
+    },
+    {
+      "name": "романо шэнцай",
+      "price": 310,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/e037b80e6ae6e951de55945d48804aea5c58ad89-1024x1024.jpg"
+    },
+    {
+      "name": "бао с копченым фаршем и зеленым луком S",
+      "price": 340,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/a1272978f3ac12e5c2eca8794d813b6c4f57f93b-1280x850.jpg"
+    },
+    {
+      "name": "фулл сет",
+      "price": 690,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/7937c39e3c1d3ec9f2f5791096dfeb1e4b205594-1024x1024.jpg"
+    },
+    {
+      "name": "Скрембл том ям",
+      "price": 430,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/3d5667d22d1f8358387c220b7c025a247293991d-1024x1024.jpg"
+    },
+    {
+      "name": "хайнаньское поке с цыпленком",
+      "price": 430,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/7cd8eb4bf853847bae8eab27cb4788833de3e528-1024x1024.jpg"
+    },
+    {
+      "name": "Зеленый чай без сахара",
+      "price": 390,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/c60670df82366666f0a9153abb570dfdbe64c3e7-1668x943.png"
+    },
+    {
+      "name": "фанта 0,33",
+      "price": 290,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/b6044adbd8b9474b46846cd41914c7f1468d5e6a-1668x943.png"
+    },
+    {
+      "name": "холодная лапша Лянфэн",
+      "price": 390,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/033e6599a300be3ff250ded314ae45aaa5a0f24a-1024x1024.jpg"
+    },
+    {
+      "name": "Матча-сырники с кокосовой сгущенкой",
+      "price": 430,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/d11f86345809e1d0bbccd670f2c11eaa1a42c416-1024x1024.jpg"
+    },
+    {
+      "name": "lemonti",
+      "price": 390,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/c1bb49d5ba48c5bbd87be855e2c67f328cdfd556-1663x946.png"
+    },
+    {
+      "name": "батат фри (васаби)",
+      "price": 470,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/1a30335d41012aadffc755e0a28f7c32df9a1957-1024x1024.jpg"
+    },
+    {
+      "name": "спрайт 0,33",
+      "price": 290,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/30264ed9c42ce306bf874ccb26636c8c8736744c-1668x943.png"
+    },
+    {
+      "name": "спаржа фри",
+      "price": 490,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/e21f091ff8800123540686c35e0b8c36d2910604-1024x1024.jpg"
+    },
+    {
+      "name": "азиатский цезарь с курицей",
+      "price": 680,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/c0fad998ccb19259f61fa297df7e4a1926cadcf2-1254x1254.png"
+    },
+    {
+      "name": "Шанхайская овсянка с яйцом",
+      "price": 330,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/8079dde4d0dc61961c0c8dcae14aa0ac4aef085c-1024x1024.jpg"
+    },
+    {
+      "name": "говядина по-сычуаньски S",
+      "price": 440,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/3a3711462ebecde7f19752bf8e273cdb8a887ffe-1254x1254.png"
+    },
+    {
+      "name": "холодный суп шуцай",
+      "price": 290,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/9d3b9c1ae3ebfc4092dcaab206361069f49664b6-1024x1024.jpg"
+    },
+    {
+      "name": "азиатский цезарь с креветками",
+      "price": 740,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/00ea7c113bde5f380e4ab987a32e5f49f02cea79-1254x1254.png"
+    },
+    {
+      "name": "кока кола 0,33",
+      "price": 290,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/54de7ad5dcbf0a927f4316e214551d8517ed89f1-1668x943.png"
+    },
+    {
+      "name": "вода эдис чихо 0,5",
+      "price": 310,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/1a8feab9a65b623dadfd94c9d69ae5d50822028b-1683x935.png"
+    },
+    {
+      "name": "стеклянная лапша с креветками",
+      "price": 690,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/40fbe966525457d637e15545088c37e3eb11cef2-1024x1024.jpg"
+    },
+    {
+      "name": "бао с креветками S",
+      "price": 350,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/14f6f477bcc4915ceda68d685f3f825bdb8c4933-1900x1900.jpg"
+    },
+    {
+      "name": "холодный суп шуцай с курицей",
+      "price": 340,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/66872ff590000560f137bbb5508fd5c227b3a7b7-1024x1024.jpg"
+    },
+    {
+      "name": "бао с курицей коулун S",
+      "price": 320,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/6d109622cab6a8203af5a8eb16c716dda81d902b-1900x1900.jpg"
+    },
+    {
+      "name": "жареный рис с говядиной S",
+      "price": 460,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/c9c5e41d39496be3cd844fa2c5d4d8071bf8ff97-1024x1024.png"
+    },
+    {
+      "name": "рис с морепродуктами S",
+      "price": 490,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/ff32c0e3fbaa0bc1459fbf48100519f0a975507e-1024x1024.png"
+    },
+    {
+      "name": "жареный рис чихо с яйцом и огурцом S",
+      "price": 250,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/1984eb739c677466810eb68a41bdb510e01517a0-1024x1024.png"
+    },
+    {
+      "name": "бао с курицей коулун",
+      "price": 570,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/fe34d6a502d72da6da5251c0dab3b4ed00753a06-1900x1900.jpg"
+    },
+    {
+      "name": "курица с ананасом S",
+      "price": 350,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/0aec8a926a3dc321b0f5ffe8155244c2bfe5f6fe-1024x1024.png"
+    },
+    {
+      "name": "рыба в медовом соусе с арахисом S",
+      "price": 410,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/17b9518d451acab6557d0b90d0538a2838430665-1024x1024.png"
+    },
+    {
+      "name": "свинина харбин S",
+      "price": 380,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/45a2ae42ced173a3ec0dfc7b48d0468a2c6ee671-2048x2048.png"
+    },
+    {
+      "name": "удон с курицей и имбирно-цитрусовым соусом",
+      "price": 630,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/dc85d762062e80082a34af61cf885a1a3e144b37-1024x1024.jpg"
+    },
+    {
+      "name": "рисовая лапша с морепродуктами",
+      "price": 690,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/e4119567e444b1324b9f458a9bc1c91cf569b39f-1024x1024.jpg"
+    },
+    {
+      "name": "говядина по-сычуаньски",
+      "price": 690,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/3a3711462ebecde7f19752bf8e273cdb8a887ffe-1254x1254.png"
+    },
+    {
+      "name": "курица с ананасом",
+      "price": 590,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/0aec8a926a3dc321b0f5ffe8155244c2bfe5f6fe-1024x1024.png"
+    },
+    {
+      "name": "лапша соба с курицей и овощами",
+      "price": 590,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/a526d704365f48f52cf4ba087091978a0fe37815-1024x1024.jpg"
+    },
+    {
+      "name": "соба с тофу и овощами",
+      "price": 550,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/2262f2d18ea38c165c28127dbc34fdb22d618ee3-1024x1024.jpg"
+    },
+    {
+      "name": "рисовая лапша с овощами",
+      "price": 460,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/fd1cb3d7f16105346330b37ed2a1fef72f141bed-1024x1024.jpg"
+    },
+    {
+      "name": "курица гунбао",
+      "price": 630,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/32307ad22c456efd08287f34e7222b9cf7dcd5f9-1024x1024.png"
+    },
+    {
+      "name": "рыба в медовом соусе с арахисом",
+      "price": 690,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/17b9518d451acab6557d0b90d0538a2838430665-1024x1024.png"
+    },
+    {
+      "name": "рис с морепродуктами",
+      "price": 790,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/ff32c0e3fbaa0bc1459fbf48100519f0a975507e-1024x1024.png"
+    },
+    {
+      "name": "жареный рис с говядиной",
+      "price": 670,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/c9c5e41d39496be3cd844fa2c5d4d8071bf8ff97-1024x1024.png"
+    },
+    {
+      "name": "курица коулун",
+      "price": 590,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/c10ebd16faa80b885b7bcbb5ff34d6b989721602-1024x1024.png"
+    },
+    {
+      "name": "жареный рис чихо с яйцом и огурцом",
+      "price": 380,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/1984eb739c677466810eb68a41bdb510e01517a0-1024x1024.png"
+    },
+    {
+      "name": "древесные грибы",
+      "price": 360,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/986f11d09e22fcda3ece0ff84259ddc5078a19a7-1024x1024.jpg"
+    },
+    {
+      "name": "креветочные чипсы",
+      "price": 170,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/a918d8a376bc160838404584e69839988d82176f-1024x1024.jpg"
+    },
+    {
+      "name": "хайнаньский суп с морепродуктами и лапшой",
+      "price": 690,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/1db09c45e806ffb2477eb1ada3e29aec2f1a6a1a-1024x1024.png"
+    },
+    {
+      "name": "свинина харбин",
+      "price": 460,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/45a2ae42ced173a3ec0dfc7b48d0468a2c6ee671-2048x2048.png"
+    },
+    {
+      "name": "пряный суп с курицей",
+      "price": 490,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/d41e36b6664cfc5490de77d3e05f40b14bf132b8-1024x1024.png"
+    },
+    {
+      "name": "кисло-острый суп",
+      "price": 470,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/56579b7a694a25958083dcea87995867d146f0b6-1024x1024.png"
+    },
+    {
+      "name": "хайнаньский суп с морепродуктами и рисом",
+      "price": 690,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/1db09c45e806ffb2477eb1ada3e29aec2f1a6a1a-1024x1024.png"
+    },
+    {
+      "name": "попкорн из креветок",
+      "price": 510,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/6f83ad3ea61f0658bfcf6b4b08f1913f1eaf2a04-1024x1024.jpg"
+    },
+    {
+      "name": "мапо тофу в остром соусе",
+      "price": 450,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/b095e8e323161e9a06c4ad9bc1c0fca6caac3191-1024x1024.jpg"
+    },
+    {
+      "name": "баклажаны в кисло-сладком соусе",
+      "price": 490,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/c96c80ea4b231c4f545aa628615c5871fa0cc746-1024x1024.jpg"
+    },
+    {
+      "name": "битые огурцы",
+      "price": 390,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/57c328896efcbc817c1217a930a6778d2a3cdbb9-1024x1024.jpg"
+    },
+    {
+      "name": "жареное молоко",
+      "price": 420,
+      "image": "https://content.cdn.starterapp.ru/images/chiho/efc23264e2f6e650ce325ef0c0b6297c90795846-512x512.png"
+    },
+    {
+      "name": "С чихо до пенсии (7%)",
+      "price": 7,
+      "image": null
+    }
+  ]
+}

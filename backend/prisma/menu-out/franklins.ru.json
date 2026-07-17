@@ -1,0 +1,525 @@
+{
+  "domain": "franklins.ru",
+  "method": "playwright-xhr",
+  "status": "ok",
+  "source": "https://newapi.franklins.ru/api/products",
+  "count": 103,
+  "withPhoto": 92,
+  "items": [
+    {
+      "name": "Lay's бургер",
+      "price": 399,
+      "image": "https://franklins.ru/uploads/products/1779703526843-944832195-ð¡ð°ð¹ñ-lays.png"
+    },
+    {
+      "name": "Smash Бургер",
+      "price": 499,
+      "image": "https://franklins.ru/uploads/products/1777475316562-545498446-ð¡ð°ð¹ñ-ð¡ð¼ññ.png"
+    },
+    {
+      "name": "Франк Тейсти Джуниор",
+      "price": 199,
+      "image": "https://franklins.ru/uploads/products/1777471140639-219059779-ð¡ð°ð¹ñ-ð¤ñð°ð½ðº-ð¢ðµð¹ññð¸-ðð¶ñð½ð¸ð¾ñ.png"
+    },
+    {
+      "name": "Наггетсы",
+      "price": 139,
+      "image": "https://franklins.ru/uploads/products/1779892132844-868977337-property-1=ð¡ð°ð¹ñ-ð-ð¾ð»ð»-ð¤ð°ð»ð°ñðµð»ñ-2.png"
+    },
+    {
+      "name": "4 шт.",
+      "price": 139,
+      "image": "https://franklins.ru/uploads/products/1779892132855-201680793-property-1=ð¡ð°ð¹ñ-ð-ð¾ð»ð»-ð¤ð°ð»ð°ñðµð»ñ-2.png"
+    },
+    {
+      "name": "8 шт.",
+      "price": 209,
+      "image": "https://franklins.ru/uploads/products/1779892132882-790356774-property-1=ð¡ð°ð¹ñ-ð-ð¾ð»ð»-ð¤ð°ð»ð°ñðµð»ñ-2.png"
+    },
+    {
+      "name": "Батат",
+      "price": 229,
+      "image": "https://franklins.ru/uploads/products/1779892147002-363457920-property-1=ð¡ð°ð¹ñ-ð-ð¾ð»ð»-ð¤ð°ð»ð°ñðµð»ñ-7.png"
+    },
+    {
+      "name": "Франк Джуниор",
+      "price": 179,
+      "image": "https://franklins.ru/uploads/products/1777471156602-129250245-ð¡ð°ð¹ñ-ð¤ñð°ð½ðº-ðð¶ñð½ð¸ð¾ñ.png"
+    },
+    {
+      "name": "Картошка фри",
+      "price": 139,
+      "image": "https://franklins.ru/uploads/products/1779892153356-981545168-property-1=ð¡ð°ð¹ñ-ð-ð¾ð»ð»-ð¤ð°ð»ð°ñðµð»ñ-6.png"
+    },
+    {
+      "name": "Маленькая",
+      "price": 139,
+      "image": "https://franklins.ru/uploads/products/1779892670969-14498525-property-1=ð¡ð°ð¹ñ-ð-ð¾ð»ð»-ð¤ð°ð»ð°ñðµð»ñ-6.png"
+    },
+    {
+      "name": "Стандартная",
+      "price": 169,
+      "image": "https://franklins.ru/uploads/products/1779892670978-839938922-property-1=ð¡ð°ð¹ñ-ð-ð¾ð»ð»-ð¤ð°ð»ð°ñðµð»ñ-6.png"
+    },
+    {
+      "name": "Франк&Чиз Джуниор",
+      "price": 189,
+      "image": "https://franklins.ru/uploads/products/1777471165901-277991458-ð¡ð°ð¹ñ-ð¤ñð°ð½ðº-ð§ð¸ð·-ðð¶ñð½ð¸ð¾ñ.png"
+    },
+    {
+      "name": "Картошка по-деревенски",
+      "price": 169,
+      "image": "https://franklins.ru/uploads/products/1779892161725-38336597-property-1=ð¡ð°ð¹ñ-ð-ð¾ð»ð»-ð¤ð°ð»ð°ñðµð»ñ-8.png"
+    },
+    {
+      "name": "Прайм Джуниор",
+      "price": 199,
+      "image": "https://franklins.ru/uploads/products/1777471449636-888364485-ð¡ð°ð¹ñ-ðñð°ð¹ð¼-ðð¶ñð½ð¸ð¾ñ.png"
+    },
+    {
+      "name": "Картошка чеддер",
+      "price": 219,
+      "image": "https://franklins.ru/uploads/products/1779892243223-978758734-property-1=ð¡ð°ð¹ñ-ð-ð¾ð»ð»-ð¤ð°ð»ð°ñðµð»ñ-4.png"
+    },
+    {
+      "name": "Крейзичикен Джуниор",
+      "price": 159,
+      "image": "https://franklins.ru/uploads/products/1777471458696-791510806-ð¡ð°ð¹ñ-ðñðµð¹ð·ð¸-ð§ð¸ðºðµð½.png"
+    },
+    {
+      "name": "Картошка чеддер бекон BBQ",
+      "price": 279,
+      "image": "https://franklins.ru/uploads/products/1779892250309-533468046-property-1=ð¡ð°ð¹ñ-ð-ð¾ð»ð»-ð¤ð°ð»ð°ñðµð»ñ-3.png"
+    },
+    {
+      "name": "Франк Тейсти",
+      "price": 429,
+      "image": "https://franklins.ru/uploads/products/1777475136458-113798477-ð¡ð°ð¹ñ-ð¤ñð°ð½ðº-ð¢ðµð¹ññð¸.png"
+    },
+    {
+      "name": "Франкбургер",
+      "price": 309,
+      "image": "https://franklins.ru/uploads/products/1777475340975-103108937-ð¡ð°ð¹ñ-ð¤ñð°ð½ðºð±ññð³ðµñ.png"
+    },
+    {
+      "name": "Франкбургер & Egg",
+      "price": 359,
+      "image": "https://franklins.ru/uploads/products/1777475347388-812211319-ð¡ð°ð¹ñ-ð¤ñð°ð½ðº-egg.png"
+    },
+    {
+      "name": "Франк & Чиз",
+      "price": 359,
+      "image": "https://franklins.ru/uploads/products/1777475353292-268421718-ð¡ð°ð¹ñ-ð¤ñð°ð½ðºð±ññð³ðµñ-ð§ð¸ð·.png"
+    },
+    {
+      "name": "Двойной Франкбургер & Чиз",
+      "price": 479,
+      "image": "https://franklins.ru/uploads/products/1777475360585-441793201-ð¡ð°ð¹ñ-ðð²ð¾ð¹ð½ð¾ð¹-ð¤ñð°ð½ðºð±ññð³ðµñ-ð§ð¸ð·.png"
+    },
+    {
+      "name": "Праймбургер",
+      "price": 399,
+      "image": "https://franklins.ru/uploads/products/1777475371090-123974343-cð°ð¹ñ-ðñð°ð¹ð¼ð±ññð³ðµñ.png"
+    },
+    {
+      "name": "Мегапраймбургер",
+      "price": 529,
+      "image": "https://franklins.ru/uploads/products/1777475377948-927486600-ð¡ð°ð¹ñ-ððµð³ð°ð¿ñð°ð¹ð¼ð±ññð³ðµñ.png"
+    },
+    {
+      "name": "Франк Диабло",
+      "price": 379,
+      "image": "https://franklins.ru/uploads/products/1777475383949-209940765-ð¡ð°ð¹ñ-ð¤ñð°ð½ðº-ðð¸ð°ð±ð»ð¾.png"
+    },
+    {
+      "name": "Блючиз Бургер",
+      "price": 529,
+      "image": "https://franklins.ru/uploads/products/1777475142496-455650765-ð¡ð°ð¹ñ-ðð»ññð¸ð·.png"
+    },
+    {
+      "name": "Чизбургер Max",
+      "price": 279,
+      "image": "https://franklins.ru/uploads/products/1777475390450-861703159-ð¡ð°ð¹ñ-ð§ð¸ð·ð±ññð³ðµñ-ð¼ð°ðºñ.png"
+    },
+    {
+      "name": "Гамбургер",
+      "price": 95,
+      "image": "https://franklins.ru/uploads/products/1777471585942-834565399-ð¡ð°ð¹ñ-ðð°ð¼ð±ññð³ðµñ.png"
+    },
+    {
+      "name": "Чизбургер",
+      "price": 99,
+      "image": "https://franklins.ru/uploads/products/1777471596032-731363731-ð¡ð°ð¹ñ-ð§ð¸ð·ð±ññð³ðµñ.png"
+    },
+    {
+      "name": "Чизбургер Бекон BBQ",
+      "price": 149,
+      "image": "https://franklins.ru/uploads/products/1777471603761-560722694-ð¡ð°ð¹ñ-ð§ð¸ð·ð±ññð³ðµñ-ððµðºð¾ð½.png"
+    },
+    {
+      "name": "Чизбургер Чеддер",
+      "price": 149,
+      "image": "https://franklins.ru/uploads/products/1777471611682-368369748-ð¡ð°ð¹ñ-ð§ð¸ð·ð±ññð³ðµñ-ð§ðµð´ð´ðµñ.png"
+    },
+    {
+      "name": "Двойной Чизбургер",
+      "price": 209,
+      "image": "https://franklins.ru/uploads/products/1777471620029-967586774-ð¡ð°ð¹ñ-ðð²ð¾ð¹ð½ð¾ð¹-ñð¸ð·ð±ññð³ðµñ.png"
+    },
+    {
+      "name": "Франкбургер XXL",
+      "price": 389,
+      "image": "https://franklins.ru/uploads/products/1777475104698-116842087-ð¡ð°ð¹ñ-ð¤ñð°ð½ðºð±ññð³ðµñ-xxl.png"
+    },
+    {
+      "name": "Франк Диабло XXL",
+      "price": 459,
+      "image": "https://franklins.ru/uploads/products/1777475111445-937393714-ð¡ð°ð¹ñ-ð¤ñð°ð½ðº-ðð¸ð°ð±ð»ð¾-xxl.png"
+    },
+    {
+      "name": "Праймбургер XXL",
+      "price": 479,
+      "image": "https://franklins.ru/uploads/products/1777475117871-9154193-ð¡ð°ð¹ñ-ðñð°ð¹ð¼ð±ññð³ðµñ-xxl.png"
+    },
+    {
+      "name": "Мегапраймбургер XXL",
+      "price": 679,
+      "image": "https://franklins.ru/uploads/products/1777475122801-811357514-ð¡ð°ð¹ñ-ððµð³ð°-ðñð°ð¹ð¼ð±ññð³ðµñ-xxl.png"
+    },
+    {
+      "name": "Пикадор Бургер",
+      "price": 429,
+      "image": "https://franklins.ru/uploads/products/1777475272561-885262414-ð¡ð°ð¹ñ-ðð¸ðºð°ð´ð¾ñ.png"
+    },
+    {
+      "name": "Франк & Чикен",
+      "price": 359,
+      "image": "https://franklins.ru/uploads/products/1777475068467-567694196-ð¡ð°ð¹ñ-ð¤ñð°ð½ðº-ð§ð¸ðºðµð½.png"
+    },
+    {
+      "name": "Чикенбургер",
+      "price": 359,
+      "image": "https://franklins.ru/uploads/products/1777475078164-78502887-ð¡ð°ð¹ñ-ð§ð¸ðºðµð½-ðññð³ðµñ.png"
+    },
+    {
+      "name": "Фишбургер",
+      "price": 299,
+      "image": "https://franklins.ru/uploads/products/1781101250154-385630299-ð¡ð°ð¹ñ-ð¤ð¸ñ-ð±ññð³ðµñ.png"
+    },
+    {
+      "name": "Франк&Стрипс",
+      "price": 359,
+      "image": "https://franklins.ru/uploads/products/1777475091268-585531294-ð¡ð°ð¹ñ-ð¤ñð°ð½ðº-ð¡ññð¸ð¿ñ.png"
+    },
+    {
+      "name": "Чик-Чикен",
+      "price": 109,
+      "image": "https://franklins.ru/uploads/products/1777471633536-453381880-ð¡ð°ð¹ñ-ð§ð¸ðº-ð§ð¸ðºðµð½.png"
+    },
+    {
+      "name": "Сырные палочки",
+      "price": 169,
+      "image": "https://franklins.ru/uploads/products/1779892187046-72147474-property-1=ð¡ð°ð¹ñ-ð-ð¾ð»ð»-ð¤ð°ð»ð°ñðµð»ñ-1.png"
+    },
+    {
+      "name": "3 шт.",
+      "price": 169,
+      "image": "https://franklins.ru/uploads/products/1779892187060-652778952-property-1=ð¡ð°ð¹ñ-ð-ð¾ð»ð»-ð¤ð°ð»ð°ñðµð»ñ-1.png"
+    },
+    {
+      "name": "6 шт.",
+      "price": 299,
+      "image": "https://franklins.ru/uploads/products/1779892187068-757007415-property-1=ð¡ð°ð¹ñ-ð-ð¾ð»ð»-ð¤ð°ð»ð°ñðµð»ñ-1.png"
+    },
+    {
+      "name": "Стрипсы",
+      "price": 229,
+      "image": "https://franklins.ru/uploads/products/1779892206103-761834699-property-1=ð¡ð°ð¹ñ-ð-ð¾ð»ð»-ð¤ð°ð»ð°ñðµð»ñ.png"
+    },
+    {
+      "name": "2 шт.",
+      "price": 229,
+      "image": "https://franklins.ru/uploads/products/1779892206116-769502374-property-1=ð¡ð°ð¹ñ-ð-ð¾ð»ð»-ð¤ð°ð»ð°ñðµð»ñ.png"
+    },
+    {
+      "name": "Куриные крылышки",
+      "price": 499,
+      "image": "https://franklins.ru/uploads/products/1779892212901-135063247-property-1=ð¡ð°ð¹ñ-ð-ð¾ð»ð»-ð¤ð°ð»ð°ñðµð»ñ-5.png"
+    },
+    {
+      "name": "Цезарь ролл",
+      "price": 359,
+      "image": "https://franklins.ru/uploads/products/1777557300296-766889474-ð¡ð°ð¹ñ-ð¦ðµð·ð°ññ-ð-ð¾ð»ð».png"
+    },
+    {
+      "name": "Ролл с говядиной",
+      "price": 359,
+      "image": "https://franklins.ru/uploads/products/1777557308733-975526438-ð¡ð°ð¹ñ-ð-ð¾ð»ð»-ñ-ðð¾ð²ñð´ð¸ð½ð¾ð¹.png"
+    },
+    {
+      "name": "Ролл с куриной грудкой",
+      "price": 359,
+      "image": "https://franklins.ru/uploads/products/1777557315421-466884767-ð¡ð°ð¹ñ-ð-ð¾ð»ð»-ñ-ðññð¸ñðµð¹.png"
+    },
+    {
+      "name": "Фишролл",
+      "price": 359,
+      "image": "https://franklins.ru/uploads/products/1777557322740-433547363-ð¡ð°ð¹ñ-ð-ð¾ð»ð»-ð¤ð¸ñ.png"
+    },
+    {
+      "name": "Ролл с фалафелем",
+      "price": 359,
+      "image": "https://franklins.ru/uploads/products/1777557329998-852495880-ð¡ð°ð¹ñ-ð-ð¾ð»ð»-ð¤ð°ð»ð°ñðµð»ñ.png"
+    },
+    {
+      "name": "Коул слоу",
+      "price": 179,
+      "image": "https://franklins.ru/uploads/products/1756131009130-580660663-176455fd4b44.png"
+    },
+    {
+      "name": "Цезарь салат",
+      "price": 429,
+      "image": "https://franklins.ru/uploads/products/1756131062245-705897969-e3516aefad31.png"
+    },
+    {
+      "name": "Фирменный чай",
+      "price": 165,
+      "image": "https://franklins.ru/uploads/products/1756131119301-682592697-0d8bb1917973.png"
+    },
+    {
+      "name": "Клубничный холодный чай",
+      "price": 185,
+      "image": "https://franklins.ru/uploads/products/1756131175427-146466881-3e0f3a6b6cbb.png"
+    },
+    {
+      "name": "Лимонад Пряная мята",
+      "price": 219,
+      "image": "https://franklins.ru/uploads/products/1756131226665-185980397-aea03f553b69.png"
+    },
+    {
+      "name": "Лимонад Мята-облепиха",
+      "price": 219,
+      "image": "https://franklins.ru/uploads/products/1756132785221-729438029-efb011f5a690.png"
+    },
+    {
+      "name": "Мохито Лимонад классика",
+      "price": 219,
+      "image": "https://franklins.ru/uploads/products/1756132886212-309225899-308f4734eb4f.png"
+    },
+    {
+      "name": "Мохито Лимонад клубника",
+      "price": 219,
+      "image": "https://franklins.ru/uploads/products/1756132962738-584651157-5100d285bc53.png"
+    },
+    {
+      "name": "Мохито Лимонад малина",
+      "price": 219,
+      "image": "https://franklins.ru/uploads/products/1756133015256-10512095-5b329877b6a8.png"
+    },
+    {
+      "name": "Айс Капучино",
+      "price": 229,
+      "image": "https://franklins.ru/uploads/products/1756133234115-648468245-076d231a6104.png"
+    },
+    {
+      "name": "Соленая карамель",
+      "price": 239,
+      "image": null
+    },
+    {
+      "name": "Стандарт",
+      "price": 229,
+      "image": null
+    },
+    {
+      "name": "Эвервесс Кола",
+      "price": 149,
+      "image": "https://franklins.ru/uploads/products/1756133369368-444366405-be77cd368011.png"
+    },
+    {
+      "name": "Эвервесс Кола 0,4",
+      "price": 149,
+      "image": null
+    },
+    {
+      "name": "Эвервесс Кола 0,5",
+      "price": 179,
+      "image": null
+    },
+    {
+      "name": "Фрустайл Апельсин",
+      "price": 149,
+      "image": "https://franklins.ru/uploads/products/1756133480788-749617148-bd1e6bfd4d80.jpg"
+    },
+    {
+      "name": "Фрустайл Апельсин 0,4",
+      "price": 149,
+      "image": "http://10.11.10.220:3001/uploads/products/1756133480830-526810799-bd1e6bfd4d80.jpg"
+    },
+    {
+      "name": "Фрустайл Апельсин 0,5",
+      "price": 179,
+      "image": "http://10.11.10.220:3001/uploads/products/1756133480856-120809931-bd1e6bfd4d80.jpg"
+    },
+    {
+      "name": "Фрустайл Лимон-Лайм",
+      "price": 149,
+      "image": "https://franklins.ru/uploads/products/1756133618877-813423548-642119ce6e10.jpg"
+    },
+    {
+      "name": "Фрустайл Лимон-Лайм 0,4",
+      "price": 149,
+      "image": null
+    },
+    {
+      "name": "Фрустайл Лимон-Лайм 0,5",
+      "price": 179,
+      "image": null
+    },
+    {
+      "name": "Evervess Cola",
+      "price": 179,
+      "image": "https://franklins.ru/uploads/products/1756133729344-471306409-9211daee3a99.png"
+    },
+    {
+      "name": "Чай Липтон",
+      "price": 179,
+      "image": "https://franklins.ru/uploads/products/1756136611422-514087069-bd051c46ef39.jpg"
+    },
+    {
+      "name": "Вода Аква Минерале без газа 0,5л",
+      "price": 179,
+      "image": "https://franklins.ru/uploads/products/1756136653391-962976577-e9021f775be4.png"
+    },
+    {
+      "name": "Вода Аква Минерале с газом 0,5л",
+      "price": 179,
+      "image": "https://franklins.ru/uploads/products/1756136693455-245061433-88e590b768eb.png"
+    },
+    {
+      "name": "Сок Любимый",
+      "price": 129,
+      "image": "https://franklins.ru/uploads/products/1756136723944-984452868-755c9a4a8fac.png"
+    },
+    {
+      "name": "Американо",
+      "price": 109,
+      "image": "https://franklins.ru/uploads/products/1756136797031-745221554-1bcd99b5f472.png"
+    },
+    {
+      "name": "200 мл",
+      "price": 109,
+      "image": null
+    },
+    {
+      "name": "300 мл",
+      "price": 169,
+      "image": null
+    },
+    {
+      "name": "Капучино",
+      "price": 129,
+      "image": "https://franklins.ru/uploads/products/1756136874942-857699466-081a2b45db52.png"
+    },
+    {
+      "name": "400 мл",
+      "price": 219,
+      "image": null
+    },
+    {
+      "name": "Латте",
+      "price": 179,
+      "image": "https://franklins.ru/uploads/products/1756136927713-762721020-b18b21bb0d41.png"
+    },
+    {
+      "name": "Эспрессо",
+      "price": 99,
+      "image": "https://franklins.ru/uploads/products/1756136982234-463177255-3a392fba13de.png"
+    },
+    {
+      "name": "100 мл",
+      "price": 129,
+      "image": null
+    },
+    {
+      "name": "50 мл",
+      "price": 99,
+      "image": null
+    },
+    {
+      "name": "Чай",
+      "price": 89,
+      "image": "https://franklins.ru/uploads/products/1756137037561-409898623-c9a2fd59b6a7.png"
+    },
+    {
+      "name": "Соус Барбекю",
+      "price": 65,
+      "image": "https://franklins.ru/uploads/products/1756137334403-701939783-a86d4b41f8cd.png"
+    },
+    {
+      "name": "Соус Брусничный",
+      "price": 65,
+      "image": "https://franklins.ru/uploads/products/1756137379204-811700354-664c37412389.png"
+    },
+    {
+      "name": "Соус Горчичный",
+      "price": 65,
+      "image": "https://franklins.ru/uploads/products/1756137435544-870905594-19d6defc8bbd.png"
+    },
+    {
+      "name": "Соус Кетчуп",
+      "price": 65,
+      "image": "https://franklins.ru/uploads/products/1756137474589-49584999-13818afad107.png"
+    },
+    {
+      "name": "Соус Сырный",
+      "price": 65,
+      "image": "https://franklins.ru/uploads/products/1756137585317-238598101-ae76f91e121b.png"
+    },
+    {
+      "name": "Соус Чесночный майонез",
+      "price": 65,
+      "image": "https://franklins.ru/uploads/products/1756137707315-640776465-1b18897e6c3f.png"
+    },
+    {
+      "name": "Франк Комбо XXL",
+      "price": 649,
+      "image": "https://franklins.ru/uploads/products/1756214344080-266392061-754007806c48-(1).png"
+    },
+    {
+      "name": "Франк Комбо",
+      "price": 549,
+      "image": "https://franklins.ru/uploads/products/1756214378316-58339523-18af7a91919c.png"
+    },
+    {
+      "name": "Прайм Комбо",
+      "price": 649,
+      "image": "https://franklins.ru/uploads/products/1756214458245-762825537-d1be6ba3267b.png"
+    },
+    {
+      "name": "ХИТ Комбо",
+      "price": 759,
+      "image": "https://franklins.ru/uploads/products/1756214490191-131548308-ed9220c9d340.png"
+    },
+    {
+      "name": "Ролл Комбо",
+      "price": 599,
+      "image": "https://franklins.ru/uploads/products/1756214523377-385908314-df4ddb139121.jpg"
+    },
+    {
+      "name": "Франк Джуниор Комбо",
+      "price": 449,
+      "image": "https://franklins.ru/uploads/products/1756214547486-366380229-a72474addcc1.png"
+    },
+    {
+      "name": "Прайм Джуниор Комбо",
+      "price": 449,
+      "image": "https://franklins.ru/uploads/products/1756214568776-865900741-961bc69a0c30.png"
+    },
+    {
+      "name": "Спайси Франк Чеддер",
+      "price": 579,
+      "image": "https://franklins.ru/uploads/products/1777475148158-786175684-ð¡ð°ð¹ñ-ð¡ð¿ð°ð¹ñð¸-ð¤ñð°ð½ðº-ð§ðµð´ð´ðµñ.png"
+    }
+  ]
+}

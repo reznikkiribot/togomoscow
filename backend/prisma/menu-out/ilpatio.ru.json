@@ -1,0 +1,80 @@
+{
+  "domain": "ilpatio.ru",
+  "method": "pdf",
+  "status": "ok",
+  "source": "https://ilpatio.ru/wa-data/public/site/data/ilpatio.ru/ilpatio_menu-company.pdf",
+  "count": 14,
+  "withPhoto": 0,
+  "items": [
+    {
+      "name": "Ассорти антипасти",
+      "price": 1290,
+      "image": null
+    },
+    {
+      "name": "Мясное ассорти",
+      "price": 1290,
+      "image": null
+    },
+    {
+      "name": "Вителло тоннато",
+      "price": 1290,
+      "image": null
+    },
+    {
+      "name": "Большой Цезарь с курицей",
+      "price": 990,
+      "image": null
+    },
+    {
+      "name": "Большой Цезарь с креветками",
+      "price": 1290,
+      "image": null
+    },
+    {
+      "name": "Ассорти морепродуктов",
+      "price": 1759,
+      "image": null
+    },
+    {
+      "name": "Подкопчённый лосось",
+      "price": 1590,
+      "image": null
+    },
+    {
+      "name": "Большой салат с тунцом",
+      "price": 1390,
+      "image": null
+    },
+    {
+      "name": "Рукола с креветками",
+      "price": 990,
+      "image": null
+    },
+    {
+      "name": "Сырное ассорти",
+      "price": 1390,
+      "image": null
+    },
+    {
+      "name": "Капрезе",
+      "price": 890,
+      "image": null
+    },
+    {
+      "name": "Ассорти свежих овощей",
+      "price": 690,
+      "image": null
+    },
+    {
+      "name": "Ассорти овощей на гриле",
+      "price": 990,
+      "image": null
+    },
+    {
+      "name": "Фруктовая тарелка",
+      "price": 1390,
+      "image": null
+    }
+  ]
+}

@@ -63,11 +63,14 @@ export function VenuePhoto({
   className = 'photo',
   draggable,
   loading = 'eager',
+  allowVenuePhoto = false,
 }: {
   listing: Listing;
   className?: string;
   draggable?: boolean;
   loading?: 'eager' | 'lazy';
+  /** detail hero may show the real venue photo; cards never do */
+  allowVenuePhoto?: boolean;
 }) {
   const candidates = listingPhotoCandidates(listing);
 
@@ -76,6 +79,16 @@ export function VenuePhoto({
   useEffect(() => {
     setIdx(0);
   }, [listing.id, listing.photoUrl, listing.website, listing.placeholderPhoto]);
+
+  // OWNER RULE 17.07.2026: venue CARDS show no photos — a clean white tile with
+  // the venue name in black, always fully visible inside the card.
+  if (listing.type === 'RESTAURANT' && !allowVenuePhoto) {
+    return (
+      <div className={`${className} venue-name-tile`} title={listing.name}>
+        <span>{listing.name}</span>
+      </div>
+    );
+  }
 
   if (idx < candidates.length) {
     const src = candidates[idx];

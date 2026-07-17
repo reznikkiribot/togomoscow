@@ -410,6 +410,9 @@ export default function Home() {
   }, [showNextPosts, topUpQueue, loadMoreRec]);
   useEffect(() => {
     extendFeed(5);
+    // rec cards join the FIRST screen of the feed (owner 17.07.2026) — the
+    // score merge needs them present before any «показать ещё» tap
+    loadMoreRec(4);
     // clip telemetry: measure a real card once per session — if the footer is
     // clipped on THIS device, the exact numbers land in server logs
     const t = setTimeout(() => {
@@ -816,12 +819,7 @@ export default function Home() {
               </>
             );
           })()}
-          {ratePool.length > 1 && (
-            <>
-              <div className="section-title">Ещё на оценку</div>
-              <div className="feed">{ratePool.slice(heroIdx + 1, heroIdx + 9).map(card)}</div>
-            </>
-          )}
+          {/* «Ещё на оценку» removed (owner 17.07.2026) — the deck lives in the hero */}
           {(wallPosts.length > 0 || recCards.length > 0) && (
             <>
               <div className="section-title" ref={feedTopRef}>Лента</div>

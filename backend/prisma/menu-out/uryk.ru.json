@@ -1,0 +1,60 @@
+{
+  "domain": "uryk.ru",
+  "method": "playwright-xhr",
+  "status": "ok",
+  "source": "https://uryk.ru/api/user/recommendations",
+  "count": 10,
+  "withPhoto": 0,
+  "items": [
+    {
+      "name": "Картофель беби с грибами",
+      "price": 350,
+      "image": null
+    },
+    {
+      "name": "Картофель фри",
+      "price": 290,
+      "image": null
+    },
+    {
+      "name": "Картофельное пюре",
+      "price": 270,
+      "image": null
+    },
+    {
+      "name": "Рис ташкент",
+      "price": 270,
+      "image": null
+    },
+    {
+      "name": "Шампиньоны с соусом Терияки",
+      "price": 370,
+      "image": null
+    },
+    {
+      "name": "Куриные котлеты",
+      "price": 670,
+      "image": null
+    },
+    {
+      "name": "Куриные котлеты на пару",
+      "price": 670,
+      "image": null
+    },
+    {
+      "name": "Лагман домашний с телятиной",
+      "price": 750,
+      "image": null
+    },
+    {
+      "name": "Шаурма с курицей",
+      "price": 590,
+      "image": null
+    },
+    {
+      "name": "Бефстроганов с мраморной говядиной",
+      "price": 990,
+      "image": null
+    }
+  ]
+}

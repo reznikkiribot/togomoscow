@@ -1,0 +1,625 @@
+{
+  "domain": "msk.stolle.ru",
+  "method": "playwright-xhr",
+  "status": "ok",
+  "source": "window.appState",
+  "count": 123,
+  "withPhoto": 123,
+  "items": [
+    {
+      "name": "Комбо \"Аз\"",
+      "price": 4800,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/4096ce6408ae0a167debde36073a52ee_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Комбо \"Томъ-Ямъ\"",
+      "price": 5256,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/bbfc809a9adf2c949e0d3a82dcc93538_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Комбо \"Добро\"",
+      "price": 3256,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/e3d3e6fc2451b1458591f57fcdf7c92e_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Комбо \"Веди\"",
+      "price": 3544,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/62fc7dfe45669fa60a45a805e9982eae_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Комбо \"Глаголь\"",
+      "price": 5656,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/634fe27a28448d033e7eea1f2843a455_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Комбо \"Омега\"",
+      "price": 4424,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/b94db7adec4f5054cfe34a736a32a737_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Кулебяка с мясом",
+      "price": 2512,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/8dea6d36ed25e5eb7e6641fd2abe7b56_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Пирог Гамбургер",
+      "price": 2640,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/8ed725086ba782666ae76d88c1c2cb11_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Пирог с капустой",
+      "price": 1744,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/532c93de1bdda99df35c0a2ec01e9704_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Курник",
+      "price": 1464,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/c2cfc93ff8af1a54f39925016637b485_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Пирог с сёмгой и тешей",
+      "price": 3496,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/2d636b1e3460adf9b18a2218bf2db9a8_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Пирог с горбушей и шпинатом",
+      "price": 2264,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/6ea6dafefb0619448836f002e77f88e2_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Пирог с сыром Сулугуни",
+      "price": 2384,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/a2520aa1a374cba3ae92e9cb6e4a4ac0_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Пирог со шпинатом, рубленым яйцом и творожно-сливочным сыром",
+      "price": 1792,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/bca374982c972ac11aa62962c7423378_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Пирог с курицей,картошкой и грибами",
+      "price": 1800,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/308d07214a8cee4736cbab6d755baa2e_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Пирог с картофелем, сыром и грибами",
+      "price": 1944,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/4dd83f3f97f3a66d4d82138f6d25fd1b_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Пирог с кетой и брокколи",
+      "price": 2696,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/6811d9b2275f5ce1757e8ebf2a8898ad_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Пирог с говяжьим языком и шампиньонами",
+      "price": 2240,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/1ea892af0c3106a7fa90a82629bad384_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Пирог Чизбургер",
+      "price": 2760,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/4c960542704f689bb7e8f930abfb86af_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Пирог открытый Том Ям 1кг.",
+      "price": 2776,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/f6dd8d201e8e57f0ddce8d91487782b8_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Пирог Кимчи с уткой",
+      "price": 2760,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/87579dcd454625c3809ed62182e38709_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Пирог Кимчи с рваной говядиной",
+      "price": 2760,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/d04c9aec491c0cca2e0c2b9f0dc0db7f_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Пирог с брусникой",
+      "price": 2160,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/c627ad0de6e9c0e9f9020d9ef7f5f457_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Пирог Таёжный",
+      "price": 2032,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/b15b3e5ee90545d52aee98998d2c909b_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Пирог с малиной",
+      "price": 2032,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/f405814246a0437a96d157a4fee09e9e_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Пирог с абрикосом",
+      "price": 1832,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/6ad4570a5dece8b501a1b01febbb49c2_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Пирог с печёными яблоками",
+      "price": 1456,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/00c9e5b2bd05aad36d88e8493104c19b_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Пирог с вишней",
+      "price": 2288,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/9d7a2d42fefb5270a07a1c44b6dec1bd_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Пирог с малиной и творожно-сливочным сыром",
+      "price": 1888,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/bb176605259cf00753c1953d6578c9be_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Пирог с печёными яблоками и корицей",
+      "price": 1456,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/5118257cf82a546b3e2195883c653da9_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Сэнди пай с ветчиной и сыром",
+      "price": 964,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/fd143f43817410298f5b15c1bf82872e_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Сэнди пай с курицей и грибами",
+      "price": 964,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/cbfd58ac1569a3be5d526f8ece0d5e05_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Сэнди пай с мясом",
+      "price": 1084,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/37c394736589b808ddcc8c14812cc055_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Сэнди пай с сёмгой и шпинатом",
+      "price": 1164,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/ba4b31ffba0059b629dd5b3807e6cf4d_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Сэнди пай с апельсиновым курдом и творожным сыром",
+      "price": 964,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/f725efce947bc4adfdb04623205f0c29_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Сэнди пай с вишней и творожным сыром",
+      "price": 964,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/40edac7f3e3b58f5a350e43ee4bc009b_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Сэнди пай с яблоком и грушей",
+      "price": 884,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/2af0cf0fe4f97e2625c64d50503944d3_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Киш 4 сыра",
+      "price": 1132,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/475fb46d18466078a852673a76e0eaf9_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Киш с курицей и шпинатом",
+      "price": 932,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/e67beb7803f690a323af97956dfa6553_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Киш с лососем и брокколи",
+      "price": 1132,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/9b19879c74fca0cb3ac6a3236b343488_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Киш с помидорами, моцареллой и базиликом",
+      "price": 1032,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/c57d6395331d06faa333ac01e87592fb_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Борщ",
+      "price": 270,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/724e3673118d1b3bda4da2c38c718f96_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Бульон куриный с яйцом",
+      "price": 270,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/315f5085f04b4269e97131f08198ba62_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Суп-пюре грибной",
+      "price": 320,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/78a51270e28186f9ad34ed024c196684_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Уха",
+      "price": 380,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/b1679b67351279aed5449ea77495e882_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Бефстроганов с картофельным пюре",
+      "price": 580,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/76a1f06bef5416a79399d7937ff146c3_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Вареники с картофелем",
+      "price": 380,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/3dd9acc66d0b97bcb85641a0ac634811_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Вареники с сыром сулугуни и шпинатом",
+      "price": 380,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/7592846798d22b0e2776f153983a5759_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Котлета по-киевски с пюре",
+      "price": 480,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/be47b5a843c2858f4810c0f1ce9b3fe5_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Курица запеченая с грибами",
+      "price": 490,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/75f785b54c1a798bb5b09c5fe8d038e3_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Лосось по-русски",
+      "price": 650,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/047eaa92cf8dd95a80c56f7bcee17b44_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Пельмени \"По-домашнему\"",
+      "price": 420,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/1f526afc603b5d3416d7c01b8af9a73f_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Свинина \"Бризоль\"с овощами",
+      "price": 480,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/44292225040fd3a4eff53fc601bd9b72_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Тальятелле с лососем в сливочном соусе",
+      "price": 680,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/ec26a41a3bd77000ca3c7913ceb10f06_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Филе трески с овощами",
+      "price": 460,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/ddcfbd242d15fea4027f4f37ef8734ce_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Филе утки с овощами и брусничным соусом",
+      "price": 590,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/a604f9e44ee0273b67056c873c0ac3bd_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Картофель по-деревенски",
+      "price": 150,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/1d3b9582f27d3f341f1c670376b83340_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Картофель фри",
+      "price": 150,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/3b8e2fa44b5997c429e8ec74fb1738ba_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Овощи гриль",
+      "price": 200,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/2a7aaa25312ef8ad45bd2b1f212015ce_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Цветная капуста в сливках",
+      "price": 180,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/5de0674f3b53e1ef2abbb1170e2e5920_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Салат Греческий",
+      "price": 380,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/5803aaf83ed3db3e0fc8820e5147443e_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Салат с черносливом и куриным филе",
+      "price": 380,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/a3cd4dd1d3ca5182db1197f9f841dcc9_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Цезарь с креветками",
+      "price": 540,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/1797cffbe83cfdd671320fcc65611a6d_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Салат с кальмарами",
+      "price": 390,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/e735bbb92a519ffd474713cd41363e1c_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Салат с лососем и авокадо",
+      "price": 460,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/aae04cc04c4d665bb47255a7a0b9b095_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Салат с языком и салатом Айсберг",
+      "price": 490,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/75d61ef2710c518495215863658c3ed0_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Цезарь с курицей",
+      "price": 420,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/b94b4a7ccf21f9c2c961cd26c5e9e416_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Салат с куриной печенью",
+      "price": 390,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/12baf6aa6a47b938dd897dd66a5ef0b1_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Паста с креветками (0,3)",
+      "price": 380,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/945d9f263a0b40df9ce7f532bbefbb1b_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Жаркое из индейки (0,3)300гр.",
+      "price": 380,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/206849c18bc571ea8e28a0d265b48527_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Cкрембл по португальски (0,2)",
+      "price": 210,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/e9ebcfeb41d8d998c920f357eeb5f6a7_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Окрошка на квасе 300мл.",
+      "price": 220,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/dced3bf7ece684b643020a1a73b5bcac_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Свекольник с говядиной300мл.",
+      "price": 220,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/1500ddd25f6d095f97d7c2223f4183d6_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Каша овсяная с клюквой",
+      "price": 199,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/93612598ae7909a637aca3c2e580ed54_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Сырники",
+      "price": 179,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/1d6c65b73946424f45294335f781e006_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Омлет с беконом",
+      "price": 179,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/f179df54de8060393a092d3adaaae867_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Щи щавелевые",
+      "price": 229,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/a6be054f6a03c0a083d785a1cd827f1e_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Суп-лапша куриная",
+      "price": 189,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/aa45bb5680675327e5addc92238b56e5_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Бризоль из свинины с овощами",
+      "price": 349,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/770fcffb120b84a20b3f077019414cf2_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Котлета по-киевски с гарниром",
+      "price": 349,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/51901d30ca6ac0c6b7b31059fee15ffa_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Тальятелле с лососем",
+      "price": 389,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/1df50149feb474554535ac93d5dd99bb_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Бифштекс с гарниром",
+      "price": 379,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/00170e2ea67c99be9d0add10f92b1412_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Тушёная говядина с гарниром",
+      "price": 359,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/d7ba2b4a4408772bbeca17b381a275da_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Паста с курицей и шпинатом",
+      "price": 349,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/b75b1bf362d43fb65f5a1b2d5719e3d1_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Бефстроганов из говядины с гарниром",
+      "price": 359,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/3ab825ce1ce055f79d1928287d937597_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Треска запеченная по- деревенски",
+      "price": 359,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/71d5ee46f732e0b9cfa6a672965e2907_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Куриное филе под сырной шапкой с гарниром",
+      "price": 349,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/5dc401f5cd4ff27ef54be9e3212d88c7_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Плов с курицей и нутом",
+      "price": 329,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/781e37f1e734e85500533e0478663e6b_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Салат Морской",
+      "price": 279,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/77b941add128bb3704ac07df299b9908_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Салат с креветками",
+      "price": 369,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/df3c5d9ae61ec5997d371bedc3e54acd_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Салат с ростбифом",
+      "price": 299,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/efab8c0496d66d8f8547387f0c596e14_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Салат с языком",
+      "price": 369,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/747dd832c1596e86d7e1d5dd4d02576f_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Салат со свеклой и сыром Фета",
+      "price": 259,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/7b8710e9806b89f2be9e971beb8eb45d_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Салат Цезарь с курицей",
+      "price": 299,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/57d3cb46faaef82def674af2cb046eaa_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Булочка с маком",
+      "price": 140,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/56b232537e5c52abdfb4b7b692971309_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Меренги",
+      "price": 250,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/7d6312c558fc4c99260582f27939df27_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Меренги с фисташками",
+      "price": 250,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/29234337dd9cbc09776a782ebe1c065f_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Полоска песочная с клюквой",
+      "price": 125,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/b3f2f7991fef87f2a026bb80de43cc8f_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Полоска песочная с лимоном",
+      "price": 125,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/64545825fb68ed8af0f2ac3466a224d4_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Рулет с маком",
+      "price": 880,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/80a7261b9e3c7aaaf5de46bbd623661f_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Хрусть-Хрусть",
+      "price": 390,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/f52285771691146391b2c830f57899a1_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Крошка Браун",
+      "price": 390,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/4152a6cbbc9fcfaf94c50ca666645d3e_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Бонито",
+      "price": 390,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/492fcf823f6f6930754485a56e24a8d7_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Малинка Бланш",
+      "price": 390,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/9fbd5f8ca6b5c00e2b99741cf95a00cd_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Варенье из айвы",
+      "price": 390,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/c65891e01f3fb08faf6ce6f10b22f20e_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Варенье из брусники с грецким орехом",
+      "price": 490,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/78607784708461ca6db39f52832f8fc0_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Варенье из клубники с базиликом",
+      "price": 390,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/4e0f14645eba8f3e2eaff59773b75aa6_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Варенье из красной смородины с чили и миндалем",
+      "price": 490,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/2973f0ef6e04d24efcf880abdd0cb1b4_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Варенье из крыжовника с киви и мятой",
+      "price": 290,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/7472140a9c1645efc4dca96611f0178c_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Варенье из ревеня с чёрной смородиной",
+      "price": 290,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/1a61b67bff559dba70720f10d11a3c93_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Варенье из сосновых шишек",
+      "price": 390,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/a499e6a0ff743b1dda66610088f7f117_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Варенье из тыквы с курагой",
+      "price": 390,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/792abae901a89b389803b78740ebbaa6_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Варенье из ирги с чёрной смородиной",
+      "price": 490,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/9fb609c712f9459c9223b1f13bf6c203_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Вареники с вишней",
+      "price": 260,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/b3b03c7230f329b1bc6d167d37724a3f_thumb_75_1152_1152.jpg"
+    },
+    {
+      "name": "Лимонад Мохито",
+      "price": 290,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/67f6bd83b19cc7fde2f3121117f2d0ae_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Лимонад Санрайз",
+      "price": 290,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/8e014e29c1fbf840385c5440e7ceeacb_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Айс Латте",
+      "price": 390,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/31c430c3415cdde7b7b2092d0dedc9b8_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Эспрессо тоник",
+      "price": 390,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/d3d8c4a779abbe5650121eba5a89b94e_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Морс из клюквы",
+      "price": 210,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/fa85fac3fe63cc69f1f6195dfe5f6ab7_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Лимонад Гранатовый",
+      "price": 290,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/ae40acb084cba52306f82d24952408fe_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Бамбл",
+      "price": 390,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/9474eb6060c6459a926b3814efbddf56_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Морс из облепихи",
+      "price": 210,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/e702a1f91ca499f25ef076efc61690ba_thumb_75_1152_1152.jpeg"
+    },
+    {
+      "name": "Морс из чёрной смородины",
+      "price": 210,
+      "image": "https://stolle-public.storage.yandexcloud.net/st/img/CatalogItem/fc58024e5e1314727e4dd5985ec9a0f2_thumb_75_1152_1152.jpeg"
+    }
+  ]
+}

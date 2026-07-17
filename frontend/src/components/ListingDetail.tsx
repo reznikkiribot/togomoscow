@@ -764,7 +764,7 @@ export function ListingDetailModal({
         ) : data.photoUrl ? (
           // no user photos yet → venue's own photo, marked illustrative (only here, inside the card)
           <div className={'stock-wrap' + (venuePrice != null ? ' has-price' : '')}>
-            <VenuePhoto listing={data} className="detail-photo" />
+            <VenuePhoto listing={data} className="detail-photo" allowVenuePhoto />
             <span className="stock-badge">📷 Фото иллюстративное · обновится после отзыва с фото</span>
           </div>
         ) : data.placeholderPhotos && data.placeholderPhotos.length === 1 ? (

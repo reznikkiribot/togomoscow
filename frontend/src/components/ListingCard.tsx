@@ -57,8 +57,12 @@ export function ListingCard({
                 : '· пока без оценок'}
             </div>
           ) : listing.bestVenue ? (
-            // where this dish/drink is rated best — right on the card face
-            <div className="meta best-on-card">🏆 Лучшее в: {listing.bestVenue.name}</div>
+            // «Лучшее в» is EARNED by ratings; with zero reviews it's just a place
+            listing.reviewCount > 0 ? (
+              <div className="meta best-on-card">🏆 Лучшее в: {listing.bestVenue.name}</div>
+            ) : (
+              <div className="meta">Попробуйте в: 📍{listing.bestVenue.name}</div>
+            )
           ) : listing.recVenue ? (
             // recommended dish "в конкретном месте" → venue name (price is on the photo)
             <div className="meta">📍 {listing.recVenue.name}</div>

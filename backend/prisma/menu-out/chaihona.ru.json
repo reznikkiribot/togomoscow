@@ -1,0 +1,1270 @@
+{
+  "domain": "chaihona.ru",
+  "method": "__NEXT_DATA__",
+  "status": "ok",
+  "source": "/catalog",
+  "count": 252,
+  "withPhoto": 0,
+  "items": [
+    {
+      "name": "Зеленый салат",
+      "price": 750,
+      "image": null
+    },
+    {
+      "name": "Салат с редисом и огурцом",
+      "price": 550,
+      "image": null
+    },
+    {
+      "name": "Салат с сулугуни",
+      "price": 650,
+      "image": null
+    },
+    {
+      "name": "Сюзьма",
+      "price": 550,
+      "image": null
+    },
+    {
+      "name": "Гаспачо с соусом релиш PIKADOR",
+      "price": 950,
+      "image": null
+    },
+    {
+      "name": "Окрошка с говяжьим языком с квасом",
+      "price": 600,
+      "image": null
+    },
+    {
+      "name": "Окрошка с говяжьим языком на кефире",
+      "price": 600,
+      "image": null
+    },
+    {
+      "name": "Бургер Гриль с соусом барбекью PIKADOR",
+      "price": 950,
+      "image": null
+    },
+    {
+      "name": "Креветки королевские в сливочном соусе",
+      "price": 1450,
+      "image": null
+    },
+    {
+      "name": "Куриные крылья с соусом барбекью PIKADOR",
+      "price": 850,
+      "image": null
+    },
+    {
+      "name": "Курица Тандури",
+      "price": 900,
+      "image": null
+    },
+    {
+      "name": "Морепродукты в томатном соусе",
+      "price": 1650,
+      "image": null
+    },
+    {
+      "name": "Черные пельмени с судаком",
+      "price": 850,
+      "image": null
+    },
+    {
+      "name": "Урама кебаб",
+      "price": 1650,
+      "image": null
+    },
+    {
+      "name": "Шашлык из креветок",
+      "price": 1250,
+      "image": null
+    },
+    {
+      "name": "Капуста брокколи и цветная",
+      "price": 370,
+      "image": null
+    },
+    {
+      "name": "Капуста брюссельская",
+      "price": 370,
+      "image": null
+    },
+    {
+      "name": "Лимонад Арбузный",
+      "price": 1070,
+      "image": null
+    },
+    {
+      "name": "Лимонад жимолость и земляника",
+      "price": 1070,
+      "image": null
+    },
+    {
+      "name": "Амарант с киноа, томатами и авокадо",
+      "price": 750,
+      "image": null
+    },
+    {
+      "name": "Буррата с узбекскими томатами",
+      "price": 1150,
+      "image": null
+    },
+    {
+      "name": "Греческий салат",
+      "price": 850,
+      "image": null
+    },
+    {
+      "name": "Капуста и морковь с ароматным маслом",
+      "price": 350,
+      "image": null
+    },
+    {
+      "name": "Лаззат",
+      "price": 650,
+      "image": null
+    },
+    {
+      "name": "Розовые томаты с базиликом",
+      "price": 450,
+      "image": null
+    },
+    {
+      "name": "Ростбиф с запечёнными овощами и соусом чимичурри",
+      "price": 1130,
+      "image": null
+    },
+    {
+      "name": "Салат с креветками и авокадо",
+      "price": 990,
+      "image": null
+    },
+    {
+      "name": "Свежие овощи",
+      "price": 490,
+      "image": null
+    },
+    {
+      "name": "Табуле с турецким булгуром",
+      "price": 550,
+      "image": null
+    },
+    {
+      "name": "Ташкент",
+      "price": 650,
+      "image": null
+    },
+    {
+      "name": "Цезарь с креветками",
+      "price": 1090,
+      "image": null
+    },
+    {
+      "name": "Цезарь с курицей",
+      "price": 950,
+      "image": null
+    },
+    {
+      "name": "Язык с руколой и ореховым соусом",
+      "price": 850,
+      "image": null
+    },
+    {
+      "name": "Ассорти сыров",
+      "price": 1430,
+      "image": null
+    },
+    {
+      "name": "Запечённый баклажан с сыром фетакса и томатами",
+      "price": 750,
+      "image": null
+    },
+    {
+      "name": "Казы по-татарски",
+      "price": 670,
+      "image": null
+    },
+    {
+      "name": "Казы по-узбекски",
+      "price": 730,
+      "image": null
+    },
+    {
+      "name": "Капуста квашеная",
+      "price": 220,
+      "image": null
+    },
+    {
+      "name": "Огурцы бочковые",
+      "price": 220,
+      "image": null
+    },
+    {
+      "name": "Розовые томаты и огурцы с чесночным соусом и карибикой",
+      "price": 650,
+      "image": null
+    },
+    {
+      "name": "Свежая зелень",
+      "price": 320,
+      "image": null
+    },
+    {
+      "name": "Сельдь с печёным картофелем и гренками из бородинского хлеба",
+      "price": 550,
+      "image": null
+    },
+    {
+      "name": "Сет из трёх видов оливок",
+      "price": 550,
+      "image": null
+    },
+    {
+      "name": "Томаты солёные",
+      "price": 220,
+      "image": null
+    },
+    {
+      "name": "Дракон",
+      "price": 950,
+      "image": null
+    },
+    {
+      "name": "Запечённый лосось",
+      "price": 1090,
+      "image": null
+    },
+    {
+      "name": "Калифорния",
+      "price": 1090,
+      "image": null
+    },
+    {
+      "name": "Кани спайс",
+      "price": 270,
+      "image": null
+    },
+    {
+      "name": "Саке Спайс",
+      "price": 230,
+      "image": null
+    },
+    {
+      "name": "Тёплый ролл Кранч",
+      "price": 950,
+      "image": null
+    },
+    {
+      "name": "Тёплый ролл четыре сыра",
+      "price": 750,
+      "image": null
+    },
+    {
+      "name": "Унаги спайс",
+      "price": 230,
+      "image": null
+    },
+    {
+      "name": "Филадельфия",
+      "price": 950,
+      "image": null
+    },
+    {
+      "name": "Эби спайс",
+      "price": 230,
+      "image": null
+    },
+    {
+      "name": "Гренки из бородинского хлеба с чесноком и пармезаном",
+      "price": 350,
+      "image": null
+    },
+    {
+      "name": "Жареный сулугуни с томатами",
+      "price": 700,
+      "image": null
+    },
+    {
+      "name": "Кок-самса с зеленью и сыром",
+      "price": 350,
+      "image": null
+    },
+    {
+      "name": "Кутаб с бараниной",
+      "price": 550,
+      "image": null
+    },
+    {
+      "name": "Кутаб с сыром и томатами",
+      "price": 450,
+      "image": null
+    },
+    {
+      "name": "Чебурек с бараниной",
+      "price": 550,
+      "image": null
+    },
+    {
+      "name": "Чебурек с телятиной",
+      "price": 500,
+      "image": null
+    },
+    {
+      "name": "Шаурма из курицы",
+      "price": 650,
+      "image": null
+    },
+    {
+      "name": "Домашний борщ",
+      "price": 750,
+      "image": null
+    },
+    {
+      "name": "Лагман",
+      "price": 850,
+      "image": null
+    },
+    {
+      "name": "Рыбная похлебка и пирожки беби с картошкой",
+      "price": 650,
+      "image": null
+    },
+    {
+      "name": "Суп куриный с домашней лапшой",
+      "price": 500,
+      "image": null
+    },
+    {
+      "name": "Том Ям",
+      "price": 890,
+      "image": null
+    },
+    {
+      "name": "Чучвара",
+      "price": 890,
+      "image": null
+    },
+    {
+      "name": "Шурпа",
+      "price": 850,
+      "image": null
+    },
+    {
+      "name": "Лепёшка из тандыра",
+      "price": 170,
+      "image": null
+    },
+    {
+      "name": "Пирожки бэби с картошкой",
+      "price": 300,
+      "image": null
+    },
+    {
+      "name": "Самса бейби с говядиной",
+      "price": 450,
+      "image": null
+    },
+    {
+      "name": "Самса с бараниной",
+      "price": 450,
+      "image": null
+    },
+    {
+      "name": "Хачапури по-аджарски",
+      "price": 750,
+      "image": null
+    },
+    {
+      "name": "Хачапури по-мегрельски с сыром",
+      "price": 750,
+      "image": null
+    },
+    {
+      "name": "Плов с курицей",
+      "price": 650,
+      "image": null
+    },
+    {
+      "name": "Плов с бараниной",
+      "price": 750,
+      "image": null
+    },
+    {
+      "name": "Гранат",
+      "price": 150,
+      "image": null
+    },
+    {
+      "name": "Лук маринованный",
+      "price": 150,
+      "image": null
+    },
+    {
+      "name": "Ачичук",
+      "price": 150,
+      "image": null
+    },
+    {
+      "name": "Чеснок жареный",
+      "price": 150,
+      "image": null
+    },
+    {
+      "name": "Бефстроганов из телятины с картофельным пюре",
+      "price": 1250,
+      "image": null
+    },
+    {
+      "name": "Вареники с картофелем",
+      "price": 550,
+      "image": null
+    },
+    {
+      "name": "Домашние котлеты на пару с картофельным пюре",
+      "price": 930,
+      "image": null
+    },
+    {
+      "name": "Домашние котлеты с картофельным пюре",
+      "price": 930,
+      "image": null
+    },
+    {
+      "name": "Жареная мраморная говядина с запечённым картофелем",
+      "price": 1350,
+      "image": null
+    },
+    {
+      "name": "Куриные котлеты на пару с картофельным пюре",
+      "price": 750,
+      "image": null
+    },
+    {
+      "name": "Куриные котлеты с картофельным пюре",
+      "price": 750,
+      "image": null
+    },
+    {
+      "name": "Манты с бараниной",
+      "price": 650,
+      "image": null
+    },
+    {
+      "name": "Паста с курицей и белыми грибами",
+      "price": 990,
+      "image": null
+    },
+    {
+      "name": "Стейк из сёмги на пару",
+      "price": 1550,
+      "image": null
+    },
+    {
+      "name": "Хинкали с бараниной",
+      "price": 650,
+      "image": null
+    },
+    {
+      "name": "Хинкали с говядиной",
+      "price": 550,
+      "image": null
+    },
+    {
+      "name": "Дорадо с соусом сладкий чили",
+      "price": 1550,
+      "image": null
+    },
+    {
+      "name": "Куриные бёдрышки на гриле",
+      "price": 890,
+      "image": null
+    },
+    {
+      "name": "Люля-Кебаб из баранины",
+      "price": 950,
+      "image": null
+    },
+    {
+      "name": "Люля-Кебаб из курицы",
+      "price": 750,
+      "image": null
+    },
+    {
+      "name": "Люля-Кебаб из телятины",
+      "price": 950,
+      "image": null
+    },
+    {
+      "name": "Овощи гриль",
+      "price": 650,
+      "image": null
+    },
+    {
+      "name": "Стейк из сёмги на гриле",
+      "price": 1550,
+      "image": null
+    },
+    {
+      "name": "Уч-панжа из баранины",
+      "price": 1550,
+      "image": null
+    },
+    {
+      "name": "Шашлык из баранины",
+      "price": 1250,
+      "image": null
+    },
+    {
+      "name": "Шашлык из курицы",
+      "price": 700,
+      "image": null
+    },
+    {
+      "name": "Шашлык из мраморной говяжьей вырезки",
+      "price": 2550,
+      "image": null
+    },
+    {
+      "name": "Шашлык из телятины",
+      "price": 1250,
+      "image": null
+    },
+    {
+      "name": "Ассорти из мангала",
+      "price": 8600,
+      "image": null
+    },
+    {
+      "name": "Жареный картофель с грибами и луком",
+      "price": 450,
+      "image": null
+    },
+    {
+      "name": "Молодой картофель с думбой",
+      "price": 390,
+      "image": null
+    },
+    {
+      "name": "Картофель фри",
+      "price": 390,
+      "image": null
+    },
+    {
+      "name": "Картофельное пюре",
+      "price": 370,
+      "image": null
+    },
+    {
+      "name": "Рис",
+      "price": 320,
+      "image": null
+    },
+    {
+      "name": "Салат из свежих овощей с растительным маслом",
+      "price": 350,
+      "image": null
+    },
+    {
+      "name": "Салат из свежих овощей со сметаной",
+      "price": 350,
+      "image": null
+    },
+    {
+      "name": "Оливье с цыпленком и перепелиным яйцом",
+      "price": 300,
+      "image": null
+    },
+    {
+      "name": "Овощные палочки",
+      "price": 250,
+      "image": null
+    },
+    {
+      "name": "Борщ со сметаной",
+      "price": 550,
+      "image": null
+    },
+    {
+      "name": "Куриный суп с фрикадельками",
+      "price": 350,
+      "image": null
+    },
+    {
+      "name": "Чизбургер с картофелем фри",
+      "price": 650,
+      "image": null
+    },
+    {
+      "name": "Жаренный сулугуни",
+      "price": 350,
+      "image": null
+    },
+    {
+      "name": "Куриный шашлычок",
+      "price": 450,
+      "image": null
+    },
+    {
+      "name": "Куриное эскимо с картофельным пюре",
+      "price": 500,
+      "image": null
+    },
+    {
+      "name": "Пельмешки с говядиной",
+      "price": 500,
+      "image": null
+    },
+    {
+      "name": "Макароны с сыром",
+      "price": 550,
+      "image": null
+    },
+    {
+      "name": "Картофель фри с кетчупом",
+      "price": 350,
+      "image": null
+    },
+    {
+      "name": "Рис на пару",
+      "price": 250,
+      "image": null
+    },
+    {
+      "name": "Пицца Маргарита",
+      "price": 750,
+      "image": null
+    },
+    {
+      "name": "Пицца Пепперони",
+      "price": 850,
+      "image": null
+    },
+    {
+      "name": "Пицца Четыре сыра",
+      "price": 850,
+      "image": null
+    },
+    {
+      "name": "Орешки с вареной сгущенкой и арахисом",
+      "price": 250,
+      "image": null
+    },
+    {
+      "name": "Сырники",
+      "price": 650,
+      "image": null
+    },
+    {
+      "name": "Кетчуп",
+      "price": 100,
+      "image": null
+    },
+    {
+      "name": "Соус сырный",
+      "price": 100,
+      "image": null
+    },
+    {
+      "name": "Павлова с ягодами",
+      "price": 730,
+      "image": null
+    },
+    {
+      "name": "Наполеон",
+      "price": 650,
+      "image": null
+    },
+    {
+      "name": "Пахлава",
+      "price": 650,
+      "image": null
+    },
+    {
+      "name": "Медовик",
+      "price": 550,
+      "image": null
+    },
+    {
+      "name": "Чизкейк баскский",
+      "price": 550,
+      "image": null
+    },
+    {
+      "name": "Шоколадный торт",
+      "price": 550,
+      "image": null
+    },
+    {
+      "name": "Птичье молоко",
+      "price": 550,
+      "image": null
+    },
+    {
+      "name": "Сырники с вишневым соусом",
+      "price": 650,
+      "image": null
+    },
+    {
+      "name": "Кок-самса с яблоками",
+      "price": 350,
+      "image": null
+    },
+    {
+      "name": "Варенье в ассортименте",
+      "price": 270,
+      "image": null
+    },
+    {
+      "name": "Аджика",
+      "price": 160,
+      "image": null
+    },
+    {
+      "name": "Аджика уйгурская",
+      "price": 160,
+      "image": null
+    },
+    {
+      "name": "Наршараб",
+      "price": 160,
+      "image": null
+    },
+    {
+      "name": "Сацебели",
+      "price": 160,
+      "image": null
+    },
+    {
+      "name": "Сметана",
+      "price": 160,
+      "image": null
+    },
+    {
+      "name": "Соус Песто",
+      "price": 160,
+      "image": null
+    },
+    {
+      "name": "Соус соевый",
+      "price": 160,
+      "image": null
+    },
+    {
+      "name": "Сырный",
+      "price": 160,
+      "image": null
+    },
+    {
+      "name": "Чесночный",
+      "price": 160,
+      "image": null
+    },
+    {
+      "name": "Шашлычный соус",
+      "price": 160,
+      "image": null
+    },
+    {
+      "name": "Ткемали Красный",
+      "price": 160,
+      "image": null
+    },
+    {
+      "name": "Цезарь",
+      "price": 160,
+      "image": null
+    },
+    {
+      "name": "Байкал Резерв с газом",
+      "price": 370,
+      "image": null
+    },
+    {
+      "name": "Бруни Просекко Зеро Италия б/а",
+      "price": 3630,
+      "image": null
+    },
+    {
+      "name": "Джинджер Эль",
+      "price": 470,
+      "image": null
+    },
+    {
+      "name": "Гарденист Премиум Индиан Тоник",
+      "price": 470,
+      "image": null
+    },
+    {
+      "name": "Гарденист Сакура",
+      "price": 470,
+      "image": null
+    },
+    {
+      "name": "Джамбо Апельсин",
+      "price": 330,
+      "image": null
+    },
+    {
+      "name": "Джамбо Кола",
+      "price": 330,
+      "image": null
+    },
+    {
+      "name": "Джамбо Лайм",
+      "price": 330,
+      "image": null
+    },
+    {
+      "name": "Джамбо Холидэй Тоник",
+      "price": 330,
+      "image": null
+    },
+    {
+      "name": "Жемчужина Байкала без газа",
+      "price": 370,
+      "image": null
+    },
+    {
+      "name": "Каберне Темпранильо Винья Албали Испания б/а",
+      "price": 3420,
+      "image": null
+    },
+    {
+      "name": "Вода Калинов Родничок «детская вода»",
+      "price": 170,
+      "image": null
+    },
+    {
+      "name": "Кока Кола Зеро",
+      "price": 430,
+      "image": null
+    },
+    {
+      "name": "Крушовице (безалкогольное)",
+      "price": 370,
+      "image": null
+    },
+    {
+      "name": "Сан Бенедетто б/г",
+      "price": 470,
+      "image": null
+    },
+    {
+      "name": "Сан Бенедетто с/г",
+      "price": 790,
+      "image": null
+    },
+    {
+      "name": "Совиньон Блан Винья Албали Испания б/а",
+      "price": 3420,
+      "image": null
+    },
+    {
+      "name": "IL PRIMO Сок Ананасовый",
+      "price": 330,
+      "image": null
+    },
+    {
+      "name": "IL PRIMO Сок Апельсиновый",
+      "price": 330,
+      "image": null
+    },
+    {
+      "name": "IL PRIMO Сок Вишневый",
+      "price": 330,
+      "image": null
+    },
+    {
+      "name": "IL PRIMO Сок Томатный",
+      "price": 330,
+      "image": null
+    },
+    {
+      "name": "IL PRIMO Сок Яблочный",
+      "price": 330,
+      "image": null
+    },
+    {
+      "name": "Фреш Ананасовый",
+      "price": 1140,
+      "image": null
+    },
+    {
+      "name": "Фреш Апельсиновый",
+      "price": 690,
+      "image": null
+    },
+    {
+      "name": "Фреш Гранатовый",
+      "price": 1400,
+      "image": null
+    },
+    {
+      "name": "Фреш Грейпфрутовый",
+      "price": 690,
+      "image": null
+    },
+    {
+      "name": "Фреш Морковный",
+      "price": 630,
+      "image": null
+    },
+    {
+      "name": "Фреш Яблоко-Сельдерей",
+      "price": 630,
+      "image": null
+    },
+    {
+      "name": "Фреш Яблочно-морковный",
+      "price": 630,
+      "image": null
+    },
+    {
+      "name": "Фреш Яблочный",
+      "price": 630,
+      "image": null
+    },
+    {
+      "name": "Ананас-Манго-Личи (без сахара)",
+      "price": 1370,
+      "image": null
+    },
+    {
+      "name": "Дюшес",
+      "price": 1030,
+      "image": null
+    },
+    {
+      "name": "Клубника-Апельсин",
+      "price": 1030,
+      "image": null
+    },
+    {
+      "name": "Манго и Маракуйя",
+      "price": 1030,
+      "image": null
+    },
+    {
+      "name": "Морс клюквенный",
+      "price": 490,
+      "image": null
+    },
+    {
+      "name": "Морс Курага",
+      "price": 490,
+      "image": null
+    },
+    {
+      "name": "Смузи Манго – Маракуйя – Кокос",
+      "price": 670,
+      "image": null
+    },
+    {
+      "name": "Смузи Питахайя – Малина – Гранат",
+      "price": 830,
+      "image": null
+    },
+    {
+      "name": "Смузи Фейхоа, ананас, шпинат",
+      "price": 670,
+      "image": null
+    },
+    {
+      "name": "Тархун",
+      "price": 930,
+      "image": null
+    },
+    {
+      "name": "Фейхоа-Клубника",
+      "price": 1030,
+      "image": null
+    },
+    {
+      "name": "Мимоза",
+      "price": 2350,
+      "image": null
+    },
+    {
+      "name": "Оливье",
+      "price": 2350,
+      "image": null
+    },
+    {
+      "name": "Сельдь под шубой",
+      "price": 2350,
+      "image": null
+    },
+    {
+      "name": "Ассорти мясных деликатесов",
+      "price": 1350,
+      "image": null
+    },
+    {
+      "name": "Байрам Кой",
+      "price": 12500,
+      "image": null
+    },
+    {
+      "name": "Грибное ассорти",
+      "price": 2500,
+      "image": null
+    },
+    {
+      "name": "Домашние соленья",
+      "price": 650,
+      "image": null
+    },
+    {
+      "name": "Запеченый картофель с розмарином",
+      "price": 390,
+      "image": null
+    },
+    {
+      "name": "Каре ягнёнка",
+      "price": 12500,
+      "image": null
+    },
+    {
+      "name": "Кой Той",
+      "price": 25500,
+      "image": null
+    },
+    {
+      "name": "Микс из пастрами",
+      "price": 3550,
+      "image": null
+    },
+    {
+      "name": "Морепродукты на гриле",
+      "price": 12500,
+      "image": null
+    },
+    {
+      "name": "Овощи гриль ассорти",
+      "price": 1200,
+      "image": null
+    },
+    {
+      "name": "Овощное ассорти",
+      "price": 1200,
+      "image": null
+    },
+    {
+      "name": "Оливки",
+      "price": 750,
+      "image": null
+    },
+    {
+      "name": "Отварной дикий рис",
+      "price": 320,
+      "image": null
+    },
+    {
+      "name": "Пастрами из говядины",
+      "price": 2000,
+      "image": null
+    },
+    {
+      "name": "Пастрами из индейки",
+      "price": 1750,
+      "image": null
+    },
+    {
+      "name": "Рийет из лосося",
+      "price": 1650,
+      "image": null
+    },
+    {
+      "name": "Ростбиф горячий",
+      "price": 12500,
+      "image": null
+    },
+    {
+      "name": "Ростбиф холодный",
+      "price": 4500,
+      "image": null
+    },
+    {
+      "name": "Слабосоленая семга с оладьями",
+      "price": 3550,
+      "image": null
+    },
+    {
+      "name": "Стерлядь",
+      "price": 16900,
+      "image": null
+    },
+    {
+      "name": "Утка с апельсинами и яблоками",
+      "price": 9500,
+      "image": null
+    },
+    {
+      "name": "Ассорти выпечки с мясом",
+      "price": 2400,
+      "image": null
+    },
+    {
+      "name": "Ассорти выпечки с овощами",
+      "price": 1400,
+      "image": null
+    },
+    {
+      "name": "Брускетта с креветкой и муссом из авокадо",
+      "price": 2350,
+      "image": null
+    },
+    {
+      "name": "Брускетта с пармой руколой",
+      "price": 2750,
+      "image": null
+    },
+    {
+      "name": "Брускетта с паштетом из индейки",
+      "price": 2150,
+      "image": null
+    },
+    {
+      "name": "Брускетта с ростбифом",
+      "price": 2350,
+      "image": null
+    },
+    {
+      "name": "Брускетта с томатами конкасе",
+      "price": 1550,
+      "image": null
+    },
+    {
+      "name": "Канапе с голубым сыром",
+      "price": 950,
+      "image": null
+    },
+    {
+      "name": "Канапе с креветкой и авокадо",
+      "price": 1150,
+      "image": null
+    },
+    {
+      "name": "Канапе с моцареллой и томатами",
+      "price": 950,
+      "image": null
+    },
+    {
+      "name": "Канапе с ростбифом",
+      "price": 1350,
+      "image": null
+    },
+    {
+      "name": "Канапе с сёмга и свежим огурцом",
+      "price": 1250,
+      "image": null
+    },
+    {
+      "name": "Канапе с утиной грудкой",
+      "price": 950,
+      "image": null
+    },
+    {
+      "name": "Мини-бургер с курицей",
+      "price": 2350,
+      "image": null
+    },
+    {
+      "name": "Мини-бургер с телятиной",
+      "price": 2750,
+      "image": null
+    },
+    {
+      "name": "Мини-торт маковый",
+      "price": 1450,
+      "image": null
+    },
+    {
+      "name": "Мини-торт медовик",
+      "price": 1450,
+      "image": null
+    },
+    {
+      "name": "Мини-торт шоколадный",
+      "price": 1450,
+      "image": null
+    },
+    {
+      "name": "Мини-шаурма",
+      "price": 300,
+      "image": null
+    },
+    {
+      "name": "Ролл с лососем",
+      "price": 1250,
+      "image": null
+    },
+    {
+      "name": "Самса бэйби с бараниной и говядиной",
+      "price": 200,
+      "image": null
+    },
+    {
+      "name": "Самса бэйби с зелёным луком и яйцом",
+      "price": 470,
+      "image": null
+    },
+    {
+      "name": "Самса бэйби с капустой",
+      "price": 470,
+      "image": null
+    },
+    {
+      "name": "Самса бэйби с картофелем",
+      "price": 470,
+      "image": null
+    },
+    {
+      "name": "Самса бэйби с курицей",
+      "price": 200,
+      "image": null
+    },
+    {
+      "name": "Самса бэйби с луком и грибами",
+      "price": 470,
+      "image": null
+    },
+    {
+      "name": "Самса бэйби с рисом и грибами",
+      "price": 560,
+      "image": null
+    },
+    {
+      "name": "Самса бэйби с сулугуни и зеленью",
+      "price": 470,
+      "image": null
+    },
+    {
+      "name": "Самса бэйби с яблоком",
+      "price": 470,
+      "image": null
+    },
+    {
+      "name": "Сырные шарики",
+      "price": 750,
+      "image": null
+    },
+    {
+      "name": "Торт Птичье молоко",
+      "price": 5000,
+      "image": null
+    },
+    {
+      "name": "Десерт \"Павлова\"",
+      "price": 6000,
+      "image": null
+    },
+    {
+      "name": "Фруктовая ваза",
+      "price": 3500,
+      "image": null
+    }
+  ]
+}

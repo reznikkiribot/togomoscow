@@ -1,0 +1,330 @@
+{
+  "domain": "yanprimus.ru",
+  "method": "playwright-xhr",
+  "status": "ok",
+  "source": "window.appState",
+  "count": 64,
+  "withPhoto": 64,
+  "items": [
+    {
+      "name": "Магаданские креветки",
+      "price": 675,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/47427/thumb_f82543c7-4ebf-44db-9c35-e01c86fb8521.jpeg"
+    },
+    {
+      "name": "Магаданские креветки 350 гр.",
+      "price": 2265,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/45349/thumb_ad0bcc4a-f46c-47cc-82a6-cb492abf0a6a.jpeg"
+    },
+    {
+      "name": "Магаданские креветки 500 гр",
+      "price": 3185,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/45348/thumb_ce22fd14-dedc-450e-9204-ee7ecd8a9367.jpeg"
+    },
+    {
+      "name": "Вьетнамские креветки в остром соусе",
+      "price": 665,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/33104/thumb_6e9cc4ab-2451-4277-a182-48186ffa6c27.jpeg"
+    },
+    {
+      "name": "Креветки Ян Примус",
+      "price": 1595,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/15636/thumb_f5df28f2-ce10-40c7-ad42-a52abb72fde9.jpeg"
+    },
+    {
+      "name": "Спагетти с креветками",
+      "price": 1465,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/30901/thumb_0b4241a3-a8c1-4675-89cc-2b6f6386da0a.jpeg"
+    },
+    {
+      "name": "Северная рыба",
+      "price": 895,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/35447/thumb_27b69ccd-a241-43ce-8a8d-16418e373086.jpeg"
+    },
+    {
+      "name": "Филе сельди",
+      "price": 645,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/14412/thumb_f28e51da-6d8a-4f13-b4fc-abf8d7ea4c1c.jpeg"
+    },
+    {
+      "name": "Вяленая пелядь",
+      "price": 695,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/49563/thumb_468a80b9-fe0a-44b5-aecb-6ebaf65f13b9.jpeg"
+    },
+    {
+      "name": "Макрель горячего копчения",
+      "price": 545,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/49564/thumb_1918f892-ea56-4f22-80e9-92593b1b5bf6.jpeg"
+    },
+    {
+      "name": "Мурманское сало из скумбрии",
+      "price": 655,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/44718/thumb_9b7e07bd-8f4b-4ea4-ad1d-1e5a4ca317d4.jpeg"
+    },
+    {
+      "name": "Белуга на гриле",
+      "price": 1595,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/47244/thumb_0b48d154-ec4c-44b0-b268-5e365ddaad09.jpeg"
+    },
+    {
+      "name": "Кодфиш на гриле",
+      "price": 1035,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/47243/thumb_9f016306-2bbf-4ea6-99ce-94919042124d.jpeg"
+    },
+    {
+      "name": "Запеченные мидии киви",
+      "price": 875,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/14454/thumb_d69dcefc-8f93-493d-afc0-f0101204df58.jpeg"
+    },
+    {
+      "name": "Чилийские мидии маленькая порция",
+      "price": 1315,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/49598/thumb_3bf08e43-3956-454d-a849-a5cec7f66fab.jpeg"
+    },
+    {
+      "name": "Чилийские мидии в соусе \"Дорблю\"",
+      "price": 1885,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/14450/thumb_5424261e-69c4-43eb-bad7-5391596c5e06.jpeg"
+    },
+    {
+      "name": "Цезарь Ян Примус",
+      "price": 995,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/15725/thumb_97d61bf5-2f75-46a9-9b70-75f651ff109a.jpeg"
+    },
+    {
+      "name": "Мюнхенский салат",
+      "price": 995,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/14437/thumb_063bd37d-b298-4297-a414-db8aed14eeb6.jpeg"
+    },
+    {
+      "name": "Греческий салат Ян Примус",
+      "price": 1285,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/17928/thumb_16b4a95d-e139-40d6-99bb-6e99b6ccbdc8.jpeg"
+    },
+    {
+      "name": "Салат с авокадо и отварными креветками",
+      "price": 1035,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/14438/thumb_8eb85785-bbc0-41d8-87c5-856cd3e393e2.jpeg"
+    },
+    {
+      "name": "Салат с ростбифом",
+      "price": 1015,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/14439/thumb_3ce02223-748e-492d-ba73-f0134bfbf0f5.jpeg"
+    },
+    {
+      "name": "Спелые томаты с домашним сыром",
+      "price": 995,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/31773/thumb_ab85957a-07f9-4c94-926c-d702cfa8b225.jpeg"
+    },
+    {
+      "name": "Морковь и сельдерей",
+      "price": 425,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/42098/thumb_b8b2cb68-1d31-496a-96c3-afadcca1982a.jpeg"
+    },
+    {
+      "name": "Борщ с томленой говядиной",
+      "price": 795,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/19009/thumb_3d562136-daf3-4fa8-b581-d7c14adedea2.jpeg"
+    },
+    {
+      "name": "Гороховый суп",
+      "price": 625,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/14422/thumb_ee0efda7-ded4-473a-83bd-7180695f7329.jpeg"
+    },
+    {
+      "name": "Уха по-старорусски",
+      "price": 845,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/47965/thumb_83edae64-b171-4cf2-aa15-68e05da22ae3.jpeg"
+    },
+    {
+      "name": "Суп Том Ям тайская версия с креветками",
+      "price": 995,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/17926/thumb_2c0556c1-2298-49cf-b617-4ff97cd87da3.jpeg"
+    },
+    {
+      "name": "Суп Том Ям сахалинская версия с гребешками",
+      "price": 995,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/49596/thumb_16a0f89c-9445-4bac-87af-c7df8a08dc63.jpeg"
+    },
+    {
+      "name": "Запеченные бородинские гренки",
+      "price": 645,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/47247/thumb_e3b6b355-4e18-4107-9938-ca5443ebca25.jpeg"
+    },
+    {
+      "name": "Острые куриные крылья \"Баффало\"",
+      "price": 995,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/14458/thumb_a6f16015-0301-46ae-becc-d1347632ebac.jpeg"
+    },
+    {
+      "name": "Острые крылья \"Баффало\" Большая порция",
+      "price": 1985,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/14484/thumb_0ffba668-8f2a-443a-b2a2-e5062bce9de3.jpeg"
+    },
+    {
+      "name": "Хрустящие кольца кальмара",
+      "price": 695,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/14459/thumb_50d823f4-eea2-48fc-8e60-525baf8da252.jpeg"
+    },
+    {
+      "name": "Мини-чебуреки",
+      "price": 585,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/42102/thumb_7f1bb972-d0dc-427e-a435-bd2912d38892.jpeg"
+    },
+    {
+      "name": "Картофель фри",
+      "price": 495,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/14473/thumb_2d202722-9a3c-48d7-96ff-362103969ec9.jpeg"
+    },
+    {
+      "name": "Батат фри",
+      "price": 685,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/21682/thumb_f1e288be-0c12-4b55-80eb-f02fdaadc553.jpeg"
+    },
+    {
+      "name": "Бургер с котлетой из фермерской говядины",
+      "price": 995,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/42113/thumb_e48a71d1-12c5-490f-b65d-ef871914bc0b.jpeg"
+    },
+    {
+      "name": "+ Картофель фри",
+      "price": 250,
+      "image": "https://cdn.deliveryguru.ru/uploads/placeholder.jpg"
+    },
+    {
+      "name": "+ Батат фри",
+      "price": 485,
+      "image": "https://cdn.deliveryguru.ru/uploads/placeholder.jpg"
+    },
+    {
+      "name": "Чизбургер с котлетой из фермерской говядины",
+      "price": 885,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/42114/thumb_72d67ece-7043-4c20-a32b-76d5b2ee6f28.jpeg"
+    },
+    {
+      "name": "Рибай травяного откорма",
+      "price": 1485,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/47245/thumb_9c3a5975-77f6-4158-b3e6-a43a8fa28f9c.jpeg"
+    },
+    {
+      "name": "Стейк Стриплойн",
+      "price": 2490,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/47336/thumb_a7e07ee3-b0dd-49b6-8532-d8af8f5604f5.jpeg"
+    },
+    {
+      "name": "Колбаска из говядины и свинины",
+      "price": 895,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/14493/thumb_10f0b511-5d1d-401a-b8d1-52a14588b99e.jpeg"
+    },
+    {
+      "name": "Свиные ребрышки BBQ",
+      "price": 985,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/14488/thumb_a9ab97be-a5a6-41e8-9372-cf38d42d94b3.jpeg"
+    },
+    {
+      "name": "Свиные рёбрышки в русском стиле",
+      "price": 985,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/49581/thumb_a5cdb869-53da-4e4b-9f30-e67519fce02f.jpeg"
+    },
+    {
+      "name": "Свиные ребрышки BBQ Большая порция",
+      "price": 1685,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/14485/thumb_f0a26a81-0e7e-4026-87e9-47cc16d595ec.jpeg"
+    },
+    {
+      "name": "Свиные рёбрышки в русском стиле  Большая порция",
+      "price": 1685,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/49583/thumb_205bf609-8977-4c2c-ad3b-5f4295bf0758.jpeg"
+    },
+    {
+      "name": "Томленая говяжья щека",
+      "price": 1765,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/19538/thumb_55d48413-251b-467e-8536-c4ad31ff4eb4.jpeg"
+    },
+    {
+      "name": "Пряные колбаски пепперони",
+      "price": 785,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/47246/thumb_a609e61e-d512-4ca2-badd-78055f2ad72d.jpeg"
+    },
+    {
+      "name": "Томленая голень индейки",
+      "price": 1865,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/14477/thumb_fe599664-7d29-4180-b534-01b1797cd661.jpeg"
+    },
+    {
+      "name": "Шницель из куриного филе",
+      "price": 795,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/44720/thumb_051adce4-99ae-41f6-8f56-db089755fe5a.jpeg"
+    },
+    {
+      "name": "Филе утки с печёными яблоками и копченой грушей",
+      "price": 1395,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/17930/thumb_3966f074-0859-466c-b873-f3cde24594c3.jpeg"
+    },
+    {
+      "name": "Пивное плато",
+      "price": 2825,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/47967/thumb_c7d1c72c-f648-4cfb-ad75-118b17a6c38e.jpeg"
+    },
+    {
+      "name": "Море креветок",
+      "price": 4985,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/14482/thumb_40e5c147-a4e8-449b-8c1b-f57428c855cf.jpeg"
+    },
+    {
+      "name": "Мясной синдикат",
+      "price": 4475,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/47966/thumb_35ff89ee-d2eb-430f-b477-8ed28f50d147.jpeg"
+    },
+    {
+      "name": "Вурстфест сет",
+      "price": 4375,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/47968/thumb_9897c623-3daa-4e2b-bd49-89c4a1b2bc0d.jpeg"
+    },
+    {
+      "name": "Сет под вино на двоих",
+      "price": 1985,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/14777/thumb_f513eb37-f68c-475f-8e72-3c8458a1cff6.jpeg"
+    },
+    {
+      "name": "Северный рыбный сет под пиво",
+      "price": 2585,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/17925/thumb_2e481673-b5f9-479d-9140-fa8a19509875.jpeg"
+    },
+    {
+      "name": "Овощи Хоспер",
+      "price": 595,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/14469/thumb_8c20c600-24a3-460c-8c55-11f5e5366377.jpeg"
+    },
+    {
+      "name": "Картофельное пюре",
+      "price": 485,
+      "image": "https://cdn.deliveryguru.ru/uploads/placeholder.jpg"
+    },
+    {
+      "name": "Десерт Медовик",
+      "price": 435,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/14513/thumb_374547b0-d5fe-468e-9b8b-31ab0c20ba68.jpeg"
+    },
+    {
+      "name": "Соус BBQ",
+      "price": 195,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/14435/thumb_4d7adb5a-e792-4076-a420-050a9378dc5b.jpeg"
+    },
+    {
+      "name": "Соус Блю чиз",
+      "price": 195,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/14432/thumb_fbc28450-02d1-4b47-9c07-67b3b5b66fb8.jpeg"
+    },
+    {
+      "name": "Соус Перечный",
+      "price": 195,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/14433/thumb_a3fd7f77-aa04-4947-87e6-38793b023763.jpeg"
+    },
+    {
+      "name": "Соус Тартар",
+      "price": 195,
+      "image": "https://cdn.deliveryguru.ru/uploads/27/menu_item/14427/thumb_50ff733d-31dd-40a1-988a-b68b510051e7.jpeg"
+    }
+  ]
+}

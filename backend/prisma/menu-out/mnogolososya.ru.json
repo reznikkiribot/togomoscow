@@ -1,0 +1,535 @@
+{
+  "domain": "mnogolososya.ru",
+  "method": "playwright-xhr",
+  "status": "ok",
+  "source": "window.appState",
+  "count": 105,
+  "withPhoto": 105,
+  "items": [
+    {
+      "name": "Соус сладкий васаби",
+      "price": 90,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/1d1309ca7308f503b15c1c0193501642_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Зелёный",
+      "price": 590,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/c4cc13964520cb9a68303a797e5875e6_thumb_75_1152_1152.PNG"
+    },
+    {
+      "name": "Шаурокинава",
+      "price": 405,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/b005e3217daffde232af4b7ecc77bb5f_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Чука с ореховым соусом",
+      "price": 395,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/e3f19d21cce0a704dcdb81558f616803_thumb_75_1152_1152.PNG"
+    },
+    {
+      "name": "Филадельфия с лососем",
+      "price": 850,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/076d35e16c38a7eab8f0d60b2c01ef9e_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Том Ям с кальмаром и креветками",
+      "price": 635,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/eddf5dbd63368315455ae082093feb6c_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Ролл Рукола-креветка",
+      "price": 585,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/a07f24708b66d206908fc7cf2249f169_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Запечённый с креветками",
+      "price": 690,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/0eaa65e98817c21836327d48f9ae9f2c_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Поке с лососем в тобико",
+      "price": 830,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/0b2eb39305d53bb8fe7e94aaa04a2e16_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Снежная калифорния",
+      "price": 630,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/a71c175e490b2daeacfeb55a309e70de_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Филадельфия лайт",
+      "price": 720,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/50973116b94f40154e2c3ef989650e3d_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Филадельфия с креветкой",
+      "price": 645,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/5bf17f58655321406ada7a03a60f0500_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Ролл Гуакамоле",
+      "price": 595,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/bb559e920ba6a1442b43b43b9dc04b32_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Угорь и лосось",
+      "price": 935,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/66c9293a777be589f130add90d8bcfd4_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Аляска",
+      "price": 595,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/e9afaf8f2765df55c0df8991bee43e88_thumb_75_1152_1152.PNG"
+    },
+    {
+      "name": "Даку 2.0",
+      "price": 695,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/fc848411b0a362bf5605b007224da18d_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Калифорния с креветкой спайси",
+      "price": 640,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/14d52bd7e11d67be4ddefc81beb92a56_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Калифорния с тунцом спайси",
+      "price": 705,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/aa605058aded981eeff4112c70ce2f52_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Канада",
+      "price": 820,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/113d4e7ef03461b4e03c5b5bc4014cdb_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Креветка с тамаго и авокадо",
+      "price": 530,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/8e0f47c296b666f6b7f56815d8399b67_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Окинава",
+      "price": 405,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/4ec72dd2978f9881e1734f2b7192a64b_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Просто авокадо",
+      "price": 270,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/12ad221d722532aba7ad55b7c051ed12_thumb_75_1152_1152.PNG"
+    },
+    {
+      "name": "Просто креветка",
+      "price": 350,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/64309595479bacbd628afe1a559501e4_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Просто лосось",
+      "price": 465,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/ff351baca48033316fb7c10e81e24515_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Просто лосось БИГ",
+      "price": 750,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/b50a8a624beab0bba3fa07dba14f97bf_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Просто огурец",
+      "price": 270,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/dfa369305e92dcbd57e21e8fb6a2bb0c_thumb_75_1152_1152.PNG"
+    },
+    {
+      "name": "Просто тунец",
+      "price": 345,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/98dc889f78cc11ea7ec452cca582aebf_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Просто угорь",
+      "price": 430,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/3f1ec40aa32b7c6e83089ce54d4843da_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Ролл с трюфельным соусом",
+      "price": 550,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/c87ddb42fb4395de629e195e7a22dc1d_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Сяке темпура",
+      "price": 835,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/1dca2a6d012775726096537f5735716e_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Филадельфия с угрём",
+      "price": 830,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/39870b4a8dceea0175311a0eae610523_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Хрустящий лосось",
+      "price": 695,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/b0e22fa3beb9f1f5f43505f0429b03b7_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Сливочная креветка и тобико",
+      "price": 630,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/7d2a1c848698e0c0cff2cbfbb6ea6293_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Хрустящая креветка и соус аригато",
+      "price": 495,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/e97d9a50dc54a2bae9398cf8c5edd25c_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Креветка Спайс",
+      "price": 530,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/efe736542fce0cf90173a9a6c0939414_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Лосось спайси",
+      "price": 580,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/e564145139aaa752f72351506d467f9b_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Унаги и опалённый лосось",
+      "price": 765,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/f56272f46511a33082fe55f7d621efce_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Опалённый лосось и креветка",
+      "price": 825,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/de8cd3cfc8bbbc4c27cd6369df77a6a1_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Калифорния с лососем",
+      "price": 760,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/00a379def9567105c1a0e3f33986c1de_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Шаурдельфия",
+      "price": 849,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/22fca217502b68bc910f314336a0a0d3_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Шаурфорния",
+      "price": 530,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/a4d0d6cdf568c18fe9872ea7766e9582_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Темпура с креветками спайси",
+      "price": 620,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/138a8e926f0747d983388b7d0989d5e7_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Темпура с тунцом",
+      "price": 530,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/5a9912aff4aae0c256c03721979cdc6a_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Огненный фурай",
+      "price": 650,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/f1221673f76c79515551cc1fff124540_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Запеченная калифорния",
+      "price": 595,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/fb6f5cd4817adb8d7f97813fe3356be7_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Киото",
+      "price": 595,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/2dcbf66956ee2a48cb507b50f12812f2_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Запечённый с кальмаром и пармезаном",
+      "price": 490,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/b8520f9a4a9cd690cd40e60816827d3b_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Темпура с лососем терияки",
+      "price": 645,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/b1b3fa955b154569570d4e66648fde45_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Темпура с лососем",
+      "price": 610,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/b75fb1dc9c8089aa9980b9958a64e954_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Запечённый с лососем",
+      "price": 635,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/9633deb2423a99ca5777d1d59229e5ec_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Запечённый с лососем терияки",
+      "price": 520,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/ae99483b3180c9b2e4d17d3bfd783fa6_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Суши с креветкой",
+      "price": 415,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/d856982ee7e7931c657ededc79a51534_thumb_75_1152_1152.PNG"
+    },
+    {
+      "name": "Сет из просто роллов",
+      "price": 1350,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/edb9e863b7a7c5e6f9ddab45b09f5d3f_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Лайт сет",
+      "price": 2590,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/f6450f3c9d8aee80bbf242889201055b_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "На двоих",
+      "price": 2730,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/81820260ff5c7bed786218dbd5a08183_thumb_75_1152_1152.PNG"
+    },
+    {
+      "name": "Сетик",
+      "price": 2520,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/fe4f6c674ca3b68ac45a1166a0d5c602_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Собери свой сет",
+      "price": 1460,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/0602e00e8698013b25bcd23923d0e7b2_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "На компанию",
+      "price": 4950,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/0d822aca9fa42c8edf82b90ed3df6c36_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Хитовый",
+      "price": 2990,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/1e47195b545e743de02cc0d366c3da15_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Филадельфия сет",
+      "price": 2950,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/4b0260ec398a3508b94d601e5b5c8734_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Запечённый сет",
+      "price": 1850,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/253f9015a6979d6cdff9872775dbe81b_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Мягкое облако",
+      "price": 2295,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/8571b69e608894b8c5ac2a9b147da2de_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Темпура сет",
+      "price": 2350,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/7333f66c2464e3e4a10f06cce5d9442b_thumb_75_1152_1152.PNG"
+    },
+    {
+      "name": "Сет Большой",
+      "price": 3950,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/f17cf848486d6b064621623ad0d201de_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Жаркий лосось",
+      "price": 2350,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/17a9ef1b51612ee0d008630befe2ad7f_thumb_75_1152_1152.PNG"
+    },
+    {
+      "name": "Поке с креветками",
+      "price": 780,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/3d9ab65a9c04e36fc93b2c615bf2834c_thumb_75_1152_1152.PNG"
+    },
+    {
+      "name": "Поке спайси с лососем",
+      "price": 890,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/f701a9586f207ff425d2d87d33d0a231_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Поке с тунцом",
+      "price": 795,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/116ebec73cfa9103dd9332b8438cd9e1_thumb_75_1152_1152.PNG"
+    },
+    {
+      "name": "Собери своё поке",
+      "price": 220,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/14d10f12b8113076696e4c53f1a8ab1a_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Поке с лососем",
+      "price": 890,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/e72569c1170ed889a7e24945d771ccfc_thumb_75_1152_1152.PNG"
+    },
+    {
+      "name": "Картофель фри",
+      "price": 275,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/f6b0d9be8c6c03676bdc6e473c4e7c8b_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Креветки васаби",
+      "price": 695,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/6976eaf1a0a70ba9188cce22d396c841_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Чипсы креветочные",
+      "price": 150,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/fffd098e1fc3069d23ea6c0215eaf244_thumb_75_1152_1152.PNG"
+    },
+    {
+      "name": "Наггетсы куриные",
+      "price": 285,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/f276a21de494af161be88e5050f1820e_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Цезарь с креветками",
+      "price": 735,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/075eadff4c29b6247724f93554708ae5_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Цезарь с опалённым лососем",
+      "price": 820,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/67ecf85bccc4ebfb522176f9865bef1e_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Цезарь с курицей",
+      "price": 635,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/90a1cbd053c51bc6fba5fe2173abfaa3_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Битые огурцы",
+      "price": 350,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/c40a91140b86107d5a540da69cc4eff3_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Том Ям с креветками",
+      "price": 680,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/680c72872b9cfc8c96b906a4dbbb877a_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Том ям с лососем",
+      "price": 690,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/8a9708e73519aeb872fc5a2a453d298a_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Том Ям с курицей",
+      "price": 565,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/672fd91b3ad1ea6124de920cfac97649_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Мисо-суп с лососем",
+      "price": 590,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/9c5fa0b20c400b9f2b308988183029cf_thumb_75_1152_1152.PNG"
+    },
+    {
+      "name": "Мисо-суп классический",
+      "price": 390,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/8659dae9f1aee68c6f0856aa9553729b_thumb_75_1152_1152.PNG"
+    },
+    {
+      "name": "Паста с лососем в сливочном соусе",
+      "price": 750,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/71821fbe43012935945ef82abb500d5b_thumb_75_1152_1152.PNG"
+    },
+    {
+      "name": "Креветки для котика",
+      "price": 240,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/0365ca22ce70ba5e6c4fd4e13044d392_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Тунец для котика",
+      "price": 240,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/1f4d83ea34a70ff6cb9920f09251db20_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Комбо тунец и креветки для котика",
+      "price": 450,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/bdad245d6b6874a3dba9a8f50083891a_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Васаби",
+      "price": 70,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/aa8eef7dfdda0436a337ddb4c0970125_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Имбирь маринованный",
+      "price": 70,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/a71852e053134d8a7863bc1ce6a13ece_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Соус Цезарь",
+      "price": 180,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/7b4657268c5591940895bb7ca0a50c1f_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Соус кимчи",
+      "price": 120,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/7dbfd8367e71ef7186583aa6f29cf8ba_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Соус ореховый",
+      "price": 90,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/ace161643ce3d536eb6cb7fa22a5b939_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Соус поке",
+      "price": 70,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/f621fc1fecc37aa51aed749f555f83ad_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Соус сладкий чили",
+      "price": 100,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/40f57dae13f5e0ab02896d2dc34d9904_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Соус соевый",
+      "price": 70,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/8a6ed9632df66e2010fc4a1eccef758c_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Соус спайси",
+      "price": 90,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/c095783dce334bac117c8f5596c018d0_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Соус терияки",
+      "price": 90,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/2f1716b8273dd82912415f81fbf74530_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Соус трюфельный",
+      "price": 180,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/69c12490d1e4dc0ba898e0ab3cc9bdd8_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Соус унаги",
+      "price": 90,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/956f3c0934f6cae78e2e5e6c6861c3fa_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Соус чесночный",
+      "price": 100,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/a46fa62f6e4383191defd6f538126d47_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Сырный соус Heinz",
+      "price": 90,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/4b81766caade92e23b3e55074bb873fb_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Добрый Кола",
+      "price": 170,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/fbe9f971cb74a4bb9007d643897c654f_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Добрый Апельсин с витамином С",
+      "price": 170,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/073de08dda9cd7c5522f628ea9318d10_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Апельсиновый фреш",
+      "price": 470,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/4a50c8042e487e31922a8d6d3928a31d_thumb_75_1152_1152.JPEG"
+    },
+    {
+      "name": "Добрый Лимон-лайм",
+      "price": 170,
+      "image": "https://thapl-public.storage.yandexcloud.net/thapl-project172/img/CatalogItem/2f6bcf5b4bbf1054d9b02575eb002bcb_thumb_75_1152_1152.JPEG"
+    }
+  ]
+}

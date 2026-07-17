@@ -1,0 +1,780 @@
+{
+  "domain": "lcpizza.ru",
+  "method": "__NEXT_DATA__",
+  "status": "ok",
+  "source": "/",
+  "count": 154,
+  "withPhoto": 63,
+  "items": [
+    {
+      "name": "Аква минерале с газом, 500мл",
+      "price": 95,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/13008751129fd93b2c7241fe9603d1f1136aab35-460x460.jpg"
+    },
+    {
+      "name": "Пицца Бавария Спайси",
+      "price": 984,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/390c071bab49a9d5dd268ab2848739f22a213315-1345x1169.png"
+    },
+    {
+      "name": "пепперони",
+      "price": 30,
+      "image": null
+    },
+    {
+      "name": "бекон",
+      "price": 55,
+      "image": null
+    },
+    {
+      "name": "ветчина",
+      "price": 33,
+      "image": null
+    },
+    {
+      "name": "цыпленок",
+      "price": 47,
+      "image": null
+    },
+    {
+      "name": "моцарелла",
+      "price": 120,
+      "image": null
+    },
+    {
+      "name": "чеддер",
+      "price": 45,
+      "image": null
+    },
+    {
+      "name": "пармезан",
+      "price": 60,
+      "image": null
+    },
+    {
+      "name": "халапеньо",
+      "price": 53,
+      "image": null
+    },
+    {
+      "name": "томаты",
+      "price": 39,
+      "image": null
+    },
+    {
+      "name": "салат Айсберг",
+      "price": 70,
+      "image": null
+    },
+    {
+      "name": "лук красный",
+      "price": 25,
+      "image": null
+    },
+    {
+      "name": "Пицца Суприм",
+      "price": 952,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/43211400820254cc2da74d345ac91abb8bdbb468-1254x1254.jpg"
+    },
+    {
+      "name": "Эспрессо 50мл",
+      "price": 129,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/e642d42a00facd681286b9455d29720173bdb479-722x640.jpg"
+    },
+    {
+      "name": "сироп ваниль",
+      "price": 30,
+      "image": null
+    },
+    {
+      "name": "сироп соленая карамель",
+      "price": 30,
+      "image": null
+    },
+    {
+      "name": "сироп лесной орех",
+      "price": 30,
+      "image": null
+    },
+    {
+      "name": "сироп шоколад",
+      "price": 30,
+      "image": null
+    },
+    {
+      "name": "Пицца Пепперони",
+      "price": 682,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/07b445ddd43c95f238f2e5183fa93a907fafac03-1000x800.jpg"
+    },
+    {
+      "name": "Пицца Маргарита на традиционном тесте",
+      "price": 465,
+      "image": null
+    },
+    {
+      "name": "Пицца Маргарита на тонком тесте",
+      "price": 465,
+      "image": null
+    },
+    {
+      "name": "Пицца Сырная на традиционном тесте",
+      "price": 475,
+      "image": null
+    },
+    {
+      "name": "Пицца Сырная на тонком тесте",
+      "price": 475,
+      "image": null
+    },
+    {
+      "name": "Пицца Ветчина Грибы на традиционном тесте",
+      "price": 574,
+      "image": null
+    },
+    {
+      "name": "Пицца Ветчина Грибы на тонком тесте",
+      "price": 574,
+      "image": null
+    },
+    {
+      "name": "Пицца Пепперони-Сырная на традиционном тесте",
+      "price": 584,
+      "image": null
+    },
+    {
+      "name": "Пицца Пепперони-Сырная на тонком тесте",
+      "price": 584,
+      "image": null
+    },
+    {
+      "name": "Пицца Цыпленок барбекю на традиционном тесте",
+      "price": 594,
+      "image": null
+    },
+    {
+      "name": "Пицца Цыпленок барбекю на тонком тесте",
+      "price": 594,
+      "image": null
+    },
+    {
+      "name": "Пицца Пепперони на традиционном тесте",
+      "price": 614,
+      "image": null
+    },
+    {
+      "name": "Пицца Пепперони на тонком тесте",
+      "price": 614,
+      "image": null
+    },
+    {
+      "name": "Пицца Мексиканская на традиционном тесте",
+      "price": 634,
+      "image": null
+    },
+    {
+      "name": "Пицца Мексиканская на тонком тесте",
+      "price": 634,
+      "image": null
+    },
+    {
+      "name": "Пицца Вегетарианская на традиционном тесте",
+      "price": 646,
+      "image": null
+    },
+    {
+      "name": "Пицца Вегетарианская на тонком тесте",
+      "price": 646,
+      "image": null
+    },
+    {
+      "name": "Б_Жульен",
+      "price": 653,
+      "image": null
+    },
+    {
+      "name": "ТТ_Жульен",
+      "price": 653,
+      "image": null
+    },
+    {
+      "name": "Пицца 3 Мяса на традиционном тесте",
+      "price": 661,
+      "image": null
+    },
+    {
+      "name": "Пицца 3 Мяса на тонком тесте",
+      "price": 661,
+      "image": null
+    },
+    {
+      "name": "Б_ПепперДабл",
+      "price": 704,
+      "image": null
+    },
+    {
+      "name": "ТТ_ПепперДабл",
+      "price": 704,
+      "image": null
+    },
+    {
+      "name": "Б_ПепперПерчик",
+      "price": 716,
+      "image": null
+    },
+    {
+      "name": "ТТ_ПепперПерчик",
+      "price": 716,
+      "image": null
+    },
+    {
+      "name": "Пицца Хула Гавайи на традиционном тесте",
+      "price": 718,
+      "image": null
+    },
+    {
+      "name": "Пицца Хула Гавайи на тонком тесте",
+      "price": 718,
+      "image": null
+    },
+    {
+      "name": "Б_ПепперВетчина",
+      "price": 743,
+      "image": null
+    },
+    {
+      "name": "ТТ_ПепперВетчина",
+      "price": 743,
+      "image": null
+    },
+    {
+      "name": "Пицца 5 Сыров на традиционном тесте",
+      "price": 758,
+      "image": null
+    },
+    {
+      "name": "Пицца 5 Сыров на тонком тесте",
+      "price": 758,
+      "image": null
+    },
+    {
+      "name": "Б_КопчЦыпа",
+      "price": 790,
+      "image": null
+    },
+    {
+      "name": "ТТ_КопчЦыпа",
+      "price": 790,
+      "image": null
+    },
+    {
+      "name": "Пицца Фирменный Цезарь на традиционном тесте",
+      "price": 851,
+      "image": null
+    },
+    {
+      "name": "Пицца Фирменный Цезарь на тонком тесте",
+      "price": 851,
+      "image": null
+    },
+    {
+      "name": "Б_Суприм",
+      "price": 857,
+      "image": null
+    },
+    {
+      "name": "ТТ_Суприм",
+      "price": 857,
+      "image": null
+    },
+    {
+      "name": "Б_Охотничья",
+      "price": 871,
+      "image": null
+    },
+    {
+      "name": "ТТ_Охотничья",
+      "price": 871,
+      "image": null
+    },
+    {
+      "name": "Б_БаварСпайси",
+      "price": 885,
+      "image": null
+    },
+    {
+      "name": "ТТ_БаварСпайси",
+      "price": 885,
+      "image": null
+    },
+    {
+      "name": "Пицца Фантастическая четверка на тонком тесте",
+      "price": 926,
+      "image": null
+    },
+    {
+      "name": "Б_Креветка",
+      "price": 1134,
+      "image": null
+    },
+    {
+      "name": "ТТ_Креветка",
+      "price": 1134,
+      "image": null
+    },
+    {
+      "name": "Б_Том Ям",
+      "price": 1188,
+      "image": null
+    },
+    {
+      "name": "ТТ_Том Ям",
+      "price": 1188,
+      "image": null
+    },
+    {
+      "name": "Пицца Жульен",
+      "price": 726,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/d12de4d6c1214d981abb839b6f0ac96e40270c19-1024x1024.jpg"
+    },
+    {
+      "name": "маргарита",
+      "price": 294,
+      "image": null
+    },
+    {
+      "name": "сырная",
+      "price": 297,
+      "image": null
+    },
+    {
+      "name": "ветчина грибы",
+      "price": 359,
+      "image": null
+    },
+    {
+      "name": "_Жульен",
+      "price": 363,
+      "image": null
+    },
+    {
+      "name": "цыпленок барбекю",
+      "price": 372,
+      "image": null
+    },
+    {
+      "name": "_ПепперДабл",
+      "price": 391,
+      "image": null
+    },
+    {
+      "name": "мексиканская",
+      "price": 396,
+      "image": null
+    },
+    {
+      "name": "_ПепперПерчик",
+      "price": 397,
+      "image": null
+    },
+    {
+      "name": "вегетарианская",
+      "price": 403,
+      "image": null
+    },
+    {
+      "name": "_ПепперВетчина",
+      "price": 412,
+      "image": null
+    },
+    {
+      "name": "3 мяса",
+      "price": 413,
+      "image": null
+    },
+    {
+      "name": "_КопчЦыпа",
+      "price": 439,
+      "image": null
+    },
+    {
+      "name": "хула гавайи",
+      "price": 448,
+      "image": null
+    },
+    {
+      "name": "5 cыров",
+      "price": 473,
+      "image": null
+    },
+    {
+      "name": "_Суприм",
+      "price": 476,
+      "image": null
+    },
+    {
+      "name": "_Охотничья",
+      "price": 484,
+      "image": null
+    },
+    {
+      "name": "фирменный цезарь",
+      "price": 531,
+      "image": null
+    },
+    {
+      "name": "_Креветка",
+      "price": 630,
+      "image": null
+    },
+    {
+      "name": "_Том Ям",
+      "price": 660,
+      "image": null
+    },
+    {
+      "name": "Итальянские сырные палочки",
+      "price": 492,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/fa0264885e87cf6376b45de6d62a41a971381bb5-550x412.jpg"
+    },
+    {
+      "name": "Соус Томатный",
+      "price": 40,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/7848a18577565eec513e22488b404cac7e4c3782-828x828.jpg"
+    },
+    {
+      "name": "Пицца с креветками",
+      "price": 1260,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/e4bcdddd820980b36fcee8e3ad022f340f8c6049-1024x1536.png"
+    },
+    {
+      "name": "Пицца Любимая двойка №1",
+      "price": 792,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/4cc96d842b56cb22ea2b129199155bf54563c834-768x432.jpg"
+    },
+    {
+      "name": "Сырники 2 шт",
+      "price": 234,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/f5338965a2589ef8abdf9a0a5c3d86c473464f20-1024x1024.png"
+    },
+    {
+      "name": "Аква минерале без газа, 500мл",
+      "price": 95,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/413012a5e30ddab29e9ffbaebe7b4e63112f2cc8-1200x1200.png"
+    },
+    {
+      "name": "Пицца Маргарита",
+      "price": 499,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/24807897d8f0e5c503bfb950e44a671c5e59775a-753x849.jpg"
+    },
+    {
+      "name": "Американо 200мл",
+      "price": 159,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/b4e1d61b0c0bf87226e9f1060014c46941c508aa-722x640.jpg"
+    },
+    {
+      "name": "Пицца Копченая Цыпа",
+      "price": 878,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/41542437ce79c1bcd269cebe890b53c3dd23e07e-1254x1254.png"
+    },
+    {
+      "name": "Пицца Любимая двойка №2",
+      "price": 814,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/232018f4f2683624bc15948c68fb9ac8615ba233-768x432.jpg"
+    },
+    {
+      "name": "Пицца Охотничья",
+      "price": 968,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/a3b3fee8cfce8277f0ca693d17ad6ab55c4d225d-912x911.jpg"
+    },
+    {
+      "name": "Соус Кетчуп",
+      "price": 40,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/e30d91679cabab95888a542466bf9c21d63a6edf-1199x1199.png"
+    },
+    {
+      "name": "5 сыров",
+      "price": 473,
+      "image": null
+    },
+    {
+      "name": "Итальянские сырные палочки с беконом",
+      "price": 550,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/77f0675aee0659a559e93fecca1b1e8d13dba0fe-915x720.png"
+    },
+    {
+      "name": "Пицца Сырная",
+      "price": 473,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/82cd8873490fbaa079b3570847cdd7a3f519b5f0-1200x800.jpg"
+    },
+    {
+      "name": "Пицца Пепперони-Ветчина",
+      "price": 825,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/1f119595ae85a176980a04e9ef5edfe10d2bdee3-1254x1254.png"
+    },
+    {
+      "name": "Пицца сырная",
+      "price": 528,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/5304e2f58b922a5c40eebb9cd8f4b0bcd1a2c306-660x440.jpg"
+    },
+    {
+      "name": "Пицца Любимая двойка №3",
+      "price": 825,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/8ca76b939b4478571c67496265d1e09128d6afca-768x432.jpg"
+    },
+    {
+      "name": "Сок J7 Апельсин",
+      "price": 194,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/f2d91a20b5bcbe72a91ff336ba541c26492c6a27-460x460.jpg"
+    },
+    {
+      "name": "Капучино 200мл",
+      "price": 219,
+      "image": null
+    },
+    {
+      "name": "Капучино 320мл",
+      "price": 239,
+      "image": null
+    },
+    {
+      "name": "Итальянские сырные палочки с халапеньо",
+      "price": 550,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/82bd1254171b65b54be0af1505ffaaf25b10e54d-1135x640.png"
+    },
+    {
+      "name": "Соус Сырный Чеддер",
+      "price": 40,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/0408bfafc2eaeca4d9303991e8c48fac66478df1-300x212.png"
+    },
+    {
+      "name": "Пицца 3 Мяса",
+      "price": 735,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/f8af6647a1ab57a96ad09b48ea04a8137ab68ddd-1024x1536.png"
+    },
+    {
+      "name": "Латте 200мл",
+      "price": 229,
+      "image": null
+    },
+    {
+      "name": "Латте 320мл",
+      "price": 249,
+      "image": null
+    },
+    {
+      "name": "Пицца Цыпленок барбекю",
+      "price": 660,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/ac462db03fffa3042f813d76cc9f0ab37d0316fc-640x512.jpg"
+    },
+    {
+      "name": "Соус Барбекю",
+      "price": 40,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/22d1843f1a57d0e7dbf08419e541d957593c8e68-235x166.png"
+    },
+    {
+      "name": "Сок J7 Яблоко",
+      "price": 194,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/78fa8c1006096e1473325d55f805d2a5de4d1dd2-460x460.jpg"
+    },
+    {
+      "name": "Хлебные палочки с сыром пармезан, 8шт",
+      "price": 219,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/db97b8b3d003b964cb43796370cc41860e2e59d0-384x384.png"
+    },
+    {
+      "name": "Пицца Вкусная четверка",
+      "price": 920,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/3e1a2bb2ad27212823c078d1039f4ec43feb8b87-640x365.jpg"
+    },
+    {
+      "name": "Пицца Пепперони Дабл",
+      "price": 782,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/9b6867e977daaebc8a670a7bbfa3b52684eb32a1-1315x1197.png"
+    },
+    {
+      "name": "Картофель-фри",
+      "price": 215,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/134de390c23303507901f0a2c9740b14dd97fdd4-799x799.png"
+    },
+    {
+      "name": "Соус Цезарь",
+      "price": 44,
+      "image": null
+    },
+    {
+      "name": "Соус Кисло-сладкий",
+      "price": 44,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/7a4e62438129f0e94c9e7944c39e10974ec9e810-235x166.png"
+    },
+    {
+      "name": "Соус Брусничный",
+      "price": 44,
+      "image": null
+    },
+    {
+      "name": "Соус Горчичный",
+      "price": 44,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/361ec3256b9f1ad0ff8edbb35214b95c1123da2f-300x212.png"
+    },
+    {
+      "name": "Соус чесночный",
+      "price": 44,
+      "image": null
+    },
+    {
+      "name": "Пицца Хула Гавайи",
+      "price": 798,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/bc43776d5eb49b67a854749a1bddc69a008354e2-640x512.jpg"
+    },
+    {
+      "name": "Пицца 5 Сыров",
+      "price": 842,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/179dc23272596bf522bf9d089826a84a7233d17c-550x440.jpg"
+    },
+    {
+      "name": "Донат с вишневой начинкой",
+      "price": 120,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/62831eca72e2101d235a96f8bb183c5d1332eb2d-722x640.jpg"
+    },
+    {
+      "name": "Пицца Пепперони-Сладкий Перчик",
+      "price": 795,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/8554fbb4f32d6cff7789cdef9c56e14062b5a7c3-1415x1112.png"
+    },
+    {
+      "name": "Пицца Пепперони-Сладкий перчик",
+      "price": 795,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/8ce827c9adb0a56ae979226afa7cefdf0b758974-1448x1086.png"
+    },
+    {
+      "name": "Пицца Том-Ям",
+      "price": 1320,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/7e5e0ae3c8cd80acaf55057157e429e3743873bb-1254x1254.png"
+    },
+    {
+      "name": "Донат с клубничной начинкой",
+      "price": 120,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/f10db366a5b0624f86e869630cd4c421df157b55-722x640.jpg"
+    },
+    {
+      "name": "Куриные наггетсы, 6шт",
+      "price": 188,
+      "image": null
+    },
+    {
+      "name": "Куриные наггетсы, 9шт",
+      "price": 282,
+      "image": null
+    },
+    {
+      "name": "Донат с начинкой маршмеллоу",
+      "price": 120,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/8ced8cee7cec43b990a9636570477ac2065a75b5-722x640.jpg"
+    },
+    {
+      "name": "Чай пакетированный черный, 200 мл",
+      "price": 99,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/e6b785581962610ca726727af0774951b6cf5b71-1199x1199.png"
+    },
+    {
+      "name": "Куриные крылышки, 6шт",
+      "price": 470,
+      "image": null
+    },
+    {
+      "name": "Куриные крылышки, 9шт",
+      "price": 745,
+      "image": null
+    },
+    {
+      "name": "Чай Липтон зеленый",
+      "price": 125,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/b1d397f6d2d56d7f82c1ad5bf79ea1501086eefc-1000x1000.png"
+    },
+    {
+      "name": "Чай зеленый, 200 мл",
+      "price": 99,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/e6b785581962610ca726727af0774951b6cf5b71-1199x1199.png"
+    },
+    {
+      "name": "Донат с начинкой карамель",
+      "price": 120,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/de45095fcc717461e3177e33f2c79763832e87a0-722x640.jpg"
+    },
+    {
+      "name": "Пицца Вегетарианская",
+      "price": 697,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/3f67e3b3ee72582fbce674494dc4e64fd46b32ee-640x512.jpg"
+    },
+    {
+      "name": "Чай Липтон лимон",
+      "price": 125,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/8d5aef59c54ab45d0d42211b2d5639ac048f6487-1000x1000.png"
+    },
+    {
+      "name": "Соус Чесночный",
+      "price": 40,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/ec4f1d0289320eb2fff8b61f905aa069e0e25d32-300x244.png"
+    },
+    {
+      "name": "Чай пакетированный фруктовый, 200 мл",
+      "price": 99,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/e6b785581962610ca726727af0774951b6cf5b71-1199x1199.png"
+    },
+    {
+      "name": "Пицца Ветчина-Грибы",
+      "price": 638,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/39262036c796cd1402446f235e96c97dd79b7669-550x367.jpg"
+    },
+    {
+      "name": "Чай Липтон холодный персик",
+      "price": 125,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/97113411cd8414df9e3c69a9ca13f0a493cf9eda-600x600.jpg"
+    },
+    {
+      "name": "Пицца Фирменный Цезарь",
+      "price": 946,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/a996d31723590fbcd94dc1b7c4d9faa0d733d996-878x640.png"
+    },
+    {
+      "name": "Пицца Мексиканская",
+      "price": 647,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/4c2e35e8c8fb1d2ec5e98de169690585cf1b666d-908x557.png"
+    },
+    {
+      "name": "Пицца-тост с креветками",
+      "price": 396,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/3af460d331b2f5b0ca45b257a578f4770c2a5020-1024x1536.png"
+    },
+    {
+      "name": "Пицца Пепперони-Сырная",
+      "price": 598,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/c4371a8a7d7f66f5db41cf0e306a6ae1eb874e61-1136x640.png"
+    },
+    {
+      "name": "Эвервесс Кола классика",
+      "price": 176,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/d841b597e523b5f4209d7063395c45c37f789b12-460x460.jpg"
+    },
+    {
+      "name": "Пицца-тост с пепперони",
+      "price": 253,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/3c0be62d5d1b8d7e4503b38fa2a2cabd653ceaff-1536x1024.jpg"
+    },
+    {
+      "name": "Эвервесс Кола без сахара",
+      "price": 176,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/f4ae72a29b5590034f9c89189a8711d5ae3196dd-1400x1010.png"
+    },
+    {
+      "name": "Пицца-тост с сыром",
+      "price": 219,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/787db72830378a049900f066162a907127fe49cb-1024x1536.jpg"
+    },
+    {
+      "name": "Пицца Фантастическая Четверка",
+      "price": 992,
+      "image": "https://content.cdn.starterapp.ru/images/littlecaesarspizza/73e477196aa701ef3966890c91fa694e9f3a6df7-1200x700.jpg"
+    }
+  ]
+}

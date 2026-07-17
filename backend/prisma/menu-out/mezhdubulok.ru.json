@@ -1,0 +1,200 @@
+{
+  "domain": "mezhdubulok.ru",
+  "method": "playwright-xhr",
+  "status": "ok",
+  "source": "https://all.s2.sellkit.ru/NewApi/Content/GetCatalog.php",
+  "count": 38,
+  "withPhoto": 31,
+  "items": [
+    {
+      "name": "- Картофель по-деревенски",
+      "price": 20,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2F6afef446bd6ad9f60b0ab388223df794.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "- Луковые кольца",
+      "price": 20,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2F03bcf3430e22ad34da0f6f1cfb675d6e.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "Соус сырный",
+      "price": 60,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2F26f9d1d541b6d9ff51d62a9944e77cd7.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "Кетчуп",
+      "price": 60,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2F90606b7e25e1a868f7dcf3f07674a1ff.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "Соус чесночный",
+      "price": 60,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2Feefac93f70b5a09a407d38d1dc222bef.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "Соус кисло-сладкий",
+      "price": 60,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2Fdc666d37c40af5449a3aa4a3c1bb460b.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "Соус барбекю",
+      "price": 60,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2Fb55f9b23302c6d29800a29a5d63071d3.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "Соус карри",
+      "price": 60,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2F6548d731a1da2eef87f579907b8beb46.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "Соус пивной",
+      "price": 60,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2F1f3aa1df37b082a74bf9380374f1c87f.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "Соус острый майонез",
+      "price": 60,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2F1f3aa1df37b082a74bf9380374f1c87f.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "- Добрый Лимон-Лайм 500мл.",
+      "price": 10,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2F0bcddde86540a8b8f6ced3e517a465ca.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "- Добрый Апельсин 500мл.",
+      "price": 10,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2F7ac8ca56b14c5f2b6921babb076b4967.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "- Чай Липтон малина 0,5",
+      "price": 20,
+      "image": null
+    },
+    {
+      "name": "- Добрый Кола 500мл.",
+      "price": 10,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2Fbb2a580194f8f6fb09f2a1b87b8a3385.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "- Чай Липтон зеленый 0,5",
+      "price": 20,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2F1a3a3d493e5d79a829a133e29fb40d23.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "- Чай Липтон лимон 0,5",
+      "price": 20,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2Fad523fe721726b87d0c5e1421b3dbcc0.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "- Чай Липтон персик 0,5",
+      "price": 20,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2F3f7142a14a3da4a0049cba076535943f.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "Бекон",
+      "price": 90,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2F176a82f0a95f92c867e06df91009f673.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "Халапеньо",
+      "price": 60,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2Fed60edf237ee4e882aef628b1b9abc0d.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "Яйцо",
+      "price": 50,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2F76d6affe049081d483bf97d58555eaf1.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "Сыр Чеддер",
+      "price": 80,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2F6e246aee19cdb995144e8691659f1ea1.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "Сыр Моцарелла",
+      "price": 80,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2F5429bceb0cdb4a6089d8d5dcca2d00b4.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "- средний",
+      "price": 50,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2F241184263729fa85469cffa1400c166a.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "BIG Бургер Карри",
+      "price": 130,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2F17131473d3b83f252b04cbb860888cdb.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "Сыр Пармезан",
+      "price": 100,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2F5429bceb0cdb4a6089d8d5dcca2d00b4.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "BIG Голодный волк",
+      "price": 320,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2F17131473d3b83f252b04cbb860888cdb.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "- 7шт",
+      "price": 140,
+      "image": null
+    },
+    {
+      "name": "- 7 шт",
+      "price": 140,
+      "image": null
+    },
+    {
+      "name": "BIG Луковый перегар",
+      "price": 200,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2F17131473d3b83f252b04cbb860888cdb.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "BIG Бургер с яйцом",
+      "price": 200,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2F17131473d3b83f252b04cbb860888cdb.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "BIG Дон Педро",
+      "price": 200,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2F17131473d3b83f252b04cbb860888cdb.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "10 шт",
+      "price": 100,
+      "image": null
+    },
+    {
+      "name": "BIG Медвежья радость",
+      "price": 200,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2F17131473d3b83f252b04cbb860888cdb.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "- Big",
+      "price": 200,
+      "image": null
+    },
+    {
+      "name": "- Сырные палочки моцарелла 6шт",
+      "price": 140,
+      "image": null
+    },
+    {
+      "name": "Соус брусничный",
+      "price": 60,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2Fdc666d37c40af5449a3aa4a3c1bb460b.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "Соус вишневый",
+      "price": 60,
+      "image": "https://cdnsellkit.ru/getImageCDN.php?width=256&height=256&compressionQuality=80&crop=1&format=jpg&domain=mezdybulok-panel.s2.sellkit.ru&time=8&url=%2Fcontent%2Fmezdybulok_%2Fplates%2Fdc666d37c40af5449a3aa4a3c1bb460b.JPEG&folder=mezdybulok"
+    },
+    {
+      "name": "- Сырные шарики Моцарелла 6шт",
+      "price": 140,
+      "image": null
+    }
+  ]
+}

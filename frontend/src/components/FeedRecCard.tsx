@@ -24,7 +24,7 @@ export function FeedRecCard({
 }) {
   const venue = item.recVenue?.name || item.bestVenue?.name;
   const price = item.recVenue?.price;
-  const best = !!item.bestVenue;
+  const best = !!item.bestVenue && item.reviewCount > 0; // «Лучшее в» is earned by ratings
   return (
     <div className="post rec-post" onClick={onOpen}>
       <div className="rec-tag">✨ Вам может понравиться</div>

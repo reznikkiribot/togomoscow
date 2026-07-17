@@ -1,0 +1,50 @@
+{
+  "domain": "ramen.moscow",
+  "method": "playwright-xhr",
+  "status": "ok",
+  "source": "https://miniapp.lb.group/miniapp/restaurants/ramen_land%3Aserpukhovskaya-classes/events",
+  "count": 8,
+  "withPhoto": 0,
+  "items": [
+    {
+      "name": "Мастер-класс по приготовлению рамена",
+      "price": 4500,
+      "image": null
+    },
+    {
+      "name": "Мастер-класс по приготовлению моти",
+      "price": 3700,
+      "image": null
+    },
+    {
+      "name": "Мастер-класс по приготовлению суши и роллов",
+      "price": 4900,
+      "image": null
+    },
+    {
+      "name": "BEER PONG В RA’MEN LAND КАЖДЫЙ ДЕНЬ&#127955;",
+      "price": 2000,
+      "image": null
+    },
+    {
+      "name": "&#127807; Творческая встреча «Волшебные миры Миядзаки»",
+      "price": 1000,
+      "image": null
+    },
+    {
+      "name": "Мастер-класс по японскому языку &#127471;&#127477;",
+      "price": 500,
+      "image": null
+    },
+    {
+      "name": "Dance мастер-класс&#128156;",
+      "price": 1000,
+      "image": null
+    },
+    {
+      "name": "&#127922; Мастер-класс по игре Го",
+      "price": 500,
+      "image": null
+    }
+  ]
+}

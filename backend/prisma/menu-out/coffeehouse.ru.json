@@ -1,0 +1,8 @@
+{
+  "domain": "coffeehouse.ru",
+  "method": null,
+  "status": "HTTP 403 from WAF for site, sitemap, and common public endpoints",
+  "count": 0,
+  "withPhoto": 0,
+  "items": []
+}

@@ -1,0 +1,670 @@
+{
+  "domain": "syrovarnya.com",
+  "method": "public SSR HTML microdata",
+  "status": "ok",
+  "source": "https://www.syrovarnya.com/ru/catalog/atrium",
+  "count": 132,
+  "withPhoto": 132,
+  "items": [
+    {
+      "name": "Домашний салат из овощей со сметаной и яйцом",
+      "price": 890,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100000056.jpg?itok=wD3NTajL"
+    },
+    {
+      "name": "Фокачча с Бурратой и томатами",
+      "price": 1370,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011118.jpg?itok=RNsLMG0L"
+    },
+    {
+      "name": "Пепперони",
+      "price": 1290,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100000044.jpg?itok=b0ybpZge"
+    },
+    {
+      "name": "Борщ",
+      "price": 830,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011145.jpg?itok=llzhn4Uk"
+    },
+    {
+      "name": "Спагетти с лисичками",
+      "price": 950,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400000996.jpg?itok=iGrTCflW"
+    },
+    {
+      "name": "Ньокки с утиным филе и лисичками",
+      "price": 1750,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/8200000244.jpg?itok=duAq8tiB"
+    },
+    {
+      "name": "Орзо с тальятой из говядины и лисичками",
+      "price": 1870,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/8200000243.jpg?itok=P65DPWAO"
+    },
+    {
+      "name": "Сом с лисичками, разнотравьем и копченой сметаной",
+      "price": 1100,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/3200000503.jpg?itok=H3J6WJ5-"
+    },
+    {
+      "name": "Филе говядины с пюре и лисичками",
+      "price": 1900,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/3200000502.jpg?itok=8ZHbBK0u"
+    },
+    {
+      "name": "Цыпленок с печеным картофелем и кремом из кукурузы",
+      "price": 1650,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/10100000151.jpg?itok=FZHv1u46"
+    },
+    {
+      "name": "Икра щучья с хрустящими тостами",
+      "price": 1590,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100000067N.jpg?itok=RlXNrDzU"
+    },
+    {
+      "name": "Салат с цыпленком и Пармезаном",
+      "price": 1090,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400004570.jpg?itok=uG3b0N4D"
+    },
+    {
+      "name": "Салат из помидоров и огурцов с Брынзой (Греческий)",
+      "price": 970,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/3200000322.jpg?itok=x1D0Do5v"
+    },
+    {
+      "name": "Запеченный Халлуми с томатами и базиликом",
+      "price": 980,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/3200000405.jpg?itok=J44dqeIT"
+    },
+    {
+      "name": "Капрезе",
+      "price": 890,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/3200000402.jpg?itok=vzJagDpK"
+    },
+    {
+      "name": "Ростбиф с соусом тоннато",
+      "price": 950,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/3200000485.jpg?itok=-nMxJpb_"
+    },
+    {
+      "name": "Салат с крабом и авокадо",
+      "price": 1820,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100012652N.jpg?itok=u-jpPZ_V"
+    },
+    {
+      "name": "Тартар из тунца",
+      "price": 980,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/3200000470.jpg?itok=JjGkXUuf"
+    },
+    {
+      "name": "Зеленый салат",
+      "price": 990,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100009000.jpg?itok=Byjub32C"
+    },
+    {
+      "name": "Паштет из куриной печени с апельсиновым конфитюром",
+      "price": 890,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011017N.jpg?itok=_Oucusqu"
+    },
+    {
+      "name": "Салат из помидоров с красным луком",
+      "price": 790,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100000058.jpg?itok=10TQRH2U"
+    },
+    {
+      "name": "Салат оливье со слабосоленым лососем",
+      "price": 1290,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011098.jpg?itok=slBlIaWn"
+    },
+    {
+      "name": "Салат с Бурратой, печеным перцем и помидорами",
+      "price": 1250,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100009007.jpg?itok=C6dVkAix"
+    },
+    {
+      "name": "Салат с креветками и авокадо",
+      "price": 1390,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100009009.jpg?itok=Rv_WYRoe"
+    },
+    {
+      "name": "Томаты с авокадо и муссом из шпината",
+      "price": 1250,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011100.jpg?itok=K69ffKWp"
+    },
+    {
+      "name": "Буррата",
+      "price": 620,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011234.jpg?itok=aFzKe5-l"
+    },
+    {
+      "name": "Моцарелла",
+      "price": 580,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011229.jpg?itok=rwn7EN1F"
+    },
+    {
+      "name": "Рикотта",
+      "price": 420,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011231.jpg?itok=JMTELHBu"
+    },
+    {
+      "name": "Скаморца",
+      "price": 350,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100000074N.jpg?itok=QCiW-j4E"
+    },
+    {
+      "name": "Страчателла",
+      "price": 680,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011232.jpg?itok=Df4vmfQN"
+    },
+    {
+      "name": "Брускетта с тамбовским окороком",
+      "price": 950,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011113.jpg?itok=AuwHZivP"
+    },
+    {
+      "name": "Брускетта со Страчателлой и слабосоленым лососем",
+      "price": 1390,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011119.jpg?itok=95526N9U"
+    },
+    {
+      "name": "Фокачча со Страчателлой и фисташками",
+      "price": 790,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100004015.jpg?itok=s9UFQHRU"
+    },
+    {
+      "name": "Фокачча с прованскими травами",
+      "price": 520,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/7900000062.jpg?itok=gUfhCkGO"
+    },
+    {
+      "name": "Брускетта с крабом",
+      "price": 1950,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/3200000471.jpg?itok=MGLOwR3-"
+    },
+    {
+      "name": "Трюфельная с окороком",
+      "price": 1290,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/3200000473.jpg?itok=3Klf28cH"
+    },
+    {
+      "name": "С томатами, соусом песто и Страчателлой",
+      "price": 1320,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/3200000472.jpg?itok=SIOIOqN8"
+    },
+    {
+      "name": "Маргарита",
+      "price": 990,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100000040.jpg?itok=ggeHuKWY"
+    },
+    {
+      "name": "Четыре сыра",
+      "price": 1390,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100000041.jpg?itok=uWbg2q8t"
+    },
+    {
+      "name": "Со Страчателлой и Мортаделлой",
+      "price": 1390,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011124.jpg?itok=FUfWnVDn"
+    },
+    {
+      "name": "С Горгонзолой и грушей",
+      "price": 1250,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400000327.jpg?itok=FmIGP9G6"
+    },
+    {
+      "name": "Лингвини с крабом",
+      "price": 1790,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/3200000475.jpg?itok=L4q8DV5t"
+    },
+    {
+      "name": "Ньокки с томленой уткой",
+      "price": 980,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100000036.jpg?itok=INejeRyz"
+    },
+    {
+      "name": "Спагетти Карбонара",
+      "price": 930,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011977.jpg?itok=vb4g34mV"
+    },
+    {
+      "name": "Спагетти Болоньезе",
+      "price": 990,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011133.jpg?itok=XZj1i2A_"
+    },
+    {
+      "name": "Равиоли с креветками и соусом песто",
+      "price": 1290,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011130.jpg?itok=N1unQiTp"
+    },
+    {
+      "name": "Вареники с творогом и сметаной",
+      "price": 590,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100006587.jpg?itok=DcZKKYNx"
+    },
+    {
+      "name": "Сырники из Рикотты со сметаной и вареньем",
+      "price": 790,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011140.jpg?itok=0m1r98oC"
+    },
+    {
+      "name": "Андалузский гаспачо",
+      "price": 890,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400004600NN.jpg?itok=aJNzKPYk"
+    },
+    {
+      "name": "Лапша куриная",
+      "price": 650,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011143.jpg?itok=AaQpXqix"
+    },
+    {
+      "name": "Окрошка на кефире",
+      "price": 720,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011296NN.jpg?itok=wrsyQuWQ"
+    },
+    {
+      "name": "Окрошка на квасе",
+      "price": 720,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011295NN.jpg?itok=BRLXZdRp"
+    },
+    {
+      "name": "Брокколи с Пармезаном",
+      "price": 670,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100006590.jpg?itok=OV8mTKDA"
+    },
+    {
+      "name": "Гречка с молодой капустой",
+      "price": 440,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011149.jpg?itok=yTGlqEIl"
+    },
+    {
+      "name": "Картофель, жаренный с луком",
+      "price": 520,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100000002.jpg?itok=Gt3d5qKS"
+    },
+    {
+      "name": "Картофельное пюре",
+      "price": 490,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100000001.jpg?itok=fNKVUs-H"
+    },
+    {
+      "name": "Овощи гриль",
+      "price": 720,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011152.jpg?itok=bhMnoi0t"
+    },
+    {
+      "name": "Шпинат",
+      "price": 570,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011838N.jpg?itok=-lIZX-Ww"
+    },
+    {
+      "name": "Тигровые креветки с чесноком и петрушкой",
+      "price": 1450,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011156N.jpg?itok=HbrZE2bQ"
+    },
+    {
+      "name": "Шашлык из свинины",
+      "price": 1190,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400000356N.jpg?itok=6l3R7nJN"
+    },
+    {
+      "name": "Шашлык из курицы",
+      "price": 990,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400000355N.jpg?itok=1BKH7b3_"
+    },
+    {
+      "name": "Телячьи щечки с картофельным пюре",
+      "price": 1490,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011171N.jpg?itok=MrWG4Dqr"
+    },
+    {
+      "name": "Шницель Пармиджано",
+      "price": 1050,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/7900000074.jpg?itok=7FetLkGk"
+    },
+    {
+      "name": "Гречневая каша с уткой и зеленым луком",
+      "price": 980,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100000016.jpg?itok=8vuZPZAR"
+    },
+    {
+      "name": "Лосось терияки с салатом из огурца",
+      "price": 1750,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011167.jpg?itok=PGf_ji7M"
+    },
+    {
+      "name": "Котлеты из судака с икорным соусом",
+      "price": 990,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/3200000477.jpg?itok=1Xw7VYX3"
+    },
+    {
+      "name": "Филе судака с соусом из домашней сметаны",
+      "price": 1050,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/3200000478.jpg?itok=lEm0AIDo"
+    },
+    {
+      "name": "Цыпленок с аджикой",
+      "price": 1130,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/3200000479.jpg?itok=B5GeNT8J"
+    },
+    {
+      "name": "Куриные оладьи с грибным соусом",
+      "price": 850,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011175.jpg?itok=ja8Vh56J"
+    },
+    {
+      "name": "Бефстроганов",
+      "price": 1390,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100000009N.jpg?itok=oIza3ykS"
+    },
+    {
+      "name": "Котлеты из индейки с картофельным пюре",
+      "price": 930,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011174.jpg?itok=rHv00YqX"
+    },
+    {
+      "name": "Куриная печень с картофелем",
+      "price": 870,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011179.jpg?itok=8hujPf1n"
+    },
+    {
+      "name": "Люля-кебаб из баранины",
+      "price": 1350,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400000360N.jpg?itok=ly_-G8tS"
+    },
+    {
+      "name": "Люля-кебаб из курицы",
+      "price": 990,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400000354N.jpg?itok=Rnkpdcqu"
+    },
+    {
+      "name": "Медальоны филе-миньон",
+      "price": 2340,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011176.jpg?itok=FbBQCPXo"
+    },
+    {
+      "name": "Морские гребешки с чесноком и петрушкой",
+      "price": 1590,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011153.jpg?itok=zO3aLC6y"
+    },
+    {
+      "name": "Свиные ребра в соусе барбекю",
+      "price": 1390,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400000321N.jpg?itok=9PGTjIJT"
+    },
+    {
+      "name": "Стейк Рибай",
+      "price": 4170,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400000289N.jpg?itok=av0d1hxI"
+    },
+    {
+      "name": "Чизкейк Сан-Себастьян",
+      "price": 790,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011531.jpg?itok=BiNSU6Np"
+    },
+    {
+      "name": "Пирог со свежей клубникой",
+      "price": 790,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011804.jpg?itok=pl54vhWK"
+    },
+    {
+      "name": "Банановый брауни",
+      "price": 890,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011190.jpg?itok=IRvBuN6y"
+    },
+    {
+      "name": "Ватрушка с творогом",
+      "price": 390,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400000508.jpg?itok=StVYgIEE"
+    },
+    {
+      "name": "Ватрушка с творогом и брусникой",
+      "price": 390,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400000607.jpg?itok=_N3zMBkI"
+    },
+    {
+      "name": "Ватрушка с творогом и грушей",
+      "price": 390,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400000610.jpg?itok=27edr8Tc"
+    },
+    {
+      "name": "Медовик с соленой карамелью и фундуком",
+      "price": 790,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011188.jpg?itok=P_zx-C5W"
+    },
+    {
+      "name": "Наполеон",
+      "price": 750,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011189.jpg?itok=ay-VwZO6"
+    },
+    {
+      "name": "Пирог со свежей голубикой",
+      "price": 1190,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011191.jpg?itok=QhTFmiYh"
+    },
+    {
+      "name": "Пирог со свежей малиной",
+      "price": 1190,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011181N.jpg?itok=4ynmHvtj"
+    },
+    {
+      "name": "Птичье молоко",
+      "price": 750,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011187.jpg?itok=BrRW51lf"
+    },
+    {
+      "name": "Торт Киевский",
+      "price": 870,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011192.jpg?itok=EPcJ2Ngu"
+    },
+    {
+      "name": "Хлеб белый",
+      "price": 350,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100006986N.jpg?itok=KiHSsvvY"
+    },
+    {
+      "name": "Хлеб серый",
+      "price": 350,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100006987N.jpg?itok=mF13NXW3"
+    },
+    {
+      "name": "Эвервесс Кола",
+      "price": 350,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100011711N.jpg?itok=hvz6cqFX"
+    },
+    {
+      "name": "Эвервесс Кола без сахара",
+      "price": 350,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/3200000308.jpg?itok=PxsljmyL"
+    },
+    {
+      "name": "Эвервесс Апельсин",
+      "price": 350,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100006933.jpg?itok=qXSkY1gb"
+    },
+    {
+      "name": "Эвервесс Лимон-Лайм",
+      "price": 350,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100008952.jpg?itok=l65Vl0Gj"
+    },
+    {
+      "name": "Эвервесс Тоник",
+      "price": 350,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400000450.jpg?itok=ktu_aLG3"
+    },
+    {
+      "name": "Сок Иль Примо вишня",
+      "price": 320,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400003557N.jpg?itok=Cs2vPFrl"
+    },
+    {
+      "name": "Сок Иль Примо апельсин",
+      "price": 320,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400003558N.jpg?itok=xHCjjLEn"
+    },
+    {
+      "name": "Сок Иль Примо томат",
+      "price": 320,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400003556N.jpg?itok=6w_iZUvb"
+    },
+    {
+      "name": "Сок Иль Примо яблоко",
+      "price": 320,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400003559N.jpg?itok=bcXMtWSP"
+    },
+    {
+      "name": "Вода Легенда Байкала без газа",
+      "price": 410,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/3000000030NN.jpg?itok=I7wkP1eg"
+    },
+    {
+      "name": "Вода Легенда Байкала без газа",
+      "price": 630,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/3200000071NN.jpg?itok=nd_evHw-"
+    },
+    {
+      "name": "Вода Легенда Байкала газированная",
+      "price": 630,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/3200000072NN.jpg?itok=b2fkii_R"
+    },
+    {
+      "name": "Вода Легенда Байкала газированная",
+      "price": 410,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/3000000031NN.jpg?itok=WHQCKsmY"
+    },
+    {
+      "name": "Вода Тассай без газа",
+      "price": 450,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/8200000110.jpg?itok=5IMVPY5S"
+    },
+    {
+      "name": "Вода Тассай без газа",
+      "price": 680,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/8200000111.jpg?itok=G0-jIVRA"
+    },
+    {
+      "name": "Вода Тассай газированная",
+      "price": 450,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/8200000112.jpg?itok=tTAxKBPJ"
+    },
+    {
+      "name": "Вода Тассай газированная",
+      "price": 680,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/8200000113.jpg?itok=DTRT1MOl"
+    },
+    {
+      "name": "Лимонад Гранат-каламанси-маракуйа",
+      "price": 1350,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/3200000482.jpg?itok=D3YzG3xY"
+    },
+    {
+      "name": "Лимонад Гранат-каламанси-маракуйа",
+      "price": 675,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/3200000482.jpg?itok=D3YzG3xY"
+    },
+    {
+      "name": "Лимонад Домашняя клубника",
+      "price": 1350,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/3000000077N.jpg?itok=m_C4cqo0"
+    },
+    {
+      "name": "Фреш апельсиновый",
+      "price": 800,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400000301N.jpg?itok=-e18iH1g"
+    },
+    {
+      "name": "Лимонад Малина-маракуйя",
+      "price": 1350,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400000569N.jpg?itok=-69vuFiB"
+    },
+    {
+      "name": "Лимонад Мохито",
+      "price": 575,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100009027N.jpg?itok=stqshgP6"
+    },
+    {
+      "name": "Лимонад Мохито",
+      "price": 1150,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/100009027N.jpg?itok=stqshgP6"
+    },
+    {
+      "name": "Лимонад Тархун-лемонграсс",
+      "price": 575,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400001528N.jpg?itok=0Hgp4V0E"
+    },
+    {
+      "name": "Лимонад Тархун-лемонграсс",
+      "price": 1150,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400001528N.jpg?itok=0Hgp4V0E"
+    },
+    {
+      "name": "Морс из клюквы",
+      "price": 490,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400000537N.jpg?itok=S2gv8Nq2"
+    },
+    {
+      "name": "Морс из клюквы",
+      "price": 850,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400000309N.jpg?itok=wnMmzw8m"
+    },
+    {
+      "name": "Морс из черной смородины",
+      "price": 490,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400000539N.jpg?itok=Y7mwr7wL"
+    },
+    {
+      "name": "Морс из черной смородины",
+      "price": 850,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400000308N.jpg?itok=LuwT19LA"
+    },
+    {
+      "name": "Фреш грейпфрутовый",
+      "price": 800,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400000306N.jpg?itok=f0DWsh9S"
+    },
+    {
+      "name": "Фреш морковный",
+      "price": 850,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400000304N.jpg?itok=9899qxkO"
+    },
+    {
+      "name": "Фреш сельдереевый",
+      "price": 850,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400000307N.jpg?itok=wOdS_UYd"
+    },
+    {
+      "name": "Фреш яблочный",
+      "price": 850,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400000303N.jpg?itok=OsPI1Z_C"
+    },
+    {
+      "name": "Лимонад Малина-маракуйя",
+      "price": 675,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/400000569N.jpg?itok=-69vuFiB"
+    },
+    {
+      "name": "2 мини-пиццы с напитками: Эвервесс Кола и Эвервесс Апельсин",
+      "price": 1650,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/4000000159N.jpg?itok=z6sGagC0"
+    },
+    {
+      "name": "2 пиццы с 2-мя напитками: Эвервесс Кола и Эвервесс Кола без сахара",
+      "price": 2990,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/3200000314N.jpg?itok=Fg-nok_B"
+    },
+    {
+      "name": "Брускетта с тамбовским окороком и напиток Эвервесс Кола",
+      "price": 1090,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/8200000149N.jpg?itok=fWdeszNv"
+    },
+    {
+      "name": "Пицца пепперони с напитками Эвервесс Кола и Эвервесс Кола без сахара",
+      "price": 1690,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/10100000062N.jpg?itok=eZktbUUQ"
+    },
+    {
+      "name": "Спагетти Болоньезе с напитком Эвервесс Кола",
+      "price": 1050,
+      "image": "https://api.syrovarnya.com/sites/default/files/styles/image_600x600/public/catalog/3200000313N.jpg?itok=Dlb-uE9v"
+    }
+  ]
+}

@@ -1,0 +1,270 @@
+{
+  "domain": "pizzapaolo.ru",
+  "method": "playwright-xhr",
+  "status": "ok",
+  "source": "https://bbadk0sholfhj2m0o41o.containers.yandexcloud.net/api/apps/namespaces/670d1960ec93d9e376c78fb5/menu/pages",
+  "count": 52,
+  "withPhoto": 0,
+  "items": [
+    {
+      "name": "ПИЦЦА Жульен трюфель",
+      "price": 899,
+      "image": null
+    },
+    {
+      "name": "Соус томатный для корочек",
+      "price": 59,
+      "image": null
+    },
+    {
+      "name": "Соус сырный для корочек",
+      "price": 59,
+      "image": null
+    },
+    {
+      "name": "Соус BBQ для корочек",
+      "price": 59,
+      "image": null
+    },
+    {
+      "name": "ветчина",
+      "price": 79,
+      "image": null
+    },
+    {
+      "name": "лук",
+      "price": 39,
+      "image": null
+    },
+    {
+      "name": "Масло оливковое",
+      "price": 39,
+      "image": null
+    },
+    {
+      "name": "колбаса",
+      "price": 79,
+      "image": null
+    },
+    {
+      "name": "артишоки",
+      "price": 79,
+      "image": null
+    },
+    {
+      "name": "соус Барбекю",
+      "price": 79,
+      "image": null
+    },
+    {
+      "name": "страчателла",
+      "price": 79,
+      "image": null
+    },
+    {
+      "name": "говядина",
+      "price": 79,
+      "image": null
+    },
+    {
+      "name": "курица",
+      "price": 79,
+      "image": null
+    },
+    {
+      "name": "тунец",
+      "price": 79,
+      "image": null
+    },
+    {
+      "name": "ананасы",
+      "price": 129,
+      "image": null
+    },
+    {
+      "name": "Масло оливковое острое",
+      "price": 39,
+      "image": null
+    },
+    {
+      "name": "грибы",
+      "price": 79,
+      "image": null
+    },
+    {
+      "name": "бекон",
+      "price": 79,
+      "image": null
+    },
+    {
+      "name": "перец халапеньо",
+      "price": 79,
+      "image": null
+    },
+    {
+      "name": "яйцо",
+      "price": 39,
+      "image": null
+    },
+    {
+      "name": "маслины",
+      "price": 39,
+      "image": null
+    },
+    {
+      "name": "помидор",
+      "price": 79,
+      "image": null
+    },
+    {
+      "name": "перец",
+      "price": 79,
+      "image": null
+    },
+    {
+      "name": "сыр",
+      "price": 79,
+      "image": null
+    },
+    {
+      "name": "Доп. горгонзола",
+      "price": 79,
+      "image": null
+    },
+    {
+      "name": "ПИЦЦА Пикканте-карне",
+      "price": 899,
+      "image": null
+    },
+    {
+      "name": "ПИЦЦА Чикен-терияки",
+      "price": 899,
+      "image": null
+    },
+    {
+      "name": "ПИЦЦА Цезарь",
+      "price": 899,
+      "image": null
+    },
+    {
+      "name": "Ролл с курицей",
+      "price": 349,
+      "image": null
+    },
+    {
+      "name": "Пицца Карбонара",
+      "price": 799,
+      "image": null
+    },
+    {
+      "name": "Пицца 4 сыра",
+      "price": 799,
+      "image": null
+    },
+    {
+      "name": "Пицца Пепперони",
+      "price": 799,
+      "image": null
+    },
+    {
+      "name": "Пицца с грибами и ветчиной",
+      "price": 799,
+      "image": null
+    },
+    {
+      "name": "Пицца с курицей",
+      "price": 799,
+      "image": null
+    },
+    {
+      "name": "Пицца Гавайская",
+      "price": 799,
+      "image": null
+    },
+    {
+      "name": "Пицца Маргарита",
+      "price": 649,
+      "image": null
+    },
+    {
+      "name": "Пицца 4 сезона",
+      "price": 899,
+      "image": null
+    },
+    {
+      "name": "Пицца Груша-горгонзола",
+      "price": 899,
+      "image": null
+    },
+    {
+      "name": "Пицца Барбекю",
+      "price": 899,
+      "image": null
+    },
+    {
+      "name": "Пицца Веган (постная)",
+      "price": 899,
+      "image": null
+    },
+    {
+      "name": "Пицца с тунцом",
+      "price": 899,
+      "image": null
+    },
+    {
+      "name": "Пицца со страчателлой",
+      "price": 899,
+      "image": null
+    },
+    {
+      "name": "Пицца сыр, бекон и грибы",
+      "price": 899,
+      "image": null
+    },
+    {
+      "name": "Пицца с артишоком",
+      "price": 899,
+      "image": null
+    },
+    {
+      "name": "Фокачча",
+      "price": 200,
+      "image": null
+    },
+    {
+      "name": "Ролл веган",
+      "price": 349,
+      "image": null
+    },
+    {
+      "name": "Ролл с ветчиной",
+      "price": 349,
+      "image": null
+    },
+    {
+      "name": "Ролл с тунцом",
+      "price": 349,
+      "image": null
+    },
+    {
+      "name": "Акция: 3 пиццы-комбо (пепперони, 4 сыра, с грибами и ветчиной)",
+      "price": 1999,
+      "image": null
+    },
+    {
+      "name": "Акция: 3 пиццы-комбо (пепперони, с грибами и ветчиной, с курицей)",
+      "price": 1999,
+      "image": null
+    },
+    {
+      "name": "Мясной Пир (Комбо из трех пицц: Мясная BBQ, Пепперони, 4 Сезона)",
+      "price": 2299,
+      "image": null
+    },
+    {
+      "name": "Сырное Трио (Комбо из трех пицц: 4 сыра, Со страчателлой, Груша горгон",
+      "price": 2299,
+      "image": null
+    }
+  ]
+}
