@@ -12,7 +12,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(__dirname, 'menu-out');
 
 // JS \b is ASCII-only (breaks on Cyrillic) → use explicit Cyrillic/Latin boundaries.
-const B = (w) => `(?<![а-яёa-z])(?:${w})(?![а-яёa-z])`;
+const WORD_CH = 'а-яёa-z0-9';
+const B = (w) => `(?<![${WORD_CH}])(?:${w})(?![${WORD_CH}])`;
 const DRINK_RE = new RegExp([
   'латте', 'капучин', 'эспрессо', 'американо', 'какао', 'матч', 'тоник', 'лимонад', 'смузи', 'джус', 'juice',
   'морс', 'компот', 'коктейл', 'глинтвейн', 'бамбл', 'флэт.?уайт', 'колд.?брю', 'фраппе', 'глясе', 'милкшейк',
@@ -31,13 +32,13 @@ const SPIRIT_RE = new RegExp(['виски', 'водк', B('ром'), B('джин
 const COCKTAIL_RE = new RegExp(['коктейл', 'мохито', 'негрони', 'спритц', 'апероль', 'дайкири', 'космополит', 'b52', 'лонг.?айленд', 'пина.?колада', 'кровавая мэри'].join('|'), 'i');
 const MILKSHAKE_RE = new RegExp(['милкшейк', 'молочн.{0,5}коктейл', B('шейк'), 'фраппе'].join('|'), 'i');
 // strong food words → it's a dish even if the name mentions "напиток" (combos like "Пицца и напиток")
-const FOOD_OVERRIDE = /пицц|бургер|салат|ролл|спагетти|шаурм|шаверм|стейк|сэндвич|сендвич|донер|кебаб|\bсуп\b|наггетс|картоф|хачапур|хинкал|\bвок\b|боул|поке|том.?ям|лазань|ризотто|карбонар|болонье|тост|брускетт|сырник|блин|паст/i;
+const FOOD_OVERRIDE = new RegExp(`пицц|бургер|салат|ролл|спагетти|шаурм|шаверм|стейк|сэндвич|сендвич|донер|кебаб|(?<![${WORD_CH}])суп(?![${WORD_CH}])|наггетс|картоф|хачапур|хинкал|(?<![${WORD_CH}])вок(?![${WORD_CH}])|боул|поке|том.?ям|лазань|ризотто|карбонар|болонье|тост|брускетт|сырник|блин|паст`, 'i');
 export function classify(name) {
   const n = name.toLowerCase();
   if (MILKSHAKE_RE.test(n)) return { type: 'DRINK', category: 'Смузи' }; // milkshake ≠ alcohol cocktail
   // filter/specialty coffee (coffeemania "hoop", Sber filter, pour-over, origins) → DRINK/Кофе
   if (/\bhoop\b|пуровер|пур.?овер|фильтр.?кофе|аэропресс|кемекс|\bv60\b|дрип.?пакет/i.test(n) ||
-      (/фильтр/i.test(n) && /эфиоп|йемен|колумб|кени|бразил|гватемал|кост.?рик|\bперу\b|никарагуа/i.test(n))) {
+      (/фильтр/i.test(n) && new RegExp(['эфиоп', 'йемен', 'колумб', 'кени', 'бразил', 'гватемал', 'кост.?рик', B('перу'), 'никарагуа'].join('|'), 'i').test(n))) {
     return { type: 'DRINK', category: 'Кофе' };
   }
   if (WINE_RE.test(n)) return { type: 'DRINK', category: 'Вино' };
@@ -59,36 +60,67 @@ export function classify(name) {
   else if (/паст|спагетти|карбонар|болонье|лазань/.test(n)) c = 'Паста';
   else if (/суши|ролл|сашими|поке/.test(n)) c = 'Японская';
   else if (/салат|цезарь/.test(n)) c = 'Салаты';
-  else if (/\bсуп\b|том.?ям|борщ/.test(n)) c = 'Супы';
+  else if (new RegExp(`(?<![${WORD_CH}])суп(?![${WORD_CH}])|том.?ям|борщ`).test(n)) c = 'Супы';
   else if (/десерт|торт|чизкейк|тирамису|маффин|круассан|штрудель|мороже|панна/.test(n)) c = 'Десерты';
   else if (/картоф|наггетс|стрипс|твистер|шаурм|хот.?дог|фри/.test(n)) c = 'Фастфуд';
   else if (/стейк|рибай|миньон/.test(n)) c = 'Стейки';
   return { type: 'DISH', category: c };
 }
 
-// normalize a menu name: strip codes, marketing noise, and — importantly — SIZE/VOLUME
-// so "Латте 300 мл" and "Латте 400 мл" collapse to one item "Латте" (find-or-create
-// dedups them). Flavor variants ("Латте Матча", "Латте Сингапур") are kept.
-function sanitizeName(name) {
-  let n = name
-    .replace(/\s*\[[^\]]*\]/g, '') // [AT], [NEW] …
-    .replace(/\s*\((?:м3|m3|зона ?\d|ночн[а-я]*)\)/gi, '');
-  // JS \b is ASCII-only (fails after Cyrillic letters) → use Cyrillic-safe lookaheads
-  n = n.replace(/\s*\d+([.,]\d+)?\s?(мл|ml|литр|л|l|гр|г|g)(?![а-яёa-z])\.?/gi, ' '); // "300 мл", "0,5 л"
-  n = n.replace(/\s*\d+\s?шт(?![а-яё])\.?/gi, ' ').replace(/\s*[xх]\s?\d+(?![\dа-яёa-z])/gi, ' '); // "2 шт", "x2"
-  n = n.replace(/\s+(гранде|венти|grande|venti|tall|большой|больш(?:ая|ое)|средн(?:ий|яя|ее)|маленьк\w+|мал(?:ый|ая))(?![а-яё])/gi, ' ');
-  n = n.replace(/\s+(xl|xxl|[sml])\s*$/i, ''); // trailing standalone size letter
-  return n.replace(/\s+/g, ' ').trim();
+const DAY_TOKEN = '(?:пн|вт|ср|чт|пт|сб|вс|понедельник(?:а)?|вторник(?:а)?|сред(?:а|ы)|четверг(?:а)?|пятниц(?:а|ы)|суббот(?:а|ы)|воскресень(?:е|я))';
+const AMOUNT_TOKEN = '\\d+(?:[.,]\\d+)?(?:\\s*[/xх×]\\s*\\d+(?:[.,]\\d+)?)*';
+const UNIT_TOKEN = '(?:мм|см|cm|мл|ml|cl|дл|литр(?:а|ов)?|л|l|кг|kg|гр|г|g|oz|шт(?:ук(?:а|и)?)?)';
+const PURE_SIZE_RE = new RegExp(`^\\s*(?:[ø⌀]\\s*)?${AMOUNT_TOKEN}\\s*${UNIT_TOKEN}\\.?\\s*$|^\\s*(?:xxl|xl|xs|[sml])\\s*$`, 'i');
+
+// Keep the semantic dish name while removing parser/UI metadata. The same
+// function is imported by clean-names.mjs, so new and historical rows converge.
+export function normalizeMenuName(name) {
+  let n = String(name ?? '').normalize('NFKC').replace(/\u00a0/g, ' ').trim();
+  if (!n) return '';
+
+  n = n
+    .replace(/&#\d+;/g, ' ')
+    .replace(/\s*\[[^\]]*\]/g, ' ') // [NEW], [AT], internal menu codes
+    .replace(new RegExp(`\\(\\s*(?:${DAY_TOKEN}|\\d+[.,]\\d+|xxl|xl|xs|[sml]|сред\\.?|м3|m3|зона\\s*\\d+|ночн[а-яё]*|new|hit|хит|арт(?:икул)?\\s*[:№#-]?\\s*[a-zа-яё0-9_-]+|код\\s*[:№#-]?\\s*[a-zа-яё0-9_-]+)\\s*\\)`, 'gi'), ' ')
+    .replace(new RegExp(`(?<![${WORD_CH}])(?:арт(?:икул)?|код|sku)\\s*(?:[:№#-]\\s*)?[a-zа-яё_-]*\\d[a-zа-яё0-9_-]*(?![${WORD_CH}])`, 'gi'), ' ')
+    .replace(/[#№]\s*[a-zа-яё]*\d{2,}[a-zа-яё0-9_-]*/gi, ' ')
+    .replace(new RegExp(`(?:диаметр\\s*[:=-]?\\s*|[ø⌀]\\s*)?${AMOUNT_TOKEN}\\s*${UNIT_TOKEN}(?![${WORD_CH}])\\.?`, 'gi'), ' ')
+    .replace(/\d+\s*(?:персон(?:а|ы)?|порци(?:я|и))(?![а-яёa-z])/gi, ' ')
+    .replace(/\s*[xх×]\s*\d+(?![\dа-яёa-z])/gi, ' ');
+
+  // Dough is metadata only when expressed as a pizza option or a trailing UI tag.
+  n = n.replace(/(?<![а-яёa-z])на\s+(?:тонком|толстом)\s+тесте(?![а-яёa-z])/gi, ' ')
+    .replace(/(?<![а-яёa-z])(?:тонкое|толстое)\s+тесто(?![а-яёa-z])/gi, ' ');
+  if (/пицц/i.test(n)) n = n.replace(/(?<![а-яёa-z])(?:тонкое|толстое)(?![а-яёa-z])/gi, ' ');
+  else n = n.replace(/\s+(?:тонкое|толстое)\s*$/i, ' ');
+
+  n = n
+    .replace(new RegExp(`(?<![${WORD_CH}])${DAY_TOKEN}(?![${WORD_CH}])`, 'gi'), ' ')
+    .replace(/(?<![а-яёa-z])размер\s+(?:xxl|xl|xs|[sml])(?![а-яёa-z])/gi, ' ')
+    .replace(/(?<![а-яёa-z])(?:большая|средняя|маленькая|малая)\s+порци(?:я|и)(?![а-яёa-z])/gi, ' ')
+    .replace(/\s+(гранде|венти|grande|venti|tall|большой|больш(?:ая|ое)|сред(?:\.|ний|няя|нее)|маленьк[а-яёa-z]*|мал(?:ый|ая))(?![а-яё])/gi, ' ')
+    .replace(/\s+(xxl|xl|xs|[sml])\s*$/i, ' ')
+    .replace(/[(){}]/g, ' ') // unwrap meaningful parenthetical text
+    .replace(/\s*[-–—,:;/]+\s*$/g, ' ')
+    .replace(/^\s*[-–—,:;/]+\s*/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return n;
 }
 // skip non-dish noise the engine sometimes catches (combos / banners / sets / descriptions)
-function isJunk(name) {
+export function isJunk(name) {
   const n = name.toLowerCase();
   if (n.length < 2 || n.length > 55) return true;
+  if (PURE_SIZE_RE.test(n)) return true;
   if (n.split(/\s+/).length > 7) return true; // a sentence/description, not a menu name
-  if (/^\d+\s*(любые|пицц|штук|шт\b)/.test(n)) return true; // "3 любые пиццы"
-  if (/любые пицц|комбо|\bсет\b|\bнабор\b|меню дня|за \d+\s*₽|выгодн|подарок|конструктор|собери|акци|скидк|сертификат|доставк|для офиса|идеальных|\+ ?\d|\d ?\+ ?\d/.test(n)) return true;
+  if (/^меню(?:\s+на)?$/i.test(n)) return true;
+  if (new RegExp(`^\\d+\\s*(?:любые|пицц|штук|шт(?![${WORD_CH}]))`).test(n)) return true; // "3 любые пиццы"
+  if (new RegExp(`любые пицц|комбо|(?<![${WORD_CH}])сет(?![${WORD_CH}])|(?<![${WORD_CH}])набор(?![${WORD_CH}])|меню дня|за \\d+\\s*₽|выгодн|подарок|конструктор|собери|акци|скидк|сертификат|доставк|для офиса|идеальных|\\+ ?\\d|\\d ?\\+ ?\\d`).test(n)) return true;
   // «X и закуска», «пицца и напиток» — combos in disguise (their photos are collages)
-  if (/ и закуск| и напит| и десерт| и салат|ассорти из \d/.test(n)) return true;
+  if (new RegExp(`(?<![${WORD_CH}])и\\s+(?:закуск|напит|десерт|салат)|(?<![${WORD_CH}])с\\s+напитк|ассорти из \\d`).test(n)) return true;
+  // Retail/DIY products do not belong in a restaurant dish catalog.
+  if (/кофе.{0,20}(?:в\s+з[её]рнах|молот|капсул|дрип[ -]?пак)|(?:з[её]рна|капсул|дрип[ -]?пак).{0,20}кофе|полуфабрикат|замороженн|для\s+приготовления\s+дома|котлет[а-яё]*\s+для\s+бургер/i.test(n)) return true;
+  if (new RegExp(`^\\s*${DAY_TOKEN}\\s*$|меню\\s+(?:на\\s+)?${DAY_TOKEN}`, 'i').test(n)) return true;
   // OWNER RULE (13.07.2026): a SINGLE adjective is not a dish name ("Малиновый",
   // "Сырный", "Ванильный") — it's missing the noun. Reject one-word names that
   // are just an adjective (Russian adjective endings).
@@ -160,7 +192,7 @@ async function main() {
 
     let newItems = 0, links = 0;
     for (const raw of data.items) {
-      const name = sanitizeName(raw.name.trim().replace(/\s+/g, ' '));
+      const name = normalizeMenuName(raw.name);
       if (isJunk(name)) continue;
       const { type, category } = classify(name);
       // PHOTO POLICY: parsed photos are only a GENERATION REFERENCE, never shown

@@ -7,7 +7,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { classify } from './menu-import.mjs';
+import { classify, isJunk, normalizeMenuName } from './menu-import.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(__dirname, 'menu-out');
@@ -30,28 +30,6 @@ const BRANDS = {
   'onepricecoffee.com': ['one price'],
   'shoko.ru': ['шоколадница'],
 };
-
-// copied from menu-import.mjs (not exported there)
-function sanitizeName(name) {
-  let n = name
-    .replace(/\s*\[[^\]]*\]/g, '')
-    .replace(/\s*\((?:м3|m3|зона ?\d|ночн[а-я]*)\)/gi, '');
-  n = n.replace(/\s*\d+([.,]\d+)?\s?(мл|ml|литр|л|l|гр|г|g)(?![а-яёa-z])\.?/gi, ' ');
-  n = n.replace(/\s*\d+\s?шт(?![а-яё])\.?/gi, ' ').replace(/\s*[xх]\s?\d+(?![\dа-яёa-z])/gi, ' ');
-  n = n.replace(/\s+(гранде|венти|grande|venti|tall|большой|больш(?:ая|ое)|средн(?:ий|яя|ее)|маленьк\w+|мал(?:ый|ая))(?![а-яё])/gi, ' ');
-  n = n.replace(/\s+(xl|xxl|[sml])\s*$/i, '');
-  return n.replace(/\s+/g, ' ').trim();
-}
-function isJunk(name) {
-  const n = name.toLowerCase();
-  if (n.length < 2 || n.length > 55) return true;
-  if (n.split(/\s+/).length > 7) return true;
-  if (/^\d+\s*(любые|пицц|штук|шт\b)/.test(n)) return true;
-  if (/любые пицц|комбо|\bсет\b|\bнабор\b|меню дня|за \d+\s*₽|выгодн|подарок|конструктор|собери|акци|скидк|сертификат|доставк|для офиса|идеальных|\+ ?\d|\d ?\+ ?\d/.test(n)) return true;
-  const letters = (n.match(/[а-яёa-z]/gi) || []).length;
-  if (letters < n.length * 0.5) return true;
-  return false;
-}
 
 const args = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 const domains = process.argv.includes('--all')
@@ -84,7 +62,7 @@ for (const domain of domains) {
   // prepare items in memory (dedup by type+lower(name))
   const wanted = new Map(); // key type|lower → {type,name,category,photoUrl,price}
   for (const raw of data.items) {
-    const name = sanitizeName(String(raw.name ?? '').trim().replace(/\s+/g, ' '));
+    const name = normalizeMenuName(raw.name);
     if (!name || isJunk(name)) continue;
     const { type, category } = classify(name);
     const key = `${type}|${name.toLowerCase()}`;

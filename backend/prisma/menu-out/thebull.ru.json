@@ -1,9 +1,240 @@
 {
   "domain": "thebull.ru",
-  "method": null,
-  "status": "manual_required (no menu found)",
-  "source": null,
-  "count": 0,
+  "method": "pdf",
+  "status": "ok",
+  "source": "https://thebull.ru/wp-content/menu/menu_14072026.pdf",
+  "count": 46,
   "withPhoto": 0,
-  "items": []
+  "items": [
+    {
+      "name": "Пиво",
+      "price": 350,
+      "image": null
+    },
+    {
+      "name": "Хлебная корзина",
+      "price": 150,
+      "image": null
+    },
+    {
+      "name": "Фокачча с розмарином",
+      "price": 150,
+      "image": null
+    },
+    {
+      "name": "Фокачча с томатами",
+      "price": 150,
+      "image": null
+    },
+    {
+      "name": "Тартар из форели",
+      "price": 500,
+      "image": null
+    },
+    {
+      "name": "Тартар из говядины",
+      "price": 500,
+      "image": null
+    },
+    {
+      "name": "Паста с томленой щекой",
+      "price": 600,
+      "image": null
+    },
+    {
+      "name": "СВИНАЯ РУЛЬКА 1шт/",
+      "price": 650,
+      "image": null
+    },
+    {
+      "name": "Брискет",
+      "price": 1000,
+      "image": null
+    },
+    {
+      "name": "Ребра кальби",
+      "price": 1200,
+      "image": null
+    },
+    {
+      "name": "NEW Личи – земляника – юдзу 300мл / 1000мл – 390₽ /",
+      "price": 490,
+      "image": null
+    },
+    {
+      "name": "NEW Фейхоа – лайм 300мл / 1000мл – 390₽ /",
+      "price": 490,
+      "image": null
+    },
+    {
+      "name": "NEW Крем – сода 300мл / 1000мл – 390₽ /",
+      "price": 490,
+      "image": null
+    },
+    {
+      "name": "NEW Клубника – грейпфрут 300мл / 1000мл – 390₽ /",
+      "price": 490,
+      "image": null
+    },
+    {
+      "name": "NEW МАЛИНА – МАРАКУЙЯ 300мл / 1000мл – 390₽ /",
+      "price": 490,
+      "image": null
+    },
+    {
+      "name": "NEW Киви – зеленое яблоко 300мл / 1000мл – 390₽ /",
+      "price": 490,
+      "image": null
+    },
+    {
+      "name": "Глинтвейн б/а",
+      "price": 350,
+      "image": null
+    },
+    {
+      "name": "EVERVESS",
+      "price": 200,
+      "image": null
+    },
+    {
+      "name": "ADRENALINE RUSH",
+      "price": 200,
+      "image": null
+    },
+    {
+      "name": "Сок",
+      "price": 280,
+      "image": null
+    },
+    {
+      "name": "RED BULL",
+      "price": 300,
+      "image": null
+    },
+    {
+      "name": "Минеральная вода легенда байкала",
+      "price": 350,
+      "image": null
+    },
+    {
+      "name": "Нефильтрованное \"тне бык\"",
+      "price": 390,
+      "image": null
+    },
+    {
+      "name": "Полезная вода fahrenheit",
+      "price": 350,
+      "image": null
+    },
+    {
+      "name": "Ячменный лагер \"тне бык\"",
+      "price": 390,
+      "image": null
+    },
+    {
+      "name": "Свежевыжатый сок",
+      "price": 390,
+      "image": null
+    },
+    {
+      "name": "Темное \"тне бык\"",
+      "price": 390,
+      "image": null
+    },
+    {
+      "name": "Фильтр-кофе",
+      "price": 180,
+      "image": null
+    },
+    {
+      "name": "Эспрессо",
+      "price": 200,
+      "image": null
+    },
+    {
+      "name": "Двойной ЭСПРЕССО",
+      "price": 230,
+      "image": null
+    },
+    {
+      "name": "Американо",
+      "price": 230,
+      "image": null
+    },
+    {
+      "name": "Капучино",
+      "price": 250,
+      "image": null
+    },
+    {
+      "name": "Раф",
+      "price": 260,
+      "image": null
+    },
+    {
+      "name": "Глясе",
+      "price": 280,
+      "image": null
+    },
+    {
+      "name": "Латте",
+      "price": 280,
+      "image": null
+    },
+    {
+      "name": "Флэт Уайт",
+      "price": 290,
+      "image": null
+    },
+    {
+      "name": "Какао с маршмеллоу",
+      "price": 290,
+      "image": null
+    },
+    {
+      "name": "Бамбл кофе",
+      "price": 400,
+      "image": null
+    },
+    {
+      "name": "Сидр \"тне бык\"",
+      "price": 390,
+      "image": null
+    },
+    {
+      "name": "Вишневый Эль \"The Бык\"",
+      "price": 390,
+      "image": null
+    },
+    {
+      "name": "THE БЫК КАПУЧИНО",
+      "price": 300,
+      "image": null
+    },
+    {
+      "name": "NUMBER ONE / №1 200мл – 300₽ ЛАТТЕ",
+      "price": 330,
+      "image": null
+    },
+    {
+      "name": "NUMBER TWO / №2 200мл – 300₽ КАКАО С МАРШМЕЛЛОУ",
+      "price": 330,
+      "image": null
+    },
+    {
+      "name": "Бабл ти вишня-миндаль cheese",
+      "price": 390,
+      "image": null
+    },
+    {
+      "name": "Бабл ти манго-маракуйя cheese",
+      "price": 390,
+      "image": null
+    },
+    {
+      "name": "бутылка 1 лИТР",
+      "price": 500,
+      "image": null
+    }
+  ]
 }
