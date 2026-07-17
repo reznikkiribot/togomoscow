@@ -1,22 +1,12 @@
-import { useEffect, useState } from 'react';
 import type { Listing } from '../types';
 import { thumb } from '../img';
+import { SmartImg } from './SmartImg';
 
 export const TYPE_EMOJI: Record<Listing['type'], string> = {
   RESTAURANT: '🍽️',
   DISH: '🍝',
   DRINK: '🍷',
 };
-
-function colorFromName(name: string): string {
-  let h = 0;
-  for (const ch of name) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
-  return `hsl(${h % 360} 42% 42%)`;
-}
-
-function isSlowExternalPhoto(src?: string | null) {
-  return !!src && /images\.unsplash|images\.pexels|pixabay|picsum/i.test(src);
-}
 
 export function listingPhotoCandidates(listing: Listing): string[] {
   const candidates: string[] = [];
@@ -26,10 +16,8 @@ export function listingPhotoCandidates(listing: Listing): string[] {
     const proxied = thumb(listing.photoUrl, 600);
     if (proxied && proxied !== listing.photoUrl) candidates.push(proxied);
   }
-  const slowExternal = isSlowExternalPhoto(listing.photoUrl);
-  if (slowExternal && listing.placeholderPhoto) candidates.push(listing.placeholderPhoto);
   if (listing.photoUrl) candidates.push(listing.photoUrl);
-  if (!slowExternal && listing.placeholderPhoto) candidates.push(listing.placeholderPhoto);
+  if (listing.placeholderPhoto) candidates.push(listing.placeholderPhoto);
   // NO brand logos/favicons — запрещены. Guaranteed appetizing fallback for ANY
   // listing (venues in «Где ещё попробовать» etc. that have no placeholderPhoto):
   // a deterministic licensed category stock, never a bare letter tile.
@@ -62,7 +50,7 @@ export function VenuePhoto({
   listing,
   className = 'photo',
   draggable,
-  loading = 'eager',
+  loading = 'lazy',
   allowVenuePhoto = false,
 }: {
   listing: Listing;
@@ -72,14 +60,6 @@ export function VenuePhoto({
   /** detail hero may show the real venue photo; cards never do */
   allowVenuePhoto?: boolean;
 }) {
-  const candidates = listingPhotoCandidates(listing);
-
-  const [idx, setIdx] = useState(0);
-  // reset when the listing changes (component reused in the detail header)
-  useEffect(() => {
-    setIdx(0);
-  }, [listing.id, listing.photoUrl, listing.website, listing.placeholderPhoto]);
-
   // OWNER RULE 17.07.2026: venue CARDS show no photos — a clean white tile with
   // the venue name in black, always fully visible inside the card.
   if (listing.type === 'RESTAURANT' && !allowVenuePhoto) {
@@ -90,24 +70,16 @@ export function VenuePhoto({
     );
   }
 
-  if (idx < candidates.length) {
-    const src = candidates[idx];
-    return (
-      <img
-        className={className}
-        src={src}
-        alt={listing.name}
-        loading={loading}
-        draggable={draggable}
-        onError={() => setIdx((i) => i + 1)}
-      />
-    );
-  }
-
-  const letter = (listing.name.trim()[0] ?? '?').toUpperCase();
   return (
-    <div className={`${className} ph mono`} style={{ background: colorFromName(listing.name) }}>
-      {letter}
-    </div>
+    <SmartImg
+      className={className}
+      src={listing.photoUrl}
+      alt={listing.name}
+      loading={allowVenuePhoto ? 'eager' : loading}
+      draggable={draggable}
+      stockFallbacks={[listing.placeholderPhoto]}
+      stock={{ type: listing.type, category: listing.category, name: listing.name, seed: listing.id }}
+      monogram={listing.name}
+    />
   );
 }

@@ -45,6 +45,16 @@ export class UploadsService implements OnModuleInit {
     }
   }
 
+  private async send(command: any, timeoutMs = 15_000): Promise<any> {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      return await this.s3!.send(command, { abortSignal: controller.signal });
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
+
   async onModuleInit() {
     if (!this.useS3) {
       await mkdir(this.uploadDir, { recursive: true });
@@ -52,10 +62,10 @@ export class UploadsService implements OnModuleInit {
     }
 
     try {
-      await this.s3!.send(new HeadBucketCommand({ Bucket: this.bucket }));
+      await this.send(new HeadBucketCommand({ Bucket: this.bucket }));
     } catch {
       try {
-        await this.s3!.send(new CreateBucketCommand({ Bucket: this.bucket }));
+        await this.send(new CreateBucketCommand({ Bucket: this.bucket }));
       } catch {
         // The bucket may already exist, or object storage may not be ready yet.
       }
@@ -80,13 +90,14 @@ export class UploadsService implements OnModuleInit {
       return key;
     }
 
-    await this.s3!.send(
+    await this.send(
       new PutObjectCommand({
         Bucket: this.bucket,
         Key: key,
         Body: body,
         ContentType: contentType,
       }),
+      60_000,
     );
     return key;
   }
@@ -98,8 +109,9 @@ export class UploadsService implements OnModuleInit {
       await writeFile(join(this.uploadDir, `${key}.json`), JSON.stringify({ contentType }));
       return;
     }
-    await this.s3!.send(
+    await this.send(
       new PutObjectCommand({ Bucket: this.bucket, Key: key, Body: buffer, ContentType: contentType }),
+      30_000,
     );
   }
 
@@ -115,7 +127,7 @@ export class UploadsService implements OnModuleInit {
       return { body: createReadStream(join(this.uploadDir, key)), contentType };
     }
 
-    const res = await this.s3!.send(new GetObjectCommand({ Bucket: this.bucket, Key: key }));
+    const res = await this.send(new GetObjectCommand({ Bucket: this.bucket, Key: key }));
     return { body: res.Body as Readable, contentType: res.ContentType };
   }
 }

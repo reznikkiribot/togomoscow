@@ -1,7 +1,8 @@
-import { useState, type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import type { Review } from '../types';
 import { Stars } from './Stars';
 import { thumb } from '../img';
+import { SmartImg } from './SmartImg';
 
 const REACTS: [keyof NonNullable<Review['voteCounts']>, string][] = [
   ['USEFUL', '👍'],
@@ -33,24 +34,25 @@ export function ReviewCard({
   const u = review.user;
   const initial = (u?.firstName ?? u?.username ?? '?').trim()[0]?.toUpperCase() ?? '?';
   const stop = (e: React.MouseEvent) => e.stopPropagation();
-  // dead photo URLs (stale parsed CDNs) render as a broken-image icon and squash
-  // the card — hide the media block/thumb entirely when the image fails to load
-  const [photoBroken, setPhotoBroken] = useState(false);
-  const [thumbBroken, setThumbBroken] = useState(false);
+  // Shared image fallbacks keep stale parsed CDN URLs from squashing the card.
+  const stock = review.listing
+    ? { type: review.listing.type, category: review.listing.category, name: review.listing.name, seed: review.listing.id }
+    : undefined;
 
   return (
     <div className="rc">
       <div className="rc-tap" onClick={onOpen}>
-        {photo && !photoBroken && (
+        {photo && (
           <div className="rc-photo-wrap">
             {/* blurred fill of the same photo → no black letterbox bars */}
             <div className="ph-blur" style={{ backgroundImage: `url("${thumb(photo, 200)}")` }} />
-            <img
+            <SmartImg
               className="rc-photo"
-              src={thumb(photo, 600)}
+              src={photo}
               alt=""
               loading="lazy"
-              onError={() => setPhotoBroken(true)}
+              stock={stock}
+              monogram={review.listing?.name}
             />
             {/* author + place overlaid on the photo (same as the open post) */}
             {u && (
@@ -60,11 +62,7 @@ export function ReviewCard({
                   className="rc-head-user"
                   onClick={(e) => { stop(e); u.id && onOpenUser?.(u.id); }}
                 >
-                  {u.photoUrl ? (
-                    <img className="rc-head-av" src={u.photoUrl} alt="" />
-                  ) : (
-                    <span className="rc-head-av ph">{initial}</span>
-                  )}
+                  <SmartImg className="rc-head-av" src={u.photoUrl} width={200} monogram={initial} />
                   <span className="rc-head-name">{u.firstName ?? u.username ?? 'Гость'}</span>
                 </button>
                 {review.venue && (
@@ -82,12 +80,14 @@ export function ReviewCard({
         )}
         <div className="rc-card">
           <div className="rc-main">
-            {review.listing?.photoUrl && !thumbBroken && (
-              <img
+            {review.listing && (
+              <SmartImg
                 className="rc-thumb"
-                src={thumb(review.listing.photoUrl, 200)}
+                src={review.listing.photoUrl}
                 alt=""
-                onError={() => setThumbBroken(true)}
+                width={200}
+                stock={stock}
+                monogram={review.listing.name}
               />
             )}
             <div className="rc-info">

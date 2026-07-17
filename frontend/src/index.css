@@ -418,6 +418,22 @@ h3 {
 .ph.mono {
   font-weight: 800;
 }
+.smart-img-mono {
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-weight: 800;
+}
+.post-photo.smart-img-mono,
+.rc-photo.smart-img-mono {
+  width: 100%;
+  min-height: 220px;
+  font-size: 46px;
+}
+.rc-thumb.smart-img-mono {
+  display: grid;
+  font-size: 20px;
+}
 .mini .ph {
   height: 80px;
   border-radius: 10px;
@@ -1359,6 +1375,12 @@ button:active,
   cursor: pointer;
 }
 .rc-carousel img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  display: block;
+}
+.rc-carousel-photo {
   width: 120px;
   height: 120px;
   object-fit: cover;

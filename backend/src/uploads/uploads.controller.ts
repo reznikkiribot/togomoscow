@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import type { Response } from 'express';
+import type { Readable } from 'stream';
 import { createHash } from 'crypto';
 import sharp from 'sharp';
 import { TelegramAuthGuard } from '../common/telegram-auth.guard';
@@ -19,6 +20,8 @@ import { UploadsService } from './uploads.service';
 
 // allowed thumbnail widths (whitelist → bounded cache keys)
 const THUMB_WIDTHS = new Set([200, 400, 600, 900]);
+const MAX_PROXY_BYTES = 15 * 1024 * 1024;
+const MAX_THUMB_SOURCE_BYTES = 30 * 1024 * 1024;
 
 // SSRF guard for the external-image proxy: https only, public hostnames only
 function safeExternalUrl(raw: string): URL | null {
@@ -34,6 +37,78 @@ function safeExternalUrl(raw: string): URL | null {
   } catch {
     return null;
   }
+}
+
+function setImageHeaders(res: Response, contentType: string, immutable = true) {
+  res.setHeader('Content-Type', contentType);
+  res.setHeader('Cache-Control', immutable ? 'public, max-age=31536000, immutable' : 'no-store');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+}
+
+function imageError(res: Response, status: number) {
+  if (res.headersSent) {
+    res.destroy();
+    return;
+  }
+  setImageHeaders(res, 'text/plain; charset=utf-8', false);
+  res.status(status).end();
+}
+
+function pipeWithTimeout(body: Readable, res: Response, timeoutMs = 20_000) {
+  const timeout = setTimeout(() => {
+    body.destroy(new Error('storage stream timeout'));
+    imageError(res, 504);
+  }, timeoutMs);
+  const cleanup = () => clearTimeout(timeout);
+  body.once('error', () => {
+    cleanup();
+    imageError(res, 502);
+  });
+  res.once('finish', cleanup);
+  res.once('close', cleanup);
+  body.pipe(res);
+}
+
+async function readLimited(body: Readable, maxBytes: number, timeoutMs: number): Promise<Buffer> {
+  const chunks: Buffer[] = [];
+  let size = 0;
+  const timeout = setTimeout(() => {
+    body.destroy(new Error('storage read timeout'));
+  }, timeoutMs);
+  try {
+    for await (const chunk of body as any) {
+      const buffer = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk);
+      size += buffer.length;
+      if (size > maxBytes) {
+        body.destroy();
+        throw new Error('image too large');
+      }
+      chunks.push(buffer);
+    }
+    return Buffer.concat(chunks);
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+async function fetchExternalImage(initial: URL, signal: AbortSignal): Promise<globalThis.Response> {
+  let current = initial;
+  for (let redirects = 0; redirects <= 3; redirects += 1) {
+    const response = await fetch(current.href, {
+      signal,
+      redirect: 'manual',
+      headers: { Accept: 'image/avif,image/webp,image/*,*/*;q=0.5' },
+    });
+    if (response.status < 300 || response.status >= 400) return response;
+    const location = response.headers.get('location');
+    const next = location ? safeExternalUrl(new URL(location, current).href) : null;
+    await response.body?.cancel().catch(() => {});
+    if (!next) throw new Error('unsafe redirect');
+    current = next;
+  }
+  throw new Error('too many redirects');
 }
 
 @Controller()
@@ -59,35 +134,36 @@ export class UploadsController {
     const width = THUMB_WIDTHS.has(Number(w)) ? Number(w) : 600;
     const url = safeExternalUrl(u ?? '');
     if (!url) {
-      res.status(400).end();
+      imageError(res, 400);
       return;
     }
     const cacheKey = `ext-${createHash('sha1').update(`${url.href}|${width}`).digest('hex')}`;
     try {
       const obj = await this.uploads.get(cacheKey);
-      res.setHeader('Content-Type', 'image/webp');
-      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-      obj.body.pipe(res);
+      setImageHeaders(res, 'image/webp');
+      pipeWithTimeout(obj.body, res);
       return;
     } catch {
       /* not cached yet */
     }
+    const ctrl = new AbortController();
+    const timeout = setTimeout(() => ctrl.abort(), 10_000);
     try {
-      const ctrl = new AbortController();
-      const t = setTimeout(() => ctrl.abort(), 8000);
-      const r = await fetch(url.href, { signal: ctrl.signal, redirect: 'follow' });
-      clearTimeout(t);
+      const r = await fetchExternalImage(url, ctrl.signal);
       if (!r.ok) throw new Error(`upstream ${r.status}`);
+      const length = Number(r.headers.get('content-length') ?? 0);
+      if (length > MAX_PROXY_BYTES) throw new Error('too large');
       const buf = Buffer.from(await r.arrayBuffer());
-      if (buf.length > 15 * 1024 * 1024) throw new Error('too large');
+      if (buf.length > MAX_PROXY_BYTES) throw new Error('too large');
       const thumb = await sharp(buf).rotate().resize({ width, withoutEnlargement: true }).webp({ quality: 78 }).toBuffer();
-      res.setHeader('Content-Type', 'image/webp');
-      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+      setImageHeaders(res, 'image/webp');
       res.end(thumb);
       this.uploads.putAt(cacheKey, thumb, 'image/webp').catch(() => {});
-    } catch {
+    } catch (error: any) {
       // let the client fall back to the original URL
-      res.status(404).end();
+      imageError(res, error?.name === 'AbortError' ? 504 : 502);
+    } finally {
+      clearTimeout(timeout);
     }
   }
 
@@ -100,29 +176,27 @@ export class UploadsController {
     const cacheKey = wantThumb ? `${key}-w${width}` : key;
     try {
       const obj = await this.uploads.get(cacheKey);
-      res.setHeader('Content-Type', wantThumb ? 'image/webp' : (obj.contentType ?? 'application/octet-stream'));
-      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-      obj.body.pipe(res);
+      setImageHeaders(res, wantThumb ? 'image/webp' : (obj.contentType ?? 'image/jpeg'));
+      pipeWithTimeout(obj.body, res);
       return;
     } catch {
       /* thumb not cached yet (or key missing) → try to build it */
     }
     if (!wantThumb) {
-      res.status(404).end();
+      imageError(res, 404);
       return;
     }
     try {
       const orig = await this.uploads.get(key);
-      const chunks: Buffer[] = [];
-      for await (const c of orig.body) chunks.push(c as Buffer);
-      const thumb = await sharp(Buffer.concat(chunks)).rotate().resize({ width, withoutEnlargement: true }).webp({ quality: 78 }).toBuffer();
-      res.setHeader('Content-Type', 'image/webp');
-      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+      const source = await readLimited(orig.body, MAX_THUMB_SOURCE_BYTES, 20_000);
+      const thumb = await sharp(source).rotate().resize({ width, withoutEnlargement: true }).webp({ quality: 78 }).toBuffer();
+      setImageHeaders(res, 'image/webp');
       res.end(thumb);
       // cache for next time (fire-and-forget)
       this.uploads.putAt(cacheKey, thumb, 'image/webp').catch(() => {});
     } catch {
-      res.status(404).end();
+      // The original may still be healthy; SmartImg immediately retries it.
+      imageError(res, 502);
     }
   }
 }

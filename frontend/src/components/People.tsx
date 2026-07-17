@@ -6,14 +6,11 @@ import { useSwipeBack } from '../swipeBack';
 import { ListingDetailModal } from './ListingDetail';
 import { PhotoPostModal } from './PhotoPostModal';
 import { ReviewCard, CategoryAverages } from './ReviewCard';
+import { SmartImg } from './SmartImg';
 import type { PublicProfile, PublicUser, Review } from '../types';
 
 function Avatar({ user }: { user: { photoUrl?: string | null; firstName?: string | null } }) {
-  return user.photoUrl ? (
-    <img className="pu-avatar" src={user.photoUrl} alt="" />
-  ) : (
-    <div className="pu-avatar ph">{(user.firstName ?? '?').trim()[0]?.toUpperCase() ?? '?'}</div>
-  );
+  return <SmartImg className="pu-avatar" src={user.photoUrl} width={200} loading="eager" monogram={user.firstName} />;
 }
 
 function FollowBtn({ u, onChange }: { u: PublicUser; onChange: (following: boolean) => void }) {
@@ -240,7 +237,18 @@ export function UserProfileModal({ id, onClose }: { id: string; onClose: () => v
                     <div className="rc-carousel">
                       {withPhoto.map((r) => (
                         <button key={r.id} onClick={() => open(r)}>
-                          <img src={(r.photoUrls?.[0] || r.listing?.photoUrl) as string} alt="" />
+                          <SmartImg
+                            className="rc-carousel-photo"
+                            src={r.photoUrls?.[0] || r.listing?.photoUrl}
+                            width={400}
+                            stock={r.listing ? {
+                              type: r.listing.type,
+                              category: r.listing.category,
+                              name: r.listing.name,
+                              seed: r.listing.id,
+                            } : undefined}
+                            monogram={r.listing?.name}
+                          />
                         </button>
                       ))}
                     </div>

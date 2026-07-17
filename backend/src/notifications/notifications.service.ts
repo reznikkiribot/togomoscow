@@ -102,8 +102,10 @@ export class NotificationsService {
         ? this.prisma.user.findMany({ where: { id: { in: actorIds } }, select: { id: true, photoUrl: true } })
         : [],
     ]);
-    const byReview = new Map(reviews.map((r) => [r.id, r]));
-    const actorPhoto = new Map(actors.map((a) => [a.id, a.photoUrl]));
+    const byReview = new Map<string, any>();
+    for (const review of reviews) byReview.set(review.id, review);
+    const actorPhoto = new Map<string, string | null>();
+    for (const actor of actors) actorPhoto.set(actor.id, actor.photoUrl);
     const enriched = items.map((n) => {
       const r = n.reviewId ? byReview.get(n.reviewId) : null;
       return {

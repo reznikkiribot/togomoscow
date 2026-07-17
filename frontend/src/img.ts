@@ -10,6 +10,10 @@ export function thumb(url: string | null | undefined, w: 200 | 400 | 600 | 900 =
   return url;
 }
 
+export function retryImageUrl(url: string, token: string): string {
+  return `${url}${url.includes('?') ? '&' : '?'}img_retry=${encodeURIComponent(token)}`;
+}
+
 // locally generated (Stable Diffusion) card images live under aigen-* keys and
 // must carry the "сгенерировано ИИ" disclaimer instead of the stock one
 export function isAiPhoto(url: string | null | undefined): boolean {

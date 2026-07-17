@@ -135,9 +135,15 @@ export class SocialService {
       include: { venue: true },
     });
     const venueByItem = new Map<string, { id: string; name: string }>();
+    const photosByItem = new Map<string, { venueId: string; photoUrl: string }[]>();
     for (const l of links) {
       if (l.venue && !venueByItem.has(l.itemId)) {
         venueByItem.set(l.itemId, { id: l.venue.id, name: l.venue.name });
+      }
+      if (l.photoUrl) {
+        const photos = photosByItem.get(l.itemId) ?? [];
+        photos.push({ venueId: l.venueId, photoUrl: l.photoUrl });
+        photosByItem.set(l.itemId, photos);
       }
     }
 
@@ -145,6 +151,14 @@ export class SocialService {
       const vid = (r.attributes as any)?.venueId;
       if (vid && venueById.has(vid)) r.venue = venueById.get(vid);
       else if (r.listing && venueByItem.has(r.listing.id)) r.venue = venueByItem.get(r.listing.id);
+      if (r.listing && !r.listing.photoUrl) {
+        const photos = photosByItem.get(r.listing.id) ?? [];
+        const picked =
+          (vid && photos.find((photo) => photo.venueId === vid)) ||
+          photos.find((photo) => photo.photoUrl.startsWith('/api/files/aigen-')) ||
+          photos[0];
+        if (picked) r.listing.photoUrl = picked.photoUrl;
+      }
     }
   }
 

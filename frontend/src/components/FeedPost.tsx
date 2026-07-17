@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { api } from '../api';
 import type { Review, VoteState, VoteType } from '../types';
 import { Stars } from './Stars';
-import { thumb } from '../img';
+import { SmartImg } from './SmartImg';
 
 const VOTE_LABEL: Record<VoteType, string> = {
   USEFUL: '👍 Полезно',
@@ -11,23 +11,7 @@ const VOTE_LABEL: Record<VoteType, string> = {
   OHNO: '🙀 О нет',
 };
 
-// Feed image that NEVER silently stays black: resize-proxy → raw URL →
-// cache-busted retry. Only after all three fail does the area collapse.
-function PostImg({ src }: { src: string }) {
-  const candidates = [thumb(src, 600), src, `${src}${src.includes('?') ? '&' : '?'}r=${Date.now() % 1e6}`];
-  const [idx, setIdx] = useState(0);
-  if (idx >= candidates.length) return null;
-  return (
-    <img
-      className="post-photo"
-      src={candidates[idx]}
-      alt=""
-      loading="lazy"
-      onError={() => setIdx((i) => i + 1)}
-    />
-  );
-}
-
+// Feed photos use the shared resilient renderer below.
 // A user's activity post (Yelp-style): author + photo + the item/venue they reviewed.
 export function FeedPost({
   review,
@@ -48,6 +32,14 @@ export function FeedPost({
   // photo (illustrative, labeled) so the wall never looks broken/empty
   const photo = review.photoUrls?.[0];
   const cardPhoto = !photo ? review.listing?.photoUrl : null;
+  const imageFallback = review.listing
+    ? {
+        type: review.listing.type,
+        category: review.listing.category,
+        name: review.listing.name,
+        seed: review.listing.id,
+      }
+    : undefined;
   const u = review.user;
   const initial = (u?.firstName ?? u?.username ?? '?').trim()[0]?.toUpperCase() ?? '?';
   const [vote, setVote] = useState<VoteState>({
@@ -68,11 +60,7 @@ export function FeedPost({
           if (u?.id && onOpenUser) onOpenUser(u.id);
         }}
       >
-        {u?.photoUrl ? (
-          <img className="post-avatar" src={u.photoUrl} alt="" />
-        ) : (
-          <div className="post-avatar ph">{initial}</div>
-        )}
+        <SmartImg className="post-avatar" src={u?.photoUrl} width={200} loading="eager" monogram={initial} />
         <div style={{ textAlign: 'left' }}>
           <b>{u?.firstName ?? u?.username ?? 'Гость'}</b>
           <div className="meta" style={{ color: 'var(--hint)', fontSize: 13 }}>
@@ -92,13 +80,13 @@ export function FeedPost({
             }
           }}
         >
-          <PostImg src={photo} />
+          <SmartImg className="post-photo" src={photo} stock={imageFallback} monogram={review.listing?.name} />
           {/* ↗ affordance: the photo IS tappable (opens the check-in) */}
           {onOpenPhoto && <span className="post-photo-open">↗</span>}
         </div>
-      ) : cardPhoto ? (
+      ) : cardPhoto || review.listing ? (
         <div className="post-photo-wrap">
-          <PostImg src={cardPhoto} />
+          <SmartImg className="post-photo" src={cardPhoto} stock={imageFallback} monogram={review.listing?.name} />
         </div>
       ) : null}
 
