@@ -1780,10 +1780,13 @@ button:active,
   color: var(--text);
   cursor: pointer;
 }
+/* MY reaction is lit BLUE (owner 18.07.2026) — instantly readable as "я нажал",
+   not just a count. Server hydrates myVotes so it's blue the moment the card opens. */
 .vote-btn.active {
-  background: rgba(211, 35, 35, 0.1);
-  border-color: var(--accent);
-  color: var(--accent);
+  background: rgba(0, 122, 255, 0.14);
+  border-color: #007aff;
+  color: #007aff;
+  font-weight: 800;
 }
 /* feed reactions: all four on one line, full labels, just smaller text */
 .post .vote-row {
