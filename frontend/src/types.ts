@@ -103,11 +103,13 @@ export interface Review {
 // bell / notification-center item
 export interface AppNotification {
   id: string;
-  kind: 'vote' | 'comment' | 'follow' | 'friend_post';
+  kind: 'vote' | 'comment' | 'follow' | 'friend_post' | 'rating_up';
   text: string;
   actorId?: string | null;
   actorName?: string | null;
+  actorPhoto?: string | null; // avatar shown on the left
   reviewId?: string | null;
+  reviewPhoto?: string | null; // review/dish thumbnail on the right
   listingId?: string | null;
   listingName?: string | null;
   readAt?: string | null;

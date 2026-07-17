@@ -4,7 +4,7 @@ import { UserProfileModal } from '../components/People';
 import type { AppNotification } from '../types';
 const ListingDetailModal = lazy(() => import('../components/ListingDetail').then((m) => ({ default: m.ListingDetailModal })));
 
-const KIND_ICON: Record<string, string> = { vote: '👍', comment: '💬', follow: '➕', friend_post: '📝' };
+const KIND_ICON: Record<string, string> = { vote: '👍', comment: '💬', follow: '➕', friend_post: '📝', rating_up: '🏅' };
 
 function ago(iso: string): string {
   const s = Math.max(1, Math.floor((Date.now() - new Date(iso).getTime()) / 1000));
@@ -58,7 +58,16 @@ export default function Alerts() {
       ) : (
         items.map((n) => (
           <div key={n.id} className={`alert-row${freshIds.has(n.id) ? ' fresh' : ''}`} onClick={() => open(n)}>
-            <span className="alert-ico">{KIND_ICON[n.kind] ?? '🔔'}</span>
+            {n.actorPhoto ? (
+              <img
+                className="alert-avatar"
+                src={n.actorPhoto}
+                alt=""
+                onClick={(e) => { if (n.actorId) { e.stopPropagation(); setOpenUser(n.actorId); } }}
+              />
+            ) : (
+              <span className="alert-ico">{KIND_ICON[n.kind] ?? '🔔'}</span>
+            )}
             <div className="alert-body">
               <div className="alert-text">{n.text}</div>
               <div className="alert-meta">
@@ -76,6 +85,7 @@ export default function Alerts() {
                 )}
               </div>
             </div>
+            {n.reviewPhoto && <img className="alert-thumb" src={n.reviewPhoto} alt="" loading="lazy" />}
             {freshIds.has(n.id) && <span className="alert-dot" />}
           </div>
         ))

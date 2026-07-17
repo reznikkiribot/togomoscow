@@ -12,7 +12,7 @@ export class NotificationsService {
 
   async add(opts: {
     userId: string;
-    kind: 'vote' | 'comment' | 'follow' | 'friend_post';
+    kind: 'vote' | 'comment' | 'follow' | 'friend_post' | 'rating_up';
     text: string;
     actorId?: string | null;
     actorName?: string | null;
@@ -62,7 +62,22 @@ export class NotificationsService {
         body: JSON.stringify({ chat_id: String(user.telegramId), text: `🔔 ${text}\n\nОткройте приложение — в колокольчике всё новое.` }),
         signal: AbortSignal.timeout(10_000),
       });
-      if (r.ok) await this.prisma.notification.update({ where: { id: notificationId }, data: { pushed: true } });
+      if (r.ok) {
+        await this.prisma.notification.update({ where: { id: notificationId }, data: { pushed: true } });
+        // OWNER RULE 18.07.2026: the push pops up as a banner but must NOT stay
+        // in the chat — self-delete after a beat; the bell keeps the history
+        const j = (await r.json().catch(() => null)) as any;
+        const messageId = j?.result?.message_id;
+        if (messageId) {
+          setTimeout(() => {
+            fetch(`https://api.telegram.org/bot${token}/deleteMessage`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ chat_id: String(user.telegramId), message_id: messageId }),
+            }).catch(() => {});
+          }, 20_000);
+        }
+      }
     } catch { /* user may have blocked the bot — fine */ }
   }
 
@@ -72,20 +87,33 @@ export class NotificationsService {
       orderBy: { createdAt: 'desc' },
       take: 30,
     });
-    // tap → the source review's card: attach the listing behind each review
+    // tap → the source review's card: attach the listing behind each review;
+    // the row also shows the ACTOR's avatar (left) and the review photo (right)
     const reviewIds = [...new Set(items.map((n) => n.reviewId).filter(Boolean))] as string[];
-    const reviews = reviewIds.length
-      ? await this.prisma.review.findMany({
-          where: { id: { in: reviewIds } },
-          select: { id: true, listingId: true, listing: { select: { name: true } } },
-        })
-      : [];
+    const actorIds = [...new Set(items.map((n) => n.actorId).filter(Boolean))] as string[];
+    const [reviews, actors] = await Promise.all([
+      reviewIds.length
+        ? this.prisma.review.findMany({
+            where: { id: { in: reviewIds } },
+            select: { id: true, listingId: true, photoUrls: true, listing: { select: { name: true, photoUrl: true } } },
+          })
+        : [],
+      actorIds.length
+        ? this.prisma.user.findMany({ where: { id: { in: actorIds } }, select: { id: true, photoUrl: true } })
+        : [],
+    ]);
     const byReview = new Map(reviews.map((r) => [r.id, r]));
-    const enriched = items.map((n) => ({
-      ...n,
-      listingId: n.reviewId ? byReview.get(n.reviewId)?.listingId ?? null : null,
-      listingName: n.reviewId ? byReview.get(n.reviewId)?.listing?.name ?? null : null,
-    }));
+    const actorPhoto = new Map(actors.map((a) => [a.id, a.photoUrl]));
+    const enriched = items.map((n) => {
+      const r = n.reviewId ? byReview.get(n.reviewId) : null;
+      return {
+        ...n,
+        listingId: r?.listingId ?? null,
+        listingName: r?.listing?.name ?? null,
+        reviewPhoto: r?.photoUrls?.[0] ?? r?.listing?.photoUrl ?? null,
+        actorPhoto: n.actorId ? actorPhoto.get(n.actorId) ?? null : null,
+      };
+    });
     const unread = items.filter((n) => !n.readAt).length;
     return { items: enriched, unread };
   }

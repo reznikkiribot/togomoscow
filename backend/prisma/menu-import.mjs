@@ -87,6 +87,8 @@ function isJunk(name) {
   if (n.split(/\s+/).length > 7) return true; // a sentence/description, not a menu name
   if (/^\d+\s*(любые|пицц|штук|шт\b)/.test(n)) return true; // "3 любые пиццы"
   if (/любые пицц|комбо|\bсет\b|\bнабор\b|меню дня|за \d+\s*₽|выгодн|подарок|конструктор|собери|акци|скидк|сертификат|доставк|для офиса|идеальных|\+ ?\d|\d ?\+ ?\d/.test(n)) return true;
+  // «X и закуска», «пицца и напиток» — combos in disguise (their photos are collages)
+  if (/ и закуск| и напит| и десерт| и салат|ассорти из \d/.test(n)) return true;
   // OWNER RULE (13.07.2026): a SINGLE adjective is not a dish name ("Малиновый",
   // "Сырный", "Ванильный") — it's missing the noun. Reject one-word names that
   // are just an adjective (Russian adjective endings).

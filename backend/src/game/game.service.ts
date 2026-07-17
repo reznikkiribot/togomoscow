@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { NotificationsService } from '../notifications/notifications.service';
 import { PrismaService } from '../prisma/prisma.service';
 
 // ===== Gamification core =====
@@ -56,7 +57,7 @@ export const DEFAULT_CONFIG: Record<string, any> = {
 export class GameService {
   private cache: { at: number; config: Record<string, any> } | null = null;
 
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService, private readonly notifications: NotificationsService) {}
 
   /** Live config: DB rows override DEFAULT_CONFIG per key; cached for 60s. */
   async config(): Promise<Record<string, any>> {
@@ -171,6 +172,22 @@ export class GameService {
       await this.prisma.userAchievement
         .createMany({ data: fresh.map((key) => ({ userId, key })), skipDuplicates: true })
         .catch(() => {});
+      // «повышение рейтинга» → the bell (owner 18.07.2026): new achievements and
+      // unlocks land in the notification center too, not just the one-time toast
+      void (async () => {
+        for (const k of fresh.slice(0, 3)) {
+          const isAch = k.startsWith('ach:');
+          const key = k.replace(/^(ach|unlock):/, '');
+          const title = isAch
+            ? (cfg.achievements as any[]).find((a) => a.key === key)?.title ?? key
+            : (unlocks.find((u) => u.key === key) as any)?.title ?? key;
+          await this.notifications.add({
+            userId,
+            kind: 'rating_up',
+            text: isAch ? `🏅 Ваш рейтинг растёт — новое достижение: «${title}»` : `🔓 Открыт новый раздел: «${title}»`,
+          });
+        }
+      })().catch(() => {});
     }
 
     return {
