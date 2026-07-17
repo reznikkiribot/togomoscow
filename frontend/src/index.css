@@ -5579,16 +5579,21 @@ button:active,
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fff;
+  /* framed like a restaurant sign: red inset border + a whisper of warm tint,
+     so the tile reads as a card face and never melts into the white app bg */
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(211, 35, 35, 0.05), transparent 55%),
+    #fff;
+  box-shadow: inset 0 0 0 2px var(--accent), inset 0 0 0 6px #fff, inset 0 0 0 7px rgba(211, 35, 35, 0.25);
   color: #111;
   text-align: center;
-  padding: 10px 12px;
+  padding: 14px 16px;
   overflow: hidden;
 }
 .venue-name-tile span {
   font-weight: 800;
-  font-size: clamp(14px, 4.2vw, 22px);
-  line-height: 1.2;
+  font-size: clamp(14px, 4.2vw, 21px);
+  line-height: 1.22;
   letter-spacing: 0.01em;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -5596,4 +5601,22 @@ button:active,
   overflow: hidden;
   word-break: break-word;
 }
+/* small red underline — the accent that makes it look designed, not empty */
+.venue-name-tile span::after {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--accent);
+  margin: 8px auto 0;
+}
 .vcard-photo.venue-name-tile span, .mini-img.venue-name-tile span { font-size: 13px; }
+.vcard-photo.venue-name-tile, .mini-img.venue-name-tile {
+  padding: 8px;
+  box-shadow: inset 0 0 0 1.5px var(--accent);
+}
+.mini-img.venue-name-tile span::after, .vcard-photo.venue-name-tile span::after { display: none; }
+
+/* «Станьте первым дегустатором» keeps the compact card height (owner 17.07) */
+.ft-feed .card .photo { height: 132px; }

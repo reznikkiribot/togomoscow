@@ -726,6 +726,25 @@ export class ListingsService {
     await this.attachVenuesToReviews(page);
     await this.attachCommentPreview(page);
     await this.attachVoteCounts(page);
+    // text-only posts fall back to the ITEM's card photo; after the stock purge
+    // that may be null while the menu LINKS still hold the venue's aigen photo —
+    // use it (prefer the venue the review was tasted at) so posts never go blank
+    const needPhoto = page.filter((r: any) => !(r.photoUrls?.length) && r.listing && !r.listing.photoUrl);
+    if (needPhoto.length) {
+      const itemIds = [...new Set(needPhoto.map((r: any) => r.listingId))];
+      const links = await this.prisma.menuLink.findMany({
+        where: { itemId: { in: itemIds }, photoUrl: { not: null } },
+        select: { itemId: true, venueId: true, photoUrl: true },
+      });
+      const byItem = new Map<string, { venueId: string; photoUrl: string | null }[]>();
+      for (const l of links) (byItem.get(l.itemId) ?? byItem.set(l.itemId, []).get(l.itemId)!).push(l);
+      for (const r of needPhoto as any[]) {
+        const ls = byItem.get(r.listingId);
+        if (!ls?.length) continue;
+        const vid = (r.attributes as any)?.venueId;
+        r.listing.photoUrl = (vid && ls.find((l) => l.venueId === vid)?.photoUrl) || ls[0].photoUrl;
+      }
+    }
     return page;
   }
 

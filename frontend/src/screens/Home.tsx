@@ -148,6 +148,9 @@ export default function Home() {
   const [recCards, setRecCards] = useState<Listing[]>([]);
   const recSeen = useRef(new Set<string>());
   const recFetching = useRef(false);
+  // frozen feed layout: entries never move once shown; new batches append below
+  const feedOrderRef = useRef<string[]>([]);
+  const feedMountTs = useRef(Date.now());
   // swipe left→right returns from a category/search view to the home feed (iOS
   // interactive-pop pattern) — active ONLY while a filter/category is on screen
   const homeRef = useRef<HTMLDivElement>(null);
@@ -815,7 +818,7 @@ export default function Home() {
               <>
                 <div className="section-title">🏅 Станьте первым дегустатором</div>
                 <p className="ft-sub">Ваш отзыв станет частью истории карточки</p>
-                <div className="feed">{ft.map(card)}</div>
+                <div className="feed ft-feed">{ft.map(card)}</div>
               </>
             );
           })()}
@@ -823,17 +826,16 @@ export default function Home() {
           {(wallPosts.length > 0 || recCards.length > 0) && (
             <>
               <div className="section-title" ref={feedTopRef}>Лента</div>
-              {/* ONE ranked feed (owner rule 17.07.2026): posts and rec cards are
-                  merged by a unified 0..1 score — a recommendation that fits the
-                  user's taste better OUTRANKS a friend's post. Friends still get
-                  their boost inside the score, not a hard block. */}
+              {/* ONE ranked feed (owner rules 17.07.2026): posts and rec cards
+                  compete on a unified 0..1 score — a better-fitting rec card may
+                  stand ABOVE a friend's post. But once something is ON SCREEN its
+                  position is frozen: «показать ещё» only APPENDS below, sorted
+                  within the new batch — never reshuffles what the user has seen. */}
               {(() => {
-                type Entry = { s: number; el: JSX.Element };
-                const entries: Entry[] = [];
+                const byKey = new Map<string, { s: number; el: JSX.Element }>();
                 wallPosts.forEach((r, i) => {
-                  const s = Number((r as any).normScore ?? Math.max(0.05, 1 - i * 0.04));
-                  entries.push({
-                    s,
+                  byKey.set('p:' + r.id, {
+                    s: Number((r as any).normScore ?? Math.max(0.05, 1 - i * 0.04)),
                     el: (
                       <FeedPost
                         key={r.id}
@@ -848,9 +850,8 @@ export default function Home() {
                   });
                 });
                 recCards.forEach((l, i) => {
-                  const s = Number((l as any).normScore ?? Math.max(0.05, 0.9 - i * 0.04));
-                  entries.push({
-                    s,
+                  byKey.set('r:' + l.id, {
+                    s: Number((l as any).normScore ?? Math.max(0.05, 0.9 - i * 0.04)),
                     el: (
                       <div key={'rec-' + l.id} className="rec-wrap">
                         <div className="rec-tag">✨ Вам может понравиться</div>
@@ -859,11 +860,16 @@ export default function Home() {
                     ),
                   });
                 });
-                // stable merge: higher score first; equal scores keep post-first order
-                return entries
-                  .map((e, i) => ({ ...e, i }))
-                  .sort((a, b) => b.s - a.s || a.i - b.i)
-                  .map((e) => e.el);
+                const bySc = (a: string, b: string) => byKey.get(b)!.s - byKey.get(a)!.s;
+                if (Date.now() - feedMountTs.current < 2500) {
+                  // first paint window: full score merge (recs may lead)
+                  feedOrderRef.current = [...byKey.keys()].sort(bySc);
+                } else {
+                  const known = new Set(feedOrderRef.current);
+                  const fresh = [...byKey.keys()].filter((k) => !known.has(k)).sort(bySc);
+                  if (fresh.length) feedOrderRef.current = [...feedOrderRef.current, ...fresh];
+                }
+                return feedOrderRef.current.map((k) => byKey.get(k)?.el).filter(Boolean);
               })()}
               {/* the feed never ends: «показать ещё» always loads more. Premium
                   feedback — the button shows a spinner while the next batch loads */}
