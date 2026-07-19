@@ -6,6 +6,7 @@ import { IcHome, IcBookmark, IcBell, IcUser, IcTools } from './components/Icons'
 import { QuizModal } from './components/QuizModal';
 import { CategoryCelebration } from './components/CategoryCelebration';
 import { ScanFab } from './components/ScanFab';
+import { usePullToRefresh } from './pullToRefresh';
 
 export default function App() {
   const loc = useLocation();
@@ -84,8 +85,20 @@ export default function App() {
     };
   }, []);
 
+  // iOS-style pull-to-refresh on every tab: hard pull at the top reloads
+  const { pull, refreshing, threshold } = usePullToRefresh();
+  const ptrReady = pull >= threshold || refreshing;
+
   return (
     <div className="app">
+      <div
+        className="ptr-indicator"
+        style={{ transform: `translateY(${Math.min(pull, threshold + 20) - 40}px)`, opacity: pull > 6 || refreshing ? 1 : 0 }}
+      >
+        <span className={'ptr-spinner' + (refreshing ? ' spin' : '')} style={{ transform: refreshing ? undefined : `rotate(${pull * 3}deg)` }}>
+          {ptrReady ? '↻' : '↓'}
+        </span>
+      </div>
       {showQuiz && (
         <QuizModal
           onDone={() => {

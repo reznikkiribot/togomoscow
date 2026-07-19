@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { api } from '../api';
 import { useEscClose } from '../modalEsc';
 import { haptic } from '../telegram';
+import { shareReviewToStory } from '../reviewStory';
 import type { Listing, RecognizeResult } from '../types';
 import { ReviewForm } from './ReviewForm';
 import { VenuePicker } from './VenuePicker';
@@ -338,8 +339,9 @@ export function ScanFab() {
           venue={venue}
           initialPhotoUrls={uploadedUrl.current ? [uploadedUrl.current] : []}
           onClose={reset}
-          onSaved={() => {
+          onSaved={(media) => {
             haptic('medium');
+            void shareReviewToStory(chosen, media);
             reset();
           }}
         />

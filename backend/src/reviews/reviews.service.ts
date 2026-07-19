@@ -217,32 +217,35 @@ export class ReviewsService {
     // AI moderation gate: clean reviews auto-publish instantly; ONLY violations
     // land in the admin cabinet (profanity/spam text throws above, an explicit
     // photo sends the review to PENDING for a human look)
-    let status: 'APPROVED' | 'PENDING' = 'APPROVED';
+    let textStatus: 'APPROVED' | 'PENDING' = 'APPROVED';
     const reviewText = (dto.text ?? '').trim();
     if (reviewText && (PROFANITY.test(reviewText) || SPAM.test(reviewText) || CRUDE.test(reviewText) || GIBBERISH.test(reviewText))) {
-      status = 'PENDING'; // crude / gibberish / non-constructive → the cabinet, not the feed
+      textStatus = 'PENDING'; // crude / gibberish / non-constructive → the cabinet, not the feed
     }
     // toxic low-rating rant with no substance (e.g. "1★, отстой, не берите"):
     // a 1-2★ review under ~20 chars and no useful noun is held for a human look
     if (rating <= 2 && reviewText && reviewText.length < 20 && !/[а-яё]{5,}\s+[а-яё]{4,}/i.test(reviewText)) {
-      status = 'PENDING';
+      textStatus = 'PENDING';
     }
-    // photo moderation: explicit content is dropped entirely; the photo must ALSO
-    // actually depict the dish/drink in the card name (AI check, >50% match) —
-    // a graph/screenshot or an unrelated object is rejected from the review
-    let promoteToCard = false;
-    if (dto.photoUrls?.length) {
-      const item = await this.prisma.listing.findUnique({ where: { id: listingId }, select: { name: true, category: true } });
-      const check = await this.checkReviewPhoto(dto.photoUrls[0], item?.name, item?.category);
-      if (check.block) {
-        this.log.warn(`review photo blocked (${check.reason}) user=${userId} listing=${listingId}`);
-        dto.photoUrls = [];
-        status = 'PENDING'; // violation → human moderation
-      } else {
-        promoteToCard = check.promote;
-      }
+
+    // Normalize venue metadata before the durable write (the old order clamped
+    // price only after Prisma had already persisted the untrusted value).
+    const venueId = (dto.attributes as any)?.venueId;
+    let price = (dto.attributes as any)?.price;
+    if (price != null) {
+      price = Math.max(0, Math.min(100000, Math.round(Number(price) || 0))) || undefined;
+      if (dto.attributes && typeof dto.attributes === 'object') (dto.attributes as any).price = price;
     }
-    const review = await this.prisma.review.upsert({
+
+    const requestedPhotoUrls = [...(dto.photoUrls ?? [])];
+    const existedBefore = await this.prisma.review.findUnique({
+      where: { listingId_userId: { listingId, userId } },
+      select: { id: true },
+    });
+    // Persist the core review BEFORE CLIP/MinIO work. An unverified photo starts
+    // PENDING, so an OOM/process crash cannot publish it but also cannot erase
+    // the user's text and rating.
+    let review = await this.prisma.review.upsert({
       where: { listingId_userId: { listingId, userId } },
       create: {
         listingId,
@@ -250,59 +253,90 @@ export class ReviewsService {
         rating,
         text: dto.text ?? null,
         attributes: dto.attributes ?? Prisma.JsonNull,
-        photoUrls: dto.photoUrls ?? [],
+        photoUrls: requestedPhotoUrls,
         videoUrls: dto.videoUrls ?? [],
-        status,
+        status: requestedPhotoUrls.length ? 'PENDING' : textStatus,
       },
       update: {
         rating,
         text: dto.text ?? null,
         attributes: dto.attributes ?? Prisma.JsonNull,
-        photoUrls: dto.photoUrls ?? [],
+        photoUrls: requestedPhotoUrls,
         videoUrls: dto.videoUrls ?? [],
-        status,
+        status: requestedPhotoUrls.length ? 'PENDING' : textStatus,
       },
     });
+    this.log.log(`review persisted id=${review.id} user=${userId} listing=${listingId}`);
+
+    // Photo moderation happens only after the durable write. If it fails, the
+    // row remains visible to admins as PENDING and can be recovered/reviewed.
+    let acceptedPhotoUrls = requestedPhotoUrls;
+    let promoteToCard = false;
+    if (requestedPhotoUrls.length) {
+      try {
+        const item = await this.prisma.listing.findUnique({ where: { id: listingId }, select: { name: true, category: true } });
+        const check = await this.checkReviewPhoto(requestedPhotoUrls[0], item?.name, item?.category);
+        if (check.block) {
+          this.log.warn(`review photo blocked (${check.reason}) user=${userId} listing=${listingId}`);
+          acceptedPhotoUrls = [];
+        } else {
+          promoteToCard = check.promote;
+        }
+        review = await this.prisma.review.update({
+          where: { id: review.id },
+          data: {
+            photoUrls: acceptedPhotoUrls,
+            status: check.block ? 'PENDING' : textStatus,
+          },
+        });
+      } catch (error) {
+        this.log.error(`review photo moderation failed after persist id=${review.id}: ${String(error)}`);
+      }
+    }
     // review photos ACCUMULATE into the listing gallery (deduped); the first real
     // photo also becomes the card face if there isn't one yet — but ONLY photos
     // that passed the food check (faces/screenshots never surface on catalog cards)
-    if (dto.photoUrls?.length && promoteToCard) {
-      const l = await this.prisma.listing.findUnique({
-        where: { id: listingId },
-        select: { photoUrl: true, photos: true },
-      });
-      const photos = [...new Set([...(l?.photos ?? []), ...dto.photoUrls])];
-      const faceIsUgc = !!l?.photoUrl?.startsWith('/api/files/');
-      await this.prisma.listing
-        .update({
+    if (acceptedPhotoUrls.length && promoteToCard) {
+      try {
+        const l = await this.prisma.listing.findUnique({
+          where: { id: listingId },
+          select: { photoUrl: true, photos: true },
+        });
+        const photos = [...new Set([...(l?.photos ?? []), ...acceptedPhotoUrls])];
+        const faceIsUgc = !!l?.photoUrl?.startsWith('/api/files/');
+        await this.prisma.listing.update({
           where: { id: listingId },
           // a real user FOOD photo beats a licensed/stock card face
-          data: { photos, ...(faceIsUgc ? {} : { photoUrl: dto.photoUrls[0] }) },
-        })
-        .catch(() => {});
+          data: { photos, ...(faceIsUgc ? {} : { photoUrl: acceptedPhotoUrls[0] }) },
+        });
+      } catch (error) {
+        this.log.warn(`review gallery update failed id=${review.id}: ${String(error)}`);
+      }
     }
     // a dish/drink review carries the venue it was tasted at → make sure the item
     // is on that venue's menu (and on every branch of the chain). Done server-side
     // so it works no matter which rating path the client used.
-    const venueId = (dto.attributes as any)?.venueId;
-    // sane price cap: a dish/drink over 100 000 ₽ is a typo/troll → clamp so the
-    // catalog never shows "1000000 ₽"
-    let price = (dto.attributes as any)?.price;
-    if (price != null) {
-      price = Math.max(0, Math.min(100000, Math.round(Number(price) || 0))) || undefined;
-      if (dto.attributes && typeof dto.attributes === 'object') (dto.attributes as any).price = price;
+    if (venueId) {
+      try {
+        await this.linkChain(userId, listingId, venueId, price);
+      } catch (error) {
+        this.log.warn(`review venue link failed id=${review.id}: ${String(error)}`);
+      }
     }
-    if (venueId) await this.linkChain(userId, listingId, venueId, price);
     // implicit-feedback signal for the recommender (high ratings = strong positive)
     const recType = rating >= 5 ? 'RATE_HIGH' : rating >= 4 ? 'RATE_GOOD' : null;
-    if (recType) {
+    if (recType && !existedBefore) {
       await this.prisma.interaction
         .create({ data: { userId, listingId, type: recType, weight: rating >= 5 ? 5 : 4 } })
         .catch(() => {});
     }
-    await this.recompute(listingId);
+    try {
+      await this.recompute(listingId);
+    } catch (error) {
+      this.log.warn(`review aggregate recompute failed id=${review.id}: ${String(error)}`);
+    }
     // notify FOLLOWERS about the new post (bell + capped push), fire-and-forget
-    void (async () => {
+    if (!existedBefore) void (async () => {
       const followers = await this.prisma.follow.findMany({ where: { followingId: userId }, select: { followerId: true } });
       if (!followers.length) return;
       const listing = await this.prisma.listing.findUnique({ where: { id: listingId }, select: { name: true } });

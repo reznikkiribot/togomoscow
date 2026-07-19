@@ -133,12 +133,35 @@ async function compressImage(file: File): Promise<File> {
   }
 }
 
-async function http<T>(path: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(`/api${path}`, init);
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  // some endpoints (DELETE) may return empty
-  const text = await res.text();
-  return text ? (JSON.parse(text) as T) : (undefined as T);
+class HttpError extends Error {
+  constructor(
+    message: string,
+    readonly status: number,
+  ) {
+    super(message);
+    this.name = 'HttpError';
+  }
+}
+
+async function http<T>(path: string, init?: RequestInit, timeoutMs?: number): Promise<T> {
+  const controller = timeoutMs ? new AbortController() : null;
+  const timer = controller ? window.setTimeout(() => controller.abort(), timeoutMs) : null;
+  try {
+    const res = await fetch(`/api${path}`, { ...init, ...(controller ? { signal: controller.signal } : {}) });
+    const text = await res.text();
+    let parsed: any = undefined;
+    if (text) {
+      try { parsed = JSON.parse(text); } catch { parsed = undefined; }
+    }
+    if (!res.ok) {
+      const detail = Array.isArray(parsed?.message) ? parsed.message.join('. ') : parsed?.message;
+      throw new HttpError(typeof detail === 'string' && detail.trim() ? detail : `HTTP ${res.status}`, res.status);
+    }
+    // some endpoints (DELETE) may return empty
+    return text ? (parsed as T) : (undefined as T);
+  } finally {
+    if (timer != null) window.clearTimeout(timer);
+  }
 }
 
 const getJson = async <T>(path: string) => http<T>(path, { headers: await authHeaders() });
@@ -151,6 +174,37 @@ const postJson = async <T>(path: string, body?: unknown) =>
     headers: { ...(await authHeaders()), 'Content-Type': 'application/json' },
     body: body !== undefined ? JSON.stringify(body) : undefined,
   });
+
+const wait = (ms: number) => new Promise((resolve) => window.setTimeout(resolve, ms));
+
+function retryableWriteError(error: unknown) {
+  if (error instanceof HttpError) return error.status === 408 || error.status === 429 || error.status >= 500;
+  // fetch rejects with TypeError on a lost connection and AbortError on timeout.
+  return error instanceof TypeError || (error instanceof DOMException && error.name === 'AbortError');
+}
+
+async function createReview(id: string, dto: CreateReviewInput): Promise<Review> {
+  const delays = [700, 1800];
+  let lastError: unknown;
+  for (let attempt = 0; attempt <= delays.length; attempt += 1) {
+    try {
+      return await http<Review>(`/listings/${id}/reviews`, {
+        method: 'POST',
+        headers: { ...(await authHeaders()), 'Content-Type': 'application/json' },
+        body: JSON.stringify(dto),
+        // The payload contains URLs, not photo bytes, and stays well under the
+        // browser keepalive limit. This lets a started save survive WebView lifecycle changes.
+        keepalive: true,
+      }, 30_000);
+    } catch (error) {
+      lastError = error;
+      if (!retryableWriteError(error) || attempt === delays.length) break;
+      await wait(delays[attempt]);
+    }
+  }
+  if (lastError instanceof HttpError && lastError.status < 500) throw lastError;
+  throw new Error('Нет связи с сервером. Черновик сохранён — проверьте интернет и нажмите «Повторить».');
+}
 
 const del = async <T>(path: string) =>
   http<T>(path, { method: 'DELETE', headers: await authHeaders() });
@@ -305,8 +359,7 @@ export const api = {
   favorites: () => getJson<Favorite[]>('/me/favorites'),
   addFavorite: (id: string) => postJson<{ ok: boolean }>(`/me/favorites/${id}`),
   removeFavorite: (id: string) => del<{ ok: boolean }>(`/me/favorites/${id}`),
-  createReview: (id: string, dto: CreateReviewInput) =>
-    postJson<Review>(`/listings/${id}/reviews`, dto),
+  createReview,
   // notification center (bell): list + unread badge + mark-all-read
   notifications: () => getJson<{ items: AppNotification[]; unread: number }>('/notifications'),
   notificationsUnread: () => getJson<{ unread: number }>('/notifications/unread'),

@@ -11,7 +11,7 @@ import { TasteResult } from './TasteResult';
 import { Stars } from './Stars';
 import { VenuePhoto } from './VenuePhoto';
 import { MapView } from './MapView';
-import { openExternal, telHref, callPhone, shareToStory, shareToChat, shareMessage } from '../telegram';
+import { openExternal, telHref, callPhone, shareToChat, shareMessage } from '../telegram';
 import { ratingsWord, openStatus } from '../plural';
 import { useEscClose } from '../modalEsc';
 import { useSwipeDismiss } from '../swipeDismiss';
@@ -21,7 +21,7 @@ import { thumb } from '../img';
 import { cuisineTags } from '../cuisine';
 import { beerStyle } from '../tasting';
 import { useCategoryProgress } from '../categoryGate';
-import { composeStoryImage, portraitStoryFallback, storyAlreadyShared } from '../storyImage';
+import { shareReviewToStory } from '../reviewStory';
 
 const TYPE_LABEL: Record<Listing['type'], string> = {
   RESTAURANT: 'Ресторан',
@@ -1488,7 +1488,8 @@ export function ListingDetailModal({
             setReviewVenue(null);
           }}
           onSaved={(media) => {
-            const ratedId = reviewTarget?.id ?? data.id;
+            const ratedListing = reviewTarget ?? data;
+            const ratedId = ratedListing.id;
             setShowReview(false);
             // the fresh review appears on the card INSTANTLY (moderation may lag
             // behind load() — the user must never need a page refresh to see it)
@@ -1512,61 +1513,13 @@ export function ListingDetailModal({
             setReviewVenue(null);
             load();
             onChanged?.();
-            // share to story right after the review — ONLY the user's own photo/video,
-            // and only if they actually attached one (no photo → don't offer).
-            const myMedia = media?.photo ?? media?.video;
             // remember this check-in's own photo + note so "Отправить другу" sends them
             shareRef.current = { photo: media?.photo, text: media?.text };
-            // setting "не выставлять оценки в сторис" (Профиль) disables the auto-story
-            const noStory = localStorage.getItem('noStoryOnReview') === '1';
-            if (myMedia && data.type !== 'RESTAURANT' && !noStory) {
-              // the user's own note becomes the story caption; fall back to the name
-              const caption = media?.text?.trim() || `${data.name} — пробую в togomoscow 🍽`;
-              if (media?.photo && !storyAlreadyShared(media.photo)) {
-                // the slide was PRE-COMPOSED while the user typed (ReviewForm) —
-                // the story editor opens INSTANTLY on publish. Fallbacks: compose
-                // now → raw portrait photo. Landscape never goes raw (stretches).
-                const prebuilt = media.slides?.[media.photo];
-                const shareFirst = async () => {
-                  const url = prebuilt
-                    ?? (await composeStoryImage(media.photo!))
-                    ?? (await portraitStoryFallback(media.photo!));
-                  if (!url) return false;
-                  shareToStory(url, caption, `l_${data.id}`);
-                  return true;
-                };
-                void shareFirst().then((shared) => {
-                  if (!shared) return;
-                  // SECOND photo → a SECOND story after the first is posted: photo
-                  // only, no text (owner's spec). Wait for the app to regain
-                  // visibility (story editor closed), then open editor #2.
-                  const second = media.photos?.[1];
-                  if (!second || storyAlreadyShared(second)) return;
-                  let fired = false;
-                  const openSecond = async () => {
-                    if (fired) return;
-                    fired = true;
-                    document.removeEventListener('visibilitychange', onVis);
-                    const s2 = media.slides?.[second]
-                      ?? (await composeStoryImage(second))
-                      ?? (await portraitStoryFallback(second));
-                    if (s2) shareToStory(s2, '', `l_${data.id}`);
-                  };
-                  const onVis = () => {
-                    if (document.visibilityState === 'visible') setTimeout(openSecond, 600);
-                  };
-                  document.addEventListener('visibilitychange', onVis);
-                  // editor variants that never hide the webview → open after a pause
-                  setTimeout(() => {
-                    if (document.visibilityState === 'visible') openSecond();
-                  }, 5000);
-                });
-              } else {
-                shareToStory(myMedia, caption, `l_${data.id}`); // video → as-is
-              }
-            }
+            // Use the actual rated item (not the parent restaurant) and the live
+            // Telegram WebApp instance. This also keeps story behavior shared with ScanFab.
+            void shareReviewToStory(ratedListing, media);
             // instant meaning: where this lands in your personal ranking + what to taste next
-            if (data.type !== 'RESTAURANT') {
+            if (ratedListing.type !== 'RESTAURANT') {
               api
                 .tasteRanking(ratedId)
                 .then((r) => {

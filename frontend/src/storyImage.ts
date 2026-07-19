@@ -35,8 +35,11 @@ function loadImage(src: string): Promise<HTMLImageElement> {
 const recentlyShared = new Map<string, number>();
 export function storyAlreadyShared(photoUrl: string): boolean {
   const t = recentlyShared.get(photoUrl);
-  recentlyShared.set(photoUrl, Date.now());
   return !!t && Date.now() - t < 60_000;
+}
+
+export function markStoryShared(photoUrl: string) {
+  recentlyShared.set(photoUrl, Date.now());
 }
 
 export async function composeStoryImage(photoUrl: string): Promise<string | null> {

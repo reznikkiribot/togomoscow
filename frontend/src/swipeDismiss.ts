@@ -11,9 +11,9 @@ import { useEffect, type RefObject } from 'react';
 export function useSwipeDismiss(
   sheetRef: RefObject<HTMLElement | null>,
   onDismiss: () => void,
-  opts: { fadeBackdrop?: boolean; deps?: unknown[] } = {},
+  opts: { fadeBackdrop?: boolean; deps?: unknown[]; canDismiss?: () => boolean } = {},
 ) {
-  const { fadeBackdrop = true, deps = [] } = opts;
+  const { fadeBackdrop = true, deps = [], canDismiss } = opts;
   useEffect(() => {
     // the sheet may not exist on mount (cards render a loader until data arrives) —
     // poll briefly until it appears, then attach. Pass `deps` to re-run on data load.
@@ -76,6 +76,17 @@ export function useSwipeDismiss(
       // the sheet at least 60px — a casual short pull springs back.
       const distanceThreshold = Math.max(200, el.clientHeight * 0.33);
       if (dy > distanceThreshold || (velocity > 1.0 && dy > 60)) {
+        // Forms may veto dismissal (busy save) or ask for confirmation before
+        // the sheet animates away. A rejected dismissal must visibly spring back.
+        if (canDismiss && !canDismiss()) {
+          el.style.transition = 'transform 0.45s cubic-bezier(0.22, 1.1, 0.36, 1)';
+          el.style.transform = '';
+          if (backdrop) {
+            backdrop.style.transition = 'background 0.3s ease';
+            backdrop.style.background = '';
+          }
+          return;
+        }
         closed = true;
         // soft exit: longer ease-out glide + the backdrop dissolves WITH the sheet
         el.style.transition = 'transform 0.34s cubic-bezier(0.22, 0.61, 0.36, 1)';

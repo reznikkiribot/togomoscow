@@ -1,4 +1,4 @@
-import {useEffect, useState, useRef } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import { api } from '../api';
 import { composeStoryImage } from '../storyImage';
 import { useSwipeDismiss } from '../swipeDismiss';
@@ -6,6 +6,36 @@ import { useEscClose } from '../modalEsc';
 import type { Listing, PublicUser, Review } from '../types';
 import { StarInput } from './StarInput';
 import { templateFor } from '../tasting';
+
+export type ReviewSavedMedia = {
+  photo?: string;
+  photos?: string[];
+  video?: string;
+  text?: string;
+  slides?: Record<string, string>;
+  review?: Review;
+};
+
+type ReviewDraft = {
+  rating: number;
+  text: string;
+  choices: Record<string, string[]>;
+  ratings: Record<string, number>;
+  price: string;
+  visitDate: string;
+  photoUrls: string[];
+  videoUrls: string[];
+  tagged: string[];
+};
+
+function readDraft(key: string): Partial<ReviewDraft> | null {
+  try {
+    const value = JSON.parse(localStorage.getItem(key) || 'null');
+    return value && typeof value === 'object' ? value : null;
+  } catch {
+    return null;
+  }
+}
 
 export function ReviewForm({
   listing,
@@ -24,10 +54,12 @@ export function ReviewForm({
   initialPhotoUrls?: string[]; // e.g. the photo the user just scanned — prefilled
   knownPrice?: number | null; // item already has a price here → don't ask for it
   onClose: () => void;
-  onSaved: (media?: { photo?: string; photos?: string[]; video?: string; text?: string; slides?: Record<string, string>; review?: import('../types').Review }) => void;
+  onSaved: (media?: ReviewSavedMedia) => void;
 }) {
   const tpl = templateFor(listing);
   const prev = (existing?.attributes ?? {}) as Record<string, any>;
+  const draftKey = `reviewDraft:v1:${listing.id}:${existing?.id ?? 'new'}`;
+  const [restoredDraft] = useState(() => readDraft(draftKey));
 
   // if the item already IS a specific option (e.g. "Капучино"), pre-fill that
   // choice and hide the question — no point asking the kind again.
@@ -38,21 +70,38 @@ export function ReviewForm({
     if (m) autoChoice[ch.key] = m;
   }
 
-  const [rating, setRating] = useState(existing?.rating ?? initialRating ?? 5);
-  const [text, setText] = useState(existing?.text ?? '');
+  const [rating, setRating] = useState(restoredDraft?.rating ?? existing?.rating ?? initialRating ?? 5);
+  const [text, setText] = useState(restoredDraft?.text ?? existing?.text ?? '');
   const [choices, setChoices] = useState<Record<string, string[]>>(
-    prev.choices ?? Object.fromEntries(Object.entries(autoChoice).map(([k, v]) => [k, [v]])),
+    restoredDraft?.choices ?? prev.choices ?? Object.fromEntries(Object.entries(autoChoice).map(([k, v]) => [k, [v]])),
   );
-  const [ratings] = useState<Record<string, number>>(prev.ratings ?? {});
-  const [price, setPrice] = useState<string>(prev.price ? String(prev.price) : '');
-  const [visitDate, setVisitDate] = useState(prev.visitDate ?? new Date().toISOString().slice(0, 10));
-  const [photoUrls, setPhotoUrls] = useState<string[]>(existing?.photoUrls ?? initialPhotoUrls ?? []);
-  const [videoUrls, setVideoUrls] = useState<string[]>(existing?.videoUrls ?? []);
+  const [ratings] = useState<Record<string, number>>(restoredDraft?.ratings ?? prev.ratings ?? {});
+  const [price, setPrice] = useState<string>(restoredDraft?.price ?? (prev.price ? String(prev.price) : ''));
+  const [visitDate, setVisitDate] = useState(restoredDraft?.visitDate ?? prev.visitDate ?? new Date().toISOString().slice(0, 10));
+  const [photoUrls, setPhotoUrls] = useState<string[]>(() => [
+    ...new Set([
+      ...(restoredDraft?.photoUrls ?? existing?.photoUrls ?? []),
+      ...(initialPhotoUrls ?? []),
+    ]),
+  ]);
+  const [videoUrls, setVideoUrls] = useState<string[]>(restoredDraft?.videoUrls ?? existing?.videoUrls ?? []);
   const [busy, setBusy] = useState(false);
   const busyRef = useRef(false); // sync re-entry guard: iOS ghost-taps beat setState
   // the form is a bottom sheet — pull-down closes it, same as feed posts
   const sheetRef = useRef<HTMLDivElement>(null);
-  useSwipeDismiss(sheetRef, onClose);
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
+  const hasUnsavedTextRef = useRef(false);
+  hasUnsavedTextRef.current = text.trim() !== (existing?.text ?? '').trim();
+  const canClose = useCallback(() => {
+    if (busyRef.current) return false;
+    return !hasUnsavedTextRef.current || window.confirm('В отзыве есть несохранённый текст. Выйти? Черновик останется на этом устройстве.');
+  }, []);
+  const closeNow = useCallback(() => onCloseRef.current(), []);
+  const requestClose = useCallback(() => {
+    if (canClose()) closeNow();
+  }, [canClose, closeNow]);
+  useSwipeDismiss(sheetRef, closeNow, { canDismiss: canClose });
   // story slides pre-compose WHILE the user types — so the editor opens the
   // instant they hit «Опубликовать» instead of seconds later (or never)
   const slides = useRef(new Map<string, string>());
@@ -60,11 +109,12 @@ export function ReviewForm({
     composeStoryImage(url).then((s) => { if (s) slides.current.set(url, s); }).catch(() => {});
   };
   const [error, setError] = useState<string | null>(null);
+  const [canRetrySave, setCanRetrySave] = useState(false);
 
   // tag friends (Untappd-style) — people you follow
   const [following, setFollowing] = useState<PublicUser[]>([]);
   const [tagged, setTagged] = useState<string[]>(
-    (prev.taggedUsers ?? []).map((u: any) => u.id),
+    restoredDraft?.tagged ?? (prev.taggedUsers ?? []).map((u: any) => u.id),
   );
   useEffect(() => {
     api.myFollowing().then(setFollowing).catch(() => {});
@@ -73,7 +123,18 @@ export function ReviewForm({
     setTagged((t) => (t.includes(id) ? t.filter((x) => x !== id) : [...t, id]));
 
   const showDate = tpl.id === 'dish' || tpl.id === 'place' || tpl.id === 'steak';
-  useEscClose(onClose);
+  useEscClose(requestClose);
+
+  // Keep the user's work after every field change. Uploaded media are URLs, so
+  // the complete draft is small enough for localStorage and can survive a WebView restart.
+  useEffect(() => {
+    try {
+      const draft: ReviewDraft = { rating, text, choices, ratings, price, visitDate, photoUrls, videoUrls, tagged };
+      localStorage.setItem(draftKey, JSON.stringify(draft));
+    } catch {
+      // Storage may be unavailable in a locked-down WebView; saving the review still works.
+    }
+  }, [draftKey, rating, text, choices, ratings, price, visitDate, photoUrls, videoUrls, tagged]);
 
   const pickChoice = (key: string, opt: string, multi?: boolean) => {
     setChoices((c) => {
@@ -87,14 +148,20 @@ export function ReviewForm({
 
   async function addPhotos(files: FileList | null) {
     if (!files) return;
+    if (busyRef.current) return;
+    busyRef.current = true;
     setBusy(true);
+    setError(null);
+    setCanRetrySave(false);
     try {
       const urls = await Promise.all(Array.from(files).map((f) => api.upload(f)));
       setPhotoUrls((p) => [...p, ...urls]);
       urls.slice(0, 2).forEach(precompose); // stories use the first two photos
     } catch {
       setError('Не удалось загрузить фото');
+      setCanRetrySave(false);
     } finally {
+      busyRef.current = false;
       setBusy(false);
     }
   }
@@ -105,6 +172,8 @@ export function ReviewForm({
     busyRef.current = true;
     setBusy(true);
     setError(null);
+    setCanRetrySave(false);
+    let saved: Review;
     try {
       const venueId = venue?.id ?? (prev.venueId as string | undefined);
       // pending place (no id yet) → store its name so the card can show it now
@@ -123,14 +192,27 @@ export function ReviewForm({
         ...(showDate ? { visitDate } : {}),
         ...(taggedUsers.length ? { taggedUsers } : {}),
       };
-      const saved = await api.createReview(listing.id, { rating, text, attributes, photoUrls, videoUrls });
-      // pass the user's OWN media + their note so the story uses both; the saved
-      // review object lets the card show it INSTANTLY (no reload / moderation wait)
-      onSaved({ photo: photoUrls[0], photos: photoUrls, video: videoUrls[0], text: text.trim() || undefined, slides: Object.fromEntries(slides.current), review: saved });
-    } catch {
-      setError('Не удалось сохранить');
+      saved = await api.createReview(listing.id, { rating, text, attributes, photoUrls, videoUrls });
+    } catch (saveError) {
+      setError(saveError instanceof Error && saveError.message
+        ? saveError.message
+        : 'Не удалось сохранить. Черновик сохранён — нажмите «Повторить».');
+      setCanRetrySave(true);
       busyRef.current = false;
       setBusy(false);
+      return;
+    }
+    // A response means the idempotent upsert is durable. Clear the draft before
+    // invoking UI/story callbacks so an unrelated callback failure cannot cause a retry prompt.
+    try { localStorage.removeItem(draftKey); } catch { /* ignore */ }
+    busyRef.current = false;
+    setBusy(false);
+    try {
+      onSaved({ photo: photoUrls[0], photos: photoUrls, video: videoUrls[0], text: text.trim() || undefined, slides: Object.fromEntries(slides.current), review: saved });
+    } catch (callbackError) {
+      // The review is already saved; never mislabel a story/UI callback failure as data loss.
+      console.error('Post-save callback failed', callbackError);
+      closeNow();
     }
   }
 
@@ -140,7 +222,7 @@ export function ReviewForm({
       style={{ zIndex: 3000 }}
       onClick={(e) => {
         e.stopPropagation();
-        onClose();
+        requestClose();
       }}
     >
       <div className="modal" ref={sheetRef} onClick={(e) => e.stopPropagation()}>
@@ -305,9 +387,18 @@ export function ReviewForm({
           </div>
         )}
 
-        {error && <p style={{ color: 'crimson', fontSize: 13 }}>{error}</p>}
+        {error && (
+          <div style={{ marginTop: 10 }}>
+            <p style={{ color: 'crimson', fontSize: 13, margin: '0 0 8px' }}>{error}</p>
+            {canRetrySave && (
+              <button className="btn secondary" type="button" onClick={save} disabled={busy}>
+                Повторить
+              </button>
+            )}
+          </div>
+        )}
         <div style={{ display: 'flex', gap: 10, marginTop: 18 }}>
-          <button className="btn secondary" onClick={onClose} disabled={busy}>
+          <button className="btn secondary" onClick={requestClose} disabled={busy}>
             Отмена
           </button>
           <button className="btn" onClick={save} disabled={busy}>

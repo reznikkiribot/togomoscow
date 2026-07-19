@@ -58,6 +58,9 @@ const norm = (s) => (s ?? '').toLowerCase().replace(/ё/g, 'е').replace(/[^a-z�
 const retryDb = async (fn) => {
   for (let a = 1; a <= 6; a++) {
     try { return await fn(); } catch (e) {
+      // a moved/merged link (dupe-merge relinked the item) is NOT transient —
+      // don't burn minutes retrying a record that will never exist; skip at once
+      if (e?.code === 'P2025' || /depends on one or more records/i.test(String(e.message))) throw e;
       if (a === 6) throw e;
       console.log(`  db retry ${a}: ${String(e.message || '').split('\n').filter(Boolean).slice(-1)[0].slice(0, 60)}`);
       await new Promise((r) => setTimeout(r, a * 5000));

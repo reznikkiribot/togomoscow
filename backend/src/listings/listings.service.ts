@@ -2,7 +2,7 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import { ListingType, Prisma } from '@prisma/client';
 import OpeningHours from 'opening_hours';
 import { isNonStandalone } from '../common/non-standalone';
-import { buildAffinities } from '../common/taste-affinity';
+import { buildAffinities, loadVenueTraits, scorePriceSegment, scoreVenueTier } from '../common/taste-affinity';
 import { PrismaService } from '../prisma/prisma.service';
 import { placeholderKeys } from '../stock/stock.data';
 import { cuisineLabel, cuisineToken } from './cuisine';
@@ -319,18 +319,53 @@ export class ListingsService {
   private async personalSort(cards: any[], sort: string, viewerId?: string | null, isSearch = false) {
     if (sort !== 'recommended' || !viewerId || isSearch || cards.length < 3) return cards;
     try {
-      const { catAffinity, venueAffinity } = await buildAffinities(this.prisma, viewerId);
-      if (!catAffinity.size && !venueAffinity.size) return cards;
+      const { catAffinity, venueAffinity, priceSegmentAffinity, venueTierAffinity } = await buildAffinities(this.prisma, viewerId);
+      if (!catAffinity.size && !venueAffinity.size && !priceSegmentAffinity && !venueTierAffinity.size) return cards;
+
+      const itemIds = cards
+        .filter((card) => card.type === 'DISH' || card.type === 'DRINK')
+        .map((card) => card.id);
+      const menuLinks = itemIds.length
+        ? await this.prisma.menuLink.findMany({
+          where: { itemId: { in: itemIds }, status: 'APPROVED' },
+          select: { itemId: true, venueId: true, price: true },
+        })
+        : [];
+      const linksByItem = new Map<string, typeof menuLinks>();
+      for (const link of menuLinks) {
+        if (!linksByItem.has(link.itemId)) linksByItem.set(link.itemId, []);
+        linksByItem.get(link.itemId)!.push(link);
+      }
+      const venueIds = [...new Set([
+        ...cards.filter((card) => card.type === 'RESTAURANT').map((card) => card.id),
+        ...cards.flatMap((card) => [card.bestVenue?.id, card.tryAt?.id]).filter(Boolean),
+        ...menuLinks.map((link) => link.venueId),
+      ])] as string[];
+      const venueTraits = await loadVenueTraits(this.prisma, venueIds);
+
       return cards
         .map((c, i) => {
           const aff = catAffinity.get((c.category ?? '').toLowerCase().trim()) ?? 0;
-          const vAff = Math.max(
-            venueAffinity.get(c.id) ?? 0, // the venue itself (restaurant lists)
-            venueAffinity.get(c.bestVenue?.id) ?? 0,
-            venueAffinity.get(c.tryAt?.id) ?? 0,
-          );
+          const displayedVenueId = c.bestVenue?.id ?? c.tryAt?.id;
+          let candidateLinks = c.type === 'RESTAURANT'
+            ? [{ venueId: c.id, price: venueTraits.get(c.id)?.menuMedian ?? null }]
+            : (linksByItem.get(c.id) ?? []).filter((link) => !displayedVenueId || link.venueId === displayedVenueId);
+          if (!candidateLinks.length && displayedVenueId) {
+            candidateLinks = [{
+              venueId: displayedVenueId,
+              price: c.bestVenue?.price ?? c.tryAt?.price ?? venueTraits.get(displayedVenueId)?.menuMedian ?? null,
+            }];
+          }
+          let bestServingScore = -Infinity;
+          for (const link of candidateLinks) {
+            const traits = venueTraits.get(link.venueId);
+            const vAff = venueAffinity.get(link.venueId) ?? 0;
+            const priceFit = scorePriceSegment(priceSegmentAffinity, link.price ?? traits?.menuMedian);
+            const tierFit = scoreVenueTier(venueTierAffinity, traits);
+            bestServingScore = Math.max(bestServingScore, vAff * 2.5 + priceFit * 3.25 + tierFit * 3.5);
+          }
           // base keeps the original (quality) order as a small stabilizer
-          return { c, s: aff * 3 + Math.max(0, vAff) * 2.5 - i * 0.01 };
+          return { c, s: aff * 3 + (Number.isFinite(bestServingScore) ? bestServingScore : 0) - i * 0.01 };
         })
         .sort((a, b) => b.s - a.s)
         .map((x) => x.c);
@@ -400,6 +435,27 @@ export class ListingsService {
       }
     }
 
+    // OWNER RULE 18.07.2026: a VENUE card shows a nice random photo of ONE of its
+    // OWN dishes/drinks (a generated aigen photo), not a name tile or building shot.
+    const venueIds = rows.filter((r) => r.type === 'RESTAURANT').map((r) => r.id);
+    const venueDishPhoto = new Map<string, string>();
+    if (venueIds.length) {
+      const links = await this.prisma.menuLink.findMany({
+        where: { venueId: { in: venueIds }, status: 'APPROVED', photoUrl: { not: null } },
+        select: { venueId: true, photoUrl: true },
+      });
+      const byVenue = new Map<string, string[]>();
+      for (const l of links) {
+        if (!l.photoUrl) continue;
+        (byVenue.get(l.venueId) ?? byVenue.set(l.venueId, []).get(l.venueId)!).push(l.photoUrl);
+      }
+      for (const [vid, photos] of byVenue) {
+        // deterministic per-venue pick so the card photo is stable across reloads
+        let h = 0; for (const c of vid) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+        venueDishPhoto.set(vid, photos[h % photos.length]);
+      }
+    }
+
     // social proof for cards with NO reviews yet: how many people are watching /
     // want to try it ("вы не первый, кто присматривается")
     const zeroIds = rows.filter((r) => (r as any).reviewCount === 0).map((r) => r.id);
@@ -458,6 +514,8 @@ export class ListingsService {
       return {
       ...r,
       photoUrl: venuePhoto ?? (r as any).photoUrl,
+      // venue card face: a random own-dish photo (owner 18.07.2026)
+      dishPhoto: r.type === 'RESTAURANT' ? venueDishPhoto.get(r.id) ?? null : undefined,
       snippet: snippetByListing.get(r.id) ?? null,
       bestVenue: best ?? null,
       wantCount: wantByListing.get(r.id) ?? undefined,

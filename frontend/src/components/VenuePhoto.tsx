@@ -60,20 +60,14 @@ export function VenuePhoto({
   /** detail hero may show the real venue photo; cards never do */
   allowVenuePhoto?: boolean;
 }) {
-  // OWNER RULE 17.07.2026: venue CARDS show no photos — a clean white tile with
-  // the venue name in black, always fully visible inside the card.
-  if (listing.type === 'RESTAURANT' && !allowVenuePhoto) {
-    return (
-      <div className={`${className} venue-name-tile`} title={listing.name}>
-        <span>{listing.name}</span>
-      </div>
-    );
-  }
-
+  // OWNER RULE 18.07.2026 (reverted the name-tile): a venue card shows a nice
+  // random photo of ONE OF ITS OWN dishes/drinks — dishPhoto is picked server-side
+  // (deterministic per venue). Falls back to any listing photo, then stock.
+  const src = (listing as any).dishPhoto ?? listing.photoUrl;
   return (
     <SmartImg
       className={className}
-      src={listing.photoUrl}
+      src={src}
       alt={listing.name}
       loading={allowVenuePhoto ? 'eager' : loading}
       draggable={draggable}

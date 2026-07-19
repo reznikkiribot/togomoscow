@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { isNonStandalone } from '../common/non-standalone';
-import { buildAffinities } from '../common/taste-affinity';
+import { buildAffinities, loadVenueTraits, scorePriceSegment, scoreVenueTier } from '../common/taste-affinity';
 import { PrismaService } from '../prisma/prisma.service';
 import { ListingsService } from '../listings/listings.service';
 
@@ -180,28 +180,7 @@ export class RecsysService {
     // ── YouTube-style CATEGORY + VENUE AFFINITY — shared with the catalog
     //    «Рекомендуемые» sort (common/taste-affinity.ts). Rebuilt on each
     //    request, so it adapts after every action.
-    const { catAffinity, venueAffinity } = await buildAffinities(this.prisma, userId);
-
-    // price affinity: learn the user's comfortable price band from the menu prices of
-    // items they've already rated, then favour recommendations inside that range.
-    const ratedIds = rated.map((r) => r.listingId);
-    const priceRows = ratedIds.length
-      ? await this.prisma.menuLink.findMany({ where: { itemId: { in: ratedIds }, price: { not: null } }, select: { price: true } })
-      : [];
-    const userPrices = priceRows.map((r) => r.price!).filter((p) => p > 0).sort((a, b) => a - b);
-    let priceLo = 0, priceHi = Infinity, hasPriceProfile = false;
-    if (userPrices.length >= 3) {
-      const q = (p: number) => userPrices[Math.min(userPrices.length - 1, Math.floor(userPrices.length * p))];
-      const p25 = q(0.25), p75 = q(0.75);
-      const pad = Math.max(150, p75 - p25); // comfortable band a bit wider than IQR
-      priceLo = Math.max(0, p25 - pad);
-      priceHi = p75 + pad;
-      hasPriceProfile = true;
-    }
-    const medianPrice = (links: any[]) => {
-      const ps = links.map((l) => l.price).filter((p: any) => p != null).sort((a: number, b: number) => a - b);
-      return ps.length ? ps[Math.floor(ps.length / 2)] : null;
-    };
+    const { catAffinity, venueAffinity, priceSegmentAffinity, venueTierAffinity } = await buildAffinities(this.prisma, userId);
 
     // only dishes actually served somewhere — every recommendation is "блюдо в
     // конкретном месте", with a real venue attached (servedAt = APPROVED menu links).
@@ -215,13 +194,20 @@ export class RecsysService {
       include: {
         servedAt: {
           where: { status: 'APPROVED' },
-          select: { venue: { select: { id: true, name: true } }, price: true, photoUrl: true },
+          select: {
+            venue: { select: { id: true, name: true, category: true, cuisine: true, groupKey: true, priceLevel: true } },
+            price: true,
+            photoUrl: true,
+          },
           take: 30,
         },
       },
       orderBy: [{ reviewCount: 'desc' }, { avgRating: 'desc' }],
       take: 500,
     });
+
+    const candidateVenueIds = [...new Set(items.flatMap((item) => item.servedAt.map((link) => link.venue.id)))];
+    const venueTraits = await loadVenueTraits(this.prisma, candidateVenueIds);
 
     let scored = items
       .filter((it) => !isNonStandalone(it.name)) // permanent ban: sauces/ingredients/sides
@@ -240,29 +226,33 @@ export class RecsysService {
           if (aff > 0.4 && !why) why = 'вы часто выбираете такое';
           if (aff < -0.4) s -= 1; // extra damping for actively-rejected categories
         }
-        // venue affinity: this dish/drink is served at a venue the user gravitates
-        // to → boost it (strongest serving-venue affinity wins)
-        const vAff = Math.max(0, ...(((it as any).servedAt ?? []).map((l: any) => venueAffinity.get(l.venue?.id) ?? 0)));
-        if (vAff > 0) {
-          s += vAff * 2.5;
-          if (vAff > 0.5 && !why) {
-            const vn = ((it as any).servedAt ?? []).find((l: any) => (venueAffinity.get(l.venue?.id) ?? 0) === vAff)?.venue?.name;
-            why = vn ? `из «${vn}», где вам нравится` : 'из заведения, которое вам нравится';
+        // Score a concrete serving, not an abstract dish median. This prevents a
+        // premium match from later being attached to a random economy venue.
+        const links = (it as any).servedAt ?? [];
+        let recLink: any = undefined;
+        let bestServingScore = -Infinity;
+        let bestPriceFit = 0;
+        let bestTierFit = 0;
+        let bestVenueFit = 0;
+        for (const link of links) {
+          const traits = venueTraits.get(link.venue?.id);
+          const venueFit = venueAffinity.get(link.venue?.id) ?? 0;
+          const priceFit = scorePriceSegment(priceSegmentAffinity, link.price ?? traits?.menuMedian);
+          const tierFit = scoreVenueTier(venueTierAffinity, traits);
+          const servingScore = venueFit * 2.5 + priceFit * 3.25 + tierFit * 3.5;
+          if (servingScore > bestServingScore) {
+            bestServingScore = servingScore;
+            bestPriceFit = priceFit;
+            bestTierFit = tierFit;
+            bestVenueFit = venueFit;
+            recLink = link;
           }
         }
-        // price affinity: reward items in the user's usual price band, gently penalise
-        // ones well outside it (too cheap or too pricey for their habits)
-        if (hasPriceProfile) {
-          const price = medianPrice((it as any).servedAt ?? []);
-          if (price != null) {
-            if (price >= priceLo && price <= priceHi) { s += 1.2; why ||= 'в вашем ценовом диапазоне'; }
-            else {
-              const dist = price < priceLo ? priceLo - price : price - priceHi;
-              s -= Math.min(2, dist / Math.max(200, priceHi - priceLo));
-            }
-          }
-        }
-        return { it, s, why: why || ai.summary || 'подобрано под ваш вкус' };
+        if (Number.isFinite(bestServingScore)) s += bestServingScore;
+        if (bestVenueFit > 0.5 && !why) why = `из «${recLink?.venue?.name}», где вам нравится`;
+        if (bestTierFit > 0.3 && !why) why = 'из заведения вашего класса';
+        if (bestPriceFit > 0.35 && !why) why = 'в вашем ценовом диапазоне';
+        return { it, s, recLink, why: why || ai.summary || 'подобрано под ваш вкус' };
       })
       .filter((x) => x.s > -1)
       .sort((a, b) => b.s - a.s);
@@ -302,7 +292,7 @@ export class RecsysService {
       const liked = links.filter((l: any) => (venueAffinity.get(l.venue?.id) ?? 0) > 0.3);
       const withPhoto = (liked.length ? liked : links).filter((l: any) => l.photoUrl);
       const pool = liked.length ? liked : withPhoto.length ? withPhoto : links;
-      const link = pool.length ? pool[Math.floor(Math.random() * pool.length)] : undefined;
+      const link = pick[i].recLink ?? (pool.length ? pool[Math.floor(Math.random() * pool.length)] : undefined);
       const recVenue = link ? { ...link.venue, price: link.price ?? null } : undefined;
       // user photos (on the shared card) always win; else the venue's own photo
       const isUserPhoto = c.photoUrl?.startsWith('/api/files/') && !c.photoUrl?.startsWith('/api/files/aigen-');

@@ -1,11 +1,17 @@
 export const tg = window.Telegram?.WebApp;
 
+// Telegram may inject WebApp after this module is evaluated on a cold mobile
+// launch. Runtime actions must never rely on the module-scope snapshot.
+export function telegramWebApp() {
+  return window.Telegram?.WebApp ?? tg;
+}
+
 // Raw signed string we send to the backend for auth.
 export const initData = tg?.initData ?? '';
 
 export function initTelegram() {
   try {
-    const webApp = window.Telegram?.WebApp ?? tg;
+    const webApp = telegramWebApp();
     if (webApp?.initData) sessionStorage.setItem('tg:initData', webApp.initData);
     webApp?.ready();
     webApp?.expand();
@@ -32,7 +38,7 @@ const appOrigin = window.location.origin;
 // light haptic tap feedback (no-op outside Telegram)
 export function haptic(style: 'light' | 'medium' | 'heavy' | 'soft' | 'rigid' = 'light') {
   try {
-    tg?.HapticFeedback?.impactOccurred(style);
+    telegramWebApp()?.HapticFeedback?.impactOccurred(style);
   } catch {
     /* ignore */
   }
@@ -41,7 +47,8 @@ export function haptic(style: 'light' | 'medium' | 'heavy' | 'soft' | 'rigid' = 
 // Opens a URL outside the Mini App (e.g. Yandex Maps) — uses Telegram's
 // native opener when available, falls back to a normal new tab.
 export function openExternal(url: string) {
-  if (tg?.openLink) tg.openLink(url);
+  const webApp = telegramWebApp();
+  if (webApp?.openLink) webApp.openLink(url);
   else window.open(url, '_blank');
 }
 
@@ -53,29 +60,31 @@ export function appDeepLink(startParam: string): string {
 
 // Share a dish/drink review to the user's Telegram Story with a tappable link
 // back into the app (Bot API 7.8+). Falls back to the share sheet on old clients.
-export function shareToStory(mediaUrl: string, text: string, startParam: string) {
-  const w = tg as any;
+export function shareToStory(mediaUrl: string, text: string, startParam: string): boolean {
+  const w = telegramWebApp() as any;
   const link = appDeepLink(startParam);
+  const absoluteMedia = mediaUrl.startsWith('/') ? `${appOrigin}${mediaUrl}` : mediaUrl;
   try {
     if (w?.shareToStory) {
-      w.shareToStory(mediaUrl, {
+      w.shareToStory(absoluteMedia, {
         text,
         // short link name → a small link sticker (placed top-right by default);
         // its exact position is then user-draggable in Telegram's story editor.
         widget_link: { url: link, name: 'togomoscow' },
       });
-      return;
+      return true;
     }
   } catch {
     /* fall through to the share sheet */
   }
   openExternal(`https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(text)}`);
+  return true;
 }
 
 // Send a prepared rich message (photo + caption + button) to a friend's chat.
 // `id` comes from the backend's savePreparedInlineMessage. Returns true if handled.
 export function shareMessage(id: string): boolean {
-  const w = tg as any;
+  const w = telegramWebApp() as any;
   try {
     if (w?.shareMessage) { w.shareMessage(id); return true; }
   } catch { /* unsupported client */ }
@@ -92,7 +101,7 @@ export function shareToChat(text: string, startParam: string, photoUrl?: string)
   const shareUrl = absPhoto || link;
   const shareText = photoUrl ? `${text}\n${link}` : text;
   const url = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`;
-  const w = tg as any;
+  const w = telegramWebApp() as any;
   try {
     if (w?.openTelegramLink) { w.openTelegramLink(url); return; }
   } catch { /* fall through */ }
@@ -113,7 +122,7 @@ export function telHref(raw: string): string {
 export function callPhone(raw: string, venueName?: string, backParam?: string) {
   const num = (raw || '').replace(/[^\d+]/g, '');
   if (!num) return;
-  const w = tg as any;
+  const w = telegramWebApp() as any;
   try {
     if (w?.openLink) {
       const p = new URLSearchParams({ n: num });
