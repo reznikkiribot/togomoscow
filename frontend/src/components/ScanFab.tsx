@@ -68,6 +68,8 @@ function ScanSearch({ onPick, initial }: { onPick: (l: Listing) => void; initial
 
 function ScanDialog({
   busy,
+  busyText,
+  error,
   result,
   preview,
   onClose,
@@ -77,6 +79,8 @@ function ScanDialog({
   onPickSearch,
 }: {
   busy: boolean;
+  busyText: string;
+  error: string | null;
   result: RecognizeResult | null;
   preview: string | null;
   onClose: () => void;
@@ -97,10 +101,11 @@ function ScanDialog({
         {busy ? (
           <div className="scan-loading">
             <span className="scan-spinner" />
-            ИИ анализирует фото...
+            {busyText}
           </div>
         ) : result && result.candidates.length ? (
           <>
+            {error && <div className="scan-error" role="alert">{error}</div>}
             {result.labelText && <div className="scan-label-badge">🍷 Этикетка: {result.labelText}</div>}
             <div className="scan-title">Что именно на фото? Подтвердите</div>
             <div className="scan-list">
@@ -133,6 +138,7 @@ function ScanDialog({
           </>
         ) : (
           <div className="scan-empty">
+            {error && <div className="scan-error" role="alert">{error}</div>}
             {result?.labelText ? (
               <div>🍷 Этикетка: <b>{result.labelText}</b></div>
             ) : (
@@ -168,17 +174,23 @@ export function ScanFab() {
     return () => clearTimeout(t);
   }, []);
   const [busy, setBusy] = useState(false);
+  const [busyText, setBusyText] = useState('ИИ анализирует фото...');
+  const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<RecognizeResult | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [chosen, setChosen] = useState<Listing | null>(null);
   const [venue, setVenue] = useState<{ id?: string; name: string; pending?: boolean } | null>(null);
   const [stage, setStage] = useState<'idle' | 'pickVenue' | 'rate'>('idle');
   const uploadedUrl = useRef<string | undefined>(undefined);
+  const uploadPromise = useRef<Promise<string | undefined> | null>(null);
   const lastFile = useRef<File | null>(null);
+  const flowToken = useRef(0);
 
   const reset = () => {
+    flowToken.current += 1;
     setResult(null);
     setBusy(false);
+    setError(null);
     setChosen(null);
     setVenue(null);
     setStage('idle');
@@ -187,19 +199,24 @@ export function ScanFab() {
       return null;
     });
     uploadedUrl.current = undefined;
+    uploadPromise.current = null;
     lastFile.current = null;
   };
 
-  const runRecognition = async (file: File) => {
+  const runRecognition = async (file: File, token = flowToken.current) => {
     setBusy(true);
+    setBusyText('ИИ анализирует фото...');
+    setError(null);
     setResult(null);
     try {
       const r = await api.recognize(file, 'auto');
+      if (flowToken.current !== token) return;
       // NEVER auto-open (owner rule): always show the choices and let the user
       // confirm — even when the AI is 100% sure. The top match is pre-highlighted.
       setResult(r);
       setBusy(false);
     } catch (e) {
+      if (flowToken.current !== token) return;
       setResult({
         caption: '',
         mode: 'auto',
@@ -212,25 +229,45 @@ export function ScanFab() {
   };
 
   const pickCandidate = async (id: string, r: RecognizeResult) => {
-    api
-      .visionFeedback({
-        photoUrl: uploadedUrl.current,
-        caption: r.caption,
-        mode: r.mode,
-        predictedIds: r.candidates.map((c) => c.id),
-        topConfidence: r.candidates[0]?.confidence,
-        chosenId: id,
-      })
-      .catch(() => {});
+    if (busy) return;
+    const token = flowToken.current;
     haptic('medium');
-    setResult(null);
-    setBusy(false);
+    setBusy(true);
+    setBusyText('Готовим карточку и фото...');
+    setError(null);
     try {
-      const full = await api.listing(id);
+      const ensurePhoto = async () => {
+        const existing = await (uploadPromise.current ?? Promise.resolve(uploadedUrl.current));
+        if (existing) return existing;
+        if (!lastFile.current) return undefined;
+        const retry = api.upload(lastFile.current).catch(() => undefined);
+        uploadPromise.current = retry;
+        return retry;
+      };
+      const [full, photoUrl] = await Promise.all([
+        api.listing(id),
+        ensurePhoto(),
+      ]);
+      if (flowToken.current !== token) return;
+      if (!photoUrl) throw new Error('upload failed');
+      uploadedUrl.current = photoUrl;
+      api
+        .visionFeedback({
+          photoUrl,
+          caption: r.caption,
+          mode: r.mode,
+          predictedIds: r.candidates.map((c) => c.id),
+          topConfidence: r.candidates[0]?.confidence,
+          chosenId: id,
+        })
+        .catch(() => {});
       setChosen(full as unknown as Listing);
+      setBusy(false);
       setStage('pickVenue');
     } catch {
-      reset();
+      if (flowToken.current !== token) return;
+      setBusy(false);
+      setError('Не удалось подготовить карточку или фото. Попробуйте выбрать позицию ещё раз.');
     }
   };
 
@@ -238,14 +275,20 @@ export function ScanFab() {
     const file = e.target.files?.[0];
     e.target.value = '';
     if (!file) return;
+    const token = ++flowToken.current;
     lastFile.current = file;
     setPreview((old) => {
       if (old) URL.revokeObjectURL(old);
       return URL.createObjectURL(file);
     });
     uploadedUrl.current = undefined;
-    api.upload(file).then((u) => (uploadedUrl.current = u)).catch(() => {});
-    await runRecognition(file);
+    uploadPromise.current = api.upload(file)
+      .then((u) => {
+        if (flowToken.current === token) uploadedUrl.current = u;
+        return u;
+      })
+      .catch(() => undefined);
+    await runRecognition(file, token);
   };
 
   const retryAnalysis = () => {
@@ -305,9 +348,11 @@ export function ScanFab() {
         </div>
       )}
 
-      {(busy || result) && (
+      {stage === 'idle' && (busy || result) && (
         <ScanDialog
           busy={busy}
+          busyText={busyText}
+          error={error}
           result={result}
           preview={preview}
           onClose={reset}
@@ -329,7 +374,10 @@ export function ScanFab() {
             setVenue({ name, pending: true });
             setStage('rate');
           }}
-          onClose={() => setStage('rate')}
+          onClose={() => {
+            setVenue(null);
+            setStage('idle');
+          }}
         />
       )}
 

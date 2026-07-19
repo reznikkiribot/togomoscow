@@ -769,6 +769,19 @@ button:active,
 .star-input .s {
   position: relative;
   width: 1em;
+  height: 1.2em;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: 1.2;
+  cursor: pointer;
+}
+.star-input .s:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 .star-input .s .fill {
   position: absolute;
@@ -4813,6 +4826,15 @@ a.addr-line {
   gap: 12px;
   justify-content: center;
   padding: 34px 0;
+  font-weight: 600;
+}
+.scan-error {
+  margin: 10px 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(211, 35, 35, 0.08);
+  color: var(--accent);
+  font-size: 13px;
   font-weight: 600;
 }
 .scan-spinner {

@@ -58,8 +58,15 @@ export function ReviewForm({
 }) {
   const tpl = templateFor(listing);
   const prev = (existing?.attributes ?? {}) as Record<string, any>;
-  const draftKey = `reviewDraft:v1:${listing.id}:${existing?.id ?? 'new'}`;
-  const [restoredDraft] = useState(() => readDraft(draftKey));
+  const draftKey = `reviewDraft:v2:${listing.id}:${existing?.id ?? 'new'}`;
+  const [restoredDraft] = useState(() => {
+    const current = readDraft(draftKey);
+    if (current) return current;
+    // v1 auto-saved the implicit 5★ as soon as the form opened. Preserve the
+    // user's text/media, but require an explicit rating after migrating that draft.
+    const legacy = readDraft(`reviewDraft:v1:${listing.id}:${existing?.id ?? 'new'}`);
+    return legacy ? { ...legacy, rating: undefined } : null;
+  });
 
   // if the item already IS a specific option (e.g. "Капучино"), pre-fill that
   // choice and hide the question — no point asking the kind again.
@@ -70,7 +77,7 @@ export function ReviewForm({
     if (m) autoChoice[ch.key] = m;
   }
 
-  const [rating, setRating] = useState(restoredDraft?.rating ?? existing?.rating ?? initialRating ?? 5);
+  const [rating, setRating] = useState(restoredDraft?.rating ?? existing?.rating ?? initialRating ?? 0);
   const [text, setText] = useState(restoredDraft?.text ?? existing?.text ?? '');
   const [choices, setChoices] = useState<Record<string, string[]>>(
     restoredDraft?.choices ?? prev.choices ?? Object.fromEntries(Object.entries(autoChoice).map(([k, v]) => [k, [v]])),
@@ -168,7 +175,7 @@ export function ReviewForm({
   async function save() {
     // iOS can ghost-fire a second tap before the disabled state re-renders —
     // that double-ran the whole save (and opened the story editor twice)
-    if (busyRef.current) return;
+    if (busyRef.current || rating <= 0) return;
     busyRef.current = true;
     setBusy(true);
     setError(null);
@@ -293,7 +300,9 @@ export function ReviewForm({
         <div className="field">
           <label>Общая оценка</label>
           <StarInput value={rating} onChange={setRating} />
-          <span style={{ marginLeft: 10, fontWeight: 700 }}>{rating.toFixed(1)}</span>
+          <span style={{ marginLeft: 10, fontWeight: 700 }}>
+            {rating > 0 ? rating.toFixed(1) : 'Поставьте оценку'}
+          </span>
         </div>
 
         {/* expert select fields (grape variety, coffee kind, additives, cut…)
@@ -401,7 +410,7 @@ export function ReviewForm({
           <button className="btn secondary" onClick={requestClose} disabled={busy}>
             Отмена
           </button>
-          <button className="btn" onClick={save} disabled={busy}>
+          <button className="btn" onClick={save} disabled={busy || rating <= 0}>
             {busy ? 'Сохранение…' : 'Опубликовать'}
           </button>
         </div>

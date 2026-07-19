@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { haptic } from './telegram';
+import { hasOpenModal } from './modalEsc';
 
 // iOS-style pull-to-refresh: when the page is scrolled to the very top and the
 // user drags DOWN past a threshold, reload. Rubber-band follow + a spinner that
 // grows with the pull; releasing past the threshold triggers onRefresh (or a
 // full page reload by default). Ignores horizontal swipes (that's swipe-back).
-export function usePullToRefresh(onRefresh?: () => void | Promise<void>) {
+export function usePullToRefresh(onRefresh?: () => void | Promise<void>, enabled = true) {
   const [pull, setPull] = useState(0); // px, damped
   const [refreshing, setRefreshing] = useState(false);
   const startY = useRef(0);
@@ -15,8 +16,17 @@ export function usePullToRefresh(onRefresh?: () => void | Promise<void>) {
 
   useEffect(() => {
     const scroller = document.scrollingElement || document.documentElement;
+    const isBlocked = (target?: EventTarget | null) =>
+      !enabled ||
+      hasOpenModal() ||
+      !!document.querySelector('.modal-backdrop') ||
+      (target instanceof Element && !!target.closest('.hero.swipeable'));
+    const cancel = () => {
+      active.current = false;
+      setPull(0);
+    };
     const onStart = (e: TouchEvent) => {
-      if (refreshing) return;
+      if (refreshing || isBlocked(e.target)) { cancel(); return; }
       // only arm at the very top and when nothing is scrolled under the finger
       if ((scroller.scrollTop || 0) > 0) { active.current = false; return; }
       startY.current = e.touches[0].clientY;
@@ -25,6 +35,7 @@ export function usePullToRefresh(onRefresh?: () => void | Promise<void>) {
     };
     const onMove = (e: TouchEvent) => {
       if (!active.current || refreshing) return;
+      if (isBlocked(e.target)) { cancel(); return; }
       const dy = e.touches[0].clientY - startY.current;
       const dx = e.touches[0].clientX - startX.current;
       if (dy <= 0 || Math.abs(dx) > Math.abs(dy)) { active.current = false; setPull(0); return; }
@@ -36,6 +47,7 @@ export function usePullToRefresh(onRefresh?: () => void | Promise<void>) {
     const onEnd = async () => {
       if (!active.current) return;
       active.current = false;
+      if (isBlocked()) { setPull(0); return; }
       if (pull >= THRESHOLD && !refreshing) {
         haptic('medium');
         setRefreshing(true);
@@ -61,7 +73,7 @@ export function usePullToRefresh(onRefresh?: () => void | Promise<void>) {
       window.removeEventListener('touchend', onEnd);
       window.removeEventListener('touchcancel', onEnd);
     };
-  }, [pull, refreshing, onRefresh]);
+  }, [enabled, pull, refreshing, onRefresh]);
 
   return { pull, refreshing, threshold: THRESHOLD };
 }

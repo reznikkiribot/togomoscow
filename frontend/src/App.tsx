@@ -85,8 +85,11 @@ export default function App() {
     };
   }, []);
 
-  // iOS-style pull-to-refresh on every tab: hard pull at the top reloads
-  const { pull, refreshing, threshold } = usePullToRefresh();
+  // Pull-to-refresh belongs to the tab root only. The hook also vetoes a pull
+  // while any nested modal/sheet or the TasteHero gesture is active.
+  const isTabRoot = /^\/(?:favorites|alerts|me|business)?\/?$/.test(loc.pathname)
+    || /^\/tg-boot-[^/]+\/?$/.test(loc.pathname);
+  const { pull, refreshing, threshold } = usePullToRefresh(undefined, isTabRoot);
   const ptrReady = pull >= threshold || refreshing;
 
   return (

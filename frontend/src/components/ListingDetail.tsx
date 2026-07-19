@@ -241,7 +241,13 @@ export function ListingDetailModal({
   originVenue?: { id: string; name: string; price?: number | null } | null; // recommended place → check-in attaches here
 }) {
   const [id, setId] = useState(initialId);
+  const idRef = useRef(id);
+  idRef.current = id;
+  const idStack = useRef<string[]>([]);
+  const scrollById = useRef(new Map<string, number>());
+  const pendingScroll = useRef(0);
   const [data, setData] = useState<ListingDetail | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
   // «Первый дегустатор» — the card's history starts with this person
   const [firstTaster, setFirstTaster] = useState<{ user: { id: string; firstName?: string | null; username?: string | null }; at: string } | null>(null);
   // the viewer's own avatar for the "Оцените" block (cached per session)
@@ -302,22 +308,51 @@ export function ListingDetailModal({
   const [showCorrection, setShowCorrection] = useState(false);
   const [showVenuePicker, setShowVenuePicker] = useState(false);
   const [pendingRating, setPendingRating] = useState<number | undefined>(undefined);
-  const requestClose = () => {
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
+  const requestClose = useCallback(() => {
     setClosing(true);
-    setTimeout(onClose, 200);
-  };
-  useEscClose(requestClose);
+    setTimeout(() => onCloseRef.current(), 200);
+  }, []);
 
   // pull-to-dismiss: from the top of the card, a strong drag down (anywhere)
   // closes it. Uses native non-passive touch events so we can preventDefault the
   // browser's overscroll and take over (pointer events get eaten by native scroll
   // in the iOS Telegram webview).
   const sheetRef = useRef<HTMLDivElement>(null);
+  const switchEntity = useCallback((nextId: string, push: boolean, nextOriginVenue: { id: string; name: string; price?: number | null } | null = null) => {
+    const currentId = idRef.current;
+    if (!nextId || nextId === currentId) return;
+    scrollById.current.set(currentId, sheetRef.current?.scrollTop ?? 0);
+    if (push) idStack.current.push(currentId);
+    pendingScroll.current = push ? 0 : (scrollById.current.get(nextId) ?? 0);
+
+    // Venue context belongs to one entity only. Every transition clears it;
+    // callers may pass a new, explicit origin when opening an item from a venue menu.
+    setOriginVenue(nextOriginVenue);
+    setReviewVenue(null);
+    setShowVenuePicker(false);
+    setPendingRating(undefined);
+    setReviewTarget(null);
+    setShowReview(false);
+    setLoadError(null);
+    setData(null);
+    setId(nextId);
+  }, []);
+  const navigateTo = useCallback((nextId: string, nextOriginVenue: { id: string; name: string; price?: number | null } | null = null) => {
+    switchEntity(nextId, true, nextOriginVenue);
+  }, [switchEntity]);
+  const requestBack = useCallback(() => {
+    const previousId = idStack.current.pop();
+    if (previousId) switchEntity(previousId, false);
+    else requestClose();
+  }, [requestClose, switchEntity]);
+  useEscClose(requestBack);
   // app-wide pattern: swipe down anywhere on the sheet (from its scroll top) closes —
   // complements the photo-handle drag below (which stays for gallery-area gestures)
-  useSwipeDismiss(sheetRef, onClose);
+  useSwipeDismiss(sheetRef, requestBack, { deps: [data, loadError] });
   // AND swipe left→right (edge) closes, same as the back arrow — app-wide (owner)
-  useSwipeBack(sheetRef, onClose);
+  useSwipeBack(sheetRef, requestBack);
   const mediaRef = useRef<HTMLDivElement>(null);
   const photoInputRef = useRef<HTMLInputElement>(null); // "Добавить фото" (no review)
   const [photoBusy, setPhotoBusy] = useState(false);
@@ -329,8 +364,8 @@ export function ListingDetailModal({
     '🤖 Точность рекомендаций увеличилась',
   ];
   const shareRef = useRef<{ photo?: string; text?: string }>({}); // last check-in's photo+note for "Отправить другу"
-  const closeRef = useRef(requestClose);
-  closeRef.current = requestClose;
+  const closeRef = useRef(requestBack);
+  closeRef.current = requestBack;
   // pull the photo down to close the card. The handler lives ON the photo, which
   // has touch-action:none, so vertical gestures are fully ours (cancelable) and
   // don't get eaten by the card's native scroll — the only thing that works on iOS.
@@ -375,7 +410,7 @@ export function ListingDetailModal({
       handle.removeEventListener('touchend', end);
       handle.removeEventListener('touchcancel', end);
     };
-  }, []);
+  }, [data?.id]);
   const [tab, setTab] = useState<'menu' | 'info' | 'reviews' | 'qa'>('menu');
   const menuRef = useRef<HTMLDivElement>(null);
   const infoRef = useRef<HTMLDivElement>(null);
@@ -415,9 +450,11 @@ export function ListingDetailModal({
   // user's own review never blinks away while server moderation catches up
   const freshReviews = useRef<any[]>([]);
   const load = useCallback(() => {
+    setLoadError(null);
     api
       .listing(id)
       .then((d) => {
+        if (idRef.current !== id) return;
         if (freshReviews.current.length && d.type !== 'RESTAURANT') {
           const have = new Set((d.reviews ?? []).map((r: any) => r.id));
           const missing = freshReviews.current.filter((r) => !have.has(r.id));
@@ -433,16 +470,27 @@ export function ListingDetailModal({
           api.firstTasterOf(id).then(setFirstTaster).catch(() => {});
         }
       })
-      .catch(() => {});
+      .catch(() => {
+        if (idRef.current === id) setLoadError('Не удалось загрузить карточку. Проверьте соединение и попробуйте снова.');
+      });
   }, [id]);
 
   useEffect(() => {
     setData(null);
+    setLoadError(null);
     freshReviews.current = []; // fresh reviews belong to the previous card
     setQuestions(null);
     setTab('menu');
     load();
   }, [load]);
+
+  useEffect(() => {
+    if (!data) return;
+    const raf = requestAnimationFrame(() => {
+      sheetRef.current?.scrollTo({ top: pendingScroll.current, behavior: 'auto' });
+    });
+    return () => cancelAnimationFrame(raf);
+  }, [data?.id]);
 
   useEffect(() => {
     if (questions === null) {
@@ -493,9 +541,18 @@ export function ListingDetailModal({
 
   if (!data) {
     return (
-      <div className="modal-backdrop" onClick={onClose}>
-        <div className="modal" onClick={(e) => e.stopPropagation()}>
-          Загрузка…
+      <div className="modal-backdrop" style={{ zIndex: 2500 }} onClick={requestBack}>
+        <div className="modal" ref={sheetRef} onClick={(e) => e.stopPropagation()}>
+          <button className="card-back" onClick={requestBack} aria-label="Назад">←</button>
+          {loadError ? (
+            <div style={{ padding: '48px 12px 20px', textAlign: 'center' }} role="alert">
+              <h3 style={{ marginBottom: 8 }}>Карточка не загрузилась</h3>
+              <p className="meta" style={{ color: 'var(--hint)', marginBottom: 16 }}>{loadError}</p>
+              <button className="btn" onClick={load}>Повторить</button>
+            </div>
+          ) : (
+            <div style={{ padding: '48px 12px 20px', textAlign: 'center' }}>Загрузка…</div>
+          )}
         </div>
       </div>
     );
@@ -643,8 +700,7 @@ export function ListingDetailModal({
 
   // open a menu item from a restaurant — remember the venue so rating auto-attaches
   function openItemFromVenue(itemId: string) {
-    if (data) setOriginVenue({ id: data.id, name: data.name });
-    setId(itemId);
+    navigateTo(itemId, { id: data.id, name: data.name });
   }
 
   // Yelp-style menu card: big photo + price overlay + name + rating count
@@ -695,9 +751,8 @@ export function ListingDetailModal({
       })
       .then((item) => {
         const venue = { id: data.id, name: data.name };
-        setOriginVenue(venue);
+        navigateTo(item.id, venue);
         setReviewVenue(venue);
-        setId(item.id);
         setReviewTarget(item);
         setReviewRating(undefined);
         setShowReview(true);
@@ -721,10 +776,10 @@ export function ListingDetailModal({
     <div
       className={'modal-backdrop' + (closing ? ' closing' : '')}
       style={{ zIndex: 2500 }}
-      onClick={requestClose}
+      onClick={requestBack}
     >
       <div className="modal" ref={sheetRef} onClick={(e) => e.stopPropagation()}>
-        <button className="card-back" onClick={requestClose} aria-label="Назад">
+        <button className="card-back" onClick={requestBack} aria-label="Назад">
           ←
         </button>
         <div className="detail-media" ref={mediaRef}>
@@ -898,7 +953,7 @@ export function ListingDetailModal({
             <div className="meta" style={{ color: 'var(--hint)', margin: '0 4px 6px' }}>
               где этот{data.type === 'DRINK' ? ' напиток' : ' блюдо'} вкуснее всего — по его рейтингу, а не рейтингу заведения
             </div>
-            <MiniRow items={data.tastedAt as Listing[]} onPick={(l) => l.id && setId(l.id)} />
+            <MiniRow items={data.tastedAt as Listing[]} onPick={(l) => l.id && navigateTo(l.id)} />
           </>
         )}
         {!isRestaurant && dedupedItemEvents.length > 0 && (
@@ -909,7 +964,7 @@ export function ListingDetailModal({
                 <button
                   key={ev.id}
                   className="myrate-card"
-                  onClick={() => ev.venue?.id && setId(ev.venue.id)}
+                  onClick={() => ev.venue?.id && navigateTo(ev.venue.id)}
                 >
                   <div className="newdish-media">
                     {ev.photoUrl ? (
@@ -1084,8 +1139,7 @@ export function ListingDetailModal({
                     <MiniRow
                       items={dedupedVenues}
                       onPick={(l) => {
-                        setOriginVenue(null); // opening a venue, not coming from one
-                        setId(l.id);
+                        navigateTo(l.id);
                       }}
                     />
                   </>
@@ -1265,7 +1319,7 @@ export function ListingDetailModal({
             {/* each branch is its own card WITH its address (no chain-collapse here) */}
             <div className="feed">
               {(sortedBranches as Listing[]).map((b) => (
-                <button key={b.id} className="myrate-card" onClick={() => setId(b.id)}>
+                <button key={b.id} className="myrate-card" onClick={() => navigateTo(b.id)}>
                   <div className="newdish-media">
                     <VenuePhoto listing={b} className="myrate-photo" />
                   </div>
@@ -1278,7 +1332,7 @@ export function ListingDetailModal({
         )}
 
         {/* 🤖 Похожие — embedding neighbours; gated (hidden for new users) */}
-        {!isRestaurant && <SimilarItems id={data.id} onOpen={(lid) => setId(lid)} />}
+        {!isRestaurant && <SimilarItems id={data.id} onOpen={navigateTo} />}
 
         <div ref={reviewsRef} className="feed-section">
           <div className="section-title big">Отзывы ({data.reviews.length})</div>
@@ -1470,7 +1524,7 @@ export function ListingDetailModal({
           <div className="feed-section">
             <div className="section-title big">Похожие места</div>
             {data.similar.map((l) => (
-              <ListRow key={l.id} listing={l} onClick={() => setId(l.id)} />
+              <ListRow key={l.id} listing={l} onClick={() => navigateTo(l.id)} />
             ))}
           </div>
         )}
@@ -1543,7 +1597,7 @@ export function ListingDetailModal({
           onClose={() => setTasteResult(null)}
           onCompareNext={(next) => {
             setTasteResult(null);
-            setId(next.id); // open the next item to taste & compare
+            navigateTo(next.id); // open the next item to taste & compare
           }}
           onShareFriend={async () => {
             const caption = shareRef.current.text?.trim() || `Зацени — ${data.name} в togomoscow 🍽`;
@@ -1594,9 +1648,8 @@ export function ListingDetailModal({
             // capture the venue we're adding it AT before setId swaps `data`
             const venue = { id: data.id, name: data.name };
             setShowAddItem(false);
-            setOriginVenue(venue);
+            navigateTo(item.id, venue); // jump to the new item with an explicit venue context
             setReviewVenue(venue); // so the rating attaches to THIS venue, not another
-            setId(item.id); // jump to the new item
             setReviewTarget(item); // …and open its review form right away
             setReviewRating(undefined);
             setShowReview(true);

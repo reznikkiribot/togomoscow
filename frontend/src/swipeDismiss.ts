@@ -15,20 +15,10 @@ export function useSwipeDismiss(
 ) {
   const { fadeBackdrop = true, deps = [], canDismiss } = opts;
   useEffect(() => {
-    // the sheet may not exist on mount (cards render a loader until data arrives) —
-    // poll briefly until it appears, then attach. Pass `deps` to re-run on data load.
-    let raf = 0;
-    let cancelled = false;
-    let detach: (() => void) | null = null;
-    const tryAttach = () => {
-      if (cancelled) return;
-      const el = sheetRef.current;
-      if (!el) {
-        raf = requestAnimationFrame(tryAttach);
-        return;
-      }
-      detach = attach(el);
-    };
+    // Conditional sheets pass `deps` and re-run when their element is rendered.
+    // Do not poll a missing ref forever: an API error may leave it absent permanently.
+    const el = sheetRef.current;
+    if (!el) return;
     const attach = (el: HTMLElement): (() => void) => {
     const backdrop = fadeBackdrop ? el.parentElement : null;
     let startY = 0;
@@ -117,12 +107,7 @@ export function useSwipeDismiss(
       el.removeEventListener('touchcancel', end);
     };
     };
-    tryAttach();
-    return () => {
-      cancelled = true;
-      cancelAnimationFrame(raf);
-      detach?.();
-    };
+    return attach(el);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 }
