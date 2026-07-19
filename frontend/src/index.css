@@ -4553,6 +4553,21 @@ a.addr-line {
   border-radius: 8px;
   overflow: hidden;
 }
+/* «Скрыть подсказки» — a way to dismiss the autocomplete list (owner 18.07.2026) */
+.suggest-close {
+  display: block;
+  width: 100%;
+  text-align: right;
+  padding: 7px 12px;
+  background: #f5f5f5;
+  border: none;
+  border-bottom: 1px solid #dadada;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--hint, #888);
+  cursor: pointer;
+}
+.suggest-close:active { background: #e8e8e8; }
 .suggest-item {
   display: block;
   width: 100%;

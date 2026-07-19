@@ -87,12 +87,13 @@ function AddItemModal({
   const [type, setType] = useState<'DISH' | 'DRINK'>('DISH');
   const [name, setName] = useState('');
   const [sugg, setSugg] = useState<string[]>([]);
+  const [suggClosed, setSuggClosed] = useState(false); // user dismissed the list
   const [description, setDescription] = useState('');
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
 
   useEffect(() => {
     const q = name.trim();
-    if (q.length < 2) {
+    if (q.length < 2 || suggClosed) {
       setSugg([]);
       return;
     }
@@ -103,7 +104,7 @@ function AddItemModal({
         .catch(() => {});
     }, 200);
     return () => clearTimeout(t);
-  }, [name, type]);
+  }, [name, type, suggClosed]);
   const [uploading, setUploading] = useState(false);
   const [busy, setBusy] = useState(false);
 
@@ -166,11 +167,14 @@ function AddItemModal({
           <label>Название</label>
           <input
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => { setName(e.target.value); setSuggClosed(false); }}
             placeholder={type === 'DISH' ? 'Борщ' : 'Раф кофе'}
           />
           {sugg.length > 0 && (
             <div className="suggest">
+              <button className="suggest-close" onClick={() => { setSugg([]); setSuggClosed(true); }} aria-label="Скрыть подсказки">
+                Скрыть подсказки ✕
+              </button>
               {sugg.map((s) => (
                 <button
                   key={s}
@@ -178,6 +182,7 @@ function AddItemModal({
                   onClick={() => {
                     setName(s);
                     setSugg([]);
+                    setSuggClosed(true);
                   }}
                 >
                   {s}
