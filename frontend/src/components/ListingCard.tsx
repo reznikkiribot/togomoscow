@@ -29,7 +29,15 @@ export function ListingCard({
   const [hover, setHover] = useState(0);
   return (
     <div className="card-wrap">
-      <div className="card" onClick={onClick}>
+      <div className="card">
+        {onClick && (
+          <button
+            type="button"
+            className="card-open-action"
+            aria-label={`Открыть ${listing.name}`}
+            onClick={onClick}
+          />
+        )}
         <div className="card-photo-wrap">
           <VenuePhoto listing={listing} className="photo" />
           {(listing as any).matchPct != null && (
@@ -140,6 +148,7 @@ export function ListingCard({
       {onToggleFavorite && (
         <button
           className="heart"
+          aria-label={favorite ? 'Убрать из избранного' : 'Добавить в избранное'}
           onClick={(e) => {
             e.stopPropagation();
             onToggleFavorite();

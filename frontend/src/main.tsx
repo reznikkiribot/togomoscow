@@ -65,29 +65,6 @@ class AppErrorBoundary extends React.Component<{ children: React.ReactNode }, { 
   window.addEventListener('unhandledrejection', (e) => reportClient('promise', (e.reason && (e.reason.stack || e.reason.message)) || e.reason));
 }
 
-// block page pinch-zoom & double-tap zoom everywhere (Leaflet keeps its own
-// zoom — it uses touch events, not these native gesture events).
-for (const ev of ['gesturestart', 'gesturechange', 'gestureend']) {
-  document.addEventListener(ev, (e) => e.preventDefault(), { passive: false });
-}
-let lastTouch = 0;
-document.addEventListener(
-  'touchend',
-  (e) => {
-    const now = Date.now();
-    // kill double-tap zoom on empty areas ONLY — never on interactive elements, or we
-    // cancel their tap (this was swallowing the `tel:` call link + needing double taps).
-    const interactive = (e.target as HTMLElement)?.closest?.(
-      '.leaflet-container, a, button, input, textarea, select, label, [role="button"], .chip, .cat-tile, .rate-star, .heart',
-    );
-    if (now - lastTouch < 300 && !interactive) {
-      e.preventDefault();
-    }
-    lastTouch = now;
-  },
-  { passive: false },
-);
-
 // app-open session tracking (start on open, end on close) for admin analytics
 let sessionId: string | null = null;
 api

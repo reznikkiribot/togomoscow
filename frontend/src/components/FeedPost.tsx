@@ -51,7 +51,13 @@ export function FeedPost({
     api.vote(review.id, t).then(setVote).catch(() => {});
 
   return (
-    <div className="post" onClick={onOpen}>
+    <div className="post">
+      <button
+        type="button"
+        className="post-open-action"
+        aria-label={`Открыть отзыв: ${review.listing?.name ?? 'отзыв'}`}
+        onClick={onOpen}
+      />
       <button
         type="button"
         className="post-head"
@@ -71,19 +77,20 @@ export function FeedPost({
 
       {/* tap the photo → the REVIEW opens (the rest of the post opens the item card) */}
       {photo ? (
-        <div
+        <button
+          type="button"
           className="post-photo-wrap"
           onClick={(e) => {
             if (onOpenPhoto) {
               e.stopPropagation();
               onOpenPhoto();
-            }
+            } else onOpen();
           }}
         >
           <SmartImg className="post-photo" src={photo} stock={imageFallback} monogram={review.listing?.name} />
           {/* ↗ affordance: the photo IS tappable (opens the check-in) */}
           {onOpenPhoto && <span className="post-photo-open">↗</span>}
-        </div>
+        </button>
       ) : cardPhoto || review.listing ? (
         <div className="post-photo-wrap">
           <SmartImg className="post-photo" src={cardPhoto} stock={imageFallback} monogram={review.listing?.name} />
@@ -130,7 +137,9 @@ export function FeedPost({
 
         {review.topComment && (
           <div className="post-cmt">
-            <b
+            <button
+              type="button"
+              className="post-comment-author"
               onClick={(e) => {
                 const uid = review.topComment?.user?.id;
                 if (uid && onOpenUser) {
@@ -140,7 +149,7 @@ export function FeedPost({
               }}
             >
               {review.topComment.user?.firstName ?? review.topComment.user?.username ?? 'Гость'}:
-            </b>{' '}
+            </button>{' '}
             {review.topComment.text}
           </div>
         )}

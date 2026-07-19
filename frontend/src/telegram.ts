@@ -9,14 +9,118 @@ export function telegramWebApp() {
 // Raw signed string we send to the backend for auth.
 export const initData = tg?.initData ?? '';
 
+type TelegramInset = { top?: number; right?: number; bottom?: number; left?: number };
+
+let telegramInitialized = false;
+const verticalSwipeLocks = new Set<symbol>();
+
+function themeValue(params: Record<string, string> | undefined, key: string) {
+  if (!params) return undefined;
+  const camel = key.replace(/_([a-z])/g, (_, letter: string) => letter.toUpperCase());
+  return params[key] ?? params[camel];
+}
+
+function syncTelegramTheme() {
+  const webApp = telegramWebApp();
+  const root = document.documentElement;
+  if (!webApp) {
+    delete root.dataset.tgTheme;
+    root.style.colorScheme = 'light dark';
+    return;
+  }
+  const params = webApp?.themeParams;
+  const bg = themeValue(params, 'bg_color');
+  const text = themeValue(params, 'text_color');
+  const hint = themeValue(params, 'hint_color');
+  const button = themeValue(params, 'button_color');
+  const buttonText = themeValue(params, 'button_text_color');
+  const secondary = themeValue(params, 'secondary_bg_color');
+  const separator = themeValue(params, 'section_separator_color');
+  const dark = webApp?.colorScheme === 'dark';
+
+  root.dataset.tgTheme = dark ? 'dark' : 'light';
+  root.style.colorScheme = dark ? 'dark' : 'light';
+  if (bg) root.style.setProperty('--bg', bg);
+  if (text) root.style.setProperty('--text', text);
+  if (hint) root.style.setProperty('--hint', hint);
+  if (button) {
+    root.style.setProperty('--accent', button);
+    root.style.setProperty('--star', button);
+  }
+  if (buttonText) root.style.setProperty('--accent-text', buttonText);
+  if (secondary) {
+    root.style.setProperty('--card', secondary);
+    root.style.setProperty('--secondary-bg', secondary);
+  }
+  if (separator) root.style.setProperty('--border', separator);
+
+  const header = secondary ?? bg;
+  try { if (header) webApp?.setHeaderColor?.(header); } catch { /* older Telegram client */ }
+  try { if (bg) webApp?.setBackgroundColor?.(bg); } catch { /* older Telegram client */ }
+  try { if (secondary ?? bg) webApp?.setBottomBarColor?.(secondary ?? bg!); } catch { /* older Telegram client */ }
+}
+
+function setInsetVars(prefix: string, inset?: TelegramInset) {
+  if (!inset) return;
+  const root = document.documentElement;
+  for (const side of ['top', 'right', 'bottom', 'left'] as const) {
+    const value = inset[side];
+    if (typeof value === 'number') root.style.setProperty(`${prefix}-${side}`, `${value}px`);
+  }
+}
+
+function syncTelegramViewport() {
+  const webApp = telegramWebApp();
+  const root = document.documentElement;
+  const stableHeight = webApp?.viewportStableHeight || window.innerHeight;
+  const viewportHeight = webApp?.viewportHeight || window.visualViewport?.height || window.innerHeight;
+  root.style.setProperty('--tg-viewport-stable-height', `${Math.round(stableHeight)}px`);
+  root.style.setProperty('--tg-viewport-height', `${Math.round(viewportHeight)}px`);
+  setInsetVars('--tg-safe-area-inset', webApp?.safeAreaInset);
+  setInsetVars('--tg-content-safe-area-inset', webApp?.contentSafeAreaInset);
+}
+
+function syncVerticalSwipes() {
+  const webApp = telegramWebApp();
+  try {
+    if (verticalSwipeLocks.size > 0) webApp?.disableVerticalSwipes?.();
+    else webApp?.enableVerticalSwipes?.();
+  } catch {
+    /* unsupported client */
+  }
+}
+
+/** Keep Telegram's collapse gesture enabled except during a real gesture conflict. */
+export function lockVerticalSwipes() {
+  const token = Symbol('vertical-swipe-lock');
+  verticalSwipeLocks.add(token);
+  syncVerticalSwipes();
+  let released = false;
+  return () => {
+    if (released) return;
+    released = true;
+    verticalSwipeLocks.delete(token);
+    syncVerticalSwipes();
+  };
+}
+
 export function initTelegram() {
   try {
     const webApp = telegramWebApp();
     if (webApp?.initData) sessionStorage.setItem('tg:initData', webApp.initData);
     webApp?.ready();
     webApp?.expand();
-    // stop the app from collapsing when the user pulls a list down (Bot API 7.7+)
-    (webApp as any)?.disableVerticalSwipes?.();
+    syncTelegramTheme();
+    syncTelegramViewport();
+    syncVerticalSwipes();
+    if (telegramInitialized) return;
+    telegramInitialized = true;
+    webApp?.onEvent?.('themeChanged', syncTelegramTheme);
+    webApp?.onEvent?.('viewportChanged', syncTelegramViewport);
+    webApp?.onEvent?.('safeAreaChanged', syncTelegramViewport);
+    webApp?.onEvent?.('contentSafeAreaChanged', syncTelegramViewport);
+    window.visualViewport?.addEventListener('resize', syncTelegramViewport, { passive: true });
+    window.addEventListener('resize', syncTelegramViewport, { passive: true });
     // global tactile feedback: a light tap on every button/interactive element press
     document.addEventListener(
       'pointerdown',

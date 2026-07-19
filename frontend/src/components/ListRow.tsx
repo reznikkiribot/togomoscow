@@ -43,12 +43,21 @@ export function ListRow({
   }
 
   return (
-    <div className="vcard" onClick={onClick}>
+    <div className="vcard">
+      {onClick && (
+        <button
+          type="button"
+          className="card-open-action"
+          aria-label={`Открыть ${listing.name}`}
+          onClick={onClick}
+        />
+      )}
       <div className="vcard-media">
         <VenuePhoto listing={listing} className="vcard-photo" />
         {onToggleFavorite && (
           <button
             className="heart"
+            aria-label={favorite ? 'Убрать из избранного' : 'Добавить в избранное'}
             onClick={(e) => {
               e.stopPropagation();
               onToggleFavorite();

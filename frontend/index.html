@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
     <title>togomoscow</title>
     <meta http-equiv="Cache-Control" content="no-store, max-age=0" />
@@ -53,6 +53,23 @@
           try {
             var webApp = window.Telegram && window.Telegram.WebApp;
             if (webApp && webApp.ready) {
+              var p = webApp.themeParams || {};
+              var root = document.documentElement;
+              var token = function (snake, camel) { return p[snake] || p[camel]; };
+              var bg = token('bg_color', 'bgColor');
+              var text = token('text_color', 'textColor');
+              var hint = token('hint_color', 'hintColor');
+              var button = token('button_color', 'buttonColor');
+              var buttonText = token('button_text_color', 'buttonTextColor');
+              var secondary = token('secondary_bg_color', 'secondaryBgColor');
+              root.dataset.tgTheme = webApp.colorScheme === 'dark' ? 'dark' : 'light';
+              root.style.colorScheme = webApp.colorScheme === 'dark' ? 'dark' : 'light';
+              if (bg) root.style.setProperty('--bg', bg);
+              if (text) root.style.setProperty('--text', text);
+              if (hint) root.style.setProperty('--hint', hint);
+              if (button) root.style.setProperty('--accent', button);
+              if (buttonText) root.style.setProperty('--accent-text', buttonText);
+              if (secondary) root.style.setProperty('--card', secondary);
               webApp.ready();
               if (webApp.expand) webApp.expand();
               report('tg-ready-called', 'ready/expand called from html');
@@ -90,8 +107,10 @@
     </script>
     <style>
       /* minimal first-paint loader (replaced when React mounts) */
-      #boot-msg { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: system-ui, sans-serif; color: #555; font-size: 15px; text-align: center; background: #fff; }
-      #boot-msg .sp { width: 26px; height: 26px; border: 3px solid #eee; border-top-color: #d32323; border-radius: 50%; animation: bspin 0.8s linear infinite; margin-bottom: 12px; }
+      :root { color-scheme: light dark; --bg: #fff; --text: #2b2b2b; --hint: #6b6b6b; --card: #fff; --accent: #d32323; --accent-text: #fff; }
+      @media (prefers-color-scheme: dark) { :root:not([data-tg-theme="light"]) { --bg: #181818; --text: #f3f3f3; --hint: #a5a5a5; --card: #242424; } }
+      #boot-msg { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: system-ui, sans-serif; color: var(--hint); font-size: 15px; text-align: center; background: var(--bg); }
+      #boot-msg .sp { width: 26px; height: 26px; border: 3px solid color-mix(in srgb, var(--hint) 25%, transparent); border-top-color: var(--accent); border-radius: 50%; animation: bspin 0.8s linear infinite; margin-bottom: 12px; }
       @keyframes bspin { to { transform: rotate(360deg); } }
     </style>
   </head>

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, useRef } from 'react';
+import { useCallback, useEffect, useId, useState, useRef } from 'react';
 import { api } from '../api';
 import { composeStoryImage } from '../storyImage';
 import { useSwipeDismiss } from '../swipeDismiss';
@@ -6,6 +6,7 @@ import { useEscClose } from '../modalEsc';
 import type { Listing, PublicUser, Review } from '../types';
 import { StarInput } from './StarInput';
 import { templateFor } from '../tasting';
+import { telegramWebApp } from '../telegram';
 
 export type ReviewSavedMedia = {
   photo?: string;
@@ -93,7 +94,9 @@ export function ReviewForm({
   ]);
   const [videoUrls, setVideoUrls] = useState<string[]>(restoredDraft?.videoUrls ?? existing?.videoUrls ?? []);
   const [busy, setBusy] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const busyRef = useRef(false); // sync re-entry guard: iOS ghost-taps beat setState
+  const titleId = useId();
   // the form is a bottom sheet — pull-down closes it, same as feed posts
   const sheetRef = useRef<HTMLDivElement>(null);
   const onCloseRef = useRef(onClose);
@@ -178,6 +181,7 @@ export function ReviewForm({
     if (busyRef.current || rating <= 0) return;
     busyRef.current = true;
     setBusy(true);
+    setSubmitting(true);
     setError(null);
     setCanRetrySave(false);
     let saved: Review;
@@ -207,6 +211,7 @@ export function ReviewForm({
       setCanRetrySave(true);
       busyRef.current = false;
       setBusy(false);
+      setSubmitting(false);
       return;
     }
     // A response means the idempotent upsert is durable. Clear the draft before
@@ -214,6 +219,7 @@ export function ReviewForm({
     try { localStorage.removeItem(draftKey); } catch { /* ignore */ }
     busyRef.current = false;
     setBusy(false);
+    setSubmitting(false);
     try {
       onSaved({ photo: photoUrls[0], photos: photoUrls, video: videoUrls[0], text: text.trim() || undefined, slides: Object.fromEntries(slides.current), review: saved });
     } catch (callbackError) {
@@ -223,17 +229,54 @@ export function ReviewForm({
     }
   }
 
+  const saveRef = useRef(save);
+  saveRef.current = save;
+
+  // Telegram's native action stays above the iOS keyboard. Keep one stable
+  // handler for the lifetime of this sheet and always clean it up on unmount.
+  useEffect(() => {
+    const mainButton = telegramWebApp()?.MainButton;
+    if (!mainButton) return;
+    const publish = () => saveRef.current();
+    mainButton.setText('Опубликовать');
+    mainButton.onClick(publish);
+    mainButton.show();
+    return () => {
+      try { mainButton.hideProgress(); } catch { /* unsupported old client */ }
+      mainButton.offClick(publish);
+      mainButton.hide();
+    };
+  }, []);
+
+  useEffect(() => {
+    const mainButton = telegramWebApp()?.MainButton;
+    if (!mainButton) return;
+    if (rating > 0 && !busy) mainButton.enable();
+    else mainButton.disable();
+    if (submitting) mainButton.showProgress(false);
+    else mainButton.hideProgress();
+  }, [rating, busy, submitting]);
+
   return (
     <div
       className="modal-backdrop"
       style={{ zIndex: 3000 }}
+      role="presentation"
       onClick={(e) => {
         e.stopPropagation();
         requestClose();
       }}
     >
-      <div className="modal" ref={sheetRef} onClick={(e) => e.stopPropagation()}>
-        <h3>{listing.name}</h3>
+      <div
+        className="modal review-form-sheet"
+        ref={sheetRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        aria-busy={submitting}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <h3 id={titleId}>{listing.name}</h3>
         {venue && (
           <div className="meta" style={{ fontSize: 14, fontWeight: 600, marginTop: 2 }}>
             📍 {venue.name}
@@ -398,7 +441,7 @@ export function ReviewForm({
 
         {error && (
           <div style={{ marginTop: 10 }}>
-            <p style={{ color: 'crimson', fontSize: 13, margin: '0 0 8px' }}>{error}</p>
+            <p role="alert" style={{ color: 'crimson', fontSize: 13, margin: '0 0 8px' }}>{error}</p>
             {canRetrySave && (
               <button className="btn secondary" type="button" onClick={save} disabled={busy}>
                 Повторить
@@ -406,7 +449,7 @@ export function ReviewForm({
             )}
           </div>
         )}
-        <div style={{ display: 'flex', gap: 10, marginTop: 18 }}>
+        <div className="review-form-actions" style={{ display: 'flex', gap: 10, marginTop: 18 }}>
           <button className="btn secondary" onClick={requestClose} disabled={busy}>
             Отмена
           </button>

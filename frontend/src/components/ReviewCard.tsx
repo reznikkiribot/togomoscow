@@ -41,7 +41,15 @@ export function ReviewCard({
 
   return (
     <div className="rc">
-      <div className="rc-tap" onClick={onOpen}>
+      <div className="rc-tap">
+        {onOpen && (
+          <button
+            type="button"
+            className="rc-open-action"
+            aria-label={`Открыть отзыв${review.listing?.name ? `: ${review.listing.name}` : ''}`}
+            onClick={onOpen}
+          />
+        )}
         {photo && (
           <div className="rc-photo-wrap">
             {/* blurred fill of the same photo → no black letterbox bars */}

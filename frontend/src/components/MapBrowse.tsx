@@ -9,6 +9,7 @@ import { useFavorites } from '../hooks/useFavorites';
 import { useEscClose } from '../modalEsc';
 import { useSwipeBack } from '../swipeBack';
 import { cuisineToken } from '../cuisine';
+import { lockVerticalSwipes, telegramWebApp } from '../telegram';
 
 export type BrowseCat = 'RESTAURANT' | 'BAR' | 'CAFE' | 'COFFEE' | 'DISH' | 'DRINK';
 
@@ -56,6 +57,7 @@ export function MapBrowse({ cat, onClose }: { cat: BrowseCat; onClose: () => voi
     setTimeout(onClose, 260);
   };
   useEscClose(close);
+  useEffect(() => lockVerticalSwipes(), []);
   const pageRef = useRef<HTMLDivElement>(null);
   useSwipeBack(pageRef, close); // edge swipe → back to home
   const { ids, toggle } = useFavorites();
@@ -141,7 +143,7 @@ export function MapBrowse({ cat, onClose }: { cat: BrowseCat; onClose: () => voi
   // drag handle → follow the finger live (document-level listeners = robust in
   // the Telegram webview), then snap open/closed on release.
   const sheetRef = useRef<HTMLDivElement>(null);
-  const collapsedPx = () => window.innerHeight * 0.86 - 220;
+  const collapsedPx = () => (telegramWebApp()?.viewportStableHeight ?? window.innerHeight) * 0.86 - 220;
   // pull-down from INSIDE the list (feed-post logic): when the list is scrolled
   // to the top, dragging down grabs the whole sheet and collapses it to the map;
   // scrolled lists keep scrolling — the decision is made on the FIRST move.

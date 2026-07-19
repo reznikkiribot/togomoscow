@@ -1,4 +1,5 @@
 import { useEffect, type RefObject } from 'react';
+import { lockVerticalSwipes } from './telegram';
 
 // Swipe-to-dismiss for every sheet/card (Instagram/iOS-sheet pattern):
 //  • drag starts only when the sheet is scrolled to the very top (otherwise it's
@@ -28,6 +29,7 @@ export function useSwipeDismiss(
     let dragging = false;
     let armed = false;
     let closed = false;
+    let releaseVerticalSwipes: (() => void) | null = null;
 
     const start = (e: TouchEvent) => {
       startY = lastY = e.touches[0].clientY;
@@ -47,7 +49,10 @@ export function useSwipeDismiss(
       if (!dragging) {
         // decide on the FIRST move: on iOS the event stops being cancelable the
         // moment native scroll wins, so an 8px threshold was already too late
-        if (armed && dy > 2 && el.scrollTop <= 0 && e.cancelable) dragging = true;
+        if (armed && dy > 2 && el.scrollTop <= 0 && e.cancelable) {
+          dragging = true;
+          releaseVerticalSwipes = lockVerticalSwipes();
+        }
         else if (dy < -2) { armed = false; return; } // scrolling content down → not ours
         else if (!dragging) return;
       }
@@ -60,6 +65,8 @@ export function useSwipeDismiss(
     const end = () => {
       if (!dragging || closed) return;
       dragging = false;
+      releaseVerticalSwipes?.();
+      releaseVerticalSwipes = null;
       const dy = lastY - startY;
       // iOS/Instagram-grade thresholds: a THIRD of the sheet height, or a real
       // fling (~1000 px/s, like UIKit's velocity cutoff) that has already moved
@@ -101,6 +108,7 @@ export function useSwipeDismiss(
     el.addEventListener('touchend', end, { passive: true });
     el.addEventListener('touchcancel', end, { passive: true });
     return () => {
+      releaseVerticalSwipes?.();
       el.removeEventListener('touchstart', start);
       el.removeEventListener('touchmove', move);
       el.removeEventListener('touchend', end);

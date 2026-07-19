@@ -18,7 +18,7 @@ export default function MapScreen() {
         <h2>Карта</h2>
         <span className="meta" style={{ color: 'var(--hint)' }}>{points.length} мест</span>
       </div>
-      <MapView points={points} height="calc(100vh - 150px)" onSelect={setSel} />
+      <MapView points={points} height="calc(var(--tg-viewport-stable-height) - 150px)" onSelect={setSel} />
       {sel && <ListingDetailModal id={sel} onClose={() => setSel(null)} />}
     </div>
   );

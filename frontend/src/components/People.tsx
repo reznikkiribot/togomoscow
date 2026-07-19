@@ -35,15 +35,18 @@ function FollowBtn({ u, onChange }: { u: PublicUser; onChange: (following: boole
 }
 
 function UserRow({ u, onOpen }: { u: PublicUser; onOpen: (id: string) => void }) {
+  const name = u.firstName ?? u.username ?? 'Гость';
   return (
-    <div className="pu-row" onClick={() => onOpen(u.id)}>
-      <Avatar user={u} />
-      <div style={{ flex: 1 }}>
-        <div className="pu-name">{u.firstName ?? u.username ?? 'Гость'}</div>
-        <div className="pu-meta">
-          {u.reviews} отзывов · {u.followers} подписчиков
+    <div className="pu-row">
+      <button type="button" className="pu-row-main" onClick={() => onOpen(u.id)} aria-label={`Открыть профиль: ${name}`}>
+        <Avatar user={u} />
+        <div className="pu-row-copy">
+          <div className="pu-name">{name}</div>
+          <div className="pu-meta">
+            {u.reviews} отзывов · {u.followers} подписчиков
+          </div>
         </div>
-      </div>
+      </button>
       <FollowBtn u={u} onChange={() => {}} />
     </div>
   );

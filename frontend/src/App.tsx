@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { trackScreen } from './analytics';
 import { api } from './api';
@@ -21,6 +21,16 @@ export default function App() {
   const cls = ({ isActive }: { isActive: boolean }) => (isActive ? 'active' : '');
   const [isAdmin, setIsAdmin] = useState(false);
   const [showQuiz, setShowQuiz] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const nav = navRef.current;
+    if (!nav) return;
+    const sync = () => document.documentElement.style.setProperty('--app-nav-height', `${Math.ceil(nav.getBoundingClientRect().height)}px`);
+    sync();
+    const observer = new ResizeObserver(sync);
+    observer.observe(nav);
+    return () => observer.disconnect();
+  }, [isAdmin]);
   // unread badge on the bell — polled lightly + reset by the alerts screen
   const [unread, setUnread] = useState(0);
   useEffect(() => {
@@ -116,7 +126,7 @@ export default function App() {
       <CategoryCelebration />
       {/* the key feature: scan a dish/drink from any screen */}
       <ScanFab />
-      <nav className="nav">
+      <nav className="nav" ref={navRef} aria-label="Основная навигация">
         <NavLink
           to="/"
           end

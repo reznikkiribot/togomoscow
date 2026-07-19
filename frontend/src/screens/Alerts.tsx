@@ -57,14 +57,17 @@ export default function Alerts() {
         </div>
       ) : (
         items.map((n) => (
-          <div key={n.id} className={`alert-row${freshIds.has(n.id) ? ' fresh' : ''}`} onClick={() => open(n)}>
+          <div key={n.id} className={`alert-row${freshIds.has(n.id) ? ' fresh' : ''}`}>
+            <button type="button" className="alert-open-action" aria-label={n.text} onClick={() => open(n)} />
             {n.actorPhoto ? (
-              <img
-                className="alert-avatar"
-                src={n.actorPhoto}
-                alt=""
-                onClick={(e) => { if (n.actorId) { e.stopPropagation(); setOpenUser(n.actorId); } }}
-              />
+              <button
+                type="button"
+                className="alert-avatar-button"
+                aria-label={`Открыть профиль: ${n.actorName ?? 'пользователь'}`}
+                onClick={() => { if (n.actorId) setOpenUser(n.actorId); }}
+              >
+                <img className="alert-avatar" src={n.actorPhoto} alt="" />
+              </button>
             ) : (
               <span className="alert-ico">{KIND_ICON[n.kind] ?? '🔔'}</span>
             )}
@@ -75,12 +78,13 @@ export default function Alerts() {
                 {n.actorId && (
                   <>
                     {' · '}
-                    <span
+                    <button
+                      type="button"
                       className="alert-user"
-                      onClick={(e) => { e.stopPropagation(); setOpenUser(n.actorId!); }}
+                      onClick={() => setOpenUser(n.actorId!)}
                     >
                       {n.actorName ?? 'профиль'}
-                    </span>
+                    </button>
                   </>
                 )}
               </div>
