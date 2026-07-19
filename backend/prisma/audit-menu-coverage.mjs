@@ -9,7 +9,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
-import { classify, isJunk, normalizeMenuName } from './menu-import.mjs';
+import { classify, isJunk, menuNameKey, normalizeMenuName } from './menu-import.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(__dirname, 'menu-out');
@@ -30,7 +30,7 @@ export function normalizePrice(value) {
 }
 
 function nameKey(value) {
-  return String(value ?? '').normalize('NFKC').trim().toLocaleLowerCase('ru-RU');
+  return menuNameKey(value);
 }
 
 function strippedName(value) {

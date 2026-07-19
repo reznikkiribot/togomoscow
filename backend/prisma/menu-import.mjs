@@ -94,12 +94,57 @@ function sentenceCaseAllCaps(name) {
 
 // Keep the semantic dish name while removing parser/UI metadata. The same
 // function is imported by clean-names.mjs, so new and historical rows converge.
-export function normalizeMenuName(name) {
+function normalizeForVenuePrefix(value) {
+  return String(value ?? '')
+    .normalize('NFKC')
+    .toLocaleLowerCase('ru-RU')
+    .replace(/ё/g, 'е')
+    .replace(/[^a-zа-я0-9]+/g, ' ')
+    .trim();
+}
+
+// Catalog identity keeps every semantic word. Only typography, punctuation,
+// whitespace and ё/е differences are ignored. In particular, prefixes such as
+// "ролл", "салат" and "соус" must never be stripped: they name different food.
+export function menuNameKey(value) {
+  return String(value ?? '')
+    .normalize('NFKC')
+    .toLocaleLowerCase('ru-RU')
+    .replace(/ё/g, 'е')
+    .replace(/[^a-zа-я0-9]+/g, ' ')
+    .trim();
+}
+
+function stripLeadingVenueName(name, venueNames) {
+  const normalizedName = normalizeForVenuePrefix(name);
+  const nameTokens = [...String(name).matchAll(/[a-zа-яё0-9]+/giu)];
+  const ignoredGenericNames = new Set(['бар', 'кафе', 'паб', 'ресторан', 'кофейня', 'пиццерия', 'столовая']);
+  const candidates = [...new Set((venueNames ?? []).map(normalizeForVenuePrefix))]
+    .filter((venueName) => venueName.length >= 4 && !ignoredGenericNames.has(venueName))
+    .sort((a, b) => b.length - a.length);
+  for (const venueName of candidates) {
+    if (!normalizedName.startsWith(`${venueName} `)) continue;
+    const venueTokenCount = venueName.split(/\s+/).length;
+    const lastVenueToken = nameTokens[venueTokenCount - 1];
+    if (!lastVenueToken) continue;
+    const tail = name
+      .slice((lastVenueToken.index ?? 0) + lastVenueToken[0].length)
+      .replace(/^\s*[-–—,:;/|]+\s*/, '')
+      .trim();
+    // PDF headings get glued to a short following row. Refuse to rewrite long
+    // phrases: those are more likely deliberate branded menu names.
+    if (tail && tail.split(/\s+/).length <= 5) return tail;
+  }
+  return name;
+}
+
+export function normalizeMenuName(name, venueNames = []) {
   let n = String(name ?? '').normalize('NFKC').replace(/\u00a0/g, ' ').trim();
   if (!n) return '';
 
   n = n
     .replace(MARKETING_PREFIX_RE, ' ')
+    .replace(/_+/g, ' ') // parser/internal separators are not part of a dish name
     .replace(/&#\d+;/g, ' ')
     .replace(/\s*\[[^\]]*\]/g, ' ') // [NEW], [AT], internal menu codes
     .replace(new RegExp(`\\(\\s*(?:${DAY_TOKEN}|\\d+[.,]\\d+|xxl|xl|xs|[sml]|сред\\.?|м3|m3|зона\\s*\\d+|ночн[а-яё]*|new|hit|хит|арт(?:икул)?\\s*[:№#-]?\\s*[a-zа-яё0-9_-]+|код\\s*[:№#-]?\\s*[a-zа-яё0-9_-]+)\\s*\\)`, 'gi'), ' ')
@@ -127,6 +172,7 @@ export function normalizeMenuName(name) {
     .replace(/^\s*[-–—,:;/]+\s*/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
+  n = stripLeadingVenueName(n, venueNames);
   return sentenceCaseAllCaps(n);
 }
 // skip non-dish noise the engine sometimes catches (combos / banners / sets / descriptions)
@@ -199,6 +245,18 @@ async function main() {
   const { PrismaClient } = await import('@prisma/client');
   const prisma = new PrismaClient();
   const log = { at: new Date().toISOString(), status, createdItems: [], links: [] };
+  // The catalog is small enough to keep an exact identity index in memory.
+  // This also makes matching stricter than database substring/endsWith queries.
+  const catalogItems = await prisma.listing.findMany({
+    where: { type: { in: ['DISH', 'DRINK'] } },
+    orderBy: { createdAt: 'asc' },
+    select: { id: true, type: true, name: true, photoUrl: true },
+  });
+  const exactItems = new Map();
+  for (const item of catalogItems) {
+    const key = `${item.type}\u0000${menuNameKey(item.name)}`;
+    if (!exactItems.has(key)) exactItems.set(key, item);
+  }
 
   for (const domain of domains) {
     if (FASTFOOD_BLOCK.test(domain)) { console.log(`${domain}: mass fast-food — skip (owner rule)`); continue; }
@@ -216,7 +274,7 @@ async function main() {
 
     let newItems = 0, links = 0;
     for (const raw of data.items) {
-      const name = normalizeMenuName(raw.name);
+      const name = normalizeMenuName(raw.name, venues.map((venue) => venue.name));
       if (isJunk(name)) continue;
       const { type, category } = classify(name);
       // PHOTO POLICY: parsed photos are only a GENERATION REFERENCE, never shown
@@ -224,37 +282,16 @@ async function main() {
       // the official image into our own AI derivative. An existing aigen- photo
       // is FINAL: future parses must never touch it (owner rule 11.07.2026).
       const photoUrl = null;
-      // find-or-create the shared catalog item (dedup by name + type).
-      // ANTI-DUPE RULE (owner, 11.07.2026): «Карбонара» and «Паста Карбонара»
-      // are the same item — match the stripped form too (same dish kind only).
-      const stripped = name.toLowerCase().replace(/ё/g, 'е').replace(/^(паста|пицца|салат|суп|ролл|роллы|напиток|коктейль)\s+/, '');
-      let item = await prisma.listing.findFirst({
-        where: { type, name: { equals: name, mode: 'insensitive' } },
-        select: { id: true, photoUrl: true },
-      });
-      if (!item) {
-        const near = await prisma.listing.findMany({
-          where: { type, OR: [
-            { name: { equals: stripped, mode: 'insensitive' } },
-            { name: { endsWith: ' ' + stripped, mode: 'insensitive' } },
-          ] },
-          select: { id: true, photoUrl: true, name: true, category: true },
-        });
-        const kindOf = (n, cat) => {
-          const s = (n ?? '').toLowerCase(); const cc = (cat ?? '').toLowerCase();
-          if (/^пицца |пицц/.test(s + ' ' + cc)) return 'pizza';
-          if (/^паста |паст/.test(s + ' ' + cc)) return 'pasta';
-          if (/^суп |суп/.test(s + ' ' + cc)) return 'soup';
-          return 'any';
-        };
-        const myKind = kindOf(name, category);
-        item = near.find((x) => { const k = kindOf(x.name, x.category); return k === 'any' || myKind === 'any' || k === myKind; }) ?? null;
-      }
+      // Strict identity: the same type and the exact normalized name only.
+      // Type is part of the key, so DISH and DRINK can never be merged.
+      const identityKey = `${type}\u0000${menuNameKey(name)}`;
+      let item = exactItems.get(identityKey) ?? null;
       if (!item) {
         item = await prisma.listing.create({
           data: { type, name, category, groupKey: name.toLowerCase(), source: 'menu-import', photoUrl },
           select: { id: true, photoUrl: true },
         });
+        exactItems.set(identityKey, { ...item, type, name });
         newItems++;
         log.createdItems.push(item.id);
       }

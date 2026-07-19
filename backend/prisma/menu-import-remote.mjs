@@ -7,7 +7,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { classify, isJunk, normalizeMenuName } from './menu-import.mjs';
+import { classify, isJunk, menuNameKey, normalizeMenuName } from './menu-import.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(__dirname, 'menu-out');
@@ -60,24 +60,23 @@ for (const domain of domains) {
   if (!venues.length) { console.log(`${domain}: no venues, skip`); continue; }
 
   // prepare items in memory (dedup by type+lower(name))
-  const wanted = new Map(); // key type|lower → {type,name,category,photoUrl,price}
+  const wanted = new Map(); // key type|normalized → {type,name,category,photoUrl,price}
   for (const raw of data.items) {
     const name = normalizeMenuName(raw.name);
     if (!name || isJunk(name)) continue;
     const { type, category } = classify(name);
-    const key = `${type}|${name.toLowerCase()}`;
+    const key = `${type}|${menuNameKey(name)}`;
     const photoUrl = typeof raw.image === 'string' && /^https?:\/\//.test(raw.image) ? raw.image : null;
     const price = raw.price > 0 && raw.price < 100000 ? Math.round(raw.price) : null;
     if (!wanted.has(key)) wanted.set(key, { type, name, category, photoUrl, price });
   }
-  const names = [...wanted.values()].map((w) => w.name);
-
-  // one query: which of these items already exist (any type — we match per type below)
+  // Exact normalized identity only; loading the small catalog also catches
+  // harmless punctuation and ё/е differences without any substring fallback.
   const existing = await p.listing.findMany({
-    where: { type: { in: ['DISH', 'DRINK'] }, name: { in: names, mode: 'insensitive' } },
+    where: { type: { in: ['DISH', 'DRINK'] } },
     select: { id: true, type: true, name: true, photoUrl: true },
   });
-  const byKey = new Map(existing.map((e) => [`${e.type}|${e.name.toLowerCase()}`, e]));
+  const byKey = new Map(existing.map((e) => [`${e.type}|${menuNameKey(e.name)}`, e]));
 
   // batch-create the missing items
   const toCreate = [...wanted.entries()]
@@ -86,10 +85,11 @@ for (const domain of domains) {
   if (toCreate.length) await p.listing.createMany({ data: toCreate, skipDuplicates: true });
   // re-fetch to get ids for everything
   const all = await p.listing.findMany({
-    where: { type: { in: ['DISH', 'DRINK'] }, name: { in: names, mode: 'insensitive' } },
+    where: { type: { in: ['DISH', 'DRINK'] }, name: { in: toCreate.map((item) => item.name), mode: 'insensitive' } },
     select: { id: true, type: true, name: true, photoUrl: true },
   });
-  const idByKey = new Map(all.map((e) => [`${e.type}|${e.name.toLowerCase()}`, e]));
+  const idByKey = new Map(byKey);
+  for (const e of all) idByKey.set(`${e.type}|${menuNameKey(e.name)}`, e);
 
   // photo backfill for pre-existing items without one (small; per-item update)
   for (const [k, w] of wanted) {

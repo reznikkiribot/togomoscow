@@ -32,10 +32,13 @@ async function retryP1001(label, fn) {
       return await fn();
     } catch (error) {
       const message = String(error?.message ?? error);
-      const transient = error?.code === 'P1001' || message.includes('P1001');
+      // Railway proxy may close a long interactive transaction (P2028). The
+      // whole callback is atomic, so retrying the callback is safe.
+      const transient = ['P1001', 'P2024', 'P2028'].includes(error?.code)
+        || /P1001|P2024|P2028/.test(message);
       if (!transient || attempt === 6) throw error;
       const delayMs = attempt * 5000;
-      console.log(`P1001: ${label}, retry ${attempt}/6 in ${delayMs / 1000}s`);
+      console.log(`${error?.code ?? 'transient DB error'}: ${label}, retry ${attempt}/6 in ${delayMs / 1000}s`);
       await new Promise((resolve) => setTimeout(resolve, delayMs));
     }
   }
@@ -51,6 +54,9 @@ try {
       category: true,
       groupKey: true,
       source: true,
+      servedAt: {
+        select: { venue: { select: { name: true, brand: true } } },
+      },
       _count: { select: { reviews: true, servedAt: true } },
     },
     orderBy: [{ type: 'asc' }, { name: 'asc' }],
@@ -62,7 +68,8 @@ try {
     name.toLocaleLowerCase('ru-RU'),
   ].join('|');
   const rows = items.map((item) => {
-    const name = normalizeMenuName(item.name);
+    const venueNames = item.servedAt.flatMap((link) => [link.venue.name, link.venue.brand]).filter(Boolean);
+    const name = normalizeMenuName(item.name, venueNames);
     return { item, name, junk: !name || isJunk(name) };
   });
   const skipped = [];
