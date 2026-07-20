@@ -1,21 +1,23 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {
   CreateBucketCommand,
   GetObjectCommand,
   HeadBucketCommand,
+  HeadObjectCommand,
   PutObjectCommand,
   S3Client,
 } from '@aws-sdk/client-s3';
 import { randomUUID } from 'crypto';
 import { createReadStream } from 'fs';
-import { mkdir, readFile, writeFile } from 'fs/promises';
+import { mkdir, readFile, stat, writeFile } from 'fs/promises';
 import { join } from 'path';
 import type { Readable } from 'stream';
 import sharp from 'sharp';
 
 @Injectable()
 export class UploadsService implements OnModuleInit {
+  private readonly logger = new Logger(UploadsService.name);
   private readonly s3?: S3Client;
   private readonly bucket: string;
   private readonly uploadDir: string;
@@ -25,6 +27,8 @@ export class UploadsService implements OnModuleInit {
     this.bucket = this.config.get<string>('MINIO_BUCKET') ?? 'uploads';
     this.uploadDir = this.config.get<string>('UPLOAD_DIR') ?? join(process.cwd(), 'uploads-data');
 
+    // Storage is configured at process start; keep local and Railway S3 behind
+    // the same interface so response handling does not depend on the provider.
     const endpoint = this.config.get<string>('MINIO_ENDPOINT');
     const accessKeyId = this.config.get<string>('MINIO_ACCESS_KEY');
     const secretAccessKey = this.config.get<string>('MINIO_SECRET_KEY');
@@ -58,8 +62,11 @@ export class UploadsService implements OnModuleInit {
   async onModuleInit() {
     if (!this.useS3) {
       await mkdir(this.uploadDir, { recursive: true });
+      this.logger.warn(`Object storage is not configured; using local directory ${this.uploadDir}`);
       return;
     }
+
+    this.logger.log(`Object storage enabled (bucket: ${this.bucket})`);
 
     try {
       await this.send(new HeadBucketCommand({ Bucket: this.bucket }));
@@ -115,19 +122,59 @@ export class UploadsService implements OnModuleInit {
     );
   }
 
-  async get(key: string): Promise<{ body: Readable; contentType?: string }> {
+  private async localMetadata(key: string) {
+    const [file, contentType] = await Promise.all([
+      stat(join(this.uploadDir, key)),
+      readFile(join(this.uploadDir, `${key}.json`), 'utf8')
+        .then((raw) => {
+          const meta = JSON.parse(raw);
+          return typeof meta.contentType === 'string' ? meta.contentType : undefined;
+        })
+        .catch(() => undefined),
+    ]);
+    return { contentType, contentLength: file.size, lastModified: file.mtime };
+  }
+
+  async head(key: string): Promise<{
+    contentType?: string;
+    contentLength?: number;
+    etag?: string;
+    lastModified?: Date;
+  }> {
     if (!this.useS3) {
-      let contentType: string | undefined;
-      try {
-        const meta = JSON.parse(await readFile(join(this.uploadDir, `${key}.json`), 'utf8'));
-        contentType = typeof meta.contentType === 'string' ? meta.contentType : undefined;
-      } catch {
-        contentType = undefined;
-      }
-      return { body: createReadStream(join(this.uploadDir, key)), contentType };
+      return this.localMetadata(key);
+    }
+
+    const res = await this.send(new HeadObjectCommand({ Bucket: this.bucket, Key: key }));
+    return {
+      contentType: res.ContentType,
+      contentLength: res.ContentLength,
+      etag: res.ETag,
+      lastModified: res.LastModified,
+    };
+  }
+
+  async get(key: string): Promise<{
+    body: Readable;
+    contentType?: string;
+    contentLength?: number;
+    etag?: string;
+    lastModified?: Date;
+  }> {
+    if (!this.useS3) {
+      // stat() first: createReadStream() reports a missing file asynchronously,
+      // after the controller may already have committed a 200 response.
+      const meta = await this.localMetadata(key);
+      return { body: createReadStream(join(this.uploadDir, key)), ...meta };
     }
 
     const res = await this.send(new GetObjectCommand({ Bucket: this.bucket, Key: key }));
-    return { body: res.Body as Readable, contentType: res.ContentType };
+    return {
+      body: res.Body as Readable,
+      contentType: res.ContentType,
+      contentLength: res.ContentLength,
+      etag: res.ETag,
+      lastModified: res.LastModified,
+    };
   }
 }

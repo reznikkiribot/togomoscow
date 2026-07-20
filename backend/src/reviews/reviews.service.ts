@@ -218,14 +218,18 @@ export class ReviewsService {
     // land in the admin cabinet (profanity/spam text throws above, an explicit
     // photo sends the review to PENDING for a human look)
     let textStatus: 'APPROVED' | 'PENDING' = 'APPROVED';
+    let modReason: string | null = null;
     const reviewText = (dto.text ?? '').trim();
-    if (reviewText && (PROFANITY.test(reviewText) || SPAM.test(reviewText) || CRUDE.test(reviewText) || GIBBERISH.test(reviewText))) {
-      textStatus = 'PENDING'; // crude / gibberish / non-constructive → the cabinet, not the feed
-    }
+    // suspicious text → the cabinet WITH a reason (owner 19.07.2026), not silently
+    if (reviewText && PROFANITY.test(reviewText)) { textStatus = 'PENDING'; modReason = 'Возможен мат'; }
+    else if (reviewText && CRUDE.test(reviewText)) { textStatus = 'PENDING'; modReason = 'Грубость / токсичность'; }
+    else if (reviewText && SPAM.test(reviewText)) { textStatus = 'PENDING'; modReason = 'Похоже на спам (ссылки/контакты)'; }
+    else if (reviewText && GIBBERISH.test(reviewText)) { textStatus = 'PENDING'; modReason = 'Бессмысленный текст'; }
     // toxic low-rating rant with no substance (e.g. "1★, отстой, не берите"):
     // a 1-2★ review under ~20 chars and no useful noun is held for a human look
     if (rating <= 2 && reviewText && reviewText.length < 20 && !/[а-яё]{5,}\s+[а-яё]{4,}/i.test(reviewText)) {
       textStatus = 'PENDING';
+      modReason ??= 'Низкая оценка без пояснения';
     }
 
     // Normalize venue metadata before the durable write (the old order clamped
@@ -256,6 +260,7 @@ export class ReviewsService {
         photoUrls: requestedPhotoUrls,
         videoUrls: dto.videoUrls ?? [],
         status: requestedPhotoUrls.length ? 'PENDING' : textStatus,
+        modReason: requestedPhotoUrls.length ? (modReason ?? 'Фото — на проверку') : modReason,
       },
       update: {
         rating,
@@ -264,6 +269,7 @@ export class ReviewsService {
         photoUrls: requestedPhotoUrls,
         videoUrls: dto.videoUrls ?? [],
         status: requestedPhotoUrls.length ? 'PENDING' : textStatus,
+        modReason: requestedPhotoUrls.length ? (modReason ?? 'Фото — на проверку') : modReason,
       },
     });
     this.log.log(`review persisted id=${review.id} user=${userId} listing=${listingId}`);
@@ -287,6 +293,10 @@ export class ReviewsService {
           data: {
             photoUrls: acceptedPhotoUrls,
             status: check.block ? 'PENDING' : textStatus,
+            // photo cleared → keep any text reason; photo suspicious → say so
+            modReason: check.block
+              ? `Фото отклонено (${check.reason ?? 'подозрительное'})`
+              : acceptedPhotoUrls.length ? (modReason ?? 'Фото — на проверку') : modReason,
           },
         });
       } catch (error) {

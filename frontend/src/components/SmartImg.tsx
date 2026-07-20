@@ -26,7 +26,7 @@ function stockUrl(stock?: StockPhoto): string | undefined {
   );
 }
 
-/** Resized thumbnail -> original -> cache-busted retry -> stock -> monogram. */
+/** Resized thumbnail -> original -> cache-busted retries -> stock -> monogram. */
 export function SmartImg({
   src,
   className,
@@ -58,8 +58,12 @@ export function SmartImg({
       if (value && !result.includes(value)) result.push(value);
     };
     if (src) {
-      add(thumb(src, width));
+      const resized = thumb(src, width);
+      // Keep the resize endpoint as an independent candidate. It buffers and
+      // converts the object, so it can work even when raw streaming is flaky.
+      add(resized);
       add(src);
+      if (resized) add(retryImageUrl(resized, retryToken));
       add(retryImageUrl(src, retryToken));
     }
     for (const fallback of stockFallbacks) add(fallback);

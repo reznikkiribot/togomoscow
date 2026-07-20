@@ -20,6 +20,17 @@
     <script>
       (function () {
         var API = '/api/health/client-error';
+        // Paint the saved choice before the deferred Telegram SDK and React run.
+        // Auto uses the OS for this first frame, then Telegram becomes authoritative.
+        try {
+          var earlyPreference = localStorage.getItem('togomoscow_theme') || 'auto';
+          var earlyTheme = earlyPreference === 'light' || earlyPreference === 'dark'
+            ? earlyPreference
+            : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.dataset.theme = earlyTheme;
+          document.documentElement.dataset.themePreference = earlyPreference;
+          document.documentElement.style.colorScheme = earlyTheme;
+        } catch (e) {}
         function report(kind, detail) {
           try {
             var body = JSON.stringify({
@@ -53,23 +64,15 @@
           try {
             var webApp = window.Telegram && window.Telegram.WebApp;
             if (webApp && webApp.ready) {
-              var p = webApp.themeParams || {};
               var root = document.documentElement;
-              var token = function (snake, camel) { return p[snake] || p[camel]; };
-              var bg = token('bg_color', 'bgColor');
-              var text = token('text_color', 'textColor');
-              var hint = token('hint_color', 'hintColor');
-              var button = token('button_color', 'buttonColor');
-              var buttonText = token('button_text_color', 'buttonTextColor');
-              var secondary = token('secondary_bg_color', 'secondaryBgColor');
-              root.dataset.tgTheme = webApp.colorScheme === 'dark' ? 'dark' : 'light';
-              root.style.colorScheme = webApp.colorScheme === 'dark' ? 'dark' : 'light';
-              if (bg) root.style.setProperty('--bg', bg);
-              if (text) root.style.setProperty('--text', text);
-              if (hint) root.style.setProperty('--hint', hint);
-              if (button) root.style.setProperty('--accent', button);
-              if (buttonText) root.style.setProperty('--accent-text', buttonText);
-              if (secondary) root.style.setProperty('--card', secondary);
+              var preference = 'auto';
+              try { preference = localStorage.getItem('togomoscow_theme') || 'auto'; } catch (e) {}
+              var autoTheme = webApp.colorScheme === 'dark' ? 'dark' : 'light';
+              var resolved = preference === 'dark' || preference === 'light' ? preference : autoTheme;
+              root.dataset.tgTheme = autoTheme;
+              root.dataset.theme = resolved;
+              root.dataset.themePreference = preference;
+              root.style.colorScheme = resolved;
               webApp.ready();
               if (webApp.expand) webApp.expand();
               report('tg-ready-called', 'ready/expand called from html');
@@ -107,8 +110,8 @@
     </script>
     <style>
       /* minimal first-paint loader (replaced when React mounts) */
-      :root { color-scheme: light dark; --bg: #fff; --text: #2b2b2b; --hint: #6b6b6b; --card: #fff; --accent: #d32323; --accent-text: #fff; }
-      @media (prefers-color-scheme: dark) { :root:not([data-tg-theme="light"]) { --bg: #181818; --text: #f3f3f3; --hint: #a5a5a5; --card: #242424; } }
+      :root { color-scheme: light; --bg: #fff; --text: #222; --hint: #6b6b6b; --card: #fff; --accent: #d32323; --accent-text: #fff; }
+      :root[data-theme="dark"] { color-scheme: dark; --bg: #111; --text: #f7f7f7; --hint: #aaa; --card: #1e1e1e; --accent: #e63946; }
       #boot-msg { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: system-ui, sans-serif; color: var(--hint); font-size: 15px; text-align: center; background: var(--bg); }
       #boot-msg .sp { width: 26px; height: 26px; border: 3px solid color-mix(in srgb, var(--hint) 25%, transparent); border-top-color: var(--accent); border-radius: 50%; animation: bspin 0.8s linear infinite; margin-bottom: 12px; }
       @keyframes bspin { to { transform: rotate(360deg); } }

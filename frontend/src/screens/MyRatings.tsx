@@ -11,8 +11,10 @@ import { GameProgress, GameCelebration, useGameState } from '../components/GameP
 import { PhotoPostModal } from '../components/PhotoPostModal';
 import { Stars } from '../components/Stars';
 import { VenuePhoto } from '../components/VenuePhoto';
+import { SmartImg } from '../components/SmartImg';
 import { getRecent } from '../recent';
 import { openExternal } from '../telegram';
+import { readThemePreference, setThemePreference, type ThemePreference } from '../theme';
 import type { Listing, Profile, Review, Specialization, TasteProfile, UserStats } from '../types';
 
 // cache the profile + reviews so a cold launch shows them INSTANTLY (no "Гость"/empty
@@ -46,6 +48,7 @@ export default function MyRatings() {
   const [openListing, setOpenListing] = useState<string | null>(null);
   const [recent, setRecent] = useState<Listing[]>([]);
   const [noStory, setNoStory] = useState(localStorage.getItem('noStoryOnReview') === '1');
+  const [theme, setTheme] = useState<ThemePreference>(() => readThemePreference());
   const [photoReview, setPhotoReview] = useState<Review | null>(null);
   const game = useGameState();
 
@@ -417,6 +420,28 @@ export default function MyRatings() {
           <span>🛟 Поддержка</span>
           <span className="chev">›</span>
         </button>
+        <div className="contrib-row theme-setting">
+          <span className="theme-setting-copy">
+            <b>Тёмная тема</b>
+            <small>Оформление приложения</small>
+          </span>
+          <span className="theme-segmented" role="group" aria-label="Выбор темы">
+            {(['auto', 'light', 'dark'] as const).map((value) => (
+              <button
+                key={value}
+                type="button"
+                className={theme === value ? 'on' : ''}
+                aria-pressed={theme === value}
+                onClick={() => {
+                  setTheme(value);
+                  setThemePreference(value);
+                }}
+              >
+                {value === 'auto' ? 'Авто' : value === 'light' ? 'Светлая' : 'Тёмная'}
+              </button>
+            ))}
+          </span>
+        </div>
         {/* setting: skip auto-creating a story when you rate */}
         <button
           className="contrib-row link"
@@ -452,7 +477,7 @@ export default function MyRatings() {
                   <div className="rc-carousel">
                     {withPhoto.map((r) => (
                       <button key={r.id} onClick={() => setPhotoReview(withMe(r))}>
-                        <img src={(r.photoUrls?.[0] || r.listing?.photoUrl) as string} alt="" />
+                        <SmartImg src={r.photoUrls?.[0] || r.listing?.photoUrl} width={400} alt="" />
                       </button>
                     ))}
                   </div>

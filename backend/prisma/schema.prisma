@@ -237,6 +237,9 @@ model Review {
   rating     Float // 1..5
   text       String?
   status     ReviewStatus @default(APPROVED) // PENDING when not geo-verified → moderation
+  // why it's held for moderation (profanity / spam / crude / gibberish / photo /
+  // low-effort-rant) — shown in the admin cabinet so the reason is one glance away
+  modReason  String? @map("mod_reason")
   ownerReply String? @map("owner_reply") // venue owner's public reply
   // type-specific fields: drinks -> { style, abv, servingStyle }; food -> { visitDate, dishName }
   attributes Json?

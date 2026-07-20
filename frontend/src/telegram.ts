@@ -1,3 +1,5 @@
+import { applyThemePreference, readThemePreference } from './theme';
+
 export const tg = window.Telegram?.WebApp;
 
 // Telegram may inject WebApp after this module is evaluated on a cold mobile
@@ -14,50 +16,21 @@ type TelegramInset = { top?: number; right?: number; bottom?: number; left?: num
 let telegramInitialized = false;
 const verticalSwipeLocks = new Set<symbol>();
 
-function themeValue(params: Record<string, string> | undefined, key: string) {
-  if (!params) return undefined;
-  const camel = key.replace(/_([a-z])/g, (_, letter: string) => letter.toUpperCase());
-  return params[key] ?? params[camel];
-}
-
 function syncTelegramTheme() {
   const webApp = telegramWebApp();
   const root = document.documentElement;
-  if (!webApp) {
-    delete root.dataset.tgTheme;
-    root.style.colorScheme = 'light dark';
-    return;
-  }
-  const params = webApp?.themeParams;
-  const bg = themeValue(params, 'bg_color');
-  const text = themeValue(params, 'text_color');
-  const hint = themeValue(params, 'hint_color');
-  const button = themeValue(params, 'button_color');
-  const buttonText = themeValue(params, 'button_text_color');
-  const secondary = themeValue(params, 'secondary_bg_color');
-  const separator = themeValue(params, 'section_separator_color');
-  const dark = webApp?.colorScheme === 'dark';
+  if (webApp?.colorScheme) root.dataset.tgTheme = webApp.colorScheme;
+  else delete root.dataset.tgTheme;
 
-  root.dataset.tgTheme = dark ? 'dark' : 'light';
-  root.style.colorScheme = dark ? 'dark' : 'light';
-  if (bg) root.style.setProperty('--bg', bg);
-  if (text) root.style.setProperty('--text', text);
-  if (hint) root.style.setProperty('--hint', hint);
-  if (button) {
-    root.style.setProperty('--accent', button);
-    root.style.setProperty('--star', button);
-  }
-  if (buttonText) root.style.setProperty('--accent-text', buttonText);
-  if (secondary) {
-    root.style.setProperty('--card', secondary);
-    root.style.setProperty('--secondary-bg', secondary);
-  }
-  if (separator) root.style.setProperty('--border', separator);
-
-  const header = secondary ?? bg;
-  try { if (header) webApp?.setHeaderColor?.(header); } catch { /* older Telegram client */ }
+  // Telegram decides only whether Auto is light or dark. Its button_color is
+  // intentionally ignored: togomoscow's accent is always the brand red.
+  applyThemePreference(readThemePreference());
+  const styles = getComputedStyle(root);
+  const bg = styles.getPropertyValue('--bg').trim();
+  const card = styles.getPropertyValue('--card').trim();
+  try { if (card) webApp?.setHeaderColor?.(card); } catch { /* older Telegram client */ }
   try { if (bg) webApp?.setBackgroundColor?.(bg); } catch { /* older Telegram client */ }
-  try { if (secondary ?? bg) webApp?.setBottomBarColor?.(secondary ?? bg!); } catch { /* older Telegram client */ }
+  try { if (card || bg) webApp?.setBottomBarColor?.(card || bg); } catch { /* older Telegram client */ }
 }
 
 function setInsetVars(prefix: string, inset?: TelegramInset) {
@@ -116,6 +89,8 @@ export function initTelegram() {
     if (telegramInitialized) return;
     telegramInitialized = true;
     webApp?.onEvent?.('themeChanged', syncTelegramTheme);
+    window.addEventListener('togomoscow-theme-change', syncTelegramTheme);
+    window.matchMedia?.('(prefers-color-scheme: dark)').addEventListener?.('change', syncTelegramTheme);
     webApp?.onEvent?.('viewportChanged', syncTelegramViewport);
     webApp?.onEvent?.('safeAreaChanged', syncTelegramViewport);
     webApp?.onEvent?.('contentSafeAreaChanged', syncTelegramViewport);

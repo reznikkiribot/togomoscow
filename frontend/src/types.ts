@@ -91,6 +91,7 @@ export interface Review {
   videoUrls?: string[];
   createdAt: string;
   status?: 'PENDING' | 'APPROVED';
+  modReason?: string | null; // why it's on moderation (admin cabinet)
   ownerReply?: string | null;
   listing?: Listing;
   venue?: { id: string | null; name: string } | null; // for dish/drink reviews: where it's served

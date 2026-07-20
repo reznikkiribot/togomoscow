@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Controller,
   Get,
+  Head,
   Param,
   Post,
   Query,
@@ -22,6 +23,9 @@ import { UploadsService } from './uploads.service';
 const THUMB_WIDTHS = new Set([200, 400, 600, 900]);
 const MAX_PROXY_BYTES = 15 * 1024 * 1024;
 const MAX_THUMB_SOURCE_BYTES = 30 * 1024 * 1024;
+const MAX_RAW_BYTES = 85 * 1024 * 1024;
+
+type StoredImage = Awaited<ReturnType<UploadsService['get']>>;
 
 // SSRF guard for the external-image proxy: https only, public hostnames only
 function safeExternalUrl(raw: string): URL | null {
@@ -39,12 +43,20 @@ function safeExternalUrl(raw: string): URL | null {
   }
 }
 
-function setImageHeaders(res: Response, contentType: string, immutable = true) {
+function setImageHeaders(
+  res: Response,
+  contentType: string,
+  immutable = true,
+  meta?: Pick<StoredImage, 'contentLength' | 'etag' | 'lastModified'>,
+) {
   res.setHeader('Content-Type', contentType);
   res.setHeader('Cache-Control', immutable ? 'public, max-age=31536000, immutable' : 'no-store');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
   res.setHeader('X-Content-Type-Options', 'nosniff');
+  if (meta?.contentLength != null) res.setHeader('Content-Length', String(meta.contentLength));
+  if (meta?.etag) res.setHeader('ETag', meta.etag);
+  if (meta?.lastModified) res.setHeader('Last-Modified', meta.lastModified.toUTCString());
 }
 
 function imageError(res: Response, status: number) {
@@ -71,14 +83,18 @@ function pipeWithTimeout(body: Readable, res: Response, timeoutMs = 20_000) {
   body.pipe(res);
 }
 
-async function readLimited(body: Readable, maxBytes: number, timeoutMs: number): Promise<Buffer> {
+async function readLimited(body: Readable, maxBytes: number, idleTimeoutMs: number): Promise<Buffer> {
   const chunks: Buffer[] = [];
   let size = 0;
-  const timeout = setTimeout(() => {
-    body.destroy(new Error('storage read timeout'));
-  }, timeoutMs);
+  let timeout: NodeJS.Timeout | undefined;
+  const armTimeout = () => {
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(() => body.destroy(new Error('storage read timeout')), idleTimeoutMs);
+  };
+  armTimeout();
   try {
     for await (const chunk of body as any) {
+      armTimeout();
       const buffer = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk);
       size += buffer.length;
       if (size > maxBytes) {
@@ -89,8 +105,49 @@ async function readLimited(body: Readable, maxBytes: number, timeoutMs: number):
     }
     return Buffer.concat(chunks);
   } finally {
-    clearTimeout(timeout);
+    if (timeout) clearTimeout(timeout);
   }
+}
+
+async function readStored(
+  uploads: UploadsService,
+  key: string,
+  maxBytes: number,
+  idleTimeoutMs: number,
+  attempts = 2,
+): Promise<{ buffer: Buffer; object: StoredImage }> {
+  let lastError: unknown;
+  for (let attempt = 0; attempt < attempts; attempt += 1) {
+    let object: StoredImage | undefined;
+    try {
+      object = await uploads.get(key);
+      const buffer = await readLimited(object.body, maxBytes, idleTimeoutMs);
+      return { buffer, object };
+    } catch (error) {
+      object?.body.destroy();
+      lastError = error;
+    }
+  }
+  throw lastError;
+}
+
+function sendImageBuffer(
+  res: Response,
+  buffer: Buffer,
+  contentType: string,
+  object?: StoredImage,
+) {
+  setImageHeaders(res, contentType, true, {
+    contentLength: buffer.length,
+    etag: object?.etag,
+    lastModified: object?.lastModified,
+  });
+  res.end(buffer);
+}
+
+function errorStatus(error: any, fallback = 502) {
+  const status = Number(error?.$metadata?.httpStatusCode ?? error?.statusCode ?? 0);
+  return status === 404 || error?.code === 'ENOENT' || error?.name === 'NoSuchKey' ? 404 : fallback;
 }
 
 async function fetchExternalImage(initial: URL, signal: AbortSignal): Promise<globalThis.Response> {
@@ -169,34 +226,57 @@ export class UploadsController {
 
   // ?w=200|400|600|900 → resized WebP thumbnail, generated once and cached back
   // into storage — feed photos load in a fraction of the original's size/time.
+  @Head('files/:key')
+  async fileHead(@Param('key') key: string, @Query('w') w: string, @Res() res: Response) {
+    const width = Number(w);
+    const wantThumb = THUMB_WIDTHS.has(width);
+    const cacheKey = wantThumb ? `${key}-w${width}` : key;
+    try {
+      const meta = await this.uploads.head(cacheKey);
+      setImageHeaders(res, wantThumb ? 'image/webp' : (meta.contentType ?? 'image/jpeg'), true, meta);
+      res.end();
+    } catch (error) {
+      imageError(res, errorStatus(error));
+    }
+  }
+
   @Get('files/:key')
   async file(@Param('key') key: string, @Query('w') w: string, @Res() res: Response) {
     const width = Number(w);
     const wantThumb = THUMB_WIDTHS.has(width);
     const cacheKey = wantThumb ? `${key}-w${width}` : key;
     try {
-      const obj = await this.uploads.get(cacheKey);
-      setImageHeaders(res, wantThumb ? 'image/webp' : (obj.contentType ?? 'image/jpeg'));
-      pipeWithTimeout(obj.body, res);
+      const stored = await readStored(this.uploads, cacheKey, wantThumb ? MAX_PROXY_BYTES : MAX_RAW_BYTES, 30_000);
+      sendImageBuffer(res, stored.buffer, wantThumb ? 'image/webp' : (stored.object.contentType ?? 'image/jpeg'), stored.object);
       return;
-    } catch {
+    } catch (error) {
       /* thumb not cached yet (or key missing) → try to build it */
-    }
-    if (!wantThumb) {
-      imageError(res, 404);
-      return;
+      if (!wantThumb) {
+        // A previously generated derivative is much better than a broken image.
+        // This also keeps old reviews visible when the original bucket object is
+        // temporarily unreadable but the immutable thumbnail cache is healthy.
+        for (const fallbackWidth of [900, 600, 400, 200]) {
+          try {
+            const stored = await readStored(this.uploads, `${key}-w${fallbackWidth}`, MAX_PROXY_BYTES, 30_000);
+            sendImageBuffer(res, stored.buffer, 'image/webp', stored.object);
+            return;
+          } catch {
+            /* try the next cached derivative */
+          }
+        }
+        imageError(res, errorStatus(error));
+        return;
+      }
     }
     try {
-      const orig = await this.uploads.get(key);
-      const source = await readLimited(orig.body, MAX_THUMB_SOURCE_BYTES, 20_000);
-      const thumb = await sharp(source).rotate().resize({ width, withoutEnlargement: true }).webp({ quality: 78 }).toBuffer();
-      setImageHeaders(res, 'image/webp');
-      res.end(thumb);
+      const orig = await readStored(this.uploads, key, MAX_THUMB_SOURCE_BYTES, 30_000);
+      const thumb = await sharp(orig.buffer).rotate().resize({ width, withoutEnlargement: true }).webp({ quality: 78 }).toBuffer();
+      sendImageBuffer(res, thumb, 'image/webp');
       // cache for next time (fire-and-forget)
       this.uploads.putAt(cacheKey, thumb, 'image/webp').catch(() => {});
-    } catch {
-      // The original may still be healthy; SmartImg immediately retries it.
-      imageError(res, 502);
+    } catch (error) {
+      imageError(res, errorStatus(error));
     }
   }
+
 }

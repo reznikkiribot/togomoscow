@@ -1,5 +1,5 @@
 :root {
-  /* Yelp defaults; Telegram themeParams replace these semantic tokens at runtime. */
+  /* Brand-owned semantic tokens. Telegram only selects Auto light/dark mode. */
   --bg: #ffffff;
   --text: #2b2b2b;
   --hint: #6b6b6b;
@@ -9,6 +9,11 @@
   --accent-text: #ffffff;
   --star: #d32323;
   --border: #e6e6e6;
+  --surface-muted: #f3f3f3;
+  --surface-hover: #f7f7f7;
+  --surface-warm: #faf7f0;
+  --surface-accent: #fff5f5;
+  --surface-success: #f0faf0;
   --fg: var(--text);
   --tg-viewport-stable-height: 100dvh;
   --tg-viewport-height: 100dvh;
@@ -27,19 +32,21 @@
   --app-nav-height: calc(64px + var(--app-safe-bottom));
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-tg-theme='light']) {
-    --bg: #181818;
-    --text: #f3f3f3;
-    --hint: #a5a5a5;
-    --card: #242424;
-    --secondary-bg: #242424;
-    --border: #3a3a3a;
-  }
-}
-
-html[data-tg-theme='dark'] {
-  --border: color-mix(in srgb, var(--text) 18%, transparent);
+html[data-theme='dark'] {
+  --bg: #111111;
+  --text: #f7f7f7;
+  --hint: #aaaaaa;
+  --card: #1e1e1e;
+  --secondary-bg: #181818;
+  --accent: #e63946;
+  --accent-text: #ffffff;
+  --star: #e63946;
+  --border: #363636;
+  --surface-muted: #292929;
+  --surface-hover: #303030;
+  --surface-warm: #25211f;
+  --surface-accent: #351a1d;
+  --surface-success: #19281d;
 }
 
 * {
@@ -5598,9 +5605,6 @@ button:active,
   animation: skShimmer 1.2s ease-in-out infinite;
   border-radius: 10px;
 }
-@media (prefers-color-scheme: dark) {
-  .sk { background: linear-gradient(90deg, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.11) 37%, rgba(255,255,255,0.06) 63%); background-size: 560px 100%; }
-}
 .sk-card {
   border: 1px solid var(--border);
   border-radius: 16px;
@@ -5854,10 +5858,10 @@ button:active,
 .mb-sheet {
   color: var(--text);
 }
-html[data-tg-theme='dark'] .alert-row.fresh {
+html[data-theme='dark'] .alert-row.fresh {
   background: color-mix(in srgb, var(--accent) 14%, var(--card));
 }
-html[data-tg-theme='dark'] :where(.scan-retake, .scan-src-btn, .mb-compass, .mb-locate-h, .mb-locate) {
+html[data-theme='dark'] :where(.scan-retake, .scan-src-btn, .mb-compass, .mb-locate-h, .mb-locate) {
   background: var(--card);
   color: var(--text);
 }
@@ -6023,14 +6027,139 @@ button.post-photo-wrap {
    must always see where the cursor blinks */
 textarea, input[type="text"], input[type="search"], input[type="number"],
 input[inputmode="numeric"], input[type="date"], .rv-text, [contenteditable] {
-  caret-color: #111;
-}
-@media (prefers-color-scheme: dark) {
-  textarea, input[type="text"], input[type="search"], input[type="number"],
-  input[inputmode="numeric"], input[type="date"], .rv-text, [contenteditable] {
-    caret-color: #f2f2f2;
-  }
-}
-html[data-tg-theme='dark'] :where(textarea, input[type="text"], input[type="search"], input[type="number"], input[inputmode="numeric"], input[type="date"], .rv-text, [contenteditable]) {
   caret-color: var(--text);
+}
+html[data-theme='dark'] :where(textarea, input[type="text"], input[type="search"], input[type="number"], input[inputmode="numeric"], input[type="date"], .rv-text, [contenteditable]) {
+  caret-color: var(--text);
+}
+
+/* Profile theme picker: compact enough for mobile, explicit enough to avoid a
+   mystery toggle whose state changes when Telegram changes its own theme. */
+.theme-setting {
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.theme-setting-copy {
+  display: grid;
+  gap: 2px;
+}
+.theme-setting-copy small {
+  color: var(--hint);
+  font-size: 12px;
+}
+.theme-segmented {
+  display: inline-flex;
+  gap: 3px;
+  padding: 3px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--secondary-bg);
+}
+.theme-segmented button {
+  min-height: 34px;
+  padding: 0 9px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--hint);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.theme-segmented button.on {
+  background: var(--accent);
+  color: var(--accent-text);
+  box-shadow: 0 3px 10px color-mix(in srgb, var(--accent) 28%, transparent);
+}
+
+/* Hard-coded light surfaces inherited from the original Yelp-like skin are
+   remapped here so every screen follows the same dark semantic palette. */
+html[data-theme='dark'] :where(
+  .cat-ico, .search-bar, .chip, .pp-location, .pp-card-thumb, .rc-thumb,
+  .rc-react, .cat-avg-row, .actions-row .action .ico, .vote-btn, .rb-avatar,
+  .me-icon, .me-action:active .ma-ico, .impact-card, .rev-attr-chip,
+  .taste-cat, .tr-row, .post-cmt, .hero-venue, .pu-search, .suggest-close,
+  .scan-cand:active, .scan-cand-thumb, .game-ach, .toggle
+) {
+  background: var(--surface-muted);
+  color: var(--text);
+}
+html[data-theme='dark'] :where(
+  .fav-btn.on, .pp-vote, .info-row, .fbtn-icon, .fdrop-menu, .deliv-btn,
+  .tabbar, .fdrop, .search-sugg, .search-sugg-item, .attr-dot,
+  .quiz-cat, .celebrate-card, .tr-vs-btn, .hero-btn, .chal-card,
+  .follow-btn.on, .scan-retry, .scan-src-btn, .scan-retake
+) {
+  background: var(--card);
+  color: var(--text);
+}
+html[data-theme='dark'] :where(
+  .info-row:active, .search-sugg-item:active, .pick-row:active,
+  .scan-cand:active, .mb-compass:active, .mb-locate:active
+) {
+  background: var(--surface-hover);
+}
+html[data-theme='dark'] :where(
+  .bt-steps, .summary, .featured-review, .sched-line, .rank-locked,
+  .quiz-how li, .best-venue, .checkin-geo
+) {
+  background: var(--surface-warm);
+}
+html[data-theme='dark'] :where(
+  .tag.city, .upload-btn, .fdrop-item.active, .addto, .cat-tile.active,
+  .quiz-cat.on, .tasted-chip, .tr-row.me, .tr-vs-btn.on, .streak-bar,
+  .alert-row.fresh, .scan-cand.top, .spec-card.on
+) {
+  background: var(--surface-accent);
+}
+html[data-theme='dark'] .chal-card.done {
+  background: var(--surface-success);
+  border-color: #315d3b;
+}
+html[data-theme='dark'] .pending-badge {
+  color: #ffbf69;
+  background: #3a2913;
+}
+html[data-theme='dark'] :where(.quiz, .mb-full) {
+  background: var(--bg);
+  color: var(--text);
+}
+html[data-theme='dark'] :where(.card-back, .scan-back, .ptr-spinner) {
+  background: rgba(30, 30, 30, 0.94);
+  border-color: var(--border);
+  color: var(--text);
+}
+html[data-theme='dark'] .vote-btn.active {
+  background: color-mix(in srgb, var(--accent) 18%, var(--card));
+  border-color: var(--accent);
+  color: var(--accent);
+}
+html[data-theme='dark'] :where(.card-desc, .cat-ico svg) {
+  color: var(--hint);
+}
+html[data-theme='dark'] :where(
+  input:not([type='range']):not([type='checkbox']):not([type='radio']),
+  textarea, select, [contenteditable]
+) {
+  background-color: var(--card);
+  border-color: var(--border);
+  color: var(--text);
+}
+html[data-theme='dark'] :where(input, textarea)::placeholder {
+  color: var(--hint);
+  opacity: 1;
+}
+html[data-theme='dark'] .venue-name-tile {
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(230, 57, 70, 0.14), transparent 58%),
+    var(--card) !important;
+  box-shadow: inset 0 0 0 2px var(--accent), inset 0 0 0 6px var(--card), inset 0 0 0 7px rgba(230, 57, 70, 0.4);
+  color: var(--text);
+}
+html[data-theme='dark'] .alert-row {
+  border-color: var(--border);
+}
+html[data-theme='dark'] .sk {
+  background: linear-gradient(90deg, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.11) 37%, rgba(255,255,255,0.06) 63%);
+  background-size: 560px 100%;
 }

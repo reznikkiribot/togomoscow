@@ -590,6 +590,8 @@ function ReviewModCard({
         {r.user?.firstName ?? r.user?.username ?? 'гость'} · ★ {r.rating.toFixed(1)}
         {(r.attributes as any)?.venueName ? ` · ${(r.attributes as any).venueName}` : ''}
       </div>
+      {/* WHY it's held — one glance is enough to decide (owner 19.07.2026) */}
+      {r.modReason && <div className="mod-reason">⚠️ {r.modReason}</div>}
       {r.text && <div style={{ fontSize: 14, marginTop: 4 }}>{r.text}</div>}
       {(r.photoUrls?.length > 0 || (r.videoUrls?.length ?? 0) > 0) && (
         <div className="photo-thumbs">
