@@ -120,7 +120,11 @@ export function PeopleModal({
         <div className="pu-list">
           {list.length === 0 ? (
             <div className="meta" style={{ color: 'var(--hint)', padding: '12px 2px' }}>
-              {results ? 'Никого не найдено' : 'Пока пусто'}
+              {results
+                ? 'Такого пользователя не нашли. Проверьте имя или попробуйте другой запрос.'
+                : tab === 'followers'
+                  ? 'Подписчиков пока нет. Загляните сюда позже.'
+                  : 'Подписок пока нет. Найдите знакомого по имени выше.'}
             </div>
           ) : (
             list.map((u) => <UserRow key={u.id} u={u} onOpen={onOpenUser} />)
@@ -227,7 +231,7 @@ export function UserProfileModal({ id, onClose }: { id: string; onClose: () => v
               return (
                 <div className="me-section">
                   <h2 className="me-h">Отзывы</h2>
-                  <div className="meta" style={{ color: 'var(--hint)' }}>Пока нет отзывов</div>
+                  <div className="meta" style={{ color: 'var(--hint)' }}>Этот человек пока ничего не оценил.</div>
                 </div>
               );
             }

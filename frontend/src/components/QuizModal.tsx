@@ -62,7 +62,7 @@ export function QuizModal({ onDone }: { onDone: () => void }) {
       <div className="quiz">
         <div className="quiz-inner">
           <div className="quiz-hero">🥂</div>
-          <h2 className="quiz-h">Это клуб дегустаторов Москвы</h2>
+          <h2 className="quiz-h">Это клуб тех, кто любит пробовать новое в Москве</h2>
           <p className="quiz-sub">
             Здесь не читают чужие обзоры — здесь пробуют сами.
           </p>
@@ -71,7 +71,7 @@ export function QuizModal({ onDone }: { onDone: () => void }) {
             <div className="wp"><span>🔓</span> Первые 5 оценок открывают рейтинги категории — вы видите лучшее по мнению клуба</div>
             <div className="wp"><span>🏅</span> Попробовали первым — ваше имя останется в истории карточки навсегда</div>
           </div>
-          <button className="btn" onClick={closeIntro}>Стать дегустатором</button>
+          <button className="btn" onClick={closeIntro}>Начать</button>
         </div>
       </div>
     );
@@ -83,8 +83,8 @@ export function QuizModal({ onDone }: { onDone: () => void }) {
         {step === 0 ? (
           <>
             <div className="quiz-hero">🍷☕🥩</div>
-            <h2 className="quiz-h">Добро пожаловать в клуб дегустаторов!</h2>
-            <p className="quiz-sub">Дегустатором чего вы хотите стать? Выберите, что вам интересно — под это подберём, что пробовать.</p>
+            <h2 className="quiz-h">Что вам нравится?</h2>
+            <p className="quiz-sub">Выберите интересные категории — под них мы подберём, что попробовать.</p>
             <div className="quiz-grid">
               {CATEGORIES.map((c) => (
                 <button
@@ -135,7 +135,7 @@ export function QuizModal({ onDone }: { onDone: () => void }) {
             </p>
             <ul className="quiz-how">
               <li>⭐ Оценивайте — система учится на ваших оценках</li>
-              <li>🧠 Находит дегустаторов с похожим вкусом</li>
+              <li>🧠 Учитывает оценки людей с похожим вкусом</li>
               <li>🍷 Показывает «вероятность, что вам понравится»</li>
             </ul>
             <p className="quiz-sub" style={{ marginTop: 4 }}>
@@ -146,7 +146,7 @@ export function QuizModal({ onDone }: { onDone: () => void }) {
                 Назад
               </button>
               <button className="btn" onClick={finish} disabled={busy}>
-                {busy ? 'Сохранение…' : 'Начать дегустировать'}
+                {busy ? 'Сохранение…' : 'Начать оценивать'}
               </button>
             </div>
           </>

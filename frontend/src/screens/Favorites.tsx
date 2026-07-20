@@ -54,7 +54,10 @@ export default function Favorites() {
         <h2>{type ? TITLE[type] : 'Хочу попробовать'}</h2>
       </div>
       {shown.length === 0 ? (
-        <div className="empty">Пока пусто. Нажимайте «Хочу попробовать» на карточках — они соберутся здесь.</div>
+        <div className="empty">
+          Здесь будут блюда, напитки и места, которые вы хотите попробовать.<br />
+          Нажмите «Хочу попробовать» на любой карточке.
+        </div>
       ) : (
         <div className="grid">
           {shown.map((f) => (

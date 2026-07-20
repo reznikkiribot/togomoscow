@@ -206,7 +206,7 @@ export function CommentsModal({
             </div>
           ) : tree.length === 0 ? (
             <div className="meta" style={{ color: 'var(--hint)', padding: '8px 0' }}>
-              Пока нет комментариев. Будьте первым!
+              Комментариев пока нет. Напишите первым.
             </div>
           ) : (
             tree.map((n) => (

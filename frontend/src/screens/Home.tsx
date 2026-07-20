@@ -138,6 +138,11 @@ export default function Home() {
   const [heroPinId, setHeroPinId] = useState<string | null>(null);
   const [myId, setMyId] = useState<string | null>(null);
   const [skipped, setSkipped] = useState<Set<string>>(new Set());
+  const [undoSkip, setUndoSkip] = useState<Listing | null>(null);
+  const undoSkipTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => () => {
+    if (undoSkipTimer.current) clearTimeout(undoSkipTimer.current);
+  }, []);
   // changes every mount → home cards reshuffle each time you open / switch tabs
   const [seed, setSeed] = useState(() => Math.floor(Math.random() * 1e9));
   const [autoRate, setAutoRate] = useState<number | undefined>(undefined);
@@ -553,8 +558,22 @@ export default function Home() {
     api.skip(l.id, l.category ?? undefined).catch(() => {});
     // optimistic: the card vanishes from EVERY section the moment you tap
     setSkipped((s) => new Set(s).add(l.id));
-    setRecCards((p) => p.filter((x) => x.id !== l.id));
-    setFirstTaster((p) => p.filter((x) => x.id !== l.id));
+    setUndoSkip(l);
+    if (undoSkipTimer.current) clearTimeout(undoSkipTimer.current);
+    undoSkipTimer.current = setTimeout(() => setUndoSkip(null), 5000);
+  };
+
+  const restoreSkipped = () => {
+    if (!undoSkip) return;
+    const item = undoSkip;
+    api.unskip(item.id).catch(() => {});
+    setSkipped((current) => {
+      const next = new Set(current);
+      next.delete(item.id);
+      return next;
+    });
+    if (undoSkipTimer.current) clearTimeout(undoSkipTimer.current);
+    setUndoSkip(null);
   };
 
   const card = (l: Listing) => (
@@ -723,11 +742,15 @@ export default function Home() {
         <div ref={catRef} className="cat-results-layer">
           <div className="section-title">Результаты</div>
           {results.length === 0 ? (
-            <div className="empty">Ничего не найдено</div>
+            <div className="empty search-empty">
+              <div>{search.trim() ? `По запросу «${search.trim()}» ничего не нашли.` : 'В этой категории пока ничего не нашли.'}</div>
+              <div>Проверьте название или добавьте свою находку.</div>
+              <button className="btn secondary" onClick={() => setShowAdd(true)}>Добавить в каталог</button>
+            </div>
           ) : (
             <div className="list">
               {(() => {
-                const cards = results.map((l) => row(l));
+                const cards = results.filter((l) => !skipped.has(l.id)).map((l) => row(l));
                 const cta = (
                   <button key="add-cta" className="btn rate-cta" onClick={() => setShowAdd(true)}>
                     ➕ Не нашли то, что искали? Добавьте в один клик
@@ -796,7 +819,7 @@ export default function Home() {
                 }}
                 onSkip={() => {
                   // "не люблю" — negative taste signal
-                  api.skip(heroItem.id, heroItem.category).catch(() => {});
+                  api.skip(heroItem.id, heroItem.category ?? undefined).catch(() => {});
                   setSkipped((s) => new Set(s).add(heroItem.id));
                   setHeroIdx((i) => i + 1);
                 }}
@@ -816,8 +839,8 @@ export default function Home() {
             const ft = firstTaster.filter((l) => (l as any).recVenue && !skipped.has(l.id) && !NONSTD.test(l.name ?? ''));
             return ft.length > 0 && (
               <>
-                <div className="section-title">🏅 Станьте первым дегустатором</div>
-                <p className="ft-sub">Ваш отзыв станет частью истории карточки</p>
+                <div className="section-title">🏅 Оцените первым</div>
+                <p className="ft-sub">Оценок пока нет. Ваша станет первой</p>
                 <div className="feed ft-feed">{ft.map(card)}</div>
               </>
             );
@@ -849,7 +872,7 @@ export default function Home() {
                     ),
                   });
                 });
-                recCards.forEach((l, i) => {
+                recCards.filter((l) => !skipped.has(l.id)).forEach((l, i) => {
                   byKey.set('r:' + l.id, {
                     s: Number((l as any).normScore ?? Math.max(0.05, 0.9 - i * 0.04)),
                     el: (
@@ -1015,6 +1038,12 @@ export default function Home() {
           onClose={() => { setDeepId(null); setDeepVenue(null); }}
         />
         </Suspense>
+      )}
+      {undoSkip && (
+        <div className="undo-toast" role="status">
+          <span>Скрыли.</span>
+          <button onClick={restoreSkipped}>Отменить</button>
+        </div>
       )}
     </div>
   );

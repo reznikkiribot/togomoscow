@@ -61,6 +61,12 @@ export class SocialController {
     return this.social.skip(user.id, body.itemId, body.category);
   }
 
+  @Delete('me/skip/:itemId')
+  async unskip(@Req() req: any, @Param('itemId') itemId: string) {
+    const user = await this.me(req);
+    return this.social.unskip(user.id, itemId);
+  }
+
   @Post('me/compare')
   async compare(
     @Req() req: any,

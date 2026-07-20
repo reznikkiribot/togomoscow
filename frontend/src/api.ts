@@ -327,6 +327,7 @@ export const api = {
   skips: () => getJson<string[]>('/me/skips'),
   skip: (itemId: string, category?: string) =>
     postJson<{ ok: boolean }>('/me/skip', { itemId, category }),
+  unskip: (itemId: string) => del<{ ok: boolean }>(`/me/skip/${itemId}`),
   challenges: () => getJson<Challenge[]>('/challenges'),
   adminChallenges: () => getJson<AdminChallenge[]>('/admin/challenges'),
   createChallenge: (dto: { title: string; category?: string; target: number; days?: number }) =>
@@ -408,7 +409,7 @@ export const api = {
   logEvent: (listingId: string, type: 'OPEN' | 'VIEW' | 'SAVE') =>
     postJson('/recsys/event', { listingId, type }).catch(() => {}),
   likeProbability: (id: string) =>
-    getJson<{ probability: number | null; reason: string }>(`/recsys/probability/${id}`),
+    getJson<{ probability: number | null; reason: string; ratingCount: number }>(`/recsys/probability/${id}`),
 
   // a user proposes a dish/drink for a venue (then can review it immediately)
   addItem: (

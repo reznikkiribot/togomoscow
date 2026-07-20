@@ -8,13 +8,21 @@ import type { TasteRanking } from '../types';
 export function TasteResult({
   data,
   itemId,
+  itemName,
+  savedRating,
+  totalRatings,
+  next,
   onCompareNext,
   onClose,
   onShareStory,
   onShareFriend,
 }: {
-  data: TasteRanking;
+  data: TasteRanking | null;
   itemId: string;
+  itemName: string;
+  savedRating: number;
+  totalRatings: number;
+  next: { id: string; name: string } | null;
   onCompareNext: (next: { id: string; name: string }) => void;
   onClose: () => void;
   onShareStory?: () => void; // share the rating to a Telegram story
@@ -25,24 +33,24 @@ export function TasteResult({
   const [compared, setCompared] = useState(false);
 
   const pick = (winnerId: string) => {
-    if (!data.compareWith) return;
+    if (!data?.compareWith) return;
     setWinner(winnerId);
   };
   const saveCompare = () => {
-    if (!winner || !data.compareWith) return;
+    if (!winner || !data?.compareWith) return;
     const loserId = winner === itemId ? data.compareWith.id : itemId;
     api.compare({ winnerId: winner, loserId, reason, category: data.category }).catch(() => {});
     setCompared(true);
   };
 
   const deltaLine =
-    data.delta == null
+    data?.delta == null
       ? null
       : data.delta > 0.05
-        ? `На +${data.delta.toFixed(1)} выше твоего среднего по «${data.category}»`
+        ? `На +${data.delta.toFixed(1)} выше вашего среднего по «${data.category}»`
         : data.delta < -0.05
-          ? `На ${Math.abs(data.delta).toFixed(1)} ниже твоего среднего по «${data.category}»`
-          : `Ровно на уровне твоего среднего по «${data.category}»`;
+          ? `На ${Math.abs(data.delta).toFixed(1)} ниже вашего среднего по «${data.category}»`
+          : `Ровно на уровне вашего среднего по «${data.category}»`;
 
   return (
     <div
@@ -54,12 +62,26 @@ export function TasteResult({
       }}
     >
       <div className="modal" onClick={(e) => e.stopPropagation()}>
+        <div className="tr-success-icon">✓</div>
+        <div className="tr-success-title">Оценка сохранена</div>
+        <div className="tr-saved-rating">
+          <span>{itemName}</span>
+          <b>{savedRating.toFixed(1)}★</b>
+        </div>
+        <div className="tr-progress">
+          {totalRatings < 5
+            ? `${totalRatings} из 5 оценок — скоро персональные рекомендации`
+            : 'Профиль вкуса уже помогает подбирать рекомендации'}
+        </div>
+
+        {data && (
+          <>
         <div className="tr-rank">
-          Это твой <b>#{data.rank}</b> из {data.total} в категории «{data.category}»
+          Это ваш <b>#{data.rank}</b> из {data.total} в категории «{data.category}»
         </div>
         {deltaLine && <div className="tr-delta">{deltaLine}</div>}
 
-        <div className="tr-top-title">🏆 Твой топ «{data.category}»</div>
+        <div className="tr-top-title">🏆 Ваш топ «{data.category}»</div>
         <div className="tr-top">
           {data.top.map((t, i) => (
             <div key={t.id} className={'tr-row' + (t.id === itemId ? ' me' : '')}>
@@ -104,11 +126,13 @@ export function TasteResult({
             )}
           </div>
         )}
-        {compared && <div className="tr-delta" style={{ marginTop: 12 }}>Запомнили твой вкус ✓</div>}
+        {compared && <div className="tr-delta" style={{ marginTop: 12 }}>Запомнили ваш вкус ✓</div>}
+          </>
+        )}
 
-        {data.next ? (
-          <button className="btn" style={{ marginTop: 16 }} onClick={() => onCompareNext(data.next!)}>
-            Сравни — попробуй «{data.next.name}»
+        {next ? (
+          <button className="btn" style={{ marginTop: 16 }} onClick={() => onCompareNext(next)}>
+            Оценить дальше: «{next.name}»
           </button>
         ) : (
           <button className="btn" style={{ marginTop: 16 }} onClick={onClose}>

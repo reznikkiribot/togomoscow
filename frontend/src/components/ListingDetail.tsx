@@ -20,7 +20,7 @@ import { pushRecent } from '../recent';
 import { thumb } from '../img';
 import { cuisineTags } from '../cuisine';
 import { beerStyle } from '../tasting';
-import { useCategoryProgress } from '../categoryGate';
+import { categoryProgressText, loadCategoryProgress, useCategoryProgress } from '../categoryGate';
 import { shareReviewToStory } from '../reviewStory';
 
 const TYPE_LABEL: Record<Listing['type'], string> = {
@@ -277,7 +277,7 @@ export function ListingDetailModal({
   const [originVenue, setOriginVenue] = useState<{ id: string; name: string; price?: number | null } | null>(
     initialOriginVenue ?? null,
   );
-  const { isUnlocked, countFor, threshold } = useCategoryProgress();
+  const { data: categoryProgress, isUnlocked, countFor, threshold } = useCategoryProgress();
   const [userLoc, setUserLoc] = useState<[number, number] | null>(null);
   useEffect(() => {
     navigator.geolocation?.getCurrentPosition(
@@ -288,7 +288,11 @@ export function ListingDetailModal({
   }, []);
 
   // recommender signals: log OPEN now, VIEW if they linger >15s; fetch probability
-  const [likeProb, setLikeProb] = useState<{ probability: number | null; reason: string } | null>(null);
+  const [likeProb, setLikeProb] = useState<{
+    probability: number | null;
+    reason: string;
+    ratingCount: number;
+  } | null>(null);
   useEffect(() => {
     api.logEvent(id, 'OPEN');
     const t = setTimeout(() => api.logEvent(id, 'VIEW'), 15000);
@@ -296,8 +300,12 @@ export function ListingDetailModal({
     return () => clearTimeout(t);
   }, [id]);
   const [tasteResult, setTasteResult] = useState<{
-    data: import('../types').TasteRanking;
+    data: import('../types').TasteRanking | null;
     itemId: string;
+    itemName: string;
+    savedRating: number;
+    totalRatings: number;
+    next: { id: string; name: string } | null;
   } | null>(null);
   const [votes, setVotes] = useState<Record<string, VoteState>>({});
   const [claimed, setClaimed] = useState(false);
@@ -358,11 +366,6 @@ export function ListingDetailModal({
   const [photoBusy, setPhotoBusy] = useState(false);
   // human motivation after each rating — never "+10 XP" (gamification philosophy)
   const [rateToast, setRateToast] = useState('');
-  const RATE_PHRASES = [
-    '✨ Теперь приложение лучше понимает ваш вкус',
-    '🎯 Ваш профиль стал точнее',
-    '🤖 Точность рекомендаций увеличилась',
-  ];
   const shareRef = useRef<{ photo?: string; text?: string }>({}); // last check-in's photo+note for "Отправить другу"
   const closeRef = useRef(requestBack);
   closeRef.current = requestBack;
@@ -518,6 +521,10 @@ export function ListingDetailModal({
     const next = !fav;
     setFav(next);
     (next ? api.addFavorite(id) : api.removeFavorite(id)).catch(() => setFav(!next));
+    if (next) {
+      setRateToast('✓ Сохранено в «Хочу попробовать»');
+      setTimeout(() => setRateToast(''), 2400);
+    }
     onChanged?.();
   };
 
@@ -923,13 +930,21 @@ export function ListingDetailModal({
             ➕ Добавить блюдо или напиток и оценить
           </button>
         )}
-        {!isRestaurant && likeProb?.probability != null && (
+        {!isRestaurant && likeProb && (
           <div className="like-prob">
-            <div className="lp-row">
-              <span className="lp-pct">🎯 {likeProb.probability}%</span>
-              <span className="lp-label">вероятность, что вам понравится</span>
-            </div>
-            {likeProb.reason && <div className="lp-reason">{likeProb.reason}</div>}
+            {likeProb.probability != null ? (
+              <>
+                <div className="lp-row">
+                  <span className="lp-pct">🎯 {likeProb.probability}%</span>
+                  <span className="lp-label">вероятность, что вам понравится</span>
+                </div>
+                {likeProb.reason && <div className="lp-reason">{likeProb.reason}</div>}
+              </>
+            ) : likeProb.ratingCount === 0 ? (
+              <div className="lp-human">✨ {likeProb.reason || 'Популярно рядом'}</div>
+            ) : (
+              <div className="lp-human">Изучаем ваш вкус: {likeProb.ratingCount} из 25</div>
+            )}
           </div>
         )}
         {/* where this item is best — always visible (no unlock gate) */}
@@ -938,13 +953,9 @@ export function ListingDetailModal({
             🏆 Лучше всего в: <b>{data.bestVenue.name}</b> — {data.bestVenue.rating.toFixed(1)}★
           </div>
         )}
-        {!isRestaurant && !data.bestVenue && !isUnlocked(data.category) && data.category && (
+        {!isRestaurant && !data.bestVenue && !isUnlocked(data.category) && data.category && countFor(data.category) > 0 && (
           <div className="rank-locked">
-            🔒 Рейтинг «лучшее место» по категории «{data.category}» откроется после{' '}
-            {threshold} ваших оценок — это обучает рекомендации.{' '}
-            <b>
-              {countFor(data.category)}/{threshold}
-            </b>
+            {categoryProgressText(data.category, countFor(data.category), threshold)}
           </div>
         )}
         {!isRestaurant && data.tastedAt && data.tastedAt.length > 0 && (
@@ -1409,7 +1420,7 @@ export function ListingDetailModal({
             )}
             {data.reviews.length === 0 ? (
               <div className="meta" style={{ padding: '6px 2px', color: 'var(--hint)' }}>
-                Пока нет отзывов. Будьте первым!
+                Оценок пока нет. Оцените первым
               </div>
             ) : (
               data.reviews.map((r) => (
@@ -1562,12 +1573,22 @@ export function ListingDetailModal({
                 return { ...d, reviews: [rv, ...(d.reviews ?? [])], reviewCount: count, avgRating: avg };
               });
             }
-            // first review of the card → discovery phrase; else a rotating one
-            const phrase = data.reviewCount === 0
-              ? '🏅 Вы открыли это для сообщества — вы первый дегустатор!'
-              : RATE_PHRASES[Math.floor(Math.random() * RATE_PHRASES.length)];
-            setRateToast(phrase);
-            setTimeout(() => setRateToast(''), 3200);
+            const savedRating = media?.review?.rating ?? reviewRating ?? 0;
+            const optimisticTotal = (categoryProgress?.total ?? 0) + 1;
+            const localCandidates = ratedListing.type === 'RESTAURANT'
+              ? [...(data.topDishes ?? []), ...(data.topDrinks ?? [])]
+              : ratedId === data.id
+                ? (data.similar ?? [])
+                : [...(data.topDishes ?? []), ...(data.topDrinks ?? [])];
+            const localNext = localCandidates.find((l) => l.id !== ratedId);
+            setTasteResult({
+              data: null,
+              itemId: ratedId,
+              itemName: ratedListing.name,
+              savedRating,
+              totalRatings: optimisticTotal,
+              next: localNext ? { id: localNext.id, name: localNext.name } : null,
+            });
             setReviewTarget(null);
             setReviewVenue(null);
             load();
@@ -1577,15 +1598,21 @@ export function ListingDetailModal({
             // Use the actual rated item (not the parent restaurant) and the live
             // Telegram WebApp instance. This also keeps story behavior shared with ScanFab.
             void shareReviewToStory(ratedListing, media);
-            // instant meaning: where this lands in your personal ranking + what to taste next
-            if (ratedListing.type !== 'RESTAURANT') {
-              api
-                .tasteRanking(ratedId)
-                .then((r) => {
-                  if (r && r.total > 0) setTasteResult({ data: r, itemId: ratedId });
-                })
-                .catch(() => {});
-            }
+            // Enrich the already-visible success screen with a personal rank and
+            // one concrete next recommendation. Failure leaves the saved result intact.
+            Promise.all([
+              ratedListing.type !== 'RESTAURANT' ? api.tasteRanking(ratedId).catch(() => null) : Promise.resolve(null),
+              loadCategoryProgress(true).catch(() => null),
+              api.recsysFeed(8).catch(() => [] as Listing[]),
+            ]).then(([ranking, progress, recs]) => {
+              const fallback = recs.find((l) => l.id !== ratedId);
+              setTasteResult((current) => current?.itemId === ratedId ? {
+                ...current,
+                data: ranking,
+                totalRatings: progress?.total ?? current.totalRatings,
+                next: ranking?.next ?? (fallback ? { id: fallback.id, name: fallback.name } : null),
+              } : current);
+            });
           }}
         />
       )}
@@ -1594,6 +1621,10 @@ export function ListingDetailModal({
         <TasteResult
           data={tasteResult.data}
           itemId={tasteResult.itemId}
+          itemName={tasteResult.itemName}
+          savedRating={tasteResult.savedRating}
+          totalRatings={tasteResult.totalRatings}
+          next={tasteResult.next}
           onClose={() => setTasteResult(null)}
           onCompareNext={(next) => {
             setTasteResult(null);

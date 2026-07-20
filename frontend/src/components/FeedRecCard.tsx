@@ -69,7 +69,7 @@ export function FeedRecCard({
           className={'fav-btn' + (favorite ? ' on' : '')}
           onClick={(e) => { e.stopPropagation(); onFavorite(); }}
         >
-          {favorite ? '✓ Хочу попробовать' : 'Хочу попробовать'}
+          {favorite ? '✓ Сохранено' : 'Хочу попробовать'}
         </button>
       </div>
     </div>

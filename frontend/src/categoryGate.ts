@@ -10,6 +10,15 @@ export type CategoryProgress = {
   categories: { name: string; count: number; unlocked: boolean }[];
 };
 
+/** Human progress copy for a locked personal category ranking. */
+export function categoryProgressText(category: string, count: number, threshold: number) {
+  if (count <= 0 || count >= threshold) return null;
+  if (count === threshold - 1) {
+    return `Ещё одна оценка — и откроется ваш рейтинг «${category}»`;
+  }
+  return `${count} из ${threshold} — ещё ${threshold - count} до личного рейтинга «${category}»`;
+}
+
 let cache: CategoryProgress | null = null;
 let inflight: Promise<CategoryProgress | null> | null = null;
 const listeners = new Set<() => void>();

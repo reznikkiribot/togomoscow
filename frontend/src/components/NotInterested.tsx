@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { haptic } from '../telegram';
 
-// YouTube-style «⋯ → Не интересно» control for a card. Tapping the dots opens a
-// small popover; «Не интересно» sends a negative signal (the parent hides the
+// YouTube-style «⋯ → Не моё» control for a card. Tapping the dots opens a
+// small popover; «Не моё» sends a negative signal (the parent hides the
 // card and the recommender learns to show less of this category).
 export function NotInterested({ onNotInterested }: { onNotInterested: () => void }) {
   const [open, setOpen] = useState(false);
@@ -30,7 +30,7 @@ export function NotInterested({ onNotInterested }: { onNotInterested: () => void
             className="ni-item"
             onClick={(e) => { e.stopPropagation(); setOpen(false); haptic('medium'); onNotInterested(); }}
           >
-            🚫 Не интересно
+            🚫 Не моё
           </button>
         </div>
       )}

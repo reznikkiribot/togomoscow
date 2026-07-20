@@ -36,7 +36,7 @@ export interface Listing {
   bestVenue?: { name: string; rating: number } | null; // for dish/drink: best place to have it
   recVenue?: { id: string; name: string; price?: number | null } | null; // recommended place (+ its price for this item)
   recReason?: string; // why recommended (taste match) — shown on feed rec cards
-  matchPct?: number; // % taste match (unlocked after 10 ratings)
+  matchPct?: number; // % taste match (unlocked after 25 ratings)
   placeholderPhoto?: string | null; // stock photo when no real photo
   cityLabel?: string; // shown when there's no street address yet
   metro?: string | null; // nearest metro station → "м. …"

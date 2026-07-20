@@ -214,19 +214,19 @@ export default function MyRatings() {
         <div className="me-section">
           <h2 className="me-h">🎯 Обучение рекомендаций</h2>
           <p className="me-hint" style={{ marginTop: -4 }}>
-            Чем больше вы оцениваете, тем точнее система понимает ваш вкус. Каждый
-            отзыв — <b>+10%</b> к точности в категории.
+            Здесь видно, в каких категориях мы уже начали понимать ваш вкус.
+            Пять оценок открывают личный рейтинг категории.
           </p>
           <div className="accuracy-block">
             {taste.topCategories.map((c) => {
-              const acc = Math.min(95, c.count * 10);
+              const progress = Math.min(100, (c.count / 5) * 100);
               return (
                 <div key={c.name} className="acc-row">
                   <span className="acc-name">{c.name}</span>
                   <div className="acc-track">
-                    <div className="acc-fill" style={{ width: `${acc}%` }} />
+                    <div className="acc-fill" style={{ width: `${progress}%` }} />
                   </div>
-                  <span className="acc-val">{acc}%</span>
+                  <span className="acc-val">{Math.min(c.count, 5)}/5</span>
                 </div>
               );
             })}
@@ -347,7 +347,7 @@ export default function MyRatings() {
             </div>
           )
         ) : photos.length === 0 ? (
-          <p className="me-hint">Пока нет фото. Прикрепите фото к отзыву.</p>
+          <p className="me-hint">Фото пока нет. Добавьте его к следующей оценке — оно появится здесь.</p>
         ) : (
           <div className="me-photo-grid">
             {photos.map((u) => (
@@ -461,9 +461,11 @@ export default function MyRatings() {
         <div className="me-section">
           <h2 className="me-h">Мои отзывы</h2>
           <div className="empty">
-            Вы ещё не оставили отзывов.
-            <br />
-            Оцените что-нибудь на главной или в свайпе!
+            Вы ещё ничего не оценили.<br />
+            Выберите знакомое блюдо или напиток — достаточно поставить звёзды.
+            <button className="btn secondary" style={{ marginTop: 12 }} onClick={() => nav('/')}>
+              Найти что оценить
+            </button>
           </div>
         </div>
       ) : (

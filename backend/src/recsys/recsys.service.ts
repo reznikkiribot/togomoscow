@@ -126,9 +126,16 @@ export class RecsysService {
     // OWNER RULE 16.07.2026: the % is shown only when the taste profile is real —
     // after 25 ratings. Before that it's noise dressed as precision.
     const myRatings = await this.prisma.review.count({ where: { userId } });
-    if (myRatings < 25) return { probability: null, reason: '' };
     const item = await this.prisma.listing.findUnique({ where: { id: listingId } });
-    if (!item) return { probability: null, reason: '' };
+    if (!item) return { probability: null, reason: '', ratingCount: myRatings };
+    if (myRatings < 25) {
+      const reason = myRatings === 0
+        ? item.reviewCount > 0 && item.avgRating >= 4.2
+          ? 'Часто высоко оценивают'
+          : 'Популярно рядом'
+        : '';
+      return { probability: null, reason, ratingCount: myRatings };
+    }
 
     let score = 0.55; // prior
     let reason = 'Популярный выбор';
@@ -163,7 +170,7 @@ export class RecsysService {
     }
 
     const probability = Math.round(Math.max(0.4, Math.min(0.97, score)) * 100);
-    return { probability, reason };
+    return { probability, reason, ratingCount: myRatings };
   }
 
   /**
@@ -289,7 +296,7 @@ export class RecsysService {
     // "match %" (unlocked after N ratings, gamification): calibrated from the
     // internal score — 60% floor (it passed the filters) up to 97% (never a
     // fake-certain 100). Only meaningful once the user HAS a taste profile.
-    const showPct = rated.length >= 10;
+    const showPct = rated.length >= 25;
     const maxS = Math.max(0.5, ...pool.map((x) => x.s));
 
     const cards = await this.listings.enrichCards(pick.map((x) => x.it));

@@ -383,6 +383,13 @@ export class SocialService {
     return { ok: true };
   }
 
+  /** Undo a recent "not for me" action. */
+  async unskip(userId: string, itemId: string) {
+    if (!itemId) return { ok: false };
+    await this.prisma.dislike.deleteMany({ where: { userId, itemId } });
+    return { ok: true };
+  }
+
   /** Item ids the user swiped away — excluded from their feed. */
   async skips(userId: string) {
     const rows = await this.prisma.dislike.findMany({

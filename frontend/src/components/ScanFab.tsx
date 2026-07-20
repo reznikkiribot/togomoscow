@@ -3,8 +3,10 @@ import { api } from '../api';
 import { useEscClose } from '../modalEsc';
 import { haptic } from '../telegram';
 import { shareReviewToStory } from '../reviewStory';
+import { loadCategoryProgress } from '../categoryGate';
 import type { Listing, RecognizeResult } from '../types';
 import { ReviewForm } from './ReviewForm';
+import { TasteResult } from './TasteResult';
 import { VenuePicker } from './VenuePicker';
 
 function CamIcon() {
@@ -181,6 +183,14 @@ export function ScanFab() {
   const [chosen, setChosen] = useState<Listing | null>(null);
   const [venue, setVenue] = useState<{ id?: string; name: string; pending?: boolean } | null>(null);
   const [stage, setStage] = useState<'idle' | 'pickVenue' | 'rate'>('idle');
+  const [success, setSuccess] = useState<{
+    data: import('../types').TasteRanking | null;
+    itemId: string;
+    itemName: string;
+    savedRating: number;
+    totalRatings: number;
+    next: { id: string; name: string } | null;
+  } | null>(null);
   const uploadedUrl = useRef<string | undefined>(undefined);
   const uploadPromise = useRef<Promise<string | undefined> | null>(null);
   const lastFile = useRef<File | null>(null);
@@ -193,6 +203,7 @@ export function ScanFab() {
     setError(null);
     setChosen(null);
     setVenue(null);
+    setSuccess(null);
     setStage('idle');
     setPreview((p) => {
       if (p) URL.revokeObjectURL(p);
@@ -388,9 +399,49 @@ export function ScanFab() {
           initialPhotoUrls={uploadedUrl.current ? [uploadedUrl.current] : []}
           onClose={reset}
           onSaved={(media) => {
+            const rated = chosen;
             haptic('medium');
-            void shareReviewToStory(chosen, media);
+            void shareReviewToStory(rated, media);
             reset();
+            setSuccess({
+              data: null,
+              itemId: rated.id,
+              itemName: rated.name,
+              savedRating: media?.review?.rating ?? 0,
+              totalRatings: 1,
+              next: null,
+            });
+            Promise.all([
+              api.tasteRanking(rated.id).catch(() => null),
+              loadCategoryProgress(true).catch(() => null),
+              api.recsysFeed(8).catch(() => [] as Listing[]),
+            ]).then(([ranking, progress, recs]) => {
+              const fallback = recs.find((l) => l.id !== rated.id);
+              setSuccess((current) => current?.itemId === rated.id ? {
+                ...current,
+                data: ranking,
+                totalRatings: progress?.total ?? current.totalRatings,
+                next: ranking?.next ?? (fallback ? { id: fallback.id, name: fallback.name } : null),
+              } : current);
+            });
+          }}
+        />
+      )}
+      {success && (
+        <TasteResult
+          data={success.data}
+          itemId={success.itemId}
+          itemName={success.itemName}
+          savedRating={success.savedRating}
+          totalRatings={success.totalRatings}
+          next={success.next}
+          onClose={() => setSuccess(null)}
+          onCompareNext={(next) => {
+            setSuccess(null);
+            api.listing(next.id).then((listing) => {
+              setChosen(listing as Listing);
+              setStage('pickVenue');
+            }).catch(() => {});
           }}
         />
       )}

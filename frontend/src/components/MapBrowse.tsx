@@ -313,11 +313,11 @@ export function MapBrowse({ cat, onClose }: { cat: BrowseCat; onClose: () => voi
               ? results.length > 0
                 ? `Подают в ${results.length} заведениях`
                 : query
-                  ? 'Не найдено — попробуйте другое название'
+                  ? 'Такое блюдо не нашли — проверьте название или введите другое'
                   : 'Введите название блюда'
               : results.length > 0
                 ? `Найдено: ${results.length}`
-                : 'Ничего не найдено'}
+                : 'В этом районе ничего не нашли — передвиньте карту или измените фильтры'}
         </div>
         <div className="mb-list" ref={listRef} onPointerDown={onListDown}>
           {results.map((l) => (

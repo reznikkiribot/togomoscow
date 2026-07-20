@@ -187,7 +187,7 @@ export function TasteHero({
         <div className="hero-rate-hint">← не люблю · хочу попробовать →</div>
         <div className="hero-actions">
           <button className="hero-btn fav" onClick={onFavorite}>
-            {favorite ? '✓ Хочу попробовать' : '♡ Хочу попробовать'}
+            {favorite ? '✓ Сохранено' : '♡ Хочу попробовать'}
           </button>
         </div>
       </div>

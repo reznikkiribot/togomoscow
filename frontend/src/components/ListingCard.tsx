@@ -139,7 +139,7 @@ export function ListingCard({
                   onToggleFavorite();
                 }}
               >
-                {favorite ? '✓ Хочу попробовать' : 'Хочу попробовать'}
+                {favorite ? '✓ Сохранено' : 'Хочу попробовать'}
               </button>
             )}
           </div>

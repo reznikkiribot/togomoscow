@@ -191,7 +191,7 @@ export function PhotoPostModal({
           <div className="pp-comments">
             <div className="pp-comments-title">Комментарии</div>
             {comments.length === 0 ? (
-              <div className="pp-empty">Пока нет комментариев. Будьте первым!</div>
+              <div className="pp-empty">Комментариев пока нет. Напишите первым.</div>
             ) : (
               comments.map((c) => (
                 <div key={c.id} className="pp-cmt">
