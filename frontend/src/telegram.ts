@@ -14,7 +14,6 @@ export const initData = tg?.initData ?? '';
 type TelegramInset = { top?: number; right?: number; bottom?: number; left?: number };
 
 let telegramInitialized = false;
-const verticalSwipeLocks = new Set<symbol>();
 
 function syncTelegramTheme() {
   const webApp = telegramWebApp();
@@ -56,23 +55,22 @@ function syncTelegramViewport() {
 function syncVerticalSwipes() {
   const webApp = telegramWebApp();
   try {
-    if (verticalSwipeLocks.size > 0) webApp?.disableVerticalSwipes?.();
-    else webApp?.enableVerticalSwipes?.();
+    // Every application screen can scroll. Telegram's native vertical swipe
+    // collapses the Mini App during a normal upward scroll, so disabled is the
+    // safe baseline even after a temporary gesture lock is released.
+    if (webApp?.isVerticalSwipesEnabled !== false) webApp?.disableVerticalSwipes?.();
   } catch {
     /* unsupported client */
   }
 }
 
-/** Keep Telegram's collapse gesture enabled except during a real gesture conflict. */
+/** Reassert the app-wide Telegram swipe lock during a custom gesture. */
 export function lockVerticalSwipes() {
-  const token = Symbol('vertical-swipe-lock');
-  verticalSwipeLocks.add(token);
   syncVerticalSwipes();
   let released = false;
   return () => {
     if (released) return;
     released = true;
-    verticalSwipeLocks.delete(token);
     syncVerticalSwipes();
   };
 }

@@ -29,13 +29,16 @@ export function ListingCard({
   const [hover, setHover] = useState(0);
   return (
     <div className="card-wrap">
-      <div className="card">
+      <div className="card" onClick={onClick}>
         {onClick && (
           <button
             type="button"
             className="card-open-action"
             aria-label={`Открыть ${listing.name}`}
-            onClick={onClick}
+            onClick={(e) => {
+              e.stopPropagation();
+              onClick();
+            }}
           />
         )}
         <div className="card-photo-wrap">

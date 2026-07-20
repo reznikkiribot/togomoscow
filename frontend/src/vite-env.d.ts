@@ -15,6 +15,7 @@ interface TelegramWebApp {
   themeParams?: Record<string, string>;
   viewportHeight?: number;
   viewportStableHeight?: number;
+  isVerticalSwipesEnabled?: boolean;
   safeAreaInset?: { top?: number; right?: number; bottom?: number; left?: number };
   contentSafeAreaInset?: { top?: number; right?: number; bottom?: number; left?: number };
   ready: () => void;

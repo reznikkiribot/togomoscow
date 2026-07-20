@@ -51,12 +51,15 @@ export function FeedPost({
     api.vote(review.id, t).then(setVote).catch(() => {});
 
   return (
-    <div className="post">
+    <div className="post" onClick={onOpen}>
       <button
         type="button"
         className="post-open-action"
         aria-label={`Открыть отзыв: ${review.listing?.name ?? 'отзыв'}`}
-        onClick={onOpen}
+        onClick={(e) => {
+          e.stopPropagation();
+          onOpen();
+        }}
       />
       <button
         type="button"
@@ -81,10 +84,9 @@ export function FeedPost({
           type="button"
           className="post-photo-wrap"
           onClick={(e) => {
-            if (onOpenPhoto) {
-              e.stopPropagation();
-              onOpenPhoto();
-            } else onOpen();
+            e.stopPropagation();
+            if (onOpenPhoto) onOpenPhoto();
+            else onOpen();
           }}
         >
           <SmartImg className="post-photo" src={photo} stock={imageFallback} monogram={review.listing?.name} />
@@ -103,7 +105,6 @@ export function FeedPost({
           <button
             type="button"
             className="meta post-venue-link"
-            style={{ color: 'var(--hint)', fontSize: 13, marginTop: 2, background: 'none', border: 'none', padding: 0, cursor: 'pointer', display: 'block' }}
             onClick={(e) => {
               if (onOpenVenue) {
                 e.stopPropagation(); // venue tap opens the VENUE, not the item

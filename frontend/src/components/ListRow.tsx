@@ -43,13 +43,16 @@ export function ListRow({
   }
 
   return (
-    <div className="vcard">
+    <div className="vcard" onClick={onClick}>
       {onClick && (
         <button
           type="button"
           className="card-open-action"
           aria-label={`Открыть ${listing.name}`}
-          onClick={onClick}
+          onClick={(e) => {
+            e.stopPropagation();
+            onClick();
+          }}
         />
       )}
       <div className="vcard-media">
