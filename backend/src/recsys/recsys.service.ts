@@ -53,6 +53,17 @@ export class RecsysService {
     'холодец', 'студень', 'винегрет', 'селёдк', 'сельдь', 'гречк', 'каша',
     'оладь', 'драник', 'заливн', 'квашен', 'кисель', 'квас', 'морс',
     'глинтвейн', 'грог', 'сангри', 'пунш', // alcohol that hides in non-bar categories
+    // ALCOHOL IS NEVER RECOMMENDED (owner rule 19.07.2026). Category alone is not
+    // enough: bar premixes get parsed as «Безалкогольные» (e.g. Тоник "The
+    // Gardenist"), so ban the drink words and known alcoholic brands by NAME too.
+    'виски', 'водк', 'текил', 'коньяк', 'ликёр', 'ликер', 'бренди',
+    'вермут', 'кампари', 'самбука', 'абсент', 'граппа', 'кальвадос', 'шампанск',
+    'игрист', 'просекко', 'портвейн', 'мартини', 'апероль', 'бейлиз', 'ягермейстер',
+    'jager', 'jack daniel', 'jameson', 'chivas', 'absolut', 'beefeater', 'bacardi',
+    'gardenist', 'aperol', 'campari', 'martini', 'prosecco', 'lambrusco',
+    // NB: 'эль'/'ipa' are NOT listed — as bare substrings they'd hit «кисель»,
+    // «мельба» and Latin names; beer is already caught by the «Пиво» category.
+    'сидр', 'лагер', 'стаут', 'портер', 'мохито', 'негрони', 'спритц',
     // retail coffee (bags of beans / ground / drip / capsules) — a product to buy,
     // not a drink to taste, and its "photo" is often just packaging.
     'в зёрнах', 'в зернах', 'зернах', 'зерновой', 'молот', 'дрип-пакет', 'дрип пакет',
