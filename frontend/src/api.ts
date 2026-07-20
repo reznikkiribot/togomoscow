@@ -15,6 +15,7 @@ import type {
   Listing,
   ListingDetail,
   ListingType,
+  PendingComment,
   PendingMenuLink,
   Profile,
   PublicProfile,
@@ -457,6 +458,10 @@ export const api = {
   adminReviews: () => getJson<Review[]>('/admin/reviews'),
   moderateReview: (id: string, action: 'approve' | 'reject', price?: number) =>
     postJson(`/admin/reviews/${id}/${action}`, price != null ? { price } : {}),
+  // comments held by auto-moderation (profanity/spam) — admin decides
+  adminComments: () => getJson<PendingComment[]>('/admin/comments'),
+  moderateComment: (id: string, action: 'approve' | 'reject') =>
+    postJson(`/admin/comments/${id}/${action}`),
   adminPendingItems: () => getJson<PendingMenuLink[]>('/admin/items'),
   adminSetItem: (venueId: string, itemId: string, body: { status: 'APPROVED' | 'REJECTED'; price?: number }) =>
     postJson(`/admin/items/${venueId}/${itemId}`, body),

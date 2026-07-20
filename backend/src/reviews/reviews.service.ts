@@ -118,7 +118,8 @@ export class ReviewsService {
   /** All comments on a review (flat, oldest first) — frontend builds the tree. */
   async comments(reviewId: string) {
     return this.prisma.comment.findMany({
-      where: { reviewId },
+      // held (PENDING) comments are invisible until an admin approves them
+      where: { reviewId, status: 'APPROVED' },
       include: { user: { select: { id: true, firstName: true, username: true, photoUrl: true } } },
       orderBy: { createdAt: 'asc' },
     });
@@ -128,12 +129,19 @@ export class ReviewsService {
   async addComment(userId: string, reviewId: string, text: string, parentId?: string) {
     const t = (text ?? '').trim();
     if (!t) return null;
-    if (PROFANITY.test(t) || CRUDE.test(t)) throw new BadRequestException('Комментарий содержит недопустимую лексику');
-    if (SPAM.test(t)) throw new BadRequestException('Похоже на спам — ссылки и контакты запрещены');
+    // Suspicious comments are HELD for the cabinet with a reason instead of being
+    // rejected outright — the owner decides (rule 19.07.2026).
+    let status: 'APPROVED' | 'PENDING' = 'APPROVED';
+    let modReason: string | null = null;
+    if (PROFANITY.test(t)) { status = 'PENDING'; modReason = 'Возможен мат'; }
+    else if (CRUDE.test(t)) { status = 'PENDING'; modReason = 'Грубость / токсичность'; }
+    else if (SPAM.test(t)) { status = 'PENDING'; modReason = 'Похоже на спам (ссылки/контакты)'; }
     const created = await this.prisma.comment.create({
-      data: { reviewId, userId, text: t.slice(0, 1000), parentId: parentId ?? null },
+      data: { reviewId, userId, text: t.slice(0, 1000), parentId: parentId ?? null, status, modReason },
       include: { user: { select: { id: true, firstName: true, username: true, photoUrl: true } } },
     });
+    // a held comment is invisible to everyone but the admin — no notification
+    if (status === 'PENDING') return created;
     // notify the review's author (bell + capped bot push), fire-and-forget
     void (async () => {
       const review = await this.prisma.review.findUnique({

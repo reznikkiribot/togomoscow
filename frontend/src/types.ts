@@ -117,6 +117,16 @@ export interface AppNotification {
   createdAt: string;
 }
 
+// a comment held by auto-moderation, shown in the admin cabinet
+export interface PendingComment {
+  id: string;
+  text: string;
+  modReason?: string | null;
+  createdAt: string;
+  user?: { id: string; firstName?: string | null; username?: string | null; photoUrl?: string | null };
+  review?: { id: string; listing?: { id: string; name: string } | null } | null;
+}
+
 export type VoteType = 'USEFUL' | 'FUNNY' | 'COOL' | 'OHNO';
 export interface VoteState {
   counts: { USEFUL: number; FUNNY: number; COOL: number; OHNO: number };

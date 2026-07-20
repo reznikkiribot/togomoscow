@@ -235,6 +235,32 @@ export class OwnerService {
     });
   }
 
+  // ---- admin COMMENT moderation (profanity/spam held instead of rejected) ----
+  pendingComments() {
+    return this.prisma.comment.findMany({
+      where: { status: 'PENDING' },
+      include: {
+        user: { select: { id: true, firstName: true, username: true, photoUrl: true } },
+        review: { select: { id: true, listing: { select: { id: true, name: true } } } },
+      },
+      orderBy: { createdAt: 'asc' },
+    });
+  }
+
+  async moderateComment(id: string, action: 'approve' | 'reject') {
+    const c = await this.prisma.comment.findUnique({ where: { id } });
+    if (!c) throw new NotFoundException();
+    if (action === 'reject') {
+      await this.prisma.comment.delete({ where: { id } }); // replies cascade
+      return { ok: true, deleted: true };
+    }
+    await this.prisma.comment.update({
+      where: { id },
+      data: { status: 'APPROVED', modReason: null },
+    });
+    return { ok: true };
+  }
+
   // ---- admin review moderation (geo-unverified reviews land here) ----
   pendingReviews() {
     return this.prisma.review.findMany({

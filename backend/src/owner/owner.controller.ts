@@ -122,6 +122,23 @@ export class OwnerController {
     return this.owner.adminSetItem(venueId, itemId, body.status, body.price);
   }
 
+  // ---- admin comment moderation ----
+  @Get('admin/comments')
+  async pendingComments(@Req() req: any) {
+    await this.requireAdmin(req);
+    return this.owner.pendingComments();
+  }
+
+  @Post('admin/comments/:id/:action')
+  async moderateComment(
+    @Req() req: any,
+    @Param('id') id: string,
+    @Param('action') action: 'approve' | 'reject',
+  ) {
+    await this.requireAdmin(req);
+    return this.owner.moderateComment(id, action === 'approve' ? 'approve' : 'reject');
+  }
+
   // ---- admin review moderation ----
   @Get('admin/reviews')
   async pendingReviews(@Req() req: any) {

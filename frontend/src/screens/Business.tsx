@@ -12,6 +12,7 @@ import type {
   ClaimStatus,
   Correction,
   Listing,
+  PendingComment,
   PendingMenuLink,
   Profile,
   Review,
@@ -33,6 +34,7 @@ export default function Business() {
   const [adminBiz, setAdminBiz] = useState<BusinessSubmission[]>([]);
   const [adminReviews, setAdminReviews] = useState<Review[]>([]);
   const [adminItems, setAdminItems] = useState<PendingMenuLink[]>([]);
+  const [adminComments, setAdminComments] = useState<PendingComment[]>([]);
   const [adminCorr, setAdminCorr] = useState<Correction[]>([]);
   const [adminSupport, setAdminSupport] = useState<SupportMsg[]>([]);
   const [adminUsers, setAdminUsers] = useState<AdminUser[]>([]);
@@ -79,6 +81,7 @@ export default function Business() {
     api.adminBusiness().then(setAdminBiz).catch(() => {});
     api.adminReviews().then(setAdminReviews).catch(() => {});
     api.adminPendingItems().then(setAdminItems).catch(() => {});
+    api.adminComments().then(setAdminComments).catch(() => {});
     api.adminCorrections().then(setAdminCorr).catch(() => {});
     api.adminSupport().then(setAdminSupport).catch(() => {});
     api.adminUsers().then(setAdminUsers).catch(() => {});
@@ -143,6 +146,10 @@ export default function Business() {
 
   const decideReview = (id: string, approve: boolean, price?: number) => {
     api.moderateReview(id, approve ? 'approve' : 'reject', price).then(loadAdmin);
+  };
+
+  const decideComment = (id: string, approve: boolean) => {
+    api.moderateComment(id, approve ? 'approve' : 'reject').then(loadAdmin);
   };
 
   const decideItem = (venueId: string, itemId: string, approve: boolean) => {
@@ -212,6 +219,29 @@ export default function Business() {
                 onOpen={(lid) => setOpenListing(lid)}
                 onDecide={decideReview}
               />
+            ))
+          )}
+          </Acc>
+
+          <Acc id="comments" title="Комментарии на модерации" count={adminComments.length} openSec={openSec} setOpenSec={setOpenSec}>
+          {adminComments.length === 0 ? (
+            <div className="empty">Нет комментариев на проверке</div>
+          ) : (
+            adminComments.map((c) => (
+              <div key={c.id} className="biz-card">
+                <button className="link-name" onClick={() => c.review?.listing && setOpenListing(c.review.listing.id)}>
+                  {c.review?.listing?.name ?? 'Отзыв'}
+                </button>
+                <div className="meta" style={{ color: 'var(--hint)' }}>
+                  {c.user?.firstName ?? c.user?.username ?? 'гость'}
+                </div>
+                {c.modReason && <div className="mod-reason">⚠️ {c.modReason}</div>}
+                <div style={{ fontSize: 14, marginTop: 4 }}>{c.text}</div>
+                <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
+                  <button className="btn" onClick={() => decideComment(c.id, true)}>Опубликовать</button>
+                  <button className="btn secondary" onClick={() => decideComment(c.id, false)}>Удалить</button>
+                </div>
+              </div>
             ))
           )}
           </Acc>

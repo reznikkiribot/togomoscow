@@ -861,7 +861,8 @@ export class ListingsService {
     const ids = reviews.map((r) => r.id);
     if (!ids.length) return;
     const comments = await this.prisma.comment.findMany({
-      where: { reviewId: { in: ids } },
+      // held comments never reach the feed preview either
+      where: { reviewId: { in: ids }, status: 'APPROVED' },
       include: { user: { select: { id: true, firstName: true, username: true, photoUrl: true } } },
       orderBy: { createdAt: 'asc' },
     });

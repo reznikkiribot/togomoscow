@@ -92,6 +92,10 @@ model Comment {
   userId    String   @map("user_id")
   parentId  String?  @map("parent_id")
   text      String
+  // suspicious comments (profanity/spam/crude) are held for the admin cabinet
+  // instead of being rejected outright (owner rule 19.07.2026)
+  status    ReviewStatus @default(APPROVED)
+  modReason String?  @map("mod_reason")
   createdAt DateTime @default(now()) @map("created_at")
   review    Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
