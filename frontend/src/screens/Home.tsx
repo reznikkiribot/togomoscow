@@ -16,6 +16,7 @@ import type { BrowseCat } from '../components/MapBrowse';
 const MapBrowse = lazy(() => import('../components/MapBrowse').then((m) => ({ default: m.MapBrowse })));
 const AddBusiness = lazy(() => import('../components/AddBusiness').then((m) => ({ default: m.AddBusiness })));
 import { VenuePicker } from '../components/VenuePicker';
+import { QuickRatingFlow } from '../components/QuickRatingFlow';
 import { useFavorites } from '../hooks/useFavorites';
 import { getRecent } from '../recent';
 import { TrainingScale } from '../components/TrainingScale';
@@ -145,7 +146,7 @@ export default function Home() {
   }, []);
   // changes every mount → home cards reshuffle each time you open / switch tabs
   const [seed, setSeed] = useState(() => Math.floor(Math.random() * 1e9));
-  const [autoRate, setAutoRate] = useState<number | undefined>(undefined);
+  const [quickRate, setQuickRate] = useState<{ listing: Listing; rating: number; advanceHero?: boolean } | null>(null);
   // server-ranked one-time feed: displayed posts + "all caught up" flag
   const [wallPosts, setWallPosts] = useState<Review[]>([]);
   // taste-based recommendation cards that keep the feed infinite once the
@@ -584,12 +585,10 @@ export default function Home() {
       onToggleFavorite={() => toggle(l.id)}
       onNotInterested={() => notInterested(l)}
       onClick={() => {
-        setAutoRate(undefined);
         openListing(l);
       }}
       onRate={(n) => {
-        setAutoRate(n);
-        setActive(l);
+        setQuickRate({ listing: l, rating: n });
       }}
     />
   );
@@ -825,12 +824,10 @@ export default function Home() {
                 }}
                 onShuffle={() => { setHeroPinId(null); setHeroIdx((i) => i + 1); }}
                 onOpenItem={() => {
-                  setAutoRate(undefined);
                   openListing(heroItem);
                 }}
                 onRate={(n) => {
-                  setAutoRate(n);
-                  openListing(heroItem);
+                  setQuickRate({ listing: heroItem, rating: n, advanceHero: true });
                 }}
               />
             </>
@@ -1015,19 +1012,25 @@ export default function Home() {
         <Suspense fallback={null}>
         <ListingDetailModal
           id={active.id}
-          autoRate={autoRate}
           originVenue={active.recVenue ?? undefined} // check-in attaches to the recommended place
           onChanged={loadFeeds} // a new review → rebuild the recommendation feed
           onClose={() => {
             setActive(null);
-            if (autoRate != null) {
-              setAutoRate(undefined);
-              setHeroIdx((i) => i + 1); // move to the next item to rate
-            }
             // stay where the card was opened — never jump back to the top
           }}
         />
         </Suspense>
+      )}
+      {quickRate && (
+        <QuickRatingFlow
+          listing={quickRate.listing}
+          initialRating={quickRate.rating}
+          onSaved={() => {
+            loadFeeds();
+            if (quickRate.advanceHero) setHeroIdx((index) => index + 1);
+          }}
+          onClose={() => setQuickRate(null)}
+        />
       )}
       {deepId && !active && (
         <Suspense fallback={null}>

@@ -7,6 +7,7 @@ import { ReviewAttrs } from './ReviewAttrs';
 import { VenuePicker } from './VenuePicker';
 import { ListRow } from './ListRow';
 import { ReviewForm } from './ReviewForm';
+import { QuickRatingFlow } from './QuickRatingFlow';
 import { TasteResult } from './TasteResult';
 import { Stars } from './Stars';
 import { VenuePhoto } from './VenuePhoto';
@@ -316,6 +317,7 @@ export function ListingDetailModal({
   const [showCorrection, setShowCorrection] = useState(false);
   const [showVenuePicker, setShowVenuePicker] = useState(false);
   const [pendingRating, setPendingRating] = useState<number | undefined>(undefined);
+  const [quickRating, setQuickRating] = useState<number | null>(null);
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
   const requestClose = useCallback(() => {
@@ -742,6 +744,12 @@ export function ListingDetailModal({
       api.linkItemToVenue(data.id, originVenue.id).catch(() => {});
       setReviewVenue(originVenue);
       openReview(rating);
+      return;
+    }
+    // A tapped star is already an accepted rating choice. Keep it visible and
+    // ask for the venue underneath, instead of interrupting with a picker first.
+    if (rating != null) {
+      setQuickRating(rating);
       return;
     }
     setPendingRating(rating);
@@ -1614,6 +1622,17 @@ export function ListingDetailModal({
               } : current);
             });
           }}
+        />
+      )}
+      {quickRating != null && (
+        <QuickRatingFlow
+          listing={data as Listing}
+          initialRating={quickRating}
+          onSaved={() => {
+            load();
+            onChanged?.();
+          }}
+          onClose={() => setQuickRating(null)}
         />
       )}
       {rateToast && <div className="game-toast">{rateToast}</div>}

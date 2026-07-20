@@ -22,6 +22,9 @@ export function pushRecent(l: Listing) {
       photoUrl: l.photoUrl ?? null,
       placeholderPhoto: l.placeholderPhoto ?? null,
       cuisine: l.cuisine ?? null,
+      lat: l.lat ?? null,
+      lng: l.lng ?? null,
+      groupKey: l.groupKey ?? null,
       avgRating: l.avgRating ?? 0,
       reviewCount: l.reviewCount ?? 0,
     };

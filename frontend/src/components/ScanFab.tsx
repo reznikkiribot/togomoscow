@@ -165,6 +165,11 @@ export function ScanFab() {
   const cameraRef = useRef<HTMLInputElement>(null);
   const galleryRef = useRef<HTMLInputElement>(null);
   const [srcMenu, setSrcMenu] = useState(false);
+  useEffect(() => {
+    const open = () => galleryRef.current?.click();
+    window.addEventListener('scan-open', open);
+    return () => window.removeEventListener('scan-open', open);
+  }, []);
   // one soft pulse per session draws the eye to the key action (UX Core: anchoring
   // attention with motion — once, not constantly)
   const [pulse, setPulse] = useState(false);

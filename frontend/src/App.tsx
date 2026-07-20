@@ -4,9 +4,15 @@ import { trackScreen } from './analytics';
 import { api } from './api';
 import { IcHome, IcBookmark, IcBell, IcUser, IcTools } from './components/Icons';
 import { QuizModal } from './components/QuizModal';
+import { FirstRunValue } from './components/FirstRunValue';
 import { CategoryCelebration } from './components/CategoryCelebration';
 import { ScanFab } from './components/ScanFab';
 import { usePullToRefresh } from './pullToRefresh';
+
+function firstRunSeenKey() {
+  const telegramId = (window as any).Telegram?.WebApp?.initDataUnsafe?.user?.id;
+  return `firstRunValueSeen:v1:${telegramId ?? 'browser'}`;
+}
 
 export default function App() {
   const loc = useLocation();
@@ -21,6 +27,7 @@ export default function App() {
   const cls = ({ isActive }: { isActive: boolean }) => (isActive ? 'active' : '');
   const [isAdmin, setIsAdmin] = useState(false);
   const [showQuiz, setShowQuiz] = useState(false);
+  const [showFirstRun, setShowFirstRun] = useState(false);
   const navRef = useRef<HTMLElement>(null);
   useEffect(() => {
     const nav = navRef.current;
@@ -60,11 +67,16 @@ export default function App() {
         });
     };
     loadMe();
-    // first-run taste quiz (once per user, remembered by Telegram account)
+    // A zero-rating user first sees the product value and can rate immediately.
+    // The older taste quiz remains available from the profile (`force_quiz`).
     const forced = localStorage.getItem('force_quiz') === '1';
-    api
-      .onboarding()
-      .then((o) => setShowQuiz(!o.onboarded || forced))
+    Promise.all([api.onboarding(), api.myReviews()])
+      .then(([onboarding, reviews]) => {
+        const valueSeen = localStorage.getItem(firstRunSeenKey()) === '1';
+        if (forced) setShowQuiz(true);
+        else if (reviews.length === 0 && !valueSeen) setShowFirstRun(true);
+        else setShowQuiz(reviews.length > 0 && !onboarding.onboarded);
+      })
       .catch(() => setShowQuiz(forced));
     // SELF-UPDATE: Telegram keeps mini-app sessions alive for hours, so users
     // kept seeing builds from the morning. Whenever the app regains focus we
@@ -119,6 +131,21 @@ export default function App() {
             localStorage.removeItem('force_quiz');
             // reload so the home feed rebuilds around the chosen tastes
             window.location.reload();
+          }}
+        />
+      )}
+      {showFirstRun && (
+        <FirstRunValue
+          onDone={() => {
+            try { localStorage.setItem(firstRunSeenKey(), '1'); } catch { /* private mode */ }
+            api.setOnboarding({ categories: [] }).catch(() => {});
+            setShowFirstRun(false);
+          }}
+          onScan={() => {
+            try { localStorage.setItem(firstRunSeenKey(), '1'); } catch { /* private mode */ }
+            api.setOnboarding({ categories: [] }).catch(() => {});
+            setShowFirstRun(false);
+            window.setTimeout(() => window.dispatchEvent(new Event('scan-open')), 0);
           }}
         />
       )}

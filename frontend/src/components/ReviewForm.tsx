@@ -288,7 +288,23 @@ export function ReviewForm({
           <span style={{ color: 'var(--hint)' }}>🛡 Отзыв появится после быстрой проверки модератором</span>
         </div>
 
-        {/* note + photo right at the top (Untappd-style) */}
+        <div className="field">
+          <label>Общая оценка</label>
+          <StarInput value={rating} onChange={setRating} />
+          <span style={{ marginLeft: 10, fontWeight: 700 }}>
+            {rating > 0 ? rating.toFixed(1) : 'Поставьте оценку'}
+          </span>
+        </div>
+
+        <details className="review-optional">
+          <summary>
+            Добавить подробности — необязательно
+            {photoUrls.length > 0 ? ` · фото: ${photoUrls.length}` : ''}
+            {photoUrls.length === 0 && text.trim() ? ' · есть черновик' : ''}
+          </summary>
+
+        {/* Notes, photos and tasting templates stay available without delaying
+            the required rating + place path. Existing draft state is untouched. */}
         <div className="field note-top">
           <div className="note-row">
             <textarea
@@ -338,14 +354,6 @@ export function ReviewForm({
               ))}
             </div>
           )}
-        </div>
-
-        <div className="field">
-          <label>Общая оценка</label>
-          <StarInput value={rating} onChange={setRating} />
-          <span style={{ marginLeft: 10, fontWeight: 700 }}>
-            {rating > 0 ? rating.toFixed(1) : 'Поставьте оценку'}
-          </span>
         </div>
 
         {/* expert select fields (grape variety, coffee kind, additives, cut…)
@@ -438,6 +446,7 @@ export function ReviewForm({
             />
           </div>
         )}
+        </details>
 
         {error && (
           <div style={{ marginTop: 10 }}>
