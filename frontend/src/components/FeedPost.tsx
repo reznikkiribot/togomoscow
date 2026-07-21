@@ -28,18 +28,14 @@ export function FeedPost({
   onOpenPhoto?: () => void; // tap the PHOTO → the review itself (check-in detail)
   onOpenVenue?: () => void; // tap the "📍 place" line → the venue card
 }) {
-  // the user's own photo leads; text-only posts fall back to the dish's card
-  // photo (illustrative, labeled) so the wall never looks broken/empty
+  // ONLY the user's OWN uploaded photo, or a VERIFIED card photo (aigen/checkin
+  // that passed the name-match gate). A post never shows a generic stock image or
+  // another user's photo as if it were this review's — that misleads (owner
+  // 20.07.2026: «это не он загружал фото»). No photo → the post is text-only.
   const photo = review.photoUrls?.[0];
   const cardPhoto = !photo ? review.listing?.photoUrl : null;
-  const imageFallback = review.listing
-    ? {
-        type: review.listing.type,
-        category: review.listing.category,
-        name: review.listing.name,
-        seed: review.listing.id,
-      }
-    : undefined;
+  // no stock fallback here — if there's no real photo, show none
+  const imageFallback = undefined;
   const u = review.user;
   const initial = (u?.firstName ?? u?.username ?? '?').trim()[0]?.toUpperCase() ?? '?';
   const [vote, setVote] = useState<VoteState>({
@@ -93,9 +89,10 @@ export function FeedPost({
           {/* ↗ affordance: the photo IS tappable (opens the check-in) */}
           {onOpenPhoto && <span className="post-photo-open">↗</span>}
         </button>
-      ) : cardPhoto || review.listing ? (
+      ) : cardPhoto ? (
+        // a VERIFIED card photo only (aigen/checkin); never a stock/other-user image
         <div className="post-photo-wrap">
-          <SmartImg className="post-photo" src={cardPhoto} stock={imageFallback} monogram={review.listing?.name} />
+          <SmartImg className="post-photo" src={cardPhoto} monogram={review.listing?.name} />
         </div>
       ) : null}
 

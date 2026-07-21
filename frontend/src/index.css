@@ -6205,12 +6205,18 @@ html[data-theme='dark'] :where(.scan-retake, .scan-src-btn, .mb-compass, .mb-loc
 .ctag,
 .tab,
 .post-discuss,
-.post-venue-link,
 .pp-cmt-av,
 .friend-chip,
 .card .fav-btn,
 .myrate-card .fav-btn {
   min-height: 44px;
+}
+/* the venue line is an inline link inside the post, NOT a standalone tap target —
+   a 44px min-height bloated it with empty space around the name (owner 20.07.2026).
+   Its tap area is comfortable via padding instead. */
+.post-venue-link {
+  min-height: 0;
+  padding: 2px 0;
 }
 .card .fav-btn,
 .myrate-card .fav-btn {
