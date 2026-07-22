@@ -1,0 +1,800 @@
+{
+  "domain": "vaffel.ru",
+  "method": "__NEXT_DATA__",
+  "status": "ok",
+  "source": "/",
+  "count": 158,
+  "withPhoto": 99,
+  "items": [
+    {
+      "name": "Какао 220 мл.",
+      "price": 280,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/67f208d2e73cac8a3e16a2611f92163e5b775c02-555x555.jpg"
+    },
+    {
+      "name": "Маршмеллоу 10 гр",
+      "price": 40,
+      "image": null
+    },
+    {
+      "name": "Сироп вишня 20 мл",
+      "price": 40,
+      "image": null
+    },
+    {
+      "name": "Сироп шоколадное печенье 20 мл",
+      "price": 40,
+      "image": null
+    },
+    {
+      "name": "Сироп ежевика 20 мл",
+      "price": 40,
+      "image": null
+    },
+    {
+      "name": "Сироп карамель 20 мл",
+      "price": 40,
+      "image": null
+    },
+    {
+      "name": "Шоколадная крошка 5 гр",
+      "price": 40,
+      "image": null
+    },
+    {
+      "name": "Сироп ваниль 20 мл",
+      "price": 40,
+      "image": null
+    },
+    {
+      "name": "Брокколи с пармезаном.",
+      "price": 340,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/6b72f1d9fe80d383859a1295cca518a24da9c51d-1600x1200.jpg"
+    },
+    {
+      "name": "Бекон жареный 30 гр",
+      "price": 150,
+      "image": null
+    },
+    {
+      "name": "Ветчина из индейки 30 гр",
+      "price": 80,
+      "image": null
+    },
+    {
+      "name": "Обжаренные креветки 30 гр",
+      "price": 210,
+      "image": null
+    },
+    {
+      "name": "Форель с/с 30 гр",
+      "price": 250,
+      "image": null
+    },
+    {
+      "name": "Куриное филе запеченное 30 гр",
+      "price": 100,
+      "image": null
+    },
+    {
+      "name": "Вафля сырная 80 гр",
+      "price": 120,
+      "image": null
+    },
+    {
+      "name": "Вафля протеиновая 80 гр",
+      "price": 120,
+      "image": null
+    },
+    {
+      "name": "Вафля шпинатная 80 гр",
+      "price": 120,
+      "image": null
+    },
+    {
+      "name": "Какао 220 мл на альтернативном.",
+      "price": 360,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/67f208d2e73cac8a3e16a2611f92163e5b775c02-555x555.jpg"
+    },
+    {
+      "name": "Картофель по-деревенски с соусом",
+      "price": 350,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/bff8c5b1bfe237f8eb1a694eff44e856d3c3a95e-1600x1200.jpg"
+    },
+    {
+      "name": "Вафля большая сытная ( 160 г)",
+      "price": 180,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/a2ef583a52002f7be3442c2991dbfb60389721af-1600x1200.jpg"
+    },
+    {
+      "name": "Томаты свежие 30 гр",
+      "price": 40,
+      "image": null
+    },
+    {
+      "name": "Огурцы свежие 30 гр",
+      "price": 40,
+      "image": null
+    },
+    {
+      "name": "Айсберг 30 гр",
+      "price": 60,
+      "image": null
+    },
+    {
+      "name": "Перец болгарский 30 гр",
+      "price": 40,
+      "image": null
+    },
+    {
+      "name": "Шампиньоны жареные 30 гр",
+      "price": 100,
+      "image": null
+    },
+    {
+      "name": "Рукола 10 гр",
+      "price": 70,
+      "image": null
+    },
+    {
+      "name": "Авокадо 30 гр",
+      "price": 180,
+      "image": null
+    },
+    {
+      "name": "Халапеньо 20 гр",
+      "price": 60,
+      "image": null
+    },
+    {
+      "name": "Огурцы маринованные 30 гр",
+      "price": 40,
+      "image": null
+    },
+    {
+      "name": "Сыр чеддер 30 гр",
+      "price": 80,
+      "image": null
+    },
+    {
+      "name": "Ананас консервированный 30 гр",
+      "price": 60,
+      "image": null
+    },
+    {
+      "name": "Колбаски охотничьи 30 гр",
+      "price": 80,
+      "image": null
+    },
+    {
+      "name": "Котлета говяжья 1 шт",
+      "price": 150,
+      "image": null
+    },
+    {
+      "name": "Говядина варено-копченая 30 гр",
+      "price": 90,
+      "image": null
+    },
+    {
+      "name": "Котлета куриная 1 шт",
+      "price": 120,
+      "image": null
+    },
+    {
+      "name": "Соус Барбекю 40 гр",
+      "price": 60,
+      "image": null
+    },
+    {
+      "name": "Соус Аджика 40 гр",
+      "price": 60,
+      "image": null
+    },
+    {
+      "name": "Соус Цезарь 40 гр",
+      "price": 60,
+      "image": null
+    },
+    {
+      "name": "Соус домашний майонез 40 гр",
+      "price": 60,
+      "image": null
+    },
+    {
+      "name": "Соус сырный 40 гр",
+      "price": 60,
+      "image": null
+    },
+    {
+      "name": "Соус Дижонский 40 гр",
+      "price": 60,
+      "image": null
+    },
+    {
+      "name": "Соус крем-чиз 30 гр",
+      "price": 80,
+      "image": null
+    },
+    {
+      "name": "Соус сладкий чили 40 гр",
+      "price": 60,
+      "image": null
+    },
+    {
+      "name": "Какао 360 мл.",
+      "price": 360,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/67f208d2e73cac8a3e16a2611f92163e5b775c02-555x555.jpg"
+    },
+    {
+      "name": "Хрустящие овощи.",
+      "price": 320,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/4ffeb3c9f7fa7858bb5fb9afc65efefbe39aac3a-1600x1200.jpg"
+    },
+    {
+      "name": "С индейкой и дижонским соусом большая",
+      "price": 590,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/88314398c199622f8a3fac6570ef830889407486-1600x1200.jpg"
+    },
+    {
+      "name": "Какао 360 мл на альтернативном.",
+      "price": 440,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/67f208d2e73cac8a3e16a2611f92163e5b775c02-555x555.jpg"
+    },
+    {
+      "name": "Вафля сладкая большая ( 160 г)",
+      "price": 180,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/a2ef583a52002f7be3442c2991dbfb60389721af-1600x1200.jpg"
+    },
+    {
+      "name": "Арахис дробленый 10 гр",
+      "price": 30,
+      "image": null
+    },
+    {
+      "name": "Яблоко печеное 30 гр",
+      "price": 60,
+      "image": null
+    },
+    {
+      "name": "Персик консервированный 30 гр",
+      "price": 60,
+      "image": null
+    },
+    {
+      "name": "Клубника в сиропе 30 гр",
+      "price": 60,
+      "image": null
+    },
+    {
+      "name": "Банан 30 гр",
+      "price": 60,
+      "image": null
+    },
+    {
+      "name": "Соус брусничный 40 гр",
+      "price": 80,
+      "image": null
+    },
+    {
+      "name": "Взбитые сливки 30 гр",
+      "price": 70,
+      "image": null
+    },
+    {
+      "name": "Шоколадно-ореховая паста 40 гр",
+      "price": 80,
+      "image": null
+    },
+    {
+      "name": "Соус Карамельный 40 гр",
+      "price": 60,
+      "image": null
+    },
+    {
+      "name": "Зефирный крем 40 гр",
+      "price": 60,
+      "image": null
+    },
+    {
+      "name": "С говядиной и дижонским соусом",
+      "price": 650,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/311808e5a30b99b968080300524d4fac17b4c10b-1600x1200.jpg"
+    },
+    {
+      "name": "Сыр Чеддер 30 гр",
+      "price": 80,
+      "image": null
+    },
+    {
+      "name": "С куриной котлетой и сладким соусом чили",
+      "price": 590,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/aa70b22edc2810ac6028afb0798e8cb483e2cc67-1600x1200.jpg"
+    },
+    {
+      "name": "Соус Сырный 40 гр",
+      "price": 60,
+      "image": null
+    },
+    {
+      "name": "Вафля сладкая стандарт ( 80 г)",
+      "price": 120,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/49e863a447d7da08f9a31830e53a220ba122bb9d-1600x1200.jpg"
+    },
+    {
+      "name": "С индейкой и дижонским соусом дв. начинка",
+      "price": 510,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/88314398c199622f8a3fac6570ef830889407486-1600x1200.jpg"
+    },
+    {
+      "name": "Лимон-Жасмин 360 мл.",
+      "price": 340,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/0c68b99915a94d150d6060a444f571af9bb2b76a-1600x1200.jpg"
+    },
+    {
+      "name": "Мята 5 гр",
+      "price": 30,
+      "image": null
+    },
+    {
+      "name": "Лимон 10 гр",
+      "price": 30,
+      "image": null
+    },
+    {
+      "name": "Мед 30 гр",
+      "price": 60,
+      "image": null
+    },
+    {
+      "name": "Вафля стандарт сытная ( 80 г)",
+      "price": 120,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/49e863a447d7da08f9a31830e53a220ba122bb9d-1600x1200.jpg"
+    },
+    {
+      "name": "С двойной котлетой из курицы и сыром",
+      "price": 610,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/0581ba3b14226a68d9eb5599fb92a757ae2f194e-1600x1200.jpg"
+    },
+    {
+      "name": "С индейкой и дижонским соусом маленькая",
+      "price": 410,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/88314398c199622f8a3fac6570ef830889407486-1600x1200.jpg"
+    },
+    {
+      "name": "Леденец Сердце.",
+      "price": 120,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/2e8e801c5d2f823c7f12cfa0ff82090b24cf1a88-1280x960.jpg"
+    },
+    {
+      "name": "Латте Таро Кукис 220 мл на альтернативном.",
+      "price": 400,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/da3a1e779ec5ddaee5201e26183b9a8a59bf480d-1600x1200.png"
+    },
+    {
+      "name": "С говядиной и перчиком халапеньо большая",
+      "price": 590,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/34f336aafb201c55aa50fea6e519ad1f18f3db56-1600x1200.jpg"
+    },
+    {
+      "name": "С говядиной и перчиком халапеньо дв. начинка",
+      "price": 510,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/34f336aafb201c55aa50fea6e519ad1f18f3db56-1600x1200.jpg"
+    },
+    {
+      "name": "Латте Таро Кукис 220 мл.",
+      "price": 320,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/da3a1e779ec5ddaee5201e26183b9a8a59bf480d-1600x1200.png"
+    },
+    {
+      "name": "Птитим с сыром и курицей",
+      "price": 520,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/df57badb8d32b4e07dc84e00ffade267388a3d4b-1600x1200.jpg"
+    },
+    {
+      "name": "Томаты Черри 30 гр",
+      "price": 60,
+      "image": null
+    },
+    {
+      "name": "Пармезан 10 гр",
+      "price": 80,
+      "image": null
+    },
+    {
+      "name": "С говядиной и перчиком халапеньо маленькая",
+      "price": 410,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/34f336aafb201c55aa50fea6e519ad1f18f3db56-1600x1200.jpg"
+    },
+    {
+      "name": "Латте Таро Кукис 360 мл.",
+      "price": 390,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/da3a1e779ec5ddaee5201e26183b9a8a59bf480d-1600x1200.png"
+    },
+    {
+      "name": "С говядиной и маринованными огурчиками большая",
+      "price": 590,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/5f32d50c32380c6b1a78eee44066f19c81318280-1600x1200.jpg"
+    },
+    {
+      "name": "Латте Таро Кукис 360 мл на альтернативном.",
+      "price": 470,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/da3a1e779ec5ddaee5201e26183b9a8a59bf480d-1600x1200.png"
+    },
+    {
+      "name": "Active (c бананом и яблоком).",
+      "price": 460,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/cc11047a08dc04bc70f188d85f4feff662ba83e5-1600x1200.jpg"
+    },
+    {
+      "name": "С говядиной и маринованными огурчиками дв. начинка",
+      "price": 510,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/5f32d50c32380c6b1a78eee44066f19c81318280-1600x1200.jpg"
+    },
+    {
+      "name": "Beauty (Ягодный) смузи.",
+      "price": 490,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/f4e9028677b4f076328de90bdfafe7769b8bb2cd-1600x1200.jpg"
+    },
+    {
+      "name": "Латте Матча 220 мл на альтернативном.",
+      "price": 410,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/a75b09b0318a7f9631c309ff7700f2ca3450716a-1600x1200.jpg"
+    },
+    {
+      "name": "С говядиной и маринованными огурчиками маленькая",
+      "price": 410,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/5f32d50c32380c6b1a78eee44066f19c81318280-1600x1200.jpg"
+    },
+    {
+      "name": "Зеленый салат с авокадо.",
+      "price": 480,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/240bd0b4c58d25f451314955a0a8fec720bdd2bf-1600x1200.jpg"
+    },
+    {
+      "name": "Латте Матча 220 мл.",
+      "price": 330,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/a75b09b0318a7f9631c309ff7700f2ca3450716a-1600x1200.jpg"
+    },
+    {
+      "name": "Sweet (Маракуйя-базилик).",
+      "price": 540,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/6761f836d33d404f89ebbeb5eca94a9a9fb53780-1600x1200.jpg"
+    },
+    {
+      "name": "Латте Матча 360 мл.",
+      "price": 390,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/a75b09b0318a7f9631c309ff7700f2ca3450716a-1600x1200.jpg"
+    },
+    {
+      "name": "Овощной салат с кремом из феты.",
+      "price": 470,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/a8935dc409134b8eb72ca2d22eb3f01a155043d3-1600x1200.jpg"
+    },
+    {
+      "name": "Холодный Латте.",
+      "price": 390,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/07f7e23104914e1b8c37458f98f0adf94f9d81d1-1600x1200.jpg"
+    },
+    {
+      "name": "Салат с куриным филе, яблоком и орехом.",
+      "price": 460,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/2da152b20b2a871848f5a03b062538275fcca935-1600x1200.jpg"
+    },
+    {
+      "name": "Гренки 10 гр",
+      "price": 40,
+      "image": null
+    },
+    {
+      "name": "Латте Матча 360 мл на альтернативном.",
+      "price": 480,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/a75b09b0318a7f9631c309ff7700f2ca3450716a-1600x1200.jpg"
+    },
+    {
+      "name": "Фреш апельсин.",
+      "price": 420,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/85a880856acd7710f0d62f796ebdace20c5a6913-1600x1200.png"
+    },
+    {
+      "name": "Холодный Латте на альтернативном.",
+      "price": 470,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/07f7e23104914e1b8c37458f98f0adf94f9d81d1-1600x1200.jpg"
+    },
+    {
+      "name": "Глинтвейн б/а 360 мл.",
+      "price": 360,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/910f8c088934687a122e41036289e9d8843034a2-1600x1200.jpg"
+    },
+    {
+      "name": "Цезарь с креветками.",
+      "price": 650,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/bc3214fcec3c222bc84dc0e6a778c8cbf4c2d178-1600x1200.png"
+    },
+    {
+      "name": "Цезарь с курицей.",
+      "price": 490,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/2412a9ce9ac2dd1cb6d2e0bba79d3223fbc61a3b-1600x1200.jpg"
+    },
+    {
+      "name": "Салат с говядиной и сыром дорблю.",
+      "price": 580,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/4b3f96092f07aac356f783ef389bd98fd7b06dc8-1600x1200.png"
+    },
+    {
+      "name": "Чай в чашке 300 мл.",
+      "price": 160,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/e64966f8ef338ff4547d1d1fd7848807403a7955-1600x1200.png"
+    },
+    {
+      "name": "Витамин С 400 мл.",
+      "price": 420,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/b984056b8aecc9f495aa706c51878daaa860fb9a-1600x1200.jpg"
+    },
+    {
+      "name": "Эспрессо с апельсиновым соком",
+      "price": 390,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/ef3270777dcaf562a841e71572382f431bf33f61-1600x1200.jpg"
+    },
+    {
+      "name": "Джокер большая.",
+      "price": 490,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/f2964866aabe0ab734307be4a7f8796da6b60d68-1600x1200.jpg"
+    },
+    {
+      "name": "Эспрессо с грейпфрутовым соком",
+      "price": 390,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/60b373605853e25edf2ca9b856fd30d0c36c8907-779x779.jpg"
+    },
+    {
+      "name": "Джокер дв. начинка.",
+      "price": 420,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/f2964866aabe0ab734307be4a7f8796da6b60d68-1600x1200.jpg"
+    },
+    {
+      "name": "Эспрессо Тоник.",
+      "price": 390,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/e3793a114120935a86dc27590cb1ab1e118f39a7-1600x1200.jpg"
+    },
+    {
+      "name": "Джокер стандарт.",
+      "price": 360,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/f2964866aabe0ab734307be4a7f8796da6b60d68-1600x1200.jpg"
+    },
+    {
+      "name": "Кофейный глинтвейн.",
+      "price": 390,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/67002f8e02368c1a9da44e35bcb5fb6b2b467bf5-1600x1200.png"
+    },
+    {
+      "name": "Морс домашний 500 мл.",
+      "price": 250,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/a3a10435365fa8853e9bad12acd05ee16745a21f-1600x1200.jpg"
+    },
+    {
+      "name": "Цветочный латте.",
+      "price": 360,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/221a7d411209334c369a54e7bbb3c6e33c1cfc23-1600x1200.png"
+    },
+    {
+      "name": "Латте 360 мл.",
+      "price": 350,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/5c00bd1a9e0bfbb357bc7ea7b3f1257a2df02f11-1600x1200.jpg"
+    },
+    {
+      "name": "Латте 360 мл на альтернативном.",
+      "price": 430,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/5c00bd1a9e0bfbb357bc7ea7b3f1257a2df02f11-1600x1200.jpg"
+    },
+    {
+      "name": "С клубникой и шоколадной пастой большая",
+      "price": 490,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/f755c8d4decdf96d3c648b95577789ad3276a4d4-1600x1200.jpg"
+    },
+    {
+      "name": "С клубникой и шоколадной пастой дв. начинка",
+      "price": 420,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/f755c8d4decdf96d3c648b95577789ad3276a4d4-1600x1200.jpg"
+    },
+    {
+      "name": "Раф 220 мл.",
+      "price": 320,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/4aac36c12307c1aad01d8968711ba4b6a20847dc-1600x1200.jpg"
+    },
+    {
+      "name": "С клубникой и шоколадной пастой маленькая",
+      "price": 360,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/f755c8d4decdf96d3c648b95577789ad3276a4d4-1600x1200.jpg"
+    },
+    {
+      "name": "Раф 220 мл на альтернативном.",
+      "price": 400,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/4aac36c12307c1aad01d8968711ba4b6a20847dc-1600x1200.jpg"
+    },
+    {
+      "name": "С шоколадно-арахисовой пастой большая",
+      "price": 490,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/e7b69db0f490199687a8bd11b8a0bba47da6b6eb-1600x1200.jpg"
+    },
+    {
+      "name": "Раф 360 мл.",
+      "price": 390,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/4aac36c12307c1aad01d8968711ba4b6a20847dc-1600x1200.jpg"
+    },
+    {
+      "name": "Раф 360 мл на альтернативном.",
+      "price": 470,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/4aac36c12307c1aad01d8968711ba4b6a20847dc-1600x1200.jpg"
+    },
+    {
+      "name": "С шоколадно-арахисовой пастой дв. начинка",
+      "price": 420,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/e7b69db0f490199687a8bd11b8a0bba47da6b6eb-1600x1200.jpg"
+    },
+    {
+      "name": "Флэт Уайт 220 мл.",
+      "price": 360,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/5c00bd1a9e0bfbb357bc7ea7b3f1257a2df02f11-1600x1200.jpg"
+    },
+    {
+      "name": "С шоколадно-арахисовой пастой маленькая",
+      "price": 360,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/e7b69db0f490199687a8bd11b8a0bba47da6b6eb-1600x1200.jpg"
+    },
+    {
+      "name": "С бананом и шоколадом большая",
+      "price": 490,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/0621167cf762771f3332e491b7ede2d1293b65e1-1600x1200.jpg"
+    },
+    {
+      "name": "Флэт Уайт 220 мл на альтернативном.",
+      "price": 440,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/5c00bd1a9e0bfbb357bc7ea7b3f1257a2df02f11-1600x1200.jpg"
+    },
+    {
+      "name": "С бананом и шоколадом дв. начинка",
+      "price": 420,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/0621167cf762771f3332e491b7ede2d1293b65e1-1600x1200.jpg"
+    },
+    {
+      "name": "Эспрессо 30 мл.",
+      "price": 170,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/82392aa26877d12477ae38b21c9108fc7ceddb63-1500x1125.jpg"
+    },
+    {
+      "name": "Эспрессо двойной 60 мл.",
+      "price": 220,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/05981c8aae7d90daadb04a5530442b4063658e77-1500x1125.jpg"
+    },
+    {
+      "name": "С бананом и шоколадом маленькая",
+      "price": 360,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/0621167cf762771f3332e491b7ede2d1293b65e1-1600x1200.jpg"
+    },
+    {
+      "name": "Завтрак с авокадо и яйцом пашот.",
+      "price": 480,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/735a6c395b97e45ca4ad82498d61f0c5407d1b1b-1600x1200.jpg"
+    },
+    {
+      "name": "Завтрак с форелью, крем-чиз и яйцом пашот.",
+      "price": 690,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/a27bf34d067c9f869bc9042f4b52a255b01e2794-1600x1200.jpg"
+    },
+    {
+      "name": "Капучино 220 мл на альтернативном.",
+      "price": 370,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/3e4830c9c3edc810f41bc725d149d0c50c79ace3-1600x1200.jpg"
+    },
+    {
+      "name": "Норвежский завтрак с форелью и авокадо.",
+      "price": 760,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/1bd98f9b5f259e48a2f9c5304a628eb6eca7e382-1600x1200.jpg"
+    },
+    {
+      "name": "Капучино 220 мл.",
+      "price": 290,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/3e4830c9c3edc810f41bc725d149d0c50c79ace3-1600x1200.jpg"
+    },
+    {
+      "name": "Капучино 360 мл на альтернативном.",
+      "price": 430,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/3e4830c9c3edc810f41bc725d149d0c50c79ace3-1600x1200.jpg"
+    },
+    {
+      "name": "Овсяная каша с бананом и шоколадом на альтернативном.",
+      "price": 430,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/e975db4f4af2c71185b2f044bad53e2097f85624-1600x1200.jpg"
+    },
+    {
+      "name": "Овсяная каша с бананом и шоколадом.",
+      "price": 350,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/e975db4f4af2c71185b2f044bad53e2097f85624-1600x1200.jpg"
+    },
+    {
+      "name": "Капучино 360 мл.",
+      "price": 350,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/3e4830c9c3edc810f41bc725d149d0c50c79ace3-1600x1200.jpg"
+    },
+    {
+      "name": "Овсяная каша с брусникой и яблоком на альтернативном.",
+      "price": 440,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/b3458f263045b3850d58eae8a10ce35395181624-1600x1200.jpg"
+    },
+    {
+      "name": "Овсяная каша с брусникой и яблоком.",
+      "price": 360,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/b3458f263045b3850d58eae8a10ce35395181624-1600x1200.jpg"
+    },
+    {
+      "name": "Американо 320 мл.",
+      "price": 280,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/21340a63e9c82676bfa9c7ab6da1c035fe72cafb-1600x1200.jpg"
+    },
+    {
+      "name": "Омлет с ветчиной и сыром.",
+      "price": 520,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/c6ca80126d5f5d95499017eab4429540b8d7514c-1600x1200.jpg"
+    },
+    {
+      "name": "Скрембл с куриным филе.",
+      "price": 490,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/aa1b6d8a665152c7a9aea1dcf3ca9f8bb596c325-1600x1200.jpg"
+    },
+    {
+      "name": "Горячий Бамбл.",
+      "price": 390,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/05ee123a904ceca9cef54598ab6a7eb6064dbb60-1600x1200.png"
+    },
+    {
+      "name": "Американо.",
+      "price": 220,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/b2a11d7bdc8c9cca1d627fba1d25ec584286c2d1-1600x1200.jpg"
+    },
+    {
+      "name": "Сок Иль примо Яблочный СТЕКЛО 0,2 л.",
+      "price": 260,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/28ac1bf7c5b682b6c04de80d865d2656ce3dc3bf-1500x1125.jpg"
+    },
+    {
+      "name": "Сок Иль примо Апельсиновый СТЕКЛО 0,2 л.",
+      "price": 260,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/29f02c50688c3c234862998b34cd40703fe656c3-1500x1125.jpg"
+    },
+    {
+      "name": "Абрау Дюрсо вино б/а белое полусладкое ж/б 250 мл.",
+      "price": 350,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/c05324d0e47c272be000b9f7ad44ae1602e708d1-1600x1200.jpg"
+    },
+    {
+      "name": "Абрау Дюрсо вино б/а розовое ж/б 250 мл.",
+      "price": 350,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/96909b9f8e06562cd80360c519fe664c3c88b152-1600x1200.jpg"
+    },
+    {
+      "name": "Лимонад Добрый Апельсин Ж/Б 330 мл.",
+      "price": 250,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/4ca9211d3108f8f1cd569b6d4987c1337657ae82-1600x1200.jpg"
+    },
+    {
+      "name": "Лимонад Добрый Кола Ж/Б 330 мл.",
+      "price": 250,
+      "image": "https://content.cdn.starterapp.ru/images/vaffel/95105d38c56009edf6138e64de173a44e36f1411-1600x1200.jpg"
+    },
+    {
+      "name": "Приятель",
+      "price": 7,
+      "image": null
+    },
+    {
+      "name": "Друг",
+      "price": 10,
+      "image": null
+    },
+    {
+      "name": "Часть семьи",
+      "price": 15,
+      "image": null
+    }
+  ]
+}

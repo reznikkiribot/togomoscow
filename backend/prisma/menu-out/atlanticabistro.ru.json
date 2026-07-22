@@ -1,0 +1,340 @@
+{
+  "domain": "atlanticabistro.ru",
+  "method": "playwright-xhr",
+  "status": "ok",
+  "source": "https://46078.smartomato.ru/basket/payload.json",
+  "count": 66,
+  "withPhoto": 64,
+  "items": [
+    {
+      "name": "Два тарта с лангустинами, томатами и гелем лайма и юдзу",
+      "price": 450,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351569/9fb525e9695b02aebea33749ef0f4306.WEBP"
+    },
+    {
+      "name": "Индонезийский осьминог 100гр.",
+      "price": 650,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351542/1380a58c75f81686ebf63797f8ff8029.JPEG"
+    },
+    {
+      "name": "Ассорти креветок 550гр.",
+      "price": 1990,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351559/1a35978336ab1ebcb09f01a9ee7e84a5.WEBP"
+    },
+    {
+      "name": "Морской Еж",
+      "price": 350,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351550/97fc80043ef57584c1746820ea28b39e.WEBP"
+    },
+    {
+      "name": "Карпаччо из трех спелых томатов с анчоусами и каперсами",
+      "price": 590,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351574/674aaaf69badd1ba52506892be6e9e2c.WEBP"
+    },
+    {
+      "name": "Бриошь с атлантическими мидиями и овощным ремуладом",
+      "price": 550,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351585/8e799c794ab385ac3552592033f1489f.WEBP"
+    },
+    {
+      "name": "Зеленый салат с авокадо, кенийской фасолью, огурцом и семенами микс",
+      "price": 690,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351567/23ab3ec01f8c7daf5ee7af9148953ebc.WEBP"
+    },
+    {
+      "name": "Сливочный с комбу, угрем, треской и икрой",
+      "price": 670,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351551/453218c45d2f7138f89783e6bab3a712.JPEG"
+    },
+    {
+      "name": "Мини кальмары Лолиго, фаршированые креветками и тайским соусом",
+      "price": 720,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351581/1b6b9979c4c1ed2709b1f6b8576b7908.WEBP"
+    },
+    {
+      "name": "Голубец с креветкой и форелью, отвесной сметаной и щучьей икрой",
+      "price": 820,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351598/890f3553833dd643e198a399f4571ff7.WEBP"
+    },
+    {
+      "name": "Лепешка картофельная на кефире",
+      "price": 190,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351596/f2e6aa342e8cd4b0cef8a5734791d898.WEBP"
+    },
+    {
+      "name": "1 л  Смородина мята",
+      "price": 850,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351597/da8931a4befcb82a946d42adffc1e481.WEBP"
+    },
+    {
+      "name": "Морс клюквенный 1л",
+      "price": 1000,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351606/cd3ef8c66f74960b50a8db30f2cd03cb.WEBP"
+    },
+    {
+      "name": "Лингвини с лисичками и трюфелем",
+      "price": 690,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351588/9ed3ffd3ac146e99b27c165b504e0878.WEBP"
+    },
+    {
+      "name": "Сахалинский гребешок с кровяной колбасой и соусом Понзу",
+      "price": 490,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351541/106da032dd58ba4c08847095332e4be0.JPEG"
+    },
+    {
+      "name": "Креветки магаданские на льду 200гр.",
+      "price": 790,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351544/74d3c4f1abdeda62fdc4737b767e4a21.JPEG"
+    },
+    {
+      "name": "Плато сашими с тунцом, гребешком, форелью, сибасом и лангустином",
+      "price": 1490,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351546/7212f5bd1a20901f0e2dab71f2ae10b4.JPEG"
+    },
+    {
+      "name": "Устрица Золотой Дракон",
+      "price": 470,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351553/bdeb3d262fb22362c83c0b24249b0511.WEBP"
+    },
+    {
+      "name": "Запеченные гребешки на створке с трюфелем и молодым шпинатом",
+      "price": 590,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351595/7ae1788696a396b545f0cecc10777202.WEBP"
+    },
+    {
+      "name": "Мини осьминоги, креветки, кальмары, мидии с фенхелем и грейпфрутом",
+      "price": 870,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351572/22e80594cd176107e86bfadefa29e1c5.WEBP"
+    },
+    {
+      "name": "Рамен с угрем, лапшой удон и яйцом",
+      "price": 770,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351571/f75693c70113bfe4987182253142d4b3.WEBP"
+    },
+    {
+      "name": "Тихоокеанские креветки в соусе чили с кокосом",
+      "price": 670,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351576/796e3d84935b3dde263d356f82049144.WEBP"
+    },
+    {
+      "name": "Равиоли с горгонзолой и печеным картофелем",
+      "price": 650,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351601/8cfddcae95f9a16d74b562f4ba3594cc.WEBP"
+    },
+    {
+      "name": "Лепешка ржаная с кориандром",
+      "price": 190,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351589/304ed2b03813cb08bb69234bcc507bff.WEBP"
+    },
+    {
+      "name": "Не \"Павлова\" с малиной",
+      "price": 890,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351602/a8e07c9ab22c444762b355aa74870155.WEBP"
+    },
+    {
+      "name": "1 л  Ревень персик",
+      "price": 850,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351594/f9f0444261ff57c84f9d92e10f7e93b5.WEBP"
+    },
+    {
+      "name": "Морс облепиха 1 л",
+      "price": 1000,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351607/1a8afcb231c5123cdae3b98f4dd7fe5d.WEBP"
+    },
+    {
+      "name": "Брускетта с лисичками и баклажановым муссом",
+      "price": 590,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351568/a76be5d7ab5888b88ec47ba73f87f12a.WEBP"
+    },
+    {
+      "name": "Палтус с лисичками, зеленым горошком и щучьей икрой",
+      "price": 990,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351580/349dbab1c83241cbeb1c0abccd873a4e.WEBP"
+    },
+    {
+      "name": "Курильский гребешок на гриле 150гр.",
+      "price": 890,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351545/6b6a217cf820a9bb2dc4cdd48b50bdfe.JPEG"
+    },
+    {
+      "name": "Плато на гриле HOT 700 г.",
+      "price": 2550,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351549/e3d627da3dce281b40e867af12b642d0.WEBP"
+    },
+    {
+      "name": "Устрица Фин де Клер",
+      "price": 490,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351557/bdeb3d262fb22362c83c0b24249b0511.WEBP"
+    },
+    {
+      "name": "Татаки из тунца с кунжутной заправкой",
+      "price": 750,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351558/3a429b6f0a6c678dac0ab2fce4dff793.WEBP"
+    },
+    {
+      "name": "Нисуаз с тунцом холодного копчения и медово-горчичной заправкой",
+      "price": 990,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351577/9a0c9725383768aae4002be735038e1e.WEBP"
+    },
+    {
+      "name": "Том Ям с морпродуктами и рисовой лапшой",
+      "price": 790,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351554/98eb3502b3f486464f42b6594e889a80.JPEG"
+    },
+    {
+      "name": "Аргентинские красные лангустины на гриле",
+      "price": 680,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351578/2ca49796046fdca09e1441c7e4187bfe.WEBP"
+    },
+    {
+      "name": "Филе Сибаса с артишоками и зеленым сливочным маслом",
+      "price": 990,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351583/b966c9d4c61bd4b93b9a49fcc08f027a.WEBP"
+    },
+    {
+      "name": "Казаречче с креветками в соусе из печеного перца",
+      "price": 890,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351563/f060e27ab9caa220d91afef484f16e7f.JPEG"
+    },
+    {
+      "name": "1 л  Груша Фейхоа",
+      "price": 850,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351600/dd80b7466c4fe1b2b8acd6f7f76ac0ae.WEBP"
+    },
+    {
+      "name": "Большая лепешка с лисичками и трюфельным кремом",
+      "price": 690,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351586/2f367316b4744a095d584af22f66c41c.WEBP"
+    },
+    {
+      "name": "Клешня Камчатского краба размер L 200 гр.",
+      "price": 1290,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351543/81b554380c19088c7e3467cf85de9c6c.JPEG"
+    },
+    {
+      "name": "Плато на льду RAW 650г.",
+      "price": 2750,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351547/e94f07795a93094b8e2044c8dd755ccf.JPEG"
+    },
+    {
+      "name": "Устрица розовая Джоли",
+      "price": 490,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351552/bdeb3d262fb22362c83c0b24249b0511.WEBP"
+    },
+    {
+      "name": "Севиче из сибаса, тунца и форели с соусом из кумквата",
+      "price": 590,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351548/ef014e51030361df8cd8c1aef1a52b15.JPEG"
+    },
+    {
+      "name": "Боул с тунцом, форелью, авокадо, водорослями вакаме, овощами и рисом",
+      "price": 990,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351555/d6869e83e456c624ab10d698b76fa2d7.JPEG"
+    },
+    {
+      "name": "Кебаб из креветок, осьминога и краба с булгуром и мусса из пармезана",
+      "price": 990,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351560/8d102d454dc58e52736b3c544be3a8d0.JPEG"
+    },
+    {
+      "name": "Филе Чилийского лосося с шпинатом и картофелем нуазет",
+      "price": 1250,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351561/9d41dcb36672a3f4672f56e15657050a.JPEG"
+    },
+    {
+      "name": "Орекьетте со сморчками и сыром страчателла",
+      "price": 850,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351605/66e1f20eb212ddf7045b672265f0491e.WEBP"
+    },
+    {
+      "name": "Большая лепешка на закваске с креветками и тайским соусом",
+      "price": 690,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351570/d7c5e9589f05552f768ef31f637dcedd.JPEG"
+    },
+    {
+      "name": "1 л Дыня Каламанси",
+      "price": 850,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351603/cbffc3a55854178cb7632faf2c8ec4bc.WEBP"
+    },
+    {
+      "name": "Атлантика дабл на компанию 1,5 кг",
+      "price": 4750,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351590/25c94cb170eaddc3ce7c9b85a2a08769.WEBP"
+    },
+    {
+      "name": "Устрица Муроцу",
+      "price": 540,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351556/bdeb3d262fb22362c83c0b24249b0511.WEBP"
+    },
+    {
+      "name": "Тартар из форели с авокадо вакаме  и соусом вафу",
+      "price": 690,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351565/fc606f62254d0f2890ef55efe92982a9.WEBP"
+    },
+    {
+      "name": "Индонезийский Осьминог запеченый с томатом",
+      "price": 1290,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351579/5e22fa437484a7d71798a74bc3fca162.WEBP"
+    },
+    {
+      "name": "Лингвинни с мини-осьминогами, креветками, кальмарами, вонголе и мидиям",
+      "price": 1190,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351587/27cdd25061f8ba8788825eaad04a7ef8.WEBP"
+    },
+    {
+      "name": "Большая лепешка с сыром и томлеными телячьми щеками",
+      "price": 690,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351582/71ccac793aee0672d0f4920b7278e522.WEBP"
+    },
+    {
+      "name": "1 л  Юдзу с Малиной",
+      "price": 850,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351604/8c514f0b2534adcec7c58e6c99b8f04f.WEBP"
+    },
+    {
+      "name": "Мурманский гребешок на створке",
+      "price": 570,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351562/3f2c6d2dbd3bcb209b72c87c2e7a23d6.WEBP"
+    },
+    {
+      "name": "Дог с раковыми шейками, икрой палтуса, пастой из авокадо и мар.огурчик",
+      "price": 850,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351566/03b31eee71c817e69ae88231b9c3e6ae.WEBP"
+    },
+    {
+      "name": "Кулак камчатского краба с креветкой и пеной из пармезана",
+      "price": 1250,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351592/25aabf52cbef7a4ed9abf30424c497a4.WEBP"
+    },
+    {
+      "name": "Большая лепешка на закваске с Чилийским лососем",
+      "price": 790,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351599/c4279e78dc568b453ff0e88e95660748.WEBP"
+    },
+    {
+      "name": "Угорь-дог с трюфельным крем-чизом  и «сеном» из порея",
+      "price": 850,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351575/6d29be5f17914eebddbe1e3d68bac385.WEBP"
+    },
+    {
+      "name": "Краб Дог",
+      "price": 990,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351564/6a78bf21b518a38ec2caf6a12467c591.WEBP"
+    },
+    {
+      "name": "Краб Дог с черной икрой",
+      "price": 1290,
+      "image": "https://cdn.smt.bz/uploads/media/photo/8351573/c70d607083a4a674d87bf909b100d28e.WEBP"
+    },
+    {
+      "name": "Зона 1",
+      "price": 890,
+      "image": null
+    },
+    {
+      "name": "Зона 2",
+      "price": 1390,
+      "image": null
+    }
+  ]
+}

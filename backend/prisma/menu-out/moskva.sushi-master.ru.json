@@ -1,0 +1,145 @@
+{
+  "domain": "moskva.sushi-master.ru",
+  "method": "__NEXT_DATA__",
+  "status": "ok",
+  "source": "/",
+  "count": 27,
+  "withPhoto": 27,
+  "items": [
+    {
+      "name": "Сет Хочу на море",
+      "price": 1695,
+      "image": "https://firebasestorage.googleapis.com/v0/b/aypiservis.firebasestorage.app/o/sm-ru%2Fproducts%2F0001f-set-hochu-na-more.png?alt=media&token=6297f68c-ff84-478b-88ee-54f1f4b896c8"
+    },
+    {
+      "name": "Сет Народный",
+      "price": 2099,
+      "image": "https://firebasestorage.googleapis.com/v0/b/aypiservis.firebasestorage.app/o/sm-ru%2Fproducts%2F0001f-set-narodnyj.png?alt=media&token=0e59e3d3-706f-40c2-8839-855e4326d97d"
+    },
+    {
+      "name": "Сет Шашлык без мангала",
+      "price": 1995,
+      "image": "https://firebasestorage.googleapis.com/v0/b/aypiservis.firebasestorage.app/o/sm-ru%2Fproducts%2F0001f-set-shashlyk-bez-mangala.png?alt=media&token=19c52182-0b8d-4380-b14e-18204d39bfb6"
+    },
+    {
+      "name": "Сет Летний вайб",
+      "price": 2059,
+      "image": "https://firebasestorage.googleapis.com/v0/b/aypiservis.firebasestorage.app/o/sm-ru%2Fproducts%2F0001f-set-letnij-vajb.jpg?alt=media&token=d774a81e-f781-48dd-a613-1462a479de79"
+    },
+    {
+      "name": "Сет Отпуск на вкус",
+      "price": 2359,
+      "image": "https://firebasestorage.googleapis.com/v0/b/aypiservis.firebasestorage.app/o/sm-ru%2Fproducts%2F0001f-set-otpusk-na-vkus.jpg?alt=media&token=66113bf4-907d-4719-90e8-0c3b1f46db19"
+    },
+    {
+      "name": "Сет Любовь с первого ролла",
+      "price": 2129,
+      "image": "https://firebasestorage.googleapis.com/v0/b/aypiservis.firebasestorage.app/o/sm-ru%2Fproducts%2F0001f-set-lyubov-s-pervogo-rolla.jpg?alt=media&token=3e1b019a-5e31-450a-ad81-b4366e3cb569"
+    },
+    {
+      "name": "Сет Шик любви",
+      "price": 2909,
+      "image": "https://firebasestorage.googleapis.com/v0/b/aypiservis.firebasestorage.app/o/sm-ru%2Fproducts%2F0001f-set-shik-lyubvi.jpg?alt=media&token=28b47393-5b64-45a5-aa9e-3487e3534950"
+    },
+    {
+      "name": "Трайфл с лососем",
+      "price": 479,
+      "image": "https://firebasestorage.googleapis.com/v0/b/aypiservis.firebasestorage.app/o/sm-ru%2Fproducts%2F0001f-trajfl-s-lososem.jpg?alt=media&token=e9e7c49a-2da9-427c-98d1-c558a2e29e19"
+    },
+    {
+      "name": "Трайфл с креветкой",
+      "price": 369,
+      "image": "https://firebasestorage.googleapis.com/v0/b/aypiservis.firebasestorage.app/o/sm-ru%2Fproducts%2F0001f-trajfl-s-krevetkoj.jpg?alt=media&token=c331646e-dbf1-475c-8a22-cf7467025e64"
+    },
+    {
+      "name": "Ролл Зелёный вайб запеченный",
+      "price": 349,
+      "image": "https://firebasestorage.googleapis.com/v0/b/aypiservis.firebasestorage.app/o/sm-ru%2Fproducts%2F0001f-roll-zelyonyj-vajb-zapechennyj.jpg?alt=media&token=4beae6d9-32e4-496a-a0b2-5009af969066"
+    },
+    {
+      "name": "Ролл Другой уровень темпура",
+      "price": 349,
+      "image": "https://firebasestorage.googleapis.com/v0/b/aypiservis.firebasestorage.app/o/sm-ru%2Fproducts%2F0001f-roll-drugoj-uroven-tempura.jpg?alt=media&token=a104a017-a13f-4fc9-991e-2898aff13157"
+    },
+    {
+      "name": "Ролл Том ям краб запеченный",
+      "price": 419,
+      "image": "https://firebasestorage.googleapis.com/v0/b/aypiservis.firebasestorage.app/o/sm-ru%2Fproducts%2F0001f-roll-tom-yam-krab-zapechennyj.jpg?alt=media&token=207ce801-2558-4fef-8711-5971d1bfddf2"
+    },
+    {
+      "name": "Ролл Огненная креветка",
+      "price": 469,
+      "image": "https://firebasestorage.googleapis.com/v0/b/aypiservis.firebasestorage.app/o/sm-ru%2Fproducts%2F0001f-roll-ognennaya-krevetka.jpg?alt=media&token=46afceb1-a294-45e1-9ec2-3a25dcd6e943"
+    },
+    {
+      "name": "Онигири с креветкой",
+      "price": 319,
+      "image": "https://firebasestorage.googleapis.com/v0/b/aypiservis.firebasestorage.app/o/sm-ru%2Fproducts%2F0001f-onigiri-s-krevetkoj.jpg?alt=media&token=a9ed63ff-34b2-40cc-ba85-db052a0cc716"
+    },
+    {
+      "name": "Онигири темпура с лососем терияки",
+      "price": 329,
+      "image": "https://firebasestorage.googleapis.com/v0/b/aypiservis.firebasestorage.app/o/sm-ru%2Fproducts%2F0001f-onigiri-tempura-s-lososem-teriyaki.png?alt=media&token=ad909824-d519-49bb-9d30-67e0412aff3d"
+    },
+    {
+      "name": "Суши-пицца с лососем",
+      "price": 489,
+      "image": "https://firebasestorage.googleapis.com/v0/b/aypiservis.firebasestorage.app/o/sm-ru%2Fproducts%2F0001f-sushi-pitstsa-s-lososem.png?alt=media&token=7cb7e80f-b0d2-4064-b93f-621df1fe608d"
+    },
+    {
+      "name": "Креветки панко 6шт",
+      "price": 679,
+      "image": "https://firebasestorage.googleapis.com/v0/b/aypiservis.firebasestorage.app/o/sm-ru%2Fproducts%2F0001f-krevetki-panko-6.jpg?alt=media&token=43ffa7cb-4ada-436d-9eed-9ae6ba60ac5f"
+    },
+    {
+      "name": "Салат Цезарь с курицей",
+      "price": 389,
+      "image": "https://firebasestorage.googleapis.com/v0/b/aypiservis.firebasestorage.app/o/sm-ru%2Fproducts%2F0001f-salat-cezar-s-kuricey.png?alt=media&token=d42eb373-847c-436e-abaa-dbdd4a3ec144"
+    },
+    {
+      "name": "Суп Том Ям Рамен",
+      "price": 499,
+      "image": "https://firebasestorage.googleapis.com/v0/b/aypiservis.firebasestorage.app/o/sm-ru%2Fproducts%2F0001f-sup-tom-yam-ramen.jpg?alt=media&token=4e67abe6-881b-4673-8448-b77cb3b0cf07"
+    },
+    {
+      "name": "Суп Том Ям классический",
+      "price": 599,
+      "image": "https://firebasestorage.googleapis.com/v0/b/aypiservis.firebasestorage.app/o/sm-ru%2Fproducts%2F0001f-sup_tom-yam-klassicheskij.jpg?alt=media&token=20afc221-14a7-4f4e-8c4b-0c96d609bb8b"
+    },
+    {
+      "name": "Вок ТРИО",
+      "price": 549,
+      "image": "https://firebasestorage.googleapis.com/v0/b/aypiservis.firebasestorage.app/o/sm-ru%2Fproducts%2F0001f-vok--trio.jpg?alt=media&token=ece15013-402c-41a4-be89-ff70bba130c9"
+    },
+    {
+      "name": "Кесадилья с курицей",
+      "price": 309,
+      "image": "https://firebasestorage.googleapis.com/v0/b/aypiservis.firebasestorage.app/o/sm-ru%2Fproducts%2F0001f-kesadilya_s_kuritsey.png?alt=media&token=7f7c1151-53a3-46e5-a255-78c1c792d298"
+    },
+    {
+      "name": "Наггетсы куриные",
+      "price": 209,
+      "image": "https://firebasestorage.googleapis.com/v0/b/aypiservis.firebasestorage.app/o/sm-ru%2Fproducts%2F0001f-naggetsy-kurinye.png?alt=media&token=c7a71a87-b744-4e9f-a154-05e0daf8ce21"
+    },
+    {
+      "name": "Чизкейк фисташка",
+      "price": 419,
+      "image": "https://firebasestorage.googleapis.com/v0/b/aypiservis.firebasestorage.app/o/sm-ru%2Fproducts%2F0001f-chizkejk-fistashka.jpg?alt=media&token=d1c20634-f2d1-4933-b615-78696ffbfd8d"
+    },
+    {
+      "name": "Чизкейк манго-маракуйя",
+      "price": 419,
+      "image": "https://firebasestorage.googleapis.com/v0/b/aypiservis.firebasestorage.app/o/sm-ru%2Fproducts%2F0001f-chizkejk-mango-marakujya.jpg?alt=media&token=e4fa9fba-3959-43bc-b6ae-fbb133e48dff"
+    },
+    {
+      "name": "Мураши классика",
+      "price": 369,
+      "image": "https://firebasestorage.googleapis.com/v0/b/aypiservis.firebasestorage.app/o/sm-ru%2Fproducts%2F0001f-murashi-klassika.jpg?alt=media&token=034601b9-07ec-45ad-b58c-4611cc4c7e1e"
+    },
+    {
+      "name": "Мураши грецкий орех",
+      "price": 389,
+      "image": "https://firebasestorage.googleapis.com/v0/b/aypiservis.firebasestorage.app/o/sm-ru%2Fproducts%2F0001f-murashi-greckij-orekh.jpg?alt=media&token=4df28d17-0edc-4d17-bf3f-ce14d3635efa"
+    }
+  ]
+}

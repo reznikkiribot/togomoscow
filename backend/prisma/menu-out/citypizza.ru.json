@@ -1,0 +1,145 @@
+{
+  "domain": "citypizza.ru",
+  "method": "playwright-xhr",
+  "status": "ok",
+  "source": "https://citypizza.ru/gql",
+  "count": 27,
+  "withPhoto": 0,
+  "items": [
+    {
+      "name": "Пицца Пепперони 30 см",
+      "price": 819,
+      "image": null
+    },
+    {
+      "name": "Пицца 4 сезона 30 см",
+      "price": 885,
+      "image": null
+    },
+    {
+      "name": "Пицца Мясной пир 40 см",
+      "price": 1339,
+      "image": null
+    },
+    {
+      "name": "Пицца Гавайская 40 см",
+      "price": 1005,
+      "image": null
+    },
+    {
+      "name": "Пицца с тигровыми креветками 40 см",
+      "price": 1569,
+      "image": null
+    },
+    {
+      "name": "Пицца Ранч 40 см",
+      "price": 1245,
+      "image": null
+    },
+    {
+      "name": "Пицца Супер Барбекю 40 см",
+      "price": 1185,
+      "image": null
+    },
+    {
+      "name": "Пицца \"6 сыров\" 30 см",
+      "price": 985,
+      "image": null
+    },
+    {
+      "name": "Пицца \"4 сыра\" 30 см",
+      "price": 875,
+      "image": null
+    },
+    {
+      "name": "Пицца-ролл ветчина и сыр",
+      "price": 279,
+      "image": null
+    },
+    {
+      "name": "Мини-хот-доги 5 шт.",
+      "price": 325,
+      "image": null
+    },
+    {
+      "name": "Чизкейк \"Нью-Йорк\"",
+      "price": 240,
+      "image": null
+    },
+    {
+      "name": "Картофель по-деревенски",
+      "price": 255,
+      "image": null
+    },
+    {
+      "name": "Куриные наггетсы 6 шт с кетчупом 1 шт",
+      "price": 269,
+      "image": null
+    },
+    {
+      "name": "Ассорти \"Ситипицца\" №1",
+      "price": 1165,
+      "image": null
+    },
+    {
+      "name": "Ассорти \"Ситипицца\" №2",
+      "price": 1609,
+      "image": null
+    },
+    {
+      "name": "Комбо Оазис",
+      "price": 1245,
+      "image": null
+    },
+    {
+      "name": "Комбо Отличник",
+      "price": 1955,
+      "image": null
+    },
+    {
+      "name": "Кругосветное комбо",
+      "price": 4365,
+      "image": null
+    },
+    {
+      "name": "Комбо Римские каникулы",
+      "price": 5565,
+      "image": null
+    },
+    {
+      "name": "Ролл мексиканский",
+      "price": 289,
+      "image": null
+    },
+    {
+      "name": "Ролл пепперони 3 мяса",
+      "price": 309,
+      "image": null
+    },
+    {
+      "name": "Ролл ветчина и сыр",
+      "price": 289,
+      "image": null
+    },
+    {
+      "name": "Салат цезарь с курицей",
+      "price": 415,
+      "image": null
+    },
+    {
+      "name": "Пицца Супер Пепперони 30 см",
+      "price": 819,
+      "image": null
+    },
+    {
+      "name": "Пицца Чизбургер 30 см",
+      "price": 935,
+      "image": null
+    },
+    {
+      "name": "Пицца Домашняя 30 см",
+      "price": 725,
+      "image": null
+    }
+  ]
+}

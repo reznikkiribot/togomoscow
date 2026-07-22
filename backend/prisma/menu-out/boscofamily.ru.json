@@ -1,0 +1,80 @@
+{
+  "domain": "boscofamily.ru",
+  "method": "playwright-xhr",
+  "status": "ok",
+  "source": "https://api.mindbox.ru/v3/js/operations/sync",
+  "count": 14,
+  "withPhoto": 14,
+  "items": [
+    {
+      "name": "Кольца Nanis Кольцо из желтого золота с бриллиантами тонкие из золота ",
+      "price": 1370,
+      "image": "https://cdn1.bosco.ru/upload/iblock/908/9085174e85b0ea6ed4e4a00e6b558fb0_676_900.jpg"
+    },
+    {
+      "name": "Серьги Nanis Серьги из золота с бриллиантами из золота женщины",
+      "price": 865,
+      "image": "https://cdn1.bosco.ru/upload/iblock/ca2/ca2042f4b841ddbab5019b7c0c429399_676_900.jpg"
+    },
+    {
+      "name": "Серьги Gellner Серьги с жемчугом и бриллиантами с жемчугом из золота ж",
+      "price": 4450,
+      "image": "https://cdn1.bosco.ru/upload/iblock/a91/a91d3bd92debf45e56c5f3c47b324dc4_676_900.jpg"
+    },
+    {
+      "name": "Подвески Coscia Подвеска на цепочке с жемчугом Классика с жемчугом жен",
+      "price": 941,
+      "image": "https://cdn1.bosco.ru/upload/iblock/e14/e1493f79644fb956513ce02f9c15b400_676_900.jpg"
+    },
+    {
+      "name": "Серьги Pomellato Серьги с топазом Классика с камнями из золота женщины",
+      "price": 5723,
+      "image": "https://cdn1.bosco.ru/upload/iblock/285/2856f80eb4953fd6b9b6e8668edf6e2f_676_900.jpg"
+    },
+    {
+      "name": "Серьги Pomellato Серьги c топазами Классика с камнями из золота женщин",
+      "price": 8078,
+      "image": "https://cdn1.bosco.ru/upload/iblock/42a/42a2503ffef1d234d9ba06a4381d4ccb_676_900.jpg"
+    },
+    {
+      "name": "Ремешки Cartier Ремешок для часов кожаный женщины",
+      "price": 74,
+      "image": "https://cdn1.bosco.ru/upload/iblock/02a/02a4628e0189239e3643f34e6815eeec_676_900.jpg"
+    },
+    {
+      "name": "Кольца Nanis Кольцо из желтого золота широкие с бриллиантами из золота",
+      "price": 2381,
+      "image": "https://cdn1.bosco.ru/upload/iblock/96b/96b3573b45faaa36e03f132ca41aadcc_676_900.jpg"
+    },
+    {
+      "name": "Серьги Style Avenue Серьги серебро с камнями женщины",
+      "price": 335,
+      "image": "https://cdn1.bosco.ru/upload/iblock/569/56906ba4168570053ea604c894548a24_676_900.jpg"
+    },
+    {
+      "name": "Кольца Pomellato Кольцо из белого и желтого золота тонкие из золота же",
+      "price": 1713,
+      "image": "https://cdn1.bosco.ru/upload/iblock/756/756c1809fe27a66af7b7ee8df43f869a_676_900.jpg"
+    },
+    {
+      "name": "Кольца Pomellato Кольцо с топазами с камнями тонкие из золота женщины",
+      "price": 6116,
+      "image": "https://cdn1.bosco.ru/upload/iblock/df2/df2cff70e26108034af69d187cac70b4_676_900.jpg"
+    },
+    {
+      "name": "Браслеты Pianegonda Браслет Минимализм серебро женщины",
+      "price": 395,
+      "image": "https://cdn1.bosco.ru/upload/iblock/577/577d11ef6cc59bae149ac1199ac8274c_676_900.jpg"
+    },
+    {
+      "name": "Серьги Nanis Серьги из золота Вечерний длинные с бриллиантами из золот",
+      "price": 2674,
+      "image": "https://cdn1.bosco.ru/upload/iblock/a09/a09d2173b6242a2cc17497a61e18e7b5_676_900.jpg"
+    },
+    {
+      "name": "Кольца Pomellato Кольцо из золота с халцедонами с камнями из золота же",
+      "price": 8329,
+      "image": "https://cdn1.bosco.ru/upload/iblock/4d0/4d0e7dc76f4533805622debdba49a176_676_900.jpg"
+    }
+  ]
+}

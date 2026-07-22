@@ -1,0 +1,60 @@
+{
+  "domain": "bruno.lucky-group.rest",
+  "method": "pdf",
+  "status": "ok",
+  "source": "https://bruno.rest/images/menu-2026/15-07-2026/Bruno%20SPECIAL%20175x240_14_07_26.pdf",
+  "count": 10,
+  "withPhoto": 0,
+  "items": [
+    {
+      "name": "Испанские перцы Падрон, айоли лайм",
+      "price": 1800,
+      "image": null
+    },
+    {
+      "name": "Артишоки гриль, мята, пармезан",
+      "price": 4200,
+      "image": null
+    },
+    {
+      "name": "Карпаччо из артишоков, рукола, боттарга",
+      "price": 4200,
+      "image": null
+    },
+    {
+      "name": "- красные креветки карабинеро",
+      "price": 2600,
+      "image": null
+    },
+    {
+      "name": "- хамон 5J Cinco Jotas",
+      "price": 2800,
+      "image": null
+    },
+    {
+      "name": "Суфле жимолость",
+      "price": 1300,
+      "image": null
+    },
+    {
+      "name": "Павлова, ревень, малина, черная смородина",
+      "price": 1400,
+      "image": null
+    },
+    {
+      "name": "Cherry Brandy 30ml",
+      "price": 1000,
+      "image": null
+    },
+    {
+      "name": "Ром Takamaka, порто, малиновый кули, мусковадо, лайм",
+      "price": 1200,
+      "image": null
+    },
+    {
+      "name": "Эспрессо-орчата",
+      "price": 750,
+      "image": null
+    }
+  ]
+}

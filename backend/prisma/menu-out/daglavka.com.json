@@ -1,0 +1,745 @@
+{
+  "domain": "daglavka.com",
+  "method": "__NEXT_DATA__",
+  "status": "ok",
+  "source": "/",
+  "count": 147,
+  "withPhoto": 116,
+  "items": [
+    {
+      "name": "- ЧАЙ ТАЙНА ДОЛГОЛЕТИЯ",
+      "price": 520,
+      "image": null
+    },
+    {
+      "name": "- ЧАЙ ХОЧБАР",
+      "price": 520,
+      "image": null
+    },
+    {
+      "name": "- ЧАЙ ЛЕГЕНДА ШАМИЛЬСКИХ ГОР",
+      "price": 520,
+      "image": null
+    },
+    {
+      "name": "- ЧАЙ СОКРОВИЩА ТИДИБА",
+      "price": 520,
+      "image": null
+    },
+    {
+      "name": "- ЧАЙ ПОРТ-ПЕТРОВСК",
+      "price": 520,
+      "image": null
+    },
+    {
+      "name": "- ЧАЙ ГИДАТЛИНСКАЯ  ДОЛИНА",
+      "price": 520,
+      "image": null
+    },
+    {
+      "name": "Сушеное мясо",
+      "price": 850,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/2494f9950f30346765eb6a65d79e9020a0ed4fe8-1254x1254.png"
+    },
+    {
+      "name": "Кинза лимонад",
+      "price": 250,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/7efee834e86fbfde3b9d8a704630ad986e34bf89-4500x3000.jpg"
+    },
+    {
+      "name": "Большой  набор Чуду",
+      "price": 3060,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/680234f80a81fd057bbb7615e451ef77f8b417dd-4500x3000.jpg"
+    },
+    {
+      "name": "Томатный соус с чесноком",
+      "price": 70,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/9eb44eef4d87f6ec50862e6ee5571b62e5451b13-4000x4000.jpg"
+    },
+    {
+      "name": "Сметанно-чесночный",
+      "price": 70,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/e3238fc5dc11a253a1eb342f4f09ec82054572f5-4000x4000.jpg"
+    },
+    {
+      "name": "Сметанный",
+      "price": 70,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/e3238fc5dc11a253a1eb342f4f09ec82054572f5-4000x4000.jpg"
+    },
+    {
+      "name": "Курзе с говядиной",
+      "price": 460,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/82e5f637e9a3b4655a976da13946e68fc88cb8ef-4000x4000.jpg"
+    },
+    {
+      "name": "курзе с говядиной (3шт.) дополнительно",
+      "price": 80,
+      "image": null
+    },
+    {
+      "name": "курзе с говядиной (6шт) дополнительно",
+      "price": 170,
+      "image": null
+    },
+    {
+      "name": "Томатный с чесноком",
+      "price": 70,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/9eb44eef4d87f6ec50862e6ee5571b62e5451b13-4000x4000.jpg"
+    },
+    {
+      "name": "сметанный",
+      "price": 70,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/e3238fc5dc11a253a1eb342f4f09ec82054572f5-4000x4000.jpg"
+    },
+    {
+      "name": "Пирог с курагой и черносливом(целый)",
+      "price": 2590,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/0db64db46431a139f36ba5aca6febeb21cf85b24-4000x4000.jpg"
+    },
+    {
+      "name": "Соус сметанный",
+      "price": 70,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/e3238fc5dc11a253a1eb342f4f09ec82054572f5-4000x4000.jpg"
+    },
+    {
+      "name": "Комбо завтрак",
+      "price": 980,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/6fe1fda1925a4ade4993c1614279d966563ebd37-1535x1024.png"
+    },
+    {
+      "name": "Набор из четырех пирогов",
+      "price": 3990,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/cdc199a7dd7335a0ee6ebc74ff9a38868c91b450-1280x853.webp"
+    },
+    {
+      "name": "Карамельный пирог",
+      "price": 490,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/542ad16778d18c739aa85b0fe05e5f31940e2fe8-4500x3000.jpg"
+    },
+    {
+      "name": "Подарочный набор с чуду",
+      "price": 1530,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/ed792077eacc1d9a8955e498fbfa976365af945e-4500x3000.jpg"
+    },
+    {
+      "name": "Батончик в ассортименте",
+      "price": 240,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/d82be6b9d7771b38eb1a8e6f2a50cb56697db005-1536x1024.jpg"
+    },
+    {
+      "name": "Копченый курдюк",
+      "price": 345,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/9ac9a8c3536b17a6e0182fa2bea75174a767099e-1254x1254.png"
+    },
+    {
+      "name": "Курзе с творогом замороженный 500 грамм",
+      "price": 825,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/2961a33623608974752e271cafa014405a637953-4000x4000.jpg"
+    },
+    {
+      "name": "Карамельный пирог (целый)",
+      "price": 3490,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/7cc5bb4f6ea9a045c899c8cf8f865a31128e68c8-4500x3000.jpg"
+    },
+    {
+      "name": "Хинкал кукурузный замороженный0,5кг",
+      "price": 700,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/edb5ebb2266e2a8a0390e561f36a77b6f17e3ca4-4000x4000.jpg"
+    },
+    {
+      "name": "компот 0,25",
+      "price": 180,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/e52b1f104a2650b3ec7e193a4b10ca3236fa0f08-1024x1536.png"
+    },
+    {
+      "name": "компот 0,5",
+      "price": 220,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/e52b1f104a2650b3ec7e193a4b10ca3236fa0f08-1024x1536.png"
+    },
+    {
+      "name": "компот 1Л",
+      "price": 360,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/e52b1f104a2650b3ec7e193a4b10ca3236fa0f08-1024x1536.png"
+    },
+    {
+      "name": "Хинкал лакский",
+      "price": 590,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/e7c36ca92769771198ba36808756ff0faec7f20c-4000x2667.jpg"
+    },
+    {
+      "name": "доп говядина (80 г)",
+      "price": 350,
+      "image": null
+    },
+    {
+      "name": "сушеная говядина (80 г)",
+      "price": 450,
+      "image": null
+    },
+    {
+      "name": "сушеная колбаска (из говядины, 80 г)",
+      "price": 450,
+      "image": null
+    },
+    {
+      "name": "Вабабай комбо №1",
+      "price": 1980,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/5869121c6de424dabfecc72251e8b92a4b459cae-4000x4000.jpg"
+    },
+    {
+      "name": "Большое блюдо хинкала",
+      "price": 2790,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/f272699930f45a8a06dea88805daec7716583c8a-4000x4000.jpg"
+    },
+    {
+      "name": "говядина (80 г)",
+      "price": 390,
+      "image": null
+    },
+    {
+      "name": "сушеная колбаска (из мяса говядины, 80 г)",
+      "price": 450,
+      "image": null
+    },
+    {
+      "name": "Лимонад Кизил с мятой",
+      "price": 350,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/5b668cdac02bc1f4c3be6c82bad797bbf86cdc8e-1024x1536.jpg"
+    },
+    {
+      "name": "Сушеная колбаса",
+      "price": 1750,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/310fc66ebd682cb08339ec2d1482abba8ce8ddff-1254x1254.png"
+    },
+    {
+      "name": "Соус томатный с чесноком",
+      "price": 70,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/9eb44eef4d87f6ec50862e6ee5571b62e5451b13-4000x4000.jpg"
+    },
+    {
+      "name": "Курзе с бараниной",
+      "price": 480,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/82e5f637e9a3b4655a976da13946e68fc88cb8ef-4000x4000.jpg"
+    },
+    {
+      "name": "курзе с бараниной (3шт.) дополнительно",
+      "price": 80,
+      "image": null
+    },
+    {
+      "name": "курзе с бараниной (6шт.) дополнительно",
+      "price": 170,
+      "image": null
+    },
+    {
+      "name": "Пирог с курагой и черносливом",
+      "price": 330,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/4dd2edbc0f13bbcde6a16714d37f8716d31f6dab-4500x3000.jpg"
+    },
+    {
+      "name": "Набор 4 больших пирога",
+      "price": 7250,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/3bc9332c12568e39c9136ad0ba2547eeaa0c8c73-1536x1024.png"
+    },
+    {
+      "name": "Дагестанская халва",
+      "price": 190,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/a97a42e1f287b36b3515a4c9b845f2699d7f4b58-1024x1024.jpg"
+    },
+    {
+      "name": "Чуду с мясом",
+      "price": 270,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/2247a478d1b3fb0e694a02526ea72ef34458de87-4000x4000.jpg"
+    },
+    {
+      "name": "Омлет с зеленью",
+      "price": 290,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/974e1185deab8af04202fca8379109615bdbb94c-4000x2667.jpg"
+    },
+    {
+      "name": "Хинкал Лакский замороженный 0,5кг",
+      "price": 450,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/9f3aad51fb3959f78151b25138027c7f4b230635-4000x4000.jpg"
+    },
+    {
+      "name": "Шоколад в ассортименте",
+      "price": 360,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/0eb5e519884b6e3f75729c19259e7c05f18c9f1b-1536x1024.png"
+    },
+    {
+      "name": "Чуду с зеленью",
+      "price": 250,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/9e7230519f917a820b7d63fe68cfd07d9d9d4e20-4000x4000.jpg"
+    },
+    {
+      "name": "Сладкий пирог \"Лимонник\"(целый)",
+      "price": 2590,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/a6f078a675c89fb91fcb0897628aec60480d0243-4500x3000.jpg"
+    },
+    {
+      "name": "Курзе с курицей замороженный 500 грамм",
+      "price": 860,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/2961a33623608974752e271cafa014405a637953-4000x4000.jpg"
+    },
+    {
+      "name": "Вабабай комбо №2",
+      "price": 3960,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/dbe92e024acf47c228a4feae3f263dce43cdd1d6-1024x1024.jpg"
+    },
+    {
+      "name": "Денеб",
+      "price": 250,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/bfb1855dbe9516299ae5ace872f9f0665e54c1f2-4500x3000.jpg"
+    },
+    {
+      "name": "Хинкал зебра",
+      "price": 590,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/540d2197d431a08b4003b003fbae07359c88ae32-4000x2667.jpg"
+    },
+    {
+      "name": "Набор 8 средних  пирогов",
+      "price": 7880,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/0347b3def31fc476e9fdb40a20f26a07c63e5c19-1280x853.webp"
+    },
+    {
+      "name": "Торт \"Дамский каприз\"(целый)",
+      "price": 2870,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/895b3ced3020c7efa8a0b317454b2ce9ce404d2e-4000x4000.jpg"
+    },
+    {
+      "name": "-урбеч лен 180гр",
+      "price": 560,
+      "image": null
+    },
+    {
+      "name": "-урбеч тыква 180гр",
+      "price": 900,
+      "image": null
+    },
+    {
+      "name": "-урбеч миндаль 180гр",
+      "price": 900,
+      "image": null
+    },
+    {
+      "name": "-урбеч абрикос 180гр",
+      "price": 900,
+      "image": null
+    },
+    {
+      "name": "Аварский хинкал охлажденный 0,5кг",
+      "price": 480,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/9075fa407f372721c2b9333a6e02ef99241364ef-4000x4000.jpg"
+    },
+    {
+      "name": "Курзе с картофелем замороженный 0,5кг",
+      "price": 695,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/2961a33623608974752e271cafa014405a637953-4000x4000.jpg"
+    },
+    {
+      "name": "Курзе с курицей",
+      "price": 440,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/bcc71094ce7804b9130f253f542de47d8530d421-4000x4000.jpg"
+    },
+    {
+      "name": "курзе с курицей (3шт.) дополнительно",
+      "price": 80,
+      "image": null
+    },
+    {
+      "name": "курзе с курицей (6шт.) дополнительно",
+      "price": 170,
+      "image": null
+    },
+    {
+      "name": "Яичница по-дагестански",
+      "price": 440,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/d4ef67345a0e228953efd22fbc6f09a9eacdd7ac-4000x2667.jpg"
+    },
+    {
+      "name": "доп сыр сулугуни 30гр",
+      "price": 50,
+      "image": null
+    },
+    {
+      "name": "Чуду с сыром и зеленью",
+      "price": 320,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/c4d40a0d204b9a71b6f638a437b875a53e0e8b8c-4000x4000.jpg"
+    },
+    {
+      "name": "Сладкий пирог \"Лимонник\"",
+      "price": 330,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/81f28de2fb09f8afa8cd45a06c3d2d4fa73159e8-1024x1024.jpg"
+    },
+    {
+      "name": "Соус сметанно-чесночный",
+      "price": 70,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/e3238fc5dc11a253a1eb342f4f09ec82054572f5-4000x4000.jpg"
+    },
+    {
+      "name": "Хинкал лезгинский",
+      "price": 590,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/08c4d5b5219a4aa1aec06c3f5f32d2c94a2b2939-4000x2667.jpg"
+    },
+    {
+      "name": "Шарлотка  яблоком и корицей",
+      "price": 150,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/549e774b28ab0db8e2a03258bd38a7d830980f74-1024x1024.jpg"
+    },
+    {
+      "name": "Курзе с говядиной замороженный 500 грамм",
+      "price": 925,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/2961a33623608974752e271cafa014405a637953-4000x4000.jpg"
+    },
+    {
+      "name": "Чуду с сыром",
+      "price": 320,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/09e99c5d95c0b6e428088bcc6ac17125cf1b5ec7-4000x4000.jpg"
+    },
+    {
+      "name": "Курзе с творогом",
+      "price": 390,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/093d2efd7f6db95f93f831321c8cde0d4e27f71f-4000x4000.jpg"
+    },
+    {
+      "name": "курзе с творогом (3шт) дополнительно",
+      "price": 80,
+      "image": null
+    },
+    {
+      "name": "курзе с творогом (6шт) дополнительно",
+      "price": 170,
+      "image": null
+    },
+    {
+      "name": "Даргинский Зебра замороженный 0,5кг",
+      "price": 780,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/2c99b36a8bd95dee3d6281954edfc772a20bb875-4000x4000.jpg"
+    },
+    {
+      "name": "Хинкал кукурузный",
+      "price": 690,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/64539efbb94622e79d3cd8c1464be359e9f36055-4000x4000.jpg"
+    },
+    {
+      "name": "Праздничный набор",
+      "price": 9790,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/897d0a31827604f95f1076e49d63458d5c477bf8-1536x1024.png"
+    },
+    {
+      "name": "Вабабай комбо №3",
+      "price": 7620,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/ad659d2c68a02088f86e19c6227750d26d25119c-1024x1024.jpg"
+    },
+    {
+      "name": "Компот из кураги 1л",
+      "price": 390,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/046729fb8c5b6300c42badb136dad4f1e737f8b4-1024x1536.jpg"
+    },
+    {
+      "name": "Праздничный набор с мангалом",
+      "price": 14390,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/0d3c46257f3fbc5f69064bfea952c4f829c2cbb2-1280x852.webp"
+    },
+    {
+      "name": "Сочинская пахлава (1шт)",
+      "price": 110,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/c3f363ad746383cbe145b9781e10387fbea9fcd9-4000x2667.jpg"
+    },
+    {
+      "name": "Даргинский Хинкал замороженный 0,5кг",
+      "price": 680,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/b4fe796d19e3969c99c8f8591039cbc6a7c67bc8-4000x4000.jpg"
+    },
+    {
+      "name": "Курзе с бараниной замороженный 500 грамм",
+      "price": 1000,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/2961a33623608974752e271cafa014405a637953-4000x4000.jpg"
+    },
+    {
+      "name": "Хинкал даргинский",
+      "price": 690,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/316dd5ccb629b62f6d3630d88046d5b4054e8dbc-4000x4000.jpg"
+    },
+    {
+      "name": "Большой пирог зелень и творог 30см",
+      "price": 1890,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/684907460fcb0b80ccd0f5c129452c4ec65eae3b-1536x1024.png"
+    },
+    {
+      "name": "Курзе с картофелем",
+      "price": 390,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/2415388ac6a59716696b4eb998fde032bf0d4fed-4000x4000.jpg"
+    },
+    {
+      "name": "курзе с картофелем (3шт) дополнительно",
+      "price": 80,
+      "image": null
+    },
+    {
+      "name": "курзе с картофелем (6шт) дополнительно",
+      "price": 170,
+      "image": null
+    },
+    {
+      "name": "Чуду с тыквой",
+      "price": 250,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/9463069a44c5944beb3614ec4e27a1f27120cb8c-4000x4000.jpg"
+    },
+    {
+      "name": "Хинкал Лезгинский замороженный 0,5кг",
+      "price": 450,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/7e81c993a4b07acba83ef874c68f36de939563f0-4000x4000.jpg"
+    },
+    {
+      "name": "Запеканка",
+      "price": 320,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/3d151dcd67a38b8052df245819be792d60ddd9bc-4000x2667.jpg"
+    },
+    {
+      "name": "Чуду Картофель Грибы",
+      "price": 250,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/72ac8a5a454bfaab43ed2495b7acb94c613f66dc-4000x4000.jpg"
+    },
+    {
+      "name": "Курзе с творогом замороженный",
+      "price": 1650,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/6ccd620c8ae688bcd07a98eb7688df85a1250e31-4000x4000.jpg"
+    },
+    {
+      "name": "Курзе с говядиной замороженный 1кг",
+      "price": 1850,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/6ccd620c8ae688bcd07a98eb7688df85a1250e31-4000x4000.jpg"
+    },
+    {
+      "name": "Хинкал аварский",
+      "price": 690,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/3f9e7b6c0d4807bc39bf5784f6e44e0c44e09c37-4000x4000.jpg"
+    },
+    {
+      "name": "Большой пирог кавказские сыры 30см",
+      "price": 1890,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/6524b30f5b0a81dbcbde2ba02491f42552453573-1024x1536.png"
+    },
+    {
+      "name": "Курзе с бараниной замороженный(1кг)",
+      "price": 2000,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/6ccd620c8ae688bcd07a98eb7688df85a1250e31-4000x4000.jpg"
+    },
+    {
+      "name": "Торт \"Дамский каприз\"",
+      "price": 360,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/f8395f5965abf397f0db09d1b3696272678af078-1536x1024.jpg"
+    },
+    {
+      "name": "Кураговая каша",
+      "price": 210,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/17549b01faececec457817bd200309f3bb668330-4500x3000.jpg"
+    },
+    {
+      "name": "Большой  пирог с курицей и грибами 30см",
+      "price": 1940,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/23bd5861c032b7abed607ed58d5f54f96c01fa2c-1536x1024.jpg"
+    },
+    {
+      "name": "Суп Дня",
+      "price": 320,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/7442c332c1d508dfae5352728d8326fb65f2dfc6-4000x4000.jpg"
+    },
+    {
+      "name": "Блэк чуду 4 сыра",
+      "price": 290,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/ce8be12d37d9432ed168e707af8a486f4fd5f2bc-4000x2667.jpg"
+    },
+    {
+      "name": "Ассорти люля",
+      "price": 1940,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/d47d6d46dde0e6f814311cd4aba67cc804b99177-1900x1267.jpg"
+    },
+    {
+      "name": "Картофель на углях",
+      "price": 370,
+      "image": null
+    },
+    {
+      "name": "Шампиньоны  на углях",
+      "price": 390,
+      "image": null
+    },
+    {
+      "name": "Овощи на углях",
+      "price": 390,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/eb53b79d8d2be15f2ffdb2c55a06e709556aba1b-1537x1023.png"
+    },
+    {
+      "name": "Салат Горский",
+      "price": 470,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/4942138c5900ae4401b36b56c3f7e260df5bc11d-4000x4000.jpg"
+    },
+    {
+      "name": "Кураговая каша (большая порция)",
+      "price": 330,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/a24528d56fd22698c025d37beb99d9c0d468a5a2-4000x2668.jpg"
+    },
+    {
+      "name": "Мясной пирог Къачи",
+      "price": 450,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/fa932a6220ac3f1f1c378a0f13a49c2851fe552d-4000x2667.jpg"
+    },
+    {
+      "name": "Курзе с курицей замороженный(1кг)",
+      "price": 1720,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/899399705760663207c299fb916ccdb27216d15a-4000x4000.jpg"
+    },
+    {
+      "name": "Курзе с картофелем замороженный",
+      "price": 1390,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/6ccd620c8ae688bcd07a98eb7688df85a1250e31-4000x4000.jpg"
+    },
+    {
+      "name": "Большой пирог с мясом и картофелем 30см",
+      "price": 1940,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/f61176fc1db47677dcf1c91cbd287cdbdf4e203e-1536x1024.png"
+    },
+    {
+      "name": "Большой Вабабай",
+      "price": 6630,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/11c42ea28df335a068094e40171a3204c2e9b8dc-1536x1024.jpg"
+    },
+    {
+      "name": "Дамский каприз (Целый)",
+      "price": 280,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/895b3ced3020c7efa8a0b317454b2ce9ce404d2e-4000x4000.jpg"
+    },
+    {
+      "name": "Очень Большой Вабабай",
+      "price": 8240,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/45e91292ecef9b65e1d1247b56af90b6f88581d5-1536x1024.jpg"
+    },
+    {
+      "name": "Мясной пирог Къачи большой",
+      "price": 900,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/fa932a6220ac3f1f1c378a0f13a49c2851fe552d-4000x2667.jpg"
+    },
+    {
+      "name": "Мини-пирог с зеленью и творогом",
+      "price": 550,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/46cb3e9339b542ddbc1b423b7f96aa83fb3a7904-1536x1024.jpg"
+    },
+    {
+      "name": "Ассорти шашлыков  на мангале",
+      "price": 4189,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/f67bac17df7468ee0432b572993bf7fed131d645-1023x1537.png"
+    },
+    {
+      "name": "Средний Пирог с зеленью и творогом",
+      "price": 1090,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/46cb3e9339b542ddbc1b423b7f96aa83fb3a7904-1536x1024.jpg"
+    },
+    {
+      "name": "Большой Ассорти на Мангале",
+      "price": 5590,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/0636873fbbd912d7ac31d29bb980ceea390e82bf-1900x1267.jpg"
+    },
+    {
+      "name": "Мини-пирог с мясом и картошкой",
+      "price": 630,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/746c7c915e5c55e5320bf916cf526b5cc3ce5201-1536x1024.jpg"
+    },
+    {
+      "name": "Комбо 1",
+      "price": 720,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/b73629a2a65f887308929612be5a7926f710f6ae-1536x1024.jpg"
+    },
+    {
+      "name": "компот",
+      "price": 90,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/e52b1f104a2650b3ec7e193a4b10ca3236fa0f08-1024x1536.png"
+    },
+    {
+      "name": "хлеб",
+      "price": 40,
+      "image": null
+    },
+    {
+      "name": "Средний  пирог с мясом и картофелем",
+      "price": 1190,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/746c7c915e5c55e5320bf916cf526b5cc3ce5201-1536x1024.jpg"
+    },
+    {
+      "name": "Обед Горца №1",
+      "price": 540,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/00b4de54becd4ef2e26d7a716cc7eaa8a25d05b7-1900x1267.jpg"
+    },
+    {
+      "name": "Мини-пирог с сыром и творогом",
+      "price": 550,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/54af79633e90c55ae02a5dbaa6e58d8747ed5d5b-1024x1536.jpg"
+    },
+    {
+      "name": "Каре ягненка",
+      "price": 1350,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/6beb9d577ece023fc42753772556885891ae318d-1538x1023.png"
+    },
+    {
+      "name": "Средний пирог с сыром и творогом",
+      "price": 1090,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/54af79633e90c55ae02a5dbaa6e58d8747ed5d5b-1024x1536.jpg"
+    },
+    {
+      "name": "Яблочко (шашлык из баранины)",
+      "price": 1350,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/633165aa5cce2df527cd364d3818a73275d46d12-1538x1022.png"
+    },
+    {
+      "name": "Обед Горца №2",
+      "price": 590,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/9b84a2ab20084fbaba950afcc9a14178501101d4-1536x1024.jpg"
+    },
+    {
+      "name": "Мини-пирог с курицей и грибами",
+      "price": 630,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/23bd5861c032b7abed607ed58d5f54f96c01fa2c-1536x1024.jpg"
+    },
+    {
+      "name": "Средний  пирог с курицей и  грибами",
+      "price": 1190,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/e47cafd5879a115aaf94bf4df720a204e4abc478-1536x1024.png"
+    },
+    {
+      "name": "Обед Горца №3",
+      "price": 870,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/e37c108192374349bb733fb057e54ac817e58960-1536x1024.jpg"
+    },
+    {
+      "name": "кураговая каша",
+      "price": 120,
+      "image": null
+    },
+    {
+      "name": "Пирог с курагой и черносливом(целый).",
+      "price": 2590,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/0aa8293c9d932b8951bdb5aa5d147b238a2f9036-4000x4000.jpg"
+    },
+    {
+      "name": "Торт \"Дамский каприз\"(целый).",
+      "price": 2870,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/4c97f1d585ae00286539c40ae76324a72433a801-4000x4000.jpg"
+    },
+    {
+      "name": "Бульон говяжий",
+      "price": 190,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/41d1ca8b7e38ebc37f369b2ae04f09f0c185fbb1-4000x2667.jpg"
+    },
+    {
+      "name": "Сладкий пирог \"Лимонник\"(целый).",
+      "price": 2590,
+      "image": "https://content.cdn.starterapp.ru/images/daglavka/a6f078a675c89fb91fcb0897628aec60480d0243-4500x3000.jpg"
+    },
+    {
+      "name": "Бонусная карта",
+      "price": 7,
+      "image": null
+    }
+  ]
+}

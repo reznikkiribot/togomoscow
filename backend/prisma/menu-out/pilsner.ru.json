@@ -1,0 +1,1125 @@
+{
+  "domain": "pilsner.ru",
+  "method": "playwright-xhr",
+  "status": "ok",
+  "source": "https://iiko-menu-backend.onrender.com/public/menu",
+  "count": 223,
+  "withPhoto": 83,
+  "items": [
+    {
+      "name": "Pilsner Uqruell",
+      "price": 880,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/d25df774daea04e3a987c62278ecb401.PNG"
+    },
+    {
+      "name": "Пилснер",
+      "price": 450,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/f869bb59f81d5c852d4b8d1cbf260058.PNG"
+    },
+    {
+      "name": "Пшеничное",
+      "price": 450,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/9cf3edf8982869638a8d7d909334f7ee.PNG"
+    },
+    {
+      "name": "Zlata Praha",
+      "price": 610,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/1d73a03901de78a2af55884ccfd00963.PNG"
+    },
+    {
+      "name": "Bakalar",
+      "price": 760,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/ddf0562ee2ae3dbd5683368d88564525.PNG"
+    },
+    {
+      "name": "Velkopopovicky Kozel",
+      "price": 460,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/1fe903ae45a3102a509d98e7132b0857.PNG"
+    },
+    {
+      "name": "Резаное",
+      "price": 510,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/466016f520fc765951cabfe9635d6e33.PNG"
+    },
+    {
+      "name": "Бакалар",
+      "price": 480,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/45751f193e5974b4e0369229911445a0.PNG"
+    },
+    {
+      "name": "Kristoffel Blond",
+      "price": 700,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/ddcb405ff4ea74b0fe483885c2a243c3.PNG"
+    },
+    {
+      "name": "Kristoffel Brune",
+      "price": 720,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/0ca7c99edfcc46830c370925c169d6b6.PNG"
+    },
+    {
+      "name": "Заградни",
+      "price": 790,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/77b35a8cbeb5cca49ea7e4fde4d58435.JPEG"
+    },
+    {
+      "name": "Остра паприкова",
+      "price": 760,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/226cac5ba9acf8d55c97974890563e87.JPEG"
+    },
+    {
+      "name": "Кроцани",
+      "price": 780,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/4523d9fdf1d795264527f93f011a150e.JPEG"
+    },
+    {
+      "name": "Мюнхенская",
+      "price": 760,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/14352c1c80e12b22fdbce1e677dfbb87.JPEG"
+    },
+    {
+      "name": "Мисливецкая",
+      "price": 770,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/cf9b00ae8241bcee53d4d5bf022c78e4.JPEG"
+    },
+    {
+      "name": "Ассорти из колбас",
+      "price": 3170,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/c45968b378a9e5385af9c71b0cdf157b.JPEG"
+    },
+    {
+      "name": "Бехерова",
+      "price": 320,
+      "image": null
+    },
+    {
+      "name": "Щавель-сельдерей",
+      "price": 320,
+      "image": null
+    },
+    {
+      "name": "Хреновичка",
+      "price": 320,
+      "image": null
+    },
+    {
+      "name": "Томат",
+      "price": 290,
+      "image": null
+    },
+    {
+      "name": "Барбарисовка",
+      "price": 340,
+      "image": null
+    },
+    {
+      "name": "Слани карамел",
+      "price": 310,
+      "image": null
+    },
+    {
+      "name": "Вишневка",
+      "price": 280,
+      "image": null
+    },
+    {
+      "name": "Цитронова трава з ананасу",
+      "price": 340,
+      "image": null
+    },
+    {
+      "name": "Малиновка",
+      "price": 320,
+      "image": null
+    },
+    {
+      "name": "Жимолость",
+      "price": 340,
+      "image": null
+    },
+    {
+      "name": "Ябловица",
+      "price": 340,
+      "image": null
+    },
+    {
+      "name": "Клюковка",
+      "price": 280,
+      "image": null
+    },
+    {
+      "name": "Бананови",
+      "price": 280,
+      "image": null
+    },
+    {
+      "name": "Валашский сэт",
+      "price": 1290,
+      "image": null
+    },
+    {
+      "name": "Моравский сэт",
+      "price": 1220,
+      "image": null
+    },
+    {
+      "name": "Пражский сэт",
+      "price": 1220,
+      "image": null
+    },
+    {
+      "name": "Ореховый микс",
+      "price": 520,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/af40b111b546e9f15bb073982b20d15e.JPEG"
+    },
+    {
+      "name": "Утопенцы",
+      "price": 580,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/623bcb7f9c24555b3fb126e8c0dd37d9.JPEG"
+    },
+    {
+      "name": "Гусиятра",
+      "price": 780,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/719fd94624de80774a0589b568ef71ca.JPEG"
+    },
+    {
+      "name": "Карпаччо из говядины",
+      "price": 880,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/87a9d7e9225b453764023918b520859d.JPEG"
+    },
+    {
+      "name": "Копчёные свиные уши",
+      "price": 830,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/6aeff0d6f07cfc2e65f64ecdccb8eb72.JPEG"
+    },
+    {
+      "name": "Рийет из тунца с икрой сельди и палтуса",
+      "price": 740,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/4443bcef779307b0494b72e30512bf93.JPEG"
+    },
+    {
+      "name": "Сельдь",
+      "price": 690,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/252a11b5d51685b0f7f8171ba4a84a98.JPEG"
+    },
+    {
+      "name": "Салат с копченой курицей",
+      "price": 830,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/714cbf65f3bdb8145cee22c723c7f210.JPEG"
+    },
+    {
+      "name": "Салат Лилек",
+      "price": 870,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/a27f69df0a432cfe970bd72180af43b2.JPEG"
+    },
+    {
+      "name": "Салат Староместский",
+      "price": 780,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/24154ff43ba17440d1abbdb36da0a964.JPEG"
+    },
+    {
+      "name": "Цезарь с курицей",
+      "price": 790,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/875bbf84bbc77fd6fec9d26ca586085b.JPEG"
+    },
+    {
+      "name": "Салат Пражский",
+      "price": 890,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/298ad5781ffb4d72b03cbf754ca392eb.JPEG"
+    },
+    {
+      "name": "Топинки",
+      "price": 490,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/d3d4f61b8af14c5934276ff3f3d819b8.JPEG"
+    },
+    {
+      "name": "Смажак",
+      "price": 840,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/954e1cacf132631189ac95cbc7922098.JPEG"
+    },
+    {
+      "name": "Луковые кольца",
+      "price": 510,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/52ce353de6cd778787e20effab86ce02.JPEG"
+    },
+    {
+      "name": "Вешенки фри с устричным соусом",
+      "price": 590,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/46aa14af0cab6254671efe951c324155.JPEG"
+    },
+    {
+      "name": "Кальмар во фритюре",
+      "price": 690,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/6b218b4d11f9ad06eb34415be3898118.JPEG"
+    },
+    {
+      "name": "Сырные крокеты с брокколи и беконом",
+      "price": 770,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/e956a724da89dccd1c16c24a2d4aacf4.JPEG"
+    },
+    {
+      "name": "Хрустящие чипсы из сырной лепёшки с трюфельным соусом",
+      "price": 490,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/3a6ea307e8bc8d4ddcb40d12ac039f70.JPEG"
+    },
+    {
+      "name": "Мозговые кости",
+      "price": 870,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/947539125e0efb30471387b69e12c27a.JPEG"
+    },
+    {
+      "name": "Куриные крылья",
+      "price": 890,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/a227523438753a7096c33ca8c83f2e92.JPEG"
+    },
+    {
+      "name": "Креветки северные",
+      "price": 1150,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/0305a9a1d7698219538b7c3f0f5aa7c6.JPEG"
+    },
+    {
+      "name": "Рыбка к пиву",
+      "price": 630,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/abcfc4afa7160bafef98e33c3774e34c.JPEG"
+    },
+    {
+      "name": "Жюльен",
+      "price": 610,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/a454b4feec0a8a9d562ddf9b097d25cb.JPEG"
+    },
+    {
+      "name": "Таштички",
+      "price": 680,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/a2ef96a021dfdabc3477cc61cb96ee99.JPEG"
+    },
+    {
+      "name": "Запеченный сыр камамбер",
+      "price": 760,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/6dc4585f59d1e18bf5374e7ac67451aa.JPEG"
+    },
+    {
+      "name": "Хот-дог со свиным ребром",
+      "price": 640,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/e62a6e793bddf689974e46ef1ebec03f.JPEG"
+    },
+    {
+      "name": "Гуляшевка",
+      "price": 690,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/78c0807bf0cce699aa0cd61448b5d70a.JPEG"
+    },
+    {
+      "name": "Говязи полевка",
+      "price": 590,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/25542c39fb62082b73315cd9c47cb145.JPEG"
+    },
+    {
+      "name": "Пивни полевка",
+      "price": 670,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/0ff7fb44805a24770a007ae0a4cabd6a.JPEG"
+    },
+    {
+      "name": "Соленья",
+      "price": 990,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/83d859cf8304ed255838b58d281f0cb2.JPEG"
+    },
+    {
+      "name": "Велка узенарска деска",
+      "price": 2230,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/20e885a806c76cc6474619556dc35187.JPEG"
+    },
+    {
+      "name": "Килограмм закусок к пиву",
+      "price": 2300,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/14848ca46f0d55f6b4aaebff2bcf0810.JPEG"
+    },
+    {
+      "name": "Сырная тарелка",
+      "price": 1980,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/a5e833700bbaaecb08f403d9ff8dd9d1.JPEG"
+    },
+    {
+      "name": "Креветки северные на льду",
+      "price": 3400,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/78f92533ba49994067b16366b71dbed8.JPEG"
+    },
+    {
+      "name": "Мясное ассорти",
+      "price": 3950,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/301b95d68895a02c36c60c8374ecd59e.JPEG"
+    },
+    {
+      "name": "Кужеци шницель",
+      "price": 940,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/2d9d12c7df0e412d0c56ea65bea7662f.JPEG"
+    },
+    {
+      "name": "Щучьи котлеты",
+      "price": 970,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/661db4ec73eb178712a59509724286cd.JPEG"
+    },
+    {
+      "name": "Фиш & Батат фри",
+      "price": 980,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/6e6d0521125957a0b20921cfcaf76a39.JPEG"
+    },
+    {
+      "name": "Запеченная треска",
+      "price": 1180,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/323f58261bdb48580350b5573ef80e3e.JPEG"
+    },
+    {
+      "name": "Пльзеньский гуляш",
+      "price": 940,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/bfea4e57dac55f89afccbdc444f1dec7.JPEG"
+    },
+    {
+      "name": "Валашский бифштекс",
+      "price": 1070,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/35afa0d0d3a1360d695e22e6224c168f.JPEG"
+    },
+    {
+      "name": "Бургер с соусом блю-чиз",
+      "price": 930,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/da40e33bb767739d03f80f0c9877037c.JPEG"
+    },
+    {
+      "name": "Стейк стриплойн",
+      "price": 3870,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/23a3b3a97184c9ebfeb19f0b2b18a361.JPEG"
+    },
+    {
+      "name": "Брамборак с мясом и беконом",
+      "price": 780,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/4a52f9cc937ccc3d7f11acb1ad35abbb.JPEG"
+    },
+    {
+      "name": "Штрудель Карловский",
+      "price": 680,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/6e2c8a1c39c7b9e34f13950abcc61654.JPEG"
+    },
+    {
+      "name": "Запеченные свиные ребра",
+      "price": 1650,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/bcfff759f97c5a35f4ffc9b3a0e000e9.JPEG"
+    },
+    {
+      "name": "Вепрова крковичка",
+      "price": 980,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/9b4bd741ebfe72901f711e78506be439.JPEG"
+    },
+    {
+      "name": "Вепрове колено",
+      "price": 1790,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/56d10803648f24334c416007b6efab65.JPEG"
+    },
+    {
+      "name": "Кахни стехно",
+      "price": 990,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/c3fadf3fbd0f75d1fdb04cf49e067be0.JPEG"
+    },
+    {
+      "name": "Кахна",
+      "price": 1490,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/44f9d52277f33426b84ebc12c282bfd4.JPEG"
+    },
+    {
+      "name": "Хлебная корзина",
+      "price": 290,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/41755fdf4c0a2c6742d2777f7ce9d0db.JPEG"
+    },
+    {
+      "name": "Картофель жаренный в кожуре",
+      "price": 240,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/021b69a7191d073b2a7e3a6da091dc09.JPEG"
+    },
+    {
+      "name": "Картофель запечённый",
+      "price": 210,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/46cae09e19b0d7ce6065ee718892faf7.JPEG"
+    },
+    {
+      "name": "Картофель фри",
+      "price": 380,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/db0d0f810f639ee506791f4497b748f7.JPEG"
+    },
+    {
+      "name": "Картофельное пюре",
+      "price": 240,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/17360f4a744758935cf0f1735e79b084.JPEG"
+    },
+    {
+      "name": "Батат фри",
+      "price": 420,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/00bfe78133be91a4079adc5d10a4f1d2.JPEG"
+    },
+    {
+      "name": "Капуста тушеная белокочанная",
+      "price": 290,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/6ca620d774765bd9eec0c6b890f5d6dd.JPEG"
+    },
+    {
+      "name": "Капуста тушеная краснокочанная",
+      "price": 240,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/8c95e4968538a45083f54da91ae2dc98.JPEG"
+    },
+    {
+      "name": "Овощи гриль",
+      "price": 410,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/9768a0612e114ebb9a9096047797c3f8.JPEG"
+    },
+    {
+      "name": "Помидоры малосольные",
+      "price": 320,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/5f053bd3b5588a5a39cf6113df54006e.JPEG"
+    },
+    {
+      "name": "Сникерс дорт",
+      "price": 520,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/c2f8a7f406ed73816a70882588dbf189.JPEG"
+    },
+    {
+      "name": "Яблочный штрудель",
+      "price": 680,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/2073e2e6b24be841c1d60e4d0310d785.JPEG"
+    },
+    {
+      "name": "Змерзлина",
+      "price": 590,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/9a3114e7d51f68d7cdc675c467f57a53.JPEG"
+    },
+    {
+      "name": "Пьяная груша",
+      "price": 670,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/c3f54780994ebd6ed3c4fd9dafd76255.JPEG"
+    },
+    {
+      "name": "Морковный бисквит с творожным кремом",
+      "price": 520,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/b4060388cfc507ddea7b8bfa2d2a2cf6.JPEG"
+    },
+    {
+      "name": "Крем-брюле",
+      "price": 530,
+      "image": "https://16a9564f-f8ec-42ba-a998-3027aa809e50.selstorage.ru/cheshskie-pivnye/104683/images/items/21bd1e9adaf5b7ce4b171e585b72b6be.JPEG"
+    },
+    {
+      "name": "Куриный бульон с вермишелью",
+      "price": 240,
+      "image": null
+    },
+    {
+      "name": "Куриные котлетки с картофельным пюре",
+      "price": 390,
+      "image": null
+    },
+    {
+      "name": "Куриные наггетсы",
+      "price": 390,
+      "image": null
+    },
+    {
+      "name": "Паста карбонара",
+      "price": 410,
+      "image": null
+    },
+    {
+      "name": "Сосиски-осьминожки с картофелем фри",
+      "price": 530,
+      "image": null
+    },
+    {
+      "name": "Ванильный коктейль",
+      "price": 430,
+      "image": null
+    },
+    {
+      "name": "Клубничный коктейль",
+      "price": 430,
+      "image": null
+    },
+    {
+      "name": "Шоколадный коктейль",
+      "price": 430,
+      "image": null
+    },
+    {
+      "name": "Салат Льежский",
+      "price": 780,
+      "image": null
+    },
+    {
+      "name": "Мидии в сырном соусе",
+      "price": 1580,
+      "image": null
+    },
+    {
+      "name": "Фламандские мидии",
+      "price": 1580,
+      "image": null
+    },
+    {
+      "name": "Картофельные вафли по-брюссельски",
+      "price": 979,
+      "image": null
+    },
+    {
+      "name": "Картофельные вафли по-льежски",
+      "price": 970,
+      "image": null
+    },
+    {
+      "name": "Картофель по-бельгийски",
+      "price": 788,
+      "image": null
+    },
+    {
+      "name": "Фламандское рагу",
+      "price": 1240,
+      "image": null
+    },
+    {
+      "name": "Эспрессо",
+      "price": 230,
+      "image": null
+    },
+    {
+      "name": "Двойной эспрессо",
+      "price": 310,
+      "image": null
+    },
+    {
+      "name": "Американо",
+      "price": 230,
+      "image": null
+    },
+    {
+      "name": "Капучино",
+      "price": 280,
+      "image": null
+    },
+    {
+      "name": "Двойной капучино",
+      "price": 390,
+      "image": null
+    },
+    {
+      "name": "Латте",
+      "price": 320,
+      "image": null
+    },
+    {
+      "name": "Флэт Уайт",
+      "price": 290,
+      "image": null
+    },
+    {
+      "name": "Бамбл кофе",
+      "price": 530,
+      "image": null
+    },
+    {
+      "name": "Эспрессо-тоник",
+      "price": 370,
+      "image": null
+    },
+    {
+      "name": "Цейлонский",
+      "price": 310,
+      "image": null
+    },
+    {
+      "name": "Жасмин",
+      "price": 290,
+      "image": null
+    },
+    {
+      "name": "Молочный Улун",
+      "price": 440,
+      "image": null
+    },
+    {
+      "name": "Дикая Вишня",
+      "price": 290,
+      "image": null
+    },
+    {
+      "name": "Лимонад Тархун",
+      "price": 741,
+      "image": null
+    },
+    {
+      "name": "Лимонад Манго-маракуйя",
+      "price": 830,
+      "image": null
+    },
+    {
+      "name": "Лимонад Груша-розмарин",
+      "price": 870,
+      "image": null
+    },
+    {
+      "name": "Морс клюквенный",
+      "price": 1250,
+      "image": null
+    },
+    {
+      "name": "Легенда Байкала",
+      "price": 360,
+      "image": null
+    },
+    {
+      "name": "Кока-кола",
+      "price": 390,
+      "image": null
+    },
+    {
+      "name": "Эвервесс",
+      "price": 250,
+      "image": null
+    },
+    {
+      "name": "Аква Минерале",
+      "price": 230,
+      "image": null
+    },
+    {
+      "name": "Сок",
+      "price": 270,
+      "image": null
+    },
+    {
+      "name": "Фреш",
+      "price": 390,
+      "image": null
+    },
+    {
+      "name": "Мартини Фиеро-Тоник",
+      "price": 750,
+      "image": null
+    },
+    {
+      "name": "Руби Джин",
+      "price": 520,
+      "image": null
+    },
+    {
+      "name": "Мохито",
+      "price": 740,
+      "image": null
+    },
+    {
+      "name": "Мохито безалкогольный",
+      "price": 380,
+      "image": null
+    },
+    {
+      "name": "Джин Тоник",
+      "price": 480,
+      "image": null
+    },
+    {
+      "name": "Клюквенный мартини",
+      "price": 640,
+      "image": null
+    },
+    {
+      "name": "Лавандовый Джин",
+      "price": 780,
+      "image": null
+    },
+    {
+      "name": "Апероль Спритц",
+      "price": 570,
+      "image": null
+    },
+    {
+      "name": "Мартини Бьянко",
+      "price": 690,
+      "image": null
+    },
+    {
+      "name": "Мартини Драй",
+      "price": 690,
+      "image": null
+    },
+    {
+      "name": "Мартини Фиеро",
+      "price": 580,
+      "image": null
+    },
+    {
+      "name": "Бейлиз",
+      "price": 560,
+      "image": null
+    },
+    {
+      "name": "Самбука",
+      "price": 410,
+      "image": null
+    },
+    {
+      "name": "Лимончелло",
+      "price": 420,
+      "image": null
+    },
+    {
+      "name": "Бехеровка",
+      "price": 480,
+      "image": null
+    },
+    {
+      "name": "Фруко Биттер",
+      "price": 410,
+      "image": null
+    },
+    {
+      "name": "Ляйбвехтер",
+      "price": 380,
+      "image": null
+    },
+    {
+      "name": "Фернет",
+      "price": 410,
+      "image": null
+    },
+    {
+      "name": "Фернет цитрус",
+      "price": 420,
+      "image": null
+    },
+    {
+      "name": "Прадед",
+      "price": 420,
+      "image": null
+    },
+    {
+      "name": "Грушовица",
+      "price": 590,
+      "image": null
+    },
+    {
+      "name": "Гриотка",
+      "price": 390,
+      "image": null
+    },
+    {
+      "name": "Сливовица белая",
+      "price": 480,
+      "image": null
+    },
+    {
+      "name": "Сливовица золотая",
+      "price": 540,
+      "image": null
+    },
+    {
+      "name": "Луговичка",
+      "price": 440,
+      "image": null
+    },
+    {
+      "name": "Бифитер Драй Джин",
+      "price": 540,
+      "image": null
+    },
+    {
+      "name": "Брум драй",
+      "price": 410,
+      "image": null
+    },
+    {
+      "name": "Би Джин",
+      "price": 320,
+      "image": null
+    },
+    {
+      "name": "Гавана Клаб аньехо 3 года",
+      "price": 490,
+      "image": null
+    },
+    {
+      "name": "Румбарум",
+      "price": 390,
+      "image": null
+    },
+    {
+      "name": "Ольмека белая",
+      "price": 590,
+      "image": null
+    },
+    {
+      "name": "Ольмека золотая",
+      "price": 590,
+      "image": null
+    },
+    {
+      "name": "Хосе Куэрво",
+      "price": 640,
+      "image": null
+    },
+    {
+      "name": "Sea WITCH",
+      "price": 420,
+      "image": null
+    },
+    {
+      "name": "Ричард Ченслер",
+      "price": 680,
+      "image": null
+    },
+    {
+      "name": "Баллантайнс Файнест",
+      "price": 560,
+      "image": null
+    },
+    {
+      "name": "Джемесон",
+      "price": 590,
+      "image": null
+    },
+    {
+      "name": "Бушмилс",
+      "price": 550,
+      "image": null
+    },
+    {
+      "name": "Гленгэрри",
+      "price": 420,
+      "image": null
+    },
+    {
+      "name": "Чивас Ригал 12 лет",
+      "price": 820,
+      "image": null
+    },
+    {
+      "name": "Гленливет 12 лет",
+      "price": 950,
+      "image": null
+    },
+    {
+      "name": "Арарат 3 года",
+      "price": 410,
+      "image": null
+    },
+    {
+      "name": "Мартель VS",
+      "price": 920,
+      "image": null
+    },
+    {
+      "name": "Мартель VSOP",
+      "price": 980,
+      "image": null
+    },
+    {
+      "name": "Коктебель 5 лет",
+      "price": 430,
+      "image": null
+    },
+    {
+      "name": "Коктебель 7 лет",
+      "price": 490,
+      "image": null
+    },
+    {
+      "name": "Царская Оригинальная",
+      "price": 310,
+      "image": null
+    },
+    {
+      "name": "Царская золотая",
+      "price": 320,
+      "image": null
+    },
+    {
+      "name": "Белая Березка",
+      "price": 290,
+      "image": null
+    },
+    {
+      "name": "Белая Березка золотая",
+      "price": 290,
+      "image": null
+    },
+    {
+      "name": "Gastronom Blend №1",
+      "price": 290,
+      "image": null
+    },
+    {
+      "name": "Хаски Арктик Айс",
+      "price": 270,
+      "image": null
+    },
+    {
+      "name": "Балчуг 21 век",
+      "price": 280,
+      "image": null
+    },
+    {
+      "name": "Балчуг 19 век",
+      "price": 310,
+      "image": null
+    },
+    {
+      "name": "Онегин",
+      "price": 470,
+      "image": null
+    },
+    {
+      "name": "Чистые Росы",
+      "price": 490,
+      "image": null
+    },
+    {
+      "name": "Эстелар Совиньон Блан",
+      "price": 880,
+      "image": null
+    },
+    {
+      "name": "Мальбек Трапиче",
+      "price": 1060,
+      "image": null
+    },
+    {
+      "name": "БАЛАКЛАВА РЕЗЕРВ",
+      "price": 840,
+      "image": null
+    },
+    {
+      "name": "Просекко Бруни",
+      "price": 880,
+      "image": null
+    },
+    {
+      "name": "Ламбруско дель Эмилия",
+      "price": 1120,
+      "image": null
+    },
+    {
+      "name": "Рислинг Рейнский",
+      "price": 3900,
+      "image": null
+    },
+    {
+      "name": "Руландское белое",
+      "price": 3900,
+      "image": null
+    },
+    {
+      "name": "Вельтлинское зеленое",
+      "price": 3900,
+      "image": null
+    },
+    {
+      "name": "Франковка Кабинет",
+      "price": 3900,
+      "image": null
+    },
+    {
+      "name": "Святовавржинецкое Кабинет",
+      "price": 3900,
+      "image": null
+    },
+    {
+      "name": "Руландское синее",
+      "price": 3900,
+      "image": null
+    },
+    {
+      "name": "Совиньон Блан Эстелар",
+      "price": 4400,
+      "image": null
+    },
+    {
+      "name": "Рислинг Шардоне Реноме",
+      "price": 4400,
+      "image": null
+    },
+    {
+      "name": "Пино Гриджио Чело",
+      "price": 5900,
+      "image": null
+    },
+    {
+      "name": "Стейквайн Шардоне",
+      "price": 3800,
+      "image": null
+    },
+    {
+      "name": "Фрескелло Чело",
+      "price": 5400,
+      "image": null
+    },
+    {
+      "name": "Кьянти Мелини",
+      "price": 7600,
+      "image": null
+    },
+    {
+      "name": "Мерло - Каберне Совиньон",
+      "price": 3900,
+      "image": null
+    },
+    {
+      "name": "Дафне Темпранильо",
+      "price": 4800,
+      "image": null
+    },
+    {
+      "name": "Каберне Фран-Красностоп Реноме",
+      "price": 3900,
+      "image": null
+    },
+    {
+      "name": "Кава Нувиана брют",
+      "price": 3900,
+      "image": null
+    },
+    {
+      "name": "Бельгиан Пайл Эль",
+      "price": 480,
+      "image": null
+    },
+    {
+      "name": "Неипацца",
+      "price": 490,
+      "image": null
+    },
+    {
+      "name": "ВИШНЯ",
+      "price": 470,
+      "image": null
+    },
+    {
+      "name": "ЕЖЕВИКА",
+      "price": 490,
+      "image": null
+    },
+    {
+      "name": "Хоппи сидр",
+      "price": 530,
+      "image": null
+    },
+    {
+      "name": "Спритц",
+      "price": 490,
+      "image": null
+    },
+    {
+      "name": "Золотой ярлык",
+      "price": 550,
+      "image": null
+    },
+    {
+      "name": "Моравский клас Баварское",
+      "price": 529,
+      "image": null
+    },
+    {
+      "name": "Фроти фро",
+      "price": 538,
+      "image": null
+    }
+  ]
+}

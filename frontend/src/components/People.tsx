@@ -192,11 +192,16 @@ export function UserProfileModal({ id, onClose }: { id: string; onClose: () => v
           </div>
 
           {/* Карта дегустатора — visible on ANY user's profile */}
-          {Array.isArray((p as any).specializations) && (p as any).specializations.length > 0 && (
+          {/* ONLY earned specializations (3+ tastings in the category). A single
+              tasting must never read as «Эксперт по кофе» — that's a false claim
+              (owner 22.07.2026). */}
+          {Array.isArray((p as any).specializations) &&
+            (p as any).specializations.some((s: any) => s.earned) && (
             <div className="me-section">
               <h2 className="me-h">🗺 Карта дегустатора</h2>
               <div className="spec-grid">
                 {(p as any).specializations
+                  .filter((s: any) => s.earned)
                   .slice()
                   .sort((a: any, b: any) => b.count - a.count)
                   .map((s: any) => (
