@@ -2,6 +2,7 @@ import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import { api } from '../api';
 import { ListingCard } from '../components/ListingCard';
 import { TasteHero } from '../components/TasteHero';
+import { PersonalGoal } from '../components/PersonalGoal';
 import { ListRow } from '../components/ListRow';
 import { Stars } from '../components/Stars';
 import { preloadListingPhotos, VenuePhoto } from '../components/VenuePhoto';
@@ -19,7 +20,6 @@ import { VenuePicker } from '../components/VenuePicker';
 import { QuickRatingFlow } from '../components/QuickRatingFlow';
 import { useFavorites } from '../hooks/useFavorites';
 import { getRecent } from '../recent';
-import { TrainingScale } from '../components/TrainingScale';
 import { loadCategoryProgress } from '../categoryGate';
 import { haptic } from '../telegram';
 import { useSwipeBack } from '../swipeBack';
@@ -939,7 +939,7 @@ export default function Home() {
         </div>
       ) : (
         <>
-          <TrainingScale />
+          <PersonalGoal />
           {/* "Ваши оценки" lives in the Profile only — removed from the home feed. */}
           {events.length > 0 && (
             <>

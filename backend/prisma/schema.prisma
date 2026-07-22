@@ -87,6 +87,7 @@ model User {
   trustConfigChanges  TrustConfigAudit[]      @relation("TrustConfigEditor")
   reviewRevisions     ReviewRevision[]
   uploadedAssets      UploadedAsset[]
+  goalCandidates      UserGoalCandidate[]
 
   @@map("users")
 }
@@ -792,6 +793,87 @@ model FeedImpression {
 // Without this the rotating sections re-drew the same items on every visit: the
 // pick was cached under one shared key, so everyone saw one identical set.
 // Rows are recycled (oldest first) once a section's pool is exhausted.
+// ===== Personal goals (top-of-home motivator) =====
+// One personal goal is shown above the home feed. Candidates are generated from
+// REAL progress (levels, specializations, achievements, streaks, discovery), then
+// ranked, rotated and adapted to how the user reacts. Nothing is invented: if a
+// number cannot be computed from data, the template that needs it is not used.
+
+// A goal a user is currently eligible for, with its computed score. Regenerated
+// after a tasting / achievement / level change, not on every page open.
+model UserGoalCandidate {
+  id         String   @id @default(uuid())
+  userId     String   @map("user_id")
+  goalType   String   @map("goal_type") // specialization | level | achievement | streak | discovery | reputation | exploration | comeback
+  goalKey    String   @map("goal_key") // stable identity within the type (e.g. "coffee_expert")
+  entityType String?  @map("entity_type") // category | achievement | level | venue
+  entityId   String?  @map("entity_id")
+  entityName String?  @map("entity_name") // human label used by templates ("Кофе")
+
+  currentValue Float @map("current_value")
+  targetValue  Float @map("target_value")
+
+  // score components kept separately so the admin cabinet can explain a choice
+  relevanceScore    Float @default(0) @map("relevance_score")
+  attainability     Float @default(0)
+  prestige          Float @default(0)
+  noveltyScore      Float @default(0) @map("novelty_score")
+  urgencyScore      Float @default(0) @map("urgency_score")
+  fatiguePenalty    Float @default(0) @map("fatigue_penalty")
+  finalScore        Float @default(0) @map("final_score")
+  explanationCode   String? @map("explanation_code")
+  generationVersion Int     @default(1) @map("generation_version")
+
+  generatedAt DateTime  @default(now()) @map("generated_at")
+  expiresAt   DateTime? @map("expires_at")
+  completedAt DateTime? @map("completed_at")
+
+  user        User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  impressions UserGoalImpression[]
+
+  @@unique([userId, goalType, goalKey])
+  @@index([userId, finalScore])
+  @@map("user_goal_candidates")
+}
+
+// Every show + what came of it. Drives rotation, fatigue and the learning loop.
+model UserGoalImpression {
+  id          String    @id @default(uuid())
+  userId      String    @map("user_id")
+  candidateId String    @map("candidate_id")
+  sessionId   String    @map("session_id")
+  goalType    String    @map("goal_type")
+  shownAt     DateTime  @default(now()) @map("shown_at")
+  clickedAt   DateTime? @map("clicked_at")
+  completedAt DateTime? @map("completed_at")
+  dismissedAt DateTime? @map("dismissed_at")
+  ledToTastingAt DateTime? @map("led_to_tasting_at")
+
+  candidate UserGoalCandidate @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+
+  @@index([userId, shownAt])
+  @@index([userId, goalType, shownAt])
+  @@map("user_goal_impressions")
+}
+
+// Learned per-type affinity: click-through and completion move a type's weight,
+// repeated ignores push it down and set a fatigue window.
+model UserGoalPreference {
+  userId         String    @map("user_id")
+  goalType       String    @map("goal_type")
+  interestWeight Float     @default(1) @map("interest_weight")
+  shownCount     Int       @default(0) @map("shown_count")
+  clickCount     Int       @default(0) @map("click_count")
+  completeCount  Int       @default(0) @map("complete_count")
+  ignoreCount    Int       @default(0) @map("ignore_count")
+  lastShownAt    DateTime? @map("last_shown_at")
+  fatigueUntil   DateTime? @map("fatigue_until")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+
+  @@id([userId, goalType])
+  @@map("user_goal_preferences")
+}
+
 model CardImpression {
   id      String   @id @default(uuid())
   userId  String   @map("user_id")

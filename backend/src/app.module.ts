@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { BootstrapModule } from './bootstrap/bootstrap.module';
+import { GoalsModule } from './goals/goals.module';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma/prisma.module';
 import { UsersModule } from './users/users.module';
@@ -26,6 +27,7 @@ import { ResponseCacheModule } from './common/response-cache.module';
 
 @Module({
   imports: [
+    GoalsModule,
     BootstrapModule,
     ConfigModule.forRoot({ isGlobal: true }),
     ResponseCacheModule,

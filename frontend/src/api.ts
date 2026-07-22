@@ -369,6 +369,14 @@ export const api = {
   // notification center (bell): list + unread badge + mark-all-read
   notifications: () => getJson<{ items: AppNotification[]; unread: number }>('/notifications'),
   notificationsUnread: () => getJson<{ unread: number }>('/notifications/unread'),
+
+  // personal goal shown above the home feed (one per session, server-ranked)
+  personalGoal: (session: string) =>
+    getJson<import('./components/PersonalGoal').PersonalGoalData | null>(
+      `/goals?session=${encodeURIComponent(session)}`,
+    ),
+  goalReact: (id: string, event: 'clicked' | 'dismissed' | 'completed') =>
+    postJson<{ ok: boolean }>('/goals/react', { id, event }),
   notificationsRead: () => postJson<{ ok: boolean }>('/notifications/read'),
   deleteReview: (reviewId: string) => del<{ ok: boolean }>(`/reviews/${reviewId}`),
   vote: (reviewId: string, type: VoteType) =>

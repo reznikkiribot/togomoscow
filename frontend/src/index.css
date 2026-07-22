@@ -6623,3 +6623,72 @@ html[data-theme='dark'] .sk {
 .location-consent-card h3 { margin: 0 0 10px; }
 .location-consent-card p { margin: 0 0 16px; color: var(--text); line-height: 1.45; }
 .location-consent-card .btn { width: 100%; margin-top: 8px; }
+
+/* ===== personal goal (top of home) =====
+   Replaced «Обучение рекомендаций»: the motivator now speaks about the user's own
+   standing, so it reads as a status card rather than a chore. */
+.goal-card {
+  position: relative;
+  margin: 10px 0 14px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 12%, var(--card)), var(--card));
+  border: 1px solid color-mix(in srgb, var(--accent) 26%, transparent);
+  cursor: pointer;
+}
+.goal-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.goal-icon { font-size: 20px; line-height: 1; }
+.goal-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text);
+}
+.goal-sub {
+  margin: 6px 0 0;
+  font-size: 13.5px;
+  line-height: 1.35;
+  color: var(--hint);
+}
+.goal-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+.goal-bar {
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--text) 12%, transparent);
+  overflow: hidden;
+}
+.goal-bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent);
+  transition: width 0.4s ease;
+}
+.goal-count {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.goal-dismiss {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: none;
+  color: var(--hint);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
