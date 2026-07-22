@@ -1,13 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { trackScreen } from './analytics';
 import { api } from './api';
 import { IcHome, IcBookmark, IcBell, IcUser, IcTools } from './components/Icons';
-import { QuizModal } from './components/QuizModal';
-import { FirstRunValue } from './components/FirstRunValue';
-import { CategoryCelebration } from './components/CategoryCelebration';
-import { ScanFab } from './components/ScanFab';
+const QuizModal = lazy(() => import('./components/QuizModal').then((m) => ({ default: m.QuizModal })));
+const FirstRunValue = lazy(() => import('./components/FirstRunValue').then((m) => ({ default: m.FirstRunValue })));
+const CategoryCelebration = lazy(() => import('./components/CategoryCelebration').then((m) => ({ default: m.CategoryCelebration })));
+const ScanFab = lazy(() => import('./components/ScanFab').then((m) => ({ default: m.ScanFab })));
 import { usePullToRefresh } from './pullToRefresh';
+import { useTastingLocation } from './locationTrust';
 
 function firstRunSeenKey() {
   const telegramId = (window as any).Telegram?.WebApp?.initDataUnsafe?.user?.id;
@@ -15,6 +16,9 @@ function firstRunSeenKey() {
 }
 
 export default function App() {
+  // Passive only: if the user already consented, refresh the location used to
+  // select the nearest branch. New permission prompts remain in the review flow.
+  useTastingLocation();
   const loc = useLocation();
   useEffect(() => {
     const name = loc.pathname === '/' || /^\/tg-boot/.test(loc.pathname) ? 'Главная'
@@ -28,7 +32,16 @@ export default function App() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [showQuiz, setShowQuiz] = useState(false);
   const [showFirstRun, setShowFirstRun] = useState(false);
+  const [secondaryUiReady, setSecondaryUiReady] = useState(false);
   const navRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const idle = (window as any).requestIdleCallback as ((cb: () => void, options?: { timeout: number }) => number) | undefined;
+    const handle = idle ? idle(() => setSecondaryUiReady(true), { timeout: 1_000 }) : window.setTimeout(() => setSecondaryUiReady(true), 800);
+    return () => {
+      if (idle) (window as any).cancelIdleCallback?.(handle);
+      else clearTimeout(handle);
+    };
+  }, []);
   useEffect(() => {
     const nav = navRef.current;
     if (!nav) return;
@@ -43,13 +56,13 @@ export default function App() {
   useEffect(() => {
     let stop = false;
     const poll = () => api.notificationsUnread().then((r) => { if (!stop) setUnread(r.unread); }).catch(() => {});
-    poll();
+    const firstPoll = window.setTimeout(poll, 1_500);
     const iv = setInterval(poll, 90_000);
     const onVis = () => { if (!document.hidden) poll(); };
     const onRead = () => setUnread(0);
     document.addEventListener('visibilitychange', onVis);
     window.addEventListener('alerts-read', onRead);
-    return () => { stop = true; clearInterval(iv); document.removeEventListener('visibilitychange', onVis); window.removeEventListener('alerts-read', onRead); };
+    return () => { stop = true; clearTimeout(firstPoll); clearInterval(iv); document.removeEventListener('visibilitychange', onVis); window.removeEventListener('alerts-read', onRead); };
   }, []);
 
   useEffect(() => {
@@ -66,18 +79,20 @@ export default function App() {
           if (!stop && meTries < 8) setTimeout(loadMe, Math.min(700 + meTries * 450, 2600));
         });
     };
-    loadMe();
+    const deferredMe = window.setTimeout(loadMe, 1_200);
     // A zero-rating user first sees the product value and can rate immediately.
     // The older taste quiz remains available from the profile (`force_quiz`).
     const forced = localStorage.getItem('force_quiz') === '1';
-    Promise.all([api.onboarding(), api.myReviews()])
-      .then(([onboarding, reviews]) => {
-        const valueSeen = localStorage.getItem(firstRunSeenKey()) === '1';
-        if (forced) setShowQuiz(true);
-        else if (reviews.length === 0 && !valueSeen) setShowFirstRun(true);
-        else setShowQuiz(reviews.length > 0 && !onboarding.onboarded);
-      })
-      .catch(() => setShowQuiz(forced));
+    const deferredOnboarding = window.setTimeout(() => {
+      Promise.all([api.onboarding(), api.myReviews()])
+        .then(([onboarding, reviews]) => {
+          const valueSeen = localStorage.getItem(firstRunSeenKey()) === '1';
+          if (forced) setShowQuiz(true);
+          else if (reviews.length === 0 && !valueSeen) setShowFirstRun(true);
+          else setShowQuiz(reviews.length > 0 && !onboarding.onboarded);
+        })
+        .catch(() => setShowQuiz(forced));
+    }, 1_200);
     // SELF-UPDATE: Telegram keeps mini-app sessions alive for hours, so users
     // kept seeing builds from the morning. Whenever the app regains focus we
     // compare our bundle name with the server's — a mismatch reloads the app
@@ -99,9 +114,12 @@ export default function App() {
     const onVis = () => { if (!document.hidden) checkFresh(); };
     document.addEventListener('visibilitychange', onVis);
     const iv = setInterval(checkFresh, 300_000);
-    checkFresh();
+    const deferredFreshness = window.setTimeout(checkFresh, 2_500);
     return () => {
       stop = true;
+      clearTimeout(deferredMe);
+      clearTimeout(deferredOnboarding);
+      clearTimeout(deferredFreshness);
       document.removeEventListener('visibilitychange', onVis);
       clearInterval(iv);
     };
@@ -125,34 +143,38 @@ export default function App() {
         </span>
       </div>
       {showQuiz && (
-        <QuizModal
-          onDone={() => {
-            setShowQuiz(false);
-            localStorage.removeItem('force_quiz');
-            // reload so the home feed rebuilds around the chosen tastes
-            window.location.reload();
-          }}
-        />
+        <Suspense fallback={null}>
+          <QuizModal
+            onDone={() => {
+              setShowQuiz(false);
+              localStorage.removeItem('force_quiz');
+              // reload so the home feed rebuilds around the chosen tastes
+              window.location.reload();
+            }}
+          />
+        </Suspense>
       )}
       {showFirstRun && (
-        <FirstRunValue
-          onDone={() => {
-            try { localStorage.setItem(firstRunSeenKey(), '1'); } catch { /* private mode */ }
-            api.setOnboarding({ categories: [] }).catch(() => {});
-            setShowFirstRun(false);
-          }}
-          onScan={() => {
-            try { localStorage.setItem(firstRunSeenKey(), '1'); } catch { /* private mode */ }
-            api.setOnboarding({ categories: [] }).catch(() => {});
-            setShowFirstRun(false);
-            window.setTimeout(() => window.dispatchEvent(new Event('scan-open')), 0);
-          }}
-        />
+        <Suspense fallback={null}>
+          <FirstRunValue
+            onDone={() => {
+              try { localStorage.setItem(firstRunSeenKey(), '1'); } catch { /* private mode */ }
+              api.setOnboarding({ categories: [] }).catch(() => {});
+              setShowFirstRun(false);
+            }}
+            onScan={() => {
+              try { localStorage.setItem(firstRunSeenKey(), '1'); } catch { /* private mode */ }
+              api.setOnboarding({ categories: [] }).catch(() => {});
+              setShowFirstRun(false);
+              window.setTimeout(() => window.dispatchEvent(new Event('scan-open')), 0);
+            }}
+          />
+        </Suspense>
       )}
       <Outlet />
-      <CategoryCelebration />
+      {secondaryUiReady && <Suspense fallback={null}><CategoryCelebration /></Suspense>}
       {/* the key feature: scan a dish/drink from any screen */}
-      <ScanFab />
+      {secondaryUiReady && <Suspense fallback={null}><ScanFab /></Suspense>}
       <nav className="nav" ref={navRef} aria-label="Основная навигация">
         <NavLink
           to="/"

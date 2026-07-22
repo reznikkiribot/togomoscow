@@ -1,0 +1,19 @@
+{
+  "at": "2026-07-19T10:49:14.857Z",
+  "mode": "dry",
+  "checked": {
+    "files": 149,
+    "assignments": 150,
+    "fields": 2877
+  },
+  "rejected": {
+    "collageFiles": 0,
+    "collageAssignments": 0,
+    "collageFields": 0,
+    "mismatchFiles": 0,
+    "mismatchAssignments": 0,
+    "mismatchFields": 0
+  },
+  "downloadErrors": 0,
+  "entries": []
+}

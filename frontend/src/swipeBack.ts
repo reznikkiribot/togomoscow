@@ -1,4 +1,5 @@
 import { useEffect, type RefObject } from 'react';
+import { isTopModalElement } from './modalEsc';
 
 // Swipe-back for FULL-SCREEN pushed pages (profile, category map): a rightward
 // drag from ANYWHERE (not just the edge) — the page sticks to the finger from the
@@ -44,7 +45,7 @@ export function useSwipeBack(
         startY = e.touches[0].clientY;
         lastT = performance.now();
         velocity = 0;
-        armed = !inHorizontalScroller(e.target); // anywhere on the page, not just the edge
+        armed = isTopModalElement(el) && !inHorizontalScroller(e.target); // anywhere on the top page
         dragging = false;
       };
       const move = (e: TouchEvent) => {

@@ -1,5 +1,6 @@
 import type { Listing } from '../types';
 import { VenuePhoto } from './VenuePhoto';
+import { MetroLine } from './MetroLine';
 import { Stars } from './Stars';
 import { ratingsWord } from '../plural';
 
@@ -22,7 +23,8 @@ export function FeedRecCard({
   onFavorite: () => void;
   onOpenVenue?: () => void;
 }) {
-  const venue = item.recVenue?.name || item.bestVenue?.name;
+  const venueRef = item.recVenue || item.bestVenue;
+  const venue = venueRef?.name;
   const price = item.recVenue?.price;
   const best = !!item.bestVenue && item.reviewCount > 0; // «Лучшее в» is earned by ratings
   return (
@@ -44,6 +46,7 @@ export function FeedRecCard({
             {best ? '🏆 Лучшее в:' : 'Попробуйте в:'} 📍{venue}
           </button>
         )}
+        <MetroLine venue={venueRef} />
         <div className="rec-rating">
           {item.reviewCount > 0 ? (
             <>

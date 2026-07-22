@@ -10,7 +10,7 @@ $env:Path = "$node;$env:Path"
 
 $log = "$root\.cloudflared.log"
 $out = "$root\.cloudflared.out"
-$stableUrl = 'https://app.togomoscow.ru/tg-boot-222?v=222'
+$stableUrl = 'https://app.togomoscow.ru/?v=242'
 
 Write-Host 'Docker (Postgres + MinIO)...' -ForegroundColor Cyan
 docker compose -f "$root\docker-compose.yml" up -d | Out-Null

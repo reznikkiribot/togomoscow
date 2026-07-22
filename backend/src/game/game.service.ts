@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { NotificationsService } from '../notifications/notifications.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { DEFAULT_EXPLORATION_CONFIG, invalidateExplorationConfig } from '../common/exploration';
 
 // ===== Gamification core =====
 // Everything tunable lives in game_config (DB) and applies live (60s cache):
@@ -51,6 +52,7 @@ export const DEFAULT_CONFIG: Record<string, any> = {
   ],
   discovery: { enabled: true, showInProfile: true },
   home: { firstTasterCards: 8 },
+  recsysExploration: DEFAULT_EXPLORATION_CONFIG,
 };
 
 @Injectable()
@@ -72,6 +74,7 @@ export class GameService {
   async setConfig(key: string, value: any) {
     await this.prisma.gameConfig.upsert({ where: { key }, create: { key, value }, update: { value } });
     this.cache = null; // apply immediately
+    if (key === 'recsysExploration') invalidateExplorationConfig();
     return { ok: true };
   }
 

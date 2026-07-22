@@ -6,6 +6,7 @@ import { tg, openExternal } from '../telegram';
 import type { Comment, Review, VoteState, VoteType } from '../types';
 import { Stars } from './Stars';
 import { thumb } from '../img';
+import { SmartImg } from './SmartImg';
 
 const VOTE_LABEL: Record<VoteType, string> = {
   USEFUL: '👍 Полезно',
@@ -33,12 +34,10 @@ export function PhotoPostModal({
   onEdit?: () => void;
   onDelete?: () => void;
 }) {
-  const photo = review.photoUrls?.[0] || review.listing?.photoUrl || undefined;
+  const photo = review.photoUrls?.[0] || review.cardPhotoUrl || undefined;
   const u = review.user;
   const initial = (u?.firstName ?? u?.username ?? '?').trim()[0]?.toUpperCase() ?? '?';
   const [closing, setClosing] = useState(false);
-  // dead photo URL → hide the media instead of showing a broken-image icon
-  const [photoBroken, setPhotoBroken] = useState(false);
   const [thumbBroken, setThumbBroken] = useState(false);
   const [menu, setMenu] = useState(false);
   const [toast, setToast] = useState('');
@@ -55,10 +54,12 @@ export function PhotoPostModal({
     setClosing(true);
     setTimeout(onClose, 220);
   };
-  useEscClose(reqClose);
-
   // swipe-down anywhere (from the scroll top) dismisses — shared app-wide pattern
+  const overlayRef = useRef<HTMLDivElement>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  useEscClose(reqClose, overlayRef);
+  useEscClose(() => setMenu(false), menuRef, menu);
   useSwipeDismiss(sheetRef, onClose);
 
   useEffect(() => {
@@ -102,7 +103,7 @@ export function PhotoPostModal({
     : '';
 
   return (
-    <div className="modal-backdrop photo-post-backdrop" style={{ zIndex: 3400 }} onClick={reqClose}>
+    <div ref={overlayRef} className="modal-backdrop photo-post-backdrop" style={{ zIndex: 3400 }} onClick={reqClose}>
       <div ref={sheetRef} className={'photo-post' + (closing ? ' closing' : '')} onClick={(e) => e.stopPropagation()}>
         <button className="pp-dots" onClick={() => setMenu(true)} aria-label="Ещё">⋯</button>
         <button className="pp-close" onClick={reqClose} aria-label="Закрыть">✕</button>
@@ -111,8 +112,10 @@ export function PhotoPostModal({
         <div className="pp-hero">
           {/* SAME 600px asset the list card already loaded → appears instantly from
               the browser cache (900px was a different file = a visible re-fetch) */}
-          {photo && !photoBroken && <div className="ph-blur" style={{ backgroundImage: `url("${thumb(photo, 200)}")` }} />}
-          {photo && !photoBroken && <img className="pp-photo" src={thumb(photo, 600)} alt="" onError={() => setPhotoBroken(true)} />}
+          {photo && <div className="ph-blur" style={{ backgroundImage: `url("${thumb(photo, 200)}")` }} />}
+          {photo && (
+            <SmartImg className="pp-photo" src={photo} width={600} loading="eager" alt="" monogram={review.listing?.name} />
+          )}
           <button type="button" className="pp-head" onClick={() => u?.id && onOpenUser?.(u.id)}>
             {u?.photoUrl ? (
               <img className="pp-avatar" src={u.photoUrl} alt="" />
@@ -231,7 +234,7 @@ export function PhotoPostModal({
 
       {/* action sheet from the ⋯ button */}
       {menu && (
-        <div className="pp-sheet-back" onClick={(e) => { e.stopPropagation(); setMenu(false); }}>
+        <div ref={menuRef} className="pp-sheet-back" onClick={(e) => { e.stopPropagation(); setMenu(false); }}>
           <div className="pp-sheet" onClick={(e) => e.stopPropagation()}>
             {onEdit && (
               <button className="pp-sheet-item" onClick={() => { setMenu(false); onEdit(); }}>Изменить</button>

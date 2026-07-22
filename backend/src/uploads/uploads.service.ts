@@ -60,7 +60,13 @@ export class UploadsService implements OnModuleInit {
     }
   }
 
-  async onModuleInit() {
+  onModuleInit() {
+    // Storage probing is unrelated to serving HTML/API reads. Never hold the
+    // Nest bootstrap (and Railway healthcheck) behind an external S3 round-trip.
+    setTimeout(() => void this.initializeStorage(), 1_000);
+  }
+
+  private async initializeStorage() {
     if (!this.useS3) {
       await mkdir(this.uploadDir, { recursive: true });
       this.logger.warn(`Object storage is not configured; using local directory ${this.uploadDir}`);

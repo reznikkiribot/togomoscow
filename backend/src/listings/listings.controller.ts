@@ -24,6 +24,19 @@ export class ListingsController {
     private readonly config: ConfigService,
   ) {}
 
+  private async located<T>(req: any, result: Promise<T> | T): Promise<T> {
+    return this.listings.localizeVenueReferences(await result, this.listings.viewerLocation(req));
+  }
+
+  /** Resolve the viewer when initData is present, without requiring auth. */
+  private async optionalViewer(req: any) {
+    const auth: string = req.headers['authorization'] ?? '';
+    const [scheme, initData] = auth.split(' ');
+    const token = this.config.get<string>('TELEGRAM_BOT_TOKEN') ?? '';
+    const tgUser = scheme === 'tma' && initData && token ? validateTelegramInitData(initData, token, 0) : null;
+    return tgUser ? this.users.upsertFromTelegram(tgUser) : null;
+  }
+
   // a logged-in user proposes a dish/drink for a venue (pending owner approval)
   @Post(':id/items')
   @UseGuards(TelegramAuthGuard)
@@ -81,7 +94,7 @@ export class ListingsController {
     const token = this.config.get<string>('TELEGRAM_BOT_TOKEN') ?? '';
     const tgUser = scheme === 'tma' && initData && token ? validateTelegramInitData(initData, token, 0) : null;
     const viewer = tgUser ? await this.users.upsertFromTelegram(tgUser) : null;
-    return this.listings.list({
+    return this.located(req, this.listings.list({
       type,
       search,
       take: take ? Number(take) : undefined,
@@ -91,7 +104,7 @@ export class ListingsController {
       cuisine,
       category,
       viewerId: viewer?.id ?? null,
-    });
+    }));
   }
 
   @Get('feed')
@@ -103,30 +116,33 @@ export class ListingsController {
     const token = this.config.get<string>('TELEGRAM_BOT_TOKEN') ?? '';
     const tgUser = scheme === 'tma' && initData && token ? validateTelegramInitData(initData, token, 0) : null;
     const viewer = tgUser ? await this.users.upsertFromTelegram(tgUser) : null;
-    return this.listings.feedRanked(viewer?.id ?? null, take ? Number(take) : undefined);
+    return this.located(req, this.listings.feedRanked(viewer?.id ?? null, take ? Number(take) : undefined));
   }
 
   // NOTE: specific routes must be declared before the ':id' wildcard.
   @Get('recommended')
-  recommended(@Query('take') take?: string) {
-    return this.listings.recommended(take ? Number(take) : undefined);
+  recommended(@Req() req: any, @Query('take') take?: string) {
+    return this.located(req, this.listings.recommended(take ? Number(take) : undefined));
   }
 
   @Get('top-weekly')
-  topWeekly() {
-    return this.listings.topWeekly();
+  topWeekly(@Req() req: any) {
+    return this.located(req, this.listings.topWeekly());
   }
 
-  // «Станьте первым дегустатором» — items nobody has reviewed yet (gamification)
+  // «Станьте первым дегустатором» — items nobody has reviewed yet (gamification).
+  // Optional auth: a known viewer gets ROTATED cards (never the same set twice),
+  // anonymous gets a random sample.
   @Get('first-taster')
-  firstTaster(@Query('take') take?: string) {
-    return this.listings.firstTasterItems(take ? Number(take) : undefined);
+  async firstTaster(@Req() req: any, @Query('take') take?: string) {
+    const viewer = await this.optionalViewer(req);
+    return this.located(req, this.listings.firstTasterItems(take ? Number(take) : undefined, viewer?.id ?? null));
   }
 
   // personalized picks from the user's chosen categories (quiz)
   @Get('recommended-for')
-  recommendedFor(@Query('cats') cats?: string) {
-    return this.listings.recommendedFor((cats ?? '').split(',').filter(Boolean));
+  recommendedFor(@Req() req: any, @Query('cats') cats?: string) {
+    return this.located(req, this.listings.recommendedFor((cats ?? '').split(',').filter(Boolean)));
   }
 
   @Get('geo')
@@ -136,8 +152,8 @@ export class ListingsController {
 
   // venues serving a dish/drink (for the Блюда / Напитки map search)
   @Get('venues-serving')
-  venuesServing(@Query('type') type: 'DISH' | 'DRINK', @Query('q') q?: string) {
-    return this.listings.venuesServing(type === 'DRINK' ? 'DRINK' : 'DISH', q);
+  venuesServing(@Req() req: any, @Query('type') type: 'DISH' | 'DRINK', @Query('q') q?: string) {
+    return this.located(req, this.listings.venuesServing(type === 'DRINK' ? 'DRINK' : 'DISH', q));
   }
 
   // autocomplete suggestions for adding a dish/drink
@@ -148,14 +164,14 @@ export class ListingsController {
 
   // unified venue search (by name OR by dish/drink they serve)
   @Get('search-venues')
-  searchVenues(@Query('q') q?: string) {
-    return this.listings.searchVenues(q);
+  searchVenues(@Req() req: any, @Query('q') q?: string) {
+    return this.located(req, this.listings.searchVenues(q));
   }
 
   // unified search: matching dish/drink first, then venues
   @Get('search-all')
-  searchAll(@Query('q') q?: string) {
-    return this.listings.searchAll(q);
+  searchAll(@Req() req: any, @Query('q') q?: string) {
+    return this.located(req, this.listings.searchAll(q));
   }
 
   // search-bar autocomplete suggestions
@@ -166,20 +182,20 @@ export class ListingsController {
 
   // search dishes/drinks by name (Блюда / Напитки mode)
   @Get('search-items')
-  searchItems(@Query('type') type: 'DISH' | 'DRINK', @Query('q') q?: string) {
-    return this.listings.searchItems(type === 'DRINK' ? 'DRINK' : 'DISH', q);
+  searchItems(@Req() req: any, @Query('type') type: 'DISH' | 'DRINK', @Query('q') q?: string) {
+    return this.located(req, this.listings.searchItems(type === 'DRINK' ? 'DRINK' : 'DISH', q));
   }
 
   @Get('group')
-  group(@Query('key') key: string, @Query('type') type?: ListingType) {
-    return this.listings.group(key, type);
+  group(@Req() req: any, @Query('key') key: string, @Query('type') type?: ListingType) {
+    return this.located(req, this.listings.group(key, type));
   }
 
   // find beers by the flavor/serving tags people left in reviews (e.g. "Мягкое,С горчинкой")
   @Get('beer-by-tags')
-  beerByTags(@Query('tags') tags?: string) {
+  beerByTags(@Req() req: any, @Query('tags') tags?: string) {
     const list = (tags ?? '').split(',').map((t) => t.trim()).filter(Boolean);
-    return this.listings.beerByTags(list);
+    return this.located(req, this.listings.beerByTags(list));
   }
 
   // smart personal feed (ratings + recent views + quiz − dislikes)
@@ -187,13 +203,13 @@ export class ListingsController {
   @UseGuards(TelegramAuthGuard)
   async recommendedSmart(@Req() req: any, @Query('recent') recent?: string) {
     const u = await this.users.upsertFromTelegram(req.telegramUser);
-    return this.listings.recommendedSmart(u.id, (recent ?? '').split(',').filter(Boolean));
+    return this.located(req, this.listings.recommendedSmart(u.id, (recent ?? '').split(',').filter(Boolean)));
   }
 
   // real places to taste a given dish/drink (menu links + cuisine match)
   @Get(':id/where')
-  placesForItem(@Param('id') id: string) {
-    return this.listings.placesForItem(id);
+  placesForItem(@Req() req: any, @Param('id') id: string) {
+    return this.located(req, this.listings.placesForItem(id));
   }
 
   @Get(':id')
@@ -204,6 +220,6 @@ export class ListingsController {
     const token = this.config.get<string>('TELEGRAM_BOT_TOKEN') ?? '';
     const tgUser = scheme === 'tma' && initData && token ? validateTelegramInitData(initData, token, 0) : null;
     const viewer = tgUser ? await this.users.upsertFromTelegram(tgUser) : null;
-    return this.listings.byId(id, viewer?.id ?? null);
+    return this.located(req, this.listings.byId(id, viewer?.id ?? null));
   }
 }

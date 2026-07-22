@@ -67,12 +67,14 @@ class AppErrorBoundary extends React.Component<{ children: React.ReactNode }, { 
 
 // app-open session tracking (start on open, end on close) for admin analytics
 let sessionId: string | null = null;
-api
-  .sessionStart()
-  .then((s) => {
-    sessionId = s.id;
-  })
-  .catch(() => {});
+window.setTimeout(() => {
+  api
+    .sessionStart()
+    .then((s) => {
+      sessionId = s.id;
+    })
+    .catch(() => {});
+}, 1_500);
 const endSession = () => {
   if (!sessionId) return;
   // keepalive so the request survives the page being closed

@@ -4,6 +4,7 @@ import { TelegramAuthGuard } from '../common/telegram-auth.guard';
 import { validateTelegramInitData } from '../common/telegram-init-data';
 import { ConfigService } from '@nestjs/config';
 import { UsersService } from '../users/users.service';
+import { ListingsService } from '../listings/listings.service';
 
 @Controller('recsys')
 export class RecsysController {
@@ -11,6 +12,7 @@ export class RecsysController {
     private readonly recsys: RecsysService,
     private readonly users: UsersService,
     private readonly config: ConfigService,
+    private readonly listings: ListingsService,
   ) {}
 
   /** Log an implicit-feedback event (OPEN / VIEW / SAVE). RATE is logged server-side. */
@@ -46,8 +48,16 @@ export class RecsysController {
     const [scheme, initData] = auth.split(' ');
     const token = this.config.get<string>('TELEGRAM_BOT_TOKEN') ?? '';
     const tgUser = scheme === 'tma' && initData && token ? validateTelegramInitData(initData, token, 0) : null;
-    if (!tgUser) return this.recsys.anonFeed(n);
+    if (!tgUser) {
+      return this.listings.localizeVenueReferences(
+        await this.recsys.anonFeed(n),
+        this.listings.viewerLocation(req),
+      );
+    }
     const u = await this.users.upsertFromTelegram(tgUser);
-    return this.recsys.recommendByTaste(u.id, n);
+    return this.listings.localizeVenueReferences(
+      await this.recsys.recommendByTaste(u.id, n),
+      this.listings.viewerLocation(req),
+    );
   }
 }

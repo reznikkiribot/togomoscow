@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { api } from '../api';
 import type { Listing, ListingDetail, Question, Review, VoteState, VoteType } from '../types';
+import { IcShare, IcRate, IcGlobe, IcRoute, IcTelegram, IcVk } from './Icons';
 import { CorrectionModal } from './CorrectionModal';
 import { SimilarItems } from './SimilarItems';
 import { ReviewAttrs } from './ReviewAttrs';
@@ -8,13 +9,14 @@ import { VenuePicker } from './VenuePicker';
 import { ListRow } from './ListRow';
 import { ReviewForm } from './ReviewForm';
 import { QuickRatingFlow } from './QuickRatingFlow';
+import { PhotoPostModal } from './PhotoPostModal';
 import { TasteResult } from './TasteResult';
 import { Stars } from './Stars';
 import { VenuePhoto } from './VenuePhoto';
 import { MapView } from './MapView';
 import { openExternal, telHref, callPhone, shareToChat, shareMessage } from '../telegram';
 import { ratingsWord, openStatus } from '../plural';
-import { useEscClose } from '../modalEsc';
+import { isTopModalElement, useEscClose } from '../modalEsc';
 import { useSwipeDismiss } from '../swipeDismiss';
 import { useSwipeBack } from '../swipeBack';
 import { pushRecent } from '../recent';
@@ -24,12 +26,27 @@ import { beerStyle } from '../tasting';
 import { categoryProgressText, loadCategoryProgress, useCategoryProgress } from '../categoryGate';
 import { shareReviewToStory } from '../reviewStory';
 import { tastingMotivation } from '../tastingMotivation';
+import { MetroLine } from './MetroLine';
 
 const TYPE_LABEL: Record<Listing['type'], string> = {
   RESTAURANT: 'Ресторан',
   DISH: 'Блюдо',
   DRINK: 'Напиток',
 };
+
+function DetailHeroImage({ src, alt = '', loading = 'lazy' }: { src: string; alt?: string; loading?: 'eager' | 'lazy' }) {
+  const displaySrc = thumb(src, 600) ?? src;
+  return (
+    <div className="detail-photo-frame">
+      <div
+        className="detail-photo-backdrop"
+        aria-hidden="true"
+        style={{ backgroundImage: `url(${JSON.stringify(displaySrc)})` }}
+      />
+      <img className="detail-photo" src={displaySrc} alt={alt} loading={loading} />
+    </div>
+  );
+}
 
 function MiniRow({
   items,
@@ -46,6 +63,7 @@ function MiniRow({
           <div key={l.id || l.name} className="mini" onClick={() => onPick(l)}>
             <VenuePhoto listing={l} className="mini-img" />
             <div className="mini-name">{l.name}</div>
+            <MetroLine venue={l} />
             {(l as any).menuPrice != null && (
               <div className="mini-price">{(l as any).menuPrice} ₽</div>
             )}
@@ -320,6 +338,8 @@ export function ListingDetailModal({
   const [showVenuePicker, setShowVenuePicker] = useState(false);
   const [pendingRating, setPendingRating] = useState<number | undefined>(undefined);
   const [quickRating, setQuickRating] = useState<number | null>(null);
+  const [photoReview, setPhotoReview] = useState<Review | null>(null);
+  const [postListingId, setPostListingId] = useState<string | null>(null);
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
   const requestClose = useCallback(() => {
@@ -332,6 +352,7 @@ export function ListingDetailModal({
   // browser's overscroll and take over (pointer events get eaten by native scroll
   // in the iOS Telegram webview).
   const sheetRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
   const switchEntity = useCallback((nextId: string, push: boolean, nextOriginVenue: { id: string; name: string; price?: number | null } | null = null) => {
     const currentId = idRef.current;
     if (!nextId || nextId === currentId) return;
@@ -359,7 +380,7 @@ export function ListingDetailModal({
     if (previousId) switchEntity(previousId, false);
     else requestClose();
   }, [requestClose, switchEntity]);
-  useEscClose(requestBack);
+  useEscClose(requestBack, overlayRef);
   // app-wide pattern: swipe down anywhere on the sheet (from its scroll top) closes —
   // complements the photo-handle drag below (which stays for gallery-area gestures)
   useSwipeDismiss(sheetRef, requestBack, { deps: [data, loadError] });
@@ -385,6 +406,7 @@ export function ListingDetailModal({
     let dy = 0;
     let active = false;
     const start = (e: TouchEvent) => {
+      if (!isTopModalElement(sheet)) { active = false; return; }
       if (sheet.scrollTop > 0) { active = false; return; }
       startX = e.touches[0].clientX;
       startY = e.touches[0].clientY;
@@ -552,7 +574,7 @@ export function ListingDetailModal({
 
   if (!data) {
     return (
-      <div className="modal-backdrop" style={{ zIndex: 2500 }} onClick={requestBack}>
+      <div ref={overlayRef} className="modal-backdrop" style={{ zIndex: 2500 }} onClick={requestBack}>
         <div className="modal" ref={sheetRef} onClick={(e) => e.stopPropagation()}>
           <button className="card-back" onClick={requestBack} aria-label="Назад">←</button>
           {loadError ? (
@@ -650,8 +672,6 @@ export function ListingDetailModal({
     ...galleryPhotos.map((u) => ({ t: 'img' as const, u })),
     ...galleryVideos.map((u) => ({ t: 'video' as const, u })),
   ];
-
-  const thumbUrl = (u: string) => thumb(u, 600) ?? u;
 
   const VOTE_LABEL: Record<VoteType, string> = {
     USEFUL: '👍 Полезно',
@@ -791,6 +811,7 @@ export function ListingDetailModal({
 
   return (
     <div
+      ref={overlayRef}
       className={'modal-backdrop' + (closing ? ' closing' : '')}
       style={{ zIndex: 2500 }}
       onClick={requestBack}
@@ -824,7 +845,7 @@ export function ListingDetailModal({
               return (
                 <div key={i} className="carousel-slide">
                   {m.t === 'img' ? (
-                    <img className="detail-photo" src={thumbUrl(m.u)} alt="" loading={i > 0 ? 'lazy' : 'eager'} />
+                    <DetailHeroImage src={m.u} loading={i > 0 ? 'lazy' : 'eager'} />
                   ) : (
                     <video className="detail-photo" src={m.u} controls playsInline />
                   )}
@@ -835,20 +856,22 @@ export function ListingDetailModal({
           </div>
         ) : media.length === 1 ? (
           media[0].t === 'img' ? (
-            <img className="detail-photo" src={media[0].u} alt={data.name} />
+            <DetailHeroImage src={media[0].u} alt={data.name} loading="eager" />
           ) : (
             <video className="detail-photo" src={media[0].u} controls playsInline />
           )
         ) : data.photoUrl ? (
           // no user photos yet → venue's own photo, marked illustrative (only here, inside the card)
           <div className={'stock-wrap' + (venuePrice != null ? ' has-price' : '')}>
-            <VenuePhoto listing={data} className="detail-photo" allowVenuePhoto />
+            {/* через рамку с размытой подложкой: голый VenuePhoto оставлял серые
+                поля по бокам, когда фото не 4:3 («Убери пространство на фото!») */}
+            <DetailHeroImage src={data.photoUrl} alt={data.name} loading="eager" />
             <span className="stock-badge">📷 Фото иллюстративное · обновится после дегустации с фото</span>
           </div>
         ) : data.placeholderPhotos && data.placeholderPhotos.length === 1 ? (
           // single illustrative photo → fill the whole card width (equal margins)
           <div className={'stock-wrap' + (venuePrice != null ? ' has-price' : '')}>
-            <img className="detail-photo" src={data.placeholderPhotos[0]} alt="" loading="lazy" />
+            <DetailHeroImage src={data.placeholderPhotos[0]} />
             <span className="stock-badge">📷 Фото иллюстративное · обновится после дегустации с фото</span>
           </div>
         ) : data.placeholderPhotos && data.placeholderPhotos.length > 0 ? (
@@ -861,10 +884,15 @@ export function ListingDetailModal({
             ))}
           </div>
           ) : (
-            <VenuePhoto listing={data} className="detail-photo" />
+            // wrapped so a non-4:3 photo is completed by its own blurred copy
+            // instead of grey letterbox bars
+            <div className="detail-photo-frame">
+              <VenuePhoto listing={data} className="detail-photo" />
+            </div>
           )}
         </div>
         <h3 style={{ marginTop: 12, fontSize: 24 }}>{data.name}</h3>
+        {isRestaurant && <MetroLine venue={data} className="detail-metro" />}
 
         <div className="rating-head">
           {data.reviewCount > 0 ? (
@@ -960,7 +988,8 @@ export function ListingDetailModal({
         {/* where this item is best — always visible (no unlock gate) */}
         {!isRestaurant && data.bestVenue && (
           <div className="best-venue">
-            🏆 Лучше всего в: <b>{data.bestVenue.name}</b> — {data.bestVenue.rating.toFixed(1)}★
+            <div>🏆 Лучше всего в: <b>{data.bestVenue.name}</b> — {data.bestVenue.rating.toFixed(1)}★</div>
+            <MetroLine venue={data.bestVenue} />
           </div>
         )}
         {!isRestaurant && !data.bestVenue && !isUnlocked(data.category) && data.category && countFor(data.category) > 0 && (
@@ -1027,34 +1056,34 @@ export function ListingDetailModal({
           )}
           {(data.address || hasGeo) && (
             <button className="action" onClick={openRoute}>
-              <span className="ico">🧭</span>
+              <span className="ico"><IcRoute size={22} /></span>
               Маршрут
             </button>
           )}
           {(data.links?.website || data.website) && (
             <button className="action" onClick={() => openExternal((data.links?.website || data.website) as string)}>
-              <span className="ico">🌐</span>
+              <span className="ico"><IcGlobe size={22} /></span>
               Сайт
             </button>
           )}
           {data.links?.telegram && (
             <button className="action" onClick={() => openExternal(data.links!.telegram as string)}>
-              <span className="ico">✈️</span>
+              <span className="ico"><IcTelegram size={22} /></span>
               Telegram
             </button>
           )}
           {data.links?.vk && (
             <button className="action" onClick={() => openExternal(data.links!.vk as string)}>
-              <span className="ico">🅥</span>
+              <span className="ico"><IcVk size={22} /></span>
               VK
             </button>
           )}
           <button className="action" onClick={share}>
-            <span className="ico">↗</span>
+            <span className="ico"><IcShare size={22} /></span>
             Поделиться
           </button>
           <button className="action" onClick={() => startRate()}>
-            <span className="ico">✎</span>
+            <span className="ico"><IcRate size={22} /></span>
             Оценить
           </button>
         </div>
@@ -1438,6 +1467,11 @@ export function ListingDetailModal({
             ) : (
               data.reviews.map((r) => (
                 <div key={r.id} style={{ padding: '10px 0', borderBottom: '1px solid var(--border)' }}>
+                  <button
+                    type="button"
+                    className="listing-review-open"
+                    onClick={() => setPhotoReview({ ...r, listing: r.listing ?? data } as Review)}
+                  >
                   <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
                     <b>{r.user?.firstName ?? r.user?.username ?? 'Гость'}</b>
                     <Stars value={r.rating} />
@@ -1452,10 +1486,13 @@ export function ListingDetailModal({
                   )}
                   {r.text && <div style={{ fontSize: 14, marginTop: 2 }}>{r.text}</div>}
                   <ReviewAttrs attributes={r.attributes} />
-                  {(r.photoUrls?.length > 0 || r.videoUrls?.length > 0) && (
+                  </button>
+                  {(r.photoUrls?.length > 0 || (r.videoUrls?.length ?? 0) > 0) && (
                     <div className="photo-thumbs">
                       {r.photoUrls?.map((u) => (
-                        <img key={u} src={u} alt="" />
+                        <button key={u} type="button" className="photo-thumb-open" onClick={() => setPhotoReview({ ...r, listing: r.listing ?? data } as Review)}>
+                          <img src={u} alt="" />
+                        </button>
                       ))}
                       {r.videoUrls?.map((u) => (
                         <video key={u} src={u} controls playsInline />
@@ -1646,6 +1683,21 @@ export function ListingDetailModal({
           onClose={() => setQuickRating(null)}
         />
       )}
+      {photoReview && (
+        <PhotoPostModal
+          review={photoReview}
+          onClose={() => setPhotoReview(null)}
+          onOpenListing={() => {
+            const listingId = photoReview.listing?.id;
+            if (listingId && listingId !== data.id) setPostListingId(listingId);
+          }}
+          onOpenVenue={() => {
+            const venueId = photoReview.venue?.id;
+            if (venueId) setPostListingId(venueId);
+          }}
+        />
+      )}
+      {postListingId && <ListingDetailModal id={postListingId} onClose={() => setPostListingId(null)} />}
       {rateToast && <div className="game-toast">{rateToast}</div>}
       {tasteResult && (
         <TasteResult

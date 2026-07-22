@@ -14,7 +14,8 @@ New-Item -ItemType Directory -Force -Path $logDir | Out-Null
 $cfLog = "$root\.cloudflared.log"
 $cfOut = "$root\.cloudflared.out"
 $STABLE = 'https://app.togomoscow.ru'
-$BOOT_URL = "$STABLE/tg-boot-222?v=222&health=supervisor"
+$MENU_URL = "$STABLE/?v=242"
+$BOOT_URL = "$MENU_URL&health=supervisor"
 $script:bound = $false
 # cooldowns so a slow/failing start isn't retried every loop (avoids process pile-up)
 $script:beStart = [datetime]::MinValue
@@ -23,6 +24,8 @@ $script:tunnelStart = [datetime]::MinValue
 $script:tunnelFailures = 0
 $script:lastIngest = [datetime]::MinValue
 $script:lastMenu = Get-Date  # heavy crawl в†’ weekly cadence, not on every restart
+$script:beProc = $null
+$script:dockerStart = [datetime]::MinValue
 
 function Test-Port($p) {
   try { $c = New-Object Net.Sockets.TcpClient; $c.Connect('127.0.0.1', $p); $c.Close(); return $true }
@@ -30,6 +33,16 @@ function Test-Port($p) {
 }
 function Heartbeat($m) {
   "$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')  $m" | Out-File "$logDir\supervisor.log" -Append -Encoding utf8
+}
+function Ensure-Docker {
+  docker info *> $null
+  if ($LASTEXITCODE -eq 0) { return $true }
+  try { Start-Service 'com.docker.service' -ErrorAction SilentlyContinue } catch {}
+  $desktop = "$env:ProgramFiles\Docker\Docker\Docker Desktop.exe"
+  if ((Test-Path $desktop) -and -not (Get-Process 'Docker Desktop' -ErrorAction SilentlyContinue)) {
+    Start-Process -FilePath $desktop -ArgumentList '--minimized' -WindowStyle Hidden
+  }
+  return $false
 }
 function Test-PublicMiniApp {
   if (-not (Test-Port 5173)) { return $false }
@@ -58,22 +71,33 @@ function Start-Tunnel {
     if (Test-PublicMiniApp) { break }
   }
   if (-not $script:bound) {
-    node "$root\scripts\set-menu-button.mjs" "$STABLE/tg-boot-222?v=222" *> "$logDir\menu.log"
+    node "$root\scripts\set-menu-button.mjs" $MENU_URL *> "$logDir\menu.log"
     $script:bound = $true
     Heartbeat "tunnel up: $STABLE (menu bound)"
   }
 }
 
 Heartbeat 'supervisor started (named tunnel)'
+Ensure-Docker | Out-Null
 docker compose -f "$root\docker-compose.yml" up -d *> $null
 
 while ($true) {
-  if (-not (Test-Port 3000) -and ((Get-Date) - $script:beStart).TotalSeconds -gt 45) {
+  if (-not (Test-Port 5432) -and ((Get-Date) - $script:dockerStart).TotalSeconds -gt 60) {
+    $script:dockerStart = Get-Date
+    if (Ensure-Docker) { docker compose -f "$root\docker-compose.yml" up -d *> $null }
+  }
+  # Do not spawn Nest while Postgres is down: `nest --watch` stays alive after
+  # P1001, and the old port-only check leaked another process every 45 seconds.
+  if ((Test-Port 5432) -and -not (Test-Port 3000) -and ((Get-Date) - $script:beStart).TotalSeconds -gt 45) {
     $script:beStart = Get-Date
     Heartbeat 'starting backend'
-    Start-Process -FilePath "$node\npm.cmd" -ArgumentList 'run', 'start:dev' `
+    if ($script:beProc -and -not $script:beProc.HasExited) {
+      Stop-Process -Id $script:beProc.Id -Force -ErrorAction SilentlyContinue
+    }
+    $script:beProc = Start-Process -FilePath "$node\node.exe" `
+      -ArgumentList 'node_modules/@nestjs/cli/bin/nest.js', 'start', '--watch' `
       -WorkingDirectory "$root\backend" -WindowStyle Hidden `
-      -RedirectStandardOutput "$logDir\backend.out.log" -RedirectStandardError "$logDir\backend.err.log"
+      -RedirectStandardOutput "$logDir\backend.out.log" -RedirectStandardError "$logDir\backend.err.log" -PassThru
   }
   if (-not (Test-Port 5173) -and ((Get-Date) - $script:feStart).TotalSeconds -gt 90) {
     $script:feStart = Get-Date

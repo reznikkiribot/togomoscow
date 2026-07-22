@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useEscClose } from '../modalEsc';
 
 export type SortKey = 'recommended' | 'rating' | 'reviews' | 'distance';
@@ -181,10 +181,11 @@ function FiltersSheet({
   const set = (p: Partial<FilterState>) => setDraft((d) => ({ ...d, ...p }));
   // Esc / Back / tap-outside closes ONLY this sheet (one step back), not the whole
   // map-browse behind it — the global stack pops the topmost layer first.
-  useEscClose(onClose);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  useEscClose(onClose, overlayRef);
 
   return (
-    <div className="modal-backdrop" style={{ zIndex: 80 }} onClick={onClose}>
+    <div ref={overlayRef} className="modal-backdrop" style={{ zIndex: 80 }} onClick={onClose}>
       <div className="modal filters-modal" onClick={(e) => e.stopPropagation()}>
         <div className="sheet-head">
           <button className="link-btn" onClick={onClose}>Закрыть</button>

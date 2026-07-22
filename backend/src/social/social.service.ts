@@ -2,6 +2,9 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NotificationsService } from '../notifications/notifications.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { UploadsService } from '../uploads/uploads.service';
+import { attachReviewCardPhotos } from '../common/review-card-photos';
+import { recordExplorationReaction } from '../common/exploration';
 
 @Injectable()
 export class SocialService {
@@ -9,6 +12,7 @@ export class SocialService {
     private readonly prisma: PrismaService,
     private readonly config: ConfigService,
     private readonly notifications: NotificationsService,
+    private readonly uploads: UploadsService,
   ) {}
 
   /** Public user card with counts + whether the current user follows them. */
@@ -86,6 +90,7 @@ export class SocialService {
       take: 50,
     });
     await this.attachItemVenues(reviewList);
+    await attachReviewCardPhotos(this.prisma, this.uploads, reviewList);
     await this.attachVoteCounts(reviewList); // reactions must show real counts
     // taster LEVEL (same ladder as gamification) — shown on the public profile
     const LEVELS = [
@@ -317,7 +322,7 @@ export class SocialService {
   async tasteProfile(userId: string) {
     const reviews = await this.prisma.review.findMany({
       where: { userId },
-      include: { listing: { select: { name: true, category: true, type: true } } },
+      include: { listing: { select: { id: true, name: true, category: true, type: true } } },
     });
     if (reviews.length === 0) return { total: 0 };
 
@@ -364,7 +369,7 @@ export class SocialService {
     // best find: highest-rated reviewed item (with text/name)
     const bestR = [...reviews].sort((a, b) => b.rating - a.rating)[0];
     const best = bestR?.listing
-      ? { name: bestR.listing.name, rating: bestR.rating }
+      ? { id: bestR.listing.id, name: bestR.listing.name, rating: bestR.rating }
       : null;
 
     return { total, avg, favorite, topCategories, loves, best, categoriesTried: catMap.size };
@@ -378,6 +383,7 @@ export class SocialService {
       create: { userId, itemId, category: category ?? null },
       update: {},
     });
+    void recordExplorationReaction(this.prisma, userId, itemId, 'NOT_INTERESTED').catch(() => {});
     return { ok: true };
   }
 

@@ -51,6 +51,8 @@ export default function MyRatings() {
   const [noStory, setNoStory] = useState(localStorage.getItem('noStoryOnReview') === '1');
   const [theme, setTheme] = useState<ThemePreference>(() => readThemePreference());
   const [photoReview, setPhotoReview] = useState<Review | null>(null);
+  const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
+  const tastingsRef = useRef<HTMLDivElement>(null);
   const game = useGameState();
 
   const load = () => {
@@ -322,7 +324,9 @@ export default function MyRatings() {
               {taste.best && (
                 <div className="taste-line">
                   <span className="taste-key">🥇 Лучшая находка</span>
-                  <span className="taste-val">{taste.best.name} · {taste.best.rating.toFixed(1)}★</span>
+                  <button type="button" className="taste-val taste-value-link" onClick={() => setOpenListing(taste.best!.id)}>
+                    {taste.best.name} · {taste.best.rating.toFixed(1)}★
+                  </button>
                 </div>
               )}
               {taste.favorite && (
@@ -365,7 +369,14 @@ export default function MyRatings() {
       {reviews.length > 0 && (
         <div className="me-section">
           <h2 className="me-h">Оценки по категориям</h2>
-          <CategoryAverages reviews={reviews} />
+          <CategoryAverages
+            reviews={reviews}
+            selected={categoryFilter}
+            onSelect={(category) => {
+              setCategoryFilter(category);
+              requestAnimationFrame(() => tastingsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+            }}
+          />
         </div>
       )}
 
@@ -481,24 +492,30 @@ export default function MyRatings() {
         </div>
       ) : (
         (() => {
-          const withPhoto = reviews.filter((r) => r.photoUrls?.[0] || r.listing?.photoUrl);
+          const withPhoto = reviews.filter((r) => r.photoUrls?.[0] || r.cardPhotoUrl);
+          const shownReviews = categoryFilter
+            ? reviews.filter((r) => r.listing?.category === categoryFilter)
+            : reviews;
           return (
             <>
               {withPhoto.length > 0 && (
                 <div className="me-section">
-                  <h2 className="me-h">Оценки</h2>
+                  <h2 className="me-h">Дегустации</h2>
                   <div className="rc-carousel">
                     {withPhoto.map((r) => (
                       <button key={r.id} onClick={() => setPhotoReview(withMe(r))}>
-                        <SmartImg src={r.photoUrls?.[0] || r.listing?.photoUrl} width={400} alt="" />
+                        <SmartImg src={r.photoUrls?.[0] || r.cardPhotoUrl} width={400} alt="" />
                       </button>
                     ))}
                   </div>
                 </div>
               )}
-              <div className="me-section">
-                <h2 className="me-h">Мои дегустации</h2>
-                {reviews.map((r) => (
+              <div ref={tastingsRef} className="me-section">
+                <h2 className="me-h">{categoryFilter ? `Мои дегустации · ${categoryFilter}` : 'Мои дегустации'}</h2>
+                {categoryFilter && (
+                  <button type="button" className="category-filter-reset" onClick={() => setCategoryFilter(null)}>Показать все</button>
+                )}
+                {shownReviews.map((r) => (
                   <ReviewCard
                     key={r.id}
                     review={withMe(r)}
@@ -524,10 +541,7 @@ export default function MyRatings() {
           userId={profile.user.id}
           initialTab={people}
           onClose={() => setPeople(null)}
-          onOpenUser={(id) => {
-            setPeople(null);
-            setOpenUser(id);
-          }}
+          onOpenUser={(id) => setOpenUser(id)}
         />
       )}
       {openUser && <UserProfileModal id={openUser} onClose={() => setOpenUser(null)} />}
@@ -538,18 +552,16 @@ export default function MyRatings() {
         <PhotoPostModal
           review={photoReview}
           onClose={() => setPhotoReview(null)}
-          onOpenUser={(id) => { setPhotoReview(null); setOpenUser(id); }}
+          onOpenUser={(id) => setOpenUser(id)}
           onOpenListing={() => {
             const lid = photoReview.listing?.id;
-            setPhotoReview(null);
             if (lid) setOpenListing(lid);
           }}
           onOpenVenue={() => {
             const vid = photoReview.venue?.id;
-            setPhotoReview(null);
             if (vid) setOpenListing(vid);
           }}
-          onEdit={() => { const r = photoReview; setPhotoReview(null); setEdit(r); }}
+          onEdit={() => setEdit(photoReview)}
           onDelete={() => {
             const id = photoReview.id;
             setPhotoReview(null);

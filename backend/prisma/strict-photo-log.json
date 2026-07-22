@@ -1,0 +1,638 @@
+[
+ {
+  "id": "bf38146c-2217-487a-ac65-e8286ffc4423",
+  "name": "Оливье",
+  "why": "collage(0.53)",
+  "photoUrl": "/api/files/aigen-f64ff740-33e0-4668-a679-6653e0f914bc"
+ },
+ {
+  "id": "f13c653d-8b0a-4500-8807-05b2b9881e84",
+  "name": "Расстегай",
+  "why": "name=0.42",
+  "photoUrl": "/api/files/aigen-711477f7-f1ee-4693-b1b7-7ff0fa4a542f"
+ },
+ {
+  "id": "b497d85a-74eb-4071-afb4-8aa70ea7947a",
+  "name": "Пожарские котлеты",
+  "why": "name=0.38",
+  "photoUrl": "/api/files/aigen-e87b4bf1-233b-441c-8b6e-fcd6e2999ab6"
+ },
+ {
+  "id": "f4585f50-1601-4b82-a4d6-d2db1ea2afe2",
+  "name": "Пхали",
+  "why": "name=0.39",
+  "photoUrl": "/api/files/aigen-ef0b8817-b51f-4971-b4f1-bd82173318c9"
+ },
+ {
+  "id": "b2bb3d56-4db3-4996-8fd2-0b48255e9be2",
+  "name": "Стейк Филе-миньон",
+  "why": "name=0.45",
+  "photoUrl": "/api/files/aigen-7d06660f-d0b7-4f1a-bb78-ef97174aef5f"
+ },
+ {
+  "id": "d36b5330-1ba5-4893-b5b3-ca0d9efa0174",
+  "name": "Тибон",
+  "why": "collage(0.70)",
+  "photoUrl": "/api/files/aigen-39dcf70d-03cd-4616-897f-84ac3dea92b5"
+ },
+ {
+  "id": "92f5f822-2656-49d9-962a-28f0bbb928c5",
+  "name": "Додо",
+  "why": "collage(0.47)",
+  "photoUrl": "/api/files/aigen-a54dac6b-28a8-4a4c-a086-6382c2bc9887"
+ },
+ {
+  "id": "781c5f51-a31a-465c-845c-5f89f00410d5",
+  "name": "Пепперони фреш",
+  "why": "name=0.02",
+  "photoUrl": "/api/files/aigen-43b4c060-6dd5-48fe-9cfb-519427cad63f"
+ },
+ {
+  "id": "ebdfd67a-6efc-4a9d-8d98-0c4ca59212ea",
+  "name": "Чесночный цыпленок",
+  "why": "name=0.15",
+  "photoUrl": "/api/files/aigen-c9577629-35c4-4cbb-96a9-9af13c555a19"
+ },
+ {
+  "id": "5ee0529f-ac81-4efa-8512-df8aed8af784",
+  "name": "Цыпленок Барбекю",
+  "why": "name=0.09",
+  "photoUrl": "/api/files/aigen-02189e4e-6647-4642-ac78-d71aacbc4dee"
+ },
+ {
+  "id": "94bd6506-a5e9-4838-a8ef-cbad02bc01df",
+  "name": "Накаяма",
+  "why": "name=0.04",
+  "photoUrl": "/api/files/aigen-bc85b713-56ad-45f3-8860-9a16ecb55069"
+ },
+ {
+  "id": "d6af9707-836d-43c8-b72a-6d00bbbc4b32",
+  "name": "Красная икра",
+  "why": "name=0.23",
+  "photoUrl": "/api/files/aigen-420ade8a-2aab-4bf5-a3b2-21c549b3d982"
+ },
+ {
+  "id": "273ea13a-18c8-4e7f-aa11-19d2eb37d137",
+  "name": "Огурцы",
+  "why": "name=0.31",
+  "photoUrl": "/api/files/aigen-0bf09ba9-d05d-4506-887c-8fa6396c88cf"
+ },
+ {
+  "id": "96fc3d2e-742b-4b12-9ea7-db267c48a027",
+  "name": "Авокадо",
+  "why": "collage(0.57)",
+  "photoUrl": "/api/files/aigen-c2b5f033-25a6-4435-960b-06244f144bcf"
+ },
+ {
+  "id": "0b753ce1-3f53-4757-a745-d72df4556af5",
+  "name": "Лечо",
+  "why": "name=0.37",
+  "photoUrl": "/api/files/aigen-b7823a6d-f931-4067-8fa1-7243a804f2f5"
+ },
+ {
+  "id": "e0cb25e4-092f-4488-8499-d22a847afd2c",
+  "name": "Мёд",
+  "why": "name=0.04",
+  "photoUrl": "/api/files/aigen-346149f8-e332-453b-86ae-0a96457ed406"
+ },
+ {
+  "id": "752ff716-48fe-4217-a23f-bcfd4ad715ba",
+  "name": "Курага",
+  "why": "collage(0.56)",
+  "photoUrl": "/api/files/aigen-21dccd60-e3c3-408a-84c8-2f136bbb0112"
+ },
+ {
+  "id": "22e4ecc6-2e08-4491-b756-b58bc3725a2a",
+  "name": "Эфенди",
+  "why": "name=0.04",
+  "photoUrl": "/api/files/aigen-a7ada8e7-36eb-45a5-ac9f-2333c557b978"
+ },
+ {
+  "id": "b60b4baa-9065-474a-ae86-0fa2fe9f231c",
+  "name": "Фигаро",
+  "why": "name=0.04",
+  "photoUrl": "/api/files/aigen-a2227212-4ad0-4283-8aea-4ba4794af7a4"
+ },
+ {
+  "id": "1264384a-d446-471e-b00d-705296d150fb",
+  "name": "Молоко 3,6%",
+  "why": "name=0.01",
+  "photoUrl": "/api/files/aigen-6794c85b-07b8-4a58-a9a2-e7f25296c5d1"
+ },
+ {
+  "id": "66ce479b-a4a9-4188-81df-a472cdbc29a9",
+  "name": "Аррива!",
+  "why": "collage(0.63)",
+  "photoUrl": "/api/files/aigen-f8f32ba8-71dc-4afb-8d80-2bf85cc5c8d1"
+ },
+ {
+  "id": "e5815002-a97c-47ed-85c8-a91b8b6782b7",
+  "name": "Бургер-пицца",
+  "why": "collage(0.77)",
+  "photoUrl": "/api/files/aigen-76e54aed-4f58-4511-8364-f8cc838fc232"
+ },
+ {
+  "id": "381458b0-ec30-45e5-be44-af6113cd43fe",
+  "name": "Четыре сезона",
+  "why": "collage(0.98)",
+  "photoUrl": "/api/files/aigen-3a19c3a9-2b20-42c3-9b40-2cf55dd3bbed"
+ },
+ {
+  "id": "b013258f-169d-4367-b90c-24b5ceebfb6c",
+  "name": "Покет-пицца сырная курочка",
+  "why": "collage(0.77)",
+  "photoUrl": "/api/files/aigen-08f8019f-21f7-484b-9e19-e3986f7671f6"
+ },
+ {
+  "id": "4c80eace-9d74-4bf8-aab5-c4cfa850f0d8",
+  "name": "Покет-пицца чоризо барбекю",
+  "why": "collage(0.77)",
+  "photoUrl": "/api/files/aigen-b3c05ad8-b6b7-43f3-92d1-4f0abc6d3bfa"
+ },
+ {
+  "id": "d0f992a9-15ac-4dd2-9b72-01199a6a0c0f",
+  "name": "Сырные палочки с чесноком",
+  "why": "name=0.42",
+  "photoUrl": "/api/files/aigen-2018f8af-e68a-471d-b832-5d55f140c34d"
+ },
+ {
+  "id": "d515ac4d-2132-40ce-bb22-7d6f8998634c",
+  "name": "Додстер",
+  "why": "collage(0.46)",
+  "photoUrl": "/api/files/aigen-66eb7e6a-01e0-4474-8faf-97baa25f2ce8"
+ },
+ {
+  "id": "b9386f15-6c3d-4392-b844-6d8056272002",
+  "name": "Острый Додстер",
+  "why": "name=0.49",
+  "photoUrl": "/api/files/aigen-c8de30f5-0430-4af8-a2c1-917ce23d6958"
+ },
+ {
+  "id": "a6b38e64-30cd-4825-b219-98a69ca5305c",
+  "name": "Набор пирожных Макарон Ассорти",
+  "why": "collage(0.82)",
+  "photoUrl": "/api/files/aigen-2e96e472-c6f9-41b9-b06d-6e78352c3247"
+ },
+ {
+  "id": "a2119512-cbc2-4dc2-aeb1-8defe84e0c96",
+  "name": "Пирожное со вкусом Лимончелло",
+  "why": "name=0.26",
+  "photoUrl": "/api/files/aigen-bb8251da-adc6-49fb-af26-cc5c47ecf025"
+ },
+ {
+  "id": "3acd0669-5d44-4c13-870f-7f29dddc25d7",
+  "name": "Пломбир Додокрошка",
+  "why": "name=0.01",
+  "photoUrl": "/api/files/aigen-e42f1860-690a-4462-a075-620813ec805a"
+ },
+ {
+  "id": "3d1a566c-068c-43f6-b234-76b123551b50",
+  "name": "Яблочный крамбл",
+  "why": "collage(0.46)",
+  "photoUrl": "/api/files/aigen-7fbfabfe-1a00-46ec-80d3-c6881377e78d"
+ },
+ {
+  "id": "1b2ac33f-fc21-4fa2-b279-123d7d51305e",
+  "name": "Шоколадный кукис",
+  "why": "collage(0.51)",
+  "photoUrl": "/api/files/aigen-2147270a-c1eb-4cf0-8e9e-bed5cf308e7c"
+ },
+ {
+  "id": "274ea353-1e9f-4793-a053-92e172a21b06",
+  "name": "Малиновый соус",
+  "why": "name=0.07",
+  "photoUrl": "/api/files/aigen-9e28b0ba-9e4b-4201-9373-9bc0df950e09"
+ },
+ {
+  "id": "ebf17c8f-a838-4ee8-9ad2-5fc09a47127a",
+  "name": "Додо Колпак",
+  "why": "collage(0.53)",
+  "photoUrl": "/api/files/aigen-7870d8d5-8eff-4f9c-b4f7-5afa4fe5e749"
+ },
+ {
+  "id": "893ddd6f-d2aa-4137-81d7-2ef38506b5db",
+  "name": "Додо: от подвала до миллиарда",
+  "why": "name=0.37",
+  "photoUrl": "/api/files/aigen-d6895d60-e090-4543-af95-25177c741ab3"
+ },
+ {
+  "id": "90feb850-1a67-47c6-b601-ec7117c9b324",
+  "name": "Пять в одном с покет-пиццей",
+  "why": "collage(0.77)",
+  "photoUrl": "/api/files/aigen-0209ab7d-3f93-4ffe-8896-da1d951e46fc"
+ },
+ {
+  "id": "642c88b7-2b5d-4da9-a112-a8eaac78167e",
+  "name": "Додо Бокс",
+  "why": "collage(0.55)",
+  "photoUrl": "/api/files/aigen-f05237e4-a13b-429a-bb86-0be91b67af49"
+ },
+ {
+  "id": "b14a24f7-2b30-41ef-861b-bb2465ecb438",
+  "name": "Завтрак на двоих",
+  "why": "collage(0.82)",
+  "photoUrl": "/api/files/aigen-001f9b08-e218-4386-a6b3-361eb9ee3df7"
+ },
+ {
+  "id": "5a57773d-5aaa-45d4-b766-33eb009f221a",
+  "name": "2 фирменные закуски",
+  "why": "collage(0.52)",
+  "photoUrl": "/api/files/aigen-d0de6ae4-f988-40f6-a1d0-273997126549"
+ },
+ {
+  "id": "ec967c25-8d7c-46da-8af7-5d5785f85f7a",
+  "name": "Пицца 4 сыра",
+  "why": "collage(0.77)",
+  "photoUrl": "/api/files/aigen-5940cd67-d386-4e3d-93c3-73067a56b617"
+ },
+ {
+  "id": "43e4b9a8-a709-48df-8821-fd32496dc00e",
+  "name": "Сгущёнка в стиках",
+  "why": "collage(0.57)",
+  "photoUrl": "/api/files/aigen-679f01b8-45f1-4ce0-8a94-afb70bcd657f"
+ },
+ {
+  "id": "f173b4cb-9c29-4088-b740-97d527074169",
+  "name": "Узелки сладкие",
+  "why": "collage(0.56)",
+  "photoUrl": "/api/files/aigen-afe3ce65-84b4-46ad-861b-63f3d5931b8b"
+ },
+ {
+  "id": "c2ae2f87-dc99-42f9-b2bd-4c039cafaf46",
+  "name": "Пицца Мясная Сальса",
+  "why": "collage(0.77)",
+  "photoUrl": "/api/files/aigen-b2429ac6-a018-4be7-9929-7923a3809efc"
+ },
+ {
+  "id": "905fef1d-00b6-4d49-aea0-f407a05dfc94",
+  "name": "Пицца Альфредо",
+  "why": "collage(0.77)",
+  "photoUrl": "/api/files/aigen-8c55040e-ea75-4b61-bc46-e7b7251cbb72"
+ },
+ {
+  "id": "33eb029e-c3ba-406f-9a5b-ee82bac7f6ea",
+  "name": "Картофель фирменный из печи",
+  "why": "collage(0.52)",
+  "photoUrl": "/api/files/aigen-94f88dd4-f313-46de-981f-2960aef3c12d"
+ },
+ {
+  "id": "b84e03fd-4e7c-43ae-9569-46cb78ee3bca",
+  "name": "Пицца Гавайская Сальса",
+  "why": "collage(0.77)",
+  "photoUrl": "/api/files/aigen-a1ee994f-2a57-4f53-ba2f-411d483f676c"
+ },
+ {
+  "id": "d8c2f1a5-2280-4be1-ad5d-a5ea9a6cd6db",
+  "name": "Пицца Диабло",
+  "why": "collage(0.77)",
+  "photoUrl": "/api/files/aigen-cde1bd9b-3270-4ee3-9c11-bc4a2d521350"
+ },
+ {
+  "id": "91af6f5a-3dcc-4cd9-bb41-5a9b6a4d7f2e",
+  "name": "Пицца Охотничья",
+  "why": "collage(0.77)",
+  "photoUrl": "/api/files/aigen-5cf37c2d-e51b-4d3a-8731-97c9c81a996b"
+ },
+ {
+  "id": "bbdf398f-1c48-48a9-bdef-0d0c8f2ee8ac",
+  "name": "Пицца Сырная с ветчиной",
+  "why": "collage(0.77)",
+  "photoUrl": "/api/files/aigen-0e45ac10-33a6-4324-ab0f-4f7df616f252"
+ },
+ {
+  "id": "28cd875c-a04e-4875-a56a-5c5b6fd149bc",
+  "name": "Пицца Чикен BBQ",
+  "why": "collage(0.77)",
+  "photoUrl": "/api/files/aigen-e80c3df4-20b4-4620-ba75-4dc8a4bdd408"
+ },
+ {
+  "id": "5da20c42-e2ba-4b31-b14a-2c5bf9638468",
+  "name": "Пицца Карбонара",
+  "why": "name=0.02",
+  "photoUrl": "/api/files/aigen-f12e83b5-7587-46aa-a785-5044ee345c28"
+ },
+ {
+  "id": "7d5078e8-e4cc-4126-a010-027f3e7677cc",
+  "name": "Пирожок Вишневый",
+  "why": "collage(0.45)",
+  "photoUrl": "/api/files/aigen-39e6c54d-ab4e-40f3-a36c-52a72a60e826"
+ },
+ {
+  "id": "df30cd07-9152-44b4-ac68-0bcfd4a581d7",
+  "name": "Соус Сладкий чили",
+  "why": "name=0.26",
+  "photoUrl": "/api/files/aigen-e723ec16-c68c-4e52-b762-b18265812082"
+ },
+ {
+  "id": "670f344f-164f-4fca-b43d-7c74673eebd4",
+  "name": "Физз Черноголовка Белая земляника",
+  "why": "name=0.03",
+  "photoUrl": "/api/files/aigen-1034c778-363c-425f-a2b5-5e6cd9f3f892"
+ },
+ {
+  "id": "9225cd2a-fb40-4a0f-b7e6-80b6f90122b6",
+  "name": "Суп томатный с базиликом",
+  "why": "name=0.16",
+  "photoUrl": "/api/files/aigen-a7f8dbbf-1bc3-4ec5-971d-14fd5c3398fd"
+ },
+ {
+  "id": "b573377a-a358-46e5-821d-447f3ac8ea80",
+  "name": "Груша и горгонзола круглая",
+  "why": "name=0.46",
+  "photoUrl": "/api/files/aigen-7c629caf-8f16-462d-9d4e-ef641d519ad9"
+ },
+ {
+  "id": "4bc40815-e3cf-446a-b767-b1524ecf4894",
+  "name": "Четыре сыра",
+  "why": "collage(0.70)",
+  "photoUrl": "/api/files/aigen-64bd4b4b-950b-4866-aa45-01bbffae37f1"
+ },
+ {
+  "id": "915a9176-c237-4478-a38a-d13270db13e0",
+  "name": "Лютеница",
+  "why": "name=0.28",
+  "photoUrl": "/api/files/aigen-47e26172-8aa8-40e1-813c-4ad27164dbe7"
+ },
+ {
+  "id": "8186f8de-e41e-44a4-b968-27dbec49eef3",
+  "name": "Чахохбили",
+  "why": "name=0.49",
+  "photoUrl": "/api/files/aigen-f372a585-3c18-45ff-abef-a1fbe35c3ba1"
+ },
+ {
+  "id": "78d1b263-503a-427e-b20c-f09db07dd515",
+  "name": "Самса",
+  "why": "name=0.39",
+  "photoUrl": "/api/files/aigen-254b9d6a-f3a8-4235-93a9-9f36139edfe4"
+ },
+ {
+  "id": "7543f912-8e9c-450d-b852-b01c8a481ae3",
+  "name": "Котлеты по-киевски",
+  "why": "name=0.45",
+  "photoUrl": "/api/files/aigen-02f4ac8f-4fec-4a35-93ae-57f93cedabef"
+ },
+ {
+  "id": "86f790af-904b-4e5c-8e17-53171928685b",
+  "name": "Рейк",
+  "why": "name=0.04",
+  "photoUrl": "/api/files/aigen-9b507f02-db08-4164-bf94-a9eb8a36a801"
+ },
+ {
+  "id": "0d1a762e-f791-4001-baf4-59c6f06c11bd",
+  "name": "Капитан Барашек на булочке",
+  "why": "name=0.04",
+  "photoUrl": "/api/files/aigen-4a3258ce-4679-4a61-bff9-54733c11fdef"
+ },
+ {
+  "id": "06369a0e-4925-48a2-9857-35b830b11aa6",
+  "name": "Пара Физз Черноголовка Вишня",
+  "why": "name=0.03",
+  "photoUrl": "/api/files/aigen-5ef6849d-05a9-4937-8359-155680756902"
+ },
+ {
+  "id": "3bc33e41-1f58-417b-a122-cc028a415b91",
+  "name": "Пицца с говядиной и запеченными овощами Римское",
+  "why": "collage(0.77)",
+  "photoUrl": "/api/files/aigen-d1156d76-8b25-4717-a1cf-ad1edea87266"
+ },
+ {
+  "id": "be7bea34-6fa4-431a-bad9-523fcece52c9",
+  "name": "Покет-пицца ветчина и сыр",
+  "why": "collage(0.77)",
+  "photoUrl": "/api/files/aigen-090977c0-78bd-4990-8b58-99f1c1c07cd6"
+ },
+ {
+  "id": "25a65939-0a30-4f07-8d4f-b94e0ff50c4f",
+  "name": "Сырники с малиновым соусом",
+  "why": "name=0.07",
+  "photoUrl": "/api/files/aigen-9c23c0b7-4abd-42bd-8ed9-74a037a87e4c"
+ },
+ {
+  "id": "d79dabc4-a41d-4ef6-b820-87edad33a32a",
+  "name": "Пицца Жюльен",
+  "why": "collage(0.77)",
+  "photoUrl": "/api/files/aigen-c0df3e93-1af4-44ba-b2df-92096787ea5c"
+ },
+ {
+  "id": "1f3a4859-39cb-4c4a-b0f8-f7eff678f2a4",
+  "name": "Матча",
+  "why": "name=0.29",
+  "photoUrl": "/api/files/aigen-b5fa78e8-4edf-4d1f-bc78-e5983d70fb9c"
+ },
+ {
+  "id": "321c6f00-8a4c-4ee3-8bc0-30359d25cb8f",
+  "name": "Космополитен",
+  "why": "name=0.11",
+  "photoUrl": "/api/files/aigen-6a263433-1f22-4c86-8ec7-a6f28cf48236"
+ },
+ {
+  "id": "573e67db-d9b5-4264-b3d6-6e4bdb292789",
+  "name": "Олд фэшен",
+  "why": "name=0.11",
+  "photoUrl": "/api/files/aigen-ec22139e-29fe-4c09-9e4d-c90922c64661"
+ },
+ {
+  "id": "e1b59b81-42f8-4061-80d5-f21d9258ba25",
+  "name": "Грог",
+  "why": "name=0.05",
+  "photoUrl": "/api/files/aigen-b268beb3-7855-4480-b076-425d2ff774c7"
+ },
+ {
+  "id": "88c1b07e-35c4-4b74-ab88-8ef3626c7201",
+  "name": "Космополитан",
+  "why": "name=0.32",
+  "photoUrl": "/api/files/aigen-87c214b3-21db-4ec0-a8ae-aa02f4305f17"
+ },
+ {
+  "id": "17fd2cdc-5774-405e-a37e-ecc0935b389d",
+  "name": "Манхэттен",
+  "why": "name=0.43",
+  "photoUrl": "/api/files/aigen-51242878-42c2-4b24-810e-8ec59ed69305"
+ },
+ {
+  "id": "33171428-35b4-4bf3-8b76-d2314ba2729f",
+  "name": "Текила санрайз",
+  "why": "name=0.05",
+  "photoUrl": "/api/files/aigen-e9f24686-46f3-4992-83a3-53ddc2cd8127"
+ },
+ {
+  "id": "7a690909-861a-435a-90a1-c32d1d9d3f0b",
+  "name": "Гимлет",
+  "why": "name=0.02",
+  "photoUrl": "/api/files/aigen-e9e487d2-325a-41c1-973e-11ed9aa2532f"
+ },
+ {
+  "id": "5d3eaec2-9bcd-405f-aedf-7cd69d571b34",
+  "name": "Кир рояль",
+  "why": "name=0.04",
+  "photoUrl": "/api/files/aigen-3c16234e-4527-4464-baab-03e918069bb6"
+ },
+ {
+  "id": "4b2fd21a-27e8-48b3-9dff-5a2cede0d0a1",
+  "name": "Каркаде",
+  "why": "name=0.01",
+  "photoUrl": "/api/files/aigen-363f8271-8913-43b7-b6b3-9a1f43cba830"
+ },
+ {
+  "id": "35df8d7f-cf1b-4b9a-88b5-c3bfc76ebc0f",
+  "name": "Тёмный ром",
+  "why": "name=0.23",
+  "photoUrl": "/api/files/aigen-a8eb9774-e000-472e-a144-0b2d41d2665f"
+ },
+ {
+  "id": "cfa22bf5-fbab-4ab6-ba7d-51793d6def03",
+  "name": "Квас",
+  "why": "name=0.46",
+  "photoUrl": "/api/files/aigen-d1af2172-b135-41cd-ac7a-5cfe788562e3"
+ },
+ {
+  "id": "7c84673e-b264-448f-a0d1-8b843f7455a9",
+  "name": "Матча капучино",
+  "why": "name=0.10",
+  "photoUrl": "/api/files/aigen-3cf1a67e-0a93-406e-8429-61a3b5361aca"
+ },
+ {
+  "id": "496b54be-fe6a-467b-840f-181d7362bc90",
+  "name": "Малиновый кофе",
+  "why": "name=0.00",
+  "photoUrl": "/api/files/aigen-50fac636-2030-44c4-9340-cd06db878216"
+ },
+ {
+  "id": "98c32eb6-2860-4f1a-bf66-661783da09cb",
+  "name": "Матча Тоник",
+  "why": "name=0.29",
+  "photoUrl": "/api/files/aigen-7d22ea92-84ec-48c2-a6de-d74ea688a1cb"
+ },
+ {
+  "id": "456572b1-38a9-48b3-92ad-a626ad5a31b2",
+  "name": "Минеральная Вода Филетте Газированная",
+  "why": "name=0.06",
+  "photoUrl": "/api/files/aigen-f8cff0fa-182c-4aa4-8252-316ebfdb6cf6"
+ },
+ {
+  "id": "b041114c-a3f1-45ae-990f-95e52a39db1d",
+  "name": "Айс-ти груша-фейхоа",
+  "why": "name=0.27",
+  "photoUrl": "/api/files/aigen-d0466338-3f76-4abd-888d-7ddb6ad367bb"
+ },
+ {
+  "id": "0ca48ab9-6643-41df-98b8-7f309684f04d",
+  "name": "Айс-ти инжир-бузина",
+  "why": "collage(0.50)",
+  "photoUrl": "/api/files/aigen-7aab7bb3-9a71-4927-8990-cce6432fc41f"
+ },
+ {
+  "id": "aa4f9e1d-2daa-4db3-a5a2-525a329d3e4b",
+  "name": "Молочный коктейль Соленая карамель",
+  "why": "name=0.06",
+  "photoUrl": "/api/files/aigen-304f4ec3-6ca9-4615-b640-ca60689f2a2f"
+ },
+ {
+  "id": "62c9be74-2e79-4a0a-9cbb-f344b7385c2e",
+  "name": "Молочный коктейль с печеньем Орео",
+  "why": "name=0.06",
+  "photoUrl": "/api/files/aigen-0e2a5b40-2e50-40e7-b29e-adbf7c69e26f"
+ },
+ {
+  "id": "6855a530-1e27-4fc2-847b-a299bd7e727e",
+  "name": "Классический молочный коктейль",
+  "why": "name=0.06",
+  "photoUrl": "/api/files/aigen-e30713e2-28fc-4226-a1e6-258ce021587f"
+ },
+ {
+  "id": "aa57430b-f30d-4603-88a7-f6bb41165333",
+  "name": "Клубничный молочный коктейль",
+  "why": "name=0.06",
+  "photoUrl": "/api/files/aigen-16ff9a62-3e2c-44e2-a389-15ddf2ea3907"
+ },
+ {
+  "id": "8dca7eca-d8ad-42a9-90a6-17cb56254b22",
+  "name": "Добрый Кола",
+  "why": "name=0.06",
+  "photoUrl": "/api/files/aigen-a58e9cf4-0c5c-46fb-a0ed-1e8e6bac820a"
+ },
+ {
+  "id": "5b98ec23-740e-45bc-94d1-deb3083424c0",
+  "name": "Rich Tea Зеленый",
+  "why": "name=0.19",
+  "photoUrl": "/api/files/aigen-39079181-acf6-4700-b050-ae418441a13a"
+ },
+ {
+  "id": "ee649649-1ce4-4ab3-9149-b1858dbbb00e",
+  "name": "Rich Tea Зеленый с манго",
+  "why": "name=0.49",
+  "photoUrl": "/api/files/aigen-a1347985-cad2-4537-9e14-5a40c90ac7d2"
+ },
+ {
+  "id": "1c20b2ef-89c9-48d6-b90d-a83f1a012740",
+  "name": "Айсти зеленый со вкусом лесных ягод",
+  "why": "name=0.01",
+  "photoUrl": "/api/files/aigen-0bd8cadf-8342-4074-aa63-19b6971b304b"
+ },
+ {
+  "id": "9de236fc-fb37-49a8-991f-c6e5c6c56d82",
+  "name": "Айсти зеленый со вкусом лимона",
+  "why": "name=0.03",
+  "photoUrl": "/api/files/aigen-69de7eb5-7329-4bbf-9fb5-62b42e213a01"
+ },
+ {
+  "id": "91978ba5-25d2-438e-8ef3-8a6d00049f2d",
+  "name": "Вода BonaAqua негазированная",
+  "why": "name=0.04",
+  "photoUrl": "/api/files/aigen-d3639699-a3bc-4542-8624-599c309e3d00"
+ },
+ {
+  "id": "b40c4a1d-9836-46ab-8548-81d54784015c",
+  "name": "Пирожок и Кофе",
+  "why": "collage(0.65)",
+  "photoUrl": "/api/files/aigen-8c24e1fe-27b3-4adc-a4a7-f2df50d48726"
+ },
+ {
+  "id": "42e036c7-04a2-41b1-acbf-c5f7d224d8b1",
+  "name": "Питьевая вода Черноголовка газированная",
+  "why": "name=0.03",
+  "photoUrl": "/api/files/aigen-80c14665-d814-44a6-a540-3c3eb3234fcf"
+ },
+ {
+  "id": "feed791b-894b-4329-b9f0-a7e4c2109001",
+  "name": "Фанки Манки Кола классик",
+  "why": "name=0.06",
+  "photoUrl": "/api/files/aigen-3bb760b0-d441-4cc9-857d-39edfb3dd9e6"
+ },
+ {
+  "id": "2c8fe888-04eb-444d-b575-38af673bae54",
+  "name": "Минеральная Вода Филетте Негазированная",
+  "why": "name=0.06",
+  "photoUrl": "/api/files/aigen-5287d116-3fdd-4bc8-9ba5-8b3d79b25645"
+ },
+ {
+  "id": "30aacb75-ffdb-445f-9916-93cfbe5f6834",
+  "name": "Драй мартини",
+  "why": "collage(0.55)",
+  "photoUrl": "/api/files/aigen-40dcf7a7-05b8-4345-96eb-c07fd38af39e"
+ },
+ {
+  "id": "9d43a2e3-f955-41ad-91b6-cbe57d811a4b",
+  "name": "Май тай",
+  "why": "name=0.02",
+  "photoUrl": "/api/files/aigen-83c6a04d-3954-4618-b515-986c5ed0d7ad"
+ },
+ {
+  "id": "3071892c-f607-4b88-ac20-8d5805d2bf94",
+  "name": "Мимоза",
+  "why": "name=0.15",
+  "photoUrl": "/api/files/aigen-eecabaf5-e004-4add-89f1-2196f803aeb0"
+ },
+ {
+  "id": "02d77772-b005-4d07-b497-9f39c03fe1b5",
+  "name": "Сазерак",
+  "why": "name=0.07",
+  "photoUrl": "/api/files/aigen-e943b385-6b40-4a32-8bad-fc603cb7cd67"
+ },
+ {
+  "id": "ed6a73b9-4cdd-411b-bbb2-480415db3237",
+  "name": "Шоколадный молочный коктейль",
+  "why": "name=0.06",
+  "photoUrl": "/api/files/aigen-2b92671a-1a52-49da-b727-171fc26a6718"
+ }
+]

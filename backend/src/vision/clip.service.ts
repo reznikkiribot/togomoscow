@@ -22,14 +22,15 @@ export class ClipService implements OnModuleInit {
   ];
 
   async onModuleInit() {
-    // warm the model at startup (background) so the first scan isn't slow
-    this.load()
+    // Give the first page/API request priority over ONNX model initialization.
+    // The model still warms in the background before a typical scan interaction.
+    setTimeout(() => this.load()
       .then(() => {
         // precompute + cache the bottle/moderation label vectors while idle
         this.classifyVec(new Array(512).fill(0), ClipService.BOTTLE_LABELS).catch(() => {});
         this.loadLabelVecs().catch(() => {});
       })
-      .catch((e) => this.log.warn(`CLIP preload failed: ${e?.message}`));
+      .catch((e) => this.log.warn(`CLIP preload failed: ${e?.message}`)), 5_000);
   }
 
   private async load() {

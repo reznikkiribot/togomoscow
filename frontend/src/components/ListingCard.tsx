@@ -3,6 +3,7 @@ import type { Listing } from '../types';
 import { ratingsWord } from '../plural';
 import { Stars } from './Stars';
 import { VenuePhoto } from './VenuePhoto';
+import { MetroLine } from './MetroLine';
 import { NotInterested } from './NotInterested';
 
 const TYPE_LABEL: Record<Listing['type'], string> = {
@@ -27,6 +28,7 @@ export function ListingCard({
   onNotInterested?: () => void;
 }) {
   const [hover, setHover] = useState(0);
+  const shownVenue = listing.bestVenue ?? listing.recVenue ?? listing.tryAt;
   return (
     <div className="card-wrap">
       <div className="card" onClick={onClick}>
@@ -59,6 +61,7 @@ export function ListingCard({
           <div className="name" style={{ marginTop: listing.type === 'RESTAURANT' ? 6 : 0 }}>
             {listing.name}
           </div>
+          {listing.type === 'RESTAURANT' && <MetroLine venue={listing} />}
           {(listing as any).matchedItem ? (
             // searched a dish/drink → show ITS rating at this venue (empty if none yet)
             <div className="meta best-on-card">
@@ -88,6 +91,7 @@ export function ListingCard({
               {listing.priceLevel ? ` · ${'₽'.repeat(listing.priceLevel)}` : ''}
             </div>
           )}
+          {listing.type !== 'RESTAURANT' && <MetroLine venue={shownVenue} />}
           {listing.type === 'RESTAURANT' && (listing.address || listing.cityLabel) && (
             <div className="meta">📍 {listing.address || listing.cityLabel}</div>
           )}

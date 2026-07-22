@@ -14,4 +14,4 @@ Start-Process powershell -ArgumentList '-NoExit', '-Command', "npm --prefix `"$r
 Start-Process powershell -ArgumentList '-NoExit', '-Command', "& `"$cloudflared`" tunnel --protocol auto --edge-ip-version 4 --no-autoupdate --no-prechecks --retries 20 run togomoscow"
 
 Write-Host ''
-Write-Host 'Ready. Stable URL: https://app.togomoscow.ru/tg-boot-221?v=221' -ForegroundColor Green
+Write-Host 'Ready. Stable URL: https://app.togomoscow.ru/?v=242' -ForegroundColor Green

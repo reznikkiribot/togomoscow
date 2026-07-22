@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { api } from '../api';
 import { useEscClose } from '../modalEsc';
 import type { Listing } from '../types';
+import { MetroLine } from './MetroLine';
 
 // collapse chain branches into one row ("Бургер Кинг" once, not 7×)
 function dedupeChains(list: Listing[]): (Listing & { branchCount?: number })[] {
@@ -36,7 +37,8 @@ export function VenuePicker({
   const [address, setAddress] = useState('');
   const [busy, setBusy] = useState(false);
   const [sent, setSent] = useState(false);
-  useEscClose(onClose);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  useEscClose(onClose, overlayRef);
 
   useEffect(() => {
     const query = q.trim();
@@ -84,6 +86,7 @@ export function VenuePicker({
 
   return (
     <div
+      ref={overlayRef}
       className="modal-backdrop"
       style={{ zIndex: 2700 }}
       onClick={(e) => {
@@ -145,6 +148,7 @@ export function VenuePicker({
               {dedupeChains(results).map((v) => (
                 <button key={v.id} className="pick-row" onClick={() => onPick(v)}>
                   <div className="pu-name">{v.name}</div>
+                  <MetroLine venue={v} />
                   {v.branchCount && v.branchCount > 1 ? (
                     <div className="pu-meta">Сеть · {v.branchCount} точек</div>
                   ) : (

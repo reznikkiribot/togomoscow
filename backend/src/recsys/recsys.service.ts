@@ -1,8 +1,28 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { isNonStandalone } from '../common/non-standalone';
+import {
+  BRANDED_BEVERAGE_CONTAINS,
+  isBrandedBeverage,
+} from '../common/branded-beverages';
+import { isAlcohol } from '../common/alcohol';
 import { buildAffinities, loadVenueTraits, scorePriceSegment, scoreVenueTier } from '../common/taste-affinity';
+import {
+  EXPLORATION_IMPRESSION,
+  bayesianRating,
+  categoryKey,
+  explorationShare,
+  explorationSlotCount,
+  interleaveExploration,
+  loadExplorationConfig,
+  logExplorationMetrics,
+  recordExplorationImpression,
+  recordExplorationReaction,
+  selectExploration,
+} from '../common/exploration';
 import { PrismaService } from '../prisma/prisma.service';
 import { ListingsService } from '../listings/listings.service';
+import { ResponseCacheService } from '../common/response-cache.service';
+import { PUBLIC_LISTING_SELECT } from '../common/public-listing-select';
 
 /**
  * Recommendation signals + serving.
@@ -33,9 +53,12 @@ const REAL_PHOTO_OR_COFFEE = {
 
 @Injectable()
 export class RecsysService {
+  private readonly logService = new Logger(RecsysService.name);
+
   constructor(
     private readonly prisma: PrismaService,
     private readonly listings: ListingsService,
+    private readonly cache: ResponseCacheService,
   ) {}
 
   // categories never shown in recommendations: breakfast, all alcohol, and
@@ -49,6 +72,7 @@ export class RecsysService {
   // "народные"/everyday dishes excluded by NAME (they live in mixed categories
   // like Супы/Русская, so category rules can't catch them). Not "дорого-богато".
   static readonly EXCLUDED_NAMES = [
+    ...BRANDED_BEVERAGE_CONTAINS,
     'уха', 'борщ', 'окрошк', 'солянк', 'рассольник', 'пельмен', 'вареник',
     'холодец', 'студень', 'винегрет', 'селёдк', 'сельдь', 'гречк', 'каша',
     'оладь', 'драник', 'заливн', 'квашен', 'кисель', 'квас', 'морс',
@@ -72,10 +96,7 @@ export class RecsysService {
     // Word-boundary cases (мёд, хлеб, лимон, соус…) CANNOT be expressed here —
     // '\b' inside a JS string is a literal backspace, so those entries silently
     // matched nothing. They are enforced by the isNonStandalone() post-filter.
-    'халапеньо', 'халапенью', 'кетчуп', 'майонез', 'горчиц', 'васаби',
-    'сметан', 'сироп', 'топпинг', 'посыпк', 'варень',
-    'приправ', 'гарнир', 'булочк', 'лаваш',
-    'маслин', 'оливк', 'сахар', 'взбитые', 'корица',
+    'топпинг', 'посыпк', 'приборы', 'упаковк', 'добавка',
   ];
 
   // Prisma OR-filter of everything we never recommend (use inside `NOT:`).
@@ -104,9 +125,14 @@ export class RecsysService {
 
   /** Append an implicit-feedback event (deduped softly by upserting the max weight). */
   async log(userId: string, listingId: string, type: string) {
+    if (type === EXPLORATION_IMPRESSION) {
+      return recordExplorationImpression(this.prisma, userId, listingId);
+    }
     const weight = RecsysService.WEIGHTS[type];
     if (!weight || !userId || !listingId) return { ok: false };
     await this.prisma.interaction.create({ data: { userId, listingId, type, weight } });
+    const config = await loadExplorationConfig(this.prisma);
+    void recordExplorationReaction(this.prisma, userId, listingId, type, config.attributionDays).catch(() => {});
     return { ok: true };
   }
 
@@ -179,7 +205,7 @@ export class RecsysService {
    * minus what the user already rated or swiped away. Falls back to cold-start
    * when no profile has been built yet.
    */
-  async recommendByTaste(userId: string, take = 30) {
+  async recommendByTaste(userId: string, take = 30): Promise<any[]> {
     const u = await this.prisma.user.findUnique({
       where: { id: userId },
       select: { preferences: true },
@@ -198,20 +224,22 @@ export class RecsysService {
     // ── YouTube-style CATEGORY + VENUE AFFINITY — shared with the catalog
     //    «Рекомендуемые» sort (common/taste-affinity.ts). Rebuilt on each
     //    request, so it adapts after every action.
-    const { catAffinity, venueAffinity, priceSegmentAffinity, venueTierAffinity } = await buildAffinities(this.prisma, userId);
+    const { catAffinity, knownCategories, venueAffinity, priceSegmentAffinity, venueTierAffinity } = await buildAffinities(this.prisma, userId);
+    const explorationConfig = await loadExplorationConfig(this.prisma);
+    const targetShare = explorationShare(rated.length, explorationConfig);
 
     // only dishes actually served somewhere — every recommendation is "блюдо в
     // конкретном месте", with a real venue attached (servedAt = APPROVED menu links).
-    const items = await this.prisma.listing.findMany({
+    const candidatePool = await this.cache.getOrSet('recsys:candidates:taste:v1', 60_000, () => this.prisma.listing.findMany({
       where: {
         type: { in: ['DISH', 'DRINK'] },
-        id: { notIn: [...exclude] },
         NOT: this.excludeFilter(),
         ...REAL_PHOTO_OR_COFFEE, // feed shows only real (legally-parsed) photos + coffee
       },
-      include: {
+      select: {
+        ...PUBLIC_LISTING_SELECT,
         servedAt: {
-          where: { status: 'APPROVED' },
+          where: { status: 'APPROVED', price: { not: null } },
           select: {
             venue: { select: { id: true, name: true, category: true, cuisine: true, groupKey: true, priceLevel: true } },
             price: true,
@@ -222,13 +250,18 @@ export class RecsysService {
       },
       orderBy: [{ reviewCount: 'desc' }, { avgRating: 'desc' }],
       take: 500,
-    });
+    }));
+    const items = candidatePool.filter((item) => !exclude.has(item.id));
 
     const candidateVenueIds = [...new Set(items.flatMap((item) => item.servedAt.map((link) => link.venue.id)))];
     const venueTraits = await loadVenueTraits(this.prisma, candidateVenueIds);
 
     let scored = items
-      .filter((it) => !isNonStandalone(it.name)) // permanent ban: sauces/ingredients/sides
+      .filter((it) => {
+        const prices = it.servedAt.map((link) => link.price).filter((price): price is number => price != null);
+        const minPrice = prices.length ? Math.min(...prices) : null;
+        return !isBrandedBeverage(it.name, it.type) && !isAlcohol(it.name, it.type) && !isNonStandalone(it.name, minPrice);
+      }) // permanent ban: brands, sauces, ingredients and unnamed cheap modifiers
       .map((it) => {
         const hay = `${it.name} ${it.category ?? ''} ${it.cuisine ?? ''}`.toLowerCase();
         let s = (it.avgRating - 3) * 0.3; // base quality
@@ -272,7 +305,9 @@ export class RecsysService {
         if (bestPriceFit > 0.35 && !why) why = 'в вашем ценовом диапазоне';
         return { it, s, recLink, why: why || ai.summary || 'подобрано под ваш вкус' };
       })
-      .filter((x) => x.s > -1)
+      // Personal penalties may suppress exploitation, but they must not erase
+      // uncertainty: an otherwise eligible unknown category stays explorable.
+      .filter((x) => x.s > -1 || !knownCategories.has(categoryKey(x.it.category)))
       .sort((a, b) => b.s - a.s);
 
     // one per dish name (no duplicate "Глинтвейн" from different venues)
@@ -286,18 +321,34 @@ export class RecsysService {
 
     // take a generous top pool, then SHUFFLE → a fresh set of good items every
     // time the user returns to home (not the same deterministic top each time)
-    const pool = scored.slice(0, Math.max(Number(take) * 5, 120)); // wider pool → less repetition across visits
+    const desiredExploration = explorationSlotCount(Number(take), targetShare, scored.length);
+    const exploration = selectExploration(scored, knownCategories, desiredExploration, explorationConfig);
+    const explorationIds = new Set(exploration.map((row) => row.it.id));
+    const remaining = scored.filter((row) => !explorationIds.has(row.it.id));
+    const known = remaining.filter((row) => knownCategories.has(categoryKey(row.it.category)));
+    const exploitationSource = known.length >= Number(take) - exploration.length
+      ? known
+      : [...known, ...remaining.filter((row) => !known.includes(row))];
+    const pool = exploitationSource.slice(0, Math.max(Number(take) * 5, 120));
     for (let i = pool.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [pool[i], pool[j]] = [pool[j], pool[i]];
     }
-    const pick = pool.slice(0, Number(take));
+    const exploitation = pool.slice(0, Math.max(0, Number(take) - exploration.length));
+    const pick = interleaveExploration(exploitation, exploration, Number(take));
+    this.logService.log(JSON.stringify({
+      event: 'exploration_served', surface: 'recsys_feed', userId, reviewCount: rated.length,
+      requested: Number(take), shown: exploration.length,
+      targetShare, actualShare: pick.length ? Number((exploration.length / pick.length).toFixed(3)) : 0,
+      categories: exploration.map((row) => row.it.category),
+    }));
+    void logExplorationMetrics(this.prisma, userId);
 
     // "match %" (unlocked after N ratings, gamification): calibrated from the
     // internal score — 60% floor (it passed the filters) up to 97% (never a
     // fake-certain 100). Only meaningful once the user HAS a taste profile.
     const showPct = rated.length >= 25;
-    const maxS = Math.max(0.5, ...pool.map((x) => x.s));
+    const maxS = Math.max(0.5, ...scored.map((x) => x.s));
 
     const cards = await this.listings.enrichCards(pick.map((x) => x.it));
     return cards.map((c, i) => {
@@ -317,8 +368,18 @@ export class RecsysService {
       const photoUrl = !isUserPhoto && link?.photoUrl ? link.photoUrl : c.photoUrl;
       const matchPct = showPct ? Math.round(60 + 37 * Math.max(0, Math.min(1, pick[i].s / maxS))) : undefined;
       // unified 0..1 score so rec cards can outrank friends' posts in the feed
-      const normScore = Math.max(0, Math.min(1, pick[i].s / maxS));
-      return { ...c, photoUrl, recReason: pick[i].why, recVenue, matchPct, normScore };
+      const isExploration = explorationIds.has(pick[i].it.id);
+      const qualityScore = bayesianRating(pick[i].it, explorationConfig) / 5;
+      const normScore = isExploration
+        ? Math.max(0.45, Math.min(0.85, qualityScore))
+        : Math.max(0, Math.min(1, pick[i].s / maxS));
+      const recReason = isExploration
+        ? `Популярное в новой для вас категории «${pick[i].it.category}»`
+        : pick[i].why;
+      return {
+        ...c, photoUrl, recReason, recVenue, matchPct, normScore, isExploration,
+        explorationCategory: isExploration ? pick[i].it.category : undefined,
+      };
     });
   }
 
@@ -331,59 +392,101 @@ export class RecsysService {
     const rated = await this.prisma.review.findMany({ where: { userId }, select: { listingId: true } });
     const disliked = await this.prisma.dislike.findMany({ where: { userId }, select: { itemId: true } });
     const exclude = new Set([...rated.map((r) => r.listingId), ...disliked.map((d) => d.itemId)]);
-    return this.buildColdFeed(exclude, take);
+    return this.buildColdFeed(exclude, take, userId, rated.length);
   }
 
   /** Anonymous cold-start feed — the home screen renders on the FIRST request even
    *  before Telegram auth is ready (no user context, nothing to exclude). */
-  async anonFeed(take = 20) {
-    return this.buildColdFeed(new Set(), take);
+  async anonFeed(take = 20, skipCache = false): Promise<any[]> {
+    const limit = Math.max(1, Number(take) || 20);
+    if (!skipCache) {
+      return this.cache.getOrSet(`recsys:feed:anonymous:${limit}`, 60_000, () => this.anonFeed(limit, true));
+    }
+    return this.buildColdFeed(new Set(), limit);
   }
 
-  private async buildColdFeed(exclude: Set<string>, take = 20) {
+  private async buildColdFeed(exclude: Set<string>, take = 20, userId?: string, reviewCount = 0) {
 
     // same shape as recommendByTaste (cards + recVenue) so a brand-new user (no
     // taste profile yet) still gets a real "dish in a place" deck, not a dropped feed.
-    const items = await this.prisma.listing.findMany({
+    const candidatePool = await this.cache.getOrSet('recsys:candidates:cold:v1', 60_000, () => this.prisma.listing.findMany({
       where: {
         type: { in: ['DISH', 'DRINK'] },
-        id: { notIn: [...exclude] },
         NOT: this.excludeFilter(),
         ...REAL_PHOTO_OR_COFFEE,
       },
-      include: {
+      select: {
+        ...PUBLIC_LISTING_SELECT,
         servedAt: {
-          where: { status: 'APPROVED' },
+          where: { status: 'APPROVED', price: { not: null } },
           select: { venue: { select: { id: true, name: true } }, price: true, photoUrl: true },
           take: 30,
         },
       },
       orderBy: [{ reviewCount: 'desc' }, { avgRating: 'desc' }],
       take: 200,
-    });
+    }));
+    const items = candidatePool.filter((item) => !exclude.has(item.id));
 
     // one per dish name, then shuffle a generous top pool for variety on each load
     const seenName = new Set<string>();
     const uniq = items.filter((it) => {
-      if (isNonStandalone(it.name)) return false; // permanent ban: sauces/ingredients/sides
+      const prices = it.servedAt.map((link) => link.price).filter((price): price is number => price != null);
+      const minPrice = prices.length ? Math.min(...prices) : null;
+      if (isBrandedBeverage(it.name, it.type) || isNonStandalone(it.name, minPrice)) return false;
       const n = it.name.toLowerCase().trim();
       if (seenName.has(n)) return false;
       seenName.add(n);
       return true;
     });
-    const pool = uniq.slice(0, Math.max(Number(take) * 5, 120)); // wider pool → less repetition
+    const candidates = uniq.map((it) => ({ it }));
+    const affinities = userId ? await buildAffinities(this.prisma, userId) : null;
+    const explorationConfig = await loadExplorationConfig(this.prisma);
+    const targetShare = userId ? explorationShare(reviewCount, explorationConfig) : 0;
+    const desiredExploration = explorationSlotCount(Number(take), targetShare, candidates.length);
+    const explorationRows = affinities
+      ? selectExploration(candidates, affinities.knownCategories, desiredExploration, explorationConfig)
+      : [];
+    const exploration = explorationRows.map((row) => row.it);
+    const explorationIds = new Set(exploration.map((it) => it.id));
+    const remaining = uniq.filter((it) => !explorationIds.has(it.id));
+    const known = affinities
+      ? remaining.filter((it) => affinities.knownCategories.has(categoryKey(it.category)))
+      : remaining;
+    const exploitationSource = known.length >= Number(take) - exploration.length
+      ? known
+      : [...known, ...remaining.filter((it) => !known.includes(it))];
+    const pool = exploitationSource.slice(0, Math.max(Number(take) * 5, 120));
     for (let i = pool.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [pool[i], pool[j]] = [pool[j], pool[i]];
     }
-    const pick = pool.slice(0, Number(take));
+    const exploitation = pool.slice(0, Math.max(0, Number(take) - exploration.length));
+    const pick = interleaveExploration(exploitation, exploration, Number(take));
+    if (userId) {
+      this.logService.log(JSON.stringify({
+        event: 'exploration_served', surface: 'cold_feed', userId, reviewCount,
+        requested: Number(take), shown: exploration.length,
+        targetShare, actualShare: pick.length ? Number((exploration.length / pick.length).toFixed(3)) : 0,
+        categories: exploration.map((it) => it.category),
+      }));
+      void logExplorationMetrics(this.prisma, userId);
+    }
 
     const cards = await this.listings.enrichCards(pick);
     return cards.map((c, i) => {
       const links = ((pick[i] as any).servedAt ?? []).filter((l: any) => l.venue);
       const link = links.length ? links[Math.floor(Math.random() * links.length)] : undefined;
       const recVenue = link ? { ...link.venue, price: link.price ?? null } : undefined;
-      return { ...c, recReason: 'популярно сейчас', recVenue };
+      const isExploration = explorationIds.has(pick[i].id);
+      return {
+        ...c,
+        recReason: isExploration ? `Популярное в новой для вас категории «${pick[i].category}»` : 'популярно сейчас',
+        recVenue,
+        normScore: isExploration ? Math.max(0.45, Math.min(0.85, bayesianRating(pick[i], explorationConfig) / 5)) : undefined,
+        isExploration,
+        explorationCategory: isExploration ? pick[i].category : undefined,
+      };
     });
   }
 }

@@ -25,6 +25,7 @@ export type VenueTraits = {
 
 export type TasteAffinities = {
   catAffinity: Map<string, number>; // lowercase category -> [-1, 1]
+  knownCategories: Set<string>; // any rating/favorite/open/view/dislike, including negative or net-zero
   venueAffinity: Map<string, number>; // venueId -> [-1, 1]
   priceSegmentAffinity: PriceSegmentAffinity | null;
   venueTierAffinity: Map<VenueTier, number>; // venue class -> [-1, 1]
@@ -174,10 +175,13 @@ export async function buildAffinities(prisma: PrismaService, userId: string): Pr
       where: { userId, type: { in: ['OPEN', 'VIEW'] } },
       _count: true,
     }),
-    prisma.dislike.findMany({ where: { userId }, select: { category: true } }),
+    prisma.dislike.findMany({ where: { userId }, select: { itemId: true, category: true } }),
   ]);
 
-  const interactionIds = [...new Set(interactions.map((row) => row.listingId))];
+  const interactionIds = [...new Set([
+    ...interactions.map((row) => row.listingId),
+    ...swiped.filter((row) => !row.category).map((row) => row.itemId),
+  ])];
   const interactionListings = interactionIds.length
     ? await prisma.listing.findMany({
       where: { id: { in: interactionIds } },
@@ -187,13 +191,17 @@ export async function buildAffinities(prisma: PrismaService, userId: string): Pr
   const listingById = new Map(interactionListings.map((listing) => [listing.id, listing]));
 
   const catAffinity = new Map<string, number>();
+  const knownCategories = new Set<string>();
   const bumpCategory = (category: string | null | undefined, weight: number) => {
     const key = (category ?? '').toLowerCase().trim();
-    if (key) catAffinity.set(key, (catAffinity.get(key) ?? 0) + weight);
+    if (key) {
+      knownCategories.add(key);
+      catAffinity.set(key, (catAffinity.get(key) ?? 0) + weight);
+    }
   };
   for (const review of reviews) bumpCategory(review.listing.category, review.rating >= 4 ? 2.5 : review.rating <= 2 ? -2.5 : 0.3);
   for (const favorite of favorites) bumpCategory(favorite.listing.category, 1.5);
-  for (const dislike of swiped) bumpCategory(dislike.category, -3);
+  for (const dislike of swiped) bumpCategory(dislike.category ?? listingById.get(dislike.itemId)?.category, -3);
   for (const interaction of interactions) {
     const perEvent = interaction.type === 'VIEW' ? 0.55 : 0.25;
     bumpCategory(listingById.get(interaction.listingId)?.category, Math.min(1.5, perEvent * interaction._count));
@@ -339,5 +347,5 @@ export async function buildAffinities(prisma: PrismaService, userId: string): Pr
     }
   }
 
-  return { catAffinity, venueAffinity, priceSegmentAffinity, venueTierAffinity };
+  return { catAffinity, knownCategories, venueAffinity, priceSegmentAffinity, venueTierAffinity };
 }

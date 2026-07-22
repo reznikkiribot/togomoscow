@@ -1,4 +1,5 @@
 import { initData } from './telegram';
+import { tastingLocationHeaders } from './tastingGeo';
 import type {
   AdminChallenge,
   AdminUser,
@@ -86,7 +87,7 @@ async function waitForLaunchInitData(timeoutMs = 1600) {
 
 const authHeaders = async (): Promise<Record<string, string>> => {
   const data = await waitForLaunchInitData();
-  return data ? { Authorization: `tma ${data}` } : {};
+  return { ...tastingLocationHeaders(), ...(data ? { Authorization: `tma ${data}` } : {}) };
 };
 
 // Header for PUBLIC endpoints: attach initData only if it's ALREADY available —
@@ -94,7 +95,7 @@ const authHeaders = async (): Promise<Record<string, string>> => {
 // must not sit behind the up-to-1.6s initData wait on cold mobile starts.
 const instantHeaders = (): Record<string, string> => {
   const data = launchInitData();
-  return data ? { Authorization: `tma ${data}` } : {};
+  return { ...tastingLocationHeaders(), ...(data ? { Authorization: `tma ${data}` } : {}) };
 };
 
 // Client-side photo shrink: decode → fit into 1600px → JPEG q0.82. Falls back to
@@ -261,6 +262,10 @@ export const api = {
     return getPublic<Listing[]>(`/listings${qs ? `?${qs}` : ''}`);
   },
   feed: () => getPublic<Review[]>('/listings/feed'),
+  bootstrap: () => getPublic<{
+    recommended: Listing[];
+    firstTaster: Listing[];
+  }>('/bootstrap'),
 
   // venues serving a dish/drink matching the query (Блюда / Напитки search)
   venuesServing: (type: 'DISH' | 'DRINK', q?: string) =>
@@ -405,7 +410,7 @@ export const api = {
   myEvents: () => getJson<VenueEvent[]>('/events/mine'),
 
   // recommender: implicit-feedback logging + transparent "probability you'll like"
-  logEvent: (listingId: string, type: 'OPEN' | 'VIEW' | 'SAVE') =>
+  logEvent: (listingId: string, type: 'OPEN' | 'VIEW' | 'SAVE' | 'EXPLORE_IMPRESSION') =>
     postJson('/recsys/event', { listingId, type }).catch(() => {}),
   likeProbability: (id: string) =>
     getJson<{ probability: number | null; reason: string; ratingCount: number }>(`/recsys/probability/${id}`),

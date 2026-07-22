@@ -63,6 +63,7 @@ export function PeopleModal({
   onClose: () => void;
   onOpenUser: (id: string) => void;
 }) {
+  const overlayRef = useRef<HTMLDivElement>(null);
   const [tab, setTab] = useState<'followers' | 'following'>(initialTab);
   const [followers, setFollowers] = useState<PublicUser[]>([]);
   const [following, setFollowing] = useState<PublicUser[]>([]);
@@ -87,9 +88,10 @@ export function PeopleModal({
   }, [query]);
 
   const list = results ?? (tab === 'followers' ? followers : following);
+  useEscClose(onClose, overlayRef);
 
   return (
-    <div className="modal-backdrop" style={{ zIndex: 2600 }} onClick={onClose}>
+    <div ref={overlayRef} className="modal-backdrop" style={{ zIndex: 2600 }} onClick={onClose}>
       <div className="modal" onClick={(e) => e.stopPropagation()}>
         <div className="pu-search">
           <span className="search-ico">🔍</span>
@@ -142,8 +144,11 @@ export function PeopleModal({
 export function UserProfileModal({ id, onClose }: { id: string; onClose: () => void }) {
   const [p, setP] = useState<PublicProfile | null>(null);
   const [openListing, setOpenListing] = useState<string | null>(null);
+  const [openUser, setOpenUser] = useState<string | null>(null);
   const [photoReview, setPhotoReview] = useState<Review | null>(null); // Instagram-style photo view
   const [people, setPeople] = useState<'followers' | 'following' | null>(null);
+  const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
+  const tastingsRef = useRef<HTMLDivElement>(null);
   const [closing, setClosing] = useState(false);
   useEffect(() => {
     api.userProfile(id).then(setP).catch(() => {});
@@ -152,9 +157,9 @@ export function UserProfileModal({ id, onClose }: { id: string; onClose: () => v
     setClosing(true);
     setTimeout(onClose, 240);
   };
-  useEscClose(requestClose);
   // swipe-down from the top closes the profile page too (app-wide pattern)
   const pageRef = useRef<HTMLDivElement>(null);
+  useEscClose(requestClose, pageRef);
   useSwipeDismiss(pageRef, onClose, { fadeBackdrop: false });
   useSwipeBack(pageRef, onClose); // edge swipe → back, like iOS navigation
 
@@ -222,7 +227,10 @@ export function UserProfileModal({ id, onClose }: { id: string; onClose: () => v
             const withUser = (r: Review): Review =>
               ({ ...r, user: r.user ?? { id: p.id, firstName: p.firstName, username: p.username, photoUrl: p.photoUrl } } as Review);
             const open = (r: Review) => setPhotoReview(withUser(r));
-            const withPhoto = p.reviewList.filter((r) => r.photoUrls?.[0] || r.listing?.photoUrl);
+            const withPhoto = p.reviewList.filter((r) => r.photoUrls?.[0] || r.cardPhotoUrl);
+            const shownReviews = categoryFilter
+              ? p.reviewList.filter((r) => r.listing?.category === categoryFilter)
+              : p.reviewList;
             // taste snapshot (computed from the reviews we have)
             const total = p.reviewList.length;
             const avg = total ? p.reviewList.reduce((s, r) => s + r.rating, 0) / total : 0;
@@ -245,21 +253,14 @@ export function UserProfileModal({ id, onClose }: { id: string; onClose: () => v
                 {/* 1) carousel of rating photos (tap → Untappd card) */}
                 {withPhoto.length > 0 && (
                   <div className="me-section">
-                    <h2 className="me-h">Оценки</h2>
+                    <h2 className="me-h">Дегустации</h2>
                     <div className="rc-carousel">
                       {withPhoto.map((r) => (
                         <button key={r.id} onClick={() => open(r)}>
                           <SmartImg
                             className="rc-carousel-photo"
-                            src={r.photoUrls?.[0] || r.listing?.photoUrl}
+                            src={r.photoUrls?.[0] || r.cardPhotoUrl}
                             width={400}
-                            stock={r.listing ? {
-                              type: r.listing.type,
-                              category: r.listing.category,
-                              name: r.listing.name,
-                              seed: r.listing.id,
-                            } : undefined}
-                            monogram={r.listing?.name}
                           />
                         </button>
                       ))}
@@ -285,7 +286,9 @@ export function UserProfileModal({ id, onClose }: { id: string; onClose: () => v
                     {best?.listing && (
                       <div className="taste-line">
                         <span className="taste-key">🥇 Лучшая находка</span>
-                        <span className="taste-val">{best.listing.name} · {best.rating.toFixed(1)}★</span>
+                        <button type="button" className="taste-val taste-value-link" onClick={() => setOpenListing(best.listing!.id)}>
+                          {best.listing.name} · {best.rating.toFixed(1)}★
+                        </button>
                       </div>
                     )}
                   </div>
@@ -293,12 +296,22 @@ export function UserProfileModal({ id, onClose }: { id: string; onClose: () => v
                 {/* 3) average rating per category */}
                 <div className="me-section">
                   <h2 className="me-h">Оценки по категориям</h2>
-                  <CategoryAverages reviews={p.reviewList} />
+                  <CategoryAverages
+                    reviews={p.reviewList}
+                    selected={categoryFilter}
+                    onSelect={(category) => {
+                      setCategoryFilter(category);
+                      requestAnimationFrame(() => tastingsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+                    }}
+                  />
                 </div>
                 {/* 3) full Untappd-style cards */}
-                <div className="me-section">
-                  <h2 className="me-h">Дегустации</h2>
-                  {p.reviewList.map((r) => (
+                <div ref={tastingsRef} className="me-section">
+                  <h2 className="me-h">{categoryFilter ? `Дегустации · ${categoryFilter}` : 'Дегустации'}</h2>
+                  {categoryFilter && (
+                    <button type="button" className="category-filter-reset" onClick={() => setCategoryFilter(null)}>Показать все</button>
+                  )}
+                  {shownReviews.map((r) => (
                     <ReviewCard
                       key={r.id}
                       review={withUser(r)}
@@ -320,26 +333,25 @@ export function UserProfileModal({ id, onClose }: { id: string; onClose: () => v
           userId={p.id}
           initialTab={people}
           onClose={() => setPeople(null)}
-          onOpenUser={() => setPeople(null)}
+          onOpenUser={(userId) => setOpenUser(userId)}
         />
       )}
       {photoReview && (
         <PhotoPostModal
           review={photoReview}
           onClose={() => setPhotoReview(null)}
-          onOpenUser={() => setPhotoReview(null)}
+          onOpenUser={(userId) => { if (userId !== p?.id) setOpenUser(userId); }}
           onOpenListing={() => {
             const lid = photoReview.listing?.id;
-            setPhotoReview(null);
             if (lid) setOpenListing(lid);
           }}
           onOpenVenue={() => {
             const vid = photoReview.venue?.id;
-            setPhotoReview(null);
             if (vid) setOpenListing(vid);
           }}
         />
       )}
+      {openUser && <UserProfileModal id={openUser} onClose={() => setOpenUser(null)} />}
     </div>
   );
 }

@@ -33,13 +33,31 @@ export interface Listing {
   avgRating: number;
   reviewCount: number;
   snippet?: { text: string; rating: number } | null; // one review shown on cards
-  bestVenue?: { name: string; rating: number } | null; // for dish/drink: best place to have it
-  recVenue?: { id: string; name: string; price?: number | null } | null; // recommended place (+ its price for this item)
+  bestVenue?: (VenueRef & { rating: number }) | null; // for dish/drink: best place to have it
+  recVenue?: (VenueRef & { id: string }) | null; // recommended place (+ its price for this item)
   recReason?: string; // why recommended (taste match) — shown on feed rec cards
   matchPct?: number; // % taste match (unlocked after 25 ratings)
+  isExploration?: boolean; // reserved learning slot from a category with no prior signal
+  explorationCategory?: string | null;
   placeholderPhoto?: string | null; // stock photo when no real photo
   cityLabel?: string; // shown when there's no street address yet
-  metro?: string | null; // nearest metro station → "м. …"
+  metro?: string | null;
+  metroDistance?: number | null;
+  tryAt?: VenueRef | null;
+}
+
+export interface VenueRef {
+  id?: string;
+  name: string;
+  address?: string | null;
+  lat?: number | null;
+  lng?: number | null;
+  groupKey?: string | null;
+  metro?: string | null;
+  metroDistance?: number | null;
+  price?: number | null;
+  rating?: number;
+  count?: number;
 }
 
 export interface Branch {
@@ -115,6 +133,7 @@ export interface AppNotification {
   actorPhoto?: string | null; // avatar shown on the left
   reviewId?: string | null;
   reviewPhoto?: string | null; // review/dish thumbnail on the right
+  review?: Review | null;
   listingId?: string | null;
   listingName?: string | null;
   readAt?: string | null;
@@ -168,7 +187,7 @@ export interface ListingDetail extends Listing {
     venue?: { id: string | null; name: string } | null;
   } | null;
   tastedAt?: (Listing & { pending?: boolean; menuPrice?: number | null })[];
-  bestVenue?: { name: string; rating: number; count: number } | null;
+  bestVenue?: (VenueRef & { id: string; rating: number; count: number }) | null;
   events?: VenueEvent[];
   similar?: Listing[];
 }
@@ -367,7 +386,7 @@ export interface TasteProfile {
   favorite?: { name: string; count: number; avg: number } | null;
   topCategories?: { name: string; count: number; avg: number }[];
   loves?: string[];
-  best?: { name: string; rating: number } | null;
+  best?: { id: string; name: string; rating: number } | null;
   categoriesTried?: number;
 }
 

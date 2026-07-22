@@ -56,9 +56,9 @@ export function MapBrowse({ cat, onClose }: { cat: BrowseCat; onClose: () => voi
     setClosing(true);
     setTimeout(onClose, 260);
   };
-  useEscClose(close);
   useEffect(() => lockVerticalSwipes(), []);
   const pageRef = useRef<HTMLDivElement>(null);
+  useEscClose(close, pageRef);
   useSwipeBack(pageRef, close); // edge swipe → back to home
   const { ids, toggle } = useFavorites();
 

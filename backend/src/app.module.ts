@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { BootstrapModule } from './bootstrap/bootstrap.module';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma/prisma.module';
 import { UsersModule } from './users/users.module';
@@ -21,10 +22,13 @@ import { GameModule } from './game/game.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { HealthController } from './health/health.controller';
 import { TrustModule } from './trust/trust.module';
+import { ResponseCacheModule } from './common/response-cache.module';
 
 @Module({
   imports: [
+    BootstrapModule,
     ConfigModule.forRoot({ isGlobal: true }),
+    ResponseCacheModule,
     PrismaModule,
     UsersModule,
     ListingsModule,

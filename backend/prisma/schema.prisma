@@ -163,6 +163,8 @@ model Listing {
   // geo + contacts + provenance (for bulk imports like OpenStreetMap)
   lat        Float?
   lng        Float?
+  metro      String?
+  metroDistance Int? @map("metro_distance") // straight-line distance to the nearest station, metres
   phone      String?
   website    String?
   source     String? // e.g. "osm", null for hand-seeded demo data
@@ -784,4 +786,20 @@ model FeedImpression {
   @@unique([userId, reviewId])
   @@index([userId])
   @@map("feed_impressions")
+}
+
+// Which CARDS (dish/drink listings) a user has already been shown, per section.
+// Without this the rotating sections re-drew the same items on every visit: the
+// pick was cached under one shared key, so everyone saw one identical set.
+// Rows are recycled (oldest first) once a section's pool is exhausted.
+model CardImpression {
+  id      String   @id @default(uuid())
+  userId  String   @map("user_id")
+  itemId  String   @map("item_id")
+  section String // 'first-taster' | 'taste-hero' | 'rec-feed'
+  at      DateTime @default(now())
+
+  @@unique([userId, itemId, section])
+  @@index([userId, section, at])
+  @@map("card_impressions")
 }

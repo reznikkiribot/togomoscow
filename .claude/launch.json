@@ -1,0 +1,28 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "frontend",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "--prefix",
+        "frontend"
+      ],
+      "port": 5173
+    },
+    {
+      "name": "repro",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8901",
+        "--directory",
+        "C:/Users/rezni/AppData/Local/Temp/claude/D-------------Yelp/0acb9a9c-2ceb-47b6-85d6-8105ab7890e0/scratchpad/repro"
+      ],
+      "port": 8901
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "at": "2026-07-19T10:42:55.479Z",
+  "mode": "apply",
+  "checked": {
+    "files": 152,
+    "assignments": 153,
+    "fields": 2942
+  },
+  "rejected": {
+    "collageFiles": 2,
+    "collageAssignments": 2,
+    "collageFields": 33,
+    "mismatchFiles": 1,
+    "mismatchAssignments": 1,
+    "mismatchFields": 32
+  },
+  "downloadErrors": 0,
+  "entries": [
+    {
+      "kind": "menuLink",
+      "itemId": "04ee3735-8fcd-493e-a4cf-87240a69dbf2",
+      "name": "Лимонад Манго и маракуйя",
+      "photoUrl": "/api/files/aigen-e062aaa1-7da3-4e15-bba3-1404ea746a82",
+      "sourceRows": 32,
+      "reason": "name-mismatch",
+      "query": "cold non-alcoholic drink in a glass",
+      "nameScore": 0.4614
+    },
+    {
+      "kind": "menuLink",
+      "itemId": "38b16dca-99c1-44f6-b18b-4992985add39",
+      "name": "Детский картофель фри",
+      "photoUrl": "/api/files/aigen-08892257-3404-4216-a152-38c0e3494e81",
+      "sourceRows": 32,
+      "reason": "collage",
+      "structural": false,
+      "collageScore": 0.6914
+    },
+    {
+      "kind": "listing",
+      "itemId": "d26face6-e79d-472b-8bca-926b378b9c1c",
+      "name": "Тартар из говядины",
+      "photoUrl": "/api/files/aigen-48d5ce84-bd8f-45d8-97f7-5b7c5940cc87",
+      "sourceRows": 1,
+      "reason": "collage",
+      "structural": false,
+      "collageScore": 0.692
+    }
+  ]
+}

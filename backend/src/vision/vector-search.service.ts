@@ -22,7 +22,8 @@ export class VectorSearchService implements OnModuleInit {
   constructor(private readonly prisma: PrismaService) {}
 
   async onModuleInit() {
-    this.rebuild().catch((e) => this.log.warn(`initial index build failed: ${e?.message}`));
+    // Loading all embedding arrays is CPU/DB-heavy; do it after Home is warm.
+    setTimeout(() => this.rebuild().catch((e) => this.log.warn(`initial index build failed: ${e?.message}`)), 5_000);
   }
 
   async rebuild(): Promise<{ text: number; image: number }> {

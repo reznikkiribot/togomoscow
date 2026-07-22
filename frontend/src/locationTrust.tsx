@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { api } from './api';
 import { telegramWebApp } from './telegram';
+import { cachedTastingLocation, cacheTastingLocation } from './tastingGeo';
 
 export type TastingLocation = { lat: number; lng: number; accuracy: number; capturedAt: string };
 
@@ -55,7 +56,7 @@ async function readLocation(requestPermission: boolean) {
 }
 
 export function useTastingLocation() {
-  const [location, setLocation] = useState<TastingLocation | null>(null);
+  const [location, setLocation] = useState<TastingLocation | null>(() => cachedTastingLocation());
   const [showConsent, setShowConsent] = useState(false);
   const [consented, setConsented] = useState(false);
   const [textVersion, setTextVersion] = useState('geo-trust-v1');
@@ -73,7 +74,10 @@ export function useTastingLocation() {
       setConsented(Boolean(consent.consented && !consent.revokedAt));
       if (consent.consented && !consent.revokedAt) {
         const result = await readLocation(false);
-        if (mounted.current && result.point) setLocation(result.point);
+        if (mounted.current && result.point) {
+          setLocation(result.point);
+          cacheTastingLocation(result.point);
+        }
       }
     }).catch(() => {
       // Trust verification is optional; API/Telegram failures never block a tasting.
@@ -84,7 +88,10 @@ export function useTastingLocation() {
     setShowConsent(false);
     const result = await readLocation(true);
     setConsented(true);
-    if (result.point) setLocation(result.point);
+    if (result.point) {
+      setLocation(result.point);
+      cacheTastingLocation(result.point);
+    }
     await api.setLocationConsent({ consented: true, textVersion, systemPermission: result.permission }).catch(() => {});
   }, [textVersion]);
 
@@ -99,6 +106,7 @@ export function useTastingLocation() {
     const result = await readLocation(false);
     if (result.point) {
       setLocation(result.point);
+      cacheTastingLocation(result.point);
       return result.point;
     }
     return null;

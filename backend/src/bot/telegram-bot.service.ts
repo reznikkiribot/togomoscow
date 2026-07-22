@@ -15,7 +15,7 @@ export class TelegramBotService implements OnModuleInit {
   private readonly token = process.env.TELEGRAM_BOT_TOKEN;
   private offset = 0;
 
-  async onModuleInit() {
+  onModuleInit() {
     if (!this.token) {
       this.log.warn('TELEGRAM_BOT_TOKEN missing — /start handler disabled');
       return;
@@ -28,6 +28,12 @@ export class TelegramBotService implements OnModuleInit {
       this.log.log('local run — bot polling/menu sync disabled');
       return;
     }
+    // Telegram network calls are not part of API readiness. Run them after the
+    // web server has had a chance to answer Railway's healthcheck.
+    setTimeout(() => void this.initializeBot(), 1_000);
+  }
+
+  private async initializeBot() {
     // clear any backlog so a backend restart doesn't re-greet old chats
     try {
       await this.call('deleteWebhook', { drop_pending_updates: true });

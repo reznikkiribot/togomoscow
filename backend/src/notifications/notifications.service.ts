@@ -95,7 +95,10 @@ export class NotificationsService {
       reviewIds.length
         ? this.prisma.review.findMany({
             where: { id: { in: reviewIds } },
-            select: { id: true, listingId: true, photoUrls: true, listing: { select: { name: true, photoUrl: true } } },
+            include: {
+              listing: true,
+              user: { select: { id: true, firstName: true, username: true, photoUrl: true } },
+            },
           })
         : [],
       actorIds.length
@@ -113,6 +116,7 @@ export class NotificationsService {
         listingId: r?.listingId ?? null,
         listingName: r?.listing?.name ?? null,
         reviewPhoto: r?.photoUrls?.[0] ?? r?.listing?.photoUrl ?? null,
+        review: r ?? null,
         actorPhoto: n.actorId ? actorPhoto.get(n.actorId) ?? null : null,
       };
     });

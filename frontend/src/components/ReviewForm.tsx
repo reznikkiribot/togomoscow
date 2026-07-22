@@ -100,6 +100,7 @@ export function ReviewForm({
   const titleId = useId();
   // the form is a bottom sheet — pull-down closes it, same as feed posts
   const sheetRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
   const hasUnsavedTextRef = useRef(false);
@@ -119,6 +120,12 @@ export function ReviewForm({
   const precompose = (url: string) => {
     composeStoryImage(url).then((s) => { if (s) slides.current.set(url, s); }).catch(() => {});
   };
+  useEffect(() => {
+    // ScanFab supplies an already-uploaded photo, so there is no file-change
+    // event here. Warm its story slide as soon as the form opens.
+    photoUrls.slice(0, 2).forEach(precompose);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const [error, setError] = useState<string | null>(null);
   const [canRetrySave, setCanRetrySave] = useState(false);
   const tastingLocation = useTastingLocation();
@@ -135,7 +142,7 @@ export function ReviewForm({
     setTagged((t) => (t.includes(id) ? t.filter((x) => x !== id) : [...t, id]));
 
   const showDate = tpl.id === 'dish' || tpl.id === 'place' || tpl.id === 'steak';
-  useEscClose(requestClose);
+  useEscClose(requestClose, overlayRef);
 
   // Keep the user's work after every field change. Uploaded media are URLs, so
   // the complete draft is small enough for localStorage and can survive a WebView restart.
@@ -262,6 +269,7 @@ export function ReviewForm({
 
   return (
     <div
+      ref={overlayRef}
       className="modal-backdrop"
       style={{ zIndex: 3000 }}
       role="presentation"

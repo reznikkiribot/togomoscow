@@ -28,6 +28,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const NAME_KEYS = ['name', 'title', 'productName', 'dishName', 'product_name'];
 const PRICE_KEYS = ['price', 'cost', 'amount', 'value', 'priceValue', 'min_price'];
 const IMAGE_KEYS = ['image', 'imageUrl', 'image_url', 'img', 'photo', 'picture', 'pictureUrl', 'previewImage', 'thumbnail', 'imageLink', 'cover', 'images'];
+const NON_MENU_PDF = /(?:policy|privacy|personal|consent|legal|offer|oferta|terms|agreement|politic|politika|soglash|requisite|реквизит|политик|соглаш|оферт)/i;
 const looksImg = (s) => typeof s === 'string' && (/\.(jpg|jpeg|png|webp|avif)/i.test(s) || /^https?:\/\//.test(s) || s.startsWith('/'));
 function imgFromVal(v) {
   if (looksImg(v)) return v;
@@ -102,7 +103,13 @@ async function httpGet(url) {
       redirect: 'follow',
       signal: AbortSignal.timeout(15000),
     });
-    return { status: r.status, text: await r.text(), server: (r.headers.get('server') || '').toLowerCase() };
+    return {
+      status: r.status,
+      text: await r.text(),
+      server: (r.headers.get('server') || '').toLowerCase(),
+      contentType: (r.headers.get('content-type') || '').toLowerCase(),
+      finalUrl: r.url || url,
+    };
   } catch (e) {
     return { status: 0, text: '', server: '', err: String(e).slice(0, 50) };
   }
@@ -206,12 +213,20 @@ async function processDomain(domain) {
   const base = domain.startsWith('http') ? domain : `https://${domain}`;
   const host = (() => { try { return new URL(base).host.replace(/^www\./, ''); } catch { return domain; } })();
   let wafSeen = false;
+  const pdfCandidates = [];
 
   // HTTP cascade over candidate paths
   for (const p of PATHS) {
     const res = await httpGet(base.replace(/\/$/, '') + p);
     if (res.status === 0) continue;
     if (detectWaf(res)) { wafSeen = true; continue; }
+    if (/application\/pdf/.test(res.contentType) && !NON_MENU_PDF.test(res.finalUrl)) pdfCandidates.push(res.finalUrl);
+    for (const match of res.text.matchAll(/href=["']([^"']+\.pdf(?:\?[^"']*)?)["']/gi)) {
+      try {
+        const candidate = new URL(match[1].replace(/&amp;/g, '&'), res.finalUrl).href;
+        if (!NON_MENU_PDF.test(candidate)) pdfCandidates.push(candidate);
+      } catch { /* malformed link */ }
+    }
     for (const [method, det] of HTTP_DETECTORS) {
       const items = det(res.text);
       if (items.length >= 5) return finish(host, method, normalizePrices(items), (p || '/'));
@@ -223,6 +238,9 @@ async function processDomain(domain) {
   const pw = await playwrightCapture(base);
   if (pw.items.length >= 5) return finish(host, pw.graphql ? 'graphql' : 'playwright-xhr', normalizePrices(pw.items), pw.source);
 
+  // Keep the exact public PDF URL for pdf-menu.mjs; the batch runner picks it up.
+  if (pdfCandidates.length) return finish(host, 'pdf-link', [], pdfCandidates[0], 'manual_required (PDF)');
+
   // nothing worked
   const status = wafSeen ? 'manual_required (WAF)' : 'manual_required (no menu found)';
   return finish(host, null, [], null, status);
@@ -232,7 +250,16 @@ function finish(host, method, items, source, status) {
   items = items.map((i) => ({ ...i, image: absImage(i.image, host) }));
   const withPhoto = items.filter((i) => i.image).length;
   const result = { domain: host, method, status: status || 'ok', source, count: items.length, withPhoto, items };
-  fs.writeFileSync(path.join(OUT, host.replace(/[^\w.-]/g, '_') + '.json'), JSON.stringify(result, null, 2));
+  const outputFile = path.join(OUT, host.replace(/[^\w.-]/g, '_') + '.json');
+  if (!process.argv.includes('--allow-regression') && fs.existsSync(outputFile)) {
+    try {
+      const previous = JSON.parse(fs.readFileSync(outputFile, 'utf8'));
+      if ((previous.count ?? previous.items?.length ?? 0) > result.count) {
+        return { ...previous, preserved: true, attempted: { method, status: result.status, source, count: result.count } };
+      }
+    } catch { /* replace malformed output */ }
+  }
+  fs.writeFileSync(outputFile, JSON.stringify(result, null, 2));
   return result;
 }
 
@@ -254,18 +281,28 @@ async function domainsFromDb(n) {
 
 async function main() {
   const args = process.argv.slice(2);
+  const force = args.includes('--force');
   let domains;
   if (args[0] === '--from-db') domains = await domainsFromDb(Number(args[1] || 25));
-  else domains = args;
+  else domains = args.filter((arg) => !arg.startsWith('--'));
   if (!domains.length) { console.log('usage: node prisma/menu-engine.mjs <domain...> | --from-db [N]'); return; }
 
   console.log(`Processing ${domains.length} domains…\n`);
   const summary = [];
   for (const d of domains) {
     let r;
-    try { r = await processDomain(d); } catch (e) { r = { domain: d, method: null, status: 'error: ' + String(e).slice(0, 40), count: 0 }; }
+    const host = (() => { try { return new URL(d.startsWith('http') ? d : `https://${d}`).host.replace(/^www\./, ''); } catch { return d; } })();
+    const existingFile = path.join(OUT, host.replace(/[^\w.-]/g, '_') + '.json');
+    if (!force && fs.existsSync(existingFile)) {
+      try {
+        r = { ...JSON.parse(fs.readFileSync(existingFile, 'utf8')), skipped: true };
+      } catch {
+        r = null;
+      }
+    }
+    try { r ??= await processDomain(d); } catch (e) { r = { domain: d, method: null, status: 'error: ' + String(e).slice(0, 80), count: 0 }; }
     summary.push(r);
-    const tag = r.count >= 5 ? `OK ${r.count} via ${r.method}` : r.status;
+    const tag = r.skipped ? `SKIP existing (${r.count ?? 0}, ${r.status ?? 'unknown'})` : r.count >= 5 ? `OK ${r.count} via ${r.method}` : r.status;
     console.log(`${(r.domain || d).padEnd(24)} ${tag}`);
   }
   const ok = summary.filter((s) => s.count >= 5);

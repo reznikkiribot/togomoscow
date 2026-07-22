@@ -1,59 +1,129 @@
 {
   "domain": "bruno.lucky-group.rest",
-  "method": "pdf",
+  "method": "pdf-coordinates",
   "status": "ok",
-  "source": "https://bruno.rest/images/menu-2026/15-07-2026/Bruno%20SPECIAL%20175x240_14_07_26.pdf",
-  "count": 10,
+  "source": "../tmp/pdfs/bruno.pdf",
+  "count": 20,
   "withPhoto": 0,
   "items": [
     {
       "name": "Испанские перцы Падрон, айоли лайм",
       "price": 1800,
+      "description": null,
+      "image": null
+    },
+    {
+      "name": "Cremant de Limoux Domaine Delmas Brut",
+      "price": 1300,
+      "description": null,
       "image": null
     },
     {
       "name": "Артишоки гриль, мята, пармезан",
       "price": 4200,
+      "description": null,
+      "image": null
+    },
+    {
+      "name": "2022 Saumur Domaine Guiberteau",
+      "price": 2600,
+      "description": null,
       "image": null
     },
     {
       "name": "Карпаччо из артишоков, рукола, боттарга",
       "price": 4200,
+      "description": null,
       "image": null
     },
     {
-      "name": "- красные креветки карабинеро",
-      "price": 2600,
+      "name": "2023 Sauvignon Blanc Parusso",
+      "price": 1400,
+      "description": null,
       "image": null
     },
     {
-      "name": "- хамон 5J Cinco Jotas",
+      "name": "Карпаччо из фермерских томатов, кантабрийские анчоусы, страчателла",
       "price": 2800,
+      "description": null,
+      "image": null
+    },
+    {
+      "name": "2023 Nebbiolo Langhe Scarzello",
+      "price": 2800,
+      "description": null,
+      "image": null
+    },
+    {
+      "name": "2023 Pinot Noir Kühling-Gillot",
+      "price": 1100,
+      "description": null,
+      "image": null
+    },
+    {
+      "name": "Лобстер, жженое сливочное масло, романо, авокадо",
+      "price": 4000,
+      "description": null,
+      "image": null
+    },
+    {
+      "name": "Champagne Bollinger Special Cuvee Brut",
+      "price": 3500,
+      "description": null,
       "image": null
     },
     {
       "name": "Суфле жимолость",
       "price": 1300,
+      "description": null,
+      "image": null
+    },
+    {
+      "name": "Dumangin Ratafia champenois Craft",
+      "price": 3850,
+      "description": null,
       "image": null
     },
     {
       "name": "Павлова, ревень, малина, черная смородина",
       "price": 1400,
+      "description": null,
       "image": null
     },
     {
-      "name": "Cherry Brandy 30ml",
+      "name": "Cherry Brandy",
       "price": 1000,
+      "description": null,
       "image": null
     },
     {
-      "name": "Ром Takamaka, порто, малиновый кули, мусковадо, лайм",
+      "name": "Only",
+      "price": 1100,
+      "description": "Джин Doragrossa London Dry Gin, Martini Extra Dry, малина, какао",
+      "image": null
+    },
+    {
+      "name": "Fish and chips martini",
       "price": 1200,
+      "description": "Bombay Sapphire, укроп, Martini Extra Dry, · сухой херес, чипсы лайм, розовый перец",
+      "image": null
+    },
+    {
+      "name": "Savoy Sour",
+      "price": 1200,
+      "description": "Ром Takamaka, порто, малиновый кули, мусковадо, лайм",
+      "image": null
+    },
+    {
+      "name": "One More Spritz",
+      "price": 1200,
+      "description": "Martini Brut, зеленый банан, банановое олео, сенча, мята, имбирь",
       "image": null
     },
     {
       "name": "Эспрессо-орчата",
       "price": 750,
+      "description": null,
       "image": null
     }
   ]

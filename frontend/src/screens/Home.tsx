@@ -6,10 +6,10 @@ import { ListRow } from '../components/ListRow';
 import { Stars } from '../components/Stars';
 import { preloadListingPhotos, VenuePhoto } from '../components/VenuePhoto';
 import { FeedPost } from '../components/FeedPost';
-import { PhotoPostModal } from '../components/PhotoPostModal';
-import { CommentsModal } from '../components/CommentsModal';
 import { hasOpenModal } from '../modalEsc';
-import { UserProfileModal } from '../components/People';
+const PhotoPostModal = lazy(() => import('../components/PhotoPostModal').then((m) => ({ default: m.PhotoPostModal })));
+const CommentsModal = lazy(() => import('../components/CommentsModal').then((m) => ({ default: m.CommentsModal })));
+const UserProfileModal = lazy(() => import('../components/People').then((m) => ({ default: m.UserProfileModal })));
 const ListingDetailModal = lazy(() => import('../components/ListingDetail').then((m) => ({ default: m.ListingDetailModal })));
 import { Filters, type FilterState } from '../components/Filters';
 import type { BrowseCat } from '../components/MapBrowse';
@@ -95,6 +95,47 @@ function cachedLoad<T>(key: string, fetcher: () => Promise<T>, setter: (v: T) =>
     })
     .catch(() => {})
     .finally(() => after?.());
+}
+
+// index.html fires /api/bootstrap before the bundle finishes downloading, so on a
+// FIRST visit (no localStorage cache yet) the first screen's data is usually
+// already in flight — or done — by the time React mounts. Each section takes its
+// slice from that single response instead of issuing its own request.
+type BootstrapPayload = {
+  feed?: unknown[];
+  firstTaster?: unknown[];
+  topDishes?: unknown[];
+  topDrinks?: unknown[];
+};
+function bootstrapSlice<T>(pick: (payload: BootstrapPayload) => T | undefined): Promise<T> | null {
+  const boot = (window as any).__BOOT_FETCH as Promise<BootstrapPayload | null> | undefined;
+  if (!boot) return null;
+  return boot.then((payload) => {
+    const slice = payload ? pick(payload) : undefined;
+    if (slice == null) throw new Error('bootstrap miss');
+    return slice;
+  });
+}
+
+function paintCached<T>(key: string, setter: (value: T) => void): boolean {
+  try {
+    const cached = localStorage.getItem('hc_' + key);
+    if (!cached) return false;
+    setter(JSON.parse(cached));
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function storeCached(key: string, value: unknown) {
+  try { localStorage.setItem('hc_' + key, JSON.stringify(value)); } catch { /* quota/private mode */ }
+}
+
+function afterFirstPaint(task: () => void) {
+  const idle = (window as any).requestIdleCallback as ((cb: () => void, options?: { timeout: number }) => number) | undefined;
+  if (idle) idle(task, { timeout: 2_000 });
+  else window.setTimeout(task, 1_200);
 }
 
 // ---- one-time feed queue ----
@@ -200,6 +241,8 @@ export default function Home() {
   const [deepVenue, setDeepVenue] = useState<{ id: string; name: string } | null>(null);
   const [events, setEvents] = useState<VenueEvent[]>([]);
   const [firstTaster, setFirstTaster] = useState<Listing[]>([]);
+  const initialFeedLoad = useRef(true);
+  const lazyWallStarted = useRef(false);
   // taste-personalized new dishes — re-fetched by loadFeeds so they refresh on
   // every return to home (a fresh shuffled set), not only on first mount.
   const loadEvents = useCallback(() => {
@@ -264,10 +307,62 @@ export default function Home() {
     const recentCats = [
       ...new Set(getRecent().map((l) => l.category).filter((c): c is string => !!c)),
     ].slice(0, 8);
-    cachedLoad('recsys', () => api.recsysFeed(30).catch(() => api.recommended()), setRecommendedFast, () => setFeedLoaded(true));
-    cachedLoad('firstTaster', () => api.firstTasterItems(8), setFirstTaster);
-    cachedLoad('topDish', () => api.listings('DISH', undefined, { sort: 'rating', take: 12 }), setTopDishesFast);
-    cachedLoad('topDrink', () => api.listings('DRINK', undefined, { sort: 'rating', take: 12 }), setTopDrinksFast);
+    if (initialFeedLoad.current) {
+      initialFeedLoad.current = false;
+      const hadRecommended = paintCached<Listing[]>('recsysV2', setRecommendedFast);
+      const hadFirstTaster = paintCached<Listing[]>('firstTasterV2', setFirstTaster);
+      paintCached<Listing[]>('topDish', setTopDishesFast);
+      paintCached<Listing[]>('topDrink', setTopDrinksFast);
+      if (hadRecommended) setFeedLoaded(true);
+
+      api.bootstrap()
+        .then((home) => {
+          if (!hadRecommended) setRecommendedFast(home.recommended);
+          if (!hadFirstTaster) setFirstTaster(home.firstTaster);
+          storeCached('recsysV2', home.recommended);
+          storeCached('firstTasterV2', home.firstTaster);
+        })
+        .catch(() => api.recsysFeed(30).then(setRecommendedFast).catch(() => {}))
+        .finally(() => setFeedLoaded(true));
+
+      return;
+    }
+
+    // Prefer the in-flight /api/bootstrap response (started in index.html before
+    // the bundle loaded); fall back to the per-section endpoints if it missed.
+    cachedLoad(
+      'recsysV2',
+      () =>
+        bootstrapSlice<any[]>((p) => (p.feed?.length ? (p.feed as any[]) : undefined))
+          ?.catch(() => api.recsysFeed(30).catch(() => api.recommended()))
+        ?? api.recsysFeed(30).catch(() => api.recommended()),
+      setRecommendedFast,
+      () => setFeedLoaded(true),
+    );
+    cachedLoad(
+      'firstTasterV2',
+      () =>
+        bootstrapSlice<any[]>((p) => (p.firstTaster?.length ? (p.firstTaster as any[]) : undefined))
+          ?.catch(() => api.firstTasterItems(8))
+        ?? api.firstTasterItems(8),
+      setFirstTaster,
+    );
+    cachedLoad(
+      'topDish',
+      () =>
+        bootstrapSlice<any[]>((p) => (p.topDishes?.length ? (p.topDishes as any[]) : undefined))
+          ?.catch(() => api.listings('DISH', undefined, { sort: 'rating', take: 12 }))
+        ?? api.listings('DISH', undefined, { sort: 'rating', take: 12 }),
+      setTopDishesFast,
+    );
+    cachedLoad(
+      'topDrink',
+      () =>
+        bootstrapSlice<any[]>((p) => (p.topDrinks?.length ? (p.topDrinks as any[]) : undefined))
+          ?.catch(() => api.listings('DRINK', undefined, { sort: 'rating', take: 12 }))
+        ?? api.listings('DRINK', undefined, { sort: 'rating', take: 12 }),
+      setTopDrinksFast,
+    );
     cachedLoad('smart', () => api.recommendedSmart(recentCats), setSmartFast);
     cachedLoad('myrev', () => api.myReviews(), setMyReviews);
     // «Новинки под ваш вкус» temporarily disabled (parsing paused) — see loadEvents
@@ -275,8 +370,16 @@ export default function Home() {
 
   useEffect(() => {
     loadFeeds();
-    api.me().then((u) => setMyId(u?.id ?? null)).catch(() => {});
-    api.skips().then((ids) => setSkipped(new Set(ids))).catch(() => {});
+    afterFirstPaint(() => {
+      api.me().then((u) => setMyId(u?.id ?? null)).catch(() => {});
+      api.skips().then((ids) => setSkipped(new Set(ids))).catch(() => {});
+    });
+  }, [loadFeeds]);
+
+  useEffect(() => {
+    const refreshForLocation = () => loadFeeds();
+    window.addEventListener('tasting-location', refreshForLocation);
+    return () => window.removeEventListener('tasting-location', refreshForLocation);
   }, [loadFeeds]);
 
   // re-shuffle + reload the recommendation rows (new positions every time you
@@ -410,6 +513,9 @@ export default function Home() {
       const fresh = pool.filter((l) => !recSeen.current.has(l.id) && !skipped.has(l.id));
       const add = fresh.slice(0, count);
       for (const l of add) recSeen.current.add(l.id);
+      // Only cards actually appended to the wall count as exploration impressions.
+      // The zero-weight telemetry event never changes the taste profile itself.
+      for (const l of add) if (l.isExploration) api.logEvent(l.id, 'EXPLORE_IMPRESSION');
       if (add.length) setRecCards((p) => [...p, ...add]);
       return add.length;
     } finally {
@@ -425,10 +531,27 @@ export default function Home() {
     await loadMoreRec(count + 1); // no more posts → recommendations keep it alive
   }, [showNextPosts, topUpQueue, loadMoreRec]);
   useEffect(() => {
-    extendFeed(5);
+    const start = () => {
+      if (lazyWallStarted.current) return;
+      lazyWallStarted.current = true;
+      const recentCats = [...new Set(getRecent().map((listing) => listing.category).filter((category): category is string => !!category))].slice(0, 8);
+      cachedLoad('topDish', () => api.listings('DISH', undefined, { sort: 'rating', take: 12 }), setTopDishesFast);
+      cachedLoad('topDrink', () => api.listings('DRINK', undefined, { sort: 'rating', take: 12 }), setTopDrinksFast);
+      cachedLoad('smart', () => api.recommendedSmart(recentCats), setSmartFast);
+      cachedLoad('myrev', () => api.myReviews(), setMyReviews);
+      extendFeed(5);
+      loadMoreRec(4);
+    };
+    const onScroll = () => {
+      if (window.scrollY > Math.min(320, window.innerHeight * 0.35)) {
+        start();
+        window.removeEventListener('scroll', onScroll);
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
     // rec cards join the FIRST screen of the feed (owner 17.07.2026) — the
     // score merge needs them present before any «показать ещё» tap
-    loadMoreRec(4);
     // clip telemetry: measure a real card once per session — if the footer is
     // clipped on THIS device, the exact numbers land in server logs
     const t = setTimeout(() => {
@@ -460,7 +583,7 @@ export default function Home() {
         }
       } catch { /* diagnostics only */ }
     }, 2500);
-    return () => clearTimeout(t);
+    return () => { clearTimeout(t); window.removeEventListener('scroll', onScroll); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -520,6 +643,35 @@ export default function Home() {
   })();
   const pinned = heroPinId ? ratePool.find((l) => l.id === heroPinId) : undefined;
   const heroItem = pinned ?? (ratePool.length ? ratePool[heroIdx % ratePool.length] : null);
+
+  // Cross-section dedup follows the visual order on Home: TasteHero wins, then
+  // first-taster, then the wall. A listing id can never appear twice on screen,
+  // even when the wall has both a review post and a recommendation for it.
+  const firstTasterCards = firstTaster.filter(
+    (listing) =>
+      (listing as any).recVenue &&
+      !skipped.has(listing.id) &&
+      !NONSTD.test(listing.name ?? '') &&
+      listing.id !== heroItem?.id,
+  );
+  const idsShownAboveFeed = new Set<string>([
+    ...(heroItem ? [heroItem.id] : []),
+    ...firstTasterCards.map((listing) => listing.id),
+  ]);
+  const feedListingIds = new Set<string>();
+  const visibleWallPosts = wallPosts.filter((review) => {
+    const listingId = review.listing?.id;
+    if (!listingId) return true;
+    if (idsShownAboveFeed.has(listingId) || feedListingIds.has(listingId)) return false;
+    feedListingIds.add(listingId);
+    return true;
+  });
+  const visibleRecCards = recCards.filter(
+    (listing) =>
+      !skipped.has(listing.id) &&
+      !idsShownAboveFeed.has(listing.id) &&
+      !feedListingIds.has(listing.id),
+  );
 
   useEffect(() => {
     const q = search.trim();
@@ -840,17 +992,16 @@ export default function Home() {
             </>
           )}
           {(() => {
-            const ft = firstTaster.filter((l) => (l as any).recVenue && !skipped.has(l.id) && !NONSTD.test(l.name ?? ''));
-            return ft.length > 0 && (
+            return firstTasterCards.length > 0 && (
               <>
                 <div className="section-title">🏅 Оцените первым</div>
                 <p className="ft-sub">Оценок пока нет. Ваша станет первой</p>
-                <div className="feed ft-feed">{ft.map(card)}</div>
+                <div className="feed ft-feed">{firstTasterCards.map(card)}</div>
               </>
             );
           })()}
           {/* «Ещё на оценку» removed (owner 17.07.2026) — the deck lives in the hero */}
-          {(wallPosts.length > 0 || recCards.length > 0) && (
+          {(visibleWallPosts.length > 0 || visibleRecCards.length > 0) && (
             <>
               <div className="section-title" ref={feedTopRef}>Лента</div>
               {/* ONE ranked feed (owner rules 17.07.2026): posts and rec cards
@@ -860,7 +1011,7 @@ export default function Home() {
                   within the new batch — never reshuffles what the user has seen. */}
               {(() => {
                 const byKey = new Map<string, { s: number; el: JSX.Element }>();
-                wallPosts.forEach((r, i) => {
+                visibleWallPosts.forEach((r, i) => {
                   byKey.set('p:' + r.id, {
                     s: Number((r as any).normScore ?? Math.max(0.05, 1 - i * 0.04)),
                     el: (
@@ -876,7 +1027,7 @@ export default function Home() {
                     ),
                   });
                 });
-                recCards.filter((l) => !skipped.has(l.id)).forEach((l, i) => {
+                visibleRecCards.forEach((l, i) => {
                   byKey.set('r:' + l.id, {
                     s: Number((l as any).normScore ?? Math.max(0.05, 0.9 - i * 0.04)),
                     el: (
@@ -934,33 +1085,32 @@ export default function Home() {
       )}
 
       {commentsReview && (
-        <CommentsModal
-          reviewId={commentsReview}
-          onClose={() => setCommentsReview(null)}
-          onOpenUser={(uid) => {
-            setCommentsReview(null);
-            setOpenUser(uid);
-          }}
-        />
+        <Suspense fallback={null}>
+          <CommentsModal
+            reviewId={commentsReview}
+            onClose={() => setCommentsReview(null)}
+            onOpenUser={(uid) => setOpenUser(uid)}
+          />
+        </Suspense>
       )}
       {photoReview && (
-        <PhotoPostModal
-          review={photoReview}
-          onClose={() => setPhotoReview(null)}
-          onOpenUser={(uid) => { setPhotoReview(null); setOpenUser(uid); }}
-          onOpenListing={() => {
-            const l = photoReview.listing;
-            setPhotoReview(null);
-            if (l) openListing(l as Listing);
-          }}
-          onOpenVenue={() => {
-            const v = photoReview.venue;
-            setPhotoReview(null);
-            if (v?.id) openListing({ id: v.id, name: v.name } as Listing);
-          }}
-        />
+        <Suspense fallback={null}>
+          <PhotoPostModal
+            review={photoReview}
+            onClose={() => setPhotoReview(null)}
+            onOpenUser={(uid) => setOpenUser(uid)}
+            onOpenListing={() => {
+              const l = photoReview.listing;
+              if (l) openListing(l as Listing);
+            }}
+            onOpenVenue={() => {
+              const v = photoReview.venue;
+              if (v?.id) openListing({ id: v.id, name: v.name } as Listing);
+            }}
+          />
+        </Suspense>
       )}
-      {openUser && <UserProfileModal id={openUser} onClose={() => setOpenUser(null)} />}
+      {openUser && <Suspense fallback={null}><UserProfileModal id={openUser} onClose={() => setOpenUser(null)} /></Suspense>}
       {browse && (
         <Suspense fallback={null}>
         <MapBrowse

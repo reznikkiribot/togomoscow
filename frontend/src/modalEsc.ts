@@ -1,7 +1,16 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type RefObject } from 'react';
 
-// Global modal stack so pressing Esc / Back closes only the TOPMOST modal/screen.
-const stack: Array<() => void> = [];
+type ScrollSnapshot = { element: HTMLElement; top: number; left: number };
+type ModalLayer = {
+  close: () => void;
+  root: HTMLElement | null;
+  originalZIndex: string;
+  scroll: ScrollSnapshot[];
+};
+
+// Global overlay stack. Besides Esc/Telegram Back, it owns gesture priority,
+// visual ordering and the exact scroll context each child was opened from.
+const stack: ModalLayer[] = [];
 let bound = false;
 
 /** True while any modal/overlay is open — screens use this to defer their own Esc. */
@@ -17,7 +26,44 @@ function popTop() {
   const now = Date.now();
   if (now - lastPop < 350) return;
   lastPop = now;
-  if (stack.length) stack[stack.length - 1]();
+  if (stack.length) stack[stack.length - 1].close();
+}
+
+/** True only for an element that belongs to the currently visible top layer. */
+export function isTopModalElement(element: HTMLElement | null) {
+  const top = stack[stack.length - 1];
+  if (!top || !top.root || !element) return true;
+  return top.root === element || top.root.contains(element);
+}
+
+function captureScroll(root: HTMLElement | null): ScrollSnapshot[] {
+  if (typeof document === 'undefined') return [];
+  const snapshots: ScrollSnapshot[] = [];
+  for (const element of document.querySelectorAll<HTMLElement>('body *')) {
+    if (root && root.contains(element)) continue;
+    if (element.scrollTop || element.scrollLeft) {
+      snapshots.push({ element, top: element.scrollTop, left: element.scrollLeft });
+    }
+  }
+  return snapshots;
+}
+
+function restoreScroll(snapshots: ScrollSnapshot[]) {
+  // React first removes the child overlay, then the next frame restores its
+  // source. Two frames also cover sheets whose closing animation changes layout.
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    for (const { element, top, left } of snapshots) {
+      if (!element.isConnected) continue;
+      element.scrollTop = top;
+      element.scrollLeft = left;
+    }
+  }));
+}
+
+function syncLayerOrder() {
+  stack.forEach((layer, index) => {
+    if (layer.root) layer.root.style.zIndex = String(2400 + index * 100);
+  });
 }
 
 function onKey(e: KeyboardEvent) {
@@ -66,26 +112,45 @@ function syncBodyLock() {
   }
 }
 
-/** Closes this modal/screen on Esc / Back (only when it's the top of the stack). */
-export function useEscClose(onClose: () => void) {
+/**
+ * Registers one modal/full-screen overlay. Esc, Telegram Back and gestures close
+ * only the top layer. Passing the outermost root also enables deterministic
+ * z-order and source-container scroll restoration for nested overlays.
+ */
+export function useEscClose(
+  onClose: () => void,
+  rootRef?: RefObject<HTMLElement | null>,
+  enabled = true,
+) {
   const ref = useRef(onClose);
   ref.current = onClose;
   useEffect(() => {
+    if (!enabled) return;
     if (!bound) {
       // capture phase + window: catch Esc before anything else swallows it
       window.addEventListener('keydown', onKey, true);
       tgBack()?.onClick(popTop);
       bound = true;
     }
-    const fn = () => ref.current();
-    stack.push(fn);
+    const root = rootRef?.current ?? null;
+    const layer: ModalLayer = {
+      close: () => ref.current(),
+      root,
+      originalZIndex: root?.style.zIndex ?? '',
+      scroll: captureScroll(root),
+    };
+    stack.push(layer);
+    syncLayerOrder();
     syncBackButton();
     syncBodyLock();
     return () => {
-      const i = stack.indexOf(fn);
+      const i = stack.indexOf(layer);
       if (i >= 0) stack.splice(i, 1);
+      if (root) root.style.zIndex = layer.originalZIndex;
+      syncLayerOrder();
       syncBackButton();
       syncBodyLock();
+      restoreScroll(layer.scroll);
     };
-  }, []);
+  }, [enabled]);
 }

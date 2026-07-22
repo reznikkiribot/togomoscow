@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { placeholderKeys } from '../stock/stock.data';
+import { recordExplorationReaction } from '../common/exploration';
 
 @Injectable()
 export class FavoritesService {
@@ -46,6 +47,7 @@ export class FavoritesService {
       create: { userId, listingId },
       update: {},
     });
+    void recordExplorationReaction(this.prisma, userId, listingId, 'SAVE').catch(() => {});
     return { ok: true };
   }
 

@@ -1,9 +1,40 @@
 {
   "domain": "bjorn.rest",
-  "method": "pdf",
+  "method": "pdf-coordinates",
   "status": "manual_required",
-  "source": "https://bjorn.rest/upload/uf/326/326d2b309e80994becf438e200dfbc91.pdf",
-  "count": 0,
+  "source": "../tmp/pdfs/bjorn.pdf",
+  "count": 5,
   "withPhoto": 0,
-  "items": []
+  "items": [
+    {
+      "name": "Копчёная утка с жареной свёклой",
+      "price": 980,
+      "description": null,
+      "image": null
+    },
+    {
+      "name": "Листья маслянистого са лата",
+      "price": 1120,
+      "description": null,
+      "image": null
+    },
+    {
+      "name": "Мурманский лосось",
+      "price": 1380,
+      "description": null,
+      "image": null
+    },
+    {
+      "name": "Бульон из дичи с лесными грибами",
+      "price": 980,
+      "description": "овощи / grøntsager dan",
+      "image": null
+    },
+    {
+      "name": "Спаржа и горошек в жгучей траве",
+      "price": 1120,
+      "description": null,
+      "image": null
+    }
+  ]
 }

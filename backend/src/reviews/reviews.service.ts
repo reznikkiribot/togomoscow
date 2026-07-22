@@ -8,6 +8,9 @@ import { CommentModerationService } from './comment-moderation.service';
 import { RatingRecalculationService } from '../trust/rating-recalculation.service';
 import { ReviewLocationInput } from '../trust/trust.types';
 import { TrustService } from '../trust/trust.service';
+import { attachReviewCardPhotos } from '../common/review-card-photos';
+import { recordExplorationReaction } from '../common/exploration';
+import { ResponseCacheService } from '../common/response-cache.service';
 
 // RU dish/drink name → a short English CLIP query, so the photo-name check works
 // (CLIP ViT-B/32 reads English). Dictionary of classics first, then category.
@@ -59,6 +62,7 @@ export class ReviewsService {
     private readonly commentModeration: CommentModerationService,
     private readonly trust: TrustService,
     private readonly ratings: RatingRecalculationService,
+    private readonly cache: ResponseCacheService,
   ) {}
 
   private async actorName(userId: string) {
@@ -387,6 +391,9 @@ export class ReviewsService {
         .create({ data: { userId, listingId, type: recType, weight: rating >= 5 ? 5 : 4 } })
         .catch(() => {});
     }
+    if (!existedBefore) {
+      void recordExplorationReaction(this.prisma, userId, listingId, `RATE_${rating}`).catch(() => {});
+    }
     try {
       const verificationBadge = await this.trust.initializeReview(review.id, userId, {
         location: dto.location,
@@ -398,6 +405,7 @@ export class ReviewsService {
       this.log.warn(`review trust/recompute failed id=${review.id}: ${String(error)}`);
     }
     // Followers are notified only by the admin approval path.
+    this.cache.invalidate();
     return {
       ...review,
       saveContext: { firstTasting: isFirstTasting, created: !existedBefore },
@@ -440,6 +448,7 @@ export class ReviewsService {
     if (!r || r.userId !== userId) return { ok: false };
     await this.prisma.review.delete({ where: { id: reviewId } });
     await this.ratings.recalculateForListing(r.listingId);
+    this.cache.invalidate();
     return { ok: true };
   }
 
@@ -482,6 +491,7 @@ export class ReviewsService {
       }
       for (const r of out) if (r.listing && venueByItem.has(r.listing.id)) r.venue = venueByItem.get(r.listing.id);
     }
+    await attachReviewCardPhotos(this.prisma, this.uploads, out);
     return out;
   }
 

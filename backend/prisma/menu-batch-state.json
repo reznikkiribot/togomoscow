@@ -1,0 +1,211 @@
+{
+  "startedAt": "2026-07-21T11:35:42.932Z",
+  "requested": 40,
+  "batchSize": 5,
+  "completed": [
+    {
+      "domain": "buhanka.ru",
+      "status": "manual_required (no menu found)",
+      "method": null,
+      "count": 0
+    },
+    {
+      "domain": "chaihona1.ru",
+      "status": "manual_required (no menu found)",
+      "method": null,
+      "count": 0
+    },
+    {
+      "domain": "ch1ef.ru",
+      "status": "manual_required (no menu found)",
+      "method": null,
+      "count": 0
+    },
+    {
+      "domain": "xn--c1acdayy6b.xn--p1ai",
+      "status": "manual_required (WAF)",
+      "method": null,
+      "count": 0
+    },
+    {
+      "domain": "probka.org",
+      "status": "manual_required (no menu found)",
+      "method": null,
+      "count": 0
+    },
+    {
+      "domain": "daglavka.com",
+      "status": "ok",
+      "method": "__NEXT_DATA__",
+      "count": 147
+    },
+    {
+      "domain": "eva.lucky-group.ru",
+      "status": "manual_required (no menu found)",
+      "method": null,
+      "count": 0
+    },
+    {
+      "domain": "vlavashe.ru",
+      "status": "manual_required (WAF)",
+      "method": null,
+      "count": 0
+    },
+    {
+      "domain": "aistcafe.ru",
+      "status": "manual_required (WAF)",
+      "method": null,
+      "count": 0
+    },
+    {
+      "domain": "ava.rest",
+      "status": "manual_required (WAF)",
+      "method": null,
+      "count": 0
+    },
+    {
+      "domain": "avrora.rest",
+      "status": "manual_required (WAF)",
+      "method": null,
+      "count": 0
+    },
+    {
+      "domain": "bjorn.rest",
+      "status": "manual_required",
+      "method": "pdf",
+      "count": 0
+    },
+    {
+      "domain": "bruno.lucky-group.rest",
+      "status": "ok",
+      "method": "pdf",
+      "count": 10
+    },
+    {
+      "domain": "carniceriavino.ru",
+      "status": "manual_required (no menu found)",
+      "method": null,
+      "count": 0
+    },
+    {
+      "domain": "gorynich.com",
+      "status": "manual_required (WAF)",
+      "method": null,
+      "count": 0
+    },
+    {
+      "domain": "grandcru.ru",
+      "status": "manual_required (no menu found)",
+      "method": null,
+      "count": 0
+    },
+    {
+      "domain": "gvidon.wrf.su",
+      "status": "manual_required (WAF)",
+      "method": null,
+      "count": 0
+    },
+    {
+      "domain": "ikra.wrf.su",
+      "status": "manual_required (WAF)",
+      "method": null,
+      "count": 0
+    },
+    {
+      "domain": "ikura.rest",
+      "status": "manual_required (WAF)",
+      "method": null,
+      "count": 0
+    },
+    {
+      "domain": "kiyomi.lucky-group.rest",
+      "status": "manual_required",
+      "method": "pdf",
+      "count": 0
+    },
+    {
+      "domain": "krasota.wrf.su",
+      "status": "manual_required (WAF)",
+      "method": null,
+      "count": 0
+    },
+    {
+      "domain": "lea.rest",
+      "status": "manual_required (WAF)",
+      "method": null,
+      "count": 0
+    },
+    {
+      "domain": "leomoscow.ru",
+      "status": "manual_required (WAF)",
+      "method": null,
+      "count": 0
+    },
+    {
+      "domain": "leorest.ru",
+      "status": "manual_required (WAF)",
+      "method": null,
+      "count": 0
+    },
+    {
+      "domain": "loro.lucky-group.ru",
+      "status": "manual_required (no menu found)",
+      "method": null,
+      "count": 0
+    },
+    {
+      "domain": "lucky.gorynich.com",
+      "status": "manual_required (WAF)",
+      "method": null,
+      "count": 0
+    },
+    {
+      "domain": "manulmoscow.ru",
+      "status": "manual_required (PDF)",
+      "method": "pdf-link",
+      "count": 0
+    },
+    {
+      "domain": "matrioshka.su",
+      "status": "manual_required (no menu found)",
+      "method": null,
+      "count": 0
+    },
+    {
+      "domain": "matryoshka-rest.ru",
+      "status": "manual_required (no menu found)",
+      "method": null,
+      "count": 0
+    },
+    {
+      "domain": "maya.lucky-group.rest",
+      "status": "manual_required (no menu found)",
+      "method": null,
+      "count": 0
+    }
+  ],
+  "failedBatches": [],
+  "pdfRuns": [
+    {
+      "domain": "bjorn.rest",
+      "source": "https://bjorn.rest/upload/uf/326/326d2b309e80994becf438e200dfbc91.pdf",
+      "ok": true
+    },
+    {
+      "domain": "bruno.lucky-group.rest",
+      "source": "https://bruno.rest/images/menu-2026/15-07-2026/Bruno%20SPECIAL%20175x240_14_07_26.pdf",
+      "ok": true
+    },
+    {
+      "domain": "kiyomi.lucky-group.rest",
+      "source": "https://kiyomi.rest/images/menu-2026/set-28-02-2026.pdf",
+      "ok": true
+    },
+    {
+      "domain": "manulmoscow.ru",
+      "source": "https://manulmoscow.ru/wp-content/uploads/2026/05/letnee-menyu-manul.pdf",
+      "ok": false
+    }
+  ],
+  "updatedAt": "2026-07-21T12:19:39.223Z"
+}

@@ -8,10 +8,11 @@
     "start:prod": "node dist/main.js",
     "start:dev": "nest start --watch",
     "railway:build": "prisma generate && npm run build",
-    "railway:start": "node scripts/ensure-database-url.mjs && prisma migrate deploy && npm run start:prod",
+    "railway:start": "node scripts/ensure-database-url.mjs && npm run start:prod",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
-    "prisma:studio": "prisma studio"
+    "prisma:studio": "prisma studio",
+    "test:trust": "npm run build && node --test test/trust.logic.test.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1072.0",
@@ -22,8 +23,10 @@
     "@prisma/client": "^6.2.0",
     "@types/multer": "^2.1.0",
     "@xenova/transformers": "^2.17.2",
+    "compression": "^1.8.1",
     "opening_hours": "^3.13.0",
     "pdf-parse": "^2.4.5",
+    "pg": "^8.22.0",
     "playwright": "^1.61.1",
     "prisma": "^6.2.0",
     "reflect-metadata": "^0.2.2",
@@ -34,6 +37,7 @@
   "devDependencies": {
     "@nestjs/cli": "^11.0.0",
     "@nestjs/schematics": "^11.0.0",
+    "@types/compression": "^1.8.1",
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.0",
     "typescript": "^5.7.0"

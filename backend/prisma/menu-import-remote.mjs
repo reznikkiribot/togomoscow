@@ -18,6 +18,25 @@ if (!process.env.DATABASE_URL) {
 const { PrismaClient } = await import('@prisma/client');
 const p = new PrismaClient();
 
+async function retry(label, operation) {
+  let lastError;
+  for (let attempt = 1; attempt <= 6; attempt++) {
+    try {
+      return await operation();
+    } catch (error) {
+      lastError = error;
+      const message = String(error?.message ?? '');
+      const transient = ['P1001', 'P1017', 'P2024', 'P2028'].includes(error?.code)
+        || /P1001|connection.*(?:closed|reset|timeout|terminated)|server.*closed|connection pool/iu.test(message);
+      if (!transient || attempt === 6) throw error;
+      const delay = attempt * 2000;
+      console.log(`${label}: transient ${error?.code ?? 'connection error'}, retry ${attempt}/6 in ${delay / 1000}s`);
+      await new Promise((resolve) => setTimeout(resolve, delay));
+    }
+  }
+  throw lastError;
+}
+
 // brand-name fallbacks for venues that lost/never had a website
 const BRANDS = {
   'dodopizza.ru': ['додо', 'dodo'],
@@ -47,7 +66,7 @@ for (const domain of domains) {
   // venues: by website host OR brand name
   const host = domain.replace(/^www\./, '');
   const brand = BRANDS[domain] ?? [];
-  const venues = await p.listing.findMany({
+  const venues = await retry(`${domain}: read venues`, () => p.listing.findMany({
     where: {
       type: 'RESTAURANT',
       OR: [
@@ -56,7 +75,7 @@ for (const domain of domains) {
       ],
     },
     select: { id: true },
-  });
+  }));
   if (!venues.length) { console.log(`${domain}: no venues, skip`); continue; }
 
   // prepare items in memory (dedup by type+lower(name))
@@ -72,29 +91,29 @@ for (const domain of domains) {
   }
   // Exact normalized identity only; loading the small catalog also catches
   // harmless punctuation and ё/е differences without any substring fallback.
-  const existing = await p.listing.findMany({
+  const existing = await retry(`${domain}: read catalog`, () => p.listing.findMany({
     where: { type: { in: ['DISH', 'DRINK'] } },
     select: { id: true, type: true, name: true, photoUrl: true },
-  });
+  }));
   const byKey = new Map(existing.map((e) => [`${e.type}|${menuNameKey(e.name)}`, e]));
 
   // batch-create the missing items
   const toCreate = [...wanted.entries()]
     .filter(([k]) => !byKey.has(k))
     .map(([, w]) => ({ type: w.type, name: w.name, category: w.category, groupKey: w.name.toLowerCase(), source: 'menu-import', photoUrl: w.photoUrl }));
-  if (toCreate.length) await p.listing.createMany({ data: toCreate, skipDuplicates: true });
+  if (toCreate.length) await retry(`${domain}: create items`, () => p.listing.createMany({ data: toCreate, skipDuplicates: true }));
   // re-fetch to get ids for everything
-  const all = await p.listing.findMany({
+  const all = await retry(`${domain}: fetch created items`, () => p.listing.findMany({
     where: { type: { in: ['DISH', 'DRINK'] }, name: { in: toCreate.map((item) => item.name), mode: 'insensitive' } },
     select: { id: true, type: true, name: true, photoUrl: true },
-  });
+  }));
   const idByKey = new Map(byKey);
   for (const e of all) idByKey.set(`${e.type}|${menuNameKey(e.name)}`, e);
 
   // photo backfill for pre-existing items without one (small; per-item update)
   for (const [k, w] of wanted) {
     const e = idByKey.get(k);
-    if (e && !e.photoUrl && w.photoUrl) await p.listing.update({ where: { id: e.id }, data: { photoUrl: w.photoUrl } }).catch(() => {});
+    if (e && !e.photoUrl && w.photoUrl) await retry(`${domain}: photo ${w.name}`, () => p.listing.update({ where: { id: e.id }, data: { photoUrl: w.photoUrl } })).catch(() => {});
   }
 
   // batch-create menu links: every item × every venue of the chain
@@ -105,10 +124,23 @@ for (const domain of domains) {
     for (const v of venues) linkRows.push({ venueId: v.id, itemId: e.id, status: 'APPROVED', price: w.price });
   }
   let links = 0;
-  for (let i = 0; i < linkRows.length; i += 1000) {
-    const r = await p.menuLink.createMany({ data: linkRows.slice(i, i + 1000), skipDuplicates: true });
+  for (let i = 0; i < linkRows.length; i += 500) {
+    const r = await retry(`${domain}: create links ${i}`, () => p.menuLink.createMany({ data: linkRows.slice(i, i + 500), skipDuplicates: true }));
     links += r.count;
   }
-  console.log(`${domain}: ${venues.length} venues, ${wanted.size} items (+${toCreate.length} new), +${links} links`);
+  // createMany is intentionally idempotent but does not refresh existing prices.
+  // One update per item (across every branch) keeps remote traffic bounded while
+  // making a reparse authoritative, including explicit null prices.
+  let updatedLinks = 0;
+  for (const [k, w] of wanted) {
+    const e = idByKey.get(k);
+    if (!e) continue;
+    const result = await retry(`${domain}: update links ${w.name}`, () => p.menuLink.updateMany({
+      where: { venueId: { in: venues.map((venue) => venue.id) }, itemId: e.id },
+      data: { status: 'APPROVED', price: w.price },
+    }));
+    updatedLinks += result.count;
+  }
+  console.log(`${domain}: ${venues.length} venues, ${wanted.size} items (+${toCreate.length} new), +${links} links, ${updatedLinks} refreshed links`);
 }
 await p.$disconnect();

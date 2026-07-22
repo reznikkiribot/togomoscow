@@ -145,9 +145,10 @@ export function CommentsModal({
     setClosing(true);
     setTimeout(onClose, 220);
   };
-  useEscClose(reqClose);
   // swipe-down from the top dismisses (shared app-wide pattern)
+  const overlayRef = useRef<HTMLDivElement>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
+  useEscClose(reqClose, overlayRef);
   useSwipeDismiss(sheetRef, onClose);
 
   const reply = async (parentId: string | undefined, t: string) => {
@@ -176,6 +177,7 @@ export function CommentsModal({
 
   return (
     <div
+      ref={overlayRef}
       className="modal-backdrop"
       style={{ zIndex: 3300 }}
       onClick={(e) => {

@@ -5,6 +5,7 @@ import { useCategoryProgress } from '../categoryGate';
 import { ratingsWord, openStatus } from '../plural';
 import { Stars } from './Stars';
 import { VenuePhoto } from './VenuePhoto';
+import { MetroLine } from './MetroLine';
 import { NotInterested } from './NotInterested';
 
 const TYPE_LABEL: Record<Listing['type'], string> = {
@@ -36,6 +37,7 @@ export function ListRow({
   // when the search matched a dish/drink this venue serves, show ITS rating here
   const matched = (listing as any).matchedItem as { name: string; rating: number | null; count: number } | undefined;
   const status = !isItem ? openStatus(listing.hours) : null;
+  const shownVenue = listing.bestVenue ?? listing.recVenue ?? listing.tryAt;
   let tags = cuisineTags(listing.cuisine);
   // fall back to a meaningful category when no cuisine; never the generic type word
   if (tags.length === 0 && listing.category && !/ресторан|заведение|блюдо|напиток/i.test(listing.category)) {
@@ -82,6 +84,7 @@ export function ListRow({
             <span className="price">{'₽'.repeat(listing.priceLevel)}</span>
           ) : null}
         </div>
+        {!isItem && <MetroLine venue={listing} />}
 
         {/* recommendation card → the recommended place (from recsys) */}
         {isItem && !listing.bestVenue && listing.recVenue && (
@@ -106,6 +109,7 @@ export function ListRow({
             <div className="sub">Попробуйте в: 📍{listing.bestVenue.name}</div>
           )
         )}
+        {isItem && <MetroLine venue={shownVenue} />}
         {/* searched a dish/drink → this venue shows ITS name above the rating */}
         {matched && (
           <div className="sub" style={{ color: 'var(--accent)', fontWeight: 700 }}>
@@ -136,13 +140,7 @@ export function ListRow({
         {/* venue: location · price · open/closed — Yelp-style. No "Ресторан"/"Сеть". */}
         {!isItem && (
           <div className="sub loc-line">
-            {/* a chain spans many points → no single metro; show the city instead.
-                A single venue shows its nearest metro station ("м. …"). */}
-            📍 {(listing.branchCount ?? 1) > 1
-              ? (listing.cityLabel || 'Москва')
-              : listing.metro
-                ? `м. ${listing.metro}`
-                : listing.cityLabel || 'Москва'}
+            📍 {listing.address || listing.cityLabel || 'Москва'}
             {listing.priceLevel ? ` · ${'₽'.repeat(listing.priceLevel)}` : ''}
             {status && (
               <>

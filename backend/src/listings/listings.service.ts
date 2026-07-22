@@ -2,7 +2,11 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import { ListingType, Prisma } from '@prisma/client';
 import OpeningHours from 'opening_hours';
 import { isNonStandalone } from '../common/non-standalone';
+import { isBrandedBeverage } from '../common/branded-beverages';
+import { isAlcohol } from '../common/alcohol';
 import { buildAffinities, loadVenueTraits, scorePriceSegment, scoreVenueTier } from '../common/taste-affinity';
+import { ResponseCacheService } from '../common/response-cache.service';
+import { PUBLIC_LISTING_SELECT } from '../common/public-listing-select';
 import { PrismaService } from '../prisma/prisma.service';
 import { placeholderKeys } from '../stock/stock.data';
 import { UploadsService } from '../uploads/uploads.service';
@@ -11,6 +15,11 @@ import { cuisineLabel, cuisineToken } from './cuisine';
 // A check-in counts as "verified" when the user's GPS is within this radius of
 // the venue. City GPS + OSM coordinates are imprecise, so we stay lenient.
 const CHECKIN_RADIUS_M = 500;
+
+function isAlcohol(name: string, type: ListingType): boolean {
+  if (type !== 'DRINK') return false;
+  return /(?:вино|wine|пиво|beer|эль|ale|лагер|сидр|коктейл|cocktail|шампан|просекко|виски|whisk|водк|джин|gin\b|ром\b|rum\b|текил|коньяк|бренди|лик[её]р|вермут|аперитив|настойк|наливк)/i.test(name);
+}
 
 // separators removed before matching, so "муму" finds "Му-Му", "rostics" → "Rostic's"
 const NAME_STRIP_RE = /[-'`‘’.]/g;
@@ -49,23 +58,8 @@ function latToRu(s: string): string {
   return o;
 }
 
-// nearest Moscow metro station to a point — shown as the venue's location ("м. …")
-// instead of a bare "Москва". Data: OSM subway stations (name + coords).
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const METRO: { n: string; lat: number; lng: number }[] = require('./metro-stations.json');
-function nearestMetro(lat?: number | null, lng?: number | null): string | null {
-  if (lat == null || lng == null) return null;
-  const cosLat = Math.cos((lat * Math.PI) / 180);
-  let best: string | null = null;
-  let bd = Infinity;
-  for (const s of METRO) {
-    const dLat = s.lat - lat;
-    const dLng = (s.lng - lng) * cosLat;
-    const d = dLat * dLat + dLng * dLng;
-    if (d < bd) { bd = d; best = s.n; }
-  }
-  return bd < 0.0025 ? best : null; // within ~5.5 km, else no nearby metro
-}
+const MOSCOW_CENTER = { lat: 55.7558, lng: 37.6173 };
+export type ViewerLocation = { lat: number; lng: number };
 
 // bigram Dice-coefficient similarity (0..1) — robust to typos/declensions, used to
 // RANK search results (so "капучинно"→"Капучино" card wins over venues serving coffee)
@@ -191,7 +185,159 @@ export class ListingsService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly uploads: UploadsService,
+    private readonly cache: ResponseCacheService,
   ) {}
+
+  private async rotatePicks<T extends { id: string }>(
+    rows: T[],
+    take: number,
+    viewerId: string | null,
+    section: string,
+  ): Promise<T[]> {
+    const copy = [...rows];
+    let seed = 0;
+    for (const char of `${viewerId ?? Math.random()}|${section}|${Date.now() >> 12}`) {
+      seed = (seed * 31 + char.charCodeAt(0)) >>> 0;
+    }
+    const random = () => {
+      seed = (seed * 1664525 + 1013904223) >>> 0;
+      return seed / 0x100000000;
+    };
+    for (let index = copy.length - 1; index > 0; index--) {
+      const swap = Math.floor(random() * (index + 1));
+      [copy[index], copy[swap]] = [copy[swap], copy[index]];
+    }
+    return copy.slice(0, take);
+  }
+
+  viewerLocation(req: any): ViewerLocation | undefined {
+    const lat = Number(req?.headers?.['x-tasting-lat']);
+    const lng = Number(req?.headers?.['x-tasting-lng']);
+    if (!Number.isFinite(lat) || !Number.isFinite(lng) || Math.abs(lat) > 90 || Math.abs(lng) > 180) {
+      return undefined;
+    }
+    return { lat, lng };
+  }
+
+  /** Resolve every venue reference in a card response in one DB round-trip.
+   * Chain-backed card locations point at the branch nearest to the taster; when
+   * location is unavailable, the deterministic fallback is the branch nearest
+   * to central Moscow. Ratings and item-specific prices stay chain-aggregated. */
+  async localizeVenueReferences<T>(payload: T, viewerLocation?: ViewerLocation): Promise<T> {
+    if (payload == null || typeof payload !== 'object') return payload;
+    const candidates: { target: any; resolveChain: boolean }[] = [];
+    const ids = new Set<string>();
+    const seen = new WeakSet<object>();
+    const chainKeys = new Set(['bestVenue', 'recVenue', 'tryAt']);
+
+    const visit = (value: any, key = '', topLevel = false) => {
+      if (value == null || typeof value !== 'object') return;
+      if (seen.has(value)) return;
+      seen.add(value);
+      if (Array.isArray(value)) {
+        for (const entry of value) visit(entry, key, topLevel);
+        return;
+      }
+      if (typeof value.id === 'string') {
+        ids.add(value.id);
+        candidates.push({
+          target: value,
+          resolveChain: chainKeys.has(key)
+            || key === 'listing'
+            || key === 'tastedAt'
+            || key === 'venues'
+            || (topLevel && value.type === 'RESTAURANT'),
+        });
+      }
+      for (const [childKey, child] of Object.entries(value)) {
+        // Embedding vectors can contain thousands of scalar entries and never
+        // contain venue references.
+        if (childKey === 'embedding' || childKey === 'imageEmbedding') {
+          delete value[childKey];
+          continue;
+        }
+        visit(child, childKey, false);
+      }
+    };
+    if (Array.isArray(payload)) {
+      for (const entry of payload) visit(entry, '', true);
+    } else {
+      visit(payload, '', true);
+    }
+    if (!ids.size) return payload;
+
+    type VenueLocation = {
+      id: string; type: ListingType; name: string; groupKey: string | null;
+      address: string | null; lat: number | null; lng: number | null;
+      metro: string | null; metroDistance: number | null;
+    };
+    // Raw SQL keeps this lookup compatible while the long-running Windows
+    // process still has Prisma's native engine DLL locked during generation.
+    const lookupIds = [...ids].sort();
+    const venues = await this.cache.getOrSet(
+      `listings:locations:${lookupIds.join(',')}`,
+      120_000,
+      () => this.prisma.$queryRaw<VenueLocation[]>(Prisma.sql`
+        SELECT id, type, name, group_key AS "groupKey", address, lat, lng,
+               metro, metro_distance AS "metroDistance"
+        FROM listings
+        WHERE type = 'RESTAURANT'::"ListingType" AND id IN (${Prisma.join(lookupIds)})
+      `),
+    );
+    if (!venues.length) return payload;
+    const venueById = new Map(venues.map((venue) => [venue.id, venue]));
+    const groupKeys = [...new Set(venues.map((venue) => venue.groupKey).filter((key): key is string => !!key))];
+    const sortedGroupKeys = [...groupKeys].sort();
+    const branches = sortedGroupKeys.length
+      ? await this.cache.getOrSet(
+          `listings:branches:${sortedGroupKeys.join(',')}`,
+          120_000,
+          () => this.prisma.$queryRaw<VenueLocation[]>(Prisma.sql`
+            SELECT id, type, name, group_key AS "groupKey", address, lat, lng,
+                   metro, metro_distance AS "metroDistance"
+            FROM listings
+            WHERE type = 'RESTAURANT'::"ListingType" AND group_key IN (${Prisma.join(sortedGroupKeys)})
+          `),
+        )
+      : [];
+    const branchesByGroup = new Map<string, typeof branches>();
+    for (const branch of branches) {
+      if (!branch.groupKey) continue;
+      const group = branchesByGroup.get(branch.groupKey) ?? [];
+      group.push(branch);
+      branchesByGroup.set(branch.groupKey, group);
+    }
+    const point = viewerLocation ?? MOSCOW_CENTER;
+    const distance = (venue: { lat: number | null; lng: number | null }) =>
+      venue.lat == null || venue.lng == null
+        ? Infinity
+        : haversineMeters(point.lat, point.lng, venue.lat, venue.lng);
+
+    for (const candidate of candidates) {
+      const base = venueById.get(candidate.target.id);
+      if (!base) continue;
+      let selected = base;
+      if (candidate.resolveChain && base.groupKey) {
+        const located = (branchesByGroup.get(base.groupKey) ?? []).filter(
+          (branch) => branch.lat != null && branch.lng != null,
+        );
+        if (located.length > 1) {
+          selected = located.reduce((best, branch) => distance(branch) < distance(best) ? branch : best);
+        }
+      }
+      Object.assign(candidate.target, {
+        id: selected.id,
+        name: selected.name,
+        groupKey: selected.groupKey,
+        address: selected.address,
+        lat: selected.lat,
+        lng: selected.lng,
+        metro: selected.metro,
+        metroDistance: selected.metroDistance,
+      });
+    }
+    return payload;
+  }
 
   /**
    * Search/list with chain grouping: chain branches (same group_key) collapse
@@ -208,7 +354,13 @@ export class ListingsService {
     cuisine?: string;
     category?: string;
     viewerId?: string | null;
-  }) {
+  }, skipCache = false): Promise<any[]> {
+    const ratingKey = !params.viewerId && !params.search && !params.openNow && params.sort === 'rating'
+      ? `listings:rating:${params.type ?? 'ALL'}:${params.take ?? 50}:${params.price ?? 0}:${params.cuisine ?? ''}:${params.category ?? ''}`
+      : null;
+    if (!skipCache && ratingKey) {
+      return this.cache.getOrSet(ratingKey, 120_000, () => this.list(params, true));
+    }
     const {
       type,
       search,
@@ -292,7 +444,9 @@ export class ListingsService {
           id, name, type, category, cuisine,
           photo_url AS "photoUrl", price_level AS "priceLevel",
           avg_rating AS "avgRating", review_count AS "reviewCount",
-          website, address, lat, lng, phone, hours,
+          website, address, lat, lng, metro, metro_distance AS "metroDistance", phone, hours,
+          (SELECT MIN(ml.price)::float FROM menu_links ml
+            WHERE ml.item_id = listings.id AND ml.status = 'APPROVED' AND ml.price IS NOT NULL) AS "minMenuPrice",
           COALESCE(group_key, id) AS "groupKey",
           COUNT(*) OVER (PARTITION BY COALESCE(group_key, id))::int AS "branchCount"
         FROM listings
@@ -303,8 +457,11 @@ export class ListingsService {
       LIMIT ${pool}
     `;
 
+    const discoveryRows = (type === 'DISH' || type === 'DRINK') && !search
+      ? rows.filter((row) => !isBrandedBeverage(row.name, row.type) && !isAlcohol(row.name, row.type) && !isNonStandalone(row.name, row.minMenuPrice))
+      : rows;
     if (openNow) {
-      const open = rows.filter((r) => {
+      const open = discoveryRows.filter((r) => {
         if (!r.hours) return false;
         try {
           return new (OpeningHours as any)(r.hours).getState(new Date());
@@ -314,7 +471,7 @@ export class ListingsService {
       });
       return this.personalSort(await this.enrichCards(open.slice(0, Number(take))), sort, viewerId, !!search);
     }
-    return this.personalSort(await this.enrichCards(rows), sort, viewerId, !!search);
+    return this.personalSort(await this.enrichCards(discoveryRows), sort, viewerId, !!search);
   }
 
   /** «Рекомендуемые» in EVERY catalog list ranks with the same taste profile as
@@ -527,7 +684,8 @@ export class ListingsService {
       tryAt: tryAt ?? undefined,
       // show at least the city when there's no street address yet
       cityLabel: inMoscow((r as any).lat, (r as any).lng) ? 'Москва' : undefined,
-      metro: nearestMetro((r as any).lat, (r as any).lng), // nearest metro → "м. …" label
+      metro: (r as any).metro ?? null,
+      metroDistance: (r as any).metroDistance ?? null,
       // always provide a stock fallback so even a broken/missing photoUrl shows
       // an appetizing photo instead of a monogram tile.
       placeholderPhoto: `/api/stock/${placeholderKeys(r.type ?? 'RESTAURANT', r.category, (r as any).name, r.id, 1)[0]}`,
@@ -578,8 +736,11 @@ export class ListingsService {
    * "Вам понравится" — random cards for now (no analytics/personalization yet,
    * per product decision). Real personalization is a Phase 2 concern.
    */
-  async recommended(take = 12) {
+  async recommended(take = 12, skipCache = false): Promise<any[]> {
     const limit = Math.max(1, Number(take) || 12);
+    if (!skipCache) {
+      return this.cache.getOrSet(`listings:recommended:${limit}`, 90_000, () => this.recommended(limit, true));
+    }
 
     // Prefer cards that can say "try this at <venue>". After a fresh Railway DB
     // restore/migration, links can be sparse, so keep a no-link fallback below.
@@ -588,7 +749,8 @@ export class ListingsService {
         type: { in: ['DISH', 'DRINK'] },
         servedAt: { some: { status: 'APPROVED' } },
       },
-      include: {
+      select: {
+        ...PUBLIC_LISTING_SELECT,
         servedAt: {
           where: { status: 'APPROVED' },
           select: { venue: { select: { id: true, name: true } }, price: true },
@@ -611,6 +773,9 @@ export class ListingsService {
     if (linked.length) {
       const seenName = new Set<string>();
       const pick = shuffle(linked).filter((it) => {
+        const prices = it.servedAt.map((link) => link.price).filter((value): value is number => value != null);
+        const minPrice = prices.length ? Math.min(...prices) : null;
+        if (isBrandedBeverage(it.name, it.type) || isNonStandalone(it.name, minPrice)) return false;
         const n = it.name.toLowerCase().trim();
         if (seenName.has(n)) return false;
         seenName.add(n);
@@ -631,10 +796,10 @@ export class ListingsService {
       ORDER BY RANDOM() LIMIT ${limit}
     `;
     const ids = rows.map((r) => r.id);
-    const items = await this.prisma.listing.findMany({ where: { id: { in: ids } } });
+    const items = await this.prisma.listing.findMany({ where: { id: { in: ids } }, select: PUBLIC_LISTING_SELECT });
     const byId = new Map(items.map((i) => [i.id, i]));
     const ordered = ids.map((id) => byId.get(id)).filter(Boolean) as typeof items;
-    return this.enrichCards(ordered);
+    return this.enrichCards(ordered.filter((item) => !isBrandedBeverage(item.name, item.type) && !isAlcohol(item.name, item.type) && !isNonStandalone(item.name)));
   }
 
   /**
@@ -647,14 +812,22 @@ export class ListingsService {
    * Delivery is ONE-TIME per viewer: served posts are recorded in feed_impressions
    * and never returned to that viewer again ("Показать ещё" pages the next batch).
    */
-  async feedRanked(viewerId: string | null, take = 20) {
+  async feedRanked(viewerId: string | null, take = 20, skipCache = false): Promise<any[]> {
+    const limit = Math.max(1, Number(take) || 20);
+    if (!skipCache && !viewerId) {
+      return this.cache.getOrSet(
+        `listings:feed:anonymous:${limit}`,
+        60_000,
+        () => this.feedRanked(viewerId, limit, true),
+      );
+    }
     if (!viewerId) return this.feed(take); // anonymous → public recency feed
     const seenRows = await this.prisma.feedImpression.findMany({
       where: { userId: viewerId },
       select: { reviewId: true },
     });
     const seen = new Set(seenRows.map((x) => x.reviewId));
-    const candidates = await this.prisma.review.findMany({
+    const candidatePool = await this.cache.getOrSet('listings:feed:candidates:v1', 45_000, () => this.prisma.review.findMany({
       where: {
         status: 'APPROVED',
         trust: { is: { hiddenAt: null } },
@@ -665,12 +838,16 @@ export class ListingsService {
           { listing: { photoUrl: { not: null } } },
           { listing: { servedAt: { some: { status: 'APPROVED', OR: [{ photoUrl: { not: null } }, { refImage: { not: null } }] } } } },
         ],
-        userId: { not: viewerId },
       },
-      include: { user: true, listing: true },
+      include: { user: true, listing: { select: PUBLIC_LISTING_SELECT } },
       orderBy: { createdAt: 'desc' },
       take: 300,
-    });
+    }));
+    const candidates = candidatePool.filter((review) =>
+      review.userId !== viewerId
+      && !isBrandedBeverage(review.listing?.name, review.listing?.type) && !isAlcohol(review.listing?.name, review.listing?.type)
+      && !isNonStandalone(review.listing?.name),
+    );
     // unseen posts lead; when they run out the feed RECYCLES already-seen posts
     // (friends' and strangers' alike, ranked) so the wall is never empty — the
     // client stops only when literally every post in the app has been shown
@@ -683,7 +860,7 @@ export class ListingsService {
     if (!fresh.length) {
       // no other people's posts exist at all (tiny community) → the viewer's own
       // posts keep the wall alive rather than showing an empty feed
-      fresh = await this.prisma.review.findMany({
+      fresh = (await this.prisma.review.findMany({
         where: {
           status: 'APPROVED',
           trust: { is: { hiddenAt: null } },
@@ -694,10 +871,10 @@ export class ListingsService {
           ],
           userId: viewerId,
         },
-        include: { user: true, listing: true },
+        include: { user: true, listing: { select: PUBLIC_LISTING_SELECT } },
         orderBy: { createdAt: 'desc' },
         take: 50,
-      });
+      })).filter((review) => !isBrandedBeverage(review.listing?.name, review.listing?.type) && !isAlcohol(review.listing?.name, review.listing?.type) && !isNonStandalone(review.listing?.name));
       recycled = true;
     }
     if (!fresh.length) return [];
@@ -731,15 +908,12 @@ export class ListingsService {
     const postCount = new Map(authorCounts.map((a) => [a.userId, a._count]));
 
     // viewer's taste: top categories from their own ratings + onboarding quiz
-    const mine = await this.prisma.review.findMany({
-      where: { userId: viewerId },
-      select: { listing: { select: { category: true } } },
-    });
-    const catCnt = new Map<string, number>();
-    for (const m of mine) {
-      const cat = m.listing?.category?.toLowerCase();
-      if (cat) catCnt.set(cat, (catCnt.get(cat) ?? 0) + 1);
-    }
+    // Use the same live category profile as recommendation cards, so OPEN/VIEW,
+    // favorite and dislike reactions affect the mixed Home wall immediately too.
+    const { catAffinity } = await buildAffinities(this.prisma, viewerId);
+    const catCnt = new Map<string, number>(
+      [...catAffinity.entries()].filter(([, affinity]) => affinity > 0).map(([category, affinity]) => [category, affinity]),
+    );
     const viewer = await this.prisma.user.findUnique({
       where: { id: viewerId },
       select: { preferences: true },
@@ -766,7 +940,8 @@ export class ListingsService {
         const engQ = Math.min(1, Math.log1p(eng.get(r.id) ?? 0) / Math.log1p(20)) * 0.5;
         const quality = 0.25 + textQ + engQ; // photo is guaranteed here → base 0.25
         const cat = (r.listing?.category ?? '').toLowerCase();
-        const taste = topCats.size === 0 ? 1 : topCats.has(cat) ? 1.5 : 0.8;
+        const affinity = catAffinity.get(cat);
+        const taste = topCats.size === 0 ? 1 : topCats.has(cat) ? 1.5 : (affinity ?? 0) < 0 ? 0.6 : 0.8;
         const ageDays = (now - r.createdAt.getTime()) / 86_400_000;
         const freshness = Math.exp(-ageDays / 7) + 0.05; // old posts never hit exactly 0
         const firstPost = (postCount.get(r.userId) ?? 99) === 1 && ageDays < 3 ? 5 : 1;
@@ -817,14 +992,17 @@ export class ListingsService {
         trust: { is: { hiddenAt: null } },
         photoUrls: { isEmpty: false },
       },
-      include: { user: true, listing: true },
+      include: { user: true, listing: { select: PUBLIC_LISTING_SELECT } },
       orderBy: { createdAt: 'desc' },
-      take: Number(take),
+      take: Number(take) * 3,
     });
-    await this.attachVenuesToReviews(list);
-    await this.attachCommentPreview(list);
-    await this.attachVoteCounts(list);
-    return this.attachValidatedFeedPhotos(list);
+    const eligible = list
+      .filter((review) => !isBrandedBeverage(review.listing?.name, review.listing?.type) && !isAlcohol(review.listing?.name, review.listing?.type) && !isNonStandalone(review.listing?.name))
+      .slice(0, Number(take));
+    await this.attachVenuesToReviews(eligible);
+    await this.attachCommentPreview(eligible);
+    await this.attachVoteCounts(eligible);
+    return this.attachValidatedFeedPhotos(eligible);
   }
 
   private isTrustedFeedCardPhoto(url?: string | null): url is string {
@@ -1134,7 +1312,15 @@ export class ListingsService {
    * with — categories they rate highly (weighted), recently viewed, quiz tastes —
    * minus what they rated already or swiped away. Content-based, works at 0 users.
    */
-  async recommendedSmart(userId: string, recentCats: string[] = [], take = 30) {
+  async recommendedSmart(userId: string, recentCats: string[] = [], take = 30, skipCache = false): Promise<any[]> {
+    const cacheCats = [...recentCats].sort().join(',');
+    if (!skipCache) {
+      return this.cache.getOrSet(
+        `listings:smart:${userId}:${Number(take)}:${cacheCats}`,
+        45_000,
+        () => this.recommendedSmart(userId, recentCats, take, true),
+      );
+    }
     const [user, reviews, dislikes] = await Promise.all([
       this.prisma.user.findUnique({ where: { id: userId }, select: { preferences: true } }),
       this.prisma.review.findMany({
@@ -1184,7 +1370,19 @@ export class ListingsService {
         id: { notIn: exclude },
         ...(or.length ? { OR: or } : {}),
       },
-      take: 150,
+      select: {
+        ...PUBLIC_LISTING_SELECT,
+        servedAt: {
+          where: { status: 'APPROVED', price: { not: null } },
+          select: { price: true },
+        },
+      },
+      take: 300,
+    });
+    const eligibleCandidates = candidates.filter((candidate) => {
+      const prices = candidate.servedAt.map((link) => link.price).filter((value): value is number => value != null);
+      const minPrice = prices.length ? Math.min(...prices) : null;
+      return !isBrandedBeverage(candidate.name, candidate.type) && !isAlcohol(candidate.name, candidate.type) && !isNonStandalone(candidate.name, minPrice);
     });
     // quiz-chosen categories get a baseline boost so they surface even with no reviews yet
     const quizBonus = (c: { category: string | null; name: string }) =>
@@ -1194,7 +1392,7 @@ export class ListingsService {
       )
         ? 2
         : 0;
-    const scored = candidates
+    const scored = eligibleCandidates
       .map((c) => ({
         c,
         s: (score.get(c.category ?? '') ?? 0) + clusterBonus(c.name) + quizBonus(c) + Math.random(),
@@ -1202,14 +1400,14 @@ export class ListingsService {
       .sort((a, b) => b.s - a.s);
 
     // diversity: round-robin across categories (best first) so the deck isn't all one thing
-    const byCat = new Map<string, typeof candidates>();
+    const byCat = new Map<string, typeof eligibleCandidates>();
     for (const x of scored) {
       const k = x.c.category ?? '';
       if (!byCat.has(k)) byCat.set(k, []);
       byCat.get(k)!.push(x.c);
     }
     const cats = [...byCat.keys()];
-    const out: typeof candidates = [];
+    const out: typeof eligibleCandidates = [];
     while (out.length < take) {
       let added = false;
       for (const k of cats) {
@@ -1243,7 +1441,7 @@ export class ListingsService {
     `;
     if (rows.length === 0) return [];
     const items = await this.prisma.listing.findMany({ where: { id: { in: rows.map((r) => r.id) } } });
-    return this.enrichCards(items);
+    return this.enrichCards(items.filter((item) => !isBrandedBeverage(item.name, item.type) && !isAlcohol(item.name, item.type) && !isNonStandalone(item.name)));
   }
 
   /**
@@ -1526,10 +1724,17 @@ export class ListingsService {
   /** Search-bar autocomplete: venue + dish/drink name suggestions (word-start).
    *  Returns a specific `icon` kind (coffee/wine/beer/drink/dish/cafe/bar/restaurant)
    *  so the UI can show the right entity emoji next to each suggestion. */
-  async suggest(q?: string) {
+  async suggest(q?: string, skipCache = false): Promise<{ name: string; kind: string; icon: string }[]> {
     const query = (q ?? '').trim();
     const empty = [] as { name: string; kind: string; icon: string }[];
     if (query.length < 1) return empty;
+    if (!skipCache) {
+      return this.cache.getOrSet(
+        `listings:suggest:${query.toLocaleLowerCase('ru')}`,
+        60_000,
+        () => this.suggest(query, true),
+      );
+    }
     const cond = this.matchCond(query);
     if (!cond) return empty;
     const [venues, items] = await Promise.all([
@@ -1575,30 +1780,95 @@ export class ListingsService {
   }
 
   /** Lightweight points for the map: only id/name/coords/type, coords present. */
-  geo() {
+  async geo(skipCache = false) {
+    if (!skipCache) return this.cache.getOrSet('listings:geo', 120_000, () => this.geo(true));
     return this.prisma.listing.findMany({
       where: { lat: { not: null }, lng: { not: null } },
       select: { id: true, name: true, lat: true, lng: true, type: true },
     });
   }
 
+  /**
+   * Pick `take` items the viewer hasn't been shown yet in this section, and
+   * remember the pick. Anonymous viewers get a plain random sample.
+   *
+   * Owner report: «Почему каждый раз я вижу одни и те же рекомендации?!» — the
+   * rotating sections cached their FINAL selection under one shared key, so a
+   * single `ORDER BY RANDOM()` served every user for the whole TTL. Rotation now
+   * lives per user in card_impressions and survives app restarts.
+   */
+  private async rotatePicks<T extends { id: string }>(
+    pool: T[],
+    take: number,
+    viewerId: string | null,
+    section: string,
+  ): Promise<T[]> {
+    const shuffle = (arr: T[]) => {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    };
+    if (!pool.length) return [];
+    if (!viewerId) return shuffle(pool).slice(0, take);
+
+    const seenRows = await this.prisma.cardImpression
+      .findMany({ where: { userId: viewerId, section }, select: { itemId: true } })
+      .catch(() => [] as { itemId: string }[]);
+    const seen = new Set(seenRows.map((r) => r.itemId));
+
+    let fresh = pool.filter((item) => !seen.has(item.id));
+    // Pool exhausted → start a new cycle instead of showing nothing.
+    if (fresh.length < take) {
+      await this.prisma.cardImpression.deleteMany({ where: { userId: viewerId, section } }).catch(() => {});
+      fresh = pool;
+    }
+    const picked = shuffle(fresh).slice(0, take);
+    if (picked.length) {
+      await this.prisma.cardImpression
+        .createMany({
+          data: picked.map((item) => ({ userId: viewerId, itemId: item.id, section })),
+          skipDuplicates: true,
+        })
+        .catch(() => {});
+    }
+    return picked;
+  }
+
   /** Items with ZERO user reviews — "станьте первым дегустатором" (gamification).
-   *  Only real cards: with a photo and served somewhere; random pick per visit. */
-  async firstTasterItems(take = 8) {
+   *  Only real cards: with a photo and served somewhere; rotated per viewer. */
+  async firstTasterItems(take = 8, viewerId: string | null = null): Promise<any[]> {
+    const limit = Math.max(1, Number(take) || 8);
+    // Cache the POOL, never the pick. Caching the final selection under one shared
+    // key meant the single `ORDER BY RANDOM()` ran once per TTL and every user saw
+    // the same eight cards for 90s — the "одни и те же рекомендации" report.
+    const pool = await this.cache.getOrSet('listings:first-taster:pool:v1', 90_000, () =>
+      this.prisma.$queryRaw<{ id: string; name: string; type: ListingType; price: number }[]>`
+        SELECT l.id, l.name, l.type, MIN(m.price)::float AS price
+        FROM listings l
+        JOIN menu_links m ON m.item_id = l.id AND m.status = 'APPROVED' AND m.price IS NOT NULL
+        WHERE l.type::text IN ('DISH','DRINK')
+          AND l.review_count = 0
+          AND l.photo_url IS NOT NULL
+        GROUP BY l.id, l.name, l.type
+        LIMIT 600`,
+    );
     // hard rules from the owner: venue attachment AND a price — no exceptions;
-    // plus the permanent non-standalone ban (sauces/bread/ingredients never here)
-    const rows = await this.prisma.$queryRaw<{ id: string; name: string }[]>`
-      SELECT l.id, l.name FROM listings l
-      WHERE l.type::text IN ('DISH','DRINK')
-        AND l.review_count = 0
-        AND l.photo_url IS NOT NULL
-        AND EXISTS (SELECT 1 FROM menu_links m WHERE m.item_id = l.id AND m.status = 'APPROVED' AND m.price IS NOT NULL)
-      ORDER BY RANDOM() LIMIT ${Number(take) * 4}`;
-    const picked = rows.filter((r) => !isNonStandalone(r.name)).slice(0, Number(take));
+    // the permanent non-standalone ban, branded drinks, and alcohol never appear here
+    const eligible = pool.filter(
+      (r) =>
+        !isBrandedBeverage(r.name, r.type) && !isAlcohol(r.name, r.type) &&
+        !isAlcohol(r.name, r.type) &&
+        !isNonStandalone(r.name, r.price),
+    );
+    const picked = await this.rotatePicks(eligible, limit, viewerId, 'first-taster');
     if (!picked.length) return [];
     const items = await this.prisma.listing.findMany({
       where: { id: { in: picked.map((r) => r.id) } },
-      include: {
+      select: {
+        ...PUBLIC_LISTING_SELECT,
         servedAt: {
           where: { status: 'APPROVED', price: { not: null } },
           select: { venue: { select: { id: true, name: true } }, price: true },
@@ -1619,11 +1889,16 @@ export class ListingsService {
   }
 
   /** "Топ-10 мест за неделю" — restaurants ranked by rating. */
-  async topWeekly(take = 10) {
+  async topWeekly(take = 10, skipCache = false): Promise<any[]> {
+    const limit = Math.max(1, Number(take) || 10);
+    if (!skipCache) {
+      return this.cache.getOrSet(`listings:top-weekly:${limit}`, 120_000, () => this.topWeekly(limit, true));
+    }
     const rows = await this.prisma.listing.findMany({
       where: { type: 'RESTAURANT' },
+      select: PUBLIC_LISTING_SELECT,
       orderBy: [{ avgRating: 'desc' }, { reviewCount: 'desc' }],
-      take,
+      take: limit,
     });
     return this.enrichCards(rows);
   }
@@ -1788,7 +2063,7 @@ export class ListingsService {
 
     // for a dish/drink, tag each review with the place the user tasted it at
     let tastedAt: any[] = [];
-    let bestVenue: { name: string; rating: number; count: number } | null = null;
+    let bestVenue: { id: string; name: string; rating: number; count: number } | null = null;
     if (listing.type !== 'RESTAURANT') {
       const venueIds = [
         ...new Set(reviews.map((r) => (r.attributes as any)?.venueId).filter(Boolean)),
@@ -1852,14 +2127,14 @@ export class ListingsService {
         if (!top || avg > top.avg) top = { vid, avg, c: e.c };
       }
       if (top && vById.get(top.vid)) {
-        bestVenue = { name: vById.get(top.vid).name, rating: top.avg, count: top.c };
+        bestVenue = { id: top.vid, name: vById.get(top.vid).name, rating: top.avg, count: top.c };
       }
       // fallback: no per-item review data yet → the highest-rated venue serving it
       if (!bestVenue) {
         const ranked = [...(venues as any[]), ...tastedAt]
           .filter((v) => v && v.name && (v.reviewCount ?? 0) > 0)
           .sort((a, b) => (b.avgRating ?? 0) - (a.avgRating ?? 0));
-        if (ranked.length) bestVenue = { name: ranked[0].name, rating: ranked[0].avgRating, count: ranked[0].reviewCount };
+        if (ranked.length) bestVenue = { id: ranked[0].id, name: ranked[0].name, rating: ranked[0].avgRating, count: ranked[0].reviewCount };
       }
       // OWNER RULE 16.07.2026: the detail photo is the photo of THIS venue's menu
       // link — exactly what the outer card shows. Priority: best venue's link,

@@ -1,0 +1,7173 @@
+{
+  "generatedAt": "2026-07-21T12:07:40.543Z",
+  "methodology": {
+    "database": "Production PostgreSQL, read-only query; P1001/transient connection retries",
+    "geography": "Point-in-polygon using current OSM admin_level=5/8 relation geometry",
+    "cuisine": "Current OSM cuisine tags are a coverage proxy, not an official market distribution",
+    "popularPlaces": "WHERETOEAT Moscow 2025 official shortlist: https://results2020.wheretoeat.ru/publications/news/moskva-short-list-2025/",
+    "menuPriority": "Official website domains grouped by venue count, chain groups, reviews, views and shortlist presence"
+  },
+  "fields": {
+    "total": 13052,
+    "osmSource": 13014,
+    "withMenu": 693,
+    "withMenuPct": 5.3,
+    "withoutMenu": 12359,
+    "withWebsite": 6360,
+    "withoutWebsite": 6692,
+    "withWebsiteWithoutMenu": 5686,
+    "withoutWebsiteWithMenu": 19,
+    "withoutCoordinates": 2,
+    "withoutPhoto": 13049,
+    "withoutCuisineTag": 5598
+  },
+  "osm": {
+    "timestamp": "2026-07-21T10:44:50Z",
+    "currentTotal": 12894,
+    "rawSelectorTotal": 12923,
+    "excludedStandaloneCoffeeRetail": [
+      {
+        "externalId": "node/1976616828",
+        "name": "Кофейная кантата",
+        "lat": 55.659242,
+        "lng": 37.4307467
+      },
+      {
+        "externalId": "node/1976616832",
+        "name": "Кофейная кантата",
+        "lat": 55.7410443,
+        "lng": 37.4154144
+      },
+      {
+        "externalId": "node/2612117387",
+        "name": "Кофейная Кантата",
+        "lat": 55.8504755,
+        "lng": 37.4449186
+      },
+      {
+        "externalId": "node/2919041373",
+        "name": "Чай & кофе",
+        "lat": 56.0030406,
+        "lng": 37.2059397
+      },
+      {
+        "externalId": "node/3151337186",
+        "name": "Кофейная кантата",
+        "lat": 55.8099532,
+        "lng": 37.4048651
+      },
+      {
+        "externalId": "node/3642979097",
+        "name": "Каfема",
+        "lat": 55.8136628,
+        "lng": 37.57678
+      },
+      {
+        "externalId": "node/3664755018",
+        "name": "Фрэш Кофе",
+        "lat": 55.7489053,
+        "lng": 37.7714919
+      },
+      {
+        "externalId": "node/3763650640",
+        "name": "Кофе с собой",
+        "lat": 55.7907873,
+        "lng": 37.5526479
+      },
+      {
+        "externalId": "node/4235486197",
+        "name": "Nespresso",
+        "lat": 55.6919525,
+        "lng": 37.5289196
+      },
+      {
+        "externalId": "node/4775040932",
+        "name": "Kafema",
+        "lat": 55.772118,
+        "lng": 37.5974075
+      },
+      {
+        "externalId": "node/4782852832",
+        "name": "КофеМаг",
+        "lat": 55.7111459,
+        "lng": 37.6156801
+      },
+      {
+        "externalId": "node/5018322031",
+        "name": "Мир эспрессо",
+        "lat": 55.7928874,
+        "lng": 37.7887783
+      },
+      {
+        "externalId": "node/5232641729",
+        "name": "Cool Coffe",
+        "lat": 55.8069796,
+        "lng": 37.5169498
+      },
+      {
+        "externalId": "node/6115580444",
+        "name": "Camera Obscura",
+        "lat": 55.6840858,
+        "lng": 37.5502209
+      },
+      {
+        "externalId": "node/6545302171",
+        "name": "Кофе, чай",
+        "lat": 55.4664408,
+        "lng": 37.2890597
+      },
+      {
+        "externalId": "node/6579512373",
+        "name": "PinoCoffee",
+        "lat": 55.6451077,
+        "lng": 37.5189156
+      },
+      {
+        "externalId": "node/6717889945",
+        "name": "Кантата",
+        "lat": 55.7319319,
+        "lng": 37.664079
+      },
+      {
+        "externalId": "node/7306404597",
+        "name": "Территория кофе",
+        "lat": 55.7872211,
+        "lng": 37.5798994
+      },
+      {
+        "externalId": "node/7816882487",
+        "name": "9bar",
+        "lat": 55.7932142,
+        "lng": 37.6940362
+      },
+      {
+        "externalId": "node/8016028006",
+        "name": "Coffeesphere",
+        "lat": 55.6991966,
+        "lng": 37.6349618
+      },
+      {
+        "externalId": "node/8743874903",
+        "name": "Kofe-da.ru",
+        "lat": 55.8427037,
+        "lng": 37.3713912
+      },
+      {
+        "externalId": "node/9176377594",
+        "name": "Дом кофе",
+        "lat": 55.7295328,
+        "lng": 37.6824832
+      },
+      {
+        "externalId": "node/9343501323",
+        "name": "Parle Market",
+        "lat": 55.6794901,
+        "lng": 37.5670489
+      },
+      {
+        "externalId": "node/9836811288",
+        "name": "Coffee to go",
+        "lat": 55.7506062,
+        "lng": 37.7173971
+      },
+      {
+        "externalId": "node/13019082721",
+        "name": "Coffee House",
+        "lat": 55.7046592,
+        "lng": 37.6541031
+      },
+      {
+        "externalId": "node/13276536502",
+        "name": "КоRица",
+        "lat": 55.643737,
+        "lng": 37.701309
+      },
+      {
+        "externalId": "node/13516502698",
+        "name": "Баристовъ",
+        "lat": 55.5959998,
+        "lng": 37.5916838
+      },
+      {
+        "externalId": "node/13743186699",
+        "name": "Coffeelavka",
+        "lat": 55.7833774,
+        "lng": 37.7047087
+      },
+      {
+        "externalId": "node/13858184289",
+        "name": "Коффмарт",
+        "lat": 55.7291916,
+        "lng": 37.6752318
+      }
+    ],
+    "bySelector": [
+      {
+        "selector": "amenity=cafe",
+        "count": 4855
+      },
+      {
+        "selector": "amenity=fast_food",
+        "count": 3592
+      },
+      {
+        "selector": "amenity=restaurant",
+        "count": 2637
+      },
+      {
+        "selector": "amenity=bar",
+        "count": 842
+      },
+      {
+        "selector": "shop=bakery",
+        "count": 518
+      },
+      {
+        "selector": "amenity=pub",
+        "count": 311
+      },
+      {
+        "selector": "amenity=ice_cream",
+        "count": 87
+      },
+      {
+        "selector": "amenity=food_court",
+        "count": 50
+      },
+      {
+        "selector": "amenity=biergarten",
+        "count": 2
+      }
+    ],
+    "presentByExternalId": 12894,
+    "missingByExternalId": 0,
+    "missingExternalIds": []
+  },
+  "geography": {
+    "okrugs": [
+      {
+        "name": "Центральный административный округ",
+        "osmId": "relation/2162196",
+        "areaKm2": 65.6,
+        "dbAll": 4671,
+        "dbDensityPerKm2": 71.21,
+        "osmCurrent": 4584,
+        "osmPresent": 4584,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Южный административный округ",
+        "osmId": "relation/1282181",
+        "areaKm2": 130.4,
+        "dbAll": 1185,
+        "dbDensityPerKm2": 9.09,
+        "osmCurrent": 1175,
+        "osmPresent": 1175,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Северный административный округ",
+        "osmId": "relation/162903",
+        "areaKm2": 101.4,
+        "dbAll": 1133,
+        "dbDensityPerKm2": 11.17,
+        "osmCurrent": 1122,
+        "osmPresent": 1122,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Западный административный округ",
+        "osmId": "relation/226149",
+        "areaKm2": 187.2,
+        "dbAll": 1078,
+        "dbDensityPerKm2": 5.76,
+        "osmCurrent": 1074,
+        "osmPresent": 1074,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Северо-Восточный административный округ",
+        "osmId": "relation/1252558",
+        "areaKm2": 100.7,
+        "dbAll": 1053,
+        "dbDensityPerKm2": 10.45,
+        "osmCurrent": 1035,
+        "osmPresent": 1035,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Юго-Восточный административный округ",
+        "osmId": "relation/1278703",
+        "areaKm2": 121.7,
+        "dbAll": 883,
+        "dbDensityPerKm2": 7.25,
+        "osmCurrent": 875,
+        "osmPresent": 875,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Юго-Западный административный округ",
+        "osmId": "relation/1304596",
+        "areaKm2": 102.9,
+        "dbAll": 883,
+        "dbDensityPerKm2": 8.58,
+        "osmCurrent": 876,
+        "osmPresent": 876,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Восточный административный округ",
+        "osmId": "relation/1320234",
+        "areaKm2": 153.5,
+        "dbAll": 828,
+        "dbDensityPerKm2": 5.39,
+        "osmCurrent": 825,
+        "osmPresent": 825,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Северо-Западный административный округ",
+        "osmId": "relation/446092",
+        "areaKm2": 92.3,
+        "dbAll": 617,
+        "dbDensityPerKm2": 6.68,
+        "osmCurrent": 610,
+        "osmPresent": 610,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Новомосковский административный округ",
+        "osmId": "relation/2263058",
+        "areaKm2": 380.2,
+        "dbAll": 480,
+        "dbDensityPerKm2": 1.26,
+        "osmCurrent": 480,
+        "osmPresent": 480,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Троицкий административный округ",
+        "osmId": "relation/2263059",
+        "areaKm2": 1066.3,
+        "dbAll": 104,
+        "dbDensityPerKm2": 0.1,
+        "osmCurrent": 104,
+        "osmPresent": 104,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      }
+    ],
+    "districts": [
+      {
+        "name": "Тверской район",
+        "osmId": "relation/1257786",
+        "areaKm2": 7.2,
+        "dbAll": 1026,
+        "dbDensityPerKm2": 141.71,
+        "osmCurrent": 1003,
+        "osmPresent": 1003,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Басманный район",
+        "osmId": "relation/2162195",
+        "areaKm2": 8.3,
+        "dbAll": 801,
+        "dbDensityPerKm2": 96.17,
+        "osmCurrent": 781,
+        "osmPresent": 781,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Пресненский район",
+        "osmId": "relation/1275551",
+        "areaKm2": 11.5,
+        "dbAll": 625,
+        "dbDensityPerKm2": 54.17,
+        "osmCurrent": 611,
+        "osmPresent": 611,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Замоскворечье",
+        "osmId": "relation/1255942",
+        "areaKm2": 4.2,
+        "dbAll": 423,
+        "dbDensityPerKm2": 99.61,
+        "osmCurrent": 420,
+        "osmPresent": 420,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Хамовники",
+        "osmId": "relation/1255987",
+        "areaKm2": 10,
+        "dbAll": 367,
+        "dbDensityPerKm2": 36.77,
+        "osmCurrent": 362,
+        "osmPresent": 362,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Даниловский район",
+        "osmId": "relation/1281209",
+        "areaKm2": 12.4,
+        "dbAll": 345,
+        "dbDensityPerKm2": 27.83,
+        "osmCurrent": 338,
+        "osmPresent": 338,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Таганский район",
+        "osmId": "relation/1275608",
+        "areaKm2": 8,
+        "dbAll": 344,
+        "dbDensityPerKm2": 42.91,
+        "osmCurrent": 340,
+        "osmPresent": 340,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Мещанский район",
+        "osmId": "relation/364001",
+        "areaKm2": 4.5,
+        "dbAll": 309,
+        "dbDensityPerKm2": 69.06,
+        "osmCurrent": 303,
+        "osmPresent": 303,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Красносельский район",
+        "osmId": "relation/1257218",
+        "areaKm2": 4.9,
+        "dbAll": 289,
+        "dbDensityPerKm2": 58.4,
+        "osmCurrent": 285,
+        "osmPresent": 285,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Якиманка",
+        "osmId": "relation/1275627",
+        "areaKm2": 4.8,
+        "dbAll": 249,
+        "dbDensityPerKm2": 52.33,
+        "osmCurrent": 246,
+        "osmPresent": 246,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Арбат",
+        "osmId": "relation/1257484",
+        "areaKm2": 2.1,
+        "dbAll": 238,
+        "dbDensityPerKm2": 115.3,
+        "osmCurrent": 233,
+        "osmPresent": 233,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Коммунарка",
+        "osmId": "relation/380704",
+        "areaKm2": 95,
+        "dbAll": 226,
+        "dbDensityPerKm2": 2.38,
+        "osmCurrent": 226,
+        "osmPresent": 226,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Дорогомилово",
+        "osmId": "relation/446114",
+        "areaKm2": 7.7,
+        "dbAll": 217,
+        "dbDensityPerKm2": 28.11,
+        "osmCurrent": 215,
+        "osmPresent": 215,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Останкинский район",
+        "osmId": "relation/1250619",
+        "areaKm2": 12.4,
+        "dbAll": 196,
+        "dbDensityPerKm2": 15.78,
+        "osmCurrent": 196,
+        "osmPresent": 196,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Аэропорт",
+        "osmId": "relation/446079",
+        "areaKm2": 4.6,
+        "dbAll": 177,
+        "dbDensityPerKm2": 38.25,
+        "osmCurrent": 176,
+        "osmPresent": 176,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Раменки",
+        "osmId": "relation/446115",
+        "areaKm2": 18.6,
+        "dbAll": 171,
+        "dbDensityPerKm2": 9.17,
+        "osmCurrent": 170,
+        "osmPresent": 170,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Бутырский район",
+        "osmId": "relation/1252424",
+        "areaKm2": 5,
+        "dbAll": 158,
+        "dbDensityPerKm2": 31.69,
+        "osmCurrent": 158,
+        "osmPresent": 158,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Внуково",
+        "osmId": "relation/380708",
+        "areaKm2": 90.1,
+        "dbAll": 154,
+        "dbDensityPerKm2": 1.71,
+        "osmCurrent": 154,
+        "osmPresent": 154,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Филёвский Парк",
+        "osmId": "relation/446112",
+        "areaKm2": 9.5,
+        "dbAll": 153,
+        "dbDensityPerKm2": 16.06,
+        "osmCurrent": 153,
+        "osmPresent": 153,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Лефортово",
+        "osmId": "relation/1278064",
+        "areaKm2": 8.9,
+        "dbAll": 153,
+        "dbDensityPerKm2": 17.12,
+        "osmCurrent": 152,
+        "osmPresent": 152,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Хорошёвский район",
+        "osmId": "relation/445299",
+        "areaKm2": 8.5,
+        "dbAll": 148,
+        "dbDensityPerKm2": 17.46,
+        "osmCurrent": 147,
+        "osmPresent": 147,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Донской район",
+        "osmId": "relation/444908",
+        "areaKm2": 5.6,
+        "dbAll": 145,
+        "dbDensityPerKm2": 25.72,
+        "osmCurrent": 144,
+        "osmPresent": 144,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Марьино",
+        "osmId": "relation/455222",
+        "areaKm2": 11.7,
+        "dbAll": 134,
+        "dbDensityPerKm2": 11.5,
+        "osmCurrent": 134,
+        "osmPresent": 134,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Беговой",
+        "osmId": "relation/445298",
+        "areaKm2": 4,
+        "dbAll": 126,
+        "dbDensityPerKm2": 31.33,
+        "osmCurrent": 124,
+        "osmPresent": 124,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Митино",
+        "osmId": "relation/442733",
+        "areaKm2": 12.4,
+        "dbAll": 123,
+        "dbDensityPerKm2": 9.9,
+        "osmCurrent": 122,
+        "osmPresent": 122,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Марьина Роща",
+        "osmId": "relation/1252407",
+        "areaKm2": 4.6,
+        "dbAll": 123,
+        "dbDensityPerKm2": 26.48,
+        "osmCurrent": 113,
+        "osmPresent": 113,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Соколиная Гора",
+        "osmId": "relation/1299031",
+        "areaKm2": 7.8,
+        "dbAll": 122,
+        "dbDensityPerKm2": 15.58,
+        "osmCurrent": 122,
+        "osmPresent": 122,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Академический район",
+        "osmId": "relation/1281220",
+        "areaKm2": 5.7,
+        "dbAll": 117,
+        "dbDensityPerKm2": 20.68,
+        "osmCurrent": 116,
+        "osmPresent": 116,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Измайлово",
+        "osmId": "relation/1319245",
+        "areaKm2": 14.9,
+        "dbAll": 115,
+        "dbDensityPerKm2": 7.71,
+        "osmCurrent": 115,
+        "osmPresent": 115,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Коньково",
+        "osmId": "relation/952191",
+        "areaKm2": 7.7,
+        "dbAll": 112,
+        "dbDensityPerKm2": 14.47,
+        "osmCurrent": 112,
+        "osmPresent": 112,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Щукино",
+        "osmId": "relation/431464",
+        "areaKm2": 7.9,
+        "dbAll": 108,
+        "dbDensityPerKm2": 13.7,
+        "osmCurrent": 107,
+        "osmPresent": 107,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Солнцево",
+        "osmId": "relation/446116",
+        "areaKm2": 18.4,
+        "dbAll": 107,
+        "dbDensityPerKm2": 5.8,
+        "osmCurrent": 106,
+        "osmPresent": 106,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Войковский район",
+        "osmId": "relation/446078",
+        "areaKm2": 5.3,
+        "dbAll": 101,
+        "dbDensityPerKm2": 19.11,
+        "osmCurrent": 99,
+        "osmPresent": 99,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Южнопортовый район",
+        "osmId": "relation/1278096",
+        "areaKm2": 4.5,
+        "dbAll": 96,
+        "dbDensityPerKm2": 21.21,
+        "osmCurrent": 92,
+        "osmPresent": 92,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Сокольники",
+        "osmId": "relation/364551",
+        "areaKm2": 10.1,
+        "dbAll": 92,
+        "dbDensityPerKm2": 9.07,
+        "osmCurrent": 91,
+        "osmPresent": 91,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Обручевский район",
+        "osmId": "relation/1292499",
+        "areaKm2": 6,
+        "dbAll": 92,
+        "dbDensityPerKm2": 15.32,
+        "osmCurrent": 91,
+        "osmPresent": 91,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Люблино",
+        "osmId": "relation/455203",
+        "areaKm2": 17.7,
+        "dbAll": 91,
+        "dbDensityPerKm2": 5.14,
+        "osmCurrent": 91,
+        "osmPresent": 91,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Тропарёво-Никулино",
+        "osmId": "relation/1292731",
+        "areaKm2": 11.2,
+        "dbAll": 91,
+        "dbDensityPerKm2": 8.12,
+        "osmCurrent": 91,
+        "osmPresent": 91,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Рязанский район",
+        "osmId": "relation/1255563",
+        "areaKm2": 6.3,
+        "dbAll": 90,
+        "dbDensityPerKm2": 14.2,
+        "osmCurrent": 90,
+        "osmPresent": 90,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Черёмушки",
+        "osmId": "relation/1281263",
+        "areaKm2": 5.4,
+        "dbAll": 88,
+        "dbDensityPerKm2": 16.23,
+        "osmCurrent": 88,
+        "osmPresent": 88,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Нагатинский Затон",
+        "osmId": "relation/455460",
+        "areaKm2": 9.5,
+        "dbAll": 86,
+        "dbDensityPerKm2": 9.05,
+        "osmCurrent": 85,
+        "osmPresent": 85,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Гагаринский район",
+        "osmId": "relation/1281648",
+        "areaKm2": 5.5,
+        "dbAll": 86,
+        "dbDensityPerKm2": 15.67,
+        "osmCurrent": 86,
+        "osmPresent": 86,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Покровское-Стрешнево",
+        "osmId": "relation/446081",
+        "areaKm2": 13,
+        "dbAll": 84,
+        "dbDensityPerKm2": 6.47,
+        "osmCurrent": 82,
+        "osmPresent": 82,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Савёловский район",
+        "osmId": "relation/445281",
+        "areaKm2": 2.6,
+        "dbAll": 82,
+        "dbDensityPerKm2": 31.27,
+        "osmCurrent": 80,
+        "osmPresent": 80,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Сокол",
+        "osmId": "relation/445280",
+        "areaKm2": 3.5,
+        "dbAll": 81,
+        "dbDensityPerKm2": 23.3,
+        "osmCurrent": 79,
+        "osmPresent": 79,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Южное Тушино",
+        "osmId": "relation/446080",
+        "areaKm2": 7.8,
+        "dbAll": 80,
+        "dbDensityPerKm2": 10.23,
+        "osmCurrent": 79,
+        "osmPresent": 79,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Южное Бутово",
+        "osmId": "relation/1257403",
+        "areaKm2": 18.2,
+        "dbAll": 79,
+        "dbDensityPerKm2": 4.34,
+        "osmCurrent": 79,
+        "osmPresent": 79,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Преображенское",
+        "osmId": "relation/1299106",
+        "areaKm2": 5.5,
+        "dbAll": 78,
+        "dbDensityPerKm2": 14.1,
+        "osmCurrent": 78,
+        "osmPresent": 78,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Ясенево",
+        "osmId": "relation/951334",
+        "areaKm2": 24.6,
+        "dbAll": 77,
+        "dbDensityPerKm2": 3.13,
+        "osmCurrent": 77,
+        "osmPresent": 77,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Северное Тушино",
+        "osmId": "relation/445279",
+        "areaKm2": 9.2,
+        "dbAll": 75,
+        "dbDensityPerKm2": 8.19,
+        "osmCurrent": 75,
+        "osmPresent": 75,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Перово",
+        "osmId": "relation/1299013",
+        "areaKm2": 9.9,
+        "dbAll": 74,
+        "dbDensityPerKm2": 7.5,
+        "osmCurrent": 74,
+        "osmPresent": 74,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Алексеевский район",
+        "osmId": "relation/1250526",
+        "areaKm2": 5.1,
+        "dbAll": 73,
+        "dbDensityPerKm2": 14.21,
+        "osmCurrent": 70,
+        "osmPresent": 70,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Кунцево",
+        "osmId": "relation/226927",
+        "areaKm2": 52.1,
+        "dbAll": 72,
+        "dbDensityPerKm2": 1.38,
+        "osmCurrent": 72,
+        "osmPresent": 72,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Бибирево",
+        "osmId": "relation/446085",
+        "areaKm2": 6.4,
+        "dbAll": 71,
+        "dbDensityPerKm2": 11.17,
+        "osmCurrent": 71,
+        "osmPresent": 71,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Свиблово",
+        "osmId": "relation/1250618",
+        "areaKm2": 4.4,
+        "dbAll": 71,
+        "dbDensityPerKm2": 16.22,
+        "osmCurrent": 70,
+        "osmPresent": 70,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Отрадное",
+        "osmId": "relation/445282",
+        "areaKm2": 10,
+        "dbAll": 70,
+        "dbDensityPerKm2": 7.02,
+        "osmCurrent": 69,
+        "osmPresent": 69,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Головинский район",
+        "osmId": "relation/445297",
+        "areaKm2": 8.8,
+        "dbAll": 70,
+        "dbDensityPerKm2": 7.98,
+        "osmCurrent": 69,
+        "osmPresent": 69,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Нагорный район",
+        "osmId": "relation/535662",
+        "areaKm2": 5.3,
+        "dbAll": 70,
+        "dbDensityPerKm2": 13.2,
+        "osmCurrent": 70,
+        "osmPresent": 70,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Кузьминки",
+        "osmId": "relation/444812",
+        "areaKm2": 7.9,
+        "dbAll": 68,
+        "dbDensityPerKm2": 8.59,
+        "osmCurrent": 65,
+        "osmPresent": 65,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Левобережный",
+        "osmId": "relation/445273",
+        "areaKm2": 6.3,
+        "dbAll": 68,
+        "dbDensityPerKm2": 10.71,
+        "osmCurrent": 68,
+        "osmPresent": 68,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Выхино-Жулебино",
+        "osmId": "relation/548619",
+        "areaKm2": 15,
+        "dbAll": 68,
+        "dbDensityPerKm2": 4.54,
+        "osmCurrent": 68,
+        "osmPresent": 68,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Чертаново Южное",
+        "osmId": "relation/950664",
+        "areaKm2": 9.1,
+        "dbAll": 68,
+        "dbDensityPerKm2": 7.51,
+        "osmCurrent": 68,
+        "osmPresent": 68,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Можайский район",
+        "osmId": "relation/1257472",
+        "areaKm2": 16.8,
+        "dbAll": 68,
+        "dbDensityPerKm2": 4.04,
+        "osmCurrent": 68,
+        "osmPresent": 68,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Орехово-Борисово Северное",
+        "osmId": "relation/455539",
+        "areaKm2": 7.4,
+        "dbAll": 67,
+        "dbDensityPerKm2": 9.1,
+        "osmCurrent": 67,
+        "osmPresent": 67,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Хорошёво-Мнёвники",
+        "osmId": "relation/428431",
+        "areaKm2": 17.9,
+        "dbAll": 66,
+        "dbDensityPerKm2": 3.69,
+        "osmCurrent": 66,
+        "osmPresent": 66,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Гольяново",
+        "osmId": "relation/1319142",
+        "areaKm2": 14.3,
+        "dbAll": 66,
+        "dbDensityPerKm2": 4.63,
+        "osmCurrent": 66,
+        "osmPresent": 66,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Тимирязевский район",
+        "osmId": "relation/445276",
+        "areaKm2": 10.4,
+        "dbAll": 65,
+        "dbDensityPerKm2": 6.24,
+        "osmCurrent": 65,
+        "osmPresent": 65,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Орехово-Борисово Южное",
+        "osmId": "relation/456807",
+        "areaKm2": 7.1,
+        "dbAll": 63,
+        "dbDensityPerKm2": 8.86,
+        "osmCurrent": 63,
+        "osmPresent": 63,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Нижегородский район",
+        "osmId": "relation/1278046",
+        "areaKm2": 7.4,
+        "dbAll": 61,
+        "dbDensityPerKm2": 8.22,
+        "osmCurrent": 61,
+        "osmPresent": 61,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Нагатино-Садовники",
+        "osmId": "relation/535655",
+        "areaKm2": 7.7,
+        "dbAll": 60,
+        "dbDensityPerKm2": 7.81,
+        "osmCurrent": 60,
+        "osmPresent": 60,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Печатники",
+        "osmId": "relation/455451",
+        "areaKm2": 18.3,
+        "dbAll": 55,
+        "dbDensityPerKm2": 3.01,
+        "osmCurrent": 55,
+        "osmPresent": 55,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Чертаново Центральное",
+        "osmId": "relation/951305",
+        "areaKm2": 6.8,
+        "dbAll": 55,
+        "dbDensityPerKm2": 8.07,
+        "osmCurrent": 55,
+        "osmPresent": 55,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Щербинка",
+        "osmId": "relation/1703095",
+        "areaKm2": 64.7,
+        "dbAll": 54,
+        "dbDensityPerKm2": 0.84,
+        "osmCurrent": 54,
+        "osmPresent": 54,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Косино-Ухтомский",
+        "osmId": "relation/1255576",
+        "areaKm2": 15.2,
+        "dbAll": 53,
+        "dbDensityPerKm2": 3.49,
+        "osmCurrent": 53,
+        "osmPresent": 53,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Троицк",
+        "osmId": "relation/1703093",
+        "areaKm2": 97.7,
+        "dbAll": 53,
+        "dbDensityPerKm2": 0.54,
+        "osmCurrent": 53,
+        "osmPresent": 53,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Строгино",
+        "osmId": "relation/434560",
+        "areaKm2": 16.6,
+        "dbAll": 52,
+        "dbDensityPerKm2": 3.13,
+        "osmCurrent": 50,
+        "osmPresent": 50,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Западное Дегунино",
+        "osmId": "relation/445275",
+        "areaKm2": 7.5,
+        "dbAll": 50,
+        "dbDensityPerKm2": 6.63,
+        "osmCurrent": 50,
+        "osmPresent": 50,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Ломоносовский район",
+        "osmId": "relation/1281702",
+        "areaKm2": 3.3,
+        "dbAll": 50,
+        "dbDensityPerKm2": 15.17,
+        "osmCurrent": 47,
+        "osmPresent": 47,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Северное Бутово",
+        "osmId": "relation/1257455",
+        "areaKm2": 8.8,
+        "dbAll": 48,
+        "dbDensityPerKm2": 5.44,
+        "osmCurrent": 48,
+        "osmPresent": 48,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Проспект Вернадского",
+        "osmId": "relation/1292679",
+        "areaKm2": 4.6,
+        "dbAll": 48,
+        "dbDensityPerKm2": 10.38,
+        "osmCurrent": 48,
+        "osmPresent": 48,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Северное Измайлово",
+        "osmId": "relation/1255680",
+        "areaKm2": 4.1,
+        "dbAll": 47,
+        "dbDensityPerKm2": 11.38,
+        "osmCurrent": 47,
+        "osmPresent": 47,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Филимонковский район",
+        "osmId": "relation/380705",
+        "areaKm2": 130.3,
+        "dbAll": 46,
+        "dbDensityPerKm2": 0.35,
+        "osmCurrent": 46,
+        "osmPresent": 46,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Тёплый Стан",
+        "osmId": "relation/951336",
+        "areaKm2": 8.3,
+        "dbAll": 46,
+        "dbDensityPerKm2": 5.53,
+        "osmCurrent": 46,
+        "osmPresent": 46,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Зюзино",
+        "osmId": "relation/1292286",
+        "areaKm2": 5.3,
+        "dbAll": 46,
+        "dbDensityPerKm2": 8.63,
+        "osmCurrent": 44,
+        "osmPresent": 44,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Фили-Давыдково",
+        "osmId": "relation/446111",
+        "areaKm2": 7,
+        "dbAll": 45,
+        "dbDensityPerKm2": 6.46,
+        "osmCurrent": 45,
+        "osmPresent": 45,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Москворечье-Сабурово",
+        "osmId": "relation/455528",
+        "areaKm2": 10,
+        "dbAll": 45,
+        "dbDensityPerKm2": 4.5,
+        "osmCurrent": 45,
+        "osmPresent": 45,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Крылатское",
+        "osmId": "relation/240229",
+        "areaKm2": 12.1,
+        "dbAll": 44,
+        "dbDensityPerKm2": 3.64,
+        "osmCurrent": 44,
+        "osmPresent": 44,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Ховрино",
+        "osmId": "relation/445274",
+        "areaKm2": 5.2,
+        "dbAll": 44,
+        "dbDensityPerKm2": 8.43,
+        "osmCurrent": 44,
+        "osmPresent": 44,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Чертаново Северное",
+        "osmId": "relation/535680",
+        "areaKm2": 6.2,
+        "dbAll": 44,
+        "dbDensityPerKm2": 7.15,
+        "osmCurrent": 44,
+        "osmPresent": 44,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Новогиреево",
+        "osmId": "relation/1298976",
+        "areaKm2": 4.4,
+        "dbAll": 43,
+        "dbDensityPerKm2": 9.87,
+        "osmCurrent": 42,
+        "osmPresent": 42,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Текстильщики",
+        "osmId": "relation/455184",
+        "areaKm2": 4.8,
+        "dbAll": 42,
+        "dbDensityPerKm2": 8.8,
+        "osmCurrent": 42,
+        "osmPresent": 42,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Котловка",
+        "osmId": "relation/1292211",
+        "areaKm2": 3.9,
+        "dbAll": 42,
+        "dbDensityPerKm2": 10.76,
+        "osmCurrent": 42,
+        "osmPresent": 42,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Дмитровский район",
+        "osmId": "relation/445278",
+        "areaKm2": 7,
+        "dbAll": 40,
+        "dbDensityPerKm2": 5.7,
+        "osmCurrent": 40,
+        "osmPresent": 40,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Лианозово",
+        "osmId": "relation/446084",
+        "areaKm2": 5.6,
+        "dbAll": 40,
+        "dbDensityPerKm2": 7.15,
+        "osmCurrent": 40,
+        "osmPresent": 40,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Царицыно",
+        "osmId": "relation/950641",
+        "areaKm2": 8.3,
+        "dbAll": 40,
+        "dbDensityPerKm2": 4.84,
+        "osmCurrent": 39,
+        "osmPresent": 39,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Очаково-Матвеевское",
+        "osmId": "relation/1292749",
+        "areaKm2": 17.4,
+        "dbAll": 40,
+        "dbDensityPerKm2": 2.29,
+        "osmCurrent": 40,
+        "osmPresent": 40,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Северный",
+        "osmId": "relation/445284",
+        "areaKm2": 10.4,
+        "dbAll": 39,
+        "dbDensityPerKm2": 3.75,
+        "osmCurrent": 39,
+        "osmPresent": 39,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Лосиноостровский район",
+        "osmId": "relation/1252448",
+        "areaKm2": 5.3,
+        "dbAll": 39,
+        "dbDensityPerKm2": 7.33,
+        "osmCurrent": 39,
+        "osmPresent": 39,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Крюково",
+        "osmId": "relation/1320371",
+        "areaKm2": 10.6,
+        "dbAll": 35,
+        "dbDensityPerKm2": 3.31,
+        "osmCurrent": 35,
+        "osmPresent": 35,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Матушкино",
+        "osmId": "relation/1320566",
+        "areaKm2": 4.6,
+        "dbAll": 35,
+        "dbDensityPerKm2": 7.57,
+        "osmCurrent": 35,
+        "osmPresent": 35,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Коптево",
+        "osmId": "relation/445277",
+        "areaKm2": 4.8,
+        "dbAll": 34,
+        "dbDensityPerKm2": 7.16,
+        "osmCurrent": 34,
+        "osmPresent": 34,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Бирюлёво Восточное",
+        "osmId": "relation/950639",
+        "areaKm2": 14.7,
+        "dbAll": 31,
+        "dbDensityPerKm2": 2.11,
+        "osmCurrent": 31,
+        "osmPresent": 31,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Южное Медведково",
+        "osmId": "relation/446087",
+        "areaKm2": 3.8,
+        "dbAll": 30,
+        "dbDensityPerKm2": 7.8,
+        "osmCurrent": 28,
+        "osmPresent": 28,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Ростокино",
+        "osmId": "relation/446272",
+        "areaKm2": 3.5,
+        "dbAll": 30,
+        "dbDensityPerKm2": 8.63,
+        "osmCurrent": 29,
+        "osmPresent": 29,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Богородское",
+        "osmId": "relation/1319060",
+        "areaKm2": 8.7,
+        "dbAll": 30,
+        "dbDensityPerKm2": 3.44,
+        "osmCurrent": 30,
+        "osmPresent": 30,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Куркино",
+        "osmId": "relation/442741",
+        "areaKm2": 7.6,
+        "dbAll": 29,
+        "dbDensityPerKm2": 3.79,
+        "osmCurrent": 29,
+        "osmPresent": 29,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Братеево",
+        "osmId": "relation/531287",
+        "areaKm2": 7.5,
+        "dbAll": 29,
+        "dbDensityPerKm2": 3.86,
+        "osmCurrent": 29,
+        "osmPresent": 29,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Бабушкинский район",
+        "osmId": "relation/1252465",
+        "areaKm2": 4.9,
+        "dbAll": 29,
+        "dbDensityPerKm2": 5.93,
+        "osmCurrent": 29,
+        "osmPresent": 29,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Савёлки",
+        "osmId": "relation/1320570",
+        "areaKm2": 7.6,
+        "dbAll": 28,
+        "dbDensityPerKm2": 3.67,
+        "osmCurrent": 28,
+        "osmPresent": 28,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Зябликово",
+        "osmId": "relation/531264",
+        "areaKm2": 4.5,
+        "dbAll": 27,
+        "dbDensityPerKm2": 6,
+        "osmCurrent": 27,
+        "osmPresent": 27,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Северное Медведково",
+        "osmId": "relation/446086",
+        "areaKm2": 5.7,
+        "dbAll": 26,
+        "dbDensityPerKm2": 4.59,
+        "osmCurrent": 26,
+        "osmPresent": 26,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Вешняки",
+        "osmId": "relation/574667",
+        "areaKm2": 10.4,
+        "dbAll": 26,
+        "dbDensityPerKm2": 2.49,
+        "osmCurrent": 26,
+        "osmPresent": 26,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Восточное Измайлово",
+        "osmId": "relation/1255704",
+        "areaKm2": 3.8,
+        "dbAll": 26,
+        "dbDensityPerKm2": 6.87,
+        "osmCurrent": 25,
+        "osmPresent": 25,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Краснопахорский район",
+        "osmId": "relation/2092925",
+        "areaKm2": 249.4,
+        "dbAll": 26,
+        "dbDensityPerKm2": 0.1,
+        "osmCurrent": 26,
+        "osmPresent": 26,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Ярославский район",
+        "osmId": "relation/446271",
+        "areaKm2": 8.3,
+        "dbAll": 25,
+        "dbDensityPerKm2": 3.02,
+        "osmCurrent": 25,
+        "osmPresent": 25,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Бескудниковский район",
+        "osmId": "relation/446082",
+        "areaKm2": 3.3,
+        "dbAll": 24,
+        "dbDensityPerKm2": 7.35,
+        "osmCurrent": 24,
+        "osmPresent": 24,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Марфино",
+        "osmId": "relation/1250724",
+        "areaKm2": 2.1,
+        "dbAll": 24,
+        "dbDensityPerKm2": 11.52,
+        "osmCurrent": 24,
+        "osmPresent": 24,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Силино",
+        "osmId": "relation/1320510",
+        "areaKm2": 9.5,
+        "dbAll": 24,
+        "dbDensityPerKm2": 2.51,
+        "osmCurrent": 24,
+        "osmPresent": 24,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Ивановское",
+        "osmId": "relation/1319263",
+        "areaKm2": 10.1,
+        "dbAll": 23,
+        "dbDensityPerKm2": 2.29,
+        "osmCurrent": 23,
+        "osmPresent": 23,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Ново-Переделкино",
+        "osmId": "relation/446117",
+        "areaKm2": 11.6,
+        "dbAll": 22,
+        "dbDensityPerKm2": 1.89,
+        "osmCurrent": 22,
+        "osmPresent": 22,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Некрасовка",
+        "osmId": "relation/1255577",
+        "areaKm2": 11.2,
+        "dbAll": 22,
+        "dbDensityPerKm2": 1.96,
+        "osmCurrent": 22,
+        "osmPresent": 22,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Новокосино",
+        "osmId": "relation/1255602",
+        "areaKm2": 3.7,
+        "dbAll": 21,
+        "dbDensityPerKm2": 5.61,
+        "osmCurrent": 21,
+        "osmPresent": 21,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Восточное Дегунино",
+        "osmId": "relation/445285",
+        "areaKm2": 3.8,
+        "dbAll": 17,
+        "dbDensityPerKm2": 4.43,
+        "osmCurrent": 17,
+        "osmPresent": 17,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Вороново",
+        "osmId": "relation/2092922",
+        "areaKm2": 509.5,
+        "dbAll": 15,
+        "dbDensityPerKm2": 0.03,
+        "osmCurrent": 15,
+        "osmPresent": 15,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Старое Крюково",
+        "osmId": "relation/1320424",
+        "areaKm2": 4.4,
+        "dbAll": 13,
+        "dbDensityPerKm2": 2.98,
+        "osmCurrent": 12,
+        "osmPresent": 12,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Бирюлёво Западное",
+        "osmId": "relation/950658",
+        "areaKm2": 8.4,
+        "dbAll": 10,
+        "dbDensityPerKm2": 1.19,
+        "osmCurrent": 10,
+        "osmPresent": 10,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Метрогородок",
+        "osmId": "relation/1319078",
+        "areaKm2": 27.2,
+        "dbAll": 10,
+        "dbDensityPerKm2": 0.37,
+        "osmCurrent": 10,
+        "osmPresent": 10,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Бекасово",
+        "osmId": "relation/1693596",
+        "areaKm2": 210.2,
+        "dbAll": 10,
+        "dbDensityPerKm2": 0.05,
+        "osmCurrent": 10,
+        "osmPresent": 10,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Алтуфьевский район",
+        "osmId": "relation/446083",
+        "areaKm2": 3.3,
+        "dbAll": 9,
+        "dbDensityPerKm2": 2.76,
+        "osmCurrent": 9,
+        "osmPresent": 9,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "Молжаниновский район",
+        "osmId": "relation/445283",
+        "areaKm2": 15.7,
+        "dbAll": 6,
+        "dbDensityPerKm2": 0.38,
+        "osmCurrent": 6,
+        "osmPresent": 6,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Капотня",
+        "osmId": "relation/455208",
+        "areaKm2": 8,
+        "dbAll": 3,
+        "dbDensityPerKm2": 0.37,
+        "osmCurrent": 3,
+        "osmPresent": 3,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      },
+      {
+        "name": "район Восточный",
+        "osmId": "relation/1255775",
+        "areaKm2": 3.3,
+        "dbAll": 2,
+        "dbDensityPerKm2": 0.6,
+        "osmCurrent": 2,
+        "osmPresent": 2,
+        "osmMissing": 0,
+        "osmCoveragePct": 100
+      }
+    ],
+    "dbCoordinatesOutsideOkrugs": 135,
+    "osmCoordinatesOutsideOkrugs": 134,
+    "dbCoordinatesOutsideKnownBoundaries": 0,
+    "osmCoordinatesOutsideKnownBoundaries": 0
+  },
+  "cuisine": {
+    "dbTaggedVenues": 7454,
+    "osmTaggedVenues": 7347,
+    "comparison": [
+      {
+        "cuisine": "georgian",
+        "dbCount": 376,
+        "osmCount": 377,
+        "missing": 1,
+        "coveragePct": 99.7
+      },
+      {
+        "cuisine": "russian",
+        "dbCount": 270,
+        "osmCount": 271,
+        "missing": 1,
+        "coveragePct": 99.6
+      },
+      {
+        "cuisine": "japanese",
+        "dbCount": 204,
+        "osmCount": 205,
+        "missing": 1,
+        "coveragePct": 99.5
+      },
+      {
+        "cuisine": "coffee_shop",
+        "dbCount": 2501,
+        "osmCount": 2471,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "burger",
+        "dbCount": 637,
+        "osmCount": 632,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "pizza",
+        "dbCount": 590,
+        "osmCount": 583,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "italian",
+        "dbCount": 324,
+        "osmCount": 320,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "kebab",
+        "dbCount": 319,
+        "osmCount": 315,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "chicken",
+        "dbCount": 230,
+        "osmCount": 229,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "sushi",
+        "dbCount": 204,
+        "osmCount": 203,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "asian",
+        "dbCount": 179,
+        "osmCount": 175,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "potato",
+        "dbCount": 141,
+        "osmCount": 141,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "seafood",
+        "dbCount": 139,
+        "osmCount": 133,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "vietnamese",
+        "dbCount": 127,
+        "osmCount": 127,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "regional",
+        "dbCount": 112,
+        "osmCount": 112,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "sandwich",
+        "dbCount": 109,
+        "osmCount": 109,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "crepe",
+        "dbCount": 106,
+        "osmCount": 106,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "cake",
+        "dbCount": 107,
+        "osmCount": 105,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "uzbek",
+        "dbCount": 103,
+        "osmCount": 99,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "international",
+        "dbCount": 90,
+        "osmCount": 90,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "steak_house",
+        "dbCount": 79,
+        "osmCount": 79,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "chinese",
+        "dbCount": 76,
+        "osmCount": 75,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "hot_dog",
+        "dbCount": 62,
+        "osmCount": 62,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "shawarma",
+        "dbCount": 62,
+        "osmCount": 61,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "sausage",
+        "dbCount": 44,
+        "osmCount": 44,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "tea",
+        "dbCount": 42,
+        "osmCount": 42,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "turkish",
+        "dbCount": 41,
+        "osmCount": 41,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "korean",
+        "dbCount": 37,
+        "osmCount": 37,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "breakfast",
+        "dbCount": 37,
+        "osmCount": 36,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "bubble_tea",
+        "dbCount": 33,
+        "osmCount": 32,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "greek",
+        "dbCount": 33,
+        "osmCount": 32,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "pie",
+        "dbCount": 32,
+        "osmCount": 32,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "donut",
+        "dbCount": 31,
+        "osmCount": 31,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "indian",
+        "dbCount": 31,
+        "osmCount": 30,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "ramen",
+        "dbCount": 29,
+        "osmCount": 29,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "american",
+        "dbCount": 28,
+        "osmCount": 28,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "ice_cream",
+        "dbCount": 26,
+        "osmCount": 26,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "jewish",
+        "dbCount": 27,
+        "osmCount": 26,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "european",
+        "dbCount": 25,
+        "osmCount": 24,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "deli",
+        "dbCount": 23,
+        "osmCount": 23,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "german",
+        "dbCount": 23,
+        "osmCount": 23,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "grill",
+        "dbCount": 23,
+        "osmCount": 22,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "noodle",
+        "dbCount": 22,
+        "osmCount": 22,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "barbecue",
+        "dbCount": 21,
+        "osmCount": 20,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "beef",
+        "dbCount": 20,
+        "osmCount": 20,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "dessert",
+        "dbCount": 20,
+        "osmCount": 20,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "french",
+        "dbCount": 20,
+        "osmCount": 20,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "local",
+        "dbCount": 20,
+        "osmCount": 20,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "oriental",
+        "dbCount": 20,
+        "osmCount": 20,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "thai",
+        "dbCount": 20,
+        "osmCount": 20,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "caucasian",
+        "dbCount": 19,
+        "osmCount": 19,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "pasta",
+        "dbCount": 19,
+        "osmCount": 19,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "fish",
+        "dbCount": 19,
+        "osmCount": 18,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "italian_pizza",
+        "dbCount": 18,
+        "osmCount": 18,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "mediterranean",
+        "dbCount": 18,
+        "osmCount": 18,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "ukrainian",
+        "dbCount": 18,
+        "osmCount": 18,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "mexican",
+        "dbCount": 17,
+        "osmCount": 17,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "belgian",
+        "dbCount": 16,
+        "osmCount": 16,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "armenian",
+        "dbCount": 14,
+        "osmCount": 14,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "lebanese",
+        "dbCount": 11,
+        "osmCount": 11,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "serbian",
+        "dbCount": 11,
+        "osmCount": 11,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "arab",
+        "dbCount": 9,
+        "osmCount": 9,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "azerbaijan",
+        "dbCount": 9,
+        "osmCount": 9,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "czech",
+        "dbCount": 9,
+        "osmCount": 9,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "doner",
+        "dbCount": 9,
+        "osmCount": 9,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "soup",
+        "dbCount": 9,
+        "osmCount": 9,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "spanish",
+        "dbCount": 9,
+        "osmCount": 9,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "fish_and_chips",
+        "dbCount": 9,
+        "osmCount": 8,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "friture",
+        "dbCount": 9,
+        "osmCount": 8,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "salad",
+        "dbCount": 8,
+        "osmCount": 8,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "irish",
+        "dbCount": 7,
+        "osmCount": 7,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "pancake",
+        "dbCount": 6,
+        "osmCount": 6,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "buryat",
+        "dbCount": 5,
+        "osmCount": 5,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "coffee",
+        "dbCount": 5,
+        "osmCount": 5,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "diner",
+        "dbCount": 5,
+        "osmCount": 5,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "hotdog",
+        "dbCount": 5,
+        "osmCount": 5,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "juice",
+        "dbCount": 5,
+        "osmCount": 5,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "middle_eastern",
+        "dbCount": 5,
+        "osmCount": 5,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "waffle",
+        "dbCount": 5,
+        "osmCount": 5,
+        "missing": 0,
+        "coveragePct": 100
+      },
+      {
+        "cuisine": "western",
+        "dbCount": 5,
+        "osmCount": 5,
+        "missing": 0,
+        "coveragePct": 100
+      }
+    ]
+  },
+  "popularPlaces": {
+    "source": "https://results2020.wheretoeat.ru/publications/news/moskva-short-list-2025/",
+    "total": 53,
+    "found": 49,
+    "missing": 4,
+    "rows": [
+      {
+        "name": "Anchovy’s Club",
+        "domain": "anchovys.club",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "ca95ccbd-794c-4d97-9552-ffbb8a298b34",
+            "name": "Anchovy's Club",
+            "website": "",
+            "address": ""
+          }
+        ]
+      },
+      {
+        "name": "Onest",
+        "domain": "onestrest.ru",
+        "aliases": [],
+        "top10": true,
+        "matched": true,
+        "matches": [
+          {
+            "id": "575bd34a-befb-497b-bd27-5bddb3d24e3b",
+            "name": "Onest",
+            "website": null,
+            "address": null
+          }
+        ]
+      },
+      {
+        "name": "AVA",
+        "domain": "ava.rest",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "ef1641f8-bb2a-489b-a473-aaad63a22a89",
+            "name": "AVA",
+            "website": "http://ava.rest/",
+            "address": ""
+          },
+          {
+            "id": "d5a0539d-f08b-4c0c-8abb-1ace0b38c504",
+            "name": "Ava",
+            "website": "",
+            "address": ""
+          },
+          {
+            "id": "63c400da-7896-4837-96ef-2e2b8ca2d859",
+            "name": "Ava",
+            "website": "",
+            "address": ""
+          }
+        ]
+      },
+      {
+        "name": "Padron",
+        "domain": "padron-rest.ru",
+        "aliases": [],
+        "top10": true,
+        "matched": true,
+        "matches": [
+          {
+            "id": "bfc95e61-b56c-483a-9232-4d5c27467552",
+            "name": "Padron",
+            "website": "https://padron-rest.ru",
+            "address": null
+          }
+        ]
+      },
+      {
+        "name": "Avrora",
+        "domain": "avrora.rest",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "e6a26f0e-4f36-47a7-8e3e-9c87af38808b",
+            "name": "Avrora",
+            "website": "https://avrora.rest/",
+            "address": ""
+          }
+        ]
+      },
+      {
+        "name": "Probka на Цветном",
+        "domain": "probka.org",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "10000000-0000-4000-8000-000000000001",
+            "name": "Probka на Цветном",
+            "website": null,
+            "address": "Цветной б-р, 2"
+          },
+          {
+            "id": "b995eee3-e98d-437e-afc5-c9a1b4fe7464",
+            "name": "Mina",
+            "website": "https://www.probka.org/restaurants/mina-msk/",
+            "address": "Малая Никитская улица, 16/5"
+          },
+          {
+            "id": "aec9cf2c-8e63-4e78-a27f-14af964c9d81",
+            "name": "Probka",
+            "website": "http://probka.org/restaurants/msk/probka-na-tsvetnom",
+            "address": null
+          },
+          {
+            "id": "662ae5a9-d707-472e-96b4-cf43a40af3f7",
+            "name": "Probka на Цветном",
+            "website": null,
+            "address": "Цветной б-р, 2"
+          }
+        ]
+      },
+      {
+        "name": "Big Wine Freaks",
+        "domain": null,
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "95048591-37a7-4382-b1bc-82e75c7fc90d",
+            "name": "Big Wine Freaks",
+            "website": null,
+            "address": "Б. Дровяной пер., 20"
+          },
+          {
+            "id": "102f486b-2247-48e2-ad03-c1a7083f80da",
+            "name": "Big Wine Freaks",
+            "website": "",
+            "address": ""
+          }
+        ]
+      },
+      {
+        "name": "Rico",
+        "domain": null,
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "b7c8ac06-ffc2-464d-85cc-1b4dd45fe98f",
+            "name": "Rico",
+            "website": "http://www.rico-restaurant.ru/",
+            "address": null
+          }
+        ]
+      },
+      {
+        "name": "Bjorn",
+        "domain": "bjorn.rest",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "015a64b4-8b1f-4feb-9888-83adb16c7cb4",
+            "name": "Бьёрн",
+            "website": "http://bjorn.rest",
+            "address": null
+          }
+        ]
+      },
+      {
+        "name": "Sage",
+        "domain": "sagemoscow.ru",
+        "aliases": [],
+        "top10": true,
+        "matched": true,
+        "matches": [
+          {
+            "id": "e43567cd-72de-49d0-817d-47ec666c7f0f",
+            "name": "Sage",
+            "website": "https://sagemoscow.ru",
+            "address": null
+          }
+        ]
+      },
+      {
+        "name": "Bruno",
+        "domain": "bruno.lucky-group.rest",
+        "aliases": [],
+        "top10": true,
+        "matched": true,
+        "matches": [
+          {
+            "id": "372fad41-0378-4578-bb92-246e4e530709",
+            "name": "Bruno",
+            "website": "https://bruno.lucky-group.rest",
+            "address": ""
+          }
+        ]
+      },
+      {
+        "name": "Salone Pasta & Bar",
+        "domain": "italyco.rest",
+        "aliases": [
+          "Salone"
+        ],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "4e61bbf0-1eac-4f25-b6da-64addd2c2975",
+            "name": "Salone",
+            "website": "https://atelierfamily.ru",
+            "address": null
+          }
+        ]
+      },
+      {
+        "name": "Carniceria Vino",
+        "domain": null,
+        "aliases": [],
+        "top10": true,
+        "matched": true,
+        "matches": [
+          {
+            "id": "461bd69a-cdb4-408a-9118-e0717907e4bc",
+            "name": "Carniceria Vino",
+            "website": "https://carniceriavino.ru",
+            "address": ""
+          }
+        ]
+      },
+      {
+        "name": "Saray",
+        "domain": "saray.lucky-group.rest",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "76d06b8e-4702-4646-bad6-fe9a46f9bc2d",
+            "name": "Saray",
+            "website": "https://saray.lucky-group.rest/",
+            "address": null
+          }
+        ]
+      },
+      {
+        "name": "Eva",
+        "domain": "eva-gruzinskaya.lucky-group.rest",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "02e5becd-cc47-4450-93e6-61d7276ae4e6",
+            "name": "Eva",
+            "website": "http://www.eva.lucky-group.ru",
+            "address": ""
+          },
+          {
+            "id": "ae7995ed-8639-46ac-83c4-d823013fba24",
+            "name": "Eva",
+            "website": "http://www.eva.lucky-group.ru",
+            "address": ""
+          }
+        ]
+      },
+      {
+        "name": "Savva",
+        "domain": "savvarest.ru",
+        "aliases": [],
+        "top10": true,
+        "matched": true,
+        "matches": [
+          {
+            "id": "6a12e9ed-8bcd-4d9e-a34b-17160f7b08b7",
+            "name": "Savva",
+            "website": "http://savvarest.ru",
+            "address": null
+          }
+        ]
+      },
+      {
+        "name": "Folk",
+        "domain": "folk-rest.ru",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "dd9912c3-1669-4104-9d59-82fbe3fdd052",
+            "name": "Folk",
+            "website": "",
+            "address": ""
+          }
+        ]
+      },
+      {
+        "name": "Selfie",
+        "domain": "selfiemoscow.ru",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "d10e14c8-a3e1-418f-9d74-0ce9641dcd81",
+            "name": "Selfie",
+            "website": "http://selfiemoscow.ru",
+            "address": null
+          },
+          {
+            "id": "5f273aba-1408-4bea-89fe-4fab1aa75986",
+            "name": "Selfie",
+            "website": null,
+            "address": "Новинский б-р, 31"
+          },
+          {
+            "id": "973ddbaf-3363-4c24-a888-dacca727cd2d",
+            "name": "Кофейня Selfie",
+            "website": null,
+            "address": null
+          }
+        ]
+      },
+      {
+        "name": "Grand Cru",
+        "domain": "grandcru.ru",
+        "aliases": [],
+        "top10": true,
+        "matched": true,
+        "matches": [
+          {
+            "id": "dd828b7f-a811-48f8-aa49-b701242813d1",
+            "name": "Grand Cru",
+            "website": "http://www.grandcru.ru",
+            "address": ""
+          }
+        ]
+      },
+      {
+        "name": "Semifreddo",
+        "domain": "semifreddo-restaurant.com",
+        "aliases": [
+          "Семифреддо"
+        ],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "9f329208-529e-4594-aafb-5ac894092f7d",
+            "name": "Семифреддо",
+            "website": "http://semifreddo-group.com/ru/venue/semifreddo-mulinazzo",
+            "address": "улица Тимура Фрунзе, 11 с55"
+          }
+        ]
+      },
+      {
+        "name": "Ikra",
+        "domain": "ikra.wrf.su",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "147cb48c-0166-46bb-8c4c-480c5f3a7529",
+            "name": "Ikra",
+            "website": "https://ikra.wrf.su/moscow",
+            "address": "Большая Никитская улица, 5"
+          }
+        ]
+      },
+      {
+        "name": "TOUCH Chef’s Place & Bar",
+        "domain": null,
+        "aliases": [],
+        "top10": false,
+        "matched": false,
+        "matches": []
+      },
+      {
+        "name": "Ikura Izakaya Nikkei",
+        "domain": "ikura.rest",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "2eeed735-8dff-477d-9e9c-328017cb5116",
+            "name": "Ikura",
+            "website": "https://ikura.rest/",
+            "address": ""
+          }
+        ]
+      },
+      {
+        "name": "Twins Garden",
+        "domain": "twinsgarden.ru",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "185a08d2-46e5-442e-8f87-983ee0566200",
+            "name": "Twins Garden",
+            "website": null,
+            "address": null
+          }
+        ]
+      },
+      {
+        "name": "Jun",
+        "domain": "jun.lucky-group.rest",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "5842dbee-00ff-479f-ade4-373781dd1cd8",
+            "name": "Jun",
+            "website": "",
+            "address": ""
+          }
+        ]
+      },
+      {
+        "name": "Vadvare",
+        "domain": "tsa.moscow",
+        "aliases": [],
+        "top10": false,
+        "matched": false,
+        "matches": []
+      },
+      {
+        "name": "Kiyomi",
+        "domain": "kiyomi.lucky-group.rest",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "85ca3527-71d9-44ef-9ac7-e3482e008658",
+            "name": "Kiyomi",
+            "website": "https://kiyomi.lucky-group.rest/",
+            "address": ""
+          }
+        ]
+      },
+      {
+        "name": "White Rabbit",
+        "domain": "whiterabbitmoscow.ru",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "8fbec429-e766-4f39-84ee-2bcd2eea3620",
+            "name": "White Rabbit",
+            "website": null,
+            "address": "Смоленская пл., 3"
+          },
+          {
+            "id": "957be47a-9861-4f31-96a2-ba6997811b3f",
+            "name": "White Rabbit",
+            "website": "http://www.whiterabbitmoscow.com",
+            "address": null
+          }
+        ]
+      },
+      {
+        "name": "Krasota",
+        "domain": "krasota.wrf.su",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "7a6f3abd-ca7b-418e-aa98-946870d323a3",
+            "name": "Krasota",
+            "website": "https://krasota.wrf.su/",
+            "address": ""
+          }
+        ]
+      },
+      {
+        "name": "Аист",
+        "domain": "novikovgroup.ru",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "ae3c7367-8f3a-474e-b6ce-0350afe4953f",
+            "name": "Bro&N",
+            "website": "http://novikovgroup.ru/restaurants/bron/",
+            "address": ""
+          },
+          {
+            "id": "2a5c7df4-83ee-4435-b8d3-8ae0f5296506",
+            "name": "Bro&N",
+            "website": "http://novikovgroup.ru/restaurants/bron/",
+            "address": ""
+          },
+          {
+            "id": "b86813a4-dbdf-4f8c-afdc-30c3f8d43e8d",
+            "name": "China Club",
+            "website": "http://novikovgroup.ru/restaurants/china-club",
+            "address": ""
+          },
+          {
+            "id": "4e3e36a0-ccf4-4d0c-b536-e526ec6a1293",
+            "name": "Cihan",
+            "website": "http://www.novikovgroup.ru/restaurants/cihan/",
+            "address": ""
+          },
+          {
+            "id": "a83c613f-585d-447b-82a8-ee723bdbb4f7",
+            "name": "Fumisawa Sushi",
+            "website": "http://novikovgroup.ru/restaurants/Fumisawa",
+            "address": ""
+          },
+          {
+            "id": "1fa9b495-227e-4cfe-acb2-27690efa6d0a",
+            "name": "Magura",
+            "website": "http://novikovgroup.ru/restaurants/magura/",
+            "address": null
+          },
+          {
+            "id": "ad669a64-6964-43b6-8f4d-c26a8a28d92f",
+            "name": "Moro",
+            "website": "https://www.novikovgroup.ru/restaurants/detail/moro/",
+            "address": "улица Большая Дмитровка, 5/6 с3"
+          },
+          {
+            "id": "15111b46-61a9-4415-9dd3-2c3dc27d18d2",
+            "name": "Solo",
+            "website": "https://novikovgroup.ru/restaurants/solo/",
+            "address": null
+          },
+          {
+            "id": "a45d5483-cbcd-4115-8a58-0e0a0df950b5",
+            "name": "Yoko",
+            "website": "http://novikovgroup.ru/restaurants/yoko",
+            "address": "Соймоновский проезд, 5/2"
+          },
+          {
+            "id": "33a4dfda-5f6e-4749-b651-ed9db6fcb5a8",
+            "name": "Аист",
+            "website": "http://www.aistcafe.ru/",
+            "address": null
+          },
+          {
+            "id": "36bda5a2-1c86-49df-ae6b-facc72adb6aa",
+            "name": "Высота 5642",
+            "website": "https://novikovgroup.ru/restaurants/5642Restaurant/5642Visota_58.html",
+            "address": null
+          },
+          {
+            "id": "7b825c9d-8022-4b52-b8a8-4c27240b7d35",
+            "name": "Высота 5642",
+            "website": "https://novikovgroup.ru/restaurants/5642Restaurant/5642Visota_58.html",
+            "address": null
+          },
+          {
+            "id": "4d49ec76-a77d-44c0-b766-8c44bd6125cf",
+            "name": "Донна Маргарита",
+            "website": "http://novikovgroup.ru/restaurants/donna-margarita",
+            "address": null
+          },
+          {
+            "id": "bc6b5654-0c5a-4da7-8481-fd38582766f7",
+            "name": "Рыбы нет",
+            "website": "http://novikovgroup.ru/restaurants/ryby-net",
+            "address": null
+          },
+          {
+            "id": "964f8a3b-9e89-493d-bfb2-870f6cd2ef01",
+            "name": "Сирена",
+            "website": "http://novikovgroup.ru/restaurants/sirena",
+            "address": "Большая Спасская улица, 15"
+          },
+          {
+            "id": "c92865c1-1948-415f-97a5-0a5a487096ba",
+            "name": "Страна которой нет",
+            "website": "http://novikovgroup.ru/restaurants/strana-kotoroy-net/",
+            "address": null
+          },
+          {
+            "id": "c480f9b5-494a-4f2b-a07d-60efecd40485",
+            "name": "Сыроварня",
+            "website": "http://www.novikovgroup.ru/restaurants/syrovarnya",
+            "address": null
+          },
+          {
+            "id": "da8ce08f-11d1-47ce-b3e4-281c424e0b37",
+            "name": "Сыроварня",
+            "website": "http://www.novikovgroup.ru/restaurants/syrovarnya",
+            "address": null
+          },
+          {
+            "id": "732ae5b7-88ef-4105-aaa7-a6699a4cca09",
+            "name": "Сыроварня",
+            "website": "http://www.novikovgroup.ru/restaurants/syrovarnya",
+            "address": null
+          },
+          {
+            "id": "a68e84c6-e24a-4658-8762-e2bdeac4e4a1",
+            "name": "Чайковский",
+            "website": "http://novikovgroup.ru/restaurants/chaykovskiy",
+            "address": null
+          },
+          {
+            "id": "2fd1593c-648a-4d40-8d4c-be3d105e5cca",
+            "name": "Чайковский в Тифлисе",
+            "website": "http://novikovgroup.ru/restaurants/chaykovskiy",
+            "address": null
+          }
+        ]
+      },
+      {
+        "name": "Lea",
+        "domain": "lea.rest",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "617db0e3-6e2d-41e3-923a-75f56aa4d944",
+            "name": "Lea",
+            "website": "https://lea.rest/",
+            "address": ""
+          }
+        ]
+      },
+      {
+        "name": "Белуга",
+        "domain": "belugamoscow.ru",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "6eb9f2ef-9f1f-4a14-b625-088b6d448e62",
+            "name": "Белуга",
+            "website": null,
+            "address": null
+          }
+        ]
+      },
+      {
+        "name": "LEO",
+        "domain": "leomoscow.ru",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "5545e9d0-3ea2-4f22-9d96-1c718da832b1",
+            "name": "Leo",
+            "website": "",
+            "address": ""
+          },
+          {
+            "id": "11bb1a77-c80f-4406-b303-a1f1b9c81cec",
+            "name": "Leo",
+            "website": "https://leorest.ru/",
+            "address": ""
+          },
+          {
+            "id": "6e78b6c6-afbb-42b2-b00e-0ca2e828add3",
+            "name": "Leo",
+            "website": "https://leomoscow.ru",
+            "address": ""
+          }
+        ]
+      },
+      {
+        "name": "Гвидон",
+        "domain": "gvidon.wrf.su",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "918444ba-f39b-48e4-8c34-d9a6c181a3b9",
+            "name": "Гвидон",
+            "website": "https://gvidon.wrf.su",
+            "address": "Большая Никитская улица, 5"
+          }
+        ]
+      },
+      {
+        "name": "Loona",
+        "domain": "loona.rest",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "78c9a269-0b55-460f-8e71-0892442c02e8",
+            "name": "Loona",
+            "website": "",
+            "address": ""
+          },
+          {
+            "id": "7f5ad88a-5016-4f59-aeef-ce8a6da32c30",
+            "name": "Loona",
+            "website": "",
+            "address": ""
+          }
+        ]
+      },
+      {
+        "name": "Горыныч",
+        "domain": "gorynich.com",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "8c58b975-34c0-49b0-9295-a677c5114d6a",
+            "name": "Горыныч",
+            "website": "https://lucky.gorynich.com",
+            "address": "2-я Звенигородская улица, 12 с22"
+          },
+          {
+            "id": "674428eb-a704-4ae9-aaf5-d000e39d9b0a",
+            "name": "Горыныч",
+            "website": "http://gorynich.com/",
+            "address": null
+          }
+        ]
+      },
+      {
+        "name": "Loro",
+        "domain": "loro.lucky-group.rest",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "988b441c-f1ca-45d9-a074-dc46c8f65e1f",
+            "name": "Loro",
+            "website": null,
+            "address": "Лесная ул., 9"
+          },
+          {
+            "id": "96143144-29b0-4021-94e0-d052c287d1a2",
+            "name": "Loro",
+            "website": "https://www.loro.lucky-group.ru/",
+            "address": ""
+          },
+          {
+            "id": "9ba59649-9210-497b-a73d-5dcf7bf3fe79",
+            "name": "Loro",
+            "website": "",
+            "address": ""
+          }
+        ]
+      },
+      {
+        "name": "Жажда крови",
+        "domain": "zhazhdakrovy.ru",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "940ad8bd-face-42ea-910d-832c83ea784e",
+            "name": "Жажда крови",
+            "website": "https://zhazhdakrovy.ru/",
+            "address": "Лесная улица, 9"
+          }
+        ]
+      },
+      {
+        "name": "Manul",
+        "domain": "manulmoscow.ru",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "45111cb4-ad7f-47e5-8c1f-3a9aa016a69b",
+            "name": "Manul",
+            "website": "https://manulmoscow.ru",
+            "address": null
+          }
+        ]
+      },
+      {
+        "name": "За крышей",
+        "domain": null,
+        "aliases": [],
+        "top10": true,
+        "matched": true,
+        "matches": [
+          {
+            "id": "42ab1d9c-ce89-4c0b-967c-2cab196cfc0d",
+            "name": "За Крышей",
+            "website": null,
+            "address": null
+          }
+        ]
+      },
+      {
+        "name": "Max’s Beef for Money",
+        "domain": null,
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "049142bb-a271-414e-9aaa-2644b6fabc85",
+            "name": "Max's Beef for Money",
+            "website": null,
+            "address": null
+          }
+        ]
+      },
+      {
+        "name": "Кафе Пушкинъ",
+        "domain": "cafe-pushkin.ru",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "eb78f275-dfe9-4044-845d-69b86506f649",
+            "name": "Кафе Пушкинъ",
+            "website": null,
+            "address": "Тверской б-р, 26А"
+          },
+          {
+            "id": "e112e77f-730d-4be5-96f3-e542d16e71fa",
+            "name": "Пушкинъ",
+            "website": "http://www.cafe-pushkin.ru",
+            "address": "Тверской бульвар, 26А"
+          },
+          {
+            "id": "e0e2c4dc-6a89-4a42-9dcf-0cadc1a2d638",
+            "name": "Пушкинъ",
+            "website": "http://www.cafe-pushkin.ru",
+            "address": "Тверской бульвар, 26/5"
+          },
+          {
+            "id": "d85cec6c-5cac-4e6c-a265-980361912080",
+            "name": "Пушкинъ",
+            "website": "http://www.cafe-pushkin.ru",
+            "address": null
+          }
+        ]
+      },
+      {
+        "name": "Maya",
+        "domain": "maya.lucky-group.rest",
+        "aliases": [],
+        "top10": true,
+        "matched": true,
+        "matches": [
+          {
+            "id": "e087c1ce-fe66-4e36-b508-77001c5a8980",
+            "name": "Maya",
+            "website": "https://maya.lucky-group.rest/",
+            "address": null
+          }
+        ]
+      },
+      {
+        "name": "Матрёшка",
+        "domain": "matryoshka-rest.ru",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "1768afe1-7f6c-4ec1-a8e4-fc6c4d52b9ac",
+            "name": "Матрешка",
+            "website": "http://matryoshka-rest.ru",
+            "address": null
+          },
+          {
+            "id": "8ef65e7e-3079-4f59-9572-6d758c0c0b7d",
+            "name": "Матрёшка",
+            "website": "http://matrioshka.su",
+            "address": null
+          },
+          {
+            "id": "512a0ebe-05a8-4070-9a2d-36d98275a3b1",
+            "name": "Матрёшка",
+            "website": null,
+            "address": null
+          }
+        ]
+      },
+      {
+        "name": "Mina",
+        "domain": "probka.org",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "b995eee3-e98d-437e-afc5-c9a1b4fe7464",
+            "name": "Mina",
+            "website": "https://www.probka.org/restaurants/mina-msk/",
+            "address": "Малая Никитская улица, 16/5"
+          },
+          {
+            "id": "aec9cf2c-8e63-4e78-a27f-14af964c9d81",
+            "name": "Probka",
+            "website": "http://probka.org/restaurants/msk/probka-na-tsvetnom",
+            "address": null
+          }
+        ]
+      },
+      {
+        "name": "На даче шефа",
+        "domain": null,
+        "aliases": [],
+        "top10": false,
+        "matched": false,
+        "matches": []
+      },
+      {
+        "name": "Modus",
+        "domain": "modus.moscow",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "7892b581-2c53-4d09-bae8-6ca0f7130511",
+            "name": "Modus",
+            "website": null,
+            "address": "Спиридоньевский пер., 12"
+          },
+          {
+            "id": "043e0088-23f4-46dd-934e-89432e9440b3",
+            "name": "Modus",
+            "website": "http://modusfriends.ru/modus-friends/modus-friends/",
+            "address": "1-й переулок Тружеников, 4"
+          },
+          {
+            "id": "fb046d0f-ff6c-4a62-9345-6026d39c5f35",
+            "name": "Modus vita",
+            "website": "http://www.modusvita.ru/",
+            "address": null
+          }
+        ]
+      },
+      {
+        "name": "Поле",
+        "domain": "pole.restaurant",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "be468df2-bbe5-4cea-bbe6-aede2492349f",
+            "name": "Поле",
+            "website": "https://pole.restaurant/",
+            "address": null
+          }
+        ]
+      },
+      {
+        "name": "Mosto",
+        "domain": null,
+        "aliases": [],
+        "top10": false,
+        "matched": false,
+        "matches": []
+      },
+      {
+        "name": "Сахалин",
+        "domain": "sakhalin-moscow.ru",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "94364bde-d951-4745-9e7d-183a89d30b37",
+            "name": "Сахалин",
+            "website": "http://sakhalin-moscow.ru",
+            "address": null
+          }
+        ]
+      },
+      {
+        "name": "Olluco",
+        "domain": "olluco.ru",
+        "aliases": [],
+        "top10": true,
+        "matched": true,
+        "matches": [
+          {
+            "id": "eeb11fb6-f55d-4172-bdc5-f6bace57037e",
+            "name": "Olluco",
+            "website": null,
+            "address": null
+          }
+        ]
+      },
+      {
+        "name": "Северяне",
+        "domain": "severyane.moscow",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "da2dee6f-c562-4526-9453-729ff2d280b6",
+            "name": "Северяне",
+            "website": "http://severyane.moscow",
+            "address": "Большая Никитская улица, 12"
+          },
+          {
+            "id": "4ce9549b-e351-45c2-95ee-6a961885bd47",
+            "name": "Северяне",
+            "website": null,
+            "address": "Б. Никитская, 12"
+          }
+        ]
+      },
+      {
+        "name": "Oltremare",
+        "domain": "oltremare.lucky-group.rest",
+        "aliases": [],
+        "top10": false,
+        "matched": true,
+        "matches": [
+          {
+            "id": "317a8c7f-b7f0-4ec2-adc8-f1e418f1c534",
+            "name": "Oltremare",
+            "website": null,
+            "address": null
+          }
+        ]
+      }
+    ]
+  },
+  "menuDomains": {
+    "unparsed": 1916,
+    "failedOrManual": 198,
+    "parsed": 36,
+    "chainPropagation": {
+      "groups": 0,
+      "branchesWithoutMenu": 0,
+      "rows": []
+    },
+    "topUnparsed": [
+      {
+        "domain": "kartoshka.com",
+        "score": 13750,
+        "venueCount": 137,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 137,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Крошка Картошка",
+          "Крошка-картошка"
+        ],
+        "menuOut": null,
+        "action": "owner-rule skip"
+      },
+      {
+        "domain": "stardogs.ru",
+        "score": 7075,
+        "venueCount": 70,
+        "chainGroupCount": 3,
+        "venuesWithoutMenu": 70,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Stardogs",
+          "Стардог!s",
+          "Стардогs"
+        ],
+        "menuOut": null,
+        "action": "owner-rule skip"
+      },
+      {
+        "domain": "subway.ru",
+        "score": 5325,
+        "venueCount": 53,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 53,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Subway"
+        ],
+        "menuOut": null,
+        "action": "owner-rule skip"
+      },
+      {
+        "domain": "mealty.ru",
+        "score": 5150,
+        "venueCount": 51,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 51,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Mealty",
+          "Милти"
+        ],
+        "menuOut": null,
+        "action": "retail skip"
+      },
+      {
+        "domain": "miratorg.ru",
+        "score": 1700,
+        "venueCount": 16,
+        "chainGroupCount": 4,
+        "venuesWithoutMenu": 16,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Бургер & фрайс",
+          "Бургер&Фрайс",
+          "Мираторг",
+          "Стейк & Бургер"
+        ],
+        "menuOut": null,
+        "action": "retail skip"
+      },
+      {
+        "domain": "lea.rest",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Lea"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "leomoscow.ru",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Leo"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "leorest.ru",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Leo"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "loro.lucky-group.ru",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Loro"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "lucky.gorynich.com",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Горыныч"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "manulmoscow.ru",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Manul"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "matrioshka.su",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Матрёшка"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "matryoshka-rest.ru",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Матрешка"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "maya.lucky-group.rest",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Maya"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "modusfriends.ru",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Modus"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "padron-rest.ru",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Padron"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "pole.restaurant",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Поле"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "rico-restaurant.ru",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Rico"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "sagemoscow.ru",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Sage"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "sakhalin-moscow.ru",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Сахалин"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "saray.lucky-group.rest",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Saray"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "savvarest.ru",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Savva"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "selfiemoscow.ru",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Selfie"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "severyane.moscow",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Северяне"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "whiterabbitmoscow.com",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "White Rabbit"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "zhazhdakrovy.ru",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Жажда крови"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "pivoteka465.ru",
+        "score": 1050,
+        "venueCount": 10,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 10,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "465 Glassность",
+          "Пивотека 465"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "delikateska.ru",
+        "score": 1025,
+        "venueCount": 10,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 10,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Деликатеска"
+        ],
+        "menuOut": null,
+        "action": "retail skip"
+      },
+      {
+        "domain": "cheburek.me",
+        "score": 925,
+        "venueCount": 9,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 9,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "ЧебурекМи"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "ojakhuri.ru",
+        "score": 825,
+        "venueCount": 8,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 8,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Оджахури"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "pizzamento.ru",
+        "score": 825,
+        "venueCount": 8,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 8,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Pizzamento"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "karavay-sv.ru",
+        "score": 650,
+        "venueCount": 6,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 6,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Каравай-СВ",
+          "Каравай СВ"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "hlebnitca.ru",
+        "score": 625,
+        "venueCount": 6,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 6,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Хлебница"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "xn--80aawfcdjqs6e5d.xn--p1ai",
+        "score": 625,
+        "venueCount": 6,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 6,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Моряк и чайка"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "mcdonalds.ru",
+        "score": 425,
+        "venueCount": 4,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 4,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Вкусно — и точка"
+        ],
+        "menuOut": null,
+        "action": "owner-rule skip"
+      },
+      {
+        "domain": "gt.life",
+        "score": 375,
+        "venueCount": 3,
+        "chainGroupCount": 3,
+        "venuesWithoutMenu": 3,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Lila",
+          "Lila Pastry",
+          "Atelier de tartelettes"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "burgerking.ru",
+        "score": 350,
+        "venueCount": 3,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 3,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Кинг Авто",
+          "Бургер Кинг"
+        ],
+        "menuOut": null,
+        "action": "owner-rule skip"
+      },
+      {
+        "domain": "papan-bakery.ru",
+        "score": 350,
+        "venueCount": 3,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 3,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "ПаПан",
+          "Папан",
+          "Пекарня Папан"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "tuttifruttirussia.com",
+        "score": 350,
+        "venueCount": 3,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 3,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Tutti Frutti",
+          "Tutti Frutti Frozen Yogurt"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "hesburger.ru",
+        "score": 325,
+        "venueCount": 3,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 3,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Hesburger"
+        ],
+        "menuOut": null,
+        "action": "owner-rule skip"
+      },
+      {
+        "domain": "meatcrew.ru",
+        "score": 325,
+        "venueCount": 3,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 3,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Meat Crew"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "vaffel.ru",
+        "score": 325,
+        "venueCount": 3,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 3,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Vaffel"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "boscofamily.ru",
+        "score": 250,
+        "venueCount": 2,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Bosco",
+          "Bosco Café"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "cafesanta.ru",
+        "score": 250,
+        "venueCount": 2,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Санта Базилия",
+          "Санто Джованни"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "casadinonna.ru",
+        "score": 250,
+        "venueCount": 2,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Cada di Nonna",
+          "Casa di nonna"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "chaihana-injir.com",
+        "score": 250,
+        "venueCount": 2,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Инжир",
+          "Чайхана Инжир"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "citypizza.ru",
+        "score": 250,
+        "venueCount": 2,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Сити Пицца",
+          "Ситипицца"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "correas.ru",
+        "score": 250,
+        "venueCount": 2,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Correa's",
+          "Correas"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "dizengof99.com",
+        "score": 250,
+        "venueCount": 2,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Dizengof//99",
+          "Dizengof99"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "dominos.ru",
+        "score": 250,
+        "venueCount": 2,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Domino's Pizza",
+          "Dомино'с Пицца"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "duckstarsbar.ru",
+        "score": 250,
+        "venueCount": 2,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "DuckStar's",
+          "Duckstarsbar"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "hishnikburgers.net",
+        "score": 250,
+        "venueCount": 2,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Хищnик",
+          "Хищник"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "hlebnasushny.ru",
+        "score": 250,
+        "venueCount": 2,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Филиппов экспресс",
+          "Хлеб Насущный"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "itadaki.ru",
+        "score": 250,
+        "venueCount": 2,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Udon Noodle Bar",
+          "Мару"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "karaoke-semenov.ru",
+        "score": 250,
+        "venueCount": 2,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Semenov",
+          "Семёнов"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "kofemoloko.ru",
+        "score": 250,
+        "venueCount": 2,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Кофе & Моlоkо",
+          "Кофе&молоко"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "kusochki-cafe.ru",
+        "score": 250,
+        "venueCount": 2,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Кусочки",
+          "Кусочки экстра"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "paulaner-brauhaus.ru",
+        "score": 250,
+        "venueCount": 2,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Paulaner Brauhaus",
+          "Paulaner Wirtshaus"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "pizzaexpress24.com",
+        "score": 250,
+        "venueCount": 2,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Pizza Express",
+          "PizzaExpress"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "rbazar.ru",
+        "score": 250,
+        "venueCount": 2,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Клешни и ракушки",
+          "Рыбный базар"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "restoran-genatsvale.ru",
+        "score": 250,
+        "venueCount": 2,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Генацвале",
+          "Генацвале VIP"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "restsindikat.com",
+        "score": 250,
+        "venueCount": 2,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Beefbar Junior",
+          "Bistrot"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "richmanlounge.ru",
+        "score": 250,
+        "venueCount": 2,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Rich Man",
+          "Rich man celebrity"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "semifreddo-group.com",
+        "score": 250,
+        "venueCount": 2,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Академия",
+          "Семифреддо"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "smartroaster.ru",
+        "score": 250,
+        "venueCount": 2,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Смарт Кофе",
+          "Smart Coffee lab"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "soluxeclub.com",
+        "score": 250,
+        "venueCount": 2,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Soluxe Club",
+          "Soluxe Huaming"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "theclubhouse.ru",
+        "score": 250,
+        "venueCount": 2,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Rebellion",
+          "Rébellion Clubhouse"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "udonyasan.ru",
+        "score": 250,
+        "venueCount": 2,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "УДОНъяСАН",
+          "Удон-сан"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "whitehart.ru",
+        "score": 250,
+        "venueCount": 2,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "White Hart",
+          "Уайт Харт"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "xn--90aamkcop0a.xn--p1ai",
+        "score": 250,
+        "venueCount": 2,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Блин бери",
+          "БлинБери"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "9barcoffee.ru",
+        "score": 225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "9 bar coffee"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "abugosh.ru",
+        "score": 225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Абу Гош"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "adam-mjasnitskaja-ulitsa.clients.site",
+        "score": 225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Adam"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "aeroplan.coffee",
+        "score": 225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Аэроплан"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "allopizza.su",
+        "score": 225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Алло Пицца",
+          "Алло, пицца"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "aromarest.ru",
+        "score": 225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Арома"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "bar33.ru",
+        "score": 225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Бар33"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "barparka.ru",
+        "score": 225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Parka"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "blackstarburger.ru",
+        "score": 225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Black Star Burger"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "boston-restaurant.ru",
+        "score": 225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Boston"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "broomsbar.ru",
+        "score": 225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Brooms"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "bufetrina.ru",
+        "score": 225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Буфетрина"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "buffalos.ru",
+        "score": 225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Buffalo's"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "bugcafe.ru",
+        "score": 225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Жучки-паучки"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "bushe.ru",
+        "score": 225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "буше"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "cafe-yurta.ru",
+        "score": 225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Юрта"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "cafe.alenka.ru",
+        "score": 225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Алёнка"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "cafenatahtari.ru",
+        "score": 225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Натахтари"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "cafeodessa.ru",
+        "score": 225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Одесса-мама"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "camcoffee.ru",
+        "score": 225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Camera Obscura"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "carlsjr-russia.ru",
+        "score": 225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Carl's Jr."
+        ],
+        "menuOut": null,
+        "action": "owner-rule skip"
+      },
+      {
+        "domain": "cha108.ru",
+        "score": 225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Чайная высота"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "chaihana-sezam.ru",
+        "score": 225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Чайхана \"Сезам\"",
+          "Чайхана Сезам"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "changcafe.ru",
+        "score": 225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Chang"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "chebureky.ru",
+        "score": 225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Чебуречная СССР"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "chito-ra.ru",
+        "score": 225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Чито-Ра"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "chocolatemoscow.ru",
+        "score": 225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Шоколад"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "cobarest.ru",
+        "score": 225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Coba"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "coffee-moose.com",
+        "score": 225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Coffee Moose"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      },
+      {
+        "domain": "coffeeandthecity.ru",
+        "score": 225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Coffee and the City",
+          "Coffee and The City"
+        ],
+        "menuOut": null,
+        "action": "automatic"
+      }
+    ],
+    "topFailedOrManual": [
+      {
+        "domain": "cofix.global",
+        "score": 21975,
+        "venueCount": 219,
+        "chainGroupCount": 3,
+        "venuesWithoutMenu": 219,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Cofix",
+          "Cofix Street Food",
+          "Кофикс"
+        ],
+        "menuOut": {
+          "file": "cofix.global.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "burgerkingrus.ru",
+        "score": 20325,
+        "venueCount": 203,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 203,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Бургер Кинг"
+        ],
+        "menuOut": {
+          "file": "burgerkingrus.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "owner-rule skip"
+      },
+      {
+        "domain": "rostics.ru",
+        "score": 18250,
+        "venueCount": 182,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 182,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Rostic's",
+          "Ростикс",
+          "Rostic`s"
+        ],
+        "menuOut": {
+          "file": "rostics.ru.json",
+          "status": "manual_required (WAF)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "owner-rule skip"
+      },
+      {
+        "domain": "onepricecoffee.com",
+        "score": 17425,
+        "venueCount": 174,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 174,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "One Price Coffee"
+        ],
+        "menuOut": {
+          "file": "onepricecoffee.com.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "shoko.ru",
+        "score": 16650,
+        "venueCount": 166,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 166,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Смоковница",
+          "Шоколадница"
+        ],
+        "menuOut": {
+          "file": "shoko.ru.json",
+          "status": "manual_required (WAF)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "surfcoffee.ru",
+        "score": 13875,
+        "venueCount": 138,
+        "chainGroupCount": 3,
+        "venuesWithoutMenu": 138,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Surf Coffee",
+          "Surf Coffee X Sunday",
+          "Surf Coffee x VDNX"
+        ],
+        "menuOut": {
+          "file": "surfcoffee.ru.json",
+          "status": "Moscow pages link to surfmenu.ru Tilda catalogs, but products are not embedded and no public JSON endpoint was found; menu_raley is for Voronezh",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "cofefest.ru",
+        "score": 12625,
+        "venueCount": 126,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 126,
+        "reviews": 0,
+        "views": 1,
+        "importantPlace": false,
+        "examples": [
+          "CofeFest"
+        ],
+        "menuOut": {
+          "file": "cofefest.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "teremok.ru",
+        "score": 7325,
+        "venueCount": 73,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 73,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Теремок"
+        ],
+        "menuOut": {
+          "file": "teremok.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "owner-rule skip"
+      },
+      {
+        "domain": "prime-star.ru",
+        "score": 6925,
+        "venueCount": 69,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 69,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Prime"
+        ],
+        "menuOut": {
+          "file": "prime-star.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "pravda-coffee.ru",
+        "score": 5925,
+        "venueCount": 59,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 59,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Правда Кофе"
+        ],
+        "menuOut": {
+          "file": "pravda-coffee.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "tanukifamily.ru",
+        "score": 5750,
+        "venueCount": 57,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 57,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Ёрш",
+          "Тануки"
+        ],
+        "menuOut": {
+          "file": "tanukifamily.ru.json",
+          "status": "manual_required (WAF)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "sedelice.ru",
+        "score": 5350,
+        "venueCount": 53,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 53,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "SeDelice",
+          "Французская пекарня SeDelice"
+        ],
+        "menuOut": {
+          "file": "sedelice.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "double-b.ru",
+        "score": 4525,
+        "venueCount": 45,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 45,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Даблби"
+        ],
+        "menuOut": {
+          "file": "double-b.ru.json",
+          "status": "site and sitemap are public, but contain no priced menu or public menu API",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "drinkit.ru",
+        "score": 4525,
+        "venueCount": 45,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 45,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Дринкит"
+        ],
+        "menuOut": {
+          "file": "drinkit.ru.json",
+          "status": "menu and ordering are offered only in the app; public guest site has no prices",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "cinnabonrussia.com",
+        "score": 4450,
+        "venueCount": 44,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 44,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Cinnabon",
+          "cinnabon",
+          "Синнабон"
+        ],
+        "menuOut": {
+          "file": "cinnabonrussia.com.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "sushiwok.ru",
+        "score": 4450,
+        "venueCount": 44,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 44,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Суши Wok",
+          "СушиWOK",
+          "Сушиwok",
+          "суши wok"
+        ],
+        "menuOut": {
+          "file": "sushiwok.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "novikovgroup.ru",
+        "score": 3400,
+        "venueCount": 20,
+        "chainGroupCount": 16,
+        "venuesWithoutMenu": 20,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Bro&N",
+          "China Club",
+          "Cihan",
+          "Fumisawa Sushi"
+        ],
+        "menuOut": {
+          "file": "novikovgroup.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "maxbakery.ru",
+        "score": 3325,
+        "venueCount": 33,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 33,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Max Bakery"
+        ],
+        "menuOut": {
+          "file": "maxbakery.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "farshburger.ru",
+        "score": 3075,
+        "venueCount": 30,
+        "chainGroupCount": 3,
+        "venuesWithoutMenu": 30,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "#Farш",
+          "Farsh",
+          "Farш",
+          "Фарш"
+        ],
+        "menuOut": {
+          "file": "farshburger.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "eazzypizza.ru",
+        "score": 3025,
+        "venueCount": 30,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 30,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Eazzy Pizza & Gelato"
+        ],
+        "menuOut": {
+          "file": "eazzypizza.ru.json",
+          "status": "HTTP 403 from WAF for site, sitemap, and common public endpoints",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "stars-coffee.ru",
+        "score": 2550,
+        "venueCount": 25,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 25,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Stars Coffee",
+          "Stars Selected"
+        ],
+        "menuOut": {
+          "file": "stars-coffee.ru.json",
+          "status": "site and sitemap are public, but contain no priced menu or public menu API",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "lepimivarim.ru",
+        "score": 2325,
+        "venueCount": 23,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 23,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Лепим и Варим",
+          "Лепим и варим"
+        ],
+        "menuOut": {
+          "file": "lepimivarim.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "moremania.info",
+        "score": 2325,
+        "venueCount": 23,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 23,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Моремания"
+        ],
+        "menuOut": {
+          "file": "moremania.info.json",
+          "status": "public /menu is a client-loaded Tilda catalog; no embedded products or public first-party JSON endpoint found",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "brusnikacafe.ru",
+        "score": 2225,
+        "venueCount": 22,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 22,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Брусника"
+        ],
+        "menuOut": {
+          "file": "brusnikacafe.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "gagawa.ru",
+        "score": 2225,
+        "venueCount": 22,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 22,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Gagawa"
+        ],
+        "menuOut": {
+          "file": "gagawa.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "frankmeat.ru",
+        "score": 2125,
+        "venueCount": 21,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 21,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Frank by Баста"
+        ],
+        "menuOut": {
+          "file": "frankmeat.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "hatimaki.ru",
+        "score": 2125,
+        "venueCount": 21,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 21,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Hatimaki"
+        ],
+        "menuOut": {
+          "file": "hatimaki.ru.json",
+          "status": "public catalog is visible, but Node fetch receives Qrator 404; no WAF bypass attempted",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "pankruassan.com",
+        "score": 2025,
+        "venueCount": 20,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 20,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Пан Круассан"
+        ],
+        "menuOut": {
+          "file": "pankruassan.com.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "kff.su",
+        "score": 1950,
+        "venueCount": 19,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 19,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Капучинофф",
+          "Миловида"
+        ],
+        "menuOut": {
+          "file": "kff.su.json",
+          "status": "manual_required (WAF)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "buhanka.ru",
+        "score": 1925,
+        "venueCount": 19,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 19,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Буханка"
+        ],
+        "menuOut": {
+          "file": "buhanka.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "chaihona1.ru",
+        "score": 1875,
+        "venueCount": 18,
+        "chainGroupCount": 3,
+        "venuesWithoutMenu": 18,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Чайхона № 1",
+          "Чайхона №1",
+          "Шаурмен"
+        ],
+        "menuOut": {
+          "file": "chaihona1.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "coffeehouse.ru",
+        "score": 1850,
+        "venueCount": 18,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 18,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "1-2-3 Coffee Club",
+          "Кофе Хауз"
+        ],
+        "menuOut": {
+          "file": "coffeehouse.ru.json",
+          "status": "HTTP 403 from WAF for site, sitemap, and common public endpoints",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "varenichnaya.ru",
+        "score": 1850,
+        "venueCount": 18,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 18,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Вареничная №1",
+          "Вареничная № 1"
+        ],
+        "menuOut": {
+          "file": "varenichnaya.ru.json",
+          "status": "no public machine-readable menu with item photos found",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "upsushi.ru",
+        "score": 1825,
+        "venueCount": 18,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 18,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Up Sushi"
+        ],
+        "menuOut": {
+          "file": "upsushi.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "coffeeport.ru",
+        "score": 1825,
+        "venueCount": 17,
+        "chainGroupCount": 5,
+        "venuesWithoutMenu": 17,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Coffee Hub",
+          "Coffee Point",
+          "Coffeeport",
+          "CoffeePort"
+        ],
+        "menuOut": {
+          "file": "coffeeport.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "coffee-like.com",
+        "score": 1725,
+        "venueCount": 17,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 17,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Coffee Like"
+        ],
+        "menuOut": {
+          "file": "coffee-like.com.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "ch1ef.ru",
+        "score": 1650,
+        "venueCount": 16,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 16,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Джонджоли",
+          "Океан"
+        ],
+        "menuOut": {
+          "file": "ch1ef.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "xn--c1acdayy6b.xn--p1ai",
+        "score": 1525,
+        "venueCount": 15,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 15,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Take and Wake",
+          "Take and wake"
+        ],
+        "menuOut": {
+          "file": "xn--c1acdayy6b.xn--p1ai.json",
+          "status": "manual_required (WAF)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "lambic.ru",
+        "score": 1450,
+        "venueCount": 14,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 14,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Brasserie Lambic",
+          "Lambic Brasserie"
+        ],
+        "menuOut": {
+          "file": "lambic.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "sushi-market.com",
+        "score": 1425,
+        "venueCount": 14,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 14,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Суши-Маркет"
+        ],
+        "menuOut": {
+          "file": "sushi-market.com.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "jeffreys.ru",
+        "score": 1375,
+        "venueCount": 13,
+        "chainGroupCount": 3,
+        "venuesWithoutMenu": 13,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Jeffrey's",
+          "Jeffreys coffeeshop",
+          "Jeffrey's Coffee"
+        ],
+        "menuOut": {
+          "file": "jeffreys.ru.json",
+          "status": "manual_required (WAF)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "moscow.harats.com",
+        "score": 1350,
+        "venueCount": 13,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 13,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Harat's",
+          "Harat's pub"
+        ],
+        "menuOut": {
+          "file": "moscow.harats.com.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "burgerheroes.ru",
+        "score": 1325,
+        "venueCount": 13,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 13,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Burger Heroes"
+        ],
+        "menuOut": {
+          "file": "burgerheroes.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "cafe-pushkin.ru",
+        "score": 1325,
+        "venueCount": 3,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 3,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Пушкинъ"
+        ],
+        "menuOut": {
+          "file": "cafe-pushkin.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "osteriamario.ru",
+        "score": 1250,
+        "venueCount": 12,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 12,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Osteria Mario",
+          "Остерия Марио"
+        ],
+        "menuOut": {
+          "file": "osteriamario.ru.json",
+          "status": "only old PDF menus were found; no current public source with item photos",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "zdrastecafe.ru",
+        "score": 1250,
+        "venueCount": 12,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 12,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Здрасте",
+          "Здрасте кофе"
+        ],
+        "menuOut": {
+          "file": "zdrastecafe.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "probka.org",
+        "score": 1250,
+        "venueCount": 2,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Mina",
+          "Probka"
+        ],
+        "menuOut": {
+          "file": "probka.org.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "cafe-anderson.ru",
+        "score": 1225,
+        "venueCount": 12,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 12,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "АндерСон",
+          "Андерсон"
+        ],
+        "menuOut": {
+          "file": "cafe-anderson.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "planetsushi.ru",
+        "score": 1225,
+        "venueCount": 12,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 12,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Планета Суши"
+        ],
+        "menuOut": {
+          "file": "planetsushi.ru.json",
+          "status": "manual_required (WAF)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "eva.lucky-group.ru",
+        "score": 1225,
+        "venueCount": 2,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 2,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Eva"
+        ],
+        "menuOut": {
+          "file": "eva.lucky-group.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "vlavashe.ru",
+        "score": 1150,
+        "venueCount": 11,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 11,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Vлаvаше",
+          "Влаваше"
+        ],
+        "menuOut": {
+          "file": "vlavashe.ru.json",
+          "status": "manual_required (WAF)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "aistcafe.ru",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Аист"
+        ],
+        "menuOut": {
+          "file": "aistcafe.ru.json",
+          "status": "manual_required (WAF)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "ava.rest",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "AVA"
+        ],
+        "menuOut": {
+          "file": "ava.rest.json",
+          "status": "manual_required (WAF)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "avrora.rest",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Avrora"
+        ],
+        "menuOut": {
+          "file": "avrora.rest.json",
+          "status": "manual_required (WAF)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "bjorn.rest",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Бьёрн"
+        ],
+        "menuOut": {
+          "file": "bjorn.rest.json",
+          "status": "manual_required",
+          "method": "pdf",
+          "count": 0,
+          "source": "https://bjorn.rest/upload/uf/326/326d2b309e80994becf438e200dfbc91.pdf"
+        },
+        "action": "pdf-menu.mjs"
+      },
+      {
+        "domain": "carniceriavino.ru",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Carniceria Vino"
+        ],
+        "menuOut": {
+          "file": "carniceriavino.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "gorynich.com",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Горыныч"
+        ],
+        "menuOut": {
+          "file": "gorynich.com.json",
+          "status": "manual_required (WAF)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "grandcru.ru",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Grand Cru"
+        ],
+        "menuOut": {
+          "file": "grandcru.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "gvidon.wrf.su",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Гвидон"
+        ],
+        "menuOut": {
+          "file": "gvidon.wrf.su.json",
+          "status": "manual_required (WAF)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "ikra.wrf.su",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Ikra"
+        ],
+        "menuOut": {
+          "file": "ikra.wrf.su.json",
+          "status": "manual_required (WAF)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "ikura.rest",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Ikura"
+        ],
+        "menuOut": {
+          "file": "ikura.rest.json",
+          "status": "manual_required (WAF)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "kiyomi.lucky-group.rest",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Kiyomi"
+        ],
+        "menuOut": {
+          "file": "kiyomi.lucky-group.rest.json",
+          "status": "manual_required",
+          "method": "pdf",
+          "count": 0,
+          "source": "https://kiyomi.rest/images/menu-2026/set-28-02-2026.pdf"
+        },
+        "action": "pdf-menu.mjs"
+      },
+      {
+        "domain": "krasota.wrf.su",
+        "score": 1125,
+        "venueCount": 1,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 1,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": true,
+        "examples": [
+          "Krasota"
+        ],
+        "menuOut": {
+          "file": "krasota.wrf.su.json",
+          "status": "manual_required (WAF)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "prostovasya.ru",
+        "score": 1050,
+        "venueCount": 10,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 10,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Просто Вася",
+          "Шаверма Просто Вася"
+        ],
+        "menuOut": {
+          "file": "prostovasya.ru.json",
+          "status": "manual_required (WAF)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "true-cost.ru",
+        "score": 925,
+        "venueCount": 9,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 9,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "True Cost",
+          "True cost"
+        ],
+        "menuOut": {
+          "file": "true-cost.ru.json",
+          "status": "manual_required (WAF)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "costacoffee.ru",
+        "score": 850,
+        "venueCount": 8,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 8,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Costa Coffee",
+          "Costa"
+        ],
+        "menuOut": {
+          "file": "costacoffee.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "crosbycoffee.ru",
+        "score": 850,
+        "venueCount": 8,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 8,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Crosby Coffee",
+          "Crosby Coffee Company"
+        ],
+        "menuOut": {
+          "file": "crosbycoffee.ru.json",
+          "status": "manual_required (WAF)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "mrcroissant.ru",
+        "score": 850,
+        "venueCount": 8,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 8,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Mr. Croissant",
+          "Mr. croissant",
+          "Мистер Круассан"
+        ],
+        "menuOut": {
+          "file": "mrcroissant.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "takeandwake.ru",
+        "score": 850,
+        "venueCount": 8,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 8,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Take & Wake",
+          "Take and wake"
+        ],
+        "menuOut": {
+          "file": "takeandwake.ru.json",
+          "status": "manual_required (WAF)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "tgifridays.ru",
+        "score": 850,
+        "venueCount": 8,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 8,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "TGI Friday's",
+          "TGI Fridays"
+        ],
+        "menuOut": {
+          "file": "tgifridays.ru.json",
+          "status": "manual_required (WAF)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "kolbasoff.ru",
+        "score": 825,
+        "venueCount": 8,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 8,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Колбасофф"
+        ],
+        "menuOut": {
+          "file": "kolbasoff.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "pimstea.com",
+        "score": 825,
+        "venueCount": 8,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 8,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Pims"
+        ],
+        "menuOut": {
+          "file": "pimstea.com.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "pinzeria.ru",
+        "score": 825,
+        "venueCount": 8,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 8,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Pinzeria by Bontempi"
+        ],
+        "menuOut": {
+          "file": "pinzeria.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "pirogi-skalka.ru",
+        "score": 825,
+        "venueCount": 8,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 8,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Скалка"
+        ],
+        "menuOut": {
+          "file": "pirogi-skalka.ru.json",
+          "status": "manual_required (WAF)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "torrogrill.ru",
+        "score": 825,
+        "venueCount": 8,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 8,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Торро Гриль"
+        ],
+        "menuOut": {
+          "file": "torrogrill.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "baskinrobbins.ru",
+        "score": 750,
+        "venueCount": 7,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 7,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Baskin-Robbins",
+          "Баскин Роббинс"
+        ],
+        "menuOut": {
+          "file": "baskinrobbins.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "oneanddouble.ru",
+        "score": 750,
+        "venueCount": 7,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 7,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "One & Double",
+          "One and Double",
+          "One&Double"
+        ],
+        "menuOut": {
+          "file": "oneanddouble.ru.json",
+          "status": "manual_required (WAF)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "sbarro.ru",
+        "score": 750,
+        "venueCount": 7,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 7,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Sbarro",
+          "Сбарро"
+        ],
+        "menuOut": {
+          "file": "sbarro.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "pubmoscow.ru",
+        "score": 750,
+        "venueCount": 6,
+        "chainGroupCount": 6,
+        "venuesWithoutMenu": 6,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Black Cat Pub",
+          "Fox and Grapes",
+          "Red Cat",
+          "Бостон"
+        ],
+        "menuOut": {
+          "file": "pubmoscow.ru.json",
+          "status": "manual_required (WAF)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "coffeekaldis.ru",
+        "score": 725,
+        "venueCount": 7,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 7,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Kaldi's"
+        ],
+        "menuOut": {
+          "file": "coffeekaldis.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "onebuckscoffee.com",
+        "score": 725,
+        "venueCount": 7,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 7,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "OneBucksCoffee"
+        ],
+        "menuOut": {
+          "file": "onebuckscoffee.com.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "remykitchenbakery.ru",
+        "score": 725,
+        "venueCount": 7,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 7,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Remy Kitchen Bakery"
+        ],
+        "menuOut": {
+          "file": "remykitchenbakery.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "restoran-mimi.ru",
+        "score": 725,
+        "venueCount": 7,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 7,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Mimi",
+          "mimi"
+        ],
+        "menuOut": {
+          "file": "restoran-mimi.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "bbburgers.ru",
+        "score": 625,
+        "venueCount": 6,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 6,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "BB&Burgers"
+        ],
+        "menuOut": {
+          "file": "bbburgers.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "bisonsteak.ru",
+        "score": 625,
+        "venueCount": 6,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 6,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Бутчер"
+        ],
+        "menuOut": {
+          "file": "bisonsteak.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "coffeebean.ru",
+        "score": 625,
+        "venueCount": 6,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 6,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Coffee Bean"
+        ],
+        "menuOut": {
+          "file": "coffeebean.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "dobro-coffee.ru",
+        "score": 625,
+        "venueCount": 6,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 6,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Do.Bro Coffee"
+        ],
+        "menuOut": {
+          "file": "dobro-coffee.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "easypub.ru",
+        "score": 625,
+        "venueCount": 6,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 6,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Изи Паб",
+          "Изи паб"
+        ],
+        "menuOut": {
+          "file": "easypub.ru.json",
+          "status": "manual_required (WAF)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "ersh.su",
+        "score": 625,
+        "venueCount": 6,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 6,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Ёрш"
+        ],
+        "menuOut": {
+          "file": "ersh.su.json",
+          "status": "manual_required (WAF)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "gambrinusbar.ru",
+        "score": 625,
+        "venueCount": 6,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 6,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Гамбринус"
+        ],
+        "menuOut": {
+          "file": "gambrinusbar.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "hinkaligali.ru",
+        "score": 625,
+        "venueCount": 6,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 6,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Хинкали-Гали"
+        ],
+        "menuOut": {
+          "file": "hinkaligali.ru.json",
+          "status": "manual_required (WAF)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "meat-and-fish.ru",
+        "score": 625,
+        "venueCount": 6,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 6,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Мясо & Рыба"
+        ],
+        "menuOut": {
+          "file": "meat-and-fish.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "midiynoe-mesto.ru",
+        "score": 625,
+        "venueCount": 6,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 6,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Мидийное место"
+        ],
+        "menuOut": {
+          "file": "midiynoe-mesto.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "shikary.ru",
+        "score": 625,
+        "venueCount": 6,
+        "chainGroupCount": 1,
+        "venuesWithoutMenu": 6,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Шикари"
+        ],
+        "menuOut": {
+          "file": "shikary.ru.json",
+          "status": "manual_required (WAF)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "friends-forever.ru",
+        "score": 600,
+        "venueCount": 5,
+        "chainGroupCount": 4,
+        "venuesWithoutMenu": 5,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Breakfast",
+          "Conversation",
+          "Friends Forever",
+          "I love cake"
+        ],
+        "menuOut": {
+          "file": "friends-forever.ru.json",
+          "status": "manual_required (WAF)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      },
+      {
+        "domain": "rmcom.ru",
+        "score": 600,
+        "venueCount": 5,
+        "chainGroupCount": 4,
+        "venuesWithoutMenu": 5,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "John Bull",
+          "Вильям Басс",
+          "Джон Булл",
+          "Молли Гвинн'з"
+        ],
+        "menuOut": {
+          "file": "rmcom.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "killfish.ru",
+        "score": 550,
+        "venueCount": 5,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 5,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Kill Fish",
+          "KillFish",
+          "Killfish"
+        ],
+        "menuOut": {
+          "file": "killfish.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "kulekfood.ru",
+        "score": 550,
+        "venueCount": 5,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 5,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Kulek",
+          "Kulēk"
+        ],
+        "menuOut": {
+          "file": "kulekfood.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "pechorinbakery.ru",
+        "score": 550,
+        "venueCount": 5,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 5,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Печорин",
+          "Pechorin"
+        ],
+        "menuOut": {
+          "file": "pechorinbakery.ru.json",
+          "status": "manual_required (no menu found)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "manual source review"
+      },
+      {
+        "domain": "sito-piano.ru",
+        "score": 550,
+        "venueCount": 5,
+        "chainGroupCount": 2,
+        "venuesWithoutMenu": 5,
+        "reviews": 0,
+        "views": 0,
+        "importantPlace": false,
+        "examples": [
+          "Сыто Piano",
+          "Сыто Пьяно"
+        ],
+        "menuOut": {
+          "file": "sito-piano.ru.json",
+          "status": "manual_required (WAF)",
+          "method": null,
+          "count": 0,
+          "source": null
+        },
+        "action": "browser/WAF review"
+      }
+    ]
+  }
+}

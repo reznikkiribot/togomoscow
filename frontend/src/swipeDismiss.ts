@@ -1,5 +1,6 @@
 import { useEffect, type RefObject } from 'react';
 import { lockVerticalSwipes } from './telegram';
+import { isTopModalElement } from './modalEsc';
 
 // Swipe-to-dismiss for every sheet/card (Instagram/iOS-sheet pattern):
 //  • drag starts only when the sheet is scrolled to the very top (otherwise it's
@@ -35,7 +36,9 @@ export function useSwipeDismiss(
       startY = lastY = e.touches[0].clientY;
       lastT = performance.now();
       velocity = 0;
-      armed = el.scrollTop <= 0; // only from the very top
+      // Nested sheets receive the same bubbling touch event. Only the top layer
+      // may arm, otherwise one pull can dismiss both child and parent.
+      armed = isTopModalElement(el) && el.scrollTop <= 0;
       dragging = false;
     };
     const move = (e: TouchEvent) => {

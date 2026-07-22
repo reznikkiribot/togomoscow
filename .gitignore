@@ -27,3 +27,13 @@ Thumbs.db
 # transient cloudflared logs
 .cloudflared.*
 backend/.railway-db-url
+backend/.coverage-cache/
+.npm-cache/
+
+# Локальные ИИ-инструменты (Stable Diffusion и модели) — 7 ГБ, не для репозитория
+tools/
+
+# Кеш моделей CLIP (~293 МБ) — скачивается автоматически при первом запуске
+backend/.models-cache/
+# Выгрузки каталога (гигабайты, восстановимы из БД)
+exports/

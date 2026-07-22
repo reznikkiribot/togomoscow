@@ -92,10 +92,11 @@ function ScanDialog({
   onPickCandidate: (id: string, result: RecognizeResult) => void;
   onPickSearch: (l: Listing) => void;
 }) {
-  useEscClose(onClose);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  useEscClose(onClose, overlayRef);
 
   return (
-    <div className="modal-backdrop scan-backdrop" style={{ zIndex: 3600 }} onClick={() => !busy && onClose()}>
+    <div ref={overlayRef} className="modal-backdrop scan-backdrop" style={{ zIndex: 3600 }} onClick={() => !busy && onClose()}>
       <div className="scan-sheet" onClick={(e) => e.stopPropagation()}>
         <button className="scan-back" onClick={onClose} aria-label="Закрыть">
           <BackIcon />
@@ -340,6 +341,8 @@ export function ScanFab() {
     } catch { /* private mode */ }
     return false;
   });
+  const srcMenuRef = useRef<HTMLDivElement>(null);
+  useEscClose(() => setSrcMenu(false), srcMenuRef, srcMenu);
 
   return (
     <>
@@ -354,7 +357,7 @@ export function ScanFab() {
       <input ref={galleryRef} type="file" accept="image/*" multiple hidden onChange={onPick} />
 
       {srcMenu && (
-        <div className="modal-backdrop" style={{ zIndex: 3590 }} onClick={() => setSrcMenu(false)}>
+        <div ref={srcMenuRef} className="modal-backdrop" style={{ zIndex: 3590 }} onClick={() => setSrcMenu(false)}>
           <div className="scan-src" onClick={(e) => e.stopPropagation()}>
             <button className="scan-src-btn" onClick={() => { setSrcMenu(false); cameraRef.current?.click(); }}>
               📷 Сделать фото

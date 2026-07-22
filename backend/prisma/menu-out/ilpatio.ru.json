@@ -1,79 +1,93 @@
 {
   "domain": "ilpatio.ru",
-  "method": "pdf",
+  "method": "pdf-coordinates",
   "status": "ok",
-  "source": "https://ilpatio.ru/wa-data/public/site/data/ilpatio.ru/ilpatio_menu-company.pdf",
+  "source": "../tmp/pdfs/ilpatio.pdf",
   "count": 14,
   "withPhoto": 0,
   "items": [
     {
       "name": "Ассорти антипасти",
       "price": 1290,
+      "description": "Cheese & meat plate · Cыры пармезан и голубой с плесенью, салями Милано, · утиный паштет, оливки леччино, карамельный лук,",
       "image": null
     },
     {
       "name": "Мясное ассорти",
       "price": 1290,
+      "description": "Meat plate · Салями Милано, телятина, пастрами из утки, паштет · утиный, оливки, дижонская горчица и бриошь",
       "image": null
     },
     {
       "name": "Вителло тоннато",
       "price": 1290,
+      "description": "Vitello tonnato · Холодная телятина под соусом из тунца, каперсы · и трюфельное масло",
       "image": null
     },
     {
       "name": "Большой Цезарь с курицей",
       "price": 990,
+      "description": "Big caesar with chicken breast · Куриная грудка, листья салата, перепелиные яйца, · помидоры черри, гриссини и фирменный соус «цезарь»",
       "image": null
     },
     {
       "name": "Большой Цезарь с креветками",
       "price": 1290,
+      "description": "Big caesar with shrimps · Поджаренные креветки, листья салата, перепелиные · яйца, помидоры черри, гриссини и фирменный соус",
       "image": null
     },
     {
       "name": "Ассорти морепродуктов",
       "price": 1759,
+      "description": "Assorted seafood · Тигровые креветки, щупальца и тушки кальмара, мидии и · томаты гриль",
       "image": null
     },
     {
       "name": "Подкопчённый лосось",
       "price": 1590,
+      "description": "Smoked salmon · Лосось, оливки, лимон и молекулярная икра",
       "image": null
     },
     {
       "name": "Большой салат с тунцом",
       "price": 1390,
+      "description": "Nicoise salad · Обжаренный тунец с зелёной фасолью, запечённым",
       "image": null
     },
     {
       "name": "Рукола с креветками",
       "price": 990,
+      "description": "Ruccola with shrimps · Поджаренные тигровые креветки, рукола, тартар · из томатов, пармезан и кедровые орешки с соусом песто",
       "image": null
     },
     {
       "name": "Сырное ассорти",
       "price": 1390,
+      "description": "Assorted cheeses · Cыры пармезан и голубой с плесенью, моцарелла, · виноград, яблоко, апельсин и мёд",
       "image": null
     },
     {
       "name": "Капрезе",
       "price": 890,
+      "description": "Сливочная моцарелла, томаты, оливки леччино и соус песто",
       "image": null
     },
     {
       "name": "Ассорти свежих овощей",
       "price": 690,
+      "description": "Assorted fresh vegetables · Томаты, огурцы, сельдерей, перец, морковь, редис · и петрушка",
       "image": null
     },
     {
       "name": "Ассорти овощей на гриле",
       "price": 990,
+      "description": "Assorted grilled vegetables · Баклажаны, шампиньоны, кабачки, томаты и сладкий перец",
       "image": null
     },
     {
       "name": "Фруктовая тарелка",
       "price": 1390,
+      "description": "Fruit plate · Виноград, апельсин, яблоко, грейпфрут и бананы",
       "image": null
     }
   ]

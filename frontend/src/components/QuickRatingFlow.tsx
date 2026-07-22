@@ -8,10 +8,13 @@ import { haptic } from '../telegram';
 import type { Listing, Review } from '../types';
 import { tastingMotivation } from '../tastingMotivation';
 import { LocationConsentPrompt, useTastingLocation } from '../locationTrust';
+import { composeStoryImage } from '../storyImage';
+import { shareReviewToStory } from '../reviewStory';
 import { StarInput } from './StarInput';
 import { Stars } from './Stars';
+import { MetroLine } from './MetroLine';
 
-type VenueChoice = Pick<Listing, 'id' | 'name' | 'address' | 'lat' | 'lng' | 'groupKey'>;
+type VenueChoice = Pick<Listing, 'id' | 'name' | 'address' | 'lat' | 'lng' | 'groupKey' | 'metro' | 'metroDistance'>;
 
 function dedupeVenues(items: VenueChoice[]) {
   const seen = new Set<string>();
@@ -43,7 +46,7 @@ export function QuickRatingFlow({
   const [item, setItem] = useState(listing);
   const [rating, setRating] = useState(initialRating);
   const [venue, setVenue] = useState<VenueChoice | null>(() =>
-    listing.recVenue?.id ? { id: listing.recVenue.id, name: listing.recVenue.name } : null,
+    listing.recVenue?.id ? listing.recVenue as VenueChoice : null,
   );
   const [query, setQuery] = useState('');
   const [venues, setVenues] = useState<VenueChoice[]>([]);
@@ -52,6 +55,7 @@ export function QuickRatingFlow({
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [text, setText] = useState('');
   const [photoUrls, setPhotoUrls] = useState<string[]>([]);
+  const storySlides = useRef(new Map<string, string>());
   const tastingLocation = useTastingLocation();
   const [choices, setChoices] = useState<Record<string, string[]>>({});
   const [busy, setBusy] = useState(false);
@@ -64,12 +68,13 @@ export function QuickRatingFlow({
     motivation: string;
   } | null>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
   const tpl = useMemo(() => templateFor(item), [item]);
   const close = useCallback(() => {
     if (!busy) onClose();
   }, [busy, onClose]);
 
-  useEscClose(close);
+  useEscClose(close, overlayRef);
   useSwipeDismiss(sheetRef, close, { canDismiss: () => !busy, deps: [success] });
 
   const locate = useCallback(() => {
@@ -135,6 +140,11 @@ export function QuickRatingFlow({
     try {
       const uploaded = await Promise.all(Array.from(files).map((file) => api.upload(file, source)));
       setPhotoUrls((current) => [...current, ...uploaded]);
+      for (const url of uploaded) {
+        void composeStoryImage(url)
+          .then((slide) => { if (slide) storySlides.current.set(url, slide); })
+          .catch(() => {});
+      }
     } catch {
       setError('Не удалось загрузить фото. Оценку можно сохранить без него.');
     } finally {
@@ -161,6 +171,13 @@ export function QuickRatingFlow({
       });
       haptic('medium');
       onSaved?.(review, item);
+      void shareReviewToStory(item, {
+        photo: photoUrls[0],
+        photos: photoUrls,
+        text: text.trim() || undefined,
+        slides: Object.fromEntries(storySlides.current),
+        review,
+      });
       setSuccess({ item, rating, total: 1, next: null, motivation: tastingMotivation(review) });
       Promise.all([
         api.myReviews().catch(() => [] as Review[]),
@@ -198,7 +215,7 @@ export function QuickRatingFlow({
 
   if (success) {
     return (
-      <div className="modal-backdrop quick-rate-backdrop" style={{ zIndex: 3400 }} onClick={close}>
+      <div ref={overlayRef} className="modal-backdrop quick-rate-backdrop" style={{ zIndex: 3400 }} onClick={close}>
         <div className="modal quick-success" ref={sheetRef} role="dialog" aria-modal="true" onClick={(event) => event.stopPropagation()}>
           <div className="tr-success-icon">✓</div>
           <h3>Отличная дегустация</h3>
@@ -231,7 +248,7 @@ export function QuickRatingFlow({
   }
 
   return (
-    <div className="modal-backdrop quick-rate-backdrop" style={{ zIndex: 3400 }} onClick={close}>
+    <div ref={overlayRef} className="modal-backdrop quick-rate-backdrop" style={{ zIndex: 3400 }} onClick={close}>
       <div className="modal quick-rate-sheet" ref={sheetRef} role="dialog" aria-modal="true" onClick={(event) => event.stopPropagation()}>
         <div className="sheet-grab" aria-hidden="true" />
         <button className="quick-close" type="button" onClick={close} aria-label="Закрыть">×</button>
@@ -244,7 +261,12 @@ export function QuickRatingFlow({
 
         <section className="quick-step">
           <div className="quick-step-label"><span>2</span> Где пробовали?</div>
-          {venue && <div className="quick-selected">✓ {venue.name}</div>}
+          {venue && (
+            <div className="quick-selected">
+              ✓ {venue.name}
+              <MetroLine venue={venue} />
+            </div>
+          )}
           <div className="pu-search quick-venue-search">
             <span className="search-ico">🔍</span>
             <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Найти заведение" />
@@ -264,6 +286,7 @@ export function QuickRatingFlow({
                 onClick={() => setVenue(candidate)}
               >
                 <span>{candidate.name}</span>
+                <MetroLine venue={candidate} />
                 {candidate.address && <small>{candidate.address}</small>}
               </button>
             ))}

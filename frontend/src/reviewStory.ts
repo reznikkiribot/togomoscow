@@ -5,21 +5,21 @@ import type { ReviewSavedMedia } from './components/ReviewForm';
 
 /** Opens Telegram's story editor for a freshly saved dish/drink review. */
 export async function shareReviewToStory(listing: Pick<Listing, 'id' | 'name' | 'type'>, media?: ReviewSavedMedia) {
-  const myMedia = media?.photo ?? media?.video;
+  const photo = media?.photo;
   let noStory = false;
   try { noStory = localStorage.getItem('noStoryOnReview') === '1'; } catch { /* use the default */ }
-  if (!myMedia || listing.type === 'RESTAURANT' || noStory) return false;
+  // Product rule: a text-only or video-only tasting never opens Story editor.
+  if (!photo || listing.type === 'RESTAURANT' || noStory) return false;
 
   const caption = media?.text?.trim() || `${listing.name} — пробую в togomoscow 🍽`;
-  if (!media?.photo) return shareToStory(myMedia, caption, `l_${listing.id}`);
-  if (storyAlreadyShared(media.photo)) return false;
+  if (storyAlreadyShared(photo)) return false;
 
-  const prebuilt = media.slides?.[media.photo];
+  const prebuilt = media.slides?.[photo];
   const url = prebuilt
-    ?? (await composeStoryImage(media.photo))
-    ?? (await portraitStoryFallback(media.photo));
+    ?? (await composeStoryImage(photo))
+    ?? (await portraitStoryFallback(photo));
   if (!url || !shareToStory(url, caption, `l_${listing.id}`)) return false;
-  markStoryShared(media.photo);
+  markStoryShared(photo);
 
   // A second attached photo becomes a separate story after the first editor closes.
   const second = media.photos?.[1];

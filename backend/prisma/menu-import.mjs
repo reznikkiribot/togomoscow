@@ -10,6 +10,31 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(__dirname, 'menu-out');
+const brandData = JSON.parse(
+  fs.readFileSync(path.join(__dirname, '..', 'src', 'common', 'branded-beverages.json'), 'utf8'),
+);
+const WORD_BOUNDARY_CH = 'a-zа-яё0-9';
+const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const BRANDED_BEVERAGE_RE = new RegExp(
+  `(^|[^${WORD_BOUNDARY_CH}])(?:${brandData.aliases
+    .map((alias) => String(alias).trim())
+    .filter(Boolean)
+    .sort((a, b) => b.length - a.length)
+    .map(escapeRegExp)
+    .join('|')})($|[^${WORD_BOUNDARY_CH}])`,
+  'i',
+);
+const FOOD_CONTEXT_RE = /бургер|ребр|стейк|спагетти|паст[аы]|пицц|оливье|салат|суп|лапш|ролл|суши|крыл|куриц|цыпл|говядин|свинин|кревет|десерт|торт|пирог|сэндвич|сендвич|хот.?дог|наггетс|картоф/i;
+
+export function isBrandedBeverage(name, listingType = null) {
+  if (!name) return false;
+  const normalized = String(name).normalize('NFKC').toLowerCase();
+  const latinLookalikes = normalized.replace(/[аеорсух]/g, (char) => ({
+    а: 'a', е: 'e', о: 'o', р: 'p', с: 'c', у: 'y', х: 'x',
+  })[char] ?? char);
+  if (!BRANDED_BEVERAGE_RE.test(normalized) && !BRANDED_BEVERAGE_RE.test(latinLookalikes)) return false;
+  return listingType !== 'DISH' || !FOOD_CONTEXT_RE.test(String(name));
+}
 
 // JS \b is ASCII-only (breaks on Cyrillic) → use explicit Cyrillic/Latin boundaries.
 const WORD_CH = 'а-яёa-z0-9';
@@ -173,19 +198,100 @@ export function normalizeMenuName(name, venueNames = []) {
     .replace(/\s+/g, ' ')
     .trim();
   n = stripLeadingVenueName(n, venueNames);
+  n = trimDanglingTail(n);
   return sentenceCaseAllCaps(n);
 }
+
+// OWNER RULE (22.07.2026): «нельзя обрывать, при этом должна быть логика».
+// The volume/size strippers above can eat the noun a preposition governs —
+// «Латте Матча на альтернативном молоке 300 мл» lost «молоке» (matched as a unit)
+// and shipped as «Латте Матча на альтернативном.». A name may never END on a
+// preposition/conjunction or a bare trailing dot: that state proves the tail was
+// cut wrongly, so we drop the whole dangling clause rather than show a fragment.
+const DANGLING_WORDS = [
+  'на', 'с', 'со', 'из', 'в', 'во', 'для', 'и', 'или', 'без', 'по', 'от', 'до',
+  'под', 'над', 'при', 'о', 'об', 'обо', 'а', 'но', 'к', 'ко', 'за', 'у',
+];
+const DANGLING_RE = new RegExp(`(?:^|\\s)(?:${DANGLING_WORDS.join('|')})\\s+[^\\s]*$`, 'i');
+
+// A leftover ADJECTIVE in an oblique case whose noun was eaten («альтернативном»,
+// «кокосовом»). Nouns share those endings («грушей», «шоколадом», «жасмином»), so
+// matching the case ending alone is not enough — we require a recognisable
+// adjectival suffix in front of it. Nominative forms are excluded as well:
+// «Кофе черный» is a complete, valid name.
+// Suffix morphology alone cannot separate «альтернативн-ом» (adjective, noun eaten)
+// from «жасмин-ом» / «вишн-ей» (nouns, clause complete) — the endings coincide.
+// So we invert the test: a trailing word whose STEM is a known food/ingredient is
+// a legitimate object and the clause stays. Anything else that carries an oblique
+// case ending is treated as a stranded modifier and the clause is dropped.
+const FOOD_NOUN_STEMS = [
+  'молок', 'сливк', 'сыр', 'мясо', 'мяс', 'куриц', 'говядин', 'свинин',
+  'рыб', 'лосос', 'тунц', 'креветк', 'краб', 'кальмар', 'икр', 'яйц', 'яиц',
+  'груш', 'яблок', 'вишн', 'малин', 'клубник', 'смородин', 'черник', 'банан',
+  'апельсин', 'лимон', 'манго', 'персик', 'абрикос', 'ананас', 'виноград',
+  'шоколад', 'карамел', 'ванил', 'корич', 'орех', 'фундук', 'фисташк',
+  'жасмин', 'мят', 'базилик', 'чеснок', 'лук', 'томат', 'помидор', 'огурц',
+  'картофел', 'картошк', 'грибам', 'гриб', 'трюфел', 'шпинат', 'руккол',
+  'соус', 'песто', 'сироп', 'мед', 'мёд', 'джем', 'варень', 'крем', 'тест',
+  'бекон', 'ветчин', 'колбас', 'салям', 'тунец', 'авокадо', 'кунжут', 'мак',
+  'рис', 'гречк', 'кешью', 'арахис', 'изюм', 'кураг', 'чернослив',
+  'сахар', 'сол', 'перц', 'имбир', 'кардамон', 'ягод', 'фрукт', 'овощ', 'зелен',
+];
+const OBLIQUE_CASE_RE = /(?:ом|ем|ой|ей|ого|его|ому|ему|ым|им|ых|их|ую|юю)$/i;
+
+function isBareAdjective(word) {
+  const w = String(word ?? '').toLowerCase().replace(/[^а-яёa-z-]/gi, '');
+  if (w.length < 6 || !OBLIQUE_CASE_RE.test(w)) return false;
+  // a real ingredient behind the preposition → the name is complete
+  if (FOOD_NOUN_STEMS.some((stem) => w.startsWith(stem))) return false;
+  return true;
+}
+
+export function trimDanglingTail(name) {
+  let n = String(name ?? '').trim();
+  // a trailing dot is never part of a dish name («…альтернативном.» → «…альтернативном»)
+  n = n.replace(/\s*\.+\s*$/, '').trim();
+  // Peel dangling clauses until the name ends on a real word. Each pass removes
+  // either a trailing preposition itself or the preposition + its orphaned word.
+  for (let guard = 0; guard < 4; guard += 1) {
+    const words = n.split(/\s+/).filter(Boolean);
+    if (words.length <= 1) break;
+    const last = words[words.length - 1].toLowerCase().replace(/[^а-яёa-z-]/gi, '');
+    if (DANGLING_WORDS.includes(last)) {
+      n = words.slice(0, -1).join(' ');
+      continue;
+    }
+    // «... на альтернативном» — preposition + a leftover ADJECTIVE whose noun was
+    // eaten by the volume stripper. «Салат с креветками» must survive: there the
+    // trailing word is a noun, so the clause is complete and stays untouched.
+    if (DANGLING_RE.test(n) && words.length >= 3) {
+      const idx = words.length - 2;
+      const isPreposition = DANGLING_WORDS.includes(words[idx].toLowerCase().replace(/[^а-яёa-z-]/gi, ''));
+      if (idx > 0 && isPreposition && isBareAdjective(words[words.length - 1])) {
+        n = words.slice(0, idx).join(' ');
+        continue;
+      }
+    }
+    break;
+  }
+  return n.replace(/\s*[-–—,:;/]+\s*$/, '').trim();
+}
 // skip non-dish noise the engine sometimes catches (combos / banners / sets / descriptions)
-export function isJunk(name) {
+export function isJunk(name, price = null, listingType = null) {
   const n = name.toLowerCase();
-  if (n.length < 2 || n.length > 55) return true;
+  if (n.length < 2 || n.length > 90) return true;
   if (PURE_SIZE_RE.test(n)) return true;
-  if (n.split(/\s+/).length > 7) return true; // a sentence/description, not a menu name
+  if (n.split(/\s+/).length > 12) return true; // a sentence/description, not a menu name
   if (/^меню(?:\s+на)?$/i.test(n)) return true;
   if (new RegExp(`^\\d+\\s*(?:любые|пицц|штук|шт(?![${WORD_CH}]))`).test(n)) return true; // "3 любые пиццы"
   if (new RegExp(`любые пицц|комбо|(?<![${WORD_CH}])сет(?![${WORD_CH}])|(?<![${WORD_CH}])набор(?![${WORD_CH}])|меню дня|за \\d+\\s*₽|выгодн|подарок|конструктор|собери|акци|скидк|сертификат|доставк|для офиса|идеальных|\\+ ?\\d|\\d ?\\+ ?\\d`).test(n)) return true;
   if (/beer\s*pong|каждый\s+день|до\s+пенсии|мастер-класс|творческ[а-яё]*\s+встреч/i.test(n)) return true;
   if (/^\s*\d+(?:[.,]\d+)?\s*%\s*$/.test(n)) return true;
+  // Standalone add-ons never become catalog items. Keep these patterns
+  // anchored so complete dishes such as «креветки васаби» or «паста в соусе»
+  // are not discarded merely for mentioning an ingredient.
+  if (/^соус(?:$|[^а-яёa-z0-9])|(?:^|[^а-яёa-z0-9])соус\.?\)?$|^(?:кетчуп|майонез|горчица|васаби|аджика|ткемали|сацебели|наршараб)(?:$|\s)|^(?:заправк|дип(?:$|\s)|маринад(?:$|\s)|песто(?:$|\s)|айоли(?:$|\s)|бешамель(?:$|\s))/i.test(n)) return true;
+  if (/^(?:сироп|топпинг|посыпка|джем|варенье|конфитюр|м[её]д|сгущ[её]нка)(?:$|\s)|^(?:приборы|упаковка|добавка|доп|допы|пакет)(?:$|\s)/i.test(n)) return true;
   // «X и закуска», «пицца и напиток» — combos in disguise (their photos are collages)
   if (new RegExp(`(?<![${WORD_CH}])и\\s+(?:закуск|напит|десерт|салат)|(?<![${WORD_CH}])с\\s+напитк|ассорти из \\d`).test(n)) return true;
   // Retail/DIY products do not belong in a restaurant dish catalog.
@@ -196,19 +302,20 @@ export function isJunk(name) {
   // are just an adjective (Russian adjective endings).
   const words = n.split(/\s+/).filter(Boolean);
   if (words.length === 1 && /(ый|ий|ой|ая|яя|ое|ее|ые|ими|ого|осн?ый)$/.test(words[0]) && words[0].length >= 5) return true;
+  // A cheap adjective-only name is an unnamed modifier. Papa John's
+  // «Особый Чесночный» (60 ₽) is the motivating example: the source omitted
+  // the noun «соус», but it must not become a standalone catalog card.
+  if (price != null && Number.isFinite(Number(price)) && Number(price) <= 100) {
+    const adjective = /(?:ый|ий|ой|ая|яя|ое|ее|ые|ие|ого|его|ому|ему|ым|им|ую|юю|ых|их|ыми|ими|ом|ем)$/i;
+    const lexicalWords = n.replace(/[^а-яёa-z-]+/gi, ' ').trim().split(/\s+/).filter(Boolean);
+    if (lexicalWords.length >= 1 && lexicalWords.length <= 3 && lexicalWords.every((word) => adjective.test(word))) return true;
+  }
   // NON-FOOD merch/service never belongs in a food catalog (owner 21.07.2026):
   // coloring books, toys, apparel, bags, cutlery, delivery/booking fees.
-  if (/раскраск|игрушк|футболк|бейсболк|значок|носки|шоппер|термокружк|подарочн|открытк|пакет с ручками|салфетк|зажигалк|магнит|брелок|плед|рюкзак|термос|чаевые|сервисн|аренда|депозит|бронирован/i.test(n)) return true;
-  // BRANDED drinks are banned entirely — only generic names (сок, смузи, лимонад)
-  // belong in the catalog (owner 21.07.2026). A latin-script or quoted drink name
-  // is a brand; generic Russian drink words stay.
-  const GENERIC_DRINK = /^(?:сок|смузи|лимонад|морс|компот|чай|кофе|латте|капучино|раф|американо|эспрессо|какао|молоко|вода|фреш|коктейл|тоник|мохито|матча|глинтвейн|пунш|шейк|милкшейк|айс|флэт|мокко|кортадо|пикколо|гляссе|бамбл|пиво|вино|сидр|квас)/i;
-  const BRANDED_DRINK = /[a-z]{3,}|«|добрый|черноголовк|святой источник|аква минерале|бонаква|моя семья|фрутоняня|сады придонья|нарзан|боржоми|ессентуки|липецкий|шишкин лес|архыз|пеллегрино|эвиан|виттель|перье|швепс|фанта|спрайт|пепси|миринда|байкал|тархун|дюшес|буратино|жигул[её]вск|балтика|очаково|хугарден|велкопопов|козел|гиннес|карлсберг|туборг|хайнекен|стелла|миллер|абрау|фанагор|цимлянск|инкерман|массандр/i;
-  if (BRANDED_DRINK.test(n) && !GENERIC_DRINK.test(n.trim())) {
-    // only reject when it looks like a DRINK (dishes may legitimately carry latin
-    // words: "Цезарь Классик", "Том Ям"); drink context = drink words nearby
-    if (/пиво|вино|лагер|эль|стаут|портер|сидр|вода|сок|лимонад|кола|тоник|напиток|квас|морс|игрист|шампан|виски|водк|ром|джин|текил|ликёр|ликер|коньяк|вермут|просекко|пилснер|ipa|weiss|beer|wine|cola|juice|water/i.test(n)) return true;
-  }
+  if (/раскраск|игрушк|футболк|бейсболк|значок|носки|шоппер|термокружк|подарочн|открытк|пакет с ручками|салфетк|зажигалк|магнит|брелок|плед|рюкзак|термос|серьг|браслет|подвеск|ожерель|бриллиант|жемчуг|кольц[оа]?[^а-яё]*(?:серебр|золот|женщ|мужчин|карат|размер)|чаевые|сервисн|аренда|депозит|бронирован/i.test(n)) return true;
+  // Branded packaged drinks are never standalone catalog cards. The canonical
+  // alias list lives in src/common and is shared with the Nest discovery filters.
+  if (isBrandedBeverage(n, listingType)) return true;
   // mostly non-letters (codes/garbage)
   const letters = (n.match(/[а-яёa-z]/gi) || []).length;
   if (letters < n.length * 0.5) return true;
@@ -288,8 +395,8 @@ async function main() {
     let newItems = 0, links = 0;
     for (const raw of data.items) {
       const name = normalizeMenuName(raw.name, venues.map((venue) => venue.name));
-      if (isJunk(name)) continue;
       const { type, category } = classify(name);
+      if (isJunk(name, raw.price, type)) continue;
       // PHOTO POLICY: parsed photos are only a GENERATION REFERENCE, never shown
       // directly. New items get NO direct photo here — regen-from-refs.mjs turns
       // the official image into our own AI derivative. An existing aigen- photo

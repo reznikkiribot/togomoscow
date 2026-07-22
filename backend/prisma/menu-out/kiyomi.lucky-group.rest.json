@@ -1,8 +1,8 @@
 {
   "domain": "kiyomi.lucky-group.rest",
-  "method": "pdf",
+  "method": "pdf-coordinates",
   "status": "manual_required",
-  "source": "https://kiyomi.rest/images/menu-2026/set-28-02-2026.pdf",
+  "source": "../tmp/pdfs/kiyomi.pdf",
   "count": 0,
   "withPhoto": 0,
   "items": []

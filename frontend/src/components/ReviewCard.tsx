@@ -27,7 +27,7 @@ export function ReviewCard({
   onOpenVenue?: () => void;
   children?: ReactNode;
 }) {
-  const photo = review.photoUrls?.[0] || review.listing?.photoUrl || undefined;
+  const photo = review.photoUrls?.[0] || review.cardPhotoUrl || undefined;
   const cat = review.listing?.category;
   const showStyle = cat && !/^(блюдо|напиток)$/i.test(cat);
   const vc = review.voteCounts;
@@ -59,8 +59,6 @@ export function ReviewCard({
               src={photo}
               alt=""
               loading="lazy"
-              stock={stock}
-              monogram={review.listing?.name}
             />
             {/* author + place overlaid on the photo (same as the open post) */}
             {u && (
@@ -125,7 +123,15 @@ export function ReviewCard({
 }
 
 // Average rating per category, computed from a user's reviews — compact "N · X.X★" rows.
-export function CategoryAverages({ reviews }: { reviews: Review[] }) {
+export function CategoryAverages({
+  reviews,
+  selected,
+  onSelect,
+}: {
+  reviews: Review[];
+  selected?: string | null;
+  onSelect?: (category: string | null) => void;
+}) {
   const map = new Map<string, { sum: number; n: number }>();
   for (const r of reviews) {
     const c = r.listing?.category;
@@ -142,12 +148,19 @@ export function CategoryAverages({ reviews }: { reviews: Review[] }) {
   return (
     <div className="cat-avgs">
       {rows.map((r) => (
-        <div key={r.name} className="cat-avg-row">
+        <button
+          key={r.name}
+          type="button"
+          className={'cat-avg-row' + (selected === r.name ? ' active' : '')}
+          aria-pressed={selected === r.name}
+          onClick={() => onSelect?.(selected === r.name ? null : r.name)}
+          disabled={!onSelect}
+        >
           <span className="cat-avg-name">{r.name}</span>
           <span className="cat-avg-val">
             {r.n} · {r.avg.toFixed(1)}★
           </span>
-        </div>
+        </button>
       ))}
     </div>
   );

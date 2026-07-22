@@ -88,12 +88,22 @@
             if (telegramReadySoon() || tries > 300) clearInterval(readyTimer);
           }, 100);
         }
-        // if React hasn't mounted in 12s → the page is wedged (stale cache / failed
+        // Wake the API while the bundle is still downloading. The first screen's
+        // data comes from /api/bootstrap; firing it here means the server has
+        // already started (and often finished) the query by the time React mounts,
+        // instead of the two waits happening back to back.
+        try {
+          window.__BOOT_FETCH = fetch('/api/bootstrap', { headers: { 'Accept': 'application/json' } })
+            .then(function (r) { return r.ok ? r.json() : null; })
+            .catch(function () { return null; });
+        } catch (e) {}
+        // if React hasn't mounted in 6s → the page is wedged (stale cache / failed
         // asset / blocked script). Auto-recover ONCE with a cache-busting reload;
         // on a second failure show a manual retry so the user is never stuck.
+        // 12s was long enough that users gave up and closed the app first.
         setTimeout(function () {
           if (window.__APP_BOOTED) return;
-          report('boot-timeout', 'app not mounted in 12s');
+          report('boot-timeout', 'app not mounted in 6s');
           var u = new URL(location.href);
           if (!u.searchParams.get('rb')) {
             u.searchParams.set('rb', String(Date.now()));
@@ -105,7 +115,7 @@
                 'style="margin-top:12px;padding:12px 22px;border:none;border-radius:12px;background:#d32323;color:#fff;font-weight:700;font-size:15px">Обновить</button>';
             }
           }
-        }, 12000);
+        }, 6000);
       })();
     </script>
     <style>

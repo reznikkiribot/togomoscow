@@ -1,7 +1,8 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { api } from '../api';
 import { UserProfileModal } from '../components/People';
-import type { AppNotification } from '../types';
+import { PhotoPostModal } from '../components/PhotoPostModal';
+import type { AppNotification, Review } from '../types';
 const ListingDetailModal = lazy(() => import('../components/ListingDetail').then((m) => ({ default: m.ListingDetailModal })));
 
 const KIND_ICON: Record<string, string> = { vote: '👍', comment: '💬', follow: '➕', friend_post: '📝', rating_up: '🏅' };
@@ -24,6 +25,7 @@ export default function Alerts() {
   const [freshIds, setFreshIds] = useState<Set<string>>(new Set());
   const [openListingId, setOpenListingId] = useState<string | null>(null);
   const [openUser, setOpenUser] = useState<string | null>(null);
+  const [photoReview, setPhotoReview] = useState<Review | null>(null);
 
   useEffect(() => {
     api
@@ -40,6 +42,7 @@ export default function Alerts() {
 
   const open = (n: AppNotification) => {
     if (n.kind === 'follow' && n.actorId) setOpenUser(n.actorId);
+    else if (n.review) setPhotoReview(n.review);
     else if (n.listingId) setOpenListingId(n.listingId);
     else if (n.actorId) setOpenUser(n.actorId);
   };
@@ -101,6 +104,15 @@ export default function Alerts() {
         </Suspense>
       )}
       {openUser && <UserProfileModal id={openUser} onClose={() => setOpenUser(null)} />}
+      {photoReview && (
+        <PhotoPostModal
+          review={photoReview}
+          onClose={() => setPhotoReview(null)}
+          onOpenUser={(userId) => setOpenUser(userId)}
+          onOpenListing={() => photoReview.listing?.id && setOpenListingId(photoReview.listing.id)}
+          onOpenVenue={() => photoReview.venue?.id && setOpenListingId(photoReview.venue.id)}
+        />
+      )}
     </div>
   );
 }

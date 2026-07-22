@@ -4,90 +4,112 @@
   "status": "ok",
   "source": "https://dominopizza.ru/gql",
   "count": 21,
+  "withPhoto": 0,
   "items": [
     {
       "name": "Пицца Пепперони 28 см Тонкое",
-      "price": 789
+      "price": 789,
+      "image": null
     },
     {
       "name": "Пицца 4 сыра 28 см Тонкое",
-      "price": 1049
+      "price": 1049,
+      "image": null
     },
     {
       "name": "Пицца Карбонара 28 см Тонкое",
-      "price": 939
+      "price": 939,
+      "image": null
     },
     {
       "name": "Пицца Сырная с ветчиной 28 см Тонкое",
-      "price": 689
+      "price": 689,
+      "image": null
     },
     {
       "name": "Пицца Маргарита 28 см Тонкое",
-      "price": 609
+      "price": 609,
+      "image": null
     },
     {
       "name": "Пицца Жюльен 28 см Тонкое",
-      "price": 859
+      "price": 859,
+      "image": null
     },
     {
       "name": "Пицца Альфредо 28 см Тонкое",
-      "price": 949
+      "price": 949,
+      "image": null
     },
     {
       "name": "Пицца Гавайская Сальса 28 см Тонкое",
-      "price": 789
+      "price": 789,
+      "image": null
     },
     {
       "name": "Ролл пепперони 3 мяса",
-      "price": 229
+      "price": 229,
+      "image": null
     },
     {
       "name": "Картофель фирменный из печи, маленький",
-      "price": 249
+      "price": 249,
+      "image": null
     },
     {
       "name": "Картофель фирменный из печи, средний",
-      "price": 289
+      "price": 289,
+      "image": null
     },
     {
       "name": "Наггетсы 8 шт",
-      "price": 325
+      "price": 325,
+      "image": null
     },
     {
       "name": "Пицца Чикен BBQ 28 см Тонкое",
-      "price": 879
+      "price": 879,
+      "image": null
     },
     {
       "name": "Пицца Охотничья 28 см Тонкое",
-      "price": 879
+      "price": 879,
+      "image": null
     },
     {
       "name": "Пицца Диабло 28 см Тонкое",
-      "price": 939
+      "price": 939,
+      "image": null
     },
     {
       "name": "Пицца Мясная Сальса 28 см Тонкое",
-      "price": 1089
+      "price": 1089,
+      "image": null
     },
     {
       "name": "Пицца BBQ Микс 28 см Тонкое",
-      "price": 939
+      "price": 939,
+      "image": null
     },
     {
       "name": "Пицца с говядиной и запеченными овощами Римское",
-      "price": 795
+      "price": 795,
+      "image": null
     },
     {
       "name": "Ролл с лососем и соусом песто",
-      "price": 469
+      "price": 469,
+      "image": null
     },
     {
       "name": "Сэндвич из печи с говядиной и запеченными овощами",
-      "price": 419
+      "price": 419,
+      "image": null
     },
     {
       "name": "Паста с лососем в сливочным соусе",
-      "price": 525
+      "price": 525,
+      "image": null
     }
   ]
 }
