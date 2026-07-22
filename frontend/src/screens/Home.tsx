@@ -101,9 +101,16 @@ function cachedLoad<T>(key: string, fetcher: () => Promise<T>, setter: (v: T) =>
 // The server hands each post to a viewer ONCE (impressions). Fetched batches wait
 // in this local queue until actually displayed, so background refreshes never
 // burn posts the user hasn't seen. Each home visit advances to the next posts.
-const FEEDQ_KEY = 'hc_feed_queue';
+// v2 invalidates rows cached before the server began attaching validated
+// cardPhotoUrl fallbacks. Keeping those stale objects made fixed photos stay
+// blank forever because feed impressions prevented the same id being refreshed.
+const FEEDQ_KEY = 'hc_feed_queue_v2';
 function readFeedQueue(): Review[] {
-  try { const a = JSON.parse(localStorage.getItem(FEEDQ_KEY) || '[]'); return Array.isArray(a) ? a : []; } catch { return []; }
+  try {
+    localStorage.removeItem('hc_feed_queue');
+    const a = JSON.parse(localStorage.getItem(FEEDQ_KEY) || '[]');
+    return Array.isArray(a) ? a.filter((review) => review.photoUrls?.length || review.cardPhotoUrl) : [];
+  } catch { return []; }
 }
 function writeFeedQueue(q: Review[]) {
   try { localStorage.setItem(FEEDQ_KEY, JSON.stringify(q.slice(0, 60))); } catch { /* quota */ }

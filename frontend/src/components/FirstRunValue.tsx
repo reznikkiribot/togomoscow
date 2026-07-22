@@ -67,8 +67,8 @@ export function FirstRunValue({ onDone, onScan }: { onDone: () => void; onScan: 
         {!picker ? (
           <>
             <div className="first-run-mark">★</div>
-            <h2 className="quiz-h">Находите блюда и напитки, которые понравятся именно вам</h2>
-            <p className="quiz-sub">Поставьте несколько оценок — и мы начнём подбирать места под ваш вкус</p>
+            <h2 className="quiz-h">Помогите создать самую точную гастрономическую карту Москвы</h2>
+            <p className="quiz-sub">Каждая дегустация уточняет карту и помогает находить места под ваш вкус</p>
             <button className="btn first-run-primary" type="button" onClick={() => setPicker(true)}>Поставить первую оценку</button>
             <button className="btn secondary" type="button" onClick={onScan}>📷 Распознать блюдо по фото</button>
             <button className="first-run-skip" type="button" onClick={onDone}>Пропустить</button>

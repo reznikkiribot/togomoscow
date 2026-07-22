@@ -4,19 +4,10 @@ import { NotificationsService } from '../notifications/notifications.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { UploadsService } from '../uploads/uploads.service';
 import { ClipService } from '../vision/clip.service';
-
-// auto-moderation: obvious profanity / spam is rejected before a comment is saved
-const PROFANITY = /(?:\bхуй|хуё|хуя|пизд|\bебать|ебан|ёбан|бляд|\bсук[аи]\b|мудак|долбоёб|пидор|гандон|залуп|хер\b|хуе|мразь|тварь|шлюх|уёбок|уебок|ниггер|даун\b|дебил)/i;
-// NB: outer group is non-capturing so the `(.)\1{6,}` backreference points at the
-// `(.)` (group 1) — with a capturing outer group `\1` was empty and matched EVERY char.
-const SPAM = /(?:https?:\/\/|www\.|t\.me\/|@[a-z0-9_]{4,}|\b\d{10,}\b|(.)\1{6,})/i;
-// CRUDE / non-constructive: not literal profanity, but disgusting/toxic language
-// that adds no signal ("параша", "блевал", "говно", "жрать невозможно"). A review
-// hitting this goes to human moderation instead of auto-publishing. Extend freely.
-const CRUDE = /параш|блев(ал|ать|ота|отн)|сблев|стошнил|говн|дерьм|гавн|обосра|зассан|помо[йи]|отрав(ился|иться|а)|потрав|тошнот|мерзост|отврат|гадост|уёбищ|уебищ|конч(еный|аный)|быдл|скотин|животное\b|жр(ать|али) невозможно|есть невозможно|нахер|нахрен|похер|похрен|днище|зашкварн?/i;
-// GIBBERISH: repeated 2-3 char syllables ("траляля", "трулюлю", "бла бла бла",
-// "ляляля") or a single-char run — no informational content → human moderation
-const GIBBERISH = /([а-яёa-z]{2,3})\1{2,}|(.)\2{5,}|^(?:(\w+)\s+)\3{2,}$/i;
+import { CommentModerationService } from './comment-moderation.service';
+import { RatingRecalculationService } from '../trust/rating-recalculation.service';
+import { ReviewLocationInput } from '../trust/trust.types';
+import { TrustService } from '../trust/trust.service';
 
 // RU dish/drink name → a short English CLIP query, so the photo-name check works
 // (CLIP ViT-B/32 reads English). Dictionary of classics first, then category.
@@ -54,6 +45,7 @@ export interface CreateReviewDto {
   attributes?: Prisma.InputJsonValue;
   photoUrls?: string[];
   videoUrls?: string[];
+  location?: ReviewLocationInput;
 }
 
 @Injectable()
@@ -64,6 +56,9 @@ export class ReviewsService {
     private readonly uploads: UploadsService,
     private readonly clip: ClipService,
     private readonly notifications: NotificationsService,
+    private readonly commentModeration: CommentModerationService,
+    private readonly trust: TrustService,
+    private readonly ratings: RatingRecalculationService,
   ) {}
 
   private async actorName(userId: string) {
@@ -96,7 +91,7 @@ export class ReviewsService {
       if (m.nsfw > 0.5) return { block: true, promote: false, reason: 'nsfw' };
       // screenshots / charts / documents are NOT a review photo of a dish — block
       // (a spline-interpolation graph is not food). 'other' = screenshot/diagram.
-      if (m.other > 0.4 && m.other >= m.food) return { block: true, promote: false, reason: 'screenshot' };
+      if (m.other > 0.4 && m.other >= m.food) return { block: false, promote: false, reason: 'content-mismatch' };
       // NAME MATCH (owner rule): the photo must actually depict the dish/drink in
       // the card name. CLIP zero-shot the photo against "<dish>" vs an unrelated
       // object — reject when the dish label loses (<50%).
@@ -106,7 +101,9 @@ export class ReviewsService {
           this.clip.classify(buf, [`a photo of ${en}`, 'a photo of an unrelated object, screenshot or chart']),
           new Promise<number[] | null>((res) => setTimeout(() => res(null), 6000)),
         ]);
-        if (probs && probs[0] < 0.5) return { block: true, promote: false, reason: `name-mismatch(${probs[0].toFixed(2)})` };
+        // A low-confidence AI result is an anti-fraud signal, never grounds for
+        // deleting the user's photo or tasting automatically.
+        if (probs && probs[0] < 0.5) return { block: false, promote: false, reason: `name-mismatch(${probs[0].toFixed(2)})` };
       }
       // card faces must clearly be food/drink — selfies and screenshots stay in the review
       return { block: false, promote: m.food >= 0.5 && m.person < 0.35 };
@@ -131,11 +128,9 @@ export class ReviewsService {
     if (!t) return null;
     // Suspicious comments are HELD for the cabinet with a reason instead of being
     // rejected outright — the owner decides (rule 19.07.2026).
-    let status: 'APPROVED' | 'PENDING' = 'APPROVED';
-    let modReason: string | null = null;
-    if (PROFANITY.test(t)) { status = 'PENDING'; modReason = 'Возможен мат'; }
-    else if (CRUDE.test(t)) { status = 'PENDING'; modReason = 'Грубость / токсичность'; }
-    else if (SPAM.test(t)) { status = 'PENDING'; modReason = 'Похоже на спам (ссылки/контакты)'; }
+    const moderation = await this.commentModeration.moderateComment(userId, reviewId, t, parentId);
+    const status: 'APPROVED' | 'PENDING' = moderation.pending ? 'PENDING' : 'APPROVED';
+    const modReason = moderation.reason;
     const created = await this.prisma.comment.create({
       data: { reviewId, userId, text: t.slice(0, 1000), parentId: parentId ?? null, status, modReason },
       include: { user: { select: { id: true, firstName: true, username: true, photoUrl: true } } },
@@ -220,23 +215,80 @@ export class ReviewsService {
     return { ok: true };
   }
 
+  private async moderatePersistedPhoto(
+    reviewId: string,
+    userId: string,
+    listingId: string,
+    url: string,
+    textModerationReason: string | null,
+  ) {
+    try {
+      const [item, current] = await Promise.all([
+        this.prisma.listing.findUnique({ where: { id: listingId }, select: { name: true, category: true } }),
+        this.prisma.review.findUnique({ where: { id: reviewId }, select: { photoUrls: true } }),
+      ]);
+      // A rapid edit may have replaced the photo while the background check was
+      // running. Never let an old job mutate the new tasting.
+      if (!current?.photoUrls.includes(url)) return;
+      const check = await this.checkReviewPhoto(url, item?.name, item?.category);
+      if (check.block) {
+        const photoUrls = current.photoUrls.filter((candidate) => candidate !== url);
+        await this.prisma.$transaction([
+          this.prisma.review.update({
+            where: { id: reviewId },
+            data: { photoUrls, modReason: `Фото отклонено (${check.reason ?? 'недопустимое'})` },
+          }),
+          this.prisma.reviewPhotoFingerprint.deleteMany({ where: { reviewId, photoUrl: url } }),
+        ]);
+        const trust = await this.prisma.reviewTrust.findUnique({ where: { reviewId }, select: { trustFactors: true } });
+        await this.prisma.reviewTrust.update({
+          where: { reviewId },
+          data: {
+            photoSource: photoUrls.length ? 'unknown' : 'none',
+            trustFactors: {
+              ...((trust?.trustFactors as any) ?? {}),
+              photo: { source: photoUrls.length ? 'unknown' : 'none', unique: false, aiContentMatch: false },
+            },
+          },
+        });
+        await this.trust.calculate(reviewId, true);
+        this.log.warn(`review photo blocked (${check.reason}) user=${userId} listing=${listingId}`);
+        return;
+      }
+      await this.prisma.review.update({
+        where: { id: reviewId },
+        data: { modReason: textModerationReason ?? (check.reason ? `Фото требует внимания (${check.reason})` : 'Фото — на проверку') },
+      });
+      if (!check.promote) return;
+      const listing = await this.prisma.listing.findUnique({ where: { id: listingId }, select: { photoUrl: true, photos: true } });
+      const photos = [...new Set([...(listing?.photos ?? []), url])];
+      const faceIsUgc = !!listing?.photoUrl?.startsWith('/api/files/');
+      await this.prisma.listing.update({
+        where: { id: listingId },
+        data: { photos, ...(faceIsUgc ? {} : { photoUrl: url }) },
+      });
+    } catch (error) {
+      this.log.error(`review photo moderation failed after persist id=${reviewId}: ${String(error)}`);
+    }
+  }
+
   async create(userId: string, listingId: string, dto: CreateReviewDto) {
     const rating = Math.max(1, Math.min(5, Number(dto.rating) || 0));
-    // AI moderation gate: clean reviews auto-publish instantly; ONLY violations
-    // land in the admin cabinet (profanity/spam text throws above, an explicit
-    // photo sends the review to PENDING for a human look)
-    let textStatus: 'APPROVED' | 'PENDING' = 'APPROVED';
+    // Every tasting is held for explicit owner approval. Automated checks still
+    // explain suspicious content in the cabinet, but can never publish a review.
     let modReason: string | null = null;
     const reviewText = (dto.text ?? '').trim();
-    // suspicious text → the cabinet WITH a reason (owner 19.07.2026), not silently
-    if (reviewText && PROFANITY.test(reviewText)) { textStatus = 'PENDING'; modReason = 'Возможен мат'; }
-    else if (reviewText && CRUDE.test(reviewText)) { textStatus = 'PENDING'; modReason = 'Грубость / токсичность'; }
-    else if (reviewText && SPAM.test(reviewText)) { textStatus = 'PENDING'; modReason = 'Похоже на спам (ссылки/контакты)'; }
-    else if (reviewText && GIBBERISH.test(reviewText)) { textStatus = 'PENDING'; modReason = 'Бессмысленный текст'; }
+    // The same weighted engine protects review captions, while comments also get
+    // recipient and author-behaviour context.
+    if (reviewText) {
+      const moderation = await this.commentModeration.moderateReview(reviewText);
+      if (moderation.pending) {
+        modReason = moderation.reason;
+      }
+    }
     // toxic low-rating rant with no substance (e.g. "1★, отстой, не берите"):
     // a 1-2★ review under ~20 chars and no useful noun is held for a human look
     if (rating <= 2 && reviewText && reviewText.length < 20 && !/[а-яё]{5,}\s+[а-яё]{4,}/i.test(reviewText)) {
-      textStatus = 'PENDING';
       modReason ??= 'Низкая оценка без пояснения';
     }
 
@@ -249,11 +301,33 @@ export class ReviewsService {
       if (dto.attributes && typeof dto.attributes === 'object') (dto.attributes as any).price = price;
     }
 
-    const requestedPhotoUrls = [...(dto.photoUrls ?? [])];
+    const requestedPhotoUrls = await this.trust.validatePhotoUrls(userId, dto.photoUrls);
     const existedBefore = await this.prisma.review.findUnique({
       where: { listingId_userId: { listingId, userId } },
-      select: { id: true },
+      select: {
+        id: true,
+        status: true,
+        rating: true,
+        text: true,
+        attributes: true,
+        photoUrls: true,
+        videoUrls: true,
+      },
     });
+    if (existedBefore) {
+      await this.prisma.reviewRevision.create({
+        data: {
+          reviewId: existedBefore.id,
+          userId,
+          rating: existedBefore.rating,
+          text: existedBefore.text,
+          attributes: existedBefore.attributes ?? Prisma.JsonNull,
+          photoUrls: existedBefore.photoUrls,
+          videoUrls: existedBefore.videoUrls,
+        },
+      });
+    }
+    let isFirstTasting = false;
     // Persist the core review BEFORE CLIP/MinIO work. An unverified photo starts
     // PENDING, so an OOM/process crash cannot publish it but also cannot erase
     // the user's text and rating.
@@ -267,7 +341,7 @@ export class ReviewsService {
         attributes: dto.attributes ?? Prisma.JsonNull,
         photoUrls: requestedPhotoUrls,
         videoUrls: dto.videoUrls ?? [],
-        status: requestedPhotoUrls.length ? 'PENDING' : textStatus,
+        status: 'PENDING',
         modReason: requestedPhotoUrls.length ? (modReason ?? 'Фото — на проверку') : modReason,
       },
       update: {
@@ -276,60 +350,25 @@ export class ReviewsService {
         attributes: dto.attributes ?? Prisma.JsonNull,
         photoUrls: requestedPhotoUrls,
         videoUrls: dto.videoUrls ?? [],
-        status: requestedPhotoUrls.length ? 'PENDING' : textStatus,
+        status: 'PENDING',
         modReason: requestedPhotoUrls.length ? (modReason ?? 'Фото — на проверку') : modReason,
       },
     });
+    if (!existedBefore) {
+      const first = await this.prisma.review.findFirst({
+        where: { listingId },
+        orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
+        select: { id: true },
+      });
+      isFirstTasting = first?.id === review.id;
+    }
     this.log.log(`review persisted id=${review.id} user=${userId} listing=${listingId}`);
 
-    // Photo moderation happens only after the durable write. If it fails, the
-    // row remains visible to admins as PENDING and can be recovered/reviewed.
-    let acceptedPhotoUrls = requestedPhotoUrls;
-    let promoteToCard = false;
-    if (requestedPhotoUrls.length) {
-      try {
-        const item = await this.prisma.listing.findUnique({ where: { id: listingId }, select: { name: true, category: true } });
-        const check = await this.checkReviewPhoto(requestedPhotoUrls[0], item?.name, item?.category);
-        if (check.block) {
-          this.log.warn(`review photo blocked (${check.reason}) user=${userId} listing=${listingId}`);
-          acceptedPhotoUrls = [];
-        } else {
-          promoteToCard = check.promote;
-        }
-        review = await this.prisma.review.update({
-          where: { id: review.id },
-          data: {
-            photoUrls: acceptedPhotoUrls,
-            status: check.block ? 'PENDING' : textStatus,
-            // photo cleared → keep any text reason; photo suspicious → say so
-            modReason: check.block
-              ? `Фото отклонено (${check.reason ?? 'подозрительное'})`
-              : acceptedPhotoUrls.length ? (modReason ?? 'Фото — на проверку') : modReason,
-          },
-        });
-      } catch (error) {
-        this.log.error(`review photo moderation failed after persist id=${review.id}: ${String(error)}`);
-      }
-    }
-    // review photos ACCUMULATE into the listing gallery (deduped); the first real
-    // photo also becomes the card face if there isn't one yet — but ONLY photos
-    // that passed the food check (faces/screenshots never surface on catalog cards)
-    if (acceptedPhotoUrls.length && promoteToCard) {
-      try {
-        const l = await this.prisma.listing.findUnique({
-          where: { id: listingId },
-          select: { photoUrl: true, photos: true },
-        });
-        const photos = [...new Set([...(l?.photos ?? []), ...acceptedPhotoUrls])];
-        const faceIsUgc = !!l?.photoUrl?.startsWith('/api/files/');
-        await this.prisma.listing.update({
-          where: { id: listingId },
-          // a real user FOOD photo beats a licensed/stock card face
-          data: { photos, ...(faceIsUgc ? {} : { photoUrl: acceptedPhotoUrls[0] }) },
-        });
-      } catch (error) {
-        this.log.warn(`review gallery update failed id=${review.id}: ${String(error)}`);
-      }
+    // Exact hash/geo checks stay on the fast path; CLIP/category moderation and
+    // card promotion run after the durable write without delaying publication.
+    const acceptedPhotoUrls = requestedPhotoUrls;
+    if (acceptedPhotoUrls[0]) {
+      setImmediate(() => void this.moderatePersistedPhoto(review.id, userId, listingId, acceptedPhotoUrls[0], modReason));
     }
     // a dish/drink review carries the venue it was tasted at → make sure the item
     // is on that venue's menu (and on every branch of the chain). Done server-side
@@ -349,28 +388,20 @@ export class ReviewsService {
         .catch(() => {});
     }
     try {
-      await this.recompute(listingId);
+      const verificationBadge = await this.trust.initializeReview(review.id, userId, {
+        location: dto.location,
+        photoUrls: acceptedPhotoUrls,
+      });
+      await this.ratings.recalculateForListing(listingId);
+      (review as any).verificationBadge = verificationBadge;
     } catch (error) {
-      this.log.warn(`review aggregate recompute failed id=${review.id}: ${String(error)}`);
+      this.log.warn(`review trust/recompute failed id=${review.id}: ${String(error)}`);
     }
-    // notify FOLLOWERS about the new post (bell + capped push), fire-and-forget
-    if (!existedBefore) void (async () => {
-      const followers = await this.prisma.follow.findMany({ where: { followingId: userId }, select: { followerId: true } });
-      if (!followers.length) return;
-      const listing = await this.prisma.listing.findUnique({ where: { id: listingId }, select: { name: true } });
-      const name = await this.actorName(userId);
-      for (const f of followers) {
-        await this.notifications.add({
-          userId: f.followerId,
-          kind: 'friend_post',
-          actorId: userId,
-          actorName: name,
-          reviewId: review.id,
-          text: `${name} оставил(а) новый отзыв — «${listing?.name ?? ''}» ${rating}★`,
-        });
-      }
-    })().catch(() => {});
-    return review;
+    // Followers are notified only by the admin approval path.
+    return {
+      ...review,
+      saveContext: { firstTasting: isFirstTasting, created: !existedBefore },
+    };
   }
 
   /** Link an item to a venue and ALL branches of its chain (shared menu). */
@@ -408,24 +439,8 @@ export class ReviewsService {
     const r = await this.prisma.review.findUnique({ where: { id: reviewId } });
     if (!r || r.userId !== userId) return { ok: false };
     await this.prisma.review.delete({ where: { id: reviewId } });
-    await this.recompute(r.listingId);
+    await this.ratings.recalculateForListing(r.listingId);
     return { ok: true };
-  }
-
-  /** Keep denormalized avgRating/reviewCount on the listing in sync (approved only). */
-  private async recompute(listingId: string) {
-    const agg = await this.prisma.review.aggregate({
-      where: { listingId, status: 'APPROVED' },
-      _avg: { rating: true },
-      _count: true,
-    });
-    await this.prisma.listing.update({
-      where: { id: listingId },
-      data: {
-        avgRating: agg._avg.rating ?? 0,
-        reviewCount: agg._count,
-      },
-    });
   }
 
   async myReviews(userId: string) {

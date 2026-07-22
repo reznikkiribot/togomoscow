@@ -6,6 +6,8 @@ import { useSwipeDismiss } from '../swipeDismiss';
 import { templateFor } from '../tasting';
 import { haptic } from '../telegram';
 import type { Listing, Review } from '../types';
+import { tastingMotivation } from '../tastingMotivation';
+import { LocationConsentPrompt, useTastingLocation } from '../locationTrust';
 import { StarInput } from './StarInput';
 import { Stars } from './Stars';
 
@@ -50,6 +52,7 @@ export function QuickRatingFlow({
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [text, setText] = useState('');
   const [photoUrls, setPhotoUrls] = useState<string[]>([]);
+  const tastingLocation = useTastingLocation();
   const [choices, setChoices] = useState<Record<string, string[]>>({});
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -58,6 +61,7 @@ export function QuickRatingFlow({
     rating: number;
     total: number;
     next: Listing | null;
+    motivation: string;
   } | null>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
   const tpl = useMemo(() => templateFor(item), [item]);
@@ -124,12 +128,12 @@ export function QuickRatingFlow({
     });
   };
 
-  const addPhotos = async (files: FileList | null) => {
+  const addPhotos = async (files: FileList | null, source: 'camera' | 'gallery') => {
     if (!files?.length || busy) return;
     setBusy(true);
     setError(null);
     try {
-      const uploaded = await Promise.all(Array.from(files).map((file) => api.upload(file)));
+      const uploaded = await Promise.all(Array.from(files).map((file) => api.upload(file, source)));
       setPhotoUrls((current) => [...current, ...uploaded]);
     } catch {
       setError('Не удалось загрузить фото. Оценку можно сохранить без него.');
@@ -143,6 +147,7 @@ export function QuickRatingFlow({
     setBusy(true);
     setError(null);
     try {
+      const location = await tastingLocation.refreshBeforePublish().catch(() => null);
       const review = await api.createReview(item.id, {
         rating,
         text: text.trim() || undefined,
@@ -152,16 +157,23 @@ export function QuickRatingFlow({
           choices,
           venueId: venue.id,
         },
+        ...(location ? { location } : {}),
       });
       haptic('medium');
       onSaved?.(review, item);
-      setSuccess({ item, rating, total: 1, next: null });
+      setSuccess({ item, rating, total: 1, next: null, motivation: tastingMotivation(review) });
       Promise.all([
         api.myReviews().catch(() => [] as Review[]),
         api.recsysFeed(10).then((items) => items.length ? items : api.recommended()).catch(() => [] as Listing[]),
-      ]).then(([reviews, recs]) => {
+        api.gameState().catch(() => null),
+      ]).then(([reviews, recs, game]) => {
         setSuccess((current) => current?.item.id === item.id
-          ? { ...current, total: Math.max(current.total, reviews.length), next: recs.find((candidate) => candidate.id !== item.id) ?? null }
+          ? {
+              ...current,
+              total: Math.max(current.total, reviews.length),
+              next: recs.find((candidate) => candidate.id !== item.id) ?? null,
+              motivation: tastingMotivation(review, game),
+            }
           : current);
       });
     } catch (saveError) {
@@ -189,7 +201,12 @@ export function QuickRatingFlow({
       <div className="modal-backdrop quick-rate-backdrop" style={{ zIndex: 3400 }} onClick={close}>
         <div className="modal quick-success" ref={sheetRef} role="dialog" aria-modal="true" onClick={(event) => event.stopPropagation()}>
           <div className="tr-success-icon">✓</div>
-          <h3>Оценка сохранена</h3>
+          <h3>Отличная дегустация</h3>
+          <div className="tr-motivation">{success.motivation}</div>
+          <div className="tr-published">
+            Ваше мнение добавлено в гастрономическую карту города
+            <small>После проверки оно станет видно другим дегустаторам</small>
+          </div>
           <div className="quick-success-rating">
             <span>{success.item.name}</span>
             <Stars value={success.rating} size={18} />
@@ -197,7 +214,7 @@ export function QuickRatingFlow({
           </div>
           <div className="tr-progress">
             {success.total < 5
-              ? `${success.total} из 5 оценок — скоро персональные рекомендации`
+              ? `${success.total} из 5 дегустаций — скоро персональные рекомендации`
               : 'Персональные рекомендации уже становятся точнее'}
           </div>
           {success.next && (
@@ -259,10 +276,16 @@ export function QuickRatingFlow({
           <div className="field">
             <textarea value={text} onChange={(event) => setText(event.target.value)} placeholder="Комментарий" />
           </div>
-          <label className="quick-photo-btn">
-            📷 Добавить фото
-            <input type="file" accept="image/*" multiple hidden onChange={(event) => addPhotos(event.target.files)} />
-          </label>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <label className="quick-photo-btn">
+              📷 Камера
+              <input type="file" accept="image/*" capture="environment" hidden onChange={(event) => addPhotos(event.target.files, 'camera')} />
+            </label>
+            <label className="quick-photo-btn">
+              🖼 Галерея
+              <input type="file" accept="image/*" multiple hidden onChange={(event) => addPhotos(event.target.files, 'gallery')} />
+            </label>
+          </div>
           {photoUrls.length > 0 && (
             <div className="photo-thumbs">
               {photoUrls.map((url) => (
@@ -295,6 +318,9 @@ export function QuickRatingFlow({
           {busy ? 'Сохраняем…' : 'Сохранить оценку'}
         </button>
         {rating > 0 && !venue && <div className="quick-required">Выберите заведение, чтобы сохранить</div>}
+        {tastingLocation.showConsent && (
+          <LocationConsentPrompt onAllow={() => void tastingLocation.allow()} onSkip={() => void tastingLocation.continueWithout()} />
+        )}
       </div>
     </div>
   );

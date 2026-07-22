@@ -5,6 +5,7 @@ import { isNonStandalone } from '../common/non-standalone';
 import { buildAffinities, loadVenueTraits, scorePriceSegment, scoreVenueTier } from '../common/taste-affinity';
 import { PrismaService } from '../prisma/prisma.service';
 import { placeholderKeys } from '../stock/stock.data';
+import { UploadsService } from '../uploads/uploads.service';
 import { cuisineLabel, cuisineToken } from './cuisine';
 
 // A check-in counts as "verified" when the user's GPS is within this radius of
@@ -187,7 +188,10 @@ function haversineMeters(lat1: number, lng1: number, lat2: number, lng2: number)
 
 @Injectable()
 export class ListingsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly uploads: UploadsService,
+  ) {}
 
   /**
    * Search/list with chain grouping: chain branches (same group_key) collapse
@@ -385,7 +389,7 @@ export class ListingsService {
     if (rows.length === 0) return rows;
     const ids = rows.map((r) => r.id);
     const reviews = await this.prisma.review.findMany({
-      where: { listingId: { in: ids }, text: { not: null }, status: 'APPROVED' },
+      where: { listingId: { in: ids }, text: { not: null }, status: 'APPROVED', trust: { is: { hiddenAt: null } } },
       orderBy: [{ rating: 'desc' }, { createdAt: 'desc' }],
       select: { listingId: true, text: true, rating: true },
     });
@@ -547,6 +551,7 @@ export class ListingsService {
         lng: true,
         avgRating: true,
         reviewCount: true,
+        ratingWeightSum: true,
         type: true,
         photoUrl: true,
         website: true,
@@ -554,15 +559,17 @@ export class ListingsService {
       orderBy: { reviewCount: 'desc' },
     });
     const reviewCount = branches.reduce((s, b) => s + b.reviewCount, 0);
-    const weighted = branches.reduce((s, b) => s + b.avgRating * b.reviewCount, 0);
+    const ratingWeightSum = branches.reduce((s, b) => s + b.ratingWeightSum, 0);
+    const weighted = branches.reduce((s, b) => s + b.avgRating * b.ratingWeightSum, 0);
     return {
       key,
       name: branches[0]?.name ?? '',
       type: branches[0]?.type ?? 'RESTAURANT',
       website: branches[0]?.website ?? null,
       branchCount: branches.length,
-      avgRating: reviewCount ? weighted / reviewCount : 0,
+      avgRating: ratingWeightSum ? weighted / ratingWeightSum : 0,
       reviewCount,
+      ratingWeightSum,
       branches,
     };
   }
@@ -650,8 +657,14 @@ export class ListingsService {
     const candidates = await this.prisma.review.findMany({
       where: {
         status: 'APPROVED',
-        // a post is a photo OR a written note — bare star-only ratings stay out
-        OR: [{ photoUrls: { isEmpty: false } }, { text: { gt: '' } }],
+        trust: { is: { hiddenAt: null } },
+        // Never send a visually empty wall post: it needs either the author's
+        // upload or a real/verified card/menu photo (validated again below).
+        OR: [
+          { photoUrls: { isEmpty: false } },
+          { listing: { photoUrl: { not: null } } },
+          { listing: { servedAt: { some: { status: 'APPROVED', OR: [{ photoUrl: { not: null } }, { refImage: { not: null } }] } } } },
+        ],
         userId: { not: viewerId },
       },
       include: { user: true, listing: true },
@@ -671,7 +684,16 @@ export class ListingsService {
       // no other people's posts exist at all (tiny community) → the viewer's own
       // posts keep the wall alive rather than showing an empty feed
       fresh = await this.prisma.review.findMany({
-        where: { status: 'APPROVED', OR: [{ photoUrls: { isEmpty: false } }, { text: { gt: '' } }], userId: viewerId },
+        where: {
+          status: 'APPROVED',
+          trust: { is: { hiddenAt: null } },
+          OR: [
+            { photoUrls: { isEmpty: false } },
+            { listing: { photoUrl: { not: null } } },
+            { listing: { servedAt: { some: { status: 'APPROVED', OR: [{ photoUrl: { not: null } }, { refImage: { not: null } }] } } } },
+          ],
+          userId: viewerId,
+        },
         include: { user: true, listing: true },
         orderBy: { createdAt: 'desc' },
         take: 50,
@@ -763,7 +785,7 @@ export class ListingsService {
       }
     }
     const maxScore = Math.max(1e-9, ...scored.map((x) => x.score));
-    const page = scored.slice(0, recycled ? 100 : Number(take)).map((x) => {
+    const page = scored.slice(0, recycled ? 100 : Math.max(Number(take) * 3, Number(take))).map((x) => {
       (x.r as any).isFriend = x.isFriend;
       // unified 0..1 score — rec CARDS compete with posts on equal footing
       // (owner 17.07.2026: если карточка подходит больше — она выше поста друга)
@@ -771,39 +793,18 @@ export class ListingsService {
       return x.r;
     });
     for (const r of page) (r as any).recycled = recycled; // client-side session dedupe hint
-    // record the delivery — these will never be served to this viewer again
-    // (recycled pages are already recorded — skip the write)
-    if (page.length && !recycled) {
-      await this.prisma.feedImpression
-        .createMany({
-          data: page.map((r) => ({ userId: viewerId, reviewId: r.id })),
-          skipDuplicates: true,
-        })
-        .catch(() => {});
-    }
     await this.attachVenuesToReviews(page);
     await this.attachCommentPreview(page);
     await this.attachVoteCounts(page, viewerId);
-    // text-only posts fall back to the ITEM's card photo; after the stock purge
-    // that may be null while the menu LINKS still hold the venue's aigen photo —
-    // use it (prefer the venue the review was tasted at) so posts never go blank
-    const needPhoto = page.filter((r: any) => !(r.photoUrls?.length) && r.listing && !r.listing.photoUrl);
-    if (needPhoto.length) {
-      const itemIds = [...new Set(needPhoto.map((r: any) => r.listingId))];
-      const links = await this.prisma.menuLink.findMany({
-        where: { itemId: { in: itemIds }, photoUrl: { not: null } },
-        select: { itemId: true, venueId: true, photoUrl: true },
-      });
-      const byItem = new Map<string, { venueId: string; photoUrl: string | null }[]>();
-      for (const l of links) (byItem.get(l.itemId) ?? byItem.set(l.itemId, []).get(l.itemId)!).push(l);
-      for (const r of needPhoto as any[]) {
-        const ls = byItem.get(r.listingId);
-        if (!ls?.length) continue;
-        const vid = (r.attributes as any)?.venueId;
-        r.listing.photoUrl = (vid && ls.find((l) => l.venueId === vid)?.photoUrl) || ls[0].photoUrl;
-      }
+    const visible = (await this.attachValidatedFeedPhotos(page)).slice(0, recycled ? 100 : Number(take));
+    // Record only posts actually returned. A dead URL must not consume a user's
+    // one-time impression and then disappear from the response.
+    if (visible.length && !recycled) {
+      await this.prisma.feedImpression
+        .createMany({ data: visible.map((r) => ({ userId: viewerId, reviewId: r.id })), skipDuplicates: true })
+        .catch(() => {});
     }
-    return page;
+    return visible;
   }
 
   /** Activity wall: recent user posts. ONLY reviews where the user uploaded their OWN
@@ -813,6 +814,7 @@ export class ListingsService {
     const list = await this.prisma.review.findMany({
       where: {
         status: 'APPROVED',
+        trust: { is: { hiddenAt: null } },
         photoUrls: { isEmpty: false },
       },
       include: { user: true, listing: true },
@@ -822,7 +824,90 @@ export class ListingsService {
     await this.attachVenuesToReviews(list);
     await this.attachCommentPreview(list);
     await this.attachVoteCounts(list);
-    return list;
+    return this.attachValidatedFeedPhotos(list);
+  }
+
+  private isTrustedFeedCardPhoto(url?: string | null): url is string {
+    if (!url) return false;
+    // These sources are catalog placeholders, never evidence of what a reviewer
+    // tasted. Official menu refs, CLIP-approved uploads and aigen card photos are
+    // allowed, and the UI labels the post as "left a review", not "shared a photo".
+    return !/(?:\/api\/stock\/|pexels|unsplash|wikimedia|pixabay|venue-stock)/i.test(url);
+  }
+
+  /** Resolve the complete photo chain and remove only confirmed-missing S3 keys.
+   *  Transient storage failures are `unknown` and remain untouched. */
+  private async attachValidatedFeedPhotos(reviews: any[]): Promise<any[]> {
+    if (!reviews.length) return reviews;
+    const itemIds = [...new Set(reviews.map((review) => review.listingId).filter(Boolean))] as string[];
+    const links = itemIds.length
+      ? await this.prisma.menuLink.findMany({
+          where: { itemId: { in: itemIds }, status: 'APPROVED' },
+          select: { itemId: true, venueId: true, photoUrl: true, refImage: true },
+        })
+      : [];
+    const internalUrls = new Set<string>();
+    for (const review of reviews) {
+      for (const url of review.photoUrls ?? []) if (url?.startsWith('/api/files/')) internalUrls.add(url);
+      if (review.listing?.photoUrl?.startsWith('/api/files/')) internalUrls.add(review.listing.photoUrl);
+      for (const url of review.listing?.photos ?? []) if (url?.startsWith('/api/files/')) internalUrls.add(url);
+    }
+    for (const link of links) if (link.photoUrl?.startsWith('/api/files/')) internalUrls.add(link.photoUrl);
+    const statuses = new Map<string, 'available' | 'missing' | 'unknown'>();
+    await Promise.all([...internalUrls].map(async (url) => statuses.set(url, await this.uploads.storedUrlStatus(url))));
+    const alive = (url?: string | null) => !url || statuses.get(url) !== 'missing';
+
+    const cleanup: Promise<unknown>[] = [];
+    const cleanedListings = new Set<string>();
+    for (const review of reviews) {
+      const original = review.photoUrls ?? [];
+      const filtered = original.filter((url: string) => alive(url));
+      if (filtered.length !== original.length) {
+        review.photoUrls = filtered;
+        cleanup.push(this.prisma.review.update({ where: { id: review.id }, data: { photoUrls: filtered } }));
+      }
+      const listing = review.listing;
+      if (listing && !cleanedListings.has(listing.id)) {
+        const photos = (listing.photos ?? []).filter((url: string) => alive(url));
+        const photoUrl = alive(listing.photoUrl) ? listing.photoUrl : null;
+        if (photoUrl !== listing.photoUrl || photos.length !== (listing.photos ?? []).length) {
+          listing.photoUrl = photoUrl;
+          listing.photos = photos;
+          cleanup.push(this.prisma.listing.update({ where: { id: listing.id }, data: { photoUrl, photos } }));
+        }
+        cleanedListings.add(listing.id);
+      }
+    }
+    for (const link of links) {
+      if (link.photoUrl && !alive(link.photoUrl)) {
+        link.photoUrl = null;
+        cleanup.push(this.prisma.menuLink.update({
+          where: { venueId_itemId: { venueId: link.venueId, itemId: link.itemId } },
+          data: { photoUrl: null },
+        }));
+      }
+    }
+    if (cleanup.length) await Promise.allSettled(cleanup);
+
+    const byItem = new Map<string, typeof links>();
+    for (const link of links) {
+      const rows = byItem.get(link.itemId) ?? [];
+      rows.push(link);
+      byItem.set(link.itemId, rows);
+    }
+    for (const review of reviews) {
+      if (review.photoUrls?.length) continue;
+      const venueId = (review.attributes as any)?.venueId;
+      const rows = byItem.get(review.listingId) ?? [];
+      const exact = rows.filter((row) => row.venueId === venueId);
+      const candidates = [
+        ...exact.flatMap((row) => [row.photoUrl, row.refImage]),
+        review.listing?.photoUrl,
+        ...rows.flatMap((row) => [row.photoUrl, row.refImage]),
+      ];
+      review.cardPhotoUrl = candidates.find((url) => this.isTrustedFeedCardPhoto(url) && alive(url)) ?? null;
+    }
+    return reviews.filter((review) => review.photoUrls?.length || review.cardPhotoUrl);
   }
 
   /** Adds reaction counts (👍😄😎🙀) to each review so the feed shows them. */
@@ -1548,7 +1633,9 @@ export class ListingsService {
       where: { id },
       include: {
         reviews: {
-          where: { status: 'APPROVED' },
+          where: viewerId
+            ? { OR: [{ status: 'APPROVED' as const, trust: { is: { hiddenAt: null } } }, { userId: viewerId, status: 'PENDING' as const }] }
+            : { status: 'APPROVED' as const, trust: { is: { hiddenAt: null } } },
           include: { user: true },
           orderBy: { createdAt: 'desc' },
         },
@@ -1596,19 +1683,27 @@ export class ListingsService {
       const itemIds = approved.map((l) => l.item.id);
       const venueReviews = itemIds.length
         ? await this.prisma.review.findMany({
-            where: { status: 'APPROVED', listingId: { in: itemIds } },
-            select: { listingId: true, attributes: true, rating: true },
+            where: {
+              status: 'APPROVED',
+              listingId: { in: itemIds },
+              trust: { is: { ratingWeight: { gt: 0 }, hiddenAt: null, verificationStatus: { not: 'excluded_from_rating' } } },
+            },
+            select: { listingId: true, attributes: true, rating: true, trust: { select: { ratingWeight: true } } },
             orderBy: { createdAt: 'desc' },
           })
         : [];
       const priceByItem = new Map<string, number>();
       const countByItem = new Map<string, number>();
+      const weightByItem = new Map<string, number>();
       const sumByItem = new Map<string, number>();
       for (const r of venueReviews) {
         const a = r.attributes as any;
         if (!chainVenueIds.has(a?.venueId)) continue; // reviews tasted at this chain
+        const ratingWeight = r.trust?.ratingWeight ?? 0;
+        if (ratingWeight <= 0) continue;
         countByItem.set(r.listingId, (countByItem.get(r.listingId) ?? 0) + 1);
-        sumByItem.set(r.listingId, (sumByItem.get(r.listingId) ?? 0) + (r as any).rating);
+        weightByItem.set(r.listingId, (weightByItem.get(r.listingId) ?? 0) + ratingWeight);
+        sumByItem.set(r.listingId, (sumByItem.get(r.listingId) ?? 0) + (r as any).rating * ratingWeight);
         if (a?.price && !priceByItem.has(r.listingId)) priceByItem.set(r.listingId, Number(a.price));
       }
       const linkPrice = new Map(approved.map((l) => [l.item.id, l.price]));
@@ -1622,13 +1717,14 @@ export class ListingsService {
         const cards = await this.enrichCards(raw);
         const withRating = cards.map((c) => {
           const cnt = countByItem.get(c.id) ?? 0;
+          const weight = weightByItem.get(c.id) ?? 0;
           return {
             ...c,
             // moderator/owner-set price wins; otherwise community price from reviews
             price: linkPrice.get(c.id) ?? priceByItem.get(c.id) ?? null,
             venueReviews: cnt,
             // average rating of THIS item AT THIS venue (not the global average)
-            venueRating: cnt ? (sumByItem.get(c.id) ?? 0) / cnt : null,
+            venueRating: weight ? (sumByItem.get(c.id) ?? 0) / weight : null,
           };
         });
         // carousel sorted by rating — best on the LEFT, descending (venue rating first,
@@ -1846,8 +1942,9 @@ export class ListingsService {
       });
       if (all.length > 1) {
         const rc = all.reduce((s, b) => s + b.reviewCount, 0);
-        const w = all.reduce((s, b) => s + b.avgRating * b.reviewCount, 0);
-        chain = { avgRating: rc ? w / rc : 0, reviewCount: rc, branchCount: all.length };
+        const ratingWeightSum = all.reduce((s, b) => s + b.ratingWeightSum, 0);
+        const w = all.reduce((s, b) => s + b.avgRating * b.ratingWeightSum, 0);
+        chain = { avgRating: ratingWeightSum ? w / ratingWeightSum : 0, reviewCount: rc, branchCount: all.length };
         // enrichCards adds cityLabel + placeholder photo so points render as full cards
         branches = await this.enrichCards(all.filter((b) => b.id !== id));
         // backfill missing street addresses in the background (throttled, persisted)

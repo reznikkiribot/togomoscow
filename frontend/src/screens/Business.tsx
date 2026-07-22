@@ -17,6 +17,8 @@ import type {
   Profile,
   Review,
   SupportMsg,
+  TrustMetrics,
+  TrustQueueItem,
 } from '../types';
 
 const STATUS_LABEL: Record<ClaimStatus, string> = {
@@ -39,6 +41,12 @@ export default function Business() {
   const [adminSupport, setAdminSupport] = useState<SupportMsg[]>([]);
   const [adminUsers, setAdminUsers] = useState<AdminUser[]>([]);
   const [adminChal, setAdminChal] = useState<AdminChallenge[]>([]);
+  const [trustQueue, setTrustQueue] = useState<TrustQueueItem[]>([]);
+  const [trustMetrics, setTrustMetrics] = useState<TrustMetrics | null>(null);
+  const [trustConfig, setTrustConfig] = useState<Record<string, unknown> | null>(null);
+  const [trustConfigDraft, setTrustConfigDraft] = useState('');
+  const [trustFormulaVersion, setTrustFormulaVersion] = useState('trust-v1');
+  const [trustConfigStatus, setTrustConfigStatus] = useState('');
   // live gamification config: key → JSON text being edited
   const [ux, setUx] = useState<Awaited<ReturnType<typeof api.uxInsights>> | null>(null);
   const [gameCfg, setGameCfg] = useState<Record<string, unknown> | null>(null);
@@ -87,6 +95,13 @@ export default function Business() {
     api.adminUsers().then(setAdminUsers).catch(() => {});
     api.adminChallenges().then(setAdminChal).catch(() => {});
     api.adminGameConfig().then((c) => setGameCfg(c.current)).catch(() => {});
+    api.adminTrustQueue().then(setTrustQueue).catch(() => {});
+    api.adminTrustMetrics().then(setTrustMetrics).catch(() => {});
+    api.adminTrustConfig().then(({ config, formulaVersion }) => {
+      setTrustConfig(config);
+      setTrustConfigDraft(JSON.stringify(config, null, 2));
+      setTrustFormulaVersion(formulaVersion);
+    }).catch(() => {});
     api.uxInsights().then(setUx).catch(() => {});
   };
 
@@ -158,6 +173,22 @@ export default function Business() {
       .then(loadAdmin);
   };
 
+  const trustAction = (id: string, action: string, weight?: number) => {
+    api.adminTrustAction(id, { action, ...(weight != null ? { weight } : {}) }).then(loadAdmin).catch(() => {});
+  };
+
+  const saveTrustConfig = () => {
+    try {
+      const config = JSON.parse(trustConfigDraft);
+      setTrustConfigStatus('Сохраняем и запускаем фоновый пересчёт…');
+      api.adminTrustConfigSet({ config, formulaVersion: trustFormulaVersion, recalculate: true })
+        .then(() => { setTrustConfig(config); setTrustConfigStatus('✓ Сохранено, пересчёт запущен'); loadAdmin(); })
+        .catch(() => setTrustConfigStatus('⚠️ Не удалось сохранить'));
+    } catch {
+      setTrustConfigStatus('⚠️ Невалидный JSON');
+    }
+  };
+
   const resolveCorr = (id: string) => {
     api.resolveCorrection(id).then(loadAdmin);
   };
@@ -221,6 +252,58 @@ export default function Business() {
               />
             ))
           )}
+          </Acc>
+
+          <Acc id="trustqueue" title="Подозрительные дегустации" count={trustQueue.length} openSec={openSec} setOpenSec={setOpenSec}>
+            {trustQueue.length === 0 ? <div className="empty">Очередь пуста</div> : trustQueue.map((item) => (
+              <div className="biz-card" key={item.reviewId}>
+                <button className="link-name" onClick={() => setOpenListing(item.review.listingId)}>
+                  {item.review.listing?.name ?? 'Карточка'} · {item.review.rating.toFixed(1)}★
+                </button>
+                <div className="meta" style={{ color: 'var(--hint)' }}>
+                  {item.review.user?.firstName ?? item.review.user?.username ?? 'гость'} · Trust {item.trustScore}/100 · вес {item.ratingWeight}
+                </div>
+                <div className="meta" style={{ color: 'var(--hint)' }}>
+                  Гео: {item.locationStatus}{item.distanceToVenueMeters != null ? ` · ${Math.round(item.distanceToVenueMeters)} м` : ''} · фото: {item.photoSource}
+                </div>
+                {item.review.photoUrls?.[0] && <img src={item.review.photoUrls[0]} alt="" style={{ width: 96, height: 96, objectFit: 'cover', borderRadius: 10, marginTop: 8 }} />}
+                {(item.review.fraudFlags ?? []).map((flag) => (
+                  <div className="mod-reason" key={flag.id}>⚠️ {flag.type} · {flag.severity}</div>
+                ))}
+                {item.review.text && <div style={{ fontSize: 14, marginTop: 6 }}>{item.review.text}</div>}
+                <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 10 }}>
+                  <button className="btn" onClick={() => trustAction(item.reviewId, 'confirm')}>Подтвердить</button>
+                  <button className="btn secondary" onClick={() => trustAction(item.reviewId, 'leave_unchanged')}>Без изменений</button>
+                  <button className="btn secondary" onClick={() => {
+                    const value = Number(window.prompt('Новый вес 0–1', String(Math.max(0, item.ratingWeight - 0.25))));
+                    if (Number.isFinite(value)) trustAction(item.reviewId, 'lower_weight', value);
+                  }}>Снизить вес</button>
+                  <button className="btn secondary" onClick={() => trustAction(item.reviewId, 'exclude')}>Исключить</button>
+                  <button className="btn secondary" onClick={() => trustAction(item.reviewId, 'hide')}>Скрыть</button>
+                  <button className="btn secondary" onClick={() => trustAction(item.reviewId, 'restore')}>Восстановить</button>
+                  <button className="btn secondary" onClick={() => trustAction(item.reviewId, 'mark_violation')}>Нарушение</button>
+                  <button className="btn secondary" onClick={() => trustAction(item.reviewId, 'recalculate')}>Пересчитать</button>
+                </div>
+              </div>
+            ))}
+          </Acc>
+
+          <Acc id="trustconfig" title="Доверие и антифрод" count={trustMetrics?.moderationCount ?? 0} openSec={openSec} setOpenSec={setOpenSec}>
+            {trustMetrics && (
+              <div className="biz-card meta" style={{ color: 'var(--hint)', lineHeight: 1.6 }}>
+                Геолокация доступна: {(trustMetrics.locationAvailableRatio * 100).toFixed(1)}% · подтверждена: {(trustMetrics.locationConfirmedRatio * 100).toFixed(1)}%<br />
+                Камера: {(trustMetrics.cameraPhotoRatio * 100).toFixed(1)}% · галерея: {(trustMetrics.galleryPhotoRatio * 100).toFixed(1)}% · дубли: {(trustMetrics.duplicateRatio * 100).toFixed(1)}%<br />
+                Нулевой вес: {(trustMetrics.zeroWeightRatio * 100).toFixed(1)}% · на модерации: {trustMetrics.moderationCount}
+              </div>
+            )}
+            <div className="biz-card">
+              <label>Версия формулы</label>
+              <input value={trustFormulaVersion} onChange={(event) => setTrustFormulaVersion(event.target.value)} style={{ width: '100%', margin: '6px 0' }} />
+              <label>Все коэффициенты и включение сигналов</label>
+              <textarea className="cfg-edit" rows={24} value={trustConfigDraft || JSON.stringify(trustConfig, null, 2)} onChange={(event) => setTrustConfigDraft(event.target.value)} />
+              <button className="btn" onClick={saveTrustConfig}>Сохранить и пересчитать рейтинги</button>
+              {trustConfigStatus && <div className="meta" style={{ marginTop: 6 }}>{trustConfigStatus}</div>}
+            </div>
           </Acc>
 
           <Acc id="comments" title="Комментарии на модерации" count={adminComments.length} openSec={openSec} setOpenSec={setOpenSec}>
@@ -520,7 +603,7 @@ export default function Business() {
                 Редактировать
               </button>
               <button className="btn secondary" onClick={() => setReviewsFor(v)}>
-                Ответить на отзывы
+                Ответить на дегустации
               </button>
               <button className="btn secondary" onClick={() => setPendingFor(v)}>
                 Предложения меню
@@ -877,9 +960,9 @@ function VenueReviewsModal({ venue, onClose }: { venue: Listing; onClose: () => 
   return (
     <div className="modal-backdrop" style={{ zIndex: 2600 }} onClick={onClose}>
       <div className="modal" onClick={(e) => e.stopPropagation()}>
-        <h3>{venue.name}: отзывы</h3>
+        <h3>{venue.name}: дегустации</h3>
         {reviews.length === 0 ? (
-          <div className="empty">Отзывов пока нет</div>
+          <div className="empty">Дегустаций пока нет</div>
         ) : (
           reviews.map((r) => (
             <div key={r.id} style={{ padding: '10px 0', borderBottom: '1px solid var(--border)' }}>

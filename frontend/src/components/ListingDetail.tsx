@@ -23,6 +23,7 @@ import { cuisineTags } from '../cuisine';
 import { beerStyle } from '../tasting';
 import { categoryProgressText, loadCategoryProgress, useCategoryProgress } from '../categoryGate';
 import { shareReviewToStory } from '../reviewStory';
+import { tastingMotivation } from '../tastingMotivation';
 
 const TYPE_LABEL: Record<Listing['type'], string> = {
   RESTAURANT: 'Ресторан',
@@ -307,6 +308,7 @@ export function ListingDetailModal({
     savedRating: number;
     totalRatings: number;
     next: { id: string; name: string } | null;
+    motivation: string;
   } | null>(null);
   const [votes, setVotes] = useState<Record<string, VoteState>>({});
   const [claimed, setClaimed] = useState(false);
@@ -841,20 +843,20 @@ export function ListingDetailModal({
           // no user photos yet → venue's own photo, marked illustrative (only here, inside the card)
           <div className={'stock-wrap' + (venuePrice != null ? ' has-price' : '')}>
             <VenuePhoto listing={data} className="detail-photo" allowVenuePhoto />
-            <span className="stock-badge">📷 Фото иллюстративное · обновится после отзыва с фото</span>
+            <span className="stock-badge">📷 Фото иллюстративное · обновится после дегустации с фото</span>
           </div>
         ) : data.placeholderPhotos && data.placeholderPhotos.length === 1 ? (
           // single illustrative photo → fill the whole card width (equal margins)
           <div className={'stock-wrap' + (venuePrice != null ? ' has-price' : '')}>
             <img className="detail-photo" src={data.placeholderPhotos[0]} alt="" loading="lazy" />
-            <span className="stock-badge">📷 Фото иллюстративное · обновится после отзыва с фото</span>
+            <span className="stock-badge">📷 Фото иллюстративное · обновится после дегустации с фото</span>
           </div>
         ) : data.placeholderPhotos && data.placeholderPhotos.length > 0 ? (
           <div className="gallery">
             {data.placeholderPhotos.map((u, i) => (
               <div key={i} className="stock-wrap">
                 <img className="gallery-img" src={u} alt="" loading="lazy" />
-                <span className="stock-badge">📷 Фото иллюстративное · обновится после отзыва с фото</span>
+                <span className="stock-badge">📷 Фото иллюстративное · обновится после дегустации с фото</span>
               </div>
             ))}
           </div>
@@ -1104,7 +1106,7 @@ export function ListingDetailModal({
             [
               ['menu', 'Меню'],
               ['info', 'Инфо'],
-              ['reviews', `Отзывы (${data.reviews.length})`],
+              ['reviews', `Дегустации (${data.reviews.filter((review) => review.status !== 'PENDING').length})`],
               ['qa', 'Вопросы'],
             ] as const
           ).map(([k, label]) => (
@@ -1354,7 +1356,9 @@ export function ListingDetailModal({
         {!isRestaurant && <SimilarItems id={data.id} onOpen={navigateTo} />}
 
         <div ref={reviewsRef} className="feed-section">
-          <div className="section-title big">Отзывы ({data.reviews.length})</div>
+          <div className="section-title big">
+            Дегустации ({data.reviews.filter((review) => review.status !== 'PENDING').length})
+          </div>
           <div className="tab-pane">
             <div className="rate-block">
               <div className="rb-head">
@@ -1409,11 +1413,12 @@ export function ListingDetailModal({
                 }}
               />
             </div>
-            {data.reviews.length > 0 && (
+            {data.reviews.some((review) => review.status !== 'PENDING') && (
               <div className="histogram">
                 {[5, 4, 3, 2, 1].map((star) => {
-                  const count = data.reviews.filter((r) => Math.round(r.rating) === star).length;
-                  const pct = (count / data.reviews.length) * 100;
+                  const approved = data.reviews.filter((review) => review.status !== 'PENDING');
+                  const count = approved.filter((r) => Math.round(r.rating) === star).length;
+                  const pct = (count / approved.length) * 100;
                   return (
                     <div key={star} className="hist-row">
                       <span className="hist-label">{star}★</span>
@@ -1436,6 +1441,9 @@ export function ListingDetailModal({
                   <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
                     <b>{r.user?.firstName ?? r.user?.username ?? 'Гость'}</b>
                     <Stars value={r.rating} />
+                    {r.status === 'PENDING' && (
+                      <span style={{ color: 'var(--accent)', fontSize: 12, fontWeight: 700 }}>На проверке</span>
+                    )}
                   </div>
                   {!isRestaurant && r.venue && (
                     <div style={{ fontSize: 13, color: 'var(--hint)', marginTop: 2 }}>
@@ -1576,9 +1584,9 @@ export function ListingDetailModal({
               setData((d) => {
                 if (!d || d.reviews?.some((r: any) => r.id === (media.review as any).id)) return d;
                 const rv: any = { voteCounts: { USEFUL: 0, FUNNY: 0, COOL: 0, OHNO: 0 }, ...media.review };
-                const count = (d.reviewCount ?? 0) + 1;
-                const avg = ((d.avgRating ?? 0) * (d.reviewCount ?? 0) + rv.rating) / count;
-                return { ...d, reviews: [rv, ...(d.reviews ?? [])], reviewCount: count, avgRating: avg };
+                // Pending tastings are visible to their author, but never change
+                // the public count or average before the owner approves them.
+                return { ...d, reviews: [rv, ...(d.reviews ?? [])] };
               });
             }
             const savedRating = media?.review?.rating ?? reviewRating ?? 0;
@@ -1596,6 +1604,7 @@ export function ListingDetailModal({
               savedRating,
               totalRatings: optimisticTotal,
               next: localNext ? { id: localNext.id, name: localNext.name } : null,
+              motivation: tastingMotivation(media?.review),
             });
             setReviewTarget(null);
             setReviewVenue(null);
@@ -1612,13 +1621,15 @@ export function ListingDetailModal({
               ratedListing.type !== 'RESTAURANT' ? api.tasteRanking(ratedId).catch(() => null) : Promise.resolve(null),
               loadCategoryProgress(true).catch(() => null),
               api.recsysFeed(8).catch(() => [] as Listing[]),
-            ]).then(([ranking, progress, recs]) => {
+              api.gameState().catch(() => null),
+            ]).then(([ranking, progress, recs, game]) => {
               const fallback = recs.find((l) => l.id !== ratedId);
               setTasteResult((current) => current?.itemId === ratedId ? {
                 ...current,
                 data: ranking,
                 totalRatings: progress?.total ?? current.totalRatings,
                 next: ranking?.next ?? (fallback ? { id: fallback.id, name: fallback.name } : null),
+                motivation: tastingMotivation(media?.review, game),
               } : current);
             });
           }}
@@ -1643,6 +1654,7 @@ export function ListingDetailModal({
           itemName={tasteResult.itemName}
           savedRating={tasteResult.savedRating}
           totalRatings={tasteResult.totalRatings}
+          motivation={tasteResult.motivation}
           next={tasteResult.next}
           onClose={() => setTasteResult(null)}
           onCompareNext={(next) => {

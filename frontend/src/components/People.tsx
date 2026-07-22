@@ -38,12 +38,12 @@ function UserRow({ u, onOpen }: { u: PublicUser; onOpen: (id: string) => void })
   const name = u.firstName ?? u.username ?? 'Гость';
   return (
     <div className="pu-row">
-      <button type="button" className="pu-row-main" onClick={() => onOpen(u.id)} aria-label={`Открыть профиль: ${name}`}>
+      <button type="button" className="pu-row-main" onClick={() => onOpen(u.id)} aria-label={`Открыть путь дегустатора: ${name}`}>
         <Avatar user={u} />
         <div className="pu-row-copy">
           <div className="pu-name">{name}</div>
           <div className="pu-meta">
-            {u.reviews} отзывов · {u.followers} подписчиков
+            {u.reviews} дегустаций · {u.followers} подписчиков
           </div>
         </div>
       </button>
@@ -121,7 +121,7 @@ export function PeopleModal({
           {list.length === 0 ? (
             <div className="meta" style={{ color: 'var(--hint)', padding: '12px 2px' }}>
               {results
-                ? 'Такого пользователя не нашли. Проверьте имя или попробуйте другой запрос.'
+                ? 'Такого дегустатора не нашли. Проверьте имя или попробуйте другой запрос.'
                 : tab === 'followers'
                   ? 'Подписчиков пока нет. Загляните сюда позже.'
                   : 'Подписок пока нет. Найдите знакомого по имени выше.'}
@@ -230,7 +230,7 @@ export function UserProfileModal({ id, onClose }: { id: string; onClose: () => v
             if (p.reviewList.length === 0) {
               return (
                 <div className="me-section">
-                  <h2 className="me-h">Отзывы</h2>
+                  <h2 className="me-h">Дегустации</h2>
                   <div className="meta" style={{ color: 'var(--hint)' }}>Этот человек пока ничего не оценил.</div>
                 </div>
               );
@@ -292,7 +292,7 @@ export function UserProfileModal({ id, onClose }: { id: string; onClose: () => v
                 </div>
                 {/* 3) full Untappd-style cards */}
                 <div className="me-section">
-                  <h2 className="me-h">Отзывы</h2>
+                  <h2 className="me-h">Дегустации</h2>
                   {p.reviewList.map((r) => (
                     <ReviewCard
                       key={r.id}

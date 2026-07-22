@@ -43,7 +43,7 @@ export function GameProgress({ game }: { game: GameState }) {
   return (
     <>
       <div className="me-section">
-        <h2 className="me-h">Дегустатор</h2>
+        <h2 className="me-h">Мой путь дегустатора</h2>
         <div className="game-level">
           <span className="game-level-ico">{lvl.icon}</span>
           <div style={{ flex: 1 }}>

@@ -46,7 +46,7 @@ export function ReviewCard({
           <button
             type="button"
             className="rc-open-action"
-            aria-label={`Открыть отзыв${review.listing?.name ? `: ${review.listing.name}` : ''}`}
+            aria-label={`Открыть дегустацию${review.listing?.name ? `: ${review.listing.name}` : ''}`}
             onClick={onOpen}
           />
         )}
@@ -108,6 +108,7 @@ export function ReviewCard({
             <Stars value={review.rating} />
             <span className="rc-score">{review.rating.toFixed(1)}</span>
           </div>
+          {review.verificationBadge && <div className="trust-badge">🛡 {review.verificationBadge}</div>}
           {review.text && <div className="rc-text">{review.text}</div>}
           <div className="rc-reacts">
             {REACTS.map(([k, ico]) => (

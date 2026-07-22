@@ -33,7 +33,7 @@ export function FeedPost({
   // another user's photo as if it were this review's — that misleads (owner
   // 20.07.2026: «это не он загружал фото»). No photo → the post is text-only.
   const photo = review.photoUrls?.[0];
-  const cardPhoto = !photo ? review.listing?.photoUrl : null;
+  const cardPhoto = !photo ? review.cardPhotoUrl : null;
   // no stock fallback here — if there's no real photo, show none
   const imageFallback = undefined;
   const u = review.user;
@@ -51,7 +51,7 @@ export function FeedPost({
       <button
         type="button"
         className="post-open-action"
-        aria-label={`Открыть отзыв: ${review.listing?.name ?? 'отзыв'}`}
+        aria-label={`Открыть дегустацию: ${review.listing?.name ?? 'дегустация'}`}
         onClick={(e) => {
           e.stopPropagation();
           onOpen();
@@ -69,7 +69,7 @@ export function FeedPost({
         <div style={{ textAlign: 'left' }}>
           <b>{u?.firstName ?? u?.username ?? 'Гость'}</b>
           <div className="meta" style={{ color: 'var(--hint)', fontSize: 13 }}>
-            {photo ? 'поделился(ась) фото' : 'оставил(а) отзыв'}
+            {photo ? 'поделился(ась) фото дегустации' : 'добавил(а) дегустацию'}
           </div>
         </div>
       </button>
@@ -90,7 +90,7 @@ export function FeedPost({
           {onOpenPhoto && <span className="post-photo-open">↗</span>}
         </button>
       ) : cardPhoto ? (
-        // a VERIFIED card photo only (aigen/checkin); never a stock/other-user image
+        // A verified card/menu photo, explicitly not presented as the author's upload.
         <div className="post-photo-wrap">
           <SmartImg className="post-photo" src={cardPhoto} monogram={review.listing?.name} />
         </div>
@@ -118,6 +118,7 @@ export function FeedPost({
             {review.rating.toFixed(1)}
           </span>
         </div>
+        {review.verificationBadge && <div className="trust-badge">🛡 {review.verificationBadge}</div>}
         {review.text && <div className="post-text">{review.text}</div>}
 
         <div className="vote-row" onClick={(e) => e.stopPropagation()}>

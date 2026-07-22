@@ -44,6 +44,27 @@ interface TelegramWebApp {
     selectionChanged: () => void;
     notificationOccurred: (type: 'error' | 'success' | 'warning') => void;
   };
+  LocationManager?: TelegramLocationManager;
+}
+
+interface TelegramLocationData {
+  latitude: number;
+  longitude: number;
+  altitude?: number | null;
+  course?: number | null;
+  speed?: number | null;
+  horizontal_accuracy?: number | null;
+  vertical_accuracy?: number | null;
+}
+
+interface TelegramLocationManager {
+  isInited: boolean;
+  isLocationAvailable: boolean;
+  isAccessRequested: boolean;
+  isAccessGranted: boolean;
+  init: (callback?: () => void) => TelegramLocationManager;
+  getLocation: (callback: (data: TelegramLocationData | null) => void) => TelegramLocationManager;
+  openSettings: () => TelegramLocationManager;
 }
 
 interface Window {

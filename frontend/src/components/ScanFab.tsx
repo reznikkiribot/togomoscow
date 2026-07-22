@@ -4,6 +4,7 @@ import { useEscClose } from '../modalEsc';
 import { haptic } from '../telegram';
 import { shareReviewToStory } from '../reviewStory';
 import { loadCategoryProgress } from '../categoryGate';
+import { tastingMotivation } from '../tastingMotivation';
 import type { Listing, RecognizeResult } from '../types';
 import { ReviewForm } from './ReviewForm';
 import { TasteResult } from './TasteResult';
@@ -195,10 +196,12 @@ export function ScanFab() {
     savedRating: number;
     totalRatings: number;
     next: { id: string; name: string } | null;
+    motivation: string;
   } | null>(null);
   const uploadedUrl = useRef<string | undefined>(undefined);
   const uploadPromise = useRef<Promise<string | undefined> | null>(null);
   const lastFile = useRef<File | null>(null);
+  const lastPhotoSource = useRef<'camera' | 'gallery'>('gallery');
   const flowToken = useRef(0);
 
   const reset = () => {
@@ -256,7 +259,7 @@ export function ScanFab() {
         const existing = await (uploadPromise.current ?? Promise.resolve(uploadedUrl.current));
         if (existing) return existing;
         if (!lastFile.current) return undefined;
-        const retry = api.upload(lastFile.current).catch(() => undefined);
+        const retry = api.upload(lastFile.current, lastPhotoSource.current).catch(() => undefined);
         uploadPromise.current = retry;
         return retry;
       };
@@ -288,17 +291,19 @@ export function ScanFab() {
   };
 
   const onPick = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const source = e.currentTarget === cameraRef.current ? 'camera' : 'gallery';
     const file = e.target.files?.[0];
     e.target.value = '';
     if (!file) return;
     const token = ++flowToken.current;
     lastFile.current = file;
+    lastPhotoSource.current = source;
     setPreview((old) => {
       if (old) URL.revokeObjectURL(old);
       return URL.createObjectURL(file);
     });
     uploadedUrl.current = undefined;
-    uploadPromise.current = api.upload(file)
+    uploadPromise.current = api.upload(file, source)
       .then((u) => {
         if (flowToken.current === token) uploadedUrl.current = u;
         return u;
@@ -338,7 +343,7 @@ export function ScanFab() {
 
   return (
     <>
-      <button className={'scan-fab' + (pulse ? ' pulse' : '')} onClick={() => galleryRef.current?.click()} aria-label="Сканировать блюдо или напиток">
+      <button className={'scan-fab' + (pulse ? ' pulse' : '')} onClick={() => setSrcMenu(true)} aria-label="Сканировать блюдо или напиток">
         <CamIcon />
         {fabLabel && <span className="scan-fab-label">Скан</span>}
       </button>
@@ -415,18 +420,21 @@ export function ScanFab() {
               savedRating: media?.review?.rating ?? 0,
               totalRatings: 1,
               next: null,
+              motivation: tastingMotivation(media?.review),
             });
             Promise.all([
               api.tasteRanking(rated.id).catch(() => null),
               loadCategoryProgress(true).catch(() => null),
               api.recsysFeed(8).catch(() => [] as Listing[]),
-            ]).then(([ranking, progress, recs]) => {
+              api.gameState().catch(() => null),
+            ]).then(([ranking, progress, recs, game]) => {
               const fallback = recs.find((l) => l.id !== rated.id);
               setSuccess((current) => current?.itemId === rated.id ? {
                 ...current,
                 data: ranking,
                 totalRatings: progress?.total ?? current.totalRatings,
                 next: ranking?.next ?? (fallback ? { id: fallback.id, name: fallback.name } : null),
+                motivation: tastingMotivation(media?.review, game),
               } : current);
             });
           }}
@@ -439,6 +447,7 @@ export function ScanFab() {
           itemName={success.itemName}
           savedRating={success.savedRating}
           totalRatings={success.totalRatings}
+          motivation={success.motivation}
           next={success.next}
           onClose={() => setSuccess(null)}
           onCompareNext={(next) => {

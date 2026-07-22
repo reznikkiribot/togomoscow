@@ -20,7 +20,7 @@ export default function App() {
     const name = loc.pathname === '/' || /^\/tg-boot/.test(loc.pathname) ? 'Главная'
       : loc.pathname.startsWith('/favorites') ? 'Хочу попробовать'
       : loc.pathname.startsWith('/alerts') ? 'Уведомления'
-      : loc.pathname.startsWith('/me') ? 'Профиль'
+      : loc.pathname.startsWith('/me') ? 'Мой путь дегустатора'
       : loc.pathname.startsWith('/business') ? 'Кабинет' : loc.pathname;
     trackScreen(name);
   }, [loc.pathname]);
@@ -176,7 +176,7 @@ export default function App() {
         </NavLink>
         <NavLink to="/me" className={cls}>
           <span className="ico"><IcUser /></span>
-          Профиль
+          Мой путь
         </NavLink>
         {isAdmin && (
           <NavLink to="/business" className={cls}>

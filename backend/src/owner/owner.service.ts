@@ -1,6 +1,8 @@
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { MenuItemStatus, Role } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
+import { NotificationsService } from '../notifications/notifications.service';
+import { RatingRecalculationService } from '../trust/rating-recalculation.service';
 
 const PLATFORM_OWNER_TELEGRAM_ID = BigInt('1029738735'); // @reznik_kir1ll
 
@@ -20,7 +22,11 @@ export interface EditVenueDto {
 
 @Injectable()
 export class OwnerService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly notifications: NotificationsService,
+    private readonly ratings: RatingRecalculationService,
+  ) {}
 
   // ---- owner side ----
 
@@ -265,13 +271,13 @@ export class OwnerService {
   pendingReviews() {
     return this.prisma.review.findMany({
       where: { status: 'PENDING' },
-      include: { user: true, listing: true },
+      include: { user: true, listing: true, trust: true, fraudFlags: { where: { reviewStatus: 'open' } } },
       orderBy: { createdAt: 'asc' },
     });
   }
 
-  async moderateReview(id: string, action: 'approve' | 'reject', price?: number) {
-    const r = await this.prisma.review.findUnique({ where: { id } });
+  async moderateReview(id: string, action: 'approve' | 'reject', price?: number, adminId?: string) {
+    const r = await this.prisma.review.findUnique({ where: { id }, include: { trust: true } });
     if (!r) throw new NotFoundException();
     if (action === 'approve') {
       const attrs = (r.attributes as any) ?? {};
@@ -281,6 +287,7 @@ export class OwnerService {
         where: { id },
         data: {
           status: 'APPROVED',
+          modReason: null,
           ...(price != null ? { attributes: { ...attrs, price: Number(price) } } : {}),
         },
       });
@@ -294,18 +301,61 @@ export class OwnerService {
           })
           .catch(() => {});
       }
-    } else {
-      await this.prisma.review.delete({ where: { id } });
+    } else if (r.trust) {
+      // Preserve the tasting and its revision history. A moderator rejection
+      // hides it and removes only its influence on the aggregate rating.
+      const previous = JSON.parse(JSON.stringify(r.trust));
+      const factors = { ...((r.trust.trustFactors as any) ?? {}), manualOverride: true };
+      const next = await this.prisma.reviewTrust.update({
+        where: { reviewId: id },
+        data: {
+          hiddenAt: new Date(),
+          manualWeight: 0,
+          ratingWeight: 0,
+          verificationStatus: 'excluded_from_rating',
+          trustFactors: factors,
+        },
+      });
+      if (adminId) {
+        await this.prisma.trustModerationAction.create({
+          data: {
+            reviewId: id,
+            adminId,
+            action: 'hide',
+            previousState: previous,
+            nextState: JSON.parse(JSON.stringify(next)),
+          },
+        });
+      }
     }
-    const agg = await this.prisma.review.aggregate({
-      where: { listingId: r.listingId, status: 'APPROVED' },
-      _avg: { rating: true },
-      _count: true,
-    });
-    await this.prisma.listing.update({
-      where: { id: r.listingId },
-      data: { avgRating: agg._avg.rating ?? 0, reviewCount: agg._count },
-    });
+    await this.ratings.recalculateForListing(r.listingId);
+    // A pending tasting becomes social content only now. The all-time duplicate
+    // check prevents a re-approved edit from notifying the same followers again.
+    if (action === 'approve' && r.status === 'PENDING') {
+      void (async () => {
+        const alreadyNotified = await this.prisma.notification.findFirst({
+          where: { kind: 'friend_post', actorId: r.userId, reviewId: r.id },
+          select: { id: true },
+        });
+        if (alreadyNotified) return;
+        const [followers, listing, actor] = await Promise.all([
+          this.prisma.follow.findMany({ where: { followingId: r.userId }, select: { followerId: true } }),
+          this.prisma.listing.findUnique({ where: { id: r.listingId }, select: { name: true } }),
+          this.prisma.user.findUnique({ where: { id: r.userId }, select: { firstName: true, username: true } }),
+        ]);
+        const name = actor?.firstName || actor?.username || 'Кто-то';
+        for (const follower of followers) {
+          await this.notifications.add({
+            userId: follower.followerId,
+            kind: 'friend_post',
+            actorId: r.userId,
+            actorName: name,
+            reviewId: r.id,
+            text: `${name} добавил(а) новую дегустацию — «${listing?.name ?? ''}» ${r.rating}★`,
+          });
+        }
+      })().catch(() => {});
+    }
     return { ok: true };
   }
 

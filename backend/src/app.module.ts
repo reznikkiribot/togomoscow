@@ -20,6 +20,7 @@ import { VisionModule } from './vision/vision.module';
 import { GameModule } from './game/game.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { HealthController } from './health/health.controller';
+import { TrustModule } from './trust/trust.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { HealthController } from './health/health.controller';
     VisionModule,
     GameModule,
     NotificationsModule,
+    TrustModule,
   ],
   controllers: [HealthController],
 })

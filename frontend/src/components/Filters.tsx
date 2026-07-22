@@ -7,7 +7,7 @@ const SORTS: { value: SortKey; label: string }[] = [
   { value: 'recommended', label: 'Рекомендуемые' },
   { value: 'distance', label: 'По расстоянию' },
   { value: 'rating', label: 'По рейтингу' },
-  { value: 'reviews', label: 'По отзывам' },
+  { value: 'reviews', label: 'По дегустациям' },
 ];
 
 const PRICES: { value: number; label: string }[] = [

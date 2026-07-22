@@ -20,7 +20,7 @@ export function CategoryCelebration() {
         <div className="celebrate-emoji">🎉</div>
         <h2 className="celebrate-h">Категория открыта!</h2>
         <p className="celebrate-sub">
-          Вы оставили 5 отзывов в категории «<b>{category}</b>». Теперь открыты её
+          Вы добавили 5 дегустаций в категории «<b>{category}</b>». Теперь открыты её
           рейтинги и специализация — и рекомендации стали точнее.
         </p>
         <button className="btn" onClick={() => setCategory(null)}>

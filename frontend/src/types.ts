@@ -88,8 +88,11 @@ export interface Review {
   text?: string | null;
   attributes?: Record<string, unknown> | null;
   photoUrls: string[];
+  cardPhotoUrl?: string | null; // verified item/menu fallback, never presented as the author's upload
   videoUrls?: string[];
   createdAt: string;
+  updatedAt?: string;
+  verificationBadge?: 'Обычная дегустация' | 'Посещение подтверждено' | 'Проверенная дегустация';
   status?: 'PENDING' | 'APPROVED';
   modReason?: string | null; // why it's on moderation (admin cabinet)
   ownerReply?: string | null;
@@ -99,6 +102,7 @@ export interface Review {
   voteCounts?: { USEFUL: number; FUNNY: number; COOL: number; OHNO: number };
   commentCount?: number;
   topComment?: Comment | null;
+  saveContext?: { firstTasting: boolean; created: boolean };
 }
 
 // bell / notification-center item
@@ -382,6 +386,45 @@ export interface AdminChallenge {
   target: number;
   endsAt: string;
   active: boolean;
+}
+
+export interface FraudFlag {
+  id: string;
+  type: string;
+  severity: string;
+  source: string;
+  details?: Record<string, unknown>;
+  reviewStatus: string;
+  detectedAt: string;
+}
+
+export interface TrustQueueItem {
+  reviewId: string;
+  trustScore: number;
+  ratingWeight: number;
+  verificationStatus: string;
+  photoSource: string;
+  distanceToVenueMeters?: number | null;
+  locationStatus: string;
+  locationAccuracyBucket?: string | null;
+  trustScoreVersion: string;
+  review: Review & {
+    user?: ReviewUser & { createdAt?: string; trustProfile?: { trustScore: number; factors?: Record<string, unknown> } | null };
+    fraudFlags?: FraudFlag[];
+    revisions?: unknown[];
+    moderationActions?: unknown[];
+  };
+}
+
+export interface TrustMetrics {
+  total: number;
+  locationAvailableRatio: number;
+  locationConfirmedRatio: number;
+  cameraPhotoRatio: number;
+  galleryPhotoRatio: number;
+  duplicateRatio: number;
+  zeroWeightRatio: number;
+  moderationCount: number;
 }
 
 export type ClaimStatus = 'PENDING' | 'APPROVED' | 'REJECTED';

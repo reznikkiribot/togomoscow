@@ -17,7 +17,7 @@ export class SocialService {
     meId: string,
   ) {
     const [reviews, followers, following, mine] = await Promise.all([
-      this.prisma.review.count({ where: { userId: u.id, status: 'APPROVED' } }),
+      this.prisma.review.count({ where: { userId: u.id, status: 'APPROVED', trust: { is: { hiddenAt: null } } } }),
       this.prisma.follow.count({ where: { followingId: u.id } }),
       this.prisma.follow.count({ where: { followerId: u.id } }),
       meId
@@ -77,11 +77,10 @@ export class SocialService {
     const u = await this.prisma.user.findUnique({ where: { id: targetId } });
     if (!u) throw new NotFoundException('User not found');
     const card = await this.publicUser(u, meId);
-    // PENDING included on purpose: the profile is a social surface like the follow
-    // feed — moderation gates public ratings/the general feed, not a person's page.
-    // Without this a fresh review shows on the wall but "disappears" on the profile.
+    // The author sees pending tastings immediately; everyone else sees only the
+    // moderator-approved public profile.
     const reviewList = await this.prisma.review.findMany({
-      where: { userId: targetId, status: { in: ['APPROVED', 'PENDING'] } },
+      where: { userId: targetId, ...(targetId === meId ? {} : { status: 'APPROVED' as const, trust: { is: { hiddenAt: null } } }) },
       include: { listing: true },
       orderBy: { createdAt: 'desc' },
       take: 50,
@@ -98,7 +97,7 @@ export class SocialService {
       { title: 'Амбассадор', icon: '👑', need: 120 },
     ];
     const allReviews = await this.prisma.review.findMany({
-      where: { userId: targetId },
+      where: { userId: targetId, ...(targetId === meId ? {} : { status: 'APPROVED' as const, trust: { is: { hiddenAt: null } } }) },
       select: { text: true, photoUrls: true },
     });
     const quality = allReviews.filter(
@@ -106,7 +105,7 @@ export class SocialService {
     ).length;
     const level = [...LEVELS].reverse().find((l) => quality >= l.need) ?? LEVELS[0];
     // taster map (specializations) — everyone can see it on anyone's profile
-    const specializations = (await this.specializations(targetId)).filter((s: any) => s.count > 0);
+    const specializations = (await this.specializations(targetId, targetId === meId)).filter((s: any) => s.count > 0);
     return { ...card, reviewList, level: { title: level.title, icon: level.icon, quality }, specializations };
   }
 
@@ -171,10 +170,8 @@ export class SocialService {
       })
     ).map((f) => f.followingId);
     if (ids.length === 0) return [];
-    // followers see their followees' tastings immediately (moderation still
-    // governs public ratings + the general feed, not your own social feed)
     const list = await this.prisma.review.findMany({
-      where: { userId: { in: ids } },
+      where: { userId: { in: ids }, status: 'APPROVED', trust: { is: { hiddenAt: null } } },
       include: { user: true, listing: true },
       orderBy: { createdAt: 'desc' },
       take,
@@ -191,6 +188,7 @@ export class SocialService {
     if (!ids.length) return;
     const grouped = await this.prisma.reviewVote.groupBy({
       by: ['reviewId', 'type'],
+      // Reviews in this feed are already APPROVED; ReviewVote has no status field.
       where: { reviewId: { in: ids } },
       _count: true,
     });
@@ -208,7 +206,7 @@ export class SocialService {
     const ids = reviews.map((r) => r.id);
     if (!ids.length) return;
     const comments = await this.prisma.comment.findMany({
-      where: { reviewId: { in: ids } },
+      where: { reviewId: { in: ids }, status: 'APPROVED' },
       include: { user: { select: { id: true, firstName: true, username: true, photoUrl: true } } },
       orderBy: { createdAt: 'asc' },
     });
@@ -490,9 +488,9 @@ export class SocialService {
   }
 
   /** Specializations: tiered expertise per category, from the user's reviews. */
-  async specializations(userId: string) {
+  async specializations(userId: string, includePending = true) {
     const reviews = await this.prisma.review.findMany({
-      where: { userId },
+      where: { userId, ...(includePending ? {} : { status: 'APPROVED' as const, trust: { is: { hiddenAt: null } } }) },
       include: { listing: true },
     });
     const SPECS = [

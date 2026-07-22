@@ -22,6 +22,7 @@ export class UploadsService implements OnModuleInit {
   private readonly bucket: string;
   private readonly uploadDir: string;
   private readonly useS3: boolean;
+  private readonly availability = new Map<string, { status: 'available' | 'missing' | 'unknown'; expires: number }>();
 
   constructor(private readonly config: ConfigService) {
     this.bucket = this.config.get<string>('MINIO_BUCKET') ?? 'uploads';
@@ -152,6 +153,41 @@ export class UploadsService implements OnModuleInit {
       etag: res.ETag,
       lastModified: res.LastModified,
     };
+  }
+
+  /** Check a same-origin stored URL without downloading it. `unknown` deliberately
+   *  differs from `missing`: a transient S3 outage must never trigger DB cleanup. */
+  async storedUrlStatus(url: string): Promise<'available' | 'missing' | 'unknown'> {
+    const match = url.match(/^\/api\/files\/([a-zA-Z0-9._-]+)/);
+    if (!match) return 'available';
+    const key = match[1];
+    const cached = this.availability.get(key);
+    if (cached && cached.expires > Date.now()) return cached.status;
+    const check = async (candidate: string) => {
+      try {
+        await this.head(candidate);
+        return 'available' as const;
+      } catch (error: any) {
+        const status = Number(error?.$metadata?.httpStatusCode ?? error?.statusCode ?? 0);
+        if (status === 404 || error?.code === 'ENOENT' || error?.name === 'NoSuchKey' || error?.name === 'NotFound') return 'missing' as const;
+        return 'unknown' as const;
+      }
+    };
+    let status = await check(key);
+    // The file controller can serve an immutable derivative even when an old
+    // original disappeared, so keep that URL alive when any derivative exists.
+    if (status === 'missing') {
+      for (const width of [900, 600, 400, 200]) {
+        const derivative = await check(`${key}-w${width}`);
+        if (derivative === 'available') { status = derivative; break; }
+        if (derivative === 'unknown') { status = derivative; break; }
+      }
+    }
+    this.availability.set(key, {
+      status,
+      expires: Date.now() + (status === 'available' ? 30 * 60_000 : status === 'missing' ? 5 * 60_000 : 30_000),
+    });
+    return status;
   }
 
   async get(key: string): Promise<{

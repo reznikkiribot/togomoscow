@@ -11,6 +11,7 @@ export function TasteResult({
   itemName,
   savedRating,
   totalRatings,
+  motivation,
   next,
   onCompareNext,
   onClose,
@@ -22,6 +23,7 @@ export function TasteResult({
   itemName: string;
   savedRating: number;
   totalRatings: number;
+  motivation: string;
   next: { id: string; name: string } | null;
   onCompareNext: (next: { id: string; name: string }) => void;
   onClose: () => void;
@@ -63,14 +65,19 @@ export function TasteResult({
     >
       <div className="modal" onClick={(e) => e.stopPropagation()}>
         <div className="tr-success-icon">✓</div>
-        <div className="tr-success-title">Оценка сохранена</div>
+        <div className="tr-success-title">Отличная дегустация</div>
+        <div className="tr-motivation">{motivation}</div>
+        <div className="tr-published">
+          Ваше мнение добавлено в гастрономическую карту города
+          <small>После проверки оно станет видно другим дегустаторам</small>
+        </div>
         <div className="tr-saved-rating">
           <span>{itemName}</span>
           <b>{savedRating.toFixed(1)}★</b>
         </div>
         <div className="tr-progress">
           {totalRatings < 5
-            ? `${totalRatings} из 5 оценок — скоро персональные рекомендации`
+            ? `${totalRatings} из 5 дегустаций — скоро персональные рекомендации`
             : 'Профиль вкуса уже помогает подбирать рекомендации'}
         </div>
 

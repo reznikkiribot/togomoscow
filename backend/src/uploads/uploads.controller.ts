@@ -6,6 +6,8 @@ import {
   Param,
   Post,
   Query,
+  Req,
+  Body,
   Res,
   UploadedFile,
   UseGuards,
@@ -18,6 +20,8 @@ import { createHash } from 'crypto';
 import sharp from 'sharp';
 import { TelegramAuthGuard } from '../common/telegram-auth.guard';
 import { UploadsService } from './uploads.service';
+import { UsersService } from '../users/users.service';
+import { PrismaService } from '../prisma/prisma.service';
 
 // allowed thumbnail widths (whitelist → bounded cache keys)
 const THUMB_WIDTHS = new Set([200, 400, 600, 900]);
@@ -170,16 +174,35 @@ async function fetchExternalImage(initial: URL, signal: AbortSignal): Promise<gl
 
 @Controller()
 export class UploadsController {
-  constructor(private readonly uploads: UploadsService) {}
+  constructor(
+    private readonly uploads: UploadsService,
+    private readonly users: UsersService,
+    private readonly prisma: PrismaService,
+  ) {}
 
   // Authenticated upload. Returns a same-origin URL the Mini App can render
   // (served back through /api/files so it works through the dev tunnel).
   @Post('uploads')
   @UseGuards(TelegramAuthGuard)
   @UseInterceptors(FileInterceptor('file', { limits: { fileSize: 80 * 1024 * 1024 } }))
-  async upload(@UploadedFile() file: Express.Multer.File) {
+  async upload(
+    @Req() req: any,
+    @UploadedFile() file: Express.Multer.File,
+    @Body() body: { source?: string },
+  ) {
     if (!file) throw new BadRequestException('No file');
+    if (!file.mimetype?.startsWith('image/')) throw new BadRequestException('Only images are allowed');
+    try {
+      await sharp(file.buffer).metadata();
+    } catch {
+      throw new BadRequestException('Invalid image');
+    }
+    const user = await this.users.upsertFromTelegram(req.telegramUser);
+    const source = body?.source === 'camera' || body?.source === 'gallery' ? body.source : 'unknown';
     const key = await this.uploads.put(file.buffer, file.mimetype);
+    await this.prisma.uploadedAsset.create({
+      data: { key, userId: user.id, source, contentType: file.mimetype },
+    });
     return { url: `/api/files/${key}` };
   }
 

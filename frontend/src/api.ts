@@ -223,8 +223,7 @@ export interface CreateReviewInput {
   attributes?: Record<string, unknown>;
   photoUrls?: string[];
   videoUrls?: string[];
-  lat?: number;
-  lng?: number;
+  location?: { lat: number; lng: number; accuracy: number; capturedAt: string };
 }
 
 export const api = {
@@ -466,14 +465,23 @@ export const api = {
   adminPendingItems: () => getJson<PendingMenuLink[]>('/admin/items'),
   adminSetItem: (venueId: string, itemId: string, body: { status: 'APPROVED' | 'REJECTED'; price?: number }) =>
     postJson(`/admin/items/${venueId}/${itemId}`, body),
+  adminTrustConfig: () => getJson<{ config: Record<string, unknown>; formulaVersion: string }>('/admin/trust/config'),
+  adminTrustConfigSet: async (body: { config: unknown; formulaVersion?: string; recalculate?: boolean }) =>
+    http('/admin/trust/config', { method: 'PUT', headers: { ...(await authHeaders()), 'Content-Type': 'application/json' }, body: JSON.stringify(body) }),
+  adminTrustQueue: () => getJson<import('./types').TrustQueueItem[]>('/admin/trust/queue'),
+  adminTrustAction: (id: string, body: { action: string; weight?: number; note?: string }) =>
+    postJson(`/admin/trust/reviews/${id}/action`, body),
+  adminTrustMetrics: () => getJson<import('./types').TrustMetrics>('/admin/trust/metrics'),
+  adminTrustRecalculate: () => postJson('/admin/trust/recalculate'),
 
-  async upload(file: File): Promise<string> {
+  async upload(file: File, source: 'camera' | 'gallery' | 'unknown' = 'unknown'): Promise<string> {
     // compress ON THE PHONE before sending: an 8MB camera shot over LTE takes
     // many seconds and aborts ("Request aborted" in multer) — a 1600px JPEG
     // (~300KB) uploads in well under a second and looks identical on cards
     const body = await compressImage(file);
     const fd = new FormData();
     fd.append('file', body, body.name);
+    fd.append('source', source);
     const res = await fetch('/api/uploads', {
       method: 'POST',
       headers: await authHeaders(),
@@ -483,6 +491,14 @@ export const api = {
     const { url } = (await res.json()) as { url: string };
     return url;
   },
+
+  locationConsent: () => getJson<{
+    consent: { consented: boolean; textVersion: string; systemPermission: string; consentedAt: string; revokedAt?: string | null } | null;
+    textVersion: string;
+  }>('/me/location-consent'),
+  setLocationConsent: (body: { consented: boolean; textVersion: string; systemPermission: string }) =>
+    postJson('/me/location-consent', body),
+  revokeLocationConsent: () => del<{ ok: boolean }>('/me/location-consent'),
 
   // ── photo recognition ──────────────────────────────────────────────────────
   async recognize(file: File, mode = 'auto'): Promise<import('./types').RecognizeResult> {

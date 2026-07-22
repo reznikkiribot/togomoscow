@@ -202,7 +202,7 @@ export class GameService {
   /** The card's "first taster" plaque: who reviewed it first and when. */
   async firstTaster(listingId: string) {
     const r = await this.prisma.review.findFirst({
-      where: { listingId },
+      where: { listingId, status: 'APPROVED' },
       orderBy: { createdAt: 'asc' },
       select: { createdAt: true, user: { select: { id: true, firstName: true, username: true } } },
     });

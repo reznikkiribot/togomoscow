@@ -41,6 +41,7 @@ export default function MyRatings() {
   const [edit, setEdit] = useState<Review | null>(null);
   const [showAdd, setShowAdd] = useState(false);
   const [showSupport, setShowSupport] = useState(false);
+  const [locationConsent, setLocationConsent] = useState(false);
   const [taste, setTaste] = useState<TasteProfile | null>(cached.taste ?? null);
   const [impactTab, setImpactTab] = useState<'taste' | 'photos'>('taste');
   const [people, setPeople] = useState<'followers' | 'following' | null>(null);
@@ -58,6 +59,7 @@ export default function MyRatings() {
     api.tasteProfile().then((t) => { setTaste(t); writeCache({ taste: t }); }).catch(() => {});
     api.specializations().then(setSpecs).catch(() => {});
     api.ownerVenues().then(setOwned).catch(() => {});
+    api.locationConsent().then(({ consent }) => setLocationConsent(Boolean(consent?.consented && !consent.revokedAt))).catch(() => {});
     setRecent(getRecent());
   };
   // keep a live ref so the retry loop knows when the data has actually arrived:
@@ -185,14 +187,14 @@ export default function MyRatings() {
         </div>
       )}
 
-      {/* Репутация: как сообщество ценит ваши отзывы */}
+      {/* Reputation reflects how the community values the taster's contributions. */}
       {game && ((game.counters.useful ?? 0) > 0 || (game.counters.discoveries ?? 0) > 0 || game.achievements.some((a) => a.earned)) && (
         <div className="me-section">
-          <h2 className="me-h">🏆 Репутация</h2>
+          <h2 className="me-h">🏆 Репутация дегустатора</h2>
           <div className="rep-grid">
             <div className="rep-item">
               <b>{game.counters.useful ?? 0}</b>
-              <span>раз ваши отзывы отметили «полезно»</span>
+              <span>раз ваши дегустации отметили «полезно»</span>
             </div>
             <div className="rep-item">
               <b>{game.counters.discoveries ?? 0}</b>
@@ -385,7 +387,7 @@ export default function MyRatings() {
       <div className="me-section">
         <h2 className="me-h">Вклад</h2>
         <div className="contrib-row">
-          <span>⭐ Отзывы</span>
+          <span>⭐ Дегустации</span>
           <b>{reviews.length}</b>
         </div>
         <button className="contrib-row link" onClick={() => nav('/business')}>
@@ -420,6 +422,15 @@ export default function MyRatings() {
           <span>🛟 Поддержка</span>
           <span className="chev">›</span>
         </button>
+        {locationConsent && (
+          <button
+            className="contrib-row link"
+            onClick={() => api.revokeLocationConsent().then(() => setLocationConsent(false)).catch(() => {})}
+          >
+            <span>📍 Отозвать доступ к геопозиции</span>
+            <span className="chev">›</span>
+          </button>
+        )}
         <div className="contrib-row theme-setting">
           <span className="theme-setting-copy">
             <b>Тёмная тема</b>
@@ -459,7 +470,7 @@ export default function MyRatings() {
       {/* your reviews — same layout as another user's profile (Untappd style) */}
       {reviews.length === 0 ? (
         <div className="me-section">
-          <h2 className="me-h">Мои отзывы</h2>
+          <h2 className="me-h">Мои дегустации</h2>
           <div className="empty">
             Вы ещё ничего не оценили.<br />
             Выберите знакомое блюдо или напиток — достаточно поставить звёзды.
@@ -486,7 +497,7 @@ export default function MyRatings() {
                 </div>
               )}
               <div className="me-section">
-                <h2 className="me-h">Мои отзывы</h2>
+                <h2 className="me-h">Мои дегустации</h2>
                 {reviews.map((r) => (
                   <ReviewCard
                     key={r.id}
@@ -496,7 +507,7 @@ export default function MyRatings() {
                     onOpenVenue={() => r.venue?.id && setOpenListing(r.venue.id)}
                   >
                     {r.status === 'PENDING' && (
-                      <span style={{ color: 'var(--accent)', fontWeight: 600 }}>На модерации</span>
+                      <span style={{ color: 'var(--accent)', fontWeight: 600 }}>На проверке</span>
                     )}
                   </ReviewCard>
                 ))}
@@ -542,7 +553,7 @@ export default function MyRatings() {
           onDelete={() => {
             const id = photoReview.id;
             setPhotoReview(null);
-            if (confirm('Удалить отзыв?')) api.deleteReview(id).then(load).catch(() => {});
+            if (confirm('Удалить дегустацию?')) api.deleteReview(id).then(load).catch(() => {});
           }}
         />
       )}

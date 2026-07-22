@@ -18,6 +18,6 @@ import { VisionController } from './vision.controller';
   imports: [PrismaModule, UsersModule, ListingsModule, UploadsModule],
   controllers: [VisionController],
   providers: [OllamaService, EmbeddingService, VectorSearchService, ClipService, OCRService, VisionRecognitionService],
-  exports: [EmbeddingService, VectorSearchService, ClipService],
+  exports: [EmbeddingService, VectorSearchService, ClipService, OllamaService],
 })
 export class VisionModule {}

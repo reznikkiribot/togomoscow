@@ -27,7 +27,7 @@ export function QuickRate({
         Оценка принята ✓
         {onOpenReview && (
           <button className="qr-add" onClick={(e) => { e.stopPropagation(); onOpenReview(0); }}>
-            ✎ добавить отзыв
+            ✎ добавить дегустацию
           </button>
         )}
       </div>

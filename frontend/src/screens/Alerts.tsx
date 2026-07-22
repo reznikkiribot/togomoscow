@@ -64,7 +64,7 @@ export default function Alerts() {
               <button
                 type="button"
                 className="alert-avatar-button"
-                aria-label={`Открыть профиль: ${n.actorName ?? 'пользователь'}`}
+                aria-label={`Открыть путь дегустатора: ${n.actorName ?? 'дегустатор'}`}
                 onClick={() => { if (n.actorId) setOpenUser(n.actorId); }}
               >
                 <img className="alert-avatar" src={n.actorPhoto} alt="" />
@@ -84,7 +84,7 @@ export default function Alerts() {
                       className="alert-user"
                       onClick={() => setOpenUser(n.actorId!)}
                     >
-                      {n.actorName ?? 'профиль'}
+                      {n.actorName ?? 'дегустатор'}
                     </button>
                   </>
                 )}

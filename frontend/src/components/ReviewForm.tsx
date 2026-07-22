@@ -7,6 +7,7 @@ import type { Listing, PublicUser, Review } from '../types';
 import { StarInput } from './StarInput';
 import { templateFor } from '../tasting';
 import { telegramWebApp } from '../telegram';
+import { LocationConsentPrompt, useTastingLocation } from '../locationTrust';
 
 export type ReviewSavedMedia = {
   photo?: string;
@@ -105,7 +106,7 @@ export function ReviewForm({
   hasUnsavedTextRef.current = text.trim() !== (existing?.text ?? '').trim();
   const canClose = useCallback(() => {
     if (busyRef.current) return false;
-    return !hasUnsavedTextRef.current || window.confirm('В отзыве есть несохранённый текст. Выйти? Черновик останется на этом устройстве.');
+    return !hasUnsavedTextRef.current || window.confirm('В дегустации есть несохранённый текст. Выйти? Черновик останется на этом устройстве.');
   }, []);
   const closeNow = useCallback(() => onCloseRef.current(), []);
   const requestClose = useCallback(() => {
@@ -120,6 +121,7 @@ export function ReviewForm({
   };
   const [error, setError] = useState<string | null>(null);
   const [canRetrySave, setCanRetrySave] = useState(false);
+  const tastingLocation = useTastingLocation();
 
   // tag friends (Untappd-style) — people you follow
   const [following, setFollowing] = useState<PublicUser[]>([]);
@@ -156,7 +158,7 @@ export function ReviewForm({
     });
   };
 
-  async function addPhotos(files: FileList | null) {
+  async function addPhotos(files: FileList | null, source: 'camera' | 'gallery') {
     if (!files) return;
     if (busyRef.current) return;
     busyRef.current = true;
@@ -164,7 +166,7 @@ export function ReviewForm({
     setError(null);
     setCanRetrySave(false);
     try {
-      const urls = await Promise.all(Array.from(files).map((f) => api.upload(f)));
+      const urls = await Promise.all(Array.from(files).map((f) => api.upload(f, source)));
       setPhotoUrls((p) => [...p, ...urls]);
       urls.slice(0, 2).forEach(precompose); // stories use the first two photos
     } catch {
@@ -203,7 +205,8 @@ export function ReviewForm({
         ...(showDate ? { visitDate } : {}),
         ...(taggedUsers.length ? { taggedUsers } : {}),
       };
-      saved = await api.createReview(listing.id, { rating, text, attributes, photoUrls, videoUrls });
+      const location = await tastingLocation.refreshBeforePublish().catch(() => null);
+      saved = await api.createReview(listing.id, { rating, text, attributes, photoUrls, videoUrls, ...(location ? { location } : {}) });
     } catch (saveError) {
       setError(saveError instanceof Error && saveError.message
         ? saveError.message
@@ -238,7 +241,7 @@ export function ReviewForm({
     const mainButton = telegramWebApp()?.MainButton;
     if (!mainButton) return;
     const publish = () => saveRef.current();
-    mainButton.setText('Опубликовать');
+    mainButton.setText('Отправить дегустацию');
     mainButton.onClick(publish);
     mainButton.show();
     return () => {
@@ -285,7 +288,7 @@ export function ReviewForm({
         )}
         <div className="meta" style={{ color: 'var(--hint)', fontSize: 13 }}>{tpl.title}</div>
         <div className="geo-note" style={{ marginTop: 10 }}>
-          <span style={{ color: 'var(--hint)' }}>🛡 Отзыв появится после быстрой проверки модератором</span>
+          <span style={{ color: 'var(--hint)' }}>🛡 Дегустация появится после быстрой проверки модератором</span>
         </div>
 
         <div className="field">
@@ -319,8 +322,13 @@ export function ReviewForm({
                 <circle cx="8.5" cy="9.5" r="1.6" />
                 <path d="M21 16.5l-4.5-4.5L9 19.5" />
               </svg>
-              <span className="photo-box-label">Добавить фото</span>
-              <input type="file" accept="image/*" multiple hidden onChange={(e) => addPhotos(e.target.files)} />
+              <span className="photo-box-label">Камера</span>
+              <input type="file" accept="image/*" capture="environment" hidden onChange={(e) => addPhotos(e.target.files, 'camera')} />
+            </label>
+            <label className="photo-box">
+              <svg className="photo-box-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><rect x="3" y="4" width="18" height="16" rx="3" /><path d="M4 17l5-5 4 4 3-3 4 4" /></svg>
+              <span className="photo-box-label">Галерея</span>
+              <input type="file" accept="image/*" multiple hidden onChange={(e) => addPhotos(e.target.files, 'gallery')} />
             </label>
           </div>
           {/* video upload removed (owner rule 13.07.2026) — photos only */}
@@ -432,7 +440,7 @@ export function ReviewForm({
 
         {showDate && (
           <div className="field">
-            <label>Дата визита</label>
+            <label>Дата исследования</label>
             {/* tap anywhere on the field → open the native calendar (not just the icon) */}
             <input
               type="date"
@@ -463,9 +471,12 @@ export function ReviewForm({
             Отмена
           </button>
           <button className="btn" onClick={save} disabled={busy || rating <= 0}>
-            {busy ? 'Сохранение…' : 'Опубликовать'}
+            {busy ? 'Сохранение…' : 'Отправить дегустацию'}
           </button>
         </div>
+        {tastingLocation.showConsent && (
+          <LocationConsentPrompt onAllow={() => void tastingLocation.allow()} onSkip={() => void tastingLocation.continueWithout()} />
+        )}
       </div>
     </div>
   );

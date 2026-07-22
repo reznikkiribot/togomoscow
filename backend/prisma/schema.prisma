@@ -47,60 +47,66 @@ enum MenuItemStatus {
 }
 
 model User {
-  id         String   @id @default(uuid())
-  telegramId BigInt   @unique @map("telegram_id")
-  username   String?
-  firstName  String?  @map("first_name")
-  lastName   String?  @map("last_name")
-  photoUrl   String?  @map("photo_url")
-  role       Role     @default(CUSTOMER)
+  id          String    @id @default(uuid())
+  telegramId  BigInt    @unique @map("telegram_id")
+  username    String?
+  firstName   String?   @map("first_name")
+  lastName    String?   @map("last_name")
+  photoUrl    String?   @map("photo_url")
+  role        Role      @default(CUSTOMER)
   onboardedAt DateTime? @map("onboarded_at") // set when the intro quiz is done
-  preferences Json?     // { categories: [...], price?: n }
-  createdAt  DateTime @default(now()) @map("created_at")
-  updatedAt  DateTime @updatedAt @map("updated_at")
+  preferences Json? // { categories: [...], price?: n }
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
 
-  reviews       Review[]
-  favorites     Favorite[]
-  interactions  Interaction[]
-  following     Follow[]         @relation("Following")
-  followers     Follow[]         @relation("Followers")
-  reviewVotes   ReviewVote[]
-  ownedListings Listing[]        @relation("OwnedListings")
-  claims        OwnershipClaim[]
-  proposedItems MenuLink[]       @relation("ProposedItems")
-  questions     Question[]
-  answers       Answer[]
-  checkins      CheckIn[]
+  reviews             Review[]
+  favorites           Favorite[]
+  interactions        Interaction[]
+  following           Follow[]                @relation("Following")
+  followers           Follow[]                @relation("Followers")
+  reviewVotes         ReviewVote[]
+  ownedListings       Listing[]               @relation("OwnedListings")
+  claims              OwnershipClaim[]
+  proposedItems       MenuLink[]              @relation("ProposedItems")
+  questions           Question[]
+  answers             Answer[]
+  checkins            CheckIn[]
   businessSubmissions BusinessSubmission[]
-  supportMessages SupportMessage[]
-  corrections     Correction[]
-  sessions        Session[]
-  comparisons     Comparison[]
-  dislikes        Dislike[]
-  comments        Comment[]
+  supportMessages     SupportMessage[]
+  corrections         Correction[]
+  sessions            Session[]
+  comparisons         Comparison[]
+  dislikes            Dislike[]
+  comments            Comment[]
   recognitionFeedback RecognitionFeedback[]
   achievements        UserAchievement[]
   notifications       Notification[]
+  locationConsent     LocationConsent?
+  trustProfile        UserTrustProfile?
+  moderationActions   TrustModerationAction[] @relation("TrustModerator")
+  trustConfigChanges  TrustConfigAudit[]      @relation("TrustConfigEditor")
+  reviewRevisions     ReviewRevision[]
+  uploadedAssets      UploadedAsset[]
 
   @@map("users")
 }
 
 // Reddit-style threaded comments on a review (followers can discuss tastings).
 model Comment {
-  id        String   @id @default(uuid())
-  reviewId  String   @map("review_id")
-  userId    String   @map("user_id")
-  parentId  String?  @map("parent_id")
+  id        String       @id @default(uuid())
+  reviewId  String       @map("review_id")
+  userId    String       @map("user_id")
+  parentId  String?      @map("parent_id")
   text      String
   // suspicious comments (profanity/spam/crude) are held for the admin cabinet
   // instead of being rejected outright (owner rule 19.07.2026)
   status    ReviewStatus @default(APPROVED)
-  modReason String?  @map("mod_reason")
-  createdAt DateTime @default(now()) @map("created_at")
-  review    Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  parent    Comment? @relation("CommentThread", fields: [parentId], references: [id], onDelete: Cascade)
-  replies   Comment[] @relation("CommentThread")
+  modReason String?      @map("mod_reason")
+  createdAt DateTime     @default(now()) @map("created_at")
+  review    Review       @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  parent    Comment?     @relation("CommentThread", fields: [parentId], references: [id], onDelete: Cascade)
+  replies   Comment[]    @relation("CommentThread")
 
   @@index([reviewId])
   @@map("comments")
@@ -114,6 +120,8 @@ model Dislike {
   itemId    String   @map("item_id")
   category  String?
   createdAt DateTime @default(now()) @map("created_at")
+  // default(now()) is required: 33 existing rows would block a NOT NULL column
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, itemId])
@@ -136,21 +144,21 @@ model Comparison {
 }
 
 model Listing {
-  id          String      @id @default(uuid())
-  type        ListingType
-  name        String
-  aliases     String? // alt spellings / English names for search (e.g. "pinot noir")
-  description String?
-  category    String? // cuisine for a restaurant, style for a drink, kind for a dish
-  address     String? // restaurants
-  photoUrl    String?     @map("photo_url") // the card "face" (first real photo)
-  photos      String[]    @default([]) // accumulating gallery: every added photo (card + reviews)
+  id             String      @id @default(uuid())
+  type           ListingType
+  name           String
+  aliases        String? // alt spellings / English names for search (e.g. "pinot noir")
+  description    String?
+  category       String? // cuisine for a restaurant, style for a drink, kind for a dish
+  address        String? // restaurants
+  photoUrl       String?     @map("photo_url") // the card "face" (first real photo)
+  photos         String[]    @default([]) // accumulating gallery: every added photo (card + reviews)
   // multimodal recognition: embedding of the item's text/photo for vector search.
   // Nullable/empty by default → fully backward-compatible. Populated lazily/by backfill.
-  embedding    Float[]    @default([]) @map("embedding") // text embedding (semantic "similar")
-  embeddingModel String?  @map("embedding_model") // which model produced it (for re-embeds)
-  imageEmbedding Float[]  @default([]) @map("image_embedding") // CLIP image embedding (photo recognition)
-  priceLevel  Int?        @map("price_level") // 1..4, Yelp-style $$$$
+  embedding      Float[]     @default([]) @map("embedding") // text embedding (semantic "similar")
+  embeddingModel String?     @map("embedding_model") // which model produced it (for re-embeds)
+  imageEmbedding Float[]     @default([]) @map("image_embedding") // CLIP image embedding (photo recognition)
+  priceLevel     Int?        @map("price_level") // 1..4, Yelp-style $$$$
 
   // geo + contacts + provenance (for bulk imports like OpenStreetMap)
   lat        Float?
@@ -184,24 +192,25 @@ model Listing {
   parent   Listing?  @relation("ListingChildren", fields: [parentId], references: [id], onDelete: SetNull)
   children Listing[] @relation("ListingChildren")
 
-  avgRating   Float    @default(0) @map("avg_rating")
-  reviewCount Int      @default(0) @map("review_count")
-  views       Int      @default(0) // profile views (owner analytics)
-  createdAt   DateTime @default(now()) @map("created_at")
+  avgRating       Float    @default(0) @map("avg_rating")
+  reviewCount     Int      @default(0) @map("review_count")
+  ratingWeightSum Float    @default(0) @map("rating_weight_sum")
+  views           Int      @default(0) // profile views (owner analytics)
+  createdAt       DateTime @default(now()) @map("created_at")
 
-  reviews   Review[]
-  favorites Favorite[]
+  reviews      Review[]
+  favorites    Favorite[]
   interactions Interaction[]
-  sources   VenueSource[]
-  events    VenueEvent[]
+  sources      VenueSource[]
+  events       VenueEvent[]
 
   // many-to-many: a restaurant has menu items; a dish/drink is served at venues
-  menuItems MenuLink[] @relation("VenueItems")
-  servedAt  MenuLink[] @relation("ItemVenues")
-  questions Question[]
-  checkins  CheckIn[]
+  menuItems   MenuLink[]            @relation("VenueItems")
+  servedAt    MenuLink[]            @relation("ItemVenues")
+  questions   Question[]
+  checkins    CheckIn[]
   corrections Correction[]
-  exemplars RecognitionExemplar[]
+  exemplars   RecognitionExemplar[]
 
   @@unique([source, externalId])
   @@index([type])
@@ -243,21 +252,217 @@ model Review {
   status     ReviewStatus @default(APPROVED) // PENDING when not geo-verified → moderation
   // why it's held for moderation (profanity / spam / crude / gibberish / photo /
   // low-effort-rant) — shown in the admin cabinet so the reason is one glance away
-  modReason  String? @map("mod_reason")
-  ownerReply String? @map("owner_reply") // venue owner's public reply
+  modReason  String?      @map("mod_reason")
+  ownerReply String?      @map("owner_reply") // venue owner's public reply
   // type-specific fields: drinks -> { style, abv, servingStyle }; food -> { visitDate, dishName }
   attributes Json?
-  photoUrls  String[] @map("photo_urls")
-  videoUrls  String[] @map("video_urls")
+  photoUrls  String[]     @map("photo_urls")
+  videoUrls  String[]     @map("video_urls")
+  verificationBadge String @default("Обычная дегустация") @map("verification_badge")
 
   createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-  votes ReviewVote[]
-  comments Comment[]
+  votes             ReviewVote[]
+  comments          Comment[]
+  trust             ReviewTrust?
+  fraudFlags        FraudFlag[]
+  photoFingerprints ReviewPhotoFingerprint[]
+  rawLocation       ReviewRawLocation?
+  revisions         ReviewRevision[]
+  moderationActions TrustModerationAction[]
 
   @@unique([listingId, userId])
   @@index([userId])
   @@map("reviews")
+}
+
+// Sensitive verification data is deliberately kept outside Review. Public
+// review queries do not include this relation, preventing accidental exposure
+// of anti-fraud scores, formula details, or administrator-only signals.
+model ReviewTrust {
+  reviewId String @id @map("review_id")
+  review   Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+  trustScore             Int       @default(35) @map("trust_score")
+  ratingWeight           Float     @default(0.25) @map("rating_weight")
+  verificationStatus     String    @default("unverified") @map("verification_status")
+  trustFactors           Json      @default("{}") @map("trust_factors")
+  trustScoreVersion      String    @default("trust-v1") @map("trust_score_version")
+  photoSource            String    @default("unknown") @map("photo_source")
+  distanceToVenueMeters  Float?    @map("distance_to_venue_meters")
+  locationStatus         String    @default("unavailable") @map("location_status")
+  locationAccuracyBucket String?   @map("location_accuracy_bucket")
+  locationCheckedAt      DateTime? @map("location_checked_at")
+  locationSignalUsed     Boolean   @default(false) @map("location_signal_used")
+  manualWeight           Float?    @map("manual_weight")
+  hiddenAt               DateTime? @map("hidden_at")
+  lastCalculatedAt       DateTime  @default(now()) @map("last_calculated_at")
+  createdAt              DateTime  @default(now()) @map("created_at")
+  updatedAt              DateTime  @updatedAt @map("updated_at")
+
+  @@index([verificationStatus])
+  @@index([trustScore])
+  @@index([ratingWeight])
+  @@map("review_trust")
+}
+
+model FraudFlag {
+  id           String    @id @default(uuid())
+  reviewId     String    @map("review_id")
+  review       Review    @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  type         String
+  severity     String
+  source       String
+  details      Json      @default("{}")
+  reviewStatus String    @default("open") @map("review_status")
+  detectedAt   DateTime  @default(now()) @map("detected_at")
+  resolvedAt   DateTime? @map("resolved_at")
+
+  @@index([reviewId, reviewStatus])
+  @@index([type, detectedAt])
+  @@map("fraud_flags")
+}
+
+model ReviewPhotoFingerprint {
+  id             String   @id @default(uuid())
+  reviewId       String   @map("review_id")
+  review         Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  userId         String   @map("user_id")
+  photoUrl       String   @map("photo_url")
+  exactHash      String   @map("exact_hash")
+  perceptualHash String?  @map("perceptual_hash")
+  clipEmbedding  Float[]  @default([]) @map("clip_embedding")
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  @@unique([reviewId, photoUrl])
+  @@index([exactHash])
+  @@index([userId])
+  @@map("review_photo_fingerprints")
+}
+
+model UploadedAsset {
+  key String @id
+  userId String @map("user_id")
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  source String @default("unknown")
+  contentType String? @map("content_type")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([userId, createdAt])
+  @@map("uploaded_assets")
+}
+
+// Raw coordinates live in a short-lived one-to-one row and are removed by the
+// retention worker. ReviewTrust keeps only the derived, privacy-minimised result.
+model ReviewRawLocation {
+  reviewId       String   @id @map("review_id")
+  review         Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  lat            Float
+  lng            Float
+  accuracyMeters Float    @map("accuracy_meters")
+  capturedAt     DateTime @map("captured_at")
+  expiresAt      DateTime @map("expires_at")
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  @@index([expiresAt])
+  @@map("review_raw_locations")
+}
+
+model LocationConsent {
+  userId           String    @id @map("user_id")
+  user             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  consented        Boolean
+  textVersion      String    @map("text_version")
+  systemPermission String    @map("system_permission")
+  consentedAt      DateTime  @map("consented_at")
+  revokedAt        DateTime? @map("revoked_at")
+  updatedAt        DateTime  @updatedAt @map("updated_at")
+
+  @@map("location_consents")
+}
+
+model UserTrustProfile {
+  userId         String   @id @map("user_id")
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  trustScore     Int      @default(50) @map("trust_score")
+  factors        Json     @default("{}")
+  formulaVersion String   @default("trust-v1") @map("formula_version")
+  calculatedAt   DateTime @default(now()) @map("calculated_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  @@map("user_trust_profiles")
+}
+
+model ReviewRevision {
+  id         String   @id @default(uuid())
+  reviewId   String   @map("review_id")
+  review     Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  userId     String   @map("user_id")
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rating     Float
+  text       String?
+  attributes Json?
+  photoUrls  String[] @map("photo_urls")
+  videoUrls  String[] @map("video_urls")
+  replacedAt DateTime @default(now()) @map("replaced_at")
+
+  @@index([reviewId, replacedAt])
+  @@map("review_revisions")
+}
+
+model TrustConfig {
+  id             String   @id @default("active")
+  formulaVersion String   @map("formula_version")
+  config         Json
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  @@map("trust_config")
+}
+
+model TrustConfigAudit {
+  id             String   @id @default(uuid())
+  adminId        String   @map("admin_id")
+  admin          User     @relation("TrustConfigEditor", fields: [adminId], references: [id], onDelete: Restrict)
+  previousConfig Json     @map("previous_config")
+  nextConfig     Json     @map("next_config")
+  formulaVersion String   @map("formula_version")
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  @@index([createdAt])
+  @@map("trust_config_audit")
+}
+
+model TrustModerationAction {
+  id            String   @id @default(uuid())
+  reviewId      String   @map("review_id")
+  review        Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  adminId       String   @map("admin_id")
+  admin         User     @relation("TrustModerator", fields: [adminId], references: [id], onDelete: Restrict)
+  action        String
+  previousState Json     @map("previous_state")
+  nextState     Json     @map("next_state")
+  note          String?
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  @@index([reviewId, createdAt])
+  @@map("trust_moderation_actions")
+}
+
+model TrustRecalculationJob {
+  id             String    @id @default(uuid())
+  formulaVersion String    @map("formula_version")
+  status         String    @default("pending")
+  processed      Int       @default(0)
+  failed         Int       @default(0)
+  total          Int       @default(0)
+  requestedById  String?   @map("requested_by_id")
+  startedAt      DateTime? @map("started_at")
+  finishedAt     DateTime? @map("finished_at")
+  createdAt      DateTime  @default(now()) @map("created_at")
+
+  @@index([status, createdAt])
+  @@map("trust_recalculation_jobs")
 }
 
 model ReviewVote {
@@ -399,10 +604,10 @@ model Answer {
 }
 
 model Favorite {
-  userId    String  @map("user_id")
-  listingId String  @map("listing_id")
-  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  listing   Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  userId    String   @map("user_id")
+  listingId String   @map("listing_id")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  listing   Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now()) @map("created_at")
 
   @@id([userId, listingId])
@@ -410,10 +615,10 @@ model Favorite {
 }
 
 model Follow {
-  followerId  String @map("follower_id")
-  followingId String @map("following_id")
-  follower    User   @relation("Following", fields: [followerId], references: [id], onDelete: Cascade)
-  following   User   @relation("Followers", fields: [followingId], references: [id], onDelete: Cascade)
+  followerId  String   @map("follower_id")
+  followingId String   @map("following_id")
+  follower    User     @relation("Following", fields: [followerId], references: [id], onDelete: Cascade)
+  following   User     @relation("Followers", fields: [followingId], references: [id], onDelete: Cascade)
   createdAt   DateTime @default(now()) @map("created_at")
 
   @@id([followerId, followingId])
@@ -423,17 +628,17 @@ model Follow {
 // Notification center (bell in the bottom nav). One row per social event:
 // vote/comment on my review, new follower, new post by someone I follow.
 model Notification {
-  id        String   @id @default(uuid())
-  userId    String   @map("user_id") // the recipient
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String    @id @default(uuid())
+  userId    String    @map("user_id") // the recipient
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   kind      String // vote | comment | follow | friend_post
-  actorId   String?  @map("actor_id") // who did it (tap → their profile)
-  actorName String?  @map("actor_name")
-  reviewId  String?  @map("review_id") // tap → the source review, when relevant
+  actorId   String?   @map("actor_id") // who did it (tap → their profile)
+  actorName String?   @map("actor_name")
+  reviewId  String?   @map("review_id") // tap → the source review, when relevant
   text      String // ready-to-render line («Михаил оценил ваш отзыв 😄»)
-  pushed    Boolean  @default(false) // sent as a bot push (max 1/day per user)
+  pushed    Boolean   @default(false) // sent as a bot push (max 1/day per user)
   readAt    DateTime? @map("read_at")
-  createdAt DateTime @default(now()) @map("created_at")
+  createdAt DateTime  @default(now()) @map("created_at")
 
   @@index([userId, createdAt])
   @@map("notifications")
@@ -452,7 +657,7 @@ model VenueSource {
   lastPostId  String?   @map("last_post_id") // dedup cursor (newest seen)
   createdAt   DateTime  @default(now()) @map("created_at")
 
-  venue       Listing   @relation(fields: [venueId], references: [id], onDelete: Cascade)
+  venue Listing @relation(fields: [venueId], references: [id], onDelete: Cascade)
 
   @@unique([venueId, type])
   @@index([type, status])
@@ -476,7 +681,7 @@ model VenueEvent {
   publishedAt DateTime @map("published_at")
   createdAt   DateTime @default(now()) @map("created_at")
 
-  venue       Listing  @relation(fields: [venueId], references: [id], onDelete: Cascade)
+  venue Listing @relation(fields: [venueId], references: [id], onDelete: Cascade)
 
   @@unique([venueId, externalId])
   @@index([venueId, publishedAt])
@@ -496,8 +701,8 @@ model Interaction {
   weight    Float    @default(1)
   createdAt DateTime @default(now()) @map("created_at")
 
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  listing   Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
 
   @@index([userId, createdAt])
   @@index([listingId])
@@ -527,16 +732,16 @@ model RecognitionExemplar {
 model RecognitionFeedback {
   id            String   @id @default(uuid())
   userId        String   @map("user_id")
-  photoUrl      String?  @map("photo_url")       // the query photo (if stored)
-  caption       String?                           // VLM caption used for the search
-  mode          String   @default("dish")         // dish | drink | wine | menu
+  photoUrl      String?  @map("photo_url") // the query photo (if stored)
+  caption       String? // VLM caption used for the search
+  mode          String   @default("dish") // dish | drink | wine | menu
   predictedIds  String[] @default([]) @map("predicted_ids") // top-5 item ids shown
   topConfidence Float?   @map("top_confidence")
-  chosenId      String?  @map("chosen_id")         // item the user confirmed (null = dismissed)
-  wasTop        Boolean? @map("was_top")           // chosen == top-1 prediction?
+  chosenId      String?  @map("chosen_id") // item the user confirmed (null = dismissed)
+  wasTop        Boolean? @map("was_top") // chosen == top-1 prediction?
   createdAt     DateTime @default(now()) @map("created_at")
 
-  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, createdAt])
   @@index([chosenId])

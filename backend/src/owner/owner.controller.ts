@@ -153,11 +153,12 @@ export class OwnerController {
     @Param('action') action: 'approve' | 'reject',
     @Body() body: { price?: number } = {},
   ) {
-    await this.requireAdmin(req);
+    const admin = await this.requireAdmin(req);
     return this.owner.moderateReview(
       id,
       action === 'approve' ? 'approve' : 'reject',
       body?.price,
+      admin.id,
     );
   }
 
