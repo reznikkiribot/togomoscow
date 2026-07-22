@@ -196,6 +196,19 @@ export function isJunk(name) {
   // are just an adjective (Russian adjective endings).
   const words = n.split(/\s+/).filter(Boolean);
   if (words.length === 1 && /(ый|ий|ой|ая|яя|ое|ее|ые|ими|ого|осн?ый)$/.test(words[0]) && words[0].length >= 5) return true;
+  // NON-FOOD merch/service never belongs in a food catalog (owner 21.07.2026):
+  // coloring books, toys, apparel, bags, cutlery, delivery/booking fees.
+  if (/раскраск|игрушк|футболк|бейсболк|значок|носки|шоппер|термокружк|подарочн|открытк|пакет с ручками|салфетк|зажигалк|магнит|брелок|плед|рюкзак|термос|чаевые|сервисн|аренда|депозит|бронирован/i.test(n)) return true;
+  // BRANDED drinks are banned entirely — only generic names (сок, смузи, лимонад)
+  // belong in the catalog (owner 21.07.2026). A latin-script or quoted drink name
+  // is a brand; generic Russian drink words stay.
+  const GENERIC_DRINK = /^(?:сок|смузи|лимонад|морс|компот|чай|кофе|латте|капучино|раф|американо|эспрессо|какао|молоко|вода|фреш|коктейл|тоник|мохито|матча|глинтвейн|пунш|шейк|милкшейк|айс|флэт|мокко|кортадо|пикколо|гляссе|бамбл|пиво|вино|сидр|квас)/i;
+  const BRANDED_DRINK = /[a-z]{3,}|«|добрый|черноголовк|святой источник|аква минерале|бонаква|моя семья|фрутоняня|сады придонья|нарзан|боржоми|ессентуки|липецкий|шишкин лес|архыз|пеллегрино|эвиан|виттель|перье|швепс|фанта|спрайт|пепси|миринда|байкал|тархун|дюшес|буратино|жигул[её]вск|балтика|очаково|хугарден|велкопопов|козел|гиннес|карлсберг|туборг|хайнекен|стелла|миллер|абрау|фанагор|цимлянск|инкерман|массандр/i;
+  if (BRANDED_DRINK.test(n) && !GENERIC_DRINK.test(n.trim())) {
+    // only reject when it looks like a DRINK (dishes may legitimately carry latin
+    // words: "Цезарь Классик", "Том Ям"); drink context = drink words nearby
+    if (/пиво|вино|лагер|эль|стаут|портер|сидр|вода|сок|лимонад|кола|тоник|напиток|квас|морс|игрист|шампан|виски|водк|ром|джин|текил|ликёр|ликер|коньяк|вермут|просекко|пилснер|ipa|weiss|beer|wine|cola|juice|water/i.test(n)) return true;
+  }
   // mostly non-letters (codes/garbage)
   const letters = (n.match(/[а-яёa-z]/gi) || []).length;
   if (letters < n.length * 0.5) return true;
