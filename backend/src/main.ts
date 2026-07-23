@@ -58,21 +58,30 @@ async function bootstrap() {
   await app.listen(port);
   console.log(`Backend running on http://localhost:${port}/api`);
 
-  const warmStarted = Date.now();
-  const prisma = app.get(PrismaService);
-  const listings = app.get(ListingsService);
-  const recsys = app.get(RecsysService);
-  void Promise.allSettled([
-    prisma.$queryRaw`SELECT 1`,
-    recsys.anonFeed(12),
-    listings.firstTasterItems(4),
-    listings.list({ type: 'DISH', sort: 'rating', take: 12 }),
-    listings.list({ type: 'DRINK', sort: 'rating', take: 12 }),
-    listings.topWeekly(),
-    listings.geo(),
-  ]).then((results) => {
-    const failed = results.filter((result) => result.status === 'rejected').length;
-    console.log(`Hot response cache warmed in ${Date.now() - warmStarted}ms (${failed} failed)`);
-  });
+  // Warm the hot caches AFTER the health endpoint is already answering. Deferring
+  // to setTimeout guarantees warm-up work can never delay or fail the Railway
+  // healthcheck — a rejected warm-up query must never take the whole deploy down.
+  setTimeout(() => {
+    const warmStarted = Date.now();
+    try {
+      const prisma = app.get(PrismaService);
+      const listings = app.get(ListingsService);
+      const recsys = app.get(RecsysService);
+      void Promise.allSettled([
+        prisma.$queryRaw`SELECT 1`,
+        recsys.anonFeed(12),
+        listings.firstTasterItems(8),
+        listings.list({ type: 'DISH', sort: 'rating', take: 12 }),
+        listings.list({ type: 'DRINK', sort: 'rating', take: 12 }),
+        listings.topWeekly(),
+        listings.geo(),
+      ]).then((results) => {
+        const failed = results.filter((result) => result.status === 'rejected').length;
+        console.log(`Hot response cache warmed in ${Date.now() - warmStarted}ms (${failed} failed)`);
+      });
+    } catch (err) {
+      console.warn('Warm-up skipped:', (err as Error)?.message);
+    }
+  }, 3000);
 }
 bootstrap();
