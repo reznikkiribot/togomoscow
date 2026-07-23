@@ -317,10 +317,14 @@ export default function Home() {
 
       api.bootstrap()
         .then((home) => {
-          if (!hadRecommended) setRecommendedFast(home.recommended);
-          if (!hadFirstTaster) setFirstTaster(home.firstTaster);
-          storeCached('recsysV2', home.recommended);
-          storeCached('firstTasterV2', home.firstTaster);
+          // backend field is `feed`, not `recommended` — reading the wrong key
+          // left the recsys feed and «Оцените первым» empty on first load.
+          if (!hadRecommended && home.feed?.length) setRecommendedFast(home.feed);
+          if (!hadFirstTaster && home.firstTaster?.length) setFirstTaster(home.firstTaster);
+          if (home.feed?.length) storeCached('recsysV2', home.feed);
+          if (home.firstTaster?.length) storeCached('firstTasterV2', home.firstTaster);
+          if (home.topDishes?.length) { setTopDishesFast(home.topDishes); storeCached('topDish', home.topDishes); }
+          if (home.topDrinks?.length) { setTopDrinksFast(home.topDrinks); storeCached('topDrink', home.topDrinks); }
         })
         .catch(() => api.recsysFeed(30).then(setRecommendedFast).catch(() => {}))
         .finally(() => setFeedLoaded(true));

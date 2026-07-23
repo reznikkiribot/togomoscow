@@ -263,8 +263,11 @@ export const api = {
   },
   feed: () => getPublic<Review[]>('/listings/feed'),
   bootstrap: () => getPublic<{
-    recommended: Listing[];
+    feed: Listing[];
     firstTaster: Listing[];
+    topDishes: Listing[];
+    topDrinks: Listing[];
+    me: { id: string; role: string; onboardedAt: string | null } | null;
   }>('/bootstrap'),
 
   // venues serving a dish/drink matching the query (Блюда / Напитки search)
