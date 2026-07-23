@@ -18,10 +18,28 @@ export class HealthController {
     private readonly vectors: VectorSearchService,
   ) {}
 
+  // Railway's healthcheck gates the deploy on this. It MUST be a liveness probe
+  // (is the process up?), NOT a readiness probe (is the DB reachable?). It used to
+  // `await SELECT 1`, so whenever the private-network DB lagged the container by a
+  // second, health returned 500, the healthcheck failed, and the whole deploy was
+  // marked FAILED. DB status is now reported as a field without ever failing the
+  // check — the app is alive and will serve as soon as the DB connects.
   @Get()
   async check() {
-    await this.prisma.$queryRaw`SELECT 1`;
-    return { status: 'ok', db: 'up', time: new Date().toISOString() };
+    // The DB probe must never block the response: while Prisma is still
+    // reconnecting, `$queryRaw` can HANG (queued) rather than reject, which would
+    // stall the healthcheck just as badly as throwing. Race it against a short
+    // timeout so health always answers within ~1s.
+    let db = 'up';
+    try {
+      await Promise.race([
+        this.prisma.$queryRaw`SELECT 1`,
+        new Promise((_, reject) => setTimeout(() => reject(new Error('db-timeout')), 1000)),
+      ]);
+    } catch {
+      db = 'connecting';
+    }
+    return { status: 'ok', db, time: new Date().toISOString() };
   }
 
   // Current frontend bundle name — the client compares it with its own script
