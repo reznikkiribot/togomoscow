@@ -41,12 +41,18 @@ export class BootstrapController {
     const [feed, firstTaster, topDishes, topDrinks] = await Promise.all([
       viewer
         ? this.recsys.recommendByTaste(viewer.id, limit).catch(() => this.recsys.anonFeed(limit))
-        : this.cache.getOrSet(`bootstrap:anon-feed:${limit}`, 60_000, () => this.recsys.anonFeed(limit)).catch(() => []),
-      this.listings.firstTasterItems(8, viewer?.id ?? null).catch(() => []),
-      this.cache.getOrSet('bootstrap:top-dish:v1', 120_000, () =>
+        // getSWR: after the first computation, a stale feed is served instantly while
+        // it refreshes in the background — no visitor waits the ~6s rebuild again.
+        : this.cache.getSWR(`bootstrap:anon-feed:${limit}`, 60_000, () => this.recsys.anonFeed(limit, true)).catch(() => []),
+      // anonymous first-taster deck is identical for everyone → SWR it too; a
+      // logged-in viewer keeps the per-user rotated deck (not cacheable).
+      viewer
+        ? this.listings.firstTasterItems(8, viewer.id).catch(() => [])
+        : this.cache.getSWR('bootstrap:first-taster:8', 60_000, () => this.listings.firstTasterItems(8, null)).catch(() => []),
+      this.cache.getSWR('bootstrap:top-dish:v1', 120_000, () =>
         this.listings.list({ type: 'DISH', sort: 'rating', take: 12 }),
       ).catch(() => []),
-      this.cache.getOrSet('bootstrap:top-drink:v1', 120_000, () =>
+      this.cache.getSWR('bootstrap:top-drink:v1', 120_000, () =>
         this.listings.list({ type: 'DRINK', sort: 'rating', take: 12 }),
       ).catch(() => []),
     ]);
