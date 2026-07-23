@@ -37,3 +37,7 @@ tools/
 backend/.models-cache/
 # Выгрузки каталога (гигабайты, восстановимы из БД)
 exports/
+
+# Собирается Railway из frontend/dist при каждом деплое — не хранить в git
+# (закоммиченная версия перезатирала свежую сборку через COPY . /app)
+backend/public/
