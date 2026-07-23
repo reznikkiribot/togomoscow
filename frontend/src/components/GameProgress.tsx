@@ -34,7 +34,7 @@ export function GameCelebration({ game }: { game: GameState | null }) {
   return <div className="game-toast">{show}</div>;
 }
 
-export function GameProgress({ game }: { game: GameState }) {
+export function GameProgress({ game, onUnlockInfo }: { game: GameState; onUnlockInfo?: (key: string) => void }) {
   const lvl = game.level;
   const q = game.counters.quality ?? 0;
   const lvlPct = lvl.nextAt ? Math.min(100, Math.round((q / lvl.nextAt) * 100)) : 100;
@@ -65,7 +65,12 @@ export function GameProgress({ game }: { game: GameState }) {
       <div className="me-section">
         <h2 className="me-h">Открытия</h2>
         {game.unlocks.map((u) => (
-          <div key={u.key} className={'game-unlock' + (u.unlocked ? ' open' : '')}>
+          <button
+            key={u.key}
+            type="button"
+            className={'game-unlock' + (u.unlocked ? ' open' : '')}
+            onClick={() => onUnlockInfo?.(u.key)}
+          >
             <span className="game-unlock-ico">{u.unlocked ? u.icon : '🔒'}</span>
             <div style={{ flex: 1 }}>
               <div className="game-unlock-title">{u.title}</div>
@@ -82,7 +87,8 @@ export function GameProgress({ game }: { game: GameState }) {
                 </>
               )}
             </div>
-          </div>
+            <span className="game-unlock-chevron" aria-hidden="true">›</span>
+          </button>
         ))}
       </div>
 

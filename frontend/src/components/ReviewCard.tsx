@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { ReactNode } from 'react';
 import type { Review } from '../types';
 import { Stars } from './Stars';
@@ -127,11 +128,15 @@ export function CategoryAverages({
   reviews,
   selected,
   onSelect,
+  collapsible = false,
 }: {
   reviews: Review[];
   selected?: string | null;
   onSelect?: (category: string | null) => void;
+  // show only the top 2 rows with a chevron to reveal the rest
+  collapsible?: boolean;
 }) {
+  const [expanded, setExpanded] = useState(false);
   const map = new Map<string, { sum: number; n: number }>();
   for (const r of reviews) {
     const c = r.listing?.category;
@@ -145,9 +150,11 @@ export function CategoryAverages({
     .map(([name, { sum, n }]) => ({ name, avg: sum / n, n }))
     .sort((a, b) => b.n - a.n || b.avg - a.avg);
   if (!rows.length) return null;
+  const visible = collapsible && !expanded ? rows.slice(0, 2) : rows;
+  const hidden = rows.length - visible.length;
   return (
     <div className="cat-avgs">
-      {rows.map((r) => (
+      {visible.map((r) => (
         <button
           key={r.name}
           type="button"
@@ -162,6 +169,17 @@ export function CategoryAverages({
           </span>
         </button>
       ))}
+      {collapsible && rows.length > 2 && (
+        <button
+          type="button"
+          className="cat-avg-toggle"
+          aria-expanded={expanded}
+          onClick={() => setExpanded((v) => !v)}
+        >
+          {expanded ? 'Свернуть' : `Ещё ${hidden}`}
+          <span className={'cat-avg-chevron' + (expanded ? ' up' : '')} aria-hidden="true">▾</span>
+        </button>
+      )}
     </div>
   );
 }

@@ -6703,3 +6703,102 @@ html[data-theme='dark'] .sk {
   line-height: 1;
   cursor: pointer;
 }
+
+/* ===== profile: collapsible sections, tier paths, info sheets ===== */
+.cat-avg-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  margin-top: 6px;
+  padding: 8px;
+  border: none;
+  background: none;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.cat-avg-chevron { transition: transform 0.2s; display: inline-block; }
+.cat-avg-chevron.up { transform: rotate(180deg); }
+
+.me-collapse-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--text);
+}
+.me-collapse-meta {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--hint);
+  font-size: 14px;
+  font-weight: 600;
+}
+.me-collapse-chevron { font-size: 20px; color: var(--hint); }
+
+.spec-card { position: relative; text-align: left; width: 100%; border: none; cursor: pointer; }
+.spec-chevron, .game-unlock-chevron {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--hint);
+  font-size: 20px;
+}
+.game-unlock { position: relative; width: 100%; text-align: left; border: none; background: var(--card); cursor: pointer; }
+
+.info-path-lead { font-size: 14px; color: var(--text); margin: 0 0 10px; }
+.info-path-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 0;
+  border-top: 1px solid var(--border);
+  font-size: 14px;
+}
+.info-path-row.done { color: var(--text); }
+.info-path-row:not(.done) { color: var(--hint); }
+.info-path-mark { width: 18px; text-align: center; font-weight: 700; }
+.info-path-row.done .info-path-mark { color: #2e9e4f; }
+.info-path-title { flex: 1; font-weight: 600; }
+.info-path-need { font-size: 13px; }
+.info-sheet-body { font-size: 15px; line-height: 1.5; color: var(--text); margin: 0; }
+
+.sheet-body { padding: 4px 0 8px; max-height: 60vh; overflow-y: auto; }
+.sheet-close {
+  border: none;
+  background: none;
+  color: var(--hint);
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+/* bottom-sheet container used by profile explainer / recent-viewed modals */
+.sheet {
+  width: 100%;
+  max-width: 600px;
+  background: var(--card);
+  border-radius: 18px 18px 0 0;
+  padding: 16px 18px calc(18px + env(safe-area-inset-bottom));
+  max-height: 82vh;
+  overflow-y: auto;
+  animation: sheetUp 0.25s ease;
+}
+@keyframes sheetUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.sheet .sheet-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.sheet .sheet-head h3 { margin: 0; font-size: 18px; font-weight: 800; }

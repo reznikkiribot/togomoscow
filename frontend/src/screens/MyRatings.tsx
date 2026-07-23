@@ -27,6 +27,44 @@ const writeCache = (patch: Record<string, unknown>) => {
   try { localStorage.setItem(ME_CACHE, JSON.stringify({ ...readCache(), ...patch })); } catch { /* quota */ }
 };
 
+// Taster-map tiers (same thresholds as social.service TIERS). Tapping a
+// specialization shows the full path: which title comes next and how many
+// tastings remain.
+const SPEC_TIERS = [
+  { n: 3, t: 'Знаток' },
+  { n: 10, t: 'Эксперт' },
+  { n: 25, t: 'Мастер' },
+];
+function specPath(s: Specialization): React.ReactNode {
+  return (
+    <div className="info-path">
+      <p className="info-path-lead">Ваши дегустации: <b>{s.count}</b></p>
+      {SPEC_TIERS.map((tier) => {
+        const reached = s.count >= tier.n;
+        const remaining = tier.n - s.count;
+        return (
+          <div key={tier.t} className={'info-path-row' + (reached ? ' done' : '')}>
+            <span className="info-path-mark">{reached ? '✓' : '○'}</span>
+            <span className="info-path-title">{tier.t}</span>
+            <span className="info-path-need">
+              {reached ? 'получено' : `ещё ${remaining} ${remaining === 1 ? 'дегустация' : remaining < 5 ? 'дегустации' : 'дегустаций'}`}
+            </span>
+          </div>
+        );
+      })}
+      {s.count >= 25 && <p className="info-path-lead" style={{ marginTop: 8 }}>Вы прошли все звания в этой категории 🏆</p>}
+    </div>
+  );
+}
+
+// Explainer text for the «Открытия» unlocks — shown in a sheet on tap.
+const UNLOCK_INFO: Record<string, { title: string; body: string }> = {
+  tasteProfile: { title: '🎨 Вкусовой профиль', body: 'Показывает ваши любимые категории, кухни и ценовой диапазон — картину того, что вам нравится, собранную из ваших дегустаций.' },
+  recommendations: { title: '🤖 Персональные рекомендации', body: 'На каждой карточке появляется вероятность, что блюдо вам понравится, — подобранная под ваш вкус.' },
+  tasterMap: { title: '🗺 Карта дегустатора', body: 'Ваши звания по категориям (Знаток → Эксперт → Мастер), исследованные районы и любимые заведения.' },
+  reputation: { title: '⭐ Репутация', body: 'Полезность ваших дегустаций для других, ваше место среди дегустаторов и заслуженные значки. Открывается после 30 качественных дегустаций.' },
+};
+
 export default function MyRatings() {
   const nav = useNavigate();
   const cached = readCache();
@@ -48,6 +86,9 @@ export default function MyRatings() {
   const [openUser, setOpenUser] = useState<string | null>(null);
   const [openListing, setOpenListing] = useState<string | null>(null);
   const [recent, setRecent] = useState<Listing[]>([]);
+  const [showRecent, setShowRecent] = useState(false);
+  // clicking a taster-map tier / an unlock opens an explainer sheet on this page
+  const [infoSheet, setInfoSheet] = useState<{ title: string; body: React.ReactNode } | null>(null);
   const [noStory, setNoStory] = useState(localStorage.getItem('noStoryOnReview') === '1');
   const [theme, setTheme] = useState<ThemePreference>(() => readThemePreference());
   const [photoReview, setPhotoReview] = useState<Review | null>(null);
@@ -163,7 +204,10 @@ export default function MyRatings() {
       </div>
 
       {game && <GameCelebration game={game} />}
-      {game && <GameProgress game={game} />}
+      {game && <GameProgress game={game} onUnlockInfo={(key) => {
+        const info = UNLOCK_INFO[key];
+        if (info) setInfoSheet({ title: info.title, body: <p className="info-sheet-body">{info.body}</p> });
+      }} />}
 
       {/* Карта дегустатора: specializations with live tiers (Знаток → Эксперт → Мастер) */}
       {specs.some((s) => s.count > 0) && (
@@ -174,7 +218,12 @@ export default function MyRatings() {
               .filter((s) => s.count > 0)
               .sort((a, b) => b.count - a.count)
               .map((s) => (
-                <div key={s.id} className={'spec-card' + (s.tier ? ' on' : '')}>
+                <button
+                  key={s.id}
+                  type="button"
+                  className={'spec-card' + (s.tier ? ' on' : '')}
+                  onClick={() => setInfoSheet({ title: `${s.icon} ${s.label}`, body: specPath(s) })}
+                >
                   <span className="spec-ico">{s.icon}</span>
                   <div className="spec-body">
                     <div className="spec-label">{s.tier ? `${s.tier} · ${s.label}` : s.label}</div>
@@ -183,7 +232,8 @@ export default function MyRatings() {
                       {s.next != null && ` · ещё ${s.next - s.count} до ${s.tier ? 'следующего звания' : 'звания «Знаток»'}`}
                     </div>
                   </div>
-                </div>
+                  <span className="spec-chevron" aria-hidden="true">›</span>
+                </button>
               ))}
           </div>
         </div>
@@ -372,6 +422,7 @@ export default function MyRatings() {
           <CategoryAverages
             reviews={reviews}
             selected={categoryFilter}
+            collapsible
             onSelect={(category) => {
               setCategoryFilter(category);
               requestAnimationFrame(() => tastingsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
@@ -382,16 +433,11 @@ export default function MyRatings() {
 
       {recent.length > 0 && (
         <div className="me-section">
-          <h2 className="me-h">Недавно смотрели</h2>
-          {recent.map((l) => (
-            <button key={l.id} className="recent-row" onClick={() => setOpenListing(l.id)}>
-              <VenuePhoto listing={l} className="recent-img" />
-              <div style={{ flex: 1, textAlign: 'left' }}>
-                <div className="name">{l.name}</div>
-                {l.address && <div className="meta">{l.address}</div>}
-              </div>
-            </button>
-          ))}
+          {/* collapsed: a single row that opens the full list in a modal */}
+          <button className="me-collapse-head" onClick={() => setShowRecent(true)}>
+            <h2 className="me-h" style={{ margin: 0 }}>Недавно смотрели</h2>
+            <span className="me-collapse-meta">{recent.length}<span className="me-collapse-chevron">›</span></span>
+          </button>
         </div>
       )}
 
@@ -492,24 +538,13 @@ export default function MyRatings() {
         </div>
       ) : (
         (() => {
-          const withPhoto = reviews.filter((r) => r.photoUrls?.[0] || r.cardPhotoUrl);
           const shownReviews = categoryFilter
             ? reviews.filter((r) => r.listing?.category === categoryFilter)
             : reviews;
           return (
             <>
-              {withPhoto.length > 0 && (
-                <div className="me-section">
-                  <h2 className="me-h">Дегустации</h2>
-                  <div className="rc-carousel">
-                    {withPhoto.map((r) => (
-                      <button key={r.id} onClick={() => setPhotoReview(withMe(r))}>
-                        <SmartImg src={r.photoUrls?.[0] || r.cardPhotoUrl} width={400} alt="" />
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
+              {/* «Дегустации» (фото-карусель) убрана по просьбе владельца —
+                  осталась только секция «Мои дегустации» ниже */}
               <div ref={tastingsRef} className="me-section">
                 <h2 className="me-h">{categoryFilter ? `Мои дегустации · ${categoryFilter}` : 'Мои дегустации'}</h2>
                 {categoryFilter && (
@@ -547,6 +582,42 @@ export default function MyRatings() {
       {openUser && <UserProfileModal id={openUser} onClose={() => setOpenUser(null)} />}
       {openListing && (
         <ListingDetailModal id={openListing} onClose={() => setOpenListing(null)} />
+      )}
+
+      {/* «Недавно смотрели» — opens the full list in its own sheet */}
+      {showRecent && (
+        <div className="modal-backdrop" onClick={() => setShowRecent(false)}>
+          <div className="sheet" onClick={(e) => e.stopPropagation()}>
+            <div className="sheet-head">
+              <h3>Недавно смотрели</h3>
+              <button className="sheet-close" onClick={() => setShowRecent(false)}>×</button>
+            </div>
+            <div className="sheet-body">
+              {recent.map((l) => (
+                <button key={l.id} className="recent-row" onClick={() => { setShowRecent(false); setOpenListing(l.id); }}>
+                  <VenuePhoto listing={l} className="recent-img" />
+                  <div style={{ flex: 1, textAlign: 'left' }}>
+                    <div className="name">{l.name}</div>
+                    {l.address && <div className="meta">{l.address}</div>}
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* explainer sheet for taster-map tiers & «Открытия» unlocks */}
+      {infoSheet && (
+        <div className="modal-backdrop" onClick={() => setInfoSheet(null)}>
+          <div className="sheet" onClick={(e) => e.stopPropagation()}>
+            <div className="sheet-head">
+              <h3>{infoSheet.title}</h3>
+              <button className="sheet-close" onClick={() => setInfoSheet(null)}>×</button>
+            </div>
+            <div className="sheet-body">{infoSheet.body}</div>
+          </div>
+        </div>
       )}
       {photoReview && (
         <PhotoPostModal
