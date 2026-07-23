@@ -216,10 +216,10 @@ export default function MyRatings() {
 
       {taste && taste.topCategories && taste.topCategories.length > 0 && (
         <div className="me-section">
-          <h2 className="me-h">🎯 Обучение рекомендаций</h2>
+          <h2 className="me-h">🏅 Ваши категории</h2>
           <p className="me-hint" style={{ marginTop: -4 }}>
-            Здесь видно, в каких категориях мы уже начали понимать ваш вкус.
-            Пять оценок открывают личный рейтинг категории.
+            Категории, в которых вы набираете вес как дегустатор. Пять дегустаций
+            открывают ваш личный рейтинг категории.
           </p>
           <div className="accuracy-block">
             {taste.topCategories.map((c) => {
