@@ -648,6 +648,17 @@ img.thumb.logo {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+/* coloured dot in the actual metro-line colour, replacing the flat Ⓜ glyph */
+.metro-dot {
+  flex: 0 0 auto;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
 }
 .detail-metro {
   margin-top: -4px;
