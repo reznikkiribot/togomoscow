@@ -1,0 +1,6 @@
+tools/
+backend/.models-cache/
+exports/
+node_modules/
+.git/
+**/*.log
