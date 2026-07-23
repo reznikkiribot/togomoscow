@@ -368,17 +368,17 @@ export class GoalsService {
     ]);
     if (!candidates.length) return null;
 
-    const [prefs, recent] = await Promise.all([
-      this.prisma.userGoalPreference.findMany({ where: { userId } }).catch(() => []),
-      this.prisma.userGoalImpression
-        .findMany({
-          where: { userId, shownAt: { gte: new Date(Date.now() - 7 * 86_400_000) } },
-          orderBy: { shownAt: 'desc' },
-          take: 40,
-        })
-        .catch(() => []),
-    ]);
-    const prefByType = new Map(prefs.map((p) => [p.goalType, p]));
+    const prefs = await this.prisma.userGoalPreference
+      .findMany({ where: { userId } })
+      .catch(() => [] as Awaited<ReturnType<typeof this.prisma.userGoalPreference.findMany>>);
+    const recent = await this.prisma.userGoalImpression
+      .findMany({
+        where: { userId, shownAt: { gte: new Date(Date.now() - 7 * 86_400_000) } },
+        orderBy: { shownAt: 'desc' },
+        take: 40,
+      })
+      .catch(() => [] as Awaited<ReturnType<typeof this.prisma.userGoalImpression.findMany>>);
+    const prefByType = new Map<string, (typeof prefs)[number]>(prefs.map((p) => [p.goalType, p]));
     const lastShown = recent[0];
     const lastTwoTypes = recent.slice(0, cfg.limits.maxSameTypeInARow).map((r) => r.goalType);
     const typeSaturated =

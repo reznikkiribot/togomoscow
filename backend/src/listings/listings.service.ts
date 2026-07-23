@@ -16,11 +16,6 @@ import { cuisineLabel, cuisineToken } from './cuisine';
 // the venue. City GPS + OSM coordinates are imprecise, so we stay lenient.
 const CHECKIN_RADIUS_M = 500;
 
-function isAlcohol(name: string, type: ListingType): boolean {
-  if (type !== 'DRINK') return false;
-  return /(?:вино|wine|пиво|beer|эль|ale|лагер|сидр|коктейл|cocktail|шампан|просекко|виски|whisk|водк|джин|gin\b|ром\b|rum\b|текил|коньяк|бренди|лик[её]р|вермут|аперитив|настойк|наливк)/i.test(name);
-}
-
 // separators removed before matching, so "муму" finds "Му-Му", "rostics" → "Rostic's"
 const NAME_STRIP_RE = /[-'`‘’.]/g;
 const NAME_STRIP_SQL = "[-'`‘’.]";
@@ -187,28 +182,6 @@ export class ListingsService {
     private readonly uploads: UploadsService,
     private readonly cache: ResponseCacheService,
   ) {}
-
-  private async rotatePicks<T extends { id: string }>(
-    rows: T[],
-    take: number,
-    viewerId: string | null,
-    section: string,
-  ): Promise<T[]> {
-    const copy = [...rows];
-    let seed = 0;
-    for (const char of `${viewerId ?? Math.random()}|${section}|${Date.now() >> 12}`) {
-      seed = (seed * 31 + char.charCodeAt(0)) >>> 0;
-    }
-    const random = () => {
-      seed = (seed * 1664525 + 1013904223) >>> 0;
-      return seed / 0x100000000;
-    };
-    for (let index = copy.length - 1; index > 0; index--) {
-      const swap = Math.floor(random() * (index + 1));
-      [copy[index], copy[swap]] = [copy[swap], copy[index]];
-    }
-    return copy.slice(0, take);
-  }
 
   viewerLocation(req: any): ViewerLocation | undefined {
     const lat = Number(req?.headers?.['x-tasting-lat']);
