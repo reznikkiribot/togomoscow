@@ -499,6 +499,10 @@ export default function Business() {
               <>
                 <div className="meta" style={{ color: 'var(--hint)', marginBottom: 8 }}>
                   Пороги, уровни, достижения — правки применяются без деплоя (кэш до 60 сек).
+                  <br />
+                  <b>goalRanking</b> — персональные цели на главной: веса ранжирования, exploration
+                  (доля показа не-топовой цели), лимиты усталости, <b>enabledTypes</b> (вкл/выкл
+                  семейства целей). <b>goalTemplates</b> — тексты целей.
                 </div>
                 {Object.entries(gameCfg).map(([key, value]) => (
                   <div key={key} className="biz-card">
