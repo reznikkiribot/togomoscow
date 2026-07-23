@@ -34,10 +34,14 @@ export class BootstrapController {
 
     // The heavy, viewer-independent parts stay on the shared cache; anything
     // personal (rotation, "me") is computed per viewer on top of it.
+    // Anonymous visitors all get the same first screen — cache the whole anon
+    // feed for 60s so a cold open isn't a from-scratch recompute every time.
+    // A known viewer gets a personalised feed (recommendByTaste) which must not
+    // be cached under a shared key, but firstTaster still rotates per user.
     const [feed, firstTaster, topDishes, topDrinks] = await Promise.all([
       viewer
         ? this.recsys.recommendByTaste(viewer.id, limit).catch(() => this.recsys.anonFeed(limit))
-        : this.recsys.anonFeed(limit),
+        : this.cache.getOrSet(`bootstrap:anon-feed:${limit}`, 60_000, () => this.recsys.anonFeed(limit)).catch(() => []),
       this.listings.firstTasterItems(8, viewer?.id ?? null).catch(() => []),
       this.cache.getOrSet('bootstrap:top-dish:v1', 120_000, () =>
         this.listings.list({ type: 'DISH', sort: 'rating', take: 12 }),

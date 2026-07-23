@@ -7,6 +7,7 @@ import { AppModule } from './app.module';
 import { ListingsService } from './listings/listings.service';
 import { RecsysService } from './recsys/recsys.service';
 import { PrismaService } from './prisma/prisma.service';
+import { ResponseCacheService } from './common/response-cache.service';
 
 // Prisma stores telegram_id as BigInt; make BigInt JSON-serializable.
 (BigInt.prototype as any).toJSON = function () {
@@ -67,12 +68,16 @@ async function bootstrap() {
       const prisma = app.get(PrismaService);
       const listings = app.get(ListingsService);
       const recsys = app.get(RecsysService);
+      const cache = app.get(ResponseCacheService);
+      // Warm the EXACT keys /api/bootstrap reads (bootstrap:anon-feed:10,
+      // bootstrap:top-dish/drink:v1) so the first cold open on a fresh deploy is
+      // already served from cache instead of recomputing the whole first screen.
       void Promise.allSettled([
         prisma.$queryRaw`SELECT 1`,
-        recsys.anonFeed(12),
+        cache.getOrSet('bootstrap:anon-feed:10', 60_000, () => recsys.anonFeed(10)),
+        cache.getOrSet('bootstrap:top-dish:v1', 120_000, () => listings.list({ type: 'DISH', sort: 'rating', take: 12 })),
+        cache.getOrSet('bootstrap:top-drink:v1', 120_000, () => listings.list({ type: 'DRINK', sort: 'rating', take: 12 })),
         listings.firstTasterItems(8),
-        listings.list({ type: 'DISH', sort: 'rating', take: 12 }),
-        listings.list({ type: 'DRINK', sort: 'rating', take: 12 }),
         listings.topWeekly(),
         listings.geo(),
       ]).then((results) => {
