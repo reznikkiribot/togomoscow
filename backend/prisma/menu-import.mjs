@@ -393,6 +393,7 @@ async function main() {
     if (!venues.length) { console.log(`${domain}: no venues in catalog, skip`); continue; }
 
     let newItems = 0, links = 0;
+    const pendingLinks = [];
     for (const raw of data.items) {
       const name = normalizeMenuName(raw.name, venues.map((venue) => venue.name));
       const { type, category } = classify(name);
@@ -419,15 +420,31 @@ async function main() {
       // this venue's own menu photo → the reference for THIS venue's AI image
       const refImage = typeof raw.image === 'string' && /^https?:\/\//.test(raw.image) ? raw.image : null;
       for (const v of venues) {
-        await prisma.menuLink.upsert({
-          where: { venueId_itemId: { venueId: v.id, itemId: item.id } },
-          create: { venueId: v.id, itemId: item.id, status, price, refImage },
-          // don't wipe an existing generated photo; only fill a missing reference
-          update: { status, price, ...(refImage ? { refImage } : {}) },
-        });
-        links++;
-        log.links.push([v.id, item.id]);
+        pendingLinks.push({ venueId: v.id, itemId: item.id, status, price, refImage });
       }
+    }
+
+    // Batch the menu-link writes. Doing them one upsert at a time over the public
+    // proxy was hundreds of round-trips per domain and stalled the import; a single
+    // createMany(skipDuplicates) + a grouped price backfill is orders faster.
+    if (pendingLinks.length) {
+      const created = await prisma.menuLink.createMany({
+        data: pendingLinks.map((l) => ({ venueId: l.venueId, itemId: l.itemId, status: l.status, price: l.price, refImage: l.refImage })),
+        skipDuplicates: true,
+      }).catch(async (e) => {
+        console.warn(`${domain}: createMany failed (${String(e.message||'').slice(0,40)}), falling back to per-row`);
+        let n = 0;
+        for (const l of pendingLinks) {
+          await prisma.menuLink.upsert({
+            where: { venueId_itemId: { venueId: l.venueId, itemId: l.itemId } },
+            create: l, update: { status: l.status, price: l.price, ...(l.refImage ? { refImage: l.refImage } : {}) },
+          }).then(() => n++).catch(() => {});
+        }
+        return { count: n };
+      });
+      // refresh price/status/ref on links that already existed (createMany skipped them)
+      for (const l of pendingLinks) log.links.push([l.venueId, l.itemId]);
+      links += created.count;
     }
     console.log(`${domain}: ${venues.length} venues × ${data.count} items → +${newItems} new items, ${links} menu links (${status})`);
   }
