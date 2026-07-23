@@ -53,6 +53,31 @@ export const DEFAULT_CONFIG: Record<string, any> = {
   discovery: { enabled: true, showInProfile: true },
   home: { firstTasterCards: 8 },
   recsysExploration: DEFAULT_EXPLORATION_CONFIG,
+
+  // ===== Personal goals (top-of-home motivator) =====
+  // Surfaced here so the admin cabinet's live-config editor exposes them. The
+  // authoritative merge happens in GoalsService (kept out of here to avoid a
+  // game↔goals import cycle); these are the editable defaults.
+  goalRanking: {
+    weights: { relevance: 1.0, attainability: 0.8, prestige: 0.7, novelty: 0.5, urgency: 0.6, fatigue: 1.2 },
+    exploration: { topRate: 0.7, nearTopRate: 0.2, randomRate: 0.1 },
+    limits: {
+      maxCandidates: 12,
+      maxSameTypeInARow: 2,
+      maxShowsPerGoalPer7Days: 3,
+      fatigueHoursAfterIgnores: 48,
+      ignoresBeforeFatigue: 3,
+    },
+    prestigeByType: {
+      specialization: 0.9, achievement: 0.85, level: 0.8, reputation: 0.75,
+      discovery: 0.6, streak: 0.5, comeback: 0.45, exploration: 0.4,
+    },
+    // per-type on/off — turning a type off drops all its candidates
+    enabledTypes: {
+      specialization: true, level: true, achievement: true, streak: true,
+      discovery: true, reputation: true, comeback: true, exploration: true,
+    },
+  },
 };
 
 @Injectable()

@@ -100,6 +100,7 @@ export class GoalsService {
       exploration: { ...DEFAULT_GOAL_CONFIG.exploration, ...(custom as any).exploration },
       limits: { ...DEFAULT_GOAL_CONFIG.limits, ...(custom as any).limits },
       prestigeByType: { ...DEFAULT_GOAL_CONFIG.prestigeByType, ...(custom as any).prestigeByType },
+      enabledTypes: { ...(custom as any).enabledTypes },
     };
   }
 
@@ -172,7 +173,10 @@ export class GoalsService {
     // closer goals are more attainable; beyond ~10 steps the pull fades
     const attain = (remaining: number) => Math.max(0.05, 1 - Math.min(remaining, 12) / 12);
 
+    const enabledTypes = (cfg as any).enabledTypes ?? {};
     const push = (c: Omit<GoalCandidate, 'finalScore' | 'fatiguePenalty' | 'novelty' | 'urgency' | 'attainability' | 'prestige'> & Partial<GoalCandidate>) => {
+      // admin can switch a whole goal family off from the cabinet
+      if (enabledTypes[c.goalType] === false) return;
       const remaining = c.remaining;
       out.push({
         prestige: prestige(c.goalType),
