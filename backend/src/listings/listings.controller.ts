@@ -130,6 +130,14 @@ export class ListingsController {
     return this.located(req, this.listings.topWeekly());
   }
 
+  // items where THIS user was the first taster (their discoveries)
+  @Get('my-discoveries')
+  @UseGuards(TelegramAuthGuard)
+  async myDiscoveries(@Req() req: any) {
+    const u = await this.users.upsertFromTelegram(req.telegramUser);
+    return this.located(req, this.listings.myDiscoveries(u.id));
+  }
+
   // «Станьте первым дегустатором» — items nobody has reviewed yet (gamification).
   // Optional auth: a known viewer gets ROTATED cards (never the same set twice),
   // anonymous gets a random sample.

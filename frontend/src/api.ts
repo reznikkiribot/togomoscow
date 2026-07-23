@@ -322,6 +322,7 @@ export const api = {
       body: JSON.stringify({ key, value }),
     }),
   firstTasterItems: (take = 8) => getPublic<Listing[]>(`/listings/first-taster?take=${take}`),
+  myDiscoveries: () => getJson<Listing[]>('/listings/my-discoveries'),
   firstTasterOf: (listingId: string) =>
     getPublic<{ user: { id: string; firstName?: string | null; username?: string | null }; at: string } | null>(`/game/first-taster/${listingId}`),
   stats: () => getJson<UserStats>('/me/stats'),

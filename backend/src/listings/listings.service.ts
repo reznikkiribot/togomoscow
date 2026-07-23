@@ -1836,6 +1836,23 @@ export class ListingsService {
 
   /** Items with ZERO user reviews — "станьте первым дегустатором" (gamification).
    *  Only real cards: with a photo and served somewhere; rotated per viewer. */
+  /** Items where THIS user's review is the earliest — their «first-taster»
+   *  discoveries, for the profile / goal sheet. */
+  async myDiscoveries(userId: string, take = 40): Promise<any[]> {
+    const firsts = await this.prisma.$queryRaw<{ listing_id: string }[]>`
+      SELECT DISTINCT ON (r.listing_id) r.listing_id, r.user_id
+      FROM reviews r
+      WHERE r.status = 'APPROVED'
+      ORDER BY r.listing_id, r.created_at ASC`;
+    const mine = firsts.filter((f) => (f as any).user_id === userId).map((f) => f.listing_id).slice(0, take);
+    if (!mine.length) return [];
+    const items = await this.prisma.listing.findMany({
+      where: { id: { in: mine }, type: { in: ['DISH', 'DRINK'] } },
+      select: PUBLIC_LISTING_SELECT,
+    });
+    return this.enrichCards(items);
+  }
+
   async firstTasterItems(take = 8, viewerId: string | null = null): Promise<any[]> {
     const limit = Math.max(1, Number(take) || 8);
     // Cache the POOL, never the pick. Caching the final selection under one shared

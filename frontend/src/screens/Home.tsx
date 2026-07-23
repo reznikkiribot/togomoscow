@@ -3,6 +3,7 @@ import { api } from '../api';
 import { ListingCard } from '../components/ListingCard';
 import { TasteHero } from '../components/TasteHero';
 import { PersonalGoal } from '../components/PersonalGoal';
+import { DiscoverySheet } from '../components/DiscoverySheet';
 import { ListRow } from '../components/ListRow';
 import { Stars } from '../components/Stars';
 import { preloadListingPhotos, VenuePhoto } from '../components/VenuePhoto';
@@ -238,6 +239,7 @@ export default function Home() {
   const [pickVenueForItem, setPickVenueForItem] = useState(false); // add a dish/drink → pick venue
   const [active, setActive] = useState<Listing | null>(null);
   const [deepId, setDeepId] = useState<string | null>(null);
+  const [showDiscovery, setShowDiscovery] = useState(false);
   const [deepVenue, setDeepVenue] = useState<{ id: string; name: string } | null>(null);
   const [events, setEvents] = useState<VenueEvent[]>([]);
   const [firstTaster, setFirstTaster] = useState<Listing[]>([]);
@@ -943,7 +945,7 @@ export default function Home() {
         </div>
       ) : (
         <>
-          <PersonalGoal />
+          <PersonalGoal onOpenDiscovery={() => setShowDiscovery(true)} />
           {/* "Ваши оценки" lives in the Profile only — removed from the home feed. */}
           {events.length > 0 && (
             <>
@@ -1191,6 +1193,13 @@ export default function Home() {
             if (quickRate.advanceHero) setHeroIdx((index) => index + 1);
           }}
           onClose={() => setQuickRate(null)}
+        />
+      )}
+      {showDiscovery && (
+        <DiscoverySheet
+          onClose={() => setShowDiscovery(false)}
+          onOpenListing={(id) => setDeepId(id)}
+          onRate={(l, n) => setQuickRate({ listing: l, rating: n })}
         />
       )}
       {deepId && !active && (

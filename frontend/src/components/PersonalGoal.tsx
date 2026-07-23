@@ -39,7 +39,7 @@ function sessionId(): string {
   }
 }
 
-export function PersonalGoal() {
+export function PersonalGoal({ onOpenDiscovery }: { onOpenDiscovery?: () => void } = {}) {
   const [goal, setGoal] = useState<PersonalGoalData | null>(null);
   const [hidden, setHidden] = useState(false);
   const navigate = useNavigate();
@@ -57,6 +57,12 @@ export function PersonalGoal() {
 
   const open = () => {
     api.goalReact(goal.id, 'clicked').catch(() => {});
+    // discovery goal («Никем не открытые блюда») opens a dedicated sheet: the
+    // user's own discoveries as a list, or a 2-up first-taster grid if none yet.
+    if (goal.type === 'discovery' && onOpenDiscovery) {
+      onOpenDiscovery();
+      return;
+    }
     const url = goal.actionUrl || '/';
     if (url.startsWith('/')) navigate(url);
   };
