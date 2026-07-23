@@ -116,26 +116,29 @@ export function ListRow({
             ☕ {matched.name}
           </div>
         )}
-        {/* rating: the searched item's rating here (or the venue's own for items/no
-            search). 5 GREY stars when there are no ratings yet. */}
-        <div className="rowline">
-          {(() => {
-            const val = matched ? matched.rating : listing.reviewCount > 0 ? listing.avgRating : null;
-            const cnt = matched ? matched.count : listing.reviewCount;
-            return (
-              <>
-                <Stars value={val ?? 0} />
-                {val != null ? (
-                  <span className="cnt">
-                    {val.toFixed(1)} ({cnt} {ratingsWord(cnt)})
-                  </span>
-                ) : (
-                  <span className="cnt" style={{ color: 'var(--hint)' }}>Нет оценок</span>
-                )}
-              </>
-            );
-          })()}
-        </div>
+        {/* rating: show a star average ONLY for venues, or for a dish that was
+            searched AT a specific venue (matched → per-venue rating). A dish's own
+            cross-venue average is never shown — it lives per-venue inside the card. */}
+        {(!isItem || matched) && (
+          <div className="rowline">
+            {(() => {
+              const val = matched ? matched.rating : listing.reviewCount > 0 ? listing.avgRating : null;
+              const cnt = matched ? matched.count : listing.reviewCount;
+              return (
+                <>
+                  <Stars value={val ?? 0} />
+                  {val != null ? (
+                    <span className="cnt">
+                      {val.toFixed(1)} ({cnt} {ratingsWord(cnt)})
+                    </span>
+                  ) : (
+                    <span className="cnt" style={{ color: 'var(--hint)' }}>Нет оценок</span>
+                  )}
+                </>
+              );
+            })()}
+          </div>
+        )}
 
         {/* venue: location · price · open/closed — Yelp-style. No "Ресторан"/"Сеть". */}
         {!isItem && (

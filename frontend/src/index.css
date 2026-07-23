@@ -2235,7 +2235,9 @@ button:active,
 }
 .rate-act {
   flex: 1;
-  background: none;
+  /* was background:none → on some surfaces the button read as white-on-white.
+     A subtle filled surface + border guarantees contrast in both themes. */
+  background: var(--bg-soft, rgba(127, 127, 127, 0.1));
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 12px;
@@ -6802,3 +6804,8 @@ html[data-theme='dark'] .sk {
   margin-bottom: 10px;
 }
 .sheet .sheet-head h3 { margin: 0; font-size: 18px; font-weight: 800; }
+
+/* branch cards (Точки сети): metro under the name, tighter spacing */
+.branch-card .myrate-name { margin-bottom: 0; }
+.branch-card .branch-metro { margin-top: 1px; }
+.branch-card .myrate-place { margin-top: 1px; }

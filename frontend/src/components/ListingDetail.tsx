@@ -798,13 +798,17 @@ export function ListingDetailModal({
   }
 
   function share() {
-    const link = 'https://t.me/togomoscow_bot';
+    // deep-link straight to THIS card: ?startapp=l_<id> is handled on the home
+    // screen (opens the shared listing). Was a bare bot link that opened the home
+    // feed instead of the card being shared.
+    const link = `https://t.me/togomoscow_bot/app?startapp=l_${data.id}`;
+    const text = data.type === 'RESTAURANT' ? data.name : `${data.name} — где попробовать в DeGusto`;
     const nav = navigator as Navigator & { share?: (d: ShareData) => Promise<void> };
     if (nav.share) {
       nav.share({ title: data.name, url: link }).catch(() => {});
     } else {
       openExternal(
-        `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(data.name)}`,
+        `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(text)}`,
       );
     }
   }
@@ -894,21 +898,26 @@ export function ListingDetailModal({
         <h3 style={{ marginTop: 12, fontSize: 24 }}>{data.name}</h3>
         {isRestaurant && <MetroLine venue={data} className="detail-metro" />}
 
-        <div className="rating-head">
-          {data.reviewCount > 0 ? (
-            <>
-              <Stars value={data.avgRating} />
-              <b>{data.avgRating.toFixed(1)}</b>
-            </>
-          ) : (
-            <span className="no-rating">Нет оценок</span>
-          )}
-          <span className="meta" style={{ color: 'var(--hint)' }}>
-            {data.reviewCount > 0 ? `(${data.reviewCount} ${ratingsWord(data.reviewCount)})` : ''}
-            {data.chain ? ' · эта точка' : ''}
-            {data.checkinCount ? ` · 📍 ${data.checkinCount} чек-инов` : ''}
-          </span>
-        </div>
+        {/* A venue keeps its star average in the header. A DISH/DRINK does NOT —
+            its rating differs per place, so it's shown per-venue in the carousel
+            below («Где попробовать»), never as one blended number here. */}
+        {isRestaurant && (
+          <div className="rating-head">
+            {data.reviewCount > 0 ? (
+              <>
+                <Stars value={data.avgRating} />
+                <b>{data.avgRating.toFixed(1)}</b>
+              </>
+            ) : (
+              <span className="no-rating">Нет оценок</span>
+            )}
+            <span className="meta" style={{ color: 'var(--hint)' }}>
+              {data.reviewCount > 0 ? `(${data.reviewCount} ${ratingsWord(data.reviewCount)})` : ''}
+              {data.chain ? ' · эта точка' : ''}
+              {data.checkinCount ? ` · 📍 ${data.checkinCount} чек-инов` : ''}
+            </span>
+          </div>
+        )}
         {data.chain && (
           <div className="meta" style={{ color: 'var(--hint)', marginTop: 4, fontSize: 13 }}>
             Рейтинг сети: <b style={{ color: 'var(--text)' }}>{data.chain.avgRating.toFixed(1)}</b> (
@@ -1369,12 +1378,18 @@ export function ListingDetailModal({
             {/* each branch is its own card WITH its address (no chain-collapse here) */}
             <div className="feed">
               {(sortedBranches as Listing[]).map((b) => (
-                <button key={b.id} className="myrate-card" onClick={() => navigateTo(b.id)}>
+                <button key={b.id} className="myrate-card branch-card" onClick={() => navigateTo(b.id)}>
                   <div className="newdish-media">
                     <VenuePhoto listing={b} className="myrate-photo" />
                   </div>
                   <div className="myrate-name">{b.name}</div>
-                  <div className="myrate-place">📍 {b.address || b.cityLabel || 'Москва'}</div>
+                  {/* metro instead of a flat «Москва»; falls back to the address only
+                      when the branch has no nearby station */}
+                  {b.metro ? (
+                    <MetroLine venue={b} className="branch-metro" />
+                  ) : b.address ? (
+                    <div className="myrate-place">📍 {b.address}</div>
+                  ) : null}
                 </button>
               ))}
             </div>

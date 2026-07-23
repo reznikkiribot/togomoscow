@@ -150,11 +150,16 @@ export function TasteHero({
       </div>
       <div className="hero-body">
         <div className="hero-name">{item.name}</div>
-        {item.recVenue ? (
-          <div className="hero-cat">📍 {item.recVenue.name}</div>
-        ) : (
-          item.category && <div className="hero-cat">{item.category}</div>
-        )}
+        {/* always name the venue (recVenue, else bestVenue) — a dish card must never
+            show just its category with no place («Картофель фри · Фастфуд») */}
+        {(() => {
+          const venue = item.recVenue ?? item.bestVenue;
+          return venue ? (
+            <div className="hero-cat">📍 {venue.name}</div>
+          ) : (
+            item.category && <div className="hero-cat">{item.category}</div>
+          );
+        })()}
         {/* rating row. With onRate the stars are TAPPABLE (tap = start rating with
             that many stars) — same qr-star affordance as the small cards. */}
         <div className="hero-rating">

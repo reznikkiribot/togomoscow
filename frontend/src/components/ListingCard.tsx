@@ -95,30 +95,26 @@ export function ListingCard({
           {listing.type === 'RESTAURANT' && (listing.address || listing.cityLabel) && (
             <div className="meta">📍 {listing.address || listing.cityLabel}</div>
           )}
-          <div className="row">
-            {listing.reviewCount > 0 ? (
-              <>
-                <Stars value={listing.avgRating} />
-                <span style={{ fontWeight: 600 }}>{listing.avgRating.toFixed(1)}</span>
-                <span className="meta">({listing.reviewCount} {ratingsWord(listing.reviewCount)})</span>
-              </>
-            ) : (
-              // consistent everywhere: 5 grey stars + "Нет оценок". When others are
-              // already eyeing this card, say so — social proof beats a bare zero.
-              <>
-                <Stars value={0} />
-                {((listing as any).wantCount ?? 0) > 0 || ((listing as any).viewCount ?? 0) > 1 ? (
-                  <span className="no-rating proof">
-                    {((listing as any).viewCount ?? 0) > 1 ? `👀 ${(listing as any).viewCount}` : ''}
-                    {((listing as any).viewCount ?? 0) > 1 && ((listing as any).wantCount ?? 0) > 0 ? ' · ' : ''}
-                    {((listing as any).wantCount ?? 0) > 0 ? `❤️ ${(listing as any).wantCount}` : ''}
-                  </span>
-                ) : (
+          {/* OWNER RULE: dishes/drinks DON'T show an average rating on the card —
+              a single number across different venues is misleading. The per-venue
+              ratings live inside the item card (carousel by venue). Only real
+              venues (RESTAURANT) keep the star average here. */}
+          {listing.type === 'RESTAURANT' && (
+            <div className="row">
+              {listing.reviewCount > 0 ? (
+                <>
+                  <Stars value={listing.avgRating} />
+                  <span style={{ fontWeight: 600 }}>{listing.avgRating.toFixed(1)}</span>
+                  <span className="meta">({listing.reviewCount} {ratingsWord(listing.reviewCount)})</span>
+                </>
+              ) : (
+                <>
+                  <Stars value={0} />
                   <span className="no-rating">Нет оценок</span>
-                )}
-              </>
-            )}
-          </div>
+                </>
+              )}
+            </div>
+          )}
           {/* pinned to the card bottom so every card is the same height */}
           <div className="card-foot">
             {(listing.type === 'DISH' || listing.type === 'DRINK') && onRate && (
