@@ -31,6 +31,26 @@ const RU_LAT: Record<string, string> = {
   к: 'k', л: 'l', м: 'm', н: 'n', о: 'o', п: 'p', р: 'r', с: 's', т: 't', у: 'u', ф: 'f',
   х: 'h', ц: 'ts', ч: 'ch', ш: 'sh', щ: 'sch', ъ: '', ы: 'y', ь: '', э: 'e', ю: 'yu', я: 'ya',
 };
+// Lightweight Russian stemmer: strips the most common noun/adjective case
+// endings so a query in any declension («котлету», «пиццы», «борщом») reduces to
+// the stem the catalog stores («котлет», «пицц», «борщ»). Deliberately shallow —
+// only trims when a reasonable stem (≥3 chars) remains, to avoid over-cutting.
+const RU_ENDINGS = [
+  'ами', 'ями', 'ому', 'ему', 'ыми', 'ими', 'его', 'ого', 'ешь', 'ишь',
+  'ая', 'яя', 'ое', 'ее', 'ой', 'ей', 'ом', 'ем', 'ым', 'им', 'ых', 'их',
+  'ую', 'юю', 'ов', 'ев', 'ей', 'ам', 'ям', 'ах', 'ях', 'ию', 'ья', 'ье',
+  'у', 'ю', 'ы', 'и', 'е', 'а', 'я', 'о', 'ь', 'й',
+];
+function ruStem(word: string): string {
+  if (!/[а-яё]/i.test(word) || word.length < 5) return word;
+  for (const end of RU_ENDINGS) {
+    if (word.endsWith(end) && word.length - end.length >= 3) {
+      return word.slice(0, -end.length);
+    }
+  }
+  return word;
+}
+
 function ruToLat(s: string): string {
   let o = '';
   for (const ch of s) o += RU_LAT[ch] ?? ch;
@@ -1213,7 +1233,11 @@ export class ListingsService {
       .filter(Boolean);
     const B = `[^${WORD_CH}]`; // a non-word char (word boundary)
     return words.map((w) => {
-      const variants = [...new Set([w, ruToLat(w), latToRu(w)].filter(Boolean))];
+      // Strip a Russian case ending so «котлету»/«котлеты»/«котлетой» all match the
+      // stem «котлет» → the catalog's «Котлета». We search by the stem as a prefix,
+      // which covers every declension without a full morphology engine.
+      const stem = ruStem(w);
+      const variants = [...new Set([stem, w, ruToLat(w), latToRu(w)].filter(Boolean))];
       const short = w.length <= 4;
       const parts = variants.map((v) => {
         const e = this.esc(v);
