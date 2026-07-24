@@ -76,6 +76,9 @@ const rows = await withRetry(() => p.$queryRaw`
   FROM listings l
   JOIN menu_links m ON m.item_id = l.id AND m.status = 'APPROVED'
   WHERE l.type::text IN ('DISH','DRINK') AND l.photo_url IS NULL
+    -- no alcohol: it's excluded from recommendations, so a photo is wasted effort
+    AND (l.category IS NULL OR l.category NOT IN
+      ('Пиво','Вино','Крепкие напитки','Коктейли','Коктейль','Игристое','Шампанское'))
 `);
 
 const mismatches = rows.map((r) => ({ id: r.id, name: r.name, en: toEn(r.name, r.category) }));
