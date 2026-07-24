@@ -86,9 +86,9 @@ export default function App() {
     const deferredOnboarding = window.setTimeout(() => {
       Promise.all([api.onboarding(), api.myReviews()])
         .then(([onboarding, reviews]) => {
-          const valueSeen = localStorage.getItem(firstRunSeenKey()) === '1';
+          // The first rating is now guided IN the app by OnboardingCoach (Home),
+          // not by a separate FirstRunValue screen — «не отдельно от приложения».
           if (forced) setShowQuiz(true);
-          else if (reviews.length === 0 && !valueSeen) setShowFirstRun(true);
           else setShowQuiz(reviews.length > 0 && !onboarding.onboarded);
         })
         .catch(() => setShowQuiz(forced));

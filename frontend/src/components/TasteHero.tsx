@@ -164,7 +164,7 @@ export function TasteHero({
             that many stars) — same qr-star affordance as the small cards. */}
         <div className="hero-rating">
           {onRate ? (
-            <div className="qr" onClick={(e) => e.stopPropagation()}>
+            <div className="qr" data-coach="hero-stars" onClick={(e) => e.stopPropagation()}>
               {[1, 2, 3, 4, 5].map((n) => (
                 <button
                   key={n}

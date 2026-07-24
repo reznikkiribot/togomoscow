@@ -6809,3 +6809,60 @@ html[data-theme='dark'] .sk {
 .branch-card .myrate-name { margin-bottom: 0; }
 .branch-card .branch-metro { margin-top: 1px; }
 .branch-card .myrate-place { margin-top: 1px; }
+
+/* ===== onboarding coach-mark (guided first rating) ===== */
+.coach-root {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  pointer-events: none; /* dims/tooltip capture; the hole stays interactive */
+}
+.coach-dim {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.62);
+  pointer-events: auto;
+  transition: all 0.18s ease;
+}
+.coach-ring {
+  position: fixed;
+  border: 2.5px solid var(--accent);
+  border-radius: 14px;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 40%, transparent), 0 0 22px color-mix(in srgb, var(--accent) 55%, transparent);
+  pointer-events: none;
+  transition: all 0.18s ease;
+  animation: coachPulse 1.6s ease-in-out infinite;
+}
+@keyframes coachPulse {
+  0%, 100% { box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent), 0 0 18px color-mix(in srgb, var(--accent) 45%, transparent); }
+  50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 22%, transparent), 0 0 30px color-mix(in srgb, var(--accent) 65%, transparent); }
+}
+.coach-tip {
+  position: fixed;
+  max-width: 300px;
+  background: var(--card);
+  color: var(--text);
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+  pointer-events: auto;
+  z-index: 3001;
+}
+.coach-tip.top { transform: translateY(-100%); }
+.coach-step-num {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.coach-title { font-size: 17px; font-weight: 800; margin-bottom: 5px; }
+.coach-hint { font-size: 14px; line-height: 1.4; color: var(--hint); }
+.coach-skip {
+  margin-top: 12px;
+  border: none;
+  background: none;
+  color: var(--hint);
+  font-size: 13px;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+}

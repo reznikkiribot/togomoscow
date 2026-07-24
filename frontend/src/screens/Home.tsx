@@ -4,6 +4,7 @@ import { ListingCard } from '../components/ListingCard';
 import { TasteHero } from '../components/TasteHero';
 import { PersonalGoal } from '../components/PersonalGoal';
 import { DiscoverySheet } from '../components/DiscoverySheet';
+import { OnboardingCoach, type CoachStep } from '../components/OnboardingCoach';
 import { ListRow } from '../components/ListRow';
 import { Stars } from '../components/Stars';
 import { preloadListingPhotos, VenuePhoto } from '../components/VenuePhoto';
@@ -240,6 +241,10 @@ export default function Home() {
   const [active, setActive] = useState<Listing | null>(null);
   const [deepId, setDeepId] = useState<string | null>(null);
   const [showDiscovery, setShowDiscovery] = useState(false);
+  // interactive first-rating onboarding: guides the user to tap a hero star.
+  // Shown once, only to a brand-new user with no ratings, and hidden the moment
+  // the rating flow opens (that modal then leads step-by-step on its own).
+  const [coachOn, setCoachOn] = useState(false);
   const [deepVenue, setDeepVenue] = useState<{ id: string; name: string } | null>(null);
   const [events, setEvents] = useState<VenueEvent[]>([]);
   const [firstTaster, setFirstTaster] = useState<Listing[]>([]);
@@ -649,6 +654,38 @@ export default function Home() {
   })();
   const pinned = heroPinId ? ratePool.find((l) => l.id === heroPinId) : undefined;
   const heroItem = pinned ?? (ratePool.length ? ratePool[heroIdx % ratePool.length] : null);
+
+  // start the guided first-rating once a hero card is on screen for a new user
+  useEffect(() => {
+    if (coachOn) return;
+    if (!heroItem || myReviews.length > 0 || quickRate) return;
+    let seen = false;
+    try { seen = localStorage.getItem('coachFirstRateDone:v1') === '1'; } catch { /* private */ }
+    if (seen) return;
+    const t = window.setTimeout(() => setCoachOn(true), 900); // let the card settle first
+    return () => window.clearTimeout(t);
+  }, [heroItem, myReviews.length, quickRate, coachOn]);
+
+  // hide the coach as soon as the rating flow opens (it leads from there) and mark done
+  useEffect(() => {
+    if (quickRate && coachOn) {
+      setCoachOn(false);
+      try { localStorage.setItem('coachFirstRateDone:v1', '1'); } catch { /* private */ }
+    }
+  }, [quickRate, coachOn]);
+
+  const dismissCoach = () => {
+    setCoachOn(false);
+    try { localStorage.setItem('coachFirstRateDone:v1', '1'); } catch { /* private */ }
+  };
+  const coachSteps: CoachStep[] = [
+    {
+      selector: '[data-coach="hero-stars"]',
+      title: 'Поставьте первую оценку',
+      hint: 'Нажмите на звёзды — столько, на сколько блюдо понравилось. Дальше приложение подскажет, где вы его пробовали.',
+      place: 'top',
+    },
+  ];
 
   // Cross-section dedup follows the visual order on Home: TasteHero wins, then
   // first-taster, then the wall. A listing id can never appear twice on screen,
@@ -1201,6 +1238,9 @@ export default function Home() {
           onOpenListing={(id) => setDeepId(id)}
           onRate={(l, n) => setQuickRate({ listing: l, rating: n })}
         />
+      )}
+      {coachOn && !quickRate && !active && !deepId && (
+        <OnboardingCoach steps={coachSteps} stepIndex={0} onSkip={dismissCoach} />
       )}
       {deepId && !active && (
         <Suspense fallback={null}>
