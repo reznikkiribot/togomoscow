@@ -118,6 +118,33 @@ function compositionIssues(img) {
     edgeFramed((t, d) => at(t, H - 1 - d), W) ||            // bottom
     edgeFramed((t, d) => at(d, t), H) ||                    // left
     edgeFramed((t, d) => at(W - 1 - d, t), H);              // right
+
+  // WIDE PADDING: the subject sits in the middle with a big plain (usually white)
+  // margin around it — «поля» in the card even under object-fit:cover. Measure how
+  // deep the near-white / near-uniform band runs in from each edge; if it eats a
+  // big share of the frame, the photo is badly cropped and must be regenerated.
+  const bg = at(2, 2); // corner ≈ background colour
+  const isBg = (c) => dist(c, bg) < 40; // close to the corner background
+  function padDepth(sampleAt, len, cross) {
+    // walk inward until a row/col is no longer mostly background
+    for (let d = 0; d < Math.floor(cross * 0.45); d++) {
+      let bgN = 0, tot = 0;
+      for (let k = 0; k < 24; k++) {
+        const t = Math.floor((k / 23) * (len - 1));
+        if (isBg(sampleAt(t, d))) bgN++;
+        tot++;
+      }
+      if (bgN / tot < 0.8) return d; // this line has real content
+    }
+    return Math.floor(cross * 0.45);
+  }
+  const padTop = padDepth((t, d) => at(t, d), W, H);
+  const padBot = padDepth((t, d) => at(t, H - 1 - d), W, H);
+  const padLeft = padDepth((t, d) => at(d, t), H, W);
+  const padRight = padDepth((t, d) => at(W - 1 - d, t), H, W);
+  // padding on opposite sides ≥ ~18% of the dimension = visible margin in the card
+  const widePadded =
+    (padTop + padBot) / H > 0.28 || (padLeft + padRight) / W > 0.28;
   // b) "busyness" (local contrast) per half → off-center if very lopsided
   const busy = (x0, x1, y0, y1) => {
     let s = 0, cnt = 0;
@@ -132,6 +159,7 @@ function compositionIssues(img) {
   const lop = (a, b) => a + b > 0 && Math.abs(a - b) / (a + b) > 0.6;
   const offCenter = lop(l, r) || lop(tB, bB);
   if (framed) return 'framed';
+  if (widePadded) return 'padded';       // big plain margin → «поля» in the card
   if (offCenter) return 'off-center';
   return null;
 }
@@ -189,10 +217,10 @@ for (const r of rows) {
 }
 
 console.log(`\n=== ПРОБЛЕМЫ: ${bad.length} ===`);
-for (const reason of ['type', 'framed', 'off-center', 'name?']) {
+for (const reason of ['type', 'framed', 'padded', 'off-center', 'name?']) {
   const g = bad.filter((b) => b.reason === reason);
   if (!g.length) continue;
-  const titles = { type: 'напиток показан едой', framed: 'рамка/поля (не заполнил карточку)', 'off-center': 'не отцентровано/обрезано', 'name?': 'сомнительное название (только отчёт)' };
+  const titles = { type: 'напиток показан едой', framed: 'рамка (не заполнил карточку)', padded: 'большие поля вокруг блюда', 'off-center': 'не отцентровано/обрезано', 'name?': 'сомнительное название (только отчёт)' };
   console.log(`  ${titles[reason]}: ${g.length}`);
   g.forEach((b) => console.log(`    ${b.name}${reason === 'type' ? ` (drink ${b.drinkScore.toFixed(2)})` : ''}`));
 }
