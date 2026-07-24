@@ -17,7 +17,10 @@ console.log('loading CLIP…');
 const ex = await pipeline('image-feature-extraction', process.env.CLIP_MODEL || 'Xenova/clip-vit-base-patch32');
 console.log('CLIP ready');
 
-const resolve = (u) => (u.startsWith('http') ? u : `http://localhost:3000${u}`);
+// PHOTO_BASE lets us embed the aigen-* photos straight from prod's bucket instead
+// of a local dev server. Default to prod so a run without a local server works.
+const PHOTO_BASE = process.env.PHOTO_BASE || 'https://togomoscow-production.up.railway.app';
+const resolve = (u) => (u.startsWith('http') ? u : `${PHOTO_BASE}${u}`);
 const all = process.argv.includes('--all');
 
 const items = await p.$queryRawUnsafe(

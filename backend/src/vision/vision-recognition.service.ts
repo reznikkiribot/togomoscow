@@ -48,6 +48,8 @@ function dice(a: string, b: string) {
 export class VisionRecognitionService implements OnModuleInit {
   private readonly log = new Logger('VisionRecognition');
   private readonly AUTO_OPEN = Number(process.env.VISION_AUTO_OPEN ?? 0.9);
+  // below this top score CLIP is "unsure" → also mix in caption/text candidates
+  private readonly LOW_CONFIDENCE = Number(process.env.VISION_LOW_CONFIDENCE ?? 0.75);
 
   constructor(
     private readonly prisma: PrismaService,
@@ -96,7 +98,14 @@ export class VisionRecognitionService implements OnModuleInit {
           diagnostic: `not-food food=${kind[0].toFixed(2)} person=${kind[1].toFixed(2)} other=${kind[2].toFixed(2)}`,
         };
       }
-      const hits = this.vectors.searchImage(qvec, { type, limit: 8 });
+      // When CLIP is unsure (борщ vs гаспачо — visually similar soups), widen the
+      // shortlist so the correct dish is more likely to be present for the user to
+      // pick. Ollama-caption fallback is skipped here: it isn't reachable on prod
+      // (localhost only), so it would just add latency. Real fix = every dish gets
+      // an image embedding once its photo is generated (backfill-clip).
+      const preview = this.vectors.searchImage(qvec, { type, limit: 3 });
+      const wide = (preview[0]?.score ?? 0) < this.LOW_CONFIDENCE ? 12 : 8;
+      const hits = this.vectors.searchImage(qvec, { type, limit: wide });
       const candidates = await this.shape(hits.map((h) => ({ id: h.id, confidence: h.score })));
       const top = candidates[0]?.confidence ?? 0;
       if (candidates.length) {
