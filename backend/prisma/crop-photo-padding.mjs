@@ -56,20 +56,25 @@ for (const it of targets) {
     // trim near-uniform border (the plain background), keep a small even margin,
     // then re-square to 512 so the card gets a full-bleed, centered subject.
     const trimmed = await sharp(buf)
-      .trim({ threshold: 20 }) // remove flat background border
+      .trim({ threshold: 20 }) // remove the flat background border
       .toBuffer();
     const meta = await sharp(trimmed).metadata();
-    // if trim removed almost nothing, the photo was already fine
+    // if trim removed almost nothing, the photo already fills the frame → leave it
     if ((meta.width ?? 512) >= 470 && (meta.height ?? 512) >= 470) { skip++; continue; }
-    const side = Math.max(meta.width ?? 1, meta.height ?? 1);
-    const out = await sharp({
-      create: { width: side, height: side, channels: 3, background: { r: 245, g: 245, b: 245 } },
-    })
-      .composite([{ input: trimmed, gravity: 'center' }])
-      .resize(512, 512, { fit: 'cover' })
+    // resize the trimmed subject to fill a 512² square with fit:cover — this crops
+    // to the dish edge-to-edge, NO padding added (the earlier version pasted the
+    // trimmed image onto a bigger canvas, which put the border straight back).
+    const out = await sharp(trimmed)
+      .resize(512, 512, { fit: 'cover', position: 'centre' })
       .jpeg({ quality: 88 })
       .toBuffer();
     await s3.send(new aws.PutObjectCommand({ Bucket: creds.bucketName, Key: key, Body: out, ContentType: 'image/jpeg' }));
+    // INVALIDATE the resize-proxy thumbnails (`<key>-w200/400/600/900`) — the
+    // frontend loads `?w=600`, which is cached separately in the bucket and would
+    // otherwise keep serving the OLD padded thumbnail after we crop the original.
+    for (const w of [200, 400, 600, 900]) {
+      await s3.send(new aws.DeleteObjectCommand({ Bucket: creds.bucketName, Key: `${key}-w${w}` })).catch(() => {});
+    }
     fixed++;
     if (fixed % 20 === 0) console.log(`  обрезано ${fixed}…`);
   } catch (e) {
