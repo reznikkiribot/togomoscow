@@ -246,6 +246,9 @@ export default function Home() {
   // Shown once, only to a brand-new user with no ratings, and hidden the moment
   // the rating flow opens (that modal then leads step-by-step on its own).
   const [coachOn, setCoachOn] = useState(false);
+  // onboarding «найти то, что я пробовал» uses the app's OWN top search bar
+  // (highlighted), instead of opening a second search inside the sheet
+  const [onbSearch, setOnbSearch] = useState(false);
   const [deepVenue, setDeepVenue] = useState<{ id: string; name: string } | null>(null);
   const [events, setEvents] = useState<VenueEvent[]>([]);
   const [firstTaster, setFirstTaster] = useState<Listing[]>([]);
@@ -294,6 +297,13 @@ export default function Home() {
     // chains open as a full card too (points are listed inside, at the bottom)
     setDeepId(null); // never stack two detail modals (their backdrops overlap → dead taps)
     setDeepVenue(null);
+    // During onboarding the user was told to FIND what they last ate — picking it
+    // must go straight to the guided rating, not to the item card.
+    if (onbSearch && (l.type === 'DISH' || l.type === 'DRINK')) {
+      setOnbSearch(false);
+      setQuickRate({ listing: l, rating: 0 });
+      return;
+    }
     setActive(l);
   };
 
@@ -686,14 +696,34 @@ export default function Home() {
     window.addEventListener('coach-dismiss', off);
     return () => window.removeEventListener('coach-dismiss', off);
   }, []);
-  const coachSteps: CoachStep[] = [
-    {
-      selector: '.scan-fab',
-      title: 'Запишите первую дегустацию',
-      hint: 'Нажмите на камеру — сфотографируйте блюдо в заведении или найдите то, что уже пробовали. Приложение проведёт по шагам.',
-      place: 'top',
-    },
-  ];
+  const coachSteps: CoachStep[] = onbSearch
+    ? [{
+        selector: '.search-bar',
+        title: 'Найдите, что вы пробовали',
+        hint: 'Введите название блюда или напитка и выберите его из списка — сразу перейдём к оценке.',
+        place: 'bottom',
+      }]
+    : [{
+        selector: '.scan-fab',
+        title: 'Запишите первую дегустацию',
+        hint: 'Нажмите на камеру — сфотографируйте блюдо в заведении или найдите то, что уже пробовали. Приложение проведёт по шагам.',
+        place: 'top',
+      }];
+
+  // ScanFab's «Нет — найти то, что я пробовал» hands control back here: focus the
+  // real search bar and highlight it, instead of a second search in the sheet.
+  useEffect(() => {
+    const onSearchGuide = () => {
+      setOnbSearch(true);
+      setCoachOn(true);
+      window.setTimeout(() => {
+        const input = document.querySelector('.search-bar input') as HTMLInputElement | null;
+        input?.focus();
+      }, 250);
+    };
+    window.addEventListener('onboarding-search', onSearchGuide);
+    return () => window.removeEventListener('onboarding-search', onSearchGuide);
+  }, []);
 
   // Cross-section dedup follows the visual order on Home: TasteHero wins, then
   // first-taster, then the wall. A listing id can never appear twice on screen,
@@ -1233,6 +1263,7 @@ export default function Home() {
         <QuickRatingFlow
           listing={quickRate.listing}
           initialRating={quickRate.rating}
+          guided={!onboardingSeen() || onboardingForced()}
           onSaved={() => {
             loadFeeds();
             if (quickRate.advanceHero) setHeroIdx((index) => index + 1);

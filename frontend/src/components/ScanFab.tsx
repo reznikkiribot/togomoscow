@@ -406,7 +406,15 @@ export function ScanFab() {
             <button className="btn scan-guide-primary" onClick={() => { setGuide(null); cameraRef.current?.click(); }}>
               Да, я здесь — сделать фото
             </button>
-            <button className="btn secondary" onClick={() => setGuide('find')}>
+            <button
+              className="btn secondary"
+              onClick={() => {
+                // hand over to the app's own top search bar (highlighted there),
+                // instead of opening a second search inside this sheet
+                setGuide(null);
+                window.dispatchEvent(new Event('onboarding-search'));
+              }}
+            >
               Нет — найти то, что я пробовал
             </button>
             <button className="scan-guide-skip" onClick={() => setGuide(null)}>Позже</button>

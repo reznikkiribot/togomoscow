@@ -103,7 +103,7 @@ if (STAGE === 'gen') {
           // OWNER RULE: strength 0.2 — the AI image must stay very close to the
           // real parsed photo (minimal deviation), so «много несовпадений» goes away.
           '-m', 'sd_turbo.safetensors', '-i', refRel, '--strength', '0.2',
-          '--steps', '6', '--cfg-scale', '1.0', '-W', '512', '-H', '512',
+          '--steps', '6', '--cfg-scale', '1.0', '-W', '768', '-H', '768',
           '-s', String(2000 + a * 555), '-o', outRel,
           '-p', `professional food photography, the whole dish fully visible and centered, appetizing, natural light, high detail`,
         ], { stdio: 'pipe', timeout: 300000, cwd: SD });

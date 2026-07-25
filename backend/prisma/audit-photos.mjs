@@ -69,6 +69,27 @@ for (const r of rows) {
   g.push(r);
   byUrl.set(r.photoUrl, g);
 }
+// NAME duplicates: «Болоньезе» / «Паста болоньезе» / «Спагетти Болоньезе» /
+// «…с напитком Кола» are one dish — several cards for it is a catalog defect, so
+// report them (they also waste generation on near-identical photos).
+const { dishNameKey } = await import('../dist/common/dish-name-key.js').catch(() => ({ dishNameKey: null }));
+if (dishNameKey) {
+  const byName = new Map();
+  for (const r of rows) {
+    const key = `${r.type} ${dishNameKey(r.name)}`;
+    const g = byName.get(key) ?? [];
+    g.push(r);
+    byName.set(key, g);
+  }
+  const nameDups = [...byName.values()].filter((g) => g.length > 1);
+  console.log(`\nДУБЛИ НАЗВАНИЙ (одно блюдо разными карточками): ${nameDups.length}`);
+  nameDups.slice(0, 20).forEach((g) => console.log('  ' + g.map((x) => x.name).join(' | ')));
+  fs.writeFileSync(
+    path.join(__dirname, 'audit-name-dups.json'),
+    JSON.stringify(nameDups.map((g) => g.map((x) => ({ id: x.id, name: x.name }))), null, 2),
+  );
+}
+
 const dups = [...byUrl.values()].filter((g) => g.length > 1);
 console.log(`\nДУБЛИ (одно фото на разные названия): ${dups.length}`);
 const dupIds = new Set();
@@ -142,9 +163,13 @@ function compositionIssues(img) {
   const padBot = padDepth((t, d) => at(t, H - 1 - d), W, H);
   const padLeft = padDepth((t, d) => at(d, t), H, W);
   const padRight = padDepth((t, d) => at(W - 1 - d, t), H, W);
-  // padding on opposite sides ≥ ~18% of the dimension = visible margin in the card
+  // Visible-margin rule, calibrated for the WIDEST card we render — the tinder
+  // hero («Что пробуем?», ~1.67:1 under object-fit:cover). A square photo shown
+  // there is cropped vertically only, so LEFT/RIGHT background stays on screen:
+  // side margins must therefore be judged more strictly than top/bottom.
+  // Owner: «добавь в проверку фото проверку на поля ещё и в тиндере».
   const widePadded =
-    (padTop + padBot) / H > 0.28 || (padLeft + padRight) / W > 0.28;
+    (padTop + padBot) / H > 0.22 || (padLeft + padRight) / W > 0.14;
   // b) "busyness" (local contrast) per half → off-center if very lopsided
   const busy = (x0, x1, y0, y1) => {
     let s = 0, cnt = 0;

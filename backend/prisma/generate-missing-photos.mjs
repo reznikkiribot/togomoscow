@@ -128,7 +128,7 @@ for (const m of todo) {
       if (fs.existsSync(path.join(SD, rel))) continue; // resumable
       try {
         execFileSync('./sd-cli.exe', [
-          '-m', 'sd_turbo.safetensors', '--steps', '5', '--cfg-scale', '1.0', '-W', '512', '-H', '512',
+          '-m', 'sd_turbo.safetensors', '--steps', '5', '--cfg-scale', '1.0', '-W', '768', '-H', '768',
           '-s', String(1000 + a * 777), '-o', rel,
           '-p', `professional food photography of ${en}, restaurant plating, natural light, appetizing, high detail`,
         ], { stdio: 'pipe', timeout: 300000, cwd: SD });

@@ -21,6 +21,12 @@ const ALL = process.argv.includes('--all');
 const limArg = process.argv.indexOf('--limit');
 const LIMIT = limArg > -1 ? Number(process.argv[limArg + 1]) : Infinity;
 
+// Owner rule (25.07.2026): a card photo must be at least 720p. We ship 768².
+// Upscaling a small crop to 768 only smears it, so when the trimmed subject is
+// too small we clear the photo instead and let the pipeline regenerate it at 768.
+const MIN_SIDE = 768;
+const MIN_SOURCE = 560;
+
 const sharp = (await import('sharp')).default;
 const { PrismaClient } = await import('@prisma/client');
 const aws = await import('@aws-sdk/client-s3');
@@ -46,7 +52,7 @@ if (ALL) {
 }
 console.log(`к обрезке: ${targets.length}`);
 
-let fixed = 0, skip = 0, n = 0;
+let fixed = 0, skip = 0, lowres = 0, n = 0;
 for (const it of targets) {
   if (n >= LIMIT) break;
   n++;
@@ -59,13 +65,22 @@ for (const it of targets) {
       .trim({ threshold: 20 }) // remove the flat background border
       .toBuffer();
     const meta = await sharp(trimmed).metadata();
-    // if trim removed almost nothing, the photo already fills the frame → leave it
-    if ((meta.width ?? 512) >= 470 && (meta.height ?? 512) >= 470) { skip++; continue; }
+    const src = await sharp(buf).metadata();
+    const w = meta.width ?? 0, h = meta.height ?? 0;
+    const padded = w < (src.width ?? 0) * 0.92 || h < (src.height ?? 0) * 0.92;
+    // already full-bleed AND already ≥720p → nothing to do
+    if (!padded && Math.min(src.width ?? 0, src.height ?? 0) >= 720) { skip++; continue; }
+    // too little real content to reach 720p without smearing → regenerate instead
+    if (Math.min(w, h) < MIN_SOURCE) {
+      await p.listing.update({ where: { id: it.id }, data: { photoUrl: null } }).catch(() => {});
+      lowres++;
+      continue;
+    }
     // resize the trimmed subject to fill a 512² square with fit:cover — this crops
     // to the dish edge-to-edge, NO padding added (the earlier version pasted the
     // trimmed image onto a bigger canvas, which put the border straight back).
     const out = await sharp(trimmed)
-      .resize(512, 512, { fit: 'cover', position: 'centre' })
+      .resize(MIN_SIDE, MIN_SIDE, { fit: 'cover', position: 'centre' })
       .jpeg({ quality: 88 })
       .toBuffer();
     await s3.send(new aws.PutObjectCommand({ Bucket: creds.bucketName, Key: key, Body: out, ContentType: 'image/jpeg' }));
@@ -81,5 +96,5 @@ for (const it of targets) {
     console.log(`  err ${it.name}: ${String(e.message || '').slice(0, 50)}`);
   }
 }
-console.log(`\nОбрезано: ${fixed}, уже норм: ${skip}, всего: ${n}`);
+console.log(`\nОбрезано: ${fixed}, уже норм: ${skip}, на перегенерацию (мало пикселей для 720p): ${lowres}, всего: ${n}`);
 await p.$disconnect();

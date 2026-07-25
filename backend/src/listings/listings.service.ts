@@ -8,6 +8,7 @@ import { buildAffinities, loadVenueTraits, scorePriceSegment, scoreVenueTier } f
 import { ResponseCacheService } from '../common/response-cache.service';
 import { PUBLIC_LISTING_SELECT } from '../common/public-listing-select';
 import { PrismaService } from '../prisma/prisma.service';
+import { dedupeByDishName } from '../common/dish-name-key';
 import { placeholderKeys } from '../stock/stock.data';
 import { UploadsService } from '../uploads/uploads.service';
 import { cuisineLabel, cuisineToken } from './cuisine';
@@ -1622,7 +1623,14 @@ export class ListingsService {
       return exact * 100 + intentBonus + sim * 45 + pop * 2 + rat;
     };
     combined.sort((a, b) => rank(b) - rank(a));
-    const result = combined.slice(0, take);
+    // one card per actual dish: «Болоньезе» / «Паста болоньезе» / «Спагетти
+    // Болоньезе» / «…с напитком Кола» collapse into the most useful one. Venues
+    // are never collapsed (two cafés may share a name legitimately).
+    const deduped = [
+      ...combined.filter((c: any) => c.type === 'RESTAURANT'),
+      ...dedupeByDishName(combined.filter((c: any) => c.type !== 'RESTAURANT') as any[]),
+    ].sort((a, b) => rank(b) - rank(a));
+    const result = deduped.slice(0, take);
 
     // Attach the SEARCHED item's rating AT each venue (the "с пометкой" badge).
     if (items.length) await this.attachMatchedItem(result, items, ql);
@@ -1696,7 +1704,8 @@ export class ListingsService {
     const ids = await this.matchingItemIds([type], query);
     if (ids.length === 0) return [];
     const items = await this.prisma.listing.findMany({ where: { id: { in: ids } }, take });
-    return this.enrichCards(items);
+    // collapse same-dish variants so the list isn't four rows of one dish
+    return this.enrichCards(dedupeByDishName(items));
   }
 
   /** Beers whose reviews carry the given flavor/serving tags (JSONB ?| any-of). */

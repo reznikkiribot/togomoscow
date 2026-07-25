@@ -6596,6 +6596,13 @@ html[data-theme='dark'] :where(
   border-color: var(--border);
   color: var(--text);
 }
+/* An input that already sits INSIDE a tinted pill must stay transparent — the
+   global rule above painted it --card, which read as a black strip inside the
+   grey search field (owner: «в поиске чёрную полоску не убрал»). */
+html[data-theme='dark'] :where(.search-bar, .pu-search, .scan-search, .quick-venue-search) input {
+  background-color: transparent;
+  border: none;
+}
 html[data-theme='dark'] :where(input, textarea)::placeholder {
   color: var(--hint);
   opacity: 1;
