@@ -22,10 +22,13 @@ export function OnboardingCoach({
   steps,
   stepIndex,
   onSkip,
+  zIndex,
 }: {
   steps: CoachStep[];
   stepIndex: number;
   onSkip: () => void;
+  // raise above a modal when the coach runs INSIDE one (e.g. the rating sheet)
+  zIndex?: number;
 }) {
   const step = steps[stepIndex];
   const [rect, setRect] = useState<DOMRect | null>(null);
@@ -98,7 +101,7 @@ export function OnboardingCoach({
   const place = step.place ?? (hole && hole.y > window.innerHeight / 2 ? 'top' : 'bottom');
 
   return (
-    <div className="coach-root" aria-live="polite">
+    <div className="coach-root" aria-live="polite" style={zIndex ? { zIndex } : undefined}>
       {/* four dim panels around the hole → the hole itself stays clickable */}
       {hole ? (
         <>
@@ -125,7 +128,8 @@ export function OnboardingCoach({
         <div className="coach-step-num">Шаг {stepIndex + 1} из {steps.length}</div>
         <div className="coach-title">{step.title}</div>
         <div className="coach-hint">{step.hint}</div>
-        <button className="coach-skip" onClick={onSkip}>Пропустить обучение</button>
+        {/* inside a modal the step ends by completing the action, so no skip link */}
+        {!zIndex && <button className="coach-skip" onClick={onSkip}>Пропустить обучение</button>}
       </div>
     </div>
   );

@@ -434,6 +434,7 @@ export function ScanFab() {
       {guideItem && (
         <QuickRatingFlow
           listing={guideItem}
+          guided
           onSaved={() => { setGuideItem(null); setGuide(null); }}
           onClose={() => { setGuideItem(null); setGuide(null); }}
         />
