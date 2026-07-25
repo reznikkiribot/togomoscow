@@ -7,7 +7,7 @@ import { templateFor } from '../tasting';
 import { haptic } from '../telegram';
 import type { Listing, Review } from '../types';
 import { tastingMotivation } from '../tastingMotivation';
-import { LocationConsentPrompt, useTastingLocation } from '../locationTrust';
+import { LocationConsentPrompt, readLocation, useTastingLocation } from '../locationTrust';
 import { composeStoryImage } from '../storyImage';
 import { shareReviewToStory } from '../reviewStory';
 import { StarInput } from './StarInput';
@@ -52,6 +52,7 @@ export function QuickRatingFlow({
   const [venues, setVenues] = useState<VenueChoice[]>([]);
   const [loadingVenues, setLoadingVenues] = useState(true);
   const [position, setPosition] = useState<{ lat: number; lng: number } | null>(null);
+  const [locating, setLocating] = useState(false);
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [text, setText] = useState('');
   const [photoUrls, setPhotoUrls] = useState<string[]>([]);
@@ -77,20 +78,22 @@ export function QuickRatingFlow({
   useEscClose(close, overlayRef);
   useSwipeDismiss(sheetRef, close, { canDismiss: () => !busy, deps: [success] });
 
-  const locate = useCallback(() => {
-    navigator.geolocation?.getCurrentPosition(
-      ({ coords }) => setPosition({ lat: coords.latitude, lng: coords.longitude }),
-      () => {},
-      { enableHighAccuracy: false, timeout: 4000, maximumAge: 10 * 60_000 },
-    );
+  // «Найти рядом» must work inside Telegram, where the browser geolocation API is
+  // usually blocked → go through readLocation (Telegram LocationManager first,
+  // browser fallback). requestPermission=true because it's an explicit tap.
+  const locate = useCallback(async (requestPermission: boolean) => {
+    setLocating(true);
+    try {
+      const { point } = await readLocation(requestPermission);
+      if (point) setPosition({ lat: point.lat, lng: point.lng });
+    } finally {
+      setLocating(false);
+    }
   }, []);
 
   useEffect(() => {
-    // Do not interrupt a just-tapped rating with a permission prompt. Reuse an
-    // already granted location; otherwise location stays an explicit action.
-    navigator.permissions?.query({ name: 'geolocation' }).then((permission) => {
-      if (permission.state === 'granted') locate();
-    }).catch(() => {});
+    // Reuse an already-granted location silently; don't prompt on open.
+    locate(false);
   }, [locate]);
 
   useEffect(() => {
@@ -273,8 +276,12 @@ export function QuickRatingFlow({
           </div>
           {!query.trim() && (
             <div className="quick-venue-hint">
-              <span>Ближайшие и недавние места</span>
-              {!position && navigator.geolocation && <button type="button" onClick={locate}>Найти рядом</button>}
+              <span>{position ? '📍 Ближайшие места' : 'Ближайшие и недавние места'}</span>
+              {!position && (
+                <button type="button" onClick={() => locate(true)} disabled={locating}>
+                  {locating ? 'Ищем…' : 'Найти рядом'}
+                </button>
+              )}
             </div>
           )}
           <div className="quick-venue-list">

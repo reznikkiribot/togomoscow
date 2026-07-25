@@ -49,7 +49,7 @@ async function browserLocation(requestPermission: boolean): Promise<{ point: Tas
   });
 }
 
-async function readLocation(requestPermission: boolean) {
+export async function readLocation(requestPermission: boolean) {
   const telegram = await telegramLocation(requestPermission);
   if (telegram.permission !== 'unavailable') return telegram;
   return browserLocation(requestPermission);

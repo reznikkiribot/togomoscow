@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 
 // Interactive coach-mark that runs ON TOP of the real app (not a separate screen):
 // it dims everything, cuts a spotlight hole around the ONE element the user should
@@ -29,24 +29,28 @@ export function OnboardingCoach({
 }) {
   const step = steps[stepIndex];
   const [rect, setRect] = useState<DOMRect | null>(null);
-  const raf = useRef<number>();
 
-  // keep the spotlight glued to the target as the layout shifts / scrolls
+  // Position the spotlight on the target and keep it in sync on scroll/resize.
+  // The earlier version re-measured EVERY animation frame (a rAF loop calling
+  // getBoundingClientRect + setState 60×/s), which janked the whole screen and
+  // made the star tap feel laggy. Now we measure once, scroll the target into
+  // view ONCE, then only re-measure on scroll/resize (passive).
   useLayoutEffect(() => {
     if (!step) return;
-    const measure = () => {
-      const el = document.querySelector(step.selector) as HTMLElement | null;
-      if (el) {
-        el.scrollIntoView({ block: 'center', behavior: 'smooth' });
-        setRect(el.getBoundingClientRect());
-      } else {
-        setRect(null);
-      }
+    const el = document.querySelector(step.selector) as HTMLElement | null;
+    if (!el) { setRect(null); return; }
+    el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    const measure = () => setRect(el.getBoundingClientRect());
+    // let the smooth-scroll settle, then lock the position
+    const t1 = window.setTimeout(measure, 120);
+    const t2 = window.setTimeout(measure, 420);
+    window.addEventListener('scroll', measure, { passive: true });
+    window.addEventListener('resize', measure);
+    return () => {
+      window.clearTimeout(t1); window.clearTimeout(t2);
+      window.removeEventListener('scroll', measure);
+      window.removeEventListener('resize', measure);
     };
-    measure();
-    const loop = () => { measure(); raf.current = requestAnimationFrame(loop); };
-    raf.current = requestAnimationFrame(loop);
-    return () => { if (raf.current) cancelAnimationFrame(raf.current); };
   }, [step]);
 
   // let taps INSIDE the hole reach the real element, block everything else

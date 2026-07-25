@@ -9,6 +9,7 @@ import type { Listing, RecognizeResult } from '../types';
 import { ReviewForm } from './ReviewForm';
 import { TasteResult } from './TasteResult';
 import { VenuePicker } from './VenuePicker';
+import { QuickRatingFlow } from './QuickRatingFlow';
 
 function CamIcon() {
   return (
@@ -167,10 +168,19 @@ export function ScanFab() {
   const cameraRef = useRef<HTMLInputElement>(null);
   const galleryRef = useRef<HTMLInputElement>(null);
   const [srcMenu, setSrcMenu] = useState(false);
+  // guided first tasting (owner: lead via the camera, not the tinder rating):
+  // 'ask' → «Вы сейчас в ресторане?»; 'find' → «что вы ели/пили в последний раз?»
+  const [guide, setGuide] = useState<null | 'ask' | 'find'>(null);
+  const [guideItem, setGuideItem] = useState<Listing | null>(null);
   useEffect(() => {
     const open = () => galleryRef.current?.click();
+    const startGuide = () => setGuide('ask');
     window.addEventListener('scan-open', open);
-    return () => window.removeEventListener('scan-open', open);
+    window.addEventListener('coach-scan-guide', startGuide);
+    return () => {
+      window.removeEventListener('scan-open', open);
+      window.removeEventListener('coach-scan-guide', startGuide);
+    };
   }, []);
   // one soft pulse per session draws the eye to the key action (UX Core: anchoring
   // attention with motion — once, not constantly)
@@ -346,7 +356,17 @@ export function ScanFab() {
 
   return (
     <>
-      <button className={'scan-fab' + (pulse ? ' pulse' : '')} onClick={() => setSrcMenu(true)} aria-label="Сканировать блюдо или напиток">
+      <button
+        className={'scan-fab' + (pulse ? ' pulse' : '')}
+        onClick={() => {
+          // during first-tasting onboarding the camera leads via «Вы в ресторане?»
+          let onboarding = false;
+          try { onboarding = localStorage.getItem('coachFirstRateDone:v1') !== '1'; } catch { /* private */ }
+          if (onboarding) { setGuide('ask'); try { localStorage.setItem('coachFirstRateDone:v1', '1'); } catch { /* private */ } }
+          else setSrcMenu(true);
+        }}
+        aria-label="Сканировать блюдо или напиток"
+      >
         <CamIcon />
         {fabLabel && <span className="scan-fab-label">Скан</span>}
       </button>
@@ -370,6 +390,42 @@ export function ScanFab() {
             </button>
           </div>
         </div>
+      )}
+
+      {/* guided first tasting through the camera (onboarding) */}
+      {guide === 'ask' && (
+        <div className="modal-backdrop" style={{ zIndex: 3595 }} onClick={() => setGuide(null)}>
+          <div className="scan-guide" onClick={(e) => e.stopPropagation()}>
+            <div className="scan-guide-emoji">📷</div>
+            <h3>Вы сейчас в ресторане или кафе?</h3>
+            <p>Сфотографируйте блюдо или напиток — приложение узнает его и запишет вашу первую дегустацию.</p>
+            <button className="btn scan-guide-primary" onClick={() => { setGuide(null); cameraRef.current?.click(); }}>
+              Да, я здесь — сделать фото
+            </button>
+            <button className="btn secondary" onClick={() => setGuide('find')}>
+              Нет — найти то, что я пробовал
+            </button>
+            <button className="scan-guide-skip" onClick={() => setGuide(null)}>Позже</button>
+          </div>
+        </div>
+      )}
+      {guide === 'find' && !guideItem && (
+        <div className="modal-backdrop" style={{ zIndex: 3595 }} onClick={() => setGuide(null)}>
+          <div className="scan-guide" onClick={(e) => e.stopPropagation()}>
+            <div className="scan-guide-emoji">🍽</div>
+            <h3>Что вы ели или пили в последний раз?</h3>
+            <p>Найдите знакомое блюдо или напиток — и поставьте первую оценку.</p>
+            <ScanSearch onPick={(l) => setGuideItem(l)} />
+            <button className="scan-guide-skip" onClick={() => setGuide(null)}>Позже</button>
+          </div>
+        </div>
+      )}
+      {guideItem && (
+        <QuickRatingFlow
+          listing={guideItem}
+          onSaved={() => { setGuideItem(null); setGuide(null); }}
+          onClose={() => { setGuideItem(null); setGuide(null); }}
+        />
       )}
 
       {stage === 'idle' && (busy || result) && (

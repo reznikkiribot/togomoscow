@@ -4572,6 +4572,13 @@ a.addr-line {
   font-weight: 700;
 }
 .quick-venue-search { margin-bottom: 5px; }
+/* the venue search field sits inside the already-tinted «Где пробовали» block —
+   give it a subtle outline instead of a second dark fill, so there's no heavy
+   black box around it (owner: «убери чёрное выделение сзади Найти заведение»). */
+html[data-theme='dark'] .quick-venue-search.pu-search {
+  background: transparent;
+  border: 1px solid var(--border);
+}
 .quick-venue-hint, .quick-loading {
   padding: 4px 2px 7px;
   color: var(--hint);
@@ -6866,3 +6873,35 @@ html[data-theme='dark'] .sk {
   cursor: pointer;
   padding: 0;
 }
+
+/* ===== guided first tasting via the camera (onboarding) ===== */
+.scan-guide {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 520px;
+  background: var(--card);
+  border-radius: 22px 22px 0 0;
+  padding: 24px 20px calc(20px + env(safe-area-inset-bottom));
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  animation: sheetUp 0.22s ease;
+}
+@keyframes sheetUp { from { transform: translate(-50%, 100%); } to { transform: translate(-50%, 0); } }
+.scan-guide-emoji { font-size: 44px; line-height: 1; margin-bottom: 8px; }
+.scan-guide h3 { font-size: 20px; font-weight: 800; margin: 0 0 6px; }
+.scan-guide p { font-size: 14px; color: var(--hint); line-height: 1.4; margin: 0 0 18px; }
+.scan-guide .btn { width: 100%; margin-bottom: 10px; }
+.scan-guide-primary { font-weight: 800; }
+.scan-guide-skip {
+  border: none;
+  background: none;
+  color: var(--hint);
+  font-size: 13px;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-top: 4px;
+}
+.scan-guide .scan-search { margin-top: 4px; text-align: left; }
