@@ -257,17 +257,16 @@ export function QuickRatingFlow({
   // guided onboarding: highlight whichever step still needs the user's action —
   // stars first, then the venue search, then the Save button. Each with a short
   // «что и где» explanation. Nothing before this point in the flow is skipped.
-  const guideStep: CoachStep | null = !guided
-    ? null
-    : rating <= 0
-      ? { selector: '[data-coach="qr-stars"]', title: 'Поставьте оценку', hint: 'Нажмите на звёзды — на сколько понравилось. Это шаг 1 из 2.', place: 'bottom' }
-      : !venue
-        ? { selector: '[data-coach="qr-venue"]', title: 'Где вы это пробовали?', hint: 'Начните вводить название заведения или нажмите «Найти рядом», затем выберите его из списка.', place: 'bottom' }
-        : { selector: '[data-coach="qr-save"]', title: 'Сохраните дегустацию', hint: 'Всё готово! Можно добавить фото и комментарий выше, а затем нажмите «Сохранить оценку».', place: 'top' };
+  const guideSteps: CoachStep[] = [
+    { selector: '[data-coach="qr-stars"]', title: 'Поставьте оценку', hint: 'Нажмите на звёзды — на сколько понравилось.', place: 'bottom' },
+    { selector: '[data-coach="qr-venue"]', title: 'Где вы это пробовали?', hint: 'Введите название заведения или нажмите «Найти рядом», затем выберите его из списка.', place: 'bottom' },
+    { selector: '[data-coach="qr-save"]', title: 'Сохраните дегустацию', hint: 'Всё готово! Можно добавить фото и комментарий выше — с фото предложим выложить в сторис.', place: 'top' },
+  ];
+  const guideIndex = rating <= 0 ? 0 : !venue ? 1 : 2;
 
   return (
     <div ref={overlayRef} className="modal-backdrop quick-rate-backdrop" style={{ zIndex: 3400 }} onClick={close}>
-      {guideStep && <OnboardingCoach steps={[guideStep]} stepIndex={0} onSkip={() => { /* stays until done */ }} zIndex={3450} />}
+      {guided && <OnboardingCoach steps={guideSteps} stepIndex={guideIndex} onSkip={() => { /* stays until done */ }} zIndex={3450} />}
       <div className="modal quick-rate-sheet" ref={sheetRef} role="dialog" aria-modal="true" onClick={(event) => event.stopPropagation()}>
         <div className="sheet-grab" aria-hidden="true" />
         <button className="quick-close" type="button" onClick={close} aria-label="Закрыть">×</button>
