@@ -19,11 +19,14 @@ function dedupeChains(list: Listing[]): (Listing & { branchCount?: number })[] {
 
 export function VenuePicker({
   itemId,
+  itemType,
   onPick,
   onAdded,
   onClose,
 }: {
   itemId?: string; // when set, the default list = venues that SERVE this item
+  // what the user is about to add — only used to word the question precisely
+  itemType?: 'DISH' | 'DRINK';
   onPick: (venue: Listing) => void;
   // a new (pending-moderation) place was submitted → proceed to the review form
   onAdded?: (name: string) => void;
@@ -135,7 +138,7 @@ export function VenuePicker({
           </>
         ) : (
           <>
-            <h3>Где вы это пробовали?</h3>
+            <h3>{itemType === 'DRINK' ? 'Где вы пробовали этот напиток?' : itemType === 'DISH' ? 'Где вы пробовали это блюдо?' : 'Где вы это пробовали?'}</h3>
             <div className="pu-search">
               <span className="search-ico">🔍</span>
               <input

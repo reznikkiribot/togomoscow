@@ -239,6 +239,7 @@ export default function Home() {
   const [showAdd, setShowAdd] = useState(false); // "не нашли? добавьте" — choice sheet
   const [showAddBiz, setShowAddBiz] = useState(false); // add a venue (AddBusiness)
   const [pickVenueForItem, setPickVenueForItem] = useState(false); // add a dish/drink → pick venue
+  const [addItemType, setAddItemType] = useState<'DISH' | 'DRINK'>('DISH'); // what the user chose to add
   const [active, setActive] = useState<Listing | null>(null);
   const [deepId, setDeepId] = useState<string | null>(null);
   const [showDiscovery, setShowDiscovery] = useState(false);
@@ -980,11 +981,23 @@ export default function Home() {
       {results && (
         <div ref={catRef} className="cat-results-layer">
           <div className="section-title">Результаты</div>
+          {/* Nothing found IS the moment to offer adding it — search is where a gap
+              in the catalog shows up. Three explicit choices, no extra sheet. */}
           {results.length === 0 ? (
             <div className="empty search-empty">
               <div>{search.trim() ? `По запросу «${search.trim()}» ничего не нашли.` : 'В этой категории пока ничего не нашли.'}</div>
-              <div>Проверьте название или добавьте свою находку.</div>
-              <button className="btn secondary" onClick={() => setShowAdd(true)}>Добавить в каталог</button>
+              <div>Добавьте — и станете первым дегустатором:</div>
+              <div className="search-empty-actions">
+                <button className="btn" onClick={() => { setAddItemType('DISH'); setPickVenueForItem(true); }}>
+                  🍽 Добавить блюдо
+                </button>
+                <button className="btn" onClick={() => { setAddItemType('DRINK'); setPickVenueForItem(true); }}>
+                  🥤 Добавить напиток
+                </button>
+                <button className="btn secondary" onClick={() => setShowAddBiz(true)}>
+                  🏠 Добавить заведение
+                </button>
+              </div>
             </div>
           ) : (
             <div className="list">
@@ -1241,6 +1254,7 @@ export default function Home() {
       )}
       {pickVenueForItem && (
         <VenuePicker
+          itemType={addItemType}
           onClose={() => setPickVenueForItem(false)}
           onPick={(v) => { setPickVenueForItem(false); if (v.id) setDeepId(v.id); }} // open the venue → add item there
           onAdded={() => setPickVenueForItem(false)}

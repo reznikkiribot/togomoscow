@@ -6912,3 +6912,14 @@ html[data-theme='dark'] .sk {
   margin-top: 4px;
 }
 .scan-guide .scan-search { margin-top: 4px; text-align: left; }
+
+/* «ничего не нашли» → сразу три варианта добавления (поиск = место, где видно
+   пробел в каталоге) */
+.search-empty-actions {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+  width: 100%;
+  max-width: 320px;
+}
+.search-empty-actions .btn { width: 100%; }
