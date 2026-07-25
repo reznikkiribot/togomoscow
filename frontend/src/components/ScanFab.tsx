@@ -362,8 +362,12 @@ export function ScanFab() {
           // during first-tasting onboarding the camera leads via «Вы в ресторане?»
           let onboarding = false;
           try { onboarding = localStorage.getItem('coachFirstRateDone:v1') !== '1'; } catch { /* private */ }
-          if (onboarding) { setGuide('ask'); try { localStorage.setItem('coachFirstRateDone:v1', '1'); } catch { /* private */ } }
-          else setSrcMenu(true);
+          if (onboarding) {
+            setGuide('ask');
+            try { localStorage.setItem('coachFirstRateDone:v1', '1'); } catch { /* private */ }
+            // tell the coach overlay to step aside so its dim doesn't eat taps
+            window.dispatchEvent(new Event('coach-dismiss'));
+          } else setSrcMenu(true);
         }}
         aria-label="Сканировать блюдо или напиток"
       >

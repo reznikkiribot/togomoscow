@@ -678,6 +678,13 @@ export default function Home() {
     setCoachOn(false);
     try { localStorage.setItem('coachFirstRateDone:v1', '1'); } catch { /* private */ }
   };
+  // the camera fab opens the guided fork → hide the coach so its dim never
+  // blocks taps inside the «Вы в ресторане?» sheet
+  useEffect(() => {
+    const off = () => setCoachOn(false);
+    window.addEventListener('coach-dismiss', off);
+    return () => window.removeEventListener('coach-dismiss', off);
+  }, []);
   const coachSteps: CoachStep[] = [
     {
       selector: '.scan-fab',
