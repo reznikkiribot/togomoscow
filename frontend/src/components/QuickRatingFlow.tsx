@@ -278,7 +278,7 @@ export function QuickRatingFlow({
           <div className="quick-stars" data-coach="qr-stars"><StarInput value={rating} onChange={setRating} /><b>{rating ? rating.toFixed(1) : ''}</b></div>
         </section>
 
-        <section className="quick-step">
+        <section className="quick-step" data-coach="qr-venue">
           <div className="quick-step-label"><span>2</span> Где пробовали?</div>
           {venue && (
             <div className="quick-selected">
@@ -286,7 +286,7 @@ export function QuickRatingFlow({
               <MetroLine venue={venue} />
             </div>
           )}
-          <div className="pu-search quick-venue-search" data-coach="qr-venue">
+          <div className="pu-search quick-venue-search">
             <span className="search-ico">🔍</span>
             <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Найти заведение" />
           </div>
