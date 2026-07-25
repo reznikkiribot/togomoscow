@@ -42,20 +42,27 @@ export function OnboardingCoach({
     // rect is stable — then only on scroll/resize. This avoids both the old
     // per-frame jank AND a stale off-screen ring.
     let tries = 0;
+    let scrolledOnce = false;
     const timers: number[] = [];
     const measure = () => {
       const el = document.querySelector(step.selector) as HTMLElement | null;
-      if (!el) { setRect(null); return; }
+      if (!el) return; // keep the last known rect rather than blanking the ring
       const r = el.getBoundingClientRect();
-      if (r.width > 0 && r.top > -9999) {
+      if (r.width <= 0) return;
+      const fixed = getComputedStyle(el).position === 'fixed';
+      // only scroll a NON-fixed target into view, and only once (scrolling a fixed
+      // fab does nothing useful but retriggers our own scroll listener in a loop)
+      const offscreen = r.top < 0 || r.bottom > window.innerHeight;
+      if (!fixed && offscreen && !scrolledOnce) {
+        scrolledOnce = true;
         el.scrollIntoView({ block: 'center', behavior: 'smooth' });
-        setRect(r);
       }
+      setRect(r);
     };
     const retry = () => {
       measure();
       tries += 1;
-      if (tries < 6) timers.push(window.setTimeout(retry, 120));
+      if (tries < 8) timers.push(window.setTimeout(retry, 100));
     };
     retry();
     window.addEventListener('scroll', measure, { passive: true });
