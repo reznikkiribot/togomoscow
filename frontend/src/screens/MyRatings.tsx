@@ -479,6 +479,23 @@ export default function MyRatings() {
           <span>🛟 Поддержка</span>
           <span className="chev">›</span>
         </button>
+        {profile?.user?.role === 'ADMIN' && (
+          <button
+            className="contrib-row link"
+            onClick={() => {
+              // replay the guided first-tasting onboarding even though this account
+              // already has ratings (admin preview). Home reads this flag on load.
+              try {
+                localStorage.removeItem('coachFirstRateDone:v1');
+                localStorage.setItem('forceOnboarding', '1');
+              } catch { /* private */ }
+              window.location.href = '/';
+            }}
+          >
+            <span>🎬 Пройти онбординг (админ)</span>
+            <span className="chev">›</span>
+          </button>
+        )}
         {locationConsent && (
           <button
             className="contrib-row link"

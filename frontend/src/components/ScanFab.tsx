@@ -361,10 +361,17 @@ export function ScanFab() {
         onClick={() => {
           // during first-tasting onboarding the camera leads via «Вы в ресторане?»
           let onboarding = false;
-          try { onboarding = localStorage.getItem('coachFirstRateDone:v1') !== '1'; } catch { /* private */ }
+          try {
+            onboarding =
+              localStorage.getItem('coachFirstRateDone:v1') !== '1' ||
+              localStorage.getItem('forceOnboarding') === '1';
+          } catch { /* private */ }
           if (onboarding) {
             setGuide('ask');
-            try { localStorage.setItem('coachFirstRateDone:v1', '1'); } catch { /* private */ }
+            try {
+              localStorage.setItem('coachFirstRateDone:v1', '1');
+              localStorage.removeItem('forceOnboarding'); // one replay per trigger
+            } catch { /* private */ }
             // tell the coach overlay to step aside so its dim doesn't eat taps
             window.dispatchEvent(new Event('coach-dismiss'));
           } else setSrcMenu(true);

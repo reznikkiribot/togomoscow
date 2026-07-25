@@ -655,13 +655,17 @@ export default function Home() {
   const pinned = heroPinId ? ratePool.find((l) => l.id === heroPinId) : undefined;
   const heroItem = pinned ?? (ratePool.length ? ratePool[heroIdx % ratePool.length] : null);
 
-  // start the guided first-rating once a hero card is on screen for a new user
+  // start the guided first-rating once a hero card is on screen for a new user.
+  // `forceOnboarding` (set from the admin profile) replays it even with ratings.
   useEffect(() => {
     if (coachOn) return;
-    if (!heroItem || myReviews.length > 0 || quickRate) return;
-    let seen = false;
-    try { seen = localStorage.getItem('coachFirstRateDone:v1') === '1'; } catch { /* private */ }
-    if (seen) return;
+    if (!heroItem || quickRate) return;
+    let forced = false, seen = false;
+    try {
+      forced = localStorage.getItem('forceOnboarding') === '1';
+      seen = localStorage.getItem('coachFirstRateDone:v1') === '1';
+    } catch { /* private */ }
+    if (!forced && (myReviews.length > 0 || seen)) return;
     const t = window.setTimeout(() => setCoachOn(true), 900); // let the card settle first
     return () => window.clearTimeout(t);
   }, [heroItem, myReviews.length, quickRate, coachOn]);
