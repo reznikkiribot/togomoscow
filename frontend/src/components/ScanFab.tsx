@@ -10,6 +10,7 @@ import { ReviewForm } from './ReviewForm';
 import { TasteResult } from './TasteResult';
 import { VenuePicker } from './VenuePicker';
 import { QuickRatingFlow } from './QuickRatingFlow';
+import { clearForcedOnboarding, markOnboardingSeen, onboardingForced, onboardingSeen } from '../onboarding';
 
 function CamIcon() {
   return (
@@ -360,18 +361,10 @@ export function ScanFab() {
         className={'scan-fab' + (pulse ? ' pulse' : '')}
         onClick={() => {
           // during first-tasting onboarding the camera leads via «Вы в ресторане?»
-          let onboarding = false;
-          try {
-            onboarding =
-              localStorage.getItem('coachFirstRateDone:v1') !== '1' ||
-              localStorage.getItem('forceOnboarding') === '1';
-          } catch { /* private */ }
-          if (onboarding) {
+          if (!onboardingSeen() || onboardingForced()) {
             setGuide('ask');
-            try {
-              localStorage.setItem('coachFirstRateDone:v1', '1');
-              localStorage.removeItem('forceOnboarding'); // one replay per trigger
-            } catch { /* private */ }
+            markOnboardingSeen();
+            clearForcedOnboarding(); // one replay per trigger
             // tell the coach overlay to step aside so its dim doesn't eat taps
             window.dispatchEvent(new Event('coach-dismiss'));
           } else setSrcMenu(true);

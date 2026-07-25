@@ -5,6 +5,7 @@ import { TasteHero } from '../components/TasteHero';
 import { PersonalGoal } from '../components/PersonalGoal';
 import { DiscoverySheet } from '../components/DiscoverySheet';
 import { OnboardingCoach, type CoachStep } from '../components/OnboardingCoach';
+import { markOnboardingSeen, onboardingForced, onboardingSeen } from '../onboarding';
 import { ListRow } from '../components/ListRow';
 import { Stars } from '../components/Stars';
 import { preloadListingPhotos, VenuePhoto } from '../components/VenuePhoto';
@@ -655,32 +656,28 @@ export default function Home() {
   const pinned = heroPinId ? ratePool.find((l) => l.id === heroPinId) : undefined;
   const heroItem = pinned ?? (ratePool.length ? ratePool[heroIdx % ratePool.length] : null);
 
-  // start the guided first-rating once a hero card is on screen for a new user.
-  // `forceOnboarding` (set from the admin profile) replays it even with ratings.
+  // Start the guided first-tasting once a hero card is on screen. Gated only by
+  // the onboarding VERSION mark — bumping ONBOARDING_VERSION replays it for every
+  // user (including those who already have ratings), exactly once each.
   useEffect(() => {
     if (coachOn) return;
     if (!heroItem || quickRate) return;
-    let forced = false, seen = false;
-    try {
-      forced = localStorage.getItem('forceOnboarding') === '1';
-      seen = localStorage.getItem('coachFirstRateDone:v1') === '1';
-    } catch { /* private */ }
-    if (!forced && (myReviews.length > 0 || seen)) return;
+    if (onboardingSeen() && !onboardingForced()) return;
     const t = window.setTimeout(() => setCoachOn(true), 900); // let the card settle first
     return () => window.clearTimeout(t);
-  }, [heroItem, myReviews.length, quickRate, coachOn]);
+  }, [heroItem, quickRate, coachOn]);
 
   // hide the coach as soon as the rating flow opens (it leads from there) and mark done
   useEffect(() => {
     if (quickRate && coachOn) {
       setCoachOn(false);
-      try { localStorage.setItem('coachFirstRateDone:v1', '1'); } catch { /* private */ }
+      markOnboardingSeen();
     }
   }, [quickRate, coachOn]);
 
   const dismissCoach = () => {
     setCoachOn(false);
-    try { localStorage.setItem('coachFirstRateDone:v1', '1'); } catch { /* private */ }
+    markOnboardingSeen();
   };
   // the camera fab opens the guided fork → hide the coach so its dim never
   // blocks taps inside the «Вы в ресторане?» sheet

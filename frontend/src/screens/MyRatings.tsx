@@ -9,6 +9,7 @@ import { ReviewForm } from '../components/ReviewForm';
 import { ReviewCard, CategoryAverages } from '../components/ReviewCard';
 import { GameProgress, GameCelebration, useGameState } from '../components/GameProgress';
 import { PhotoPostModal } from '../components/PhotoPostModal';
+import { forceOnboarding } from '../onboarding';
 import { Stars } from '../components/Stars';
 import { VenuePhoto } from '../components/VenuePhoto';
 import { SmartImg } from '../components/SmartImg';
@@ -485,10 +486,7 @@ export default function MyRatings() {
             onClick={() => {
               // replay the guided first-tasting onboarding even though this account
               // already has ratings (admin preview). Home reads this flag on load.
-              try {
-                localStorage.removeItem('coachFirstRateDone:v1');
-                localStorage.setItem('forceOnboarding', '1');
-              } catch { /* private */ }
+              forceOnboarding();
               window.location.href = '/';
             }}
           >
