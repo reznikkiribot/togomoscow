@@ -37,17 +37,31 @@ export function OnboardingCoach({
   // view ONCE, then only re-measure on scroll/resize (passive).
   useLayoutEffect(() => {
     if (!step) return;
-    const el = document.querySelector(step.selector) as HTMLElement | null;
-    if (!el) { setRect(null); return; }
-    el.scrollIntoView({ block: 'center', behavior: 'smooth' });
-    const measure = () => setRect(el.getBoundingClientRect());
-    // let the smooth-scroll settle, then lock the position
-    const t1 = window.setTimeout(measure, 120);
-    const t2 = window.setTimeout(measure, 420);
+    // The target may mount slightly after the coach (e.g. the camera fab), and a
+    // fixed element ignores scrollIntoView, so re-measure a few times until the
+    // rect is stable — then only on scroll/resize. This avoids both the old
+    // per-frame jank AND a stale off-screen ring.
+    let tries = 0;
+    const timers: number[] = [];
+    const measure = () => {
+      const el = document.querySelector(step.selector) as HTMLElement | null;
+      if (!el) { setRect(null); return; }
+      const r = el.getBoundingClientRect();
+      if (r.width > 0 && r.top > -9999) {
+        el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        setRect(r);
+      }
+    };
+    const retry = () => {
+      measure();
+      tries += 1;
+      if (tries < 6) timers.push(window.setTimeout(retry, 120));
+    };
+    retry();
     window.addEventListener('scroll', measure, { passive: true });
     window.addEventListener('resize', measure);
     return () => {
-      window.clearTimeout(t1); window.clearTimeout(t2);
+      timers.forEach((t) => window.clearTimeout(t));
       window.removeEventListener('scroll', measure);
       window.removeEventListener('resize', measure);
     };
