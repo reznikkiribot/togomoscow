@@ -53,6 +53,7 @@ if (ALL) {
 console.log(`к обрезке: ${targets.length}`);
 
 let fixed = 0, skip = 0, lowres = 0, n = 0;
+const lowresIds = [];
 for (const it of targets) {
   if (n >= LIMIT) break;
   n++;
@@ -70,9 +71,12 @@ for (const it of targets) {
     const padded = w < (src.width ?? 0) * 0.92 || h < (src.height ?? 0) * 0.92;
     // already full-bleed AND already ≥720p → nothing to do
     if (!padded && Math.min(src.width ?? 0, src.height ?? 0) >= 720) { skip++; continue; }
-    // too little real content to reach 720p without smearing → regenerate instead
+    // Too little real content to reach 720p without smearing → queue it for
+    // regeneration but KEEP the current photo until a better one exists.
+    // (Clearing photoUrl here once wiped every card at once — a card with a 512px
+    // photo is still far better than a card with none.)
     if (Math.min(w, h) < MIN_SOURCE) {
-      await p.listing.update({ where: { id: it.id }, data: { photoUrl: null } }).catch(() => {});
+      lowresIds.push(it.id);
       lowres++;
       continue;
     }
@@ -96,5 +100,6 @@ for (const it of targets) {
     console.log(`  err ${it.name}: ${String(e.message || '').slice(0, 50)}`);
   }
 }
-console.log(`\nОбрезано: ${fixed}, уже норм: ${skip}, на перегенерацию (мало пикселей для 720p): ${lowres}, всего: ${n}`);
+fs.writeFileSync(path.join(__dirname, 'regen-720-todo.json'), JSON.stringify(lowresIds));
+console.log(`\nОбрезано: ${fixed}, уже норм: ${skip}, в очередь на 720p (фото ОСТАВЛЕНЫ): ${lowres}, всего: ${n}`);
 await p.$disconnect();
