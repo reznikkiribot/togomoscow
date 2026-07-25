@@ -4,6 +4,17 @@ import { api } from '../api';
 import { ListingDetailModal } from '../components/ListingDetail';
 import { UserProfileModal } from '../components/People';
 import { Stars } from '../components/Stars';
+import { forceOnboarding } from '../onboarding';
+import {
+  configKeyLabel,
+  distanceLabel,
+  fraudFlagLabel,
+  locationStatusLabel,
+  photoSourceLabel,
+  severityLabel,
+  tapLabel,
+  weightLabel,
+} from '../adminLabels';
 import type {
   AdminChallenge,
   AdminUser,
@@ -254,6 +265,22 @@ export default function Business() {
           )}
           </Acc>
 
+          <div className="biz-card">
+            <b>Обучение новичка</b>
+            <div className="meta" style={{ color: 'var(--hint)', margin: '4px 0 8px' }}>
+              Пройдите путь первой дегустации так, как его видит новый пользователь.
+            </div>
+            <button
+              className="btn"
+              onClick={() => {
+                forceOnboarding();
+                window.location.href = '/';
+              }}
+            >
+              🎬 Пройти обучение заново
+            </button>
+          </div>
+
           <Acc id="trustqueue" title="Подозрительные дегустации" count={trustQueue.length} openSec={openSec} setOpenSec={setOpenSec}>
             {trustQueue.length === 0 ? <div className="empty">Очередь пуста</div> : trustQueue.map((item) => (
               <div className="biz-card" key={item.reviewId}>
@@ -261,14 +288,16 @@ export default function Business() {
                   {item.review.listing?.name ?? 'Карточка'} · {item.review.rating.toFixed(1)}★
                 </button>
                 <div className="meta" style={{ color: 'var(--hint)' }}>
-                  {item.review.user?.firstName ?? item.review.user?.username ?? 'гость'} · Trust {item.trustScore}/100 · вес {item.ratingWeight}
+                  {item.review.user?.firstName ?? item.review.user?.username ?? 'гость'} · доверие {item.trustScore} из 100 · {weightLabel(item.ratingWeight)}
                 </div>
                 <div className="meta" style={{ color: 'var(--hint)' }}>
-                  Гео: {item.locationStatus}{item.distanceToVenueMeters != null ? ` · ${Math.round(item.distanceToVenueMeters)} м` : ''} · фото: {item.photoSource}
+                  Геопозиция: {locationStatusLabel(item.locationStatus)}
+                  {distanceLabel(item.distanceToVenueMeters) ? ` · ${distanceLabel(item.distanceToVenueMeters)} от заведения` : ''}
+                  {' · '}{photoSourceLabel(item.photoSource)}
                 </div>
                 {item.review.photoUrls?.[0] && <img src={item.review.photoUrls[0]} alt="" style={{ width: 96, height: 96, objectFit: 'cover', borderRadius: 10, marginTop: 8 }} />}
                 {(item.review.fraudFlags ?? []).map((flag) => (
-                  <div className="mod-reason" key={flag.id}>⚠️ {flag.type} · {flag.severity}</div>
+                  <div className="mod-reason" key={flag.id}>⚠️ {fraudFlagLabel(flag.type)} · {severityLabel(flag.severity)}</div>
                 ))}
                 {item.review.text && <div style={{ fontSize: 14, marginTop: 6 }}>{item.review.text}</div>}
                 <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 10 }}>
@@ -506,7 +535,8 @@ export default function Business() {
                 </div>
                 {Object.entries(gameCfg).map(([key, value]) => (
                   <div key={key} className="biz-card">
-                    <b>{key}</b>
+                    <b>{configKeyLabel(key)}</b>
+                    <div className="meta" style={{ color: 'var(--hint)', fontSize: 11 }}>{key}</div>
                     <textarea
                       className="cfg-edit"
                       rows={4}
@@ -544,11 +574,12 @@ export default function Business() {
                 {(ux.topTaps?.length ?? 0) > 0 && (
                   <>
                     <div className="section-title" style={{ fontSize: 15, marginTop: 10 }}>
-                      Топ нажатий{ux.totalTaps ? ` (всего ${ux.totalTaps})` : ''}
+                      На что чаще нажимают{ux.totalTaps ? ` (всего нажатий: ${ux.totalTaps})` : ''}
                     </div>
                     {ux.topTaps!.slice(0, 10).map((t) => (
                       <div key={t.el} className="biz-card" style={{ display: 'flex', justifyContent: 'space-between', gap: 8 }}>
-                        <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{t.el}</span>
+                        {/* show the label the user saw, not the CSS selector */}
+                        <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{tapLabel(t.el)}</span>
                         <b>{t.n}</b>
                       </div>
                     ))}
