@@ -105,6 +105,12 @@ const todoFile = fs.existsSync(path.join(__dirname, 'gen-todo.json')) ? 'gen-tod
 console.log('источник задания:', todoFile);
 const report = JSON.parse(fs.readFileSync(path.join(__dirname, todoFile), 'utf8'));
 const doneFile = path.join(__dirname, 'generated-ok.json');
+// Failed-attempt counter: a photo rejected by CLIP must be REGENERATED with new
+// seeds next round, not re-checked forever (the gen stage skips existing files).
+const triesFile = path.join(__dirname, 'gen-tries.json');
+const MAX_TRIES = 4;
+let tries = {};
+try { tries = JSON.parse(fs.readFileSync(triesFile, 'utf8')); } catch { tries = {}; }
 let done = new Set();
 try { done = new Set(JSON.parse(fs.readFileSync(doneFile, 'utf8'))); } catch { /* first run */ }
 const todo = report.mismatches.filter((m) => !done.has(m.id));
@@ -120,6 +126,7 @@ for (const m of todo) {
   let item;
   try { item = await p.listing.findUnique({ where: { id: m.id }, select: { photoUrl: true } }); } catch { item = undefined; }
   if (item === null || item?.photoUrl) { done.add(m.id); fs.writeFileSync(doneFile, JSON.stringify([...done])); continue; }
+  if ((tries[m.id] ?? 0) >= MAX_TRIES) continue; // gave up after repeated failures
   const en = fixEn(m.name, m.en);
 
   if (STAGE !== 'check') {
@@ -129,7 +136,7 @@ for (const m of todo) {
       try {
         execFileSync('./sd-cli.exe', [
           '-m', 'sd_turbo.safetensors', '--steps', '5', '--cfg-scale', '1.0', '-W', '768', '-H', '768',
-          '-s', String(1000 + a * 777), '-o', rel,
+          '-s', String(1000 + a * 777 + (tries[m.id] ?? 0) * 6151), '-o', rel,
           '-p', `professional food photography of ${en}, restaurant plating, natural light, appetizing, high detail`,
         ], { stdio: 'pipe', timeout: 300000, cwd: SD });
         console.log(`gen ${m.name} [${en}] #${a}`);
@@ -159,7 +166,13 @@ for (const m of todo) {
       console.log(`OK ${m.name} -> /api/files/${key} (${best.score.toFixed(2)})`);
     } else {
       failed++;
-      console.log(`SKIP ${m.name} — лучший скор ${best.score.toFixed(2)}`);
+      // drop the rejected renders + count the attempt → next cycle makes new ones
+      for (let a = 0; a < 3; a++) {
+        try { fs.unlinkSync(path.join(outDir, `${m.id}-${a}.png`)); } catch { /* already gone */ }
+      }
+      tries[m.id] = (tries[m.id] ?? 0) + 1;
+      fs.writeFileSync(triesFile, JSON.stringify(tries));
+      console.log(`SKIP ${m.name} — скор ${best.score.toFixed(2)}, попытка ${tries[m.id]}/${MAX_TRIES}`);
     }
     fs.writeFileSync(doneFile, JSON.stringify([...done]));
   }

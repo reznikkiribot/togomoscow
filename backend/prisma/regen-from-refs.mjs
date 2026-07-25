@@ -35,6 +35,13 @@ fs.mkdirSync(REF, { recursive: true });
 fs.mkdirSync(OUT, { recursive: true });
 const MAP_FILE = path.join(__dirname, 'i2i-map.json'); // id → {name, en, ref}
 const DONE_FILE = path.join(__dirname, 'i2i-done.json');
+// How many times each item already failed the CLIP check. Used to (a) pick fresh
+// seeds so the retry is not the same picture, (b) stop after MAX_TRIES instead of
+// looping forever on a dish the model can't render.
+const TRIES_FILE = path.join(__dirname, 'i2i-tries.json');
+const MAX_TRIES = 4;
+let tries = {};
+try { tries = JSON.parse(fs.readFileSync(TRIES_FILE, 'utf8')); } catch { tries = {}; }
 const ACCEPT = 0.5;
 
 if (fs.existsSync(path.join(__dirname, 'i2i-stop'))) { console.log('STOP-флаг — выходим'); process.exit(0); }
@@ -94,6 +101,7 @@ if (STAGE === 'gen') {
     if (n >= LIMIT) break;
     const refRel = `ref/${id}.png`;
     if (!fs.existsSync(path.join(SD, refRel))) continue;
+    if ((tries[id] ?? 0) >= MAX_TRIES) continue; // gave up on this one
     let made = 0;
     for (let a = 0; a < 2; a++) {
       const outRel = `out-i2i/${id}-${a}.png`;
@@ -104,7 +112,7 @@ if (STAGE === 'gen') {
           // real parsed photo (minimal deviation), so «много несовпадений» goes away.
           '-m', 'sd_turbo.safetensors', '-i', refRel, '--strength', '0.2',
           '--steps', '6', '--cfg-scale', '1.0', '-W', '768', '-H', '768',
-          '-s', String(2000 + a * 555), '-o', outRel,
+          '-s', String(2000 + a * 555 + (tries[id] ?? 0) * 9173), '-o', outRel,
           '-p', `professional food photography, the whole dish fully visible and centered, appetizing, natural light, high detail`,
         ], { stdio: 'pipe', timeout: 300000, cwd: SD });
         made++;
@@ -162,7 +170,19 @@ if (STAGE === 'check') {
     }
     if (!best) continue;
     n++;
-    if (best.s < ACCEPT) { skip++; console.log(`SKIP ${m.name} скор ${best.s.toFixed(2)}`); continue; }
+    if (best.s < ACCEPT) {
+      // Failed the check → throw the images away and record the attempt, so the
+      // next cycle generates DIFFERENT ones (the gen stage skips existing files,
+      // so without this the same rejected picture was re-checked forever).
+      for (let a = 0; a < 2; a++) {
+        try { fs.unlinkSync(path.join(SD, `out-i2i/${id}-${a}.png`)); } catch { /* already gone */ }
+      }
+      tries[id] = (tries[id] ?? 0) + 1;
+      fs.writeFileSync(TRIES_FILE, JSON.stringify(tries));
+      skip++;
+      console.log(`SKIP ${m.name} скор ${best.s.toFixed(2)} — попытка ${tries[id]}/${MAX_TRIES}`);
+      continue;
+    }
     const key = `aigen-${randomUUID()}`;
     try {
       await s3.send(new aws.PutObjectCommand({ Bucket: creds.bucketName, Key: key, Body: fs.readFileSync(best.file), ContentType: 'image/png' }));
