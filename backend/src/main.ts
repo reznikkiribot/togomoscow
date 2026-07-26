@@ -75,6 +75,11 @@ async function bootstrap() {
       void Promise.allSettled([
         prisma.$queryRaw`SELECT 1`,
         cache.getOrSet('bootstrap:anon-feed:10', 60_000, () => recsys.anonFeed(10)),
+        // the category tabs (Блюда / Напитки / Рестораны…) — warmed so the FIRST
+        // tap is instant too, not just the repeats served from cache
+        listings.list({ type: 'DISH', take: 30 }),
+        listings.list({ type: 'DRINK', take: 30 }),
+        listings.list({ type: 'RESTAURANT', take: 30 }),
         cache.getOrSet('bootstrap:top-dish:v1', 120_000, () => listings.list({ type: 'DISH', sort: 'rating', take: 12 })),
         cache.getOrSet('bootstrap:top-drink:v1', 120_000, () => listings.list({ type: 'DRINK', sort: 'rating', take: 12 })),
         listings.firstTasterItems(8),

@@ -349,11 +349,15 @@ export class ListingsService {
     category?: string;
     viewerId?: string | null;
   }, skipCache = false): Promise<any[]> {
-    const ratingKey = !params.viewerId && !params.search && !params.openNow && params.sort === 'rating'
-      ? `listings:rating:${params.type ?? 'ALL'}:${params.take ?? 50}:${params.price ?? 0}:${params.cuisine ?? ''}:${params.category ?? ''}`
+    // Cache EVERY impersonal listing query, not just sort=rating. Tapping «Блюда»
+    // or «Рестораны» uses sort=recommended, which was never cached — each tap
+    // recomputed the whole ranking (measured 5s for dishes, 19s for venues).
+    // Personalised (viewerId) and free-text searches stay uncached.
+    const cacheKey = !params.viewerId && !params.search
+      ? `listings:list:v2:${params.type ?? 'ALL'}:${params.sort ?? 'recommended'}:${params.take ?? 50}:${params.price ?? 0}:${params.openNow ? 1 : 0}:${params.cuisine ?? ''}:${params.category ?? ''}`
       : null;
-    if (!skipCache && ratingKey) {
-      return this.cache.getOrSet(ratingKey, 120_000, () => this.list(params, true));
+    if (!skipCache && cacheKey) {
+      return this.cache.getOrSet(cacheKey, 120_000, () => this.list(params, true));
     }
     const {
       type,
@@ -439,8 +443,10 @@ export class ListingsService {
           photo_url AS "photoUrl", price_level AS "priceLevel",
           avg_rating AS "avgRating", review_count AS "reviewCount",
           website, address, lat, lng, metro, metro_distance AS "metroDistance", phone, hours,
-          (SELECT MIN(ml.price)::float FROM menu_links ml
-            WHERE ml.item_id = listings.id AND ml.status = 'APPROVED' AND ml.price IS NOT NULL) AS "minMenuPrice",
+          ${type === 'RESTAURANT'
+            ? Prisma.sql`NULL::float AS "minMenuPrice",`
+            : Prisma.sql`(SELECT MIN(ml.price)::float FROM menu_links ml
+                WHERE ml.item_id = listings.id AND ml.status = 'APPROVED' AND ml.price IS NOT NULL) AS "minMenuPrice",`}
           COALESCE(group_key, id) AS "groupKey",
           COUNT(*) OVER (PARTITION BY COALESCE(group_key, id))::int AS "branchCount"
         FROM listings
