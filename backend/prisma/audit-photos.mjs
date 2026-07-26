@@ -27,7 +27,7 @@ if (process.argv.includes('--apply-only')) {
   process.exit(0);
 }
 const PHOTO_BASE = 'https://togomoscow-production.up.railway.app';
-const PASS = Number(process.env.AUDIT_PASS ?? 0.55); // below → mismatch → regen
+const PASS = Number(process.env.AUDIT_PASS ?? 0.92); // below → mismatch → regen
 
 const { PrismaClient } = await import('@prisma/client');
 const t = await import('@xenova/transformers');
@@ -265,7 +265,7 @@ for (const r of rows) {
       boozeLook = (bout.find((o) => o.label === boozeLabels[0])?.score ?? 0) > 0.6;
     }
 
-    if (typeMismatch || comp || boozeLook || nameScore < 0.3) {
+    if (typeMismatch || comp || boozeLook || nameScore < PASS) {
       const reason = typeMismatch ? 'type' : boozeLook ? 'booze-look' : comp ? comp : 'name';
       bad.push({ ...r, score: nameScore, drinkScore, reason, en, regen: true });
     }

@@ -28,7 +28,9 @@ const STAGE = process.argv.includes('--stage-gen') ? 'gen' : process.argv.includ
 const limitArg = process.argv.indexOf('--limit');
 const LIMIT = limitArg > -1 ? Number(process.argv[limitArg + 1]) : Infinity;
 const SD = path.join(__dirname, '..', '..', 'tools', 'sd');
-const ACCEPT = 0.5; // generated image must beat the distractors, same bar as real photos
+// OWNER RULE (26.07.2026): the image must match the dish name at >=92%.
+// Below that it is not uploaded; the item goes back for another attempt.
+const ACCEPT = 0.92;
 
 // heavy deps are stage-scoped: CLIP/S3/sharp only for check (gen must stay spawn-only)
 let zs = null, RawImage = null, s3 = null, creds = null, PutObjectCommand = null;
@@ -52,11 +54,16 @@ if (STAGE !== 'gen') {
   console.log('CLIP готов');
 }
 
-async function scoreFile(file, en) {
+// Score the render against the DISH ITSELF, not only the coarse English scene.
+// With a 92% bar a generic label like «a plated food dish» can never be reached,
+// so the positive label carries the real name and the negatives are what we
+// actually want to rule out: a different dish, or something that isn't food.
+async function scoreFile(file, en, name) {
   const img = await RawImage.fromBlob(new Blob([new Uint8Array(fs.readFileSync(file))]));
-  const labels = [`a photo of ${en}`, 'a photo of a different food dish', 'a photo of an unrelated object or scene'];
+  const positive = name ? `a photo of ${name} — ${en}` : `a photo of ${en}`;
+  const labels = [positive, 'a photo of a different dish or drink', 'a photo that is not food'];
   const out = await zs(img, labels);
-  return out.find((o) => o.label === labels[0])?.score ?? 0;
+  return out.find((o) => o.label === positive)?.score ?? 0;
 }
 
 // ---- manual EN fixes for names qwen mangled in the report ----
@@ -121,7 +128,7 @@ function seedOf(id, attempt, retry) {
   for (const ch of String(id)) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); }
   return (Math.abs(h) % 900000) + attempt * 777 + retry * 6151;
 }
-const MAX_TRIES = 4;
+const MAX_TRIES = Infinity; // owner rule: retry until the photo passes 92%
 let tries = {};
 try { tries = JSON.parse(fs.readFileSync(triesFile, 'utf8')); } catch { tries = {}; }
 let done = new Set();
@@ -139,8 +146,21 @@ for (const m of todo) {
   let item;
   try { item = await p.listing.findUnique({ where: { id: m.id }, select: { photoUrl: true } }); } catch { item = undefined; }
   if (item === null || (item?.photoUrl && !replaceSet.has(m.id))) { done.add(m.id); fs.writeFileSync(doneFile, JSON.stringify([...done])); continue; }
-  if ((tries[m.id] ?? 0) >= MAX_TRIES) continue; // gave up after repeated failures
   const en = fixEn(m.name, m.en);
+  // Every failed attempt makes the prompt MORE specific: the CLIP check demands a
+  // 92% name match, so a vague scene can never pass. Each retry adds detail and
+  // the literal dish name, and raises the step count for a cleaner render.
+  const attemptPrompt = (retry) => {
+    const base = `professional food photography of ${en}`;
+    const dish = `${m.name}`;
+    const detail = [
+      `${base}, ${dish}, restaurant plating, natural light, appetizing, high detail`,
+      `${base}, exactly "${dish}", the dish fills the frame, sharp focus, studio food photography, no text`,
+      `close-up photo of ${dish} — ${base}, centered on a plate, shallow depth of field, professional food styling, ultra detailed, no text, no watermark`,
+      `hyper-realistic close-up of ${dish}, ${base}, single serving centered, even soft lighting, high resolution menu photo, no text`,
+    ];
+    return detail[Math.min(retry, detail.length - 1)];
+  };
 
   if (STAGE !== 'check') {
     for (let a = 0; a < 3; a++) {
@@ -148,11 +168,11 @@ for (const m of todo) {
       if (fs.existsSync(path.join(SD, rel))) continue; // resumable
       try {
         execFileSync('./sd-cli.exe', [
-          '-m', 'sd_turbo.safetensors', '--steps', '5', '--cfg-scale', '1.0', '-W', '768', '-H', '768',
+          '-m', 'sd_turbo.safetensors',
+          '--steps', String(5 + Math.min(tries[m.id] ?? 0, 3) * 2), // more steps on retries
+          '--cfg-scale', '1.0', '-W', '768', '-H', '768',
           '-s', String(seedOf(m.id, a, tries[m.id] ?? 0)), '-o', rel,
-          // include the dish name: the generic scene alone produced identical
-          // images for every item that fell back to it
-          '-p', `professional food photography of ${en}, ${m.name}, restaurant plating, natural light, appetizing, high detail`,
+          '-p', attemptPrompt(tries[m.id] ?? 0),
         ], { stdio: 'pipe', timeout: 300000, cwd: SD });
         console.log(`gen ${m.name} [${en}] #${a}`);
       } catch (e) {
@@ -166,7 +186,7 @@ for (const m of todo) {
     for (let a = 0; a < 3; a++) {
       const file = path.join(outDir, `${m.id}-${a}.png`);
       if (!fs.existsSync(file)) continue;
-      const s = await scoreFile(file, en);
+      const s = await scoreFile(file, en, m.name);
       if (s > best.score) best = { score: s, file };
     }
     if (best.score >= ACCEPT && best.file) {
