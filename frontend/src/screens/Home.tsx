@@ -120,6 +120,14 @@ function bootstrapSlice<T>(pick: (payload: BootstrapPayload) => T | undefined): 
   });
 }
 
+// Drop payloads cached under older keys — they still contain photos that the
+// server now hides as unverified, and they would keep repainting on every open.
+try {
+  for (const k of Object.keys(localStorage)) {
+    if (/^hc_(recsysV2|firstTasterV2|topDish|topDrink|smart|myrev)$/.test(k)) localStorage.removeItem(k);
+  }
+} catch { /* private mode */ }
+
 function paintCached<T>(key: string, setter: (value: T) => void): boolean {
   try {
     const cached = localStorage.getItem('hc_' + key);
@@ -148,10 +156,13 @@ function afterFirstPaint(task: () => void) {
 // v2 invalidates rows cached before the server began attaching validated
 // cardPhotoUrl fallbacks. Keeping those stale objects made fixed photos stay
 // blank forever because feed impressions prevented the same id being refreshed.
-const FEEDQ_KEY = 'hc_feed_queue_v2';
+// v3: payloads cached before photo verification still hold images that are now
+// hidden server-side, so the phone kept painting mismatched photos from cache
+const FEEDQ_KEY = 'hc_feed_queue_v3';
 function readFeedQueue(): Review[] {
   try {
     localStorage.removeItem('hc_feed_queue');
+    localStorage.removeItem('hc_feed_queue_v2');
     const a = JSON.parse(localStorage.getItem(FEEDQ_KEY) || '[]');
     return Array.isArray(a) ? a.filter((review) => review.photoUrls?.length || review.cardPhotoUrl) : [];
   } catch { return []; }
@@ -347,10 +358,10 @@ export default function Home() {
     ].slice(0, 8);
     if (initialFeedLoad.current) {
       initialFeedLoad.current = false;
-      const hadRecommended = paintCached<Listing[]>('recsysV2', setRecommendedFast);
-      const hadFirstTaster = paintCached<Listing[]>('firstTasterV2', setFirstTaster);
-      paintCached<Listing[]>('topDish', setTopDishesFast);
-      paintCached<Listing[]>('topDrink', setTopDrinksFast);
+      const hadRecommended = paintCached<Listing[]>('recsysV3', setRecommendedFast);
+      const hadFirstTaster = paintCached<Listing[]>('firstTasterV3', setFirstTaster);
+      paintCached<Listing[]>('topDishV3', setTopDishesFast);
+      paintCached<Listing[]>('topDrinkV3', setTopDrinksFast);
       if (hadRecommended) setFeedLoaded(true);
 
       api.bootstrap()
@@ -359,10 +370,10 @@ export default function Home() {
           // left the recsys feed and «Оцените первым» empty on first load.
           if (!hadRecommended && home.feed?.length) setRecommendedFast(home.feed);
           if (!hadFirstTaster && home.firstTaster?.length) setFirstTaster(home.firstTaster);
-          if (home.feed?.length) storeCached('recsysV2', home.feed);
-          if (home.firstTaster?.length) storeCached('firstTasterV2', home.firstTaster);
-          if (home.topDishes?.length) { setTopDishesFast(home.topDishes); storeCached('topDish', home.topDishes); }
-          if (home.topDrinks?.length) { setTopDrinksFast(home.topDrinks); storeCached('topDrink', home.topDrinks); }
+          if (home.feed?.length) storeCached('recsysV3', home.feed);
+          if (home.firstTaster?.length) storeCached('firstTasterV3', home.firstTaster);
+          if (home.topDishes?.length) { setTopDishesFast(home.topDishes); storeCached('topDishV3', home.topDishes); }
+          if (home.topDrinks?.length) { setTopDrinksFast(home.topDrinks); storeCached('topDrinkV3', home.topDrinks); }
         })
         .catch(() => api.recsysFeed(30).then(setRecommendedFast).catch(() => {}))
         .finally(() => setFeedLoaded(true));
@@ -373,7 +384,7 @@ export default function Home() {
     // Prefer the in-flight /api/bootstrap response (started in index.html before
     // the bundle loaded); fall back to the per-section endpoints if it missed.
     cachedLoad(
-      'recsysV2',
+      'recsysV3',
       () =>
         bootstrapSlice<any[]>((p) => (p.feed?.length ? (p.feed as any[]) : undefined))
           ?.catch(() => api.recsysFeed(30).catch(() => api.recommended()))
@@ -382,7 +393,7 @@ export default function Home() {
       () => setFeedLoaded(true),
     );
     cachedLoad(
-      'firstTasterV2',
+      'firstTasterV3',
       () =>
         bootstrapSlice<any[]>((p) => (p.firstTaster?.length ? (p.firstTaster as any[]) : undefined))
           ?.catch(() => api.firstTasterItems(8))
@@ -390,7 +401,7 @@ export default function Home() {
       setFirstTaster,
     );
     cachedLoad(
-      'topDish',
+      'topDishV3',
       () =>
         bootstrapSlice<any[]>((p) => (p.topDishes?.length ? (p.topDishes as any[]) : undefined))
           ?.catch(() => api.listings('DISH', undefined, { sort: 'rating', take: 12 }))
@@ -398,15 +409,15 @@ export default function Home() {
       setTopDishesFast,
     );
     cachedLoad(
-      'topDrink',
+      'topDrinkV3',
       () =>
         bootstrapSlice<any[]>((p) => (p.topDrinks?.length ? (p.topDrinks as any[]) : undefined))
           ?.catch(() => api.listings('DRINK', undefined, { sort: 'rating', take: 12 }))
         ?? api.listings('DRINK', undefined, { sort: 'rating', take: 12 }),
       setTopDrinksFast,
     );
-    cachedLoad('smart', () => api.recommendedSmart(recentCats), setSmartFast);
-    cachedLoad('myrev', () => api.myReviews(), setMyReviews);
+    cachedLoad('smartV3', () => api.recommendedSmart(recentCats), setSmartFast);
+    cachedLoad('myrevV3', () => api.myReviews(), setMyReviews);
     // «Новинки под ваш вкус» temporarily disabled (parsing paused) — see loadEvents
   }, [loadEvents, setRecommendedFast, setSmartFast, setTopDishesFast, setTopDrinksFast]);
 
@@ -577,10 +588,10 @@ export default function Home() {
       if (lazyWallStarted.current) return;
       lazyWallStarted.current = true;
       const recentCats = [...new Set(getRecent().map((listing) => listing.category).filter((category): category is string => !!category))].slice(0, 8);
-      cachedLoad('topDish', () => api.listings('DISH', undefined, { sort: 'rating', take: 12 }), setTopDishesFast);
-      cachedLoad('topDrink', () => api.listings('DRINK', undefined, { sort: 'rating', take: 12 }), setTopDrinksFast);
-      cachedLoad('smart', () => api.recommendedSmart(recentCats), setSmartFast);
-      cachedLoad('myrev', () => api.myReviews(), setMyReviews);
+      cachedLoad('topDishV3', () => api.listings('DISH', undefined, { sort: 'rating', take: 12 }), setTopDishesFast);
+      cachedLoad('topDrinkV3', () => api.listings('DRINK', undefined, { sort: 'rating', take: 12 }), setTopDrinksFast);
+      cachedLoad('smartV3', () => api.recommendedSmart(recentCats), setSmartFast);
+      cachedLoad('myrevV3', () => api.myReviews(), setMyReviews);
       extendFeed(5);
       loadMoreRec(4);
     };
