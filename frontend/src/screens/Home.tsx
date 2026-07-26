@@ -211,6 +211,17 @@ export default function Home() {
   // swipe left→right returns from a category/search view to the home feed (iOS
   // interactive-pop pattern) — active ONLY while a filter/category is on screen
   const homeRef = useRef<HTMLDivElement>(null);
+  // the search bar sticks directly under the category row → publish its real
+  // height so the two never overlap on any screen size
+  useEffect(() => {
+    const bar = document.querySelector('.cat-bar') as HTMLElement | null;
+    if (!bar) return;
+    const sync = () => document.documentElement.style.setProperty('--cat-bar-h', `${Math.round(bar.getBoundingClientRect().height)}px`);
+    sync();
+    const observer = new ResizeObserver(sync);
+    observer.observe(bar);
+    return () => observer.disconnect();
+  }, []);
   const catRef = useRef<HTMLDivElement>(null); // the category/search results overlay layer
   const homeScrollY = useRef(0); // home scroll position saved when entering a category
   const [loadingMore, setLoadingMore] = useState(false); // «показать ещё» spinner

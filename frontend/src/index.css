@@ -130,6 +130,11 @@ h3 {
   background: var(--bg);
   margin: -12px -12px 0;
   padding: 10px 6px 4px;
+  /* moves together with the search bar below it: the two form ONE sticky header,
+     so the categories stay reachable on every screen (owner 26.07.2026) */
+  position: sticky;
+  top: 0;
+  z-index: 6;
 }
 .cat-bar::-webkit-scrollbar {
   display: none;
@@ -172,7 +177,7 @@ h3 {
 /* search — white, Yelp-style pill with red icon */
 .search {
   position: sticky;
-  top: 0;
+  top: var(--cat-bar-h, 62px); /* directly under the sticky category row */
   z-index: 5;
   background: var(--bg);
   margin: 0 -12px;
@@ -4264,7 +4269,8 @@ a.addr-line {
 }
 .hero-photo {
   width: 100%;
-  height: 210px;
+  /* same visual weight as a feed photo (feed: max-height 340) */
+  height: 300px;
   object-fit: cover;
 }
 .hero-flash {
@@ -6215,7 +6221,9 @@ button:active,
 .mini-img.venue-name-tile span::after, .vcard-photo.venue-name-tile span::after { display: none; }
 
 /* «Станьте первым дегустатором» keeps the compact card height (owner 17.07) */
-.ft-feed .card .photo { height: 132px; }
+/* «Оцените первым»: wide cards with feed-sized photos, next card peeking */
+.ft-feed .card { flex: 0 0 300px; width: 300px; }
+.ft-feed .card .photo { height: 250px; }
 
 /* notification row: actor avatar left, review thumb right */
 .alert-avatar {

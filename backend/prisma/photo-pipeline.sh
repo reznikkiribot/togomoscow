@@ -22,12 +22,14 @@ export DATABASE_URL="${DATABASE_URL:-$(cat .railway-db-url)}"
 BATCH=20
 prev_audit=0
 
-# work list + any new menu references: once per run, not per batch
-node prisma/build-photo-todo.mjs 2>&1 | tail -1
+# menu references: once per run (downloads don't change between batches)
 node prisma/regen-from-refs.mjs --stage-dl 2>&1 | tail -1
 
 for cycle in $(seq 1 400); do
   echo "=== ПОРЦИЯ $cycle ($(date +%H:%M)) ==="
+  # rebuild the queue EVERY batch — otherwise the pipeline keeps re-processing
+  # items that already received a photo and uploads nothing
+  node prisma/build-photo-todo.mjs 2>&1 | tail -1
 
   # 1) from the parsed menu photo (img2img 0.2): generate → verify → upload
   node prisma/regen-from-refs.mjs --stage-gen --limit $BATCH 2>&1 | tail -1
@@ -37,8 +39,12 @@ for cycle in $(seq 1 400); do
   node prisma/generate-missing-photos.mjs --stage-gen --limit $BATCH 2>&1 | tail -1
   node prisma/generate-missing-photos.mjs --stage-check --limit $BATCH 2>&1 | tail -1
 
-  # 3) trim leftover background margin (720p rule; never clears a photo)
-  node prisma/crop-photo-padding.mjs --all --limit $BATCH 2>&1 | tail -1
+  # 3) trim leftover background margin (720p rule; never clears a photo).
+  # Unlimited but only every 10th batch: with --limit it re-scanned the same first
+  # N photos every cycle and never reached the rest.
+  if [ $((cycle % 10)) -eq 0 ]; then
+    node prisma/crop-photo-padding.mjs --all 2>&1 | tail -1
+  fi
 
   count=$(node --input-type=module -e "process.env.DATABASE_URL=process.env.DATABASE_URL+'?connect_timeout=30&connection_limit=1';const {PrismaClient}=await import('@prisma/client');const p=new PrismaClient();console.log(await p.listing.count({where:{type:{in:['DISH','DRINK']},photoUrl:{not:null}}}));await p.\$disconnect();" 2>/dev/null)
   echo "фото на проде: $count"
