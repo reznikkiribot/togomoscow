@@ -81,7 +81,20 @@ const rows = await withRetry(() => p.$queryRaw`
       ('Пиво','Вино','Крепкие напитки','Коктейли','Коктейль','Игристое','Шампанское'))
 `);
 
-const mismatches = rows.map((r) => ({ id: r.id, name: r.name, en: toEn(r.name, r.category) }));
+// Items queued for replacement (padded / below 720p) keep their current photo, so
+// they are NOT in the query above — pull them in explicitly, otherwise the queue
+// is written and never consumed and a padded photo stays forever.
+let regenIds = [];
+try { regenIds = JSON.parse(fs.readFileSync(path.join(__dirname, 'regen-720-todo.json'), 'utf8')); } catch { regenIds = []; }
+const extra = regenIds.length
+  ? await withRetry(() => p.listing.findMany({
+      where: { id: { in: regenIds } },
+      select: { id: true, name: true, category: true },
+    }))
+  : [];
+const seen = new Set(rows.map((r) => r.id));
+const all = [...rows, ...extra.filter((e) => !seen.has(e.id))];
+const mismatches = all.map((r) => ({ id: r.id, name: r.name, en: toEn(r.name, r.category) }));
 fs.writeFileSync(path.join(__dirname, 'gen-todo.json'), JSON.stringify({ mismatches }, null, 0));
-console.log(`gen-todo.json: ${mismatches.length} блюд без фото`);
+console.log(`gen-todo.json: ${mismatches.length} позиций (${rows.length} без фото + ${mismatches.length - rows.length} на замену)`);
 await p.$disconnect();

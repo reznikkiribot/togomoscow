@@ -42,7 +42,7 @@ for cycle in $(seq 1 400); do
   # 3) trim leftover background margin (720p rule; never clears a photo).
   # Unlimited but only every 10th batch: with --limit it re-scanned the same first
   # N photos every cycle and never reached the rest.
-  if [ $((cycle % 10)) -eq 0 ]; then
+  if [ $((cycle % 3)) -eq 0 ]; then
     node prisma/crop-photo-padding.mjs --all 2>&1 | tail -1
   fi
 
@@ -52,8 +52,8 @@ for cycle in $(seq 1 400); do
   node prisma/backfill-clip.mjs 2>&1 | tail -1
 
   # full audit (wrong type / frame / margins / duplicates) every ~400 new photos
-  if [ $((count - prev_audit)) -ge 400 ]; then
-    echo "=== АУДИТ (каждые 400) $(date +%H:%M) ==="
+  if [ $((count - prev_audit)) -ge 150 ]; then
+    echo "=== АУДИТ (каждые 150) $(date +%H:%M) ==="
     node prisma/audit-photos.mjs 2>&1 | grep -E "напиток|рамка|поля|отцентр|ДУБЛИ|ПЕРЕГЕНЕРАЦИИ"
     node prisma/audit-photos.mjs --apply-only 2>&1 | tail -1
     prev_audit=$count

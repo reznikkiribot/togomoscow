@@ -192,7 +192,7 @@ function compositionIssues(img) {
   // side margins must therefore be judged more strictly than top/bottom.
   // Owner: «добавь в проверку фото проверку на поля ещё и в тиндере».
   const widePadded =
-    (padTop + padBot) / H > 0.22 || (padLeft + padRight) / W > 0.14;
+    (padTop + padBot) / H > 0.12 || (padLeft + padRight) / W > 0.08;
   // b) "busyness" (local contrast) per half → off-center if very lopsided
   const busy = (x0, x1, y0, y1) => {
     let s = 0, cnt = 0;
@@ -254,11 +254,20 @@ for (const r of rows) {
     const comp = compositionIssues(img);
     try { hashes.push({ id: r.id, name: r.name, h: aHash(img) }); } catch { /* skip */ }
 
-    if (typeMismatch || comp) {
-      bad.push({ ...r, score: nameScore, drinkScore, reason: typeMismatch ? 'type' : comp, en, regen: true });
-    } else if (nameScore < 0.2) {
-      // logged for the manual gallery, not auto-regenerated
-      bad.push({ ...r, score: nameScore, drinkScore, reason: 'name?', en, regen: false });
+    // D) a non-alcoholic drink must not be rendered as a cocktail/whisky glass
+    let boozeLook = false;
+    if (r.type === 'DRINK') {
+      const boozeLabels = [
+        'a glass of whiskey, cocktail or alcoholic drink with ice',
+        `a photo of ${en}`,
+      ];
+      const bout = await zs(img, boozeLabels);
+      boozeLook = (bout.find((o) => o.label === boozeLabels[0])?.score ?? 0) > 0.6;
+    }
+
+    if (typeMismatch || comp || boozeLook || nameScore < 0.3) {
+      const reason = typeMismatch ? 'type' : boozeLook ? 'booze-look' : comp ? comp : 'name';
+      bad.push({ ...r, score: nameScore, drinkScore, reason, en, regen: true });
     }
     if (n % 50 === 0) console.log(`  проверено ${n}/${rows.length}…`);
   } catch (e) {
@@ -267,10 +276,10 @@ for (const r of rows) {
 }
 
 console.log(`\n=== ПРОБЛЕМЫ: ${bad.length} ===`);
-for (const reason of ['type', 'framed', 'padded', 'off-center', 'name?']) {
+for (const reason of ['type', 'booze-look', 'name', 'framed', 'padded', 'off-center', 'same-image']) {
   const g = bad.filter((b) => b.reason === reason);
   if (!g.length) continue;
-  const titles = { type: 'напиток показан едой', framed: 'рамка (не заполнил карточку)', padded: 'большие поля вокруг блюда', 'off-center': 'не отцентровано/обрезано', 'name?': 'сомнительное название (только отчёт)' };
+  const titles = { type: 'напиток показан едой', 'booze-look': 'безалкогольное показано как коктейль', name: 'фото не похоже на блюдо из названия', framed: 'рамка (не заполнил карточку)', padded: 'большие поля вокруг блюда', 'off-center': 'не отцентровано/обрезано', 'same-image': 'та же картинка, что у другого блюда' };
   console.log(`  ${titles[reason]}: ${g.length}`);
   g.forEach((b) => console.log(`    ${b.name}${reason === 'type' ? ` (drink ${b.drinkScore.toFixed(2)})` : ''}`));
 }

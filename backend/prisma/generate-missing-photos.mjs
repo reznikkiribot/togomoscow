@@ -108,6 +108,11 @@ const doneFile = path.join(__dirname, 'generated-ok.json');
 // Failed-attempt counter: a photo rejected by CLIP must be REGENERATED with new
 // seeds next round, not re-checked forever (the gen stage skips existing files).
 const triesFile = path.join(__dirname, 'gen-tries.json');
+// Items whose current photo must be REPLACED (padded / under 720p). For these the
+// "already has a photo" guard has to be bypassed, otherwise the replacement never
+// happens and the padded image stays on the card.
+let replaceSet = new Set();
+try { replaceSet = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, 'regen-720-todo.json'), 'utf8'))); } catch { /* none */ }
 // Seed must depend on the ITEM, not only on the attempt index: with a fixed seed
 // and the generic fallback prompt every unnamed dish rendered the SAME picture
 // («Лепешка ржаная» and «сушеная колбаса» shared one image).
@@ -133,7 +138,7 @@ for (const m of todo) {
   // transient DB proxy drops must not mark items done — on error, generate anyway
   let item;
   try { item = await p.listing.findUnique({ where: { id: m.id }, select: { photoUrl: true } }); } catch { item = undefined; }
-  if (item === null || item?.photoUrl) { done.add(m.id); fs.writeFileSync(doneFile, JSON.stringify([...done])); continue; }
+  if (item === null || (item?.photoUrl && !replaceSet.has(m.id))) { done.add(m.id); fs.writeFileSync(doneFile, JSON.stringify([...done])); continue; }
   if ((tries[m.id] ?? 0) >= MAX_TRIES) continue; // gave up after repeated failures
   const en = fixEn(m.name, m.en);
 
