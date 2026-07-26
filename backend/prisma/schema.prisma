@@ -166,6 +166,11 @@ model Listing {
   lng        Float?
   metro      String?
   metroDistance Int? @map("metro_distance") // straight-line distance to the nearest station, metres
+  // A card photo is shown ONLY after it passed every check (name match >= 92%,
+  // composition, no duplicate). Set by the photo pipeline; NULL means "not
+  // verified yet" and the app hides the image (owner rule 26.07.2026).
+  photoVerifiedAt DateTime? @map("photo_verified_at")
+  photoScore      Float?    @map("photo_score") // CLIP name-match of the shown photo
   phone      String?
   website    String?
   source     String? // e.g. "osm", null for hand-seeded demo data

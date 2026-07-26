@@ -192,7 +192,7 @@ if (STAGE === 'check') {
     const key = `aigen-${randomUUID()}`;
     try {
       await s3.send(new aws.PutObjectCommand({ Bucket: creds.bucketName, Key: key, Body: fs.readFileSync(best.file), ContentType: 'image/png' }));
-      await p.listing.update({ where: { id }, data: { photoUrl: `/api/files/${key}` } });
+      await p.listing.update({ where: { id }, data: { photoUrl: `/api/files/${key}`, photoVerifiedAt: new Date(), photoScore: best.s } });
       done.add(id);
       up++;
       console.log(`OK ${m.name} -> aigen (${best.s.toFixed(2)})`);

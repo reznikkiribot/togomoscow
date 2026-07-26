@@ -194,7 +194,7 @@ for (const m of todo) {
       const png = fs.readFileSync(best.file); // sharp+onnxruntime in one process segfault (GLib clash) — ship the 512px PNG, ?w= resizes on delivery
       if (!dry) {
         await s3.send(new PutObjectCommand({ Bucket: creds.bucketName, Key: key, Body: png, ContentType: 'image/png' }));
-        await p.listing.update({ where: { id: m.id }, data: { photoUrl: `/api/files/${key}` } });
+        await p.listing.update({ where: { id: m.id }, data: { photoUrl: `/api/files/${key}`, photoVerifiedAt: new Date(), photoScore: best.score } });
       }
       made++;
       done.add(m.id);

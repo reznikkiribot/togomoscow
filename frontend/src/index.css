@@ -139,8 +139,9 @@ h3 {
 .cat-bar::-webkit-scrollbar {
   display: none;
 }
-/* home root: only the search bar, no category row */
-.cat-bar.hidden { display: none; }
+/* home root: the row is THERE but scrolls away with the page; only the search
+   bar stays pinned. Inside a section it is sticky again (see .cat-bar above). */
+.cat-bar.unpinned { position: static; }
 .cat-tile {
   flex: 1 1 0; /* equal share so every category fits without scrolling */
   min-width: 0;
@@ -179,7 +180,9 @@ h3 {
 /* search — white, Yelp-style pill with red icon */
 .search {
   position: sticky;
-  top: var(--cat-bar-h, 62px); /* directly under the sticky category row */
+  /* under the pinned category row; on the home root the row is unpinned and the
+     offset collapses to 0 so the search sits at the very top */
+  top: var(--search-top, 0px);
   z-index: 5;
   background: var(--bg);
   margin: 0 -12px;

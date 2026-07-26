@@ -545,6 +545,19 @@ export class ListingsService {
   ): Promise<T[]> {
     if (rows.length === 0) return rows;
     const ids = rows.map((r) => r.id);
+    // An AI photo reaches the app ONLY after it passed every check (name match
+    // ≥92%, composition, not a duplicate). Until then the card renders without an
+    // image instead of showing something that doesn't match the dish.
+    // Owner rule 26.07.2026: «убери из отображения те, которые не совпадают;
+    // появляться должны, как только прошли все проверки».
+    const verified = await this.prisma.listing.findMany({
+      where: { id: { in: ids }, photoUrl: { startsWith: '/api/files/aigen' }, photoVerifiedAt: null },
+      select: { id: true },
+    });
+    if (verified.length) {
+      const unverified = new Set(verified.map((v) => v.id));
+      rows = rows.map((r) => (unverified.has(r.id) ? { ...r, photoUrl: null } : r));
+    }
     const reviews = await this.prisma.review.findMany({
       where: { listingId: { in: ids }, text: { not: null }, status: 'APPROVED', trust: { is: { hiddenAt: null } } },
       orderBy: [{ rating: 'desc' }, { createdAt: 'desc' }],

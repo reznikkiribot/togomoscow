@@ -216,11 +216,19 @@ export default function Home() {
   useEffect(() => {
     const bar = document.querySelector('.cat-bar') as HTMLElement | null;
     if (!bar) return;
-    const sync = () => document.documentElement.style.setProperty('--cat-bar-h', `${Math.round(bar.getBoundingClientRect().height)}px`);
+    const sync = () => {
+      // pinned row → the search bar sticks below it; unpinned (home root) → the
+      // search bar sticks to the very top and the row scrolls away with content
+      const pinned = !bar.classList.contains('unpinned');
+      const h = pinned ? Math.round(bar.getBoundingClientRect().height) : 0;
+      document.documentElement.style.setProperty('--search-top', `${h}px`);
+    };
     sync();
     const observer = new ResizeObserver(sync);
     observer.observe(bar);
-    return () => observer.disconnect();
+    const mo = new MutationObserver(sync); // class flips when entering a section
+    mo.observe(bar, { attributes: true, attributeFilter: ['class'] });
+    return () => { observer.disconnect(); mo.disconnect(); };
   }, []);
   const catRef = useRef<HTMLDivElement>(null); // the category/search results overlay layer
   const homeScrollY = useRef(0); // home scroll position saved when entering a category
@@ -864,9 +872,9 @@ export default function Home() {
 
   return (
     <div ref={homeRef}>
-      {/* The home root shows ONLY the search bar — the category row appears once
-          the user is inside a section or a search (owner 26.07.2026). */}
-      <div className={'cat-bar' + (cat === 'ALL' && !search.trim() && !results ? ' hidden' : '')}>
+      {/* On the home root the category row scrolls away with the content; inside a
+          section/search it stays pinned above the search bar (owner 26.07.2026). */}
+      <div className={'cat-bar' + (cat === 'ALL' && !search.trim() && !results ? ' unpinned' : '')}>
         {TILES.map((t) => (
           <button
             key={t.key}

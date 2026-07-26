@@ -18,7 +18,9 @@ if (process.argv.includes('--apply-only')) {
   const pp = new PC();
   const rep = JSON.parse(fs.readFileSync(path.join(__dirname, 'audit-photos-report.json'), 'utf8'));
   const ids = (rep.toRegen ?? rep.bad.filter((b) => b.regen).map((b) => b.id));
-  await pp.listing.updateMany({ where: { id: { in: ids } }, data: { photoUrl: null } });
+  // hide + queue for regeneration: clearing photoUrl loses the file, so we only
+  // drop the verified flag — enrichCards then stops serving it to the app
+  await pp.listing.updateMany({ where: { id: { in: ids } }, data: { photoVerifiedAt: null } });
   for (const f of ['i2i-done.json', 'generated-ok.json']) {
     try { const d = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, f), 'utf8'))); ids.forEach((id) => d.delete(id)); fs.writeFileSync(path.join(__dirname, f), JSON.stringify([...d])); } catch {}
   }
@@ -308,7 +310,7 @@ fs.writeFileSync(
 
 if (APPLY && toRegen.size) {
   // clear photoUrl + reset generated-ok/i2i-done so the regen pipeline redoes them
-  await p.listing.updateMany({ where: { id: { in: [...toRegen] } }, data: { photoUrl: null } });
+  await p.listing.updateMany({ where: { id: { in: [...toRegen] } }, data: { photoVerifiedAt: null } });
   // also drop them from the i2i done-list so stage-check re-uploads
   try {
     const doneFile = path.join(__dirname, 'i2i-done.json');
