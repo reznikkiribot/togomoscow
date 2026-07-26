@@ -864,7 +864,9 @@ export default function Home() {
 
   return (
     <div ref={homeRef}>
-      <div className="cat-bar">
+      {/* The home root shows ONLY the search bar — the category row appears once
+          the user is inside a section or a search (owner 26.07.2026). */}
+      <div className={'cat-bar' + (cat === 'ALL' && !search.trim() && !results ? ' hidden' : '')}>
         {TILES.map((t) => (
           <button
             key={t.key}

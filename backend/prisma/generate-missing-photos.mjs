@@ -108,6 +108,14 @@ const doneFile = path.join(__dirname, 'generated-ok.json');
 // Failed-attempt counter: a photo rejected by CLIP must be REGENERATED with new
 // seeds next round, not re-checked forever (the gen stage skips existing files).
 const triesFile = path.join(__dirname, 'gen-tries.json');
+// Seed must depend on the ITEM, not only on the attempt index: with a fixed seed
+// and the generic fallback prompt every unnamed dish rendered the SAME picture
+// («Лепешка ржаная» and «сушеная колбаса» shared one image).
+function seedOf(id, attempt, retry) {
+  let h = 2166136261;
+  for (const ch of String(id)) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); }
+  return (Math.abs(h) % 900000) + attempt * 777 + retry * 6151;
+}
 const MAX_TRIES = 4;
 let tries = {};
 try { tries = JSON.parse(fs.readFileSync(triesFile, 'utf8')); } catch { tries = {}; }
@@ -136,8 +144,10 @@ for (const m of todo) {
       try {
         execFileSync('./sd-cli.exe', [
           '-m', 'sd_turbo.safetensors', '--steps', '5', '--cfg-scale', '1.0', '-W', '768', '-H', '768',
-          '-s', String(1000 + a * 777 + (tries[m.id] ?? 0) * 6151), '-o', rel,
-          '-p', `professional food photography of ${en}, restaurant plating, natural light, appetizing, high detail`,
+          '-s', String(seedOf(m.id, a, tries[m.id] ?? 0)), '-o', rel,
+          // include the dish name: the generic scene alone produced identical
+          // images for every item that fell back to it
+          '-p', `professional food photography of ${en}, ${m.name}, restaurant plating, natural light, appetizing, high detail`,
         ], { stdio: 'pipe', timeout: 300000, cwd: SD });
         console.log(`gen ${m.name} [${en}] #${a}`);
       } catch (e) {

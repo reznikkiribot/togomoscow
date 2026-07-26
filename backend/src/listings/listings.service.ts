@@ -1880,12 +1880,15 @@ export class ListingsService {
     );
     // hard rules from the owner: venue attachment AND a price — no exceptions;
     // the permanent non-standalone ban, branded drinks, and alcohol never appear here
-    const eligible = pool.filter(
-      (r) =>
-        !isBrandedBeverage(r.name, r.type) && !isAlcohol(r.name, r.type) &&
-        !isAlcohol(r.name, r.type) &&
-        !isNonStandalone(r.name, r.price),
+    const eligible = dedupeByDishName(
+      pool.filter(
+        (r) =>
+          !isBrandedBeverage(r.name, r.type) && !isAlcohol(r.name, r.type) &&
+          !isNonStandalone(r.name, r.price),
+      ),
     );
+    // dedupeByDishName collapses «Паста болоньезе» / «Болоньезе» so the row can't
+    // show the same dish twice under two names (owner: «почему повторяется паста»)
     const picked = await this.rotatePicks(eligible, limit, viewerId, 'first-taster');
     if (!picked.length) return [];
     const items = await this.prisma.listing.findMany({

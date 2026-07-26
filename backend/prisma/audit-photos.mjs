@@ -99,6 +99,29 @@ for (const g of dups) {
   g.slice(1).forEach((x) => dupIds.add(x.id));
 }
 
+// Average-hash of the decoded image: catches two cards showing the SAME picture
+// under different URLs (the generic-prompt renders were byte-different but
+// visually identical). 64-bit hash, compared by Hamming distance.
+function aHash(img) {
+  const { width: W, height: H, data, channels: C } = img;
+  const grid = 8, cell = [];
+  for (let gy = 0; gy < grid; gy++) {
+    for (let gx = 0; gx < grid; gx++) {
+      let sum = 0, n = 0;
+      const x0 = Math.floor((gx * W) / grid), x1 = Math.floor(((gx + 1) * W) / grid);
+      const y0 = Math.floor((gy * H) / grid), y1 = Math.floor(((gy + 1) * H) / grid);
+      for (let y = y0; y < y1; y += 2) for (let x = x0; x < x1; x += 2) {
+        const i = (y * W + x) * C;
+        sum += (data[i] + data[i + 1] + data[i + 2]) / 3; n++;
+      }
+      cell.push(n ? sum / n : 0);
+    }
+  }
+  const avg = cell.reduce((a, b) => a + b, 0) / cell.length;
+  return cell.map((v) => (v > avg ? 1 : 0));
+}
+const hammings = (a, b) => a.reduce((acc, v, i) => acc + (v === b[i] ? 0 : 1), 0);
+
 // ---- composition check (borders / letterboxing / off-center) ----
 // Reads the decoded pixels straight from RawImage (no sharp → no onnx clash).
 // Flags an image whose card presentation is broken:
@@ -203,6 +226,7 @@ console.log('CLIP готов, проверяю…\n');
 //     AND clearly beaten by the "different food" distractor, to avoid punishing a
 //     good photo just because our English label was coarse.
 const bad = [];
+const hashes = [];
 let n = 0;
 for (const r of rows) {
   n++;
@@ -228,6 +252,7 @@ for (const r of rows) {
     // C) composition — border / letterbox / off-center → the picture didn't fill
     // the card square; regen to fix framing.
     const comp = compositionIssues(img);
+    try { hashes.push({ id: r.id, name: r.name, h: aHash(img) }); } catch { /* skip */ }
 
     if (typeMismatch || comp) {
       bad.push({ ...r, score: nameScore, drinkScore, reason: typeMismatch ? 'type' : comp, en, regen: true });
@@ -249,6 +274,20 @@ for (const reason of ['type', 'framed', 'padded', 'off-center', 'name?']) {
   console.log(`  ${titles[reason]}: ${g.length}`);
   g.forEach((b) => console.log(`    ${b.name}${reason === 'type' ? ` (drink ${b.drinkScore.toFixed(2)})` : ''}`));
 }
+
+// visually identical images across different dishes → regenerate the later one
+const visualDups = [];
+for (let i = 0; i < hashes.length; i++) {
+  for (let j = i + 1; j < hashes.length; j++) {
+    if (hammings(hashes[i].h, hashes[j].h) <= 4) {
+      visualDups.push([hashes[i], hashes[j]]);
+      bad.push({ id: hashes[j].id, name: hashes[j].name, reason: 'same-image', regen: true });
+    }
+  }
+}
+console.log(`
+ОДИНАКОВЫЕ КАРТИНКИ у разных блюд: ${visualDups.length}`);
+visualDups.slice(0, 15).forEach(([a, b]) => console.log(`  ${a.name}  ==  ${b.name}`));
 
 const toRegen = new Set([...bad.filter((b) => b.regen).map((b) => b.id), ...dupIds]);
 console.log(`\nК ПЕРЕГЕНЕРАЦИИ: ${toRegen.size} (тип/композиция ${bad.filter((b) => b.regen).length} + дублей ${dupIds.size})`);

@@ -139,6 +139,8 @@ h3 {
 .cat-bar::-webkit-scrollbar {
   display: none;
 }
+/* home root: only the search bar, no category row */
+.cat-bar.hidden { display: none; }
 .cat-tile {
   flex: 1 1 0; /* equal share so every category fits without scrolling */
   min-width: 0;
@@ -4246,7 +4248,9 @@ a.addr-line {
 }
 .hero-media {
   position: relative;
-  height: 210px;
+  height: 300px; /* must match .hero-photo — a shorter box let the image
+                    overflow and cover the name/stars underneath */
+  overflow: hidden;
 }
 .hero-price-badge {
   left: 12px;
@@ -6224,6 +6228,11 @@ button:active,
 /* «Оцените первым»: wide cards with feed-sized photos, next card peeking */
 .ft-feed .card { flex: 0 0 300px; width: 300px; }
 .ft-feed .card .photo { height: 250px; }
+/* no dead band between the metro line and the rating row */
+.ft-feed .card .meta:last-of-type { margin-bottom: 0; }
+.ft-feed .card .metro-line { margin-bottom: 2px; }
+.ft-feed .card .row { margin-top: 4px; }
+.ft-feed .card .card-foot { margin-top: 6px; }
 
 /* notification row: actor avatar left, review thumb right */
 .alert-avatar {
