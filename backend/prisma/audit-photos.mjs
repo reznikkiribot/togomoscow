@@ -311,6 +311,14 @@ fs.writeFileSync(
 if (APPLY && toRegen.size) {
   // clear photoUrl + reset generated-ok/i2i-done so the regen pipeline redoes them
   await p.listing.updateMany({ where: { id: { in: [...toRegen] } }, data: { photoVerifiedAt: null } });
+  // Everything that survived the audit is confirmed good → mark it visible.
+  // Without this the app hides even the photos that passed, because the flag
+  // starts out NULL for every pre-existing image.
+  const passed = rows.filter((r) => !toRegen.has(r.id)).map((r) => r.id);
+  if (passed.length) {
+    await p.listing.updateMany({ where: { id: { in: passed } }, data: { photoVerifiedAt: new Date() } });
+    console.log(`✅ подтверждено и показывается: ${passed.length}`);
+  }
   // also drop them from the i2i done-list so stage-check re-uploads
   try {
     const doneFile = path.join(__dirname, 'i2i-done.json');
