@@ -89,7 +89,7 @@ function cachedLoad<T>(key: string, fetcher: () => Promise<T>, setter: (v: T) =>
   let painted = false;
   try {
     const c = localStorage.getItem('hc_' + key);
-    if (c) { setter(JSON.parse(c)); painted = true; after?.(); }
+    if (c) { setter(stripPhotos(JSON.parse(c))); painted = true; after?.(); }
   } catch { /* ignore bad cache */ }
   fetcher()
     .then((r) => {
@@ -128,11 +128,24 @@ try {
   }
 } catch { /* private mode */ }
 
+// Photos are the ONE field we never restore from cache: the server hides a photo
+// the moment it fails verification, but a payload saved earlier still carries it,
+// and the phone would keep painting a picture that no longer matches the dish.
+// Names/prices/venues still come from cache, so the layout is instant.
+function stripPhotos<T>(value: T): T {
+  if (Array.isArray(value)) return value.map((v) => stripPhotos(v)) as unknown as T;
+  if (value && typeof value === 'object') {
+    const o = value as Record<string, unknown>;
+    if ('photoUrl' in o) return { ...o, photoUrl: null } as T;
+  }
+  return value;
+}
+
 function paintCached<T>(key: string, setter: (value: T) => void): boolean {
   try {
     const cached = localStorage.getItem('hc_' + key);
     if (!cached) return false;
-    setter(JSON.parse(cached));
+    setter(stripPhotos(JSON.parse(cached)));
     return true;
   } catch {
     return false;
@@ -164,7 +177,12 @@ function readFeedQueue(): Review[] {
     localStorage.removeItem('hc_feed_queue');
     localStorage.removeItem('hc_feed_queue_v2');
     const a = JSON.parse(localStorage.getItem(FEEDQ_KEY) || '[]');
-    return Array.isArray(a) ? a.filter((review) => review.photoUrls?.length || review.cardPhotoUrl) : [];
+    // same rule as the card caches: a queued post keeps its text, but the card
+    // photo is re-fetched, never restored from an older payload
+    return Array.isArray(a)
+      ? a.filter((review) => review.photoUrls?.length || review.cardPhotoUrl)
+          .map((review) => ({ ...review, cardPhotoUrl: undefined }))
+      : [];
   } catch { return []; }
 }
 function writeFeedQueue(q: Review[]) {
