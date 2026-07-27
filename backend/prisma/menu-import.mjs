@@ -163,6 +163,33 @@ function stripLeadingVenueName(name, venueNames) {
   return name;
 }
 
+// A menu that lists items by FILLING alone («С говядиной и дижонским соусом»)
+// leaves the dish word in the section header, which the parser doesn't keep. Such
+// a name reads as a fragment in the app, so we prepend the dish word inferred
+// from the venue's specialisation. Owner 27.07.2026: «"с говядиной"… это что?!»
+const VENUE_DISH_WORD = [
+  [/vaffel|вафл/i, 'Вафля'],
+  [/блин|креп|crepe/i, 'Блин'],
+  [/пицц|pizza/i, 'Пицца'],
+  [/шаурм|шаверм|донер/i, 'Шаурма'],
+  [/бургер|burger/i, 'Бургер'],
+  [/сэндвич|sandwich|субвей/i, 'Сэндвич'],
+  [/ролл|суши|sushi|лосос|сяке|маки|wok|вок/i, 'Ролл'],
+  [/пирог|пирож/i, 'Пирог'],
+  [/хачапур/i, 'Хачапури'],
+];
+const LEADING_PREPOSITION_RE = /^(с|со|из|для|без|на)\s+/i;
+
+/** «С говядиной…» + venue «Vaffel» → «Вафля с говядиной…». */
+export function completeFragmentName(name, venueName = '') {
+  const n = String(name ?? '').trim();
+  if (!LEADING_PREPOSITION_RE.test(n)) return n;
+  for (const [re, word] of VENUE_DISH_WORD) {
+    if (re.test(venueName)) return `${word} ${n[0].toLowerCase()}${n.slice(1)}`;
+  }
+  return n;
+}
+
 export function normalizeMenuName(name, venueNames = []) {
   let n = String(name ?? '').normalize('NFKC').replace(/\u00a0/g, ' ').trim();
   if (!n) return '';
