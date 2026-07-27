@@ -2,9 +2,12 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
+    <!-- maximum-scale/user-scalable=no: an accidental pinch was zooming the whole
+         mini-app UI, which a native app never does. Photos keep their own pinch
+         zoom inside the viewer (it's implemented in JS, not by the browser). -->
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
     />
     <title>togomoscow</title>
     <meta http-equiv="Cache-Control" content="no-store, max-age=0" />

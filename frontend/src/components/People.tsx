@@ -23,7 +23,12 @@ function FollowBtn({ u, onChange }: { u: PublicUser; onChange: (following: boole
     const next = !following;
     setFollowing(next);
     (next ? api.followUser(u.id) : api.unfollowUser(u.id))
-      .then(() => onChange(next))
+      .then(() => {
+        onChange(next);
+        // following creates a notification server-side — refresh the bell now
+        // instead of leaving it blank until the next 90s poll
+        window.dispatchEvent(new Event('alerts-changed'));
+      })
       .catch(() => setFollowing(!next))
       .finally(() => setBusy(false));
   };

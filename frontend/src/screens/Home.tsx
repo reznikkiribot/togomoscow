@@ -535,13 +535,21 @@ export default function Home() {
     setSearch(q);
     setSuggestions([]);
   };
-  const shownSuggestions: Sugg[] = !search.trim()
+  const typed = search.trim();
+  const tabFiltered: Sugg[] = !typed
     ? history.map((h) => ({ name: h, kind: 'history', icon: 'history' }))
     : cat === 'DISH' || cat === 'DRINK'
       ? suggestions.filter((s) => s.kind === 'item')
       : cat === 'RESTAURANT' || cat === 'BAR'
         ? suggestions.filter((s) => s.kind === 'venue')
         : suggestions;
+  // The typed text itself is always the FIRST row, so «роллы» can be searched as
+  // written with one tap. Any suggestion equal to it is dropped — it used to show
+  // up again right underneath as a duplicate of what was just typed.
+  const shownSuggestions: Sugg[] = typed
+    ? [{ name: typed, kind: 'query', icon: 'search' } as Sugg,
+       ...tabFiltered.filter((s) => s.name.trim().toLowerCase() !== typed.toLowerCase())]
+    : tabFiltered;
 
   // one-time feed: pull the next posts from the local queue onto the screen and
   // top the queue up from the server (which never re-serves what it already gave).
@@ -963,7 +971,15 @@ export default function Home() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               onFocus={() => { if (cat === 'ALL' && !search.trim()) homeScrollY.current = window.scrollY; setSearchFocused(true); }}
-              onBlur={() => setTimeout(() => setSearchFocused(false), 150)}
+              // History used to be written ONLY on Enter or on tapping a
+              // suggestion. Results appear as you type, so a search done by
+              // typing alone was never recorded — several searches in a row left
+              // just one entry in «Недавние запросы». Leaving the field commits
+              // whatever was actually searched.
+              onBlur={() => {
+                if (search.trim()) { pushHistory(search); setHistory(readHistory()); }
+                setTimeout(() => setSearchFocused(false), 150);
+              }}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
                   if (search.trim()) { pushHistory(search); setHistory(readHistory()); }

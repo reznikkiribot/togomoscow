@@ -67,7 +67,12 @@ body {
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   font-size: 15px;
   min-height: var(--tg-viewport-stable-height);
+  /* iOS Safari ignores user-scalable=no, so the UI must refuse pinch here too —
+     only photos may be zoomed, and they opt back in via .zoomable. */
+  touch-action: pan-x pan-y;
 }
+/* double-tap must not zoom the interface either */
+body * { -webkit-text-size-adjust: 100%; }
 
 .boot-fallback {
   position: fixed;
@@ -1111,12 +1116,14 @@ button:active,
   border-radius: 18px 18px 0 0;
   overflow-y: auto;
   position: relative;
-  animation: sheetUp 0.34s cubic-bezier(0.22, 0.61, 0.36, 1);
+  animation: photoPostUp 0.34s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 .photo-post.closing {
   animation: sheetDown 0.3s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
 }
-@keyframes sheetUp {
+/* Short fade-rise specific to the photo viewer — named separately so it does not
+   collide with the shared bottom-sheet sheetUp. */
+@keyframes photoPostUp {
   from { transform: translateY(40px); opacity: 0.6; }
   to { transform: translateY(0); opacity: 1; }
 }
@@ -2797,7 +2804,12 @@ button:active,
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
   z-index: 70;
-  overflow: hidden;
+  /* overflow was hidden, so anything past the fold was simply unreachable —
+     the list must scroll while the keyboard is up. */
+  max-height: min(46vh, 340px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   animation: fdropIn 0.18s ease;
 }
 .ss-head {
@@ -2835,6 +2847,9 @@ button:active,
 .search-sugg-item:last-child {
   border-bottom: none;
 }
+/* the container no longer clips (it scrolls), so the end rows round themselves */
+.search-sugg-item:first-child { border-radius: 12px 12px 0 0; }
+.search-sugg-item:last-child { border-radius: 0 0 12px 12px; }
 .search-sugg-item:active {
   background: #f5f5f5;
 }
@@ -5556,7 +5571,15 @@ button:active,
 .game-level-ico { font-size: 34px; }
 .game-level-title { font-weight: 800; font-size: 17px; }
 .game-level-sub, .game-unlock-sub { color: var(--hint); font-size: 12.5px; margin-top: 3px; }
-.game-unlock { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--border); }
+/* These rows became <button> when they got tappable, which brought the browser's
+   default grey button face with it. They must look exactly like the plain rows
+   they were before. */
+.game-unlock {
+  display: flex; gap: 12px; align-items: flex-start; padding: 10px 0;
+  border: none; border-bottom: 1px solid var(--border);
+  background: none; width: 100%; text-align: left; color: inherit; font: inherit;
+  -webkit-appearance: none; appearance: none;
+}
 .game-unlock:last-child { border-bottom: none; }
 .game-unlock-ico { font-size: 22px; width: 28px; text-align: center; }
 .game-unlock-title { font-weight: 700; font-size: 14.5px; }
@@ -6914,9 +6937,13 @@ html[data-theme='dark'] .sk {
   padding: 24px 20px calc(20px + env(safe-area-inset-bottom));
   box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.4);
   text-align: center;
-  animation: sheetUp 0.22s ease;
+  animation: sheetUpCentered 0.22s ease;
 }
-@keyframes sheetUp { from { transform: translate(-50%, 100%); } to { transform: translate(-50%, 0); } }
+/* Own name, NOT a third redefinition of sheetUp: this one carries translate(-50%)
+   for a horizontally centred sheet, and because it was defined last it overrode
+   sheetUp everywhere — every other sheet flew in from the left corner instead of
+   rising from the bottom. */
+@keyframes sheetUpCentered { from { transform: translate(-50%, 100%); } to { transform: translate(-50%, 0); } }
 .scan-guide-emoji { font-size: 44px; line-height: 1; margin-bottom: 8px; }
 .scan-guide h3 { font-size: 20px; font-weight: 800; margin: 0 0 6px; }
 .scan-guide p { font-size: 14px; color: var(--hint); line-height: 1.4; margin: 0 0 18px; }

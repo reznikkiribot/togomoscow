@@ -60,9 +60,15 @@ export default function App() {
     const iv = setInterval(poll, 90_000);
     const onVis = () => { if (!document.hidden) poll(); };
     const onRead = () => setUnread(0);
+    // A 90s poll meant an action taken INSIDE the app (following someone, say)
+    // left the bell blank until the next tick or a navigation — the user saw no
+    // dot at all. Anything that can create a notification re-polls at once; the
+    // server is the only source of the count, so this cannot over-count.
+    const onChanged = () => poll();
     document.addEventListener('visibilitychange', onVis);
     window.addEventListener('alerts-read', onRead);
-    return () => { stop = true; clearTimeout(firstPoll); clearInterval(iv); document.removeEventListener('visibilitychange', onVis); window.removeEventListener('alerts-read', onRead); };
+    window.addEventListener('alerts-changed', onChanged);
+    return () => { stop = true; clearTimeout(firstPoll); clearInterval(iv); document.removeEventListener('visibilitychange', onVis); window.removeEventListener('alerts-read', onRead); window.removeEventListener('alerts-changed', onChanged); };
   }, []);
 
   useEffect(() => {
