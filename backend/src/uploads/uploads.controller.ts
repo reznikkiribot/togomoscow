@@ -265,6 +265,23 @@ export class UploadsController {
 
   @Get('files/:key')
   async file(@Param('key') key: string, @Query('w') w: string, @Res() res: Response) {
+    // An AI-generated card photo is served ONLY while it holds a verification
+    // mark. Gating at the image URL — not just in the card payload — means a
+    // phone still running an older bundle, or any cached list, physically cannot
+    // display a photo that failed the name check. Owner 27.07.2026.
+    if (key.startsWith('aigen-')) {
+      const verified = await this.prisma.listing
+        .findFirst({
+          where: { photoUrl: `/api/files/${key}`, photoVerifiedAt: { not: null } },
+          select: { id: true },
+        })
+        .catch(() => null);
+      if (!verified) {
+        res.setHeader('Cache-Control', 'no-store');
+        res.status(404).end();
+        return;
+      }
+    }
     const width = Number(w);
     const wantThumb = THUMB_WIDTHS.has(width);
     const cacheKey = wantThumb ? `${key}-w${width}` : key;
