@@ -3,9 +3,15 @@
 //  • EXTERNAL https photos (unsplash / brand CDNs, multi-MB originals) are routed
 //    through our /api/img proxy: resized WebP from our origin, cached immutable —
 //    this is what makes card photos load in <1s instead of ~3s.
+// Bumped whenever the photo rules change. It rides along in the image URL so a
+// phone that cached a picture under the old rules requests a NEW url and gets the
+// current answer (a 404 for anything that hasn't passed verification) instead of
+// redrawing the stale bytes it already holds.
+const PHOTO_RULES_VERSION = 'v2';
+
 export function thumb(url: string | null | undefined, w: 200 | 400 | 600 | 900 = 600): string | undefined {
   if (!url) return undefined;
-  if (url.startsWith('/api/files/') && !url.includes('?')) return `${url}?w=${w}`;
+  if (url.startsWith('/api/files/') && !url.includes('?')) return `${url}?w=${w}&r=${PHOTO_RULES_VERSION}`;
   if (url.startsWith('https://')) return `/api/img?u=${encodeURIComponent(url)}&w=${w}`;
   return url;
 }
