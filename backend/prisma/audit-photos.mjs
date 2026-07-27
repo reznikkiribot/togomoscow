@@ -229,6 +229,7 @@ console.log('CLIP готов, проверяю…\n');
 //     good photo just because our English label was coarse.
 const bad = [];
 const hashes = [];
+const scored = new Map(); // id -> nameScore, ONLY for photos we really checked
 let n = 0;
 for (const r of rows) {
   n++;
@@ -255,6 +256,7 @@ for (const r of rows) {
     // the card square; regen to fix framing.
     const comp = compositionIssues(img);
     try { hashes.push({ id: r.id, name: r.name, h: aHash(img) }); } catch { /* skip */ }
+    scored.set(r.id, nameScore);
 
     // D) a non-alcoholic drink must not be rendered as a cocktail/whisky glass
     let boozeLook = false;
@@ -314,11 +316,18 @@ if (APPLY && toRegen.size) {
   // Everything that survived the audit is confirmed good → mark it visible.
   // Without this the app hides even the photos that passed, because the flag
   // starts out NULL for every pre-existing image.
-  const passed = rows.filter((r) => !toRegen.has(r.id)).map((r) => r.id);
-  if (passed.length) {
-    await p.listing.updateMany({ where: { id: { in: passed } }, data: { photoVerifiedAt: new Date() } });
-    console.log(`✅ подтверждено и показывается: ${passed.length}`);
+  // A photo is confirmed ONLY if it was actually scored in this run. Images that
+  // failed to download or threw were previously counted as "passed" and shown
+  // without ever being checked — that is how «Краб» kept a shrimp picture.
+  const passed = [...scored.entries()].filter(([id]) => !toRegen.has(id));
+  for (const [id, score] of passed) {
+    await p.listing.update({ where: { id }, data: { photoVerifiedAt: new Date(), photoScore: score } }).catch(() => {});
   }
+  const unchecked = rows.filter((r) => !scored.has(r.id)).map((r) => r.id);
+  if (unchecked.length) {
+    await p.listing.updateMany({ where: { id: { in: unchecked } }, data: { photoVerifiedAt: null } });
+  }
+  console.log(`✅ подтверждено: ${passed.length} | скрыто как непроверенные: ${unchecked.length}`);
   // also drop them from the i2i done-list so stage-check re-uploads
   try {
     const doneFile = path.join(__dirname, 'i2i-done.json');
