@@ -45,9 +45,9 @@ async function bootstrap() {
     });
 
     const server = app.getHttpAdapter().getInstance();
-    server.get(/^\/tg-boot-(219|221|222|224)([/?#]|$)/, (_req: any, res: any) => {
+    server.get(/^\/tg-boot-(219|221|222|224|225)([/?#]|$)/, (_req: any, res: any) => {
       res.setHeader('Cache-Control', 'no-store, max-age=0');
-      res.redirect(302, '/tg-boot-225?v=225&from=backend-redirect');
+      res.redirect(302, '/tg-boot-226?v=226&from=backend-redirect');
     });
     server.get(/^\/(?!api\/).*/, (_req: any, res: any) => {
       res.setHeader('Cache-Control', 'no-store, max-age=0');

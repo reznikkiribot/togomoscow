@@ -1,8 +1,8 @@
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 
 const APP_ORIGIN = (process.env.PUBLIC_APP_URL || 'https://togomoscow-production.up.railway.app').replace(/\/$/, '');
-const WEBAPP_PATH = process.env.TELEGRAM_WEBAPP_PATH || '/tg-boot-225';
-const WEBAPP_VERSION = process.env.TELEGRAM_WEBAPP_VERSION || '225';
+const WEBAPP_PATH = process.env.TELEGRAM_WEBAPP_PATH || '/tg-boot-226';
+const WEBAPP_VERSION = process.env.TELEGRAM_WEBAPP_VERSION || '226';
 const APP_URL = `${APP_ORIGIN}${WEBAPP_PATH}?v=${encodeURIComponent(WEBAPP_VERSION)}&from=start`;
 const MENU_URL = `${APP_ORIGIN}${WEBAPP_PATH}?v=${encodeURIComponent(WEBAPP_VERSION)}&from=menu-auto`;
 const OWNER_TELEGRAM_ID = '1029738735'; // @reznik_kir1ll

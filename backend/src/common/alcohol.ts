@@ -66,11 +66,34 @@ const NON_ALCOHOLIC_RE = new RegExp(
  * recommendations. Non-alcoholic variants ("б/а", "безалкогольное") return false
  * — they are drinkable suggestions, subject only to the branded-drink ban.
  */
+// Food that merely SHARES a name with a drink. «Маргарита круглая» is a pizza,
+// «молочный коктейль» is a milkshake — neither may be filtered out as alcohol.
+const FOOD_HOMONYM_RE =
+  /(пицц|круглая|тонкое тесто|римская|неаполитанск)|молочн\S*\s*коктейл|милкшейк|ромов\S*\s*баб/i;
+
+// A wine-list entry is usually a chain of proper nouns: «Гави дей Гави, Чёрная
+// этикетка, Ла Сколька», «Сира, Тенута Салльер де Ла Тур». Such names carry no
+// cooking words at all, so keyword matching never catches them — but they are
+// still alcohol and must stay out of recommendations.
+const COOKING_WORD_RE =
+  /суп|салат|паст|пицц|бургер|ролл|соус|котлет|каша|торт|пирог|блин|сырник|омлет|стейк|рыб|курин|мяс|овощ|сыр|хлеб|десерт|мороже|кофе|чай|сок|лимонад|смузи|вода|морс/i;
+function looksLikeWineLabel(name: string): boolean {
+  const commas = (name.match(/,/g) ?? []).length;
+  if (commas < 1) return false;
+  if (COOKING_WORD_RE.test(name)) return false;
+  // mostly capitalised words → a label, not a dish description
+  const caps = (name.match(/(^|[\s,])[А-ЯA-Z]/g) ?? []).length;
+  // one comma needs a longer chain of capitalised words to qualify as a label
+  return commas >= 2 ? caps >= 3 : caps >= 4;
+}
+
 export function isAlcohol(name?: string | null, listingType?: string | null): boolean {
   if (!name) return false;
   // dishes cooked with wine/beer are food, not a drink to recommend against
   if (listingType && String(listingType).toUpperCase() === 'RESTAURANT') return false;
   const normalized = name.normalize('NFKC').toLowerCase().replace(/ё/g, 'е');
+  if (FOOD_HOMONYM_RE.test(normalized)) return false;
   if (NON_ALCOHOLIC_RE.test(normalized)) return false;
+  if (looksLikeWineLabel(name)) return true;
   return ALCOHOL_RE.test(normalized);
 }
