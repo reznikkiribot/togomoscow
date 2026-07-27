@@ -61,7 +61,17 @@ if (STAGE !== 'gen') {
 async function scoreFile(file, en, name) {
   const img = await RawImage.fromBlob(new Blob([new Uint8Array(fs.readFileSync(file))]));
   const positive = name ? `a photo of ${name} — ${en}` : `a photo of ${en}`;
-  const labels = [positive, 'a photo of a different dish or drink', 'a photo that is not food'];
+  // concrete alternatives, not a vague "different dish": a wrong render is almost
+  // always one of these, and naming them is what actually pushes its score down
+  const labels = [
+    positive,
+    'a photo of a meat dish on a plate',
+    'a photo of a salad or vegetables',
+    'a photo of a dessert or pastry',
+    'a photo of a drink in a glass',
+    'a photo of a completely different food',
+    'a photo that is not food',
+  ];
   const out = await zs(img, labels);
   return out.find((o) => o.label === positive)?.score ?? 0;
 }

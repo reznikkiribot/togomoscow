@@ -1,159 +1,27 @@
 {
-  "at": "2026-07-25T20:24:55.042Z",
-  "pass": 0.55,
+  "at": "2026-07-26T16:14:43.304Z",
+  "pass": 0.92,
   "bad": [
     {
-      "id": "34bfc5ec-14b8-4078-89cd-f28658d54236",
-      "name": "Айс-Латте Матча",
-      "type": "DRINK",
-      "category": "Кофе",
-      "photoUrl": "/api/files/aigen-d0611d86-c26d-48e5-bf9d-219d3324ba24",
-      "score": 0.04170003905892372,
-      "drinkScore": 0.8673121333122253,
-      "reason": "name?",
-      "en": "a cup of coffee",
-      "regen": false
-    },
-    {
-      "id": "7c53478e-f88c-4d49-8d10-26c38b42ef84",
-      "name": "Айс Ти Калина",
-      "type": "DRINK",
-      "category": "Чай",
-      "photoUrl": "/api/files/aigen-302f79f3-a75a-4005-990b-5584e3feab31",
-      "score": 0.06853798031806946,
-      "drinkScore": 0.9948697686195374,
-      "reason": "padded",
+      "id": "955b04d3-30ea-442a-9850-a9144a4d4a23",
+      "name": "4 Закуски",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-ad4c3493-818e-4398-8e4f-4dc290b40a27",
+      "score": 0.9145545959472656,
+      "drinkScore": 0.00008989570051198825,
+      "reason": "name",
       "en": "a plated food dish",
       "regen": true
-    },
-    {
-      "id": "36f985fe-2075-4610-bea6-09237c802bba",
-      "name": "Ананас",
-      "type": "DISH",
-      "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-6022c1d7-1e54-4a57-ac9e-8b8bddf5b2a1",
-      "score": 0.07258699834346771,
-      "drinkScore": 0.0003871940425597131,
-      "reason": "name?",
-      "en": "fresh fruit",
-      "regen": false
-    },
-    {
-      "id": "2bda36de-ff9b-406a-b09f-9619f1ddde9f",
-      "name": "Ананас D23",
-      "type": "DISH",
-      "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-5be20ed0-a50a-4131-9644-056493708160",
-      "score": 0.07258699834346771,
-      "drinkScore": 0.0003871940425597131,
-      "reason": "name?",
-      "en": "fresh fruit",
-      "regen": false
-    },
-    {
-      "id": "7e2dd0f9-95e8-4479-af84-fd3b94722fec",
-      "name": "Ананас и базилик",
-      "type": "DISH",
-      "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-db72e103-4813-4196-a0f6-e3ee4963d9c3",
-      "score": 0.11926501989364624,
-      "drinkScore": 0.839728057384491,
-      "reason": "padded",
-      "en": "fresh fruit",
-      "regen": true
-    },
-    {
-      "id": "051600f4-354f-4e8e-b871-fd10ccb33384",
-      "name": "Ананас консервированный",
-      "type": "DISH",
-      "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-4700e1d8-84e6-48c4-875b-5f79f7e848f7",
-      "score": 0.07258699834346771,
-      "drinkScore": 0.0003871940425597131,
-      "reason": "name?",
-      "en": "fresh fruit",
-      "regen": false
-    },
-    {
-      "id": "0119165f-8743-48ba-8151-0c07795ccab3",
-      "name": "Ананас-Манго-Личи без сахара",
-      "type": "DISH",
-      "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-c61fd605-5bcf-4ff8-be6c-7c0704d93c22",
-      "score": 0.07258699834346771,
-      "drinkScore": 0.0003871940425597131,
-      "reason": "name?",
-      "en": "fresh fruit",
-      "regen": false
-    },
-    {
-      "id": "2477b6bf-3ea6-459f-b4bf-7ea6ec676617",
-      "name": "Ананасы",
-      "type": "DISH",
-      "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-5bf56eb2-3421-43b5-896c-38322e509a15",
-      "score": 0.07258699834346771,
-      "drinkScore": 0.0003871940425597131,
-      "reason": "name?",
-      "en": "fresh fruit",
-      "regen": false
-    },
-    {
-      "id": "61e0c6e3-f2c6-4ed2-8634-41f08ec36a78",
-      "name": "Ананасы D30",
-      "type": "DISH",
-      "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-abe6cf7a-725f-4c4e-a8dc-41442560931b",
-      "score": 0.07258699834346771,
-      "drinkScore": 0.0003871940425597131,
-      "reason": "name?",
-      "en": "fresh fruit",
-      "regen": false
-    },
-    {
-      "id": "4e90c75a-7e78-4bea-b280-60ca215417ba",
-      "name": "Ананасы D36",
-      "type": "DISH",
-      "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-f49c3b9c-6871-4364-82e9-5851859f9f7d",
-      "score": 0.07258699834346771,
-      "drinkScore": 0.0003871940425597131,
-      "reason": "name?",
-      "en": "fresh fruit",
-      "regen": false
     },
     {
       "id": "0170e47d-5525-4e54-9bfd-f6b7fb7e25d8",
       "name": "Арахисовое молоко",
       "type": "DISH",
       "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-6a1bdfa2-28da-45b6-a6b2-5d08a76c6213",
+      "photoUrl": "/api/files/aigen-31f41360-db54-435d-a8e1-9afdfef931c8",
       "score": 0.0664701759815216,
       "drinkScore": 0.9709882140159607,
-      "reason": "padded",
-      "en": "a plated food dish",
-      "regen": true
-    },
-    {
-      "id": "1d7dd1d1-dda2-4dfc-b7af-880593fb824c",
-      "name": "Байкал Айс",
-      "type": "DRINK",
-      "category": "Напитки",
-      "photoUrl": "/api/files/aigen-c62b31d9-7f46-44df-ab83-e251dc861a48",
-      "score": 0.02386101521551609,
-      "drinkScore": 0.9953209161758423,
-      "reason": "name?",
-      "en": "a plated food dish",
-      "regen": false
-    },
-    {
-      "id": "9123a14c-29ef-48f0-bd39-f8084d96d722",
-      "name": "Бамбл",
-      "type": "DRINK",
-      "category": "Кофе",
-      "photoUrl": "/api/files/aigen-b6613394-52ba-4e5e-9990-f70a493aacd9",
-      "score": 0.14455170929431915,
-      "drinkScore": 0.9615036249160767,
       "reason": "padded",
       "en": "a plated food dish",
       "regen": true
@@ -166,40 +34,100 @@
       "photoUrl": "/api/files/aigen-6dad257b-0153-4578-b4fb-be12ac7b9237",
       "score": 0.19751882553100586,
       "drinkScore": 0.16987714171409607,
-      "reason": "name?",
+      "reason": "padded",
       "en": "a plated food dish",
-      "regen": false
+      "regen": true
+    },
+    {
+      "id": "528346ee-0cb9-4dbb-bfc2-10cbdf2721b9",
+      "name": "Бедро куриное",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-2db3d70d-2734-4524-893f-51e55b3471ca",
+      "score": 0.369229793548584,
+      "drinkScore": 0.08613351732492447,
+      "reason": "name",
+      "en": "a chicken dish",
+      "regen": true
+    },
+    {
+      "id": "015ba771-2e26-4c30-a430-746d787580ae",
+      "name": "Бефстроганов с картофельным пюре",
+      "type": "DISH",
+      "category": "Фастфуд",
+      "photoUrl": "/api/files/aigen-43aad748-f719-4909-b084-0eb8666784eb",
+      "score": 0.4805605709552765,
+      "drinkScore": 0.0008459761738777161,
+      "reason": "padded",
+      "en": "french fries or nuggets",
+      "regen": true
+    },
+    {
+      "id": "2c4f7cbf-0b67-4c96-a312-2b4558b19947",
+      "name": "Битые огурцы с говяжьей вырезкой",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-192edb0e-154d-4e82-b867-f6e23c112a8e",
+      "score": 0.5505993366241455,
+      "drinkScore": 0.0356377549469471,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "24810f9d-80a7-451b-95be-a824337c300f",
+      "name": "Булочка с маком",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-3d60b8cb-666d-4770-8507-6c2e81f053ea",
+      "score": 0.4380577802658081,
+      "drinkScore": 0.05551261082291603,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
     },
     {
       "id": "e463a09e-bcaa-49f8-bfa9-e05e54da71c4",
       "name": "Бульон куриный с гренками",
       "type": "DISH",
       "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-78d02a54-1a6f-4414-951d-5f8f571b94e8",
-      "score": 0.06416397541761398,
-      "drinkScore": 0.02488553337752819,
-      "reason": "name?",
+      "photoUrl": "/api/files/aigen-550697d9-447b-465b-9e31-75d30fc8e501",
+      "score": 0.1711629033088684,
+      "drinkScore": 0.008128783665597439,
+      "reason": "padded",
       "en": "a chicken dish",
-      "regen": false
+      "regen": true
+    },
+    {
+      "id": "29202784-edb9-4e9c-9e9b-1bb0e982feba",
+      "name": "Верментино Самас, Агрикола Пуника",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-f71b8b2c-0eb0-4dbe-a240-83d482f01555",
+      "score": 0.7955340147018433,
+      "drinkScore": 0.9952387809753418,
+      "reason": "name",
+      "en": "a glass of juice or soft drink",
+      "regen": true
     },
     {
       "id": "c8f4e187-d215-4eca-9b1c-3dfa8640f0e4",
       "name": "Гавайская с цыпленком",
       "type": "DISH",
       "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-33a8072b-117f-4f65-83ee-cef5719b6ceb",
-      "score": 0.19517458975315094,
-      "drinkScore": 0.0030608722008764744,
-      "reason": "name?",
+      "photoUrl": "/api/files/aigen-4f69c724-9524-40e5-855d-e5c5216c207d",
+      "score": 0.06180328503251076,
+      "drinkScore": 0.010614685714244843,
+      "reason": "padded",
       "en": "a chicken dish",
-      "regen": false
+      "regen": true
     },
     {
       "id": "4794bb83-b5e0-4145-9f2b-28c8ba204954",
       "name": "Гарденист Аранчата Rossa",
       "type": "DISH",
       "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-a8518937-56d3-4232-82e9-07286bc4266b",
+      "photoUrl": "/api/files/aigen-c8f23c3c-b7bc-451b-ae02-ae95d83bf2ae",
       "score": 0.024135403335094452,
       "drinkScore": 0.9863137602806091,
       "reason": "padded",
@@ -207,38 +135,50 @@
       "regen": true
     },
     {
-      "id": "331e53e4-b6c9-4202-b1a2-1a3535171882",
-      "name": "Глясе",
-      "type": "DRINK",
-      "category": "Кофе",
-      "photoUrl": "/api/files/aigen-2c5bb2f2-307e-43ff-8c43-f99d1763f8fa",
-      "score": 0.13963772356510162,
-      "drinkScore": 0.7788317203521729,
-      "reason": "name?",
+      "id": "014a3368-fd5e-4087-8885-57461c4ba3f7",
+      "name": "Говядина жареная",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-225b3e40-ce31-4442-89ed-eedec00bb43f",
+      "score": 0.9174289107322693,
+      "drinkScore": 0.0033990878146141768,
+      "reason": "name",
       "en": "a plated food dish",
-      "regen": false
+      "regen": true
     },
     {
       "id": "96178008-d58d-4969-8c88-22678685c5e1",
       "name": "Горячий Бамбл",
       "type": "DRINK",
       "category": "Кофе",
-      "photoUrl": "/api/files/aigen-8f74f24e-a9eb-42d2-b815-841728de458a",
-      "score": 0.03746523708105087,
-      "drinkScore": 0.9944601058959961,
-      "reason": "name?",
+      "photoUrl": "/api/files/aigen-3355e5f5-39b5-472f-941f-3194700261bf",
+      "score": 0.027813255786895752,
+      "drinkScore": 0.9935532212257385,
+      "reason": "booze-look",
       "en": "a plated food dish",
-      "regen": false
+      "regen": true
     },
     {
       "id": "1b4dc9e8-9e9a-43d9-b861-47bcae03b45b",
       "name": "Гречневая лапша с телятиной",
       "type": "DISH",
       "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-edcdf069-313e-4e9a-83db-837b3a95e1d9",
+      "photoUrl": "/api/files/aigen-1c73446b-0faa-4ecc-be97-c8f9a823f0a0",
       "score": 0.630453884601593,
       "drinkScore": 0.03422251343727112,
       "reason": "padded",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "6a4d86ff-25a4-4fa2-b56d-9ec72c17f016",
+      "name": "Дагестанская халва",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-6e654405-de6b-40f2-9d1e-763fa9111caf",
+      "score": 0.261753112077713,
+      "drinkScore": 0.011206855066120625,
+      "reason": "name",
       "en": "a plated food dish",
       "regen": true
     },
@@ -247,7 +187,7 @@
       "name": "Двойная пепперони",
       "type": "DISH",
       "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-ecfa55be-0822-4986-81c3-550521927dae",
+      "photoUrl": "/api/files/aigen-213be1b6-5000-4f30-99ce-4e3a8d9d380a",
       "score": 0.4341065585613251,
       "drinkScore": 0.008014949969947338,
       "reason": "padded",
@@ -255,15 +195,39 @@
       "regen": true
     },
     {
-      "id": "52ca57df-11ce-4a4e-b677-c543be410945",
-      "name": "Детокс",
+      "id": "116b3006-ccf3-4796-9dcb-0333f3a3b689",
+      "name": "Двойной Оливье",
       "type": "DISH",
       "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-aa3dd85f-243e-4c2b-add2-09572b1890fb",
-      "score": 0.2804354429244995,
-      "drinkScore": 0.14264963567256927,
-      "reason": "padded",
+      "photoUrl": "/api/files/aigen-1cb68a88-af1d-45eb-80b3-d2ef2b660ac1",
+      "score": 0.8964318037033081,
+      "drinkScore": 0.0006898205610923469,
+      "reason": "name",
       "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "47b16ec0-2d47-4b39-b8ee-5b160513b167",
+      "name": "Детские сырники",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-0f79ae70-eadf-4c85-aa34-bb38c903ff17",
+      "score": 0.1328374147415161,
+      "drinkScore": 0.004543484188616276,
+      "reason": "padded",
+      "en": "russian pancakes",
+      "regen": true
+    },
+    {
+      "id": "037747f2-4cff-4bb7-90f0-08f42481c22b",
+      "name": "Детский картофель по-деревенски",
+      "type": "DISH",
+      "category": "Фастфуд",
+      "photoUrl": "/api/files/aigen-43c0aa13-92f4-4903-90f9-92e7152a4128",
+      "score": 0.8303403258323669,
+      "drinkScore": 0.001619404531084001,
+      "reason": "padded",
+      "en": "french fries or nuggets",
       "regen": true
     },
     {
@@ -274,16 +238,16 @@
       "photoUrl": "/api/files/aigen-45e14df1-2fa4-4c14-8002-7023f1b9ac1d",
       "score": 0.06668637692928314,
       "drinkScore": 0.9525573253631592,
-      "reason": "name?",
+      "reason": "booze-look",
       "en": "a plated food dish",
-      "regen": false
+      "regen": true
     },
     {
       "id": "224298eb-d1f0-472b-aafc-a9e2a42df92c",
       "name": "Детское картофельное пюре",
       "type": "DISH",
       "category": "Фастфуд",
-      "photoUrl": "/api/files/aigen-6231307f-b079-4f07-acc5-2adf49d9422e",
+      "photoUrl": "/api/files/aigen-c778cecf-4d88-48cf-887b-b0352143304b",
       "score": 0.155640110373497,
       "drinkScore": 0.012151108123362064,
       "reason": "padded",
@@ -291,16 +255,52 @@
       "regen": true
     },
     {
-      "id": "24c43469-6367-4221-8e44-eb256d7ab400",
-      "name": "Донат с начинкой маршмеллоу",
-      "type": "DRINK",
-      "category": "Напитки",
-      "photoUrl": "/api/files/aigen-db5ec401-1394-4df7-9b2f-fa2d451bbabf",
-      "score": 0.02386101521551609,
-      "drinkScore": 0.9953209161758423,
-      "reason": "name?",
+      "id": "ff62742a-6ba7-4d19-9928-b6e7542912ff",
+      "name": "Додо Клюв",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-cb5e1265-7390-42ca-9ceb-b7b567d6ca52",
+      "score": 0.7618839740753174,
+      "drinkScore": 0.0035184312146157026,
+      "reason": "name",
       "en": "a plated food dish",
-      "regen": false
+      "regen": true
+    },
+    {
+      "id": "6f893de1-c7d6-4933-8f75-59b0963bbae2",
+      "name": "Додо Книга",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-61f31eb3-b7f4-4619-a1de-94cf9fd53c62",
+      "score": 0.8506984114646912,
+      "drinkScore": 0.0004455177113413811,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "62eb44d5-a651-400c-8527-aaa122291703",
+      "name": "Додо микс",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-6616af44-ed18-40bd-8d4f-03f6bc4fd7a4",
+      "score": 0.8168325424194336,
+      "drinkScore": 0.002326750662177801,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "ea4e88d7-1cb5-4170-acc3-729530c7bd65",
+      "name": "Додстер Чилл Грилл",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-c5b3cc9e-92fa-4722-999c-c26651535001",
+      "score": 0.8392857909202576,
+      "drinkScore": 0.0010046116076409817,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
     },
     {
       "id": "66c365a5-7d40-46c9-ac1f-9584a0daf92f",
@@ -310,19 +310,31 @@
       "photoUrl": "/api/files/aigen-27b33dbb-c05f-41e1-baee-fe055ad556d4",
       "score": 0.02386101521551609,
       "drinkScore": 0.9953209161758423,
-      "reason": "name?",
+      "reason": "booze-look",
       "en": "a plated food dish",
-      "regen": false
+      "regen": true
     },
     {
       "id": "5aea01b9-e9a3-460d-8410-0b6bf432337f",
       "name": "Жареный рис с морепродуктами",
       "type": "DISH",
       "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-cdb94676-9c68-460e-8660-a52f88db87e3",
+      "photoUrl": "/api/files/aigen-bbfdcd74-52b1-4028-ad32-d969862f6f86",
       "score": 0.7844609618186951,
       "drinkScore": 0.006008731666952372,
       "reason": "padded",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "350aaebd-5f6b-4a54-b873-4be942b833e8",
+      "name": "жареный рис чихо с яйцом и огурцом",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-be7c7c3e-b949-494d-bd7c-fbf3e0118a30",
+      "score": 0.6359111666679382,
+      "drinkScore": 0.0021635466255247593,
+      "reason": "name",
       "en": "a plated food dish",
       "regen": true
     },
@@ -331,7 +343,7 @@
       "name": "Жасмин «птичьи язычки» весовой",
       "type": "DISH",
       "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-a5824aac-cfa1-4f6e-b22b-a8dcfb87a68b",
+      "photoUrl": "/api/files/aigen-c946dc3b-dc59-4a46-bf66-3dfe2ab93f1a",
       "score": 0.13191471993923187,
       "drinkScore": 0.4088749885559082,
       "reason": "padded",
@@ -339,38 +351,26 @@
       "regen": true
     },
     {
-      "id": "28197a5e-0c7f-4b89-96b7-1e4cc755e1d3",
-      "name": "Жевательная резинка Орбит без сахара \"Винтерфреш\"",
+      "id": "89e8d201-6901-4085-a9f8-05c1c79d58dd",
+      "name": "Изюм",
       "type": "DISH",
       "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-e81e7cf4-cf5b-4c82-b7a9-0a87b6ebbd7d",
-      "score": 0.003134744940325618,
-      "drinkScore": 0.0003871940425597131,
-      "reason": "name?",
-      "en": "a glass of juice or soft drink",
-      "regen": false
-    },
-    {
-      "id": "5c1c4819-bf13-4a6c-9595-37f03bb9f4d5",
-      "name": "Жевательная резинка Орбит без сахара \"Сочный арбуз\"",
-      "type": "DISH",
-      "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-3cfb6d78-ccb4-4884-bbab-ad2f41eca6d0",
-      "score": 0.07258699834346771,
-      "drinkScore": 0.0003871940425597131,
-      "reason": "name?",
-      "en": "fresh fruit",
-      "regen": false
-    },
-    {
-      "id": "67a8b609-55ff-4976-bb34-2ad5298aeadf",
-      "name": "Запеченный батат с соусом",
-      "type": "DISH",
-      "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-fead6d0e-4b8a-483e-b229-3fbef30b3a05",
-      "score": 0.3145713806152344,
-      "drinkScore": 0.015638554468750954,
+      "photoUrl": "/api/files/aigen-5c4cba36-d32d-4c1f-a933-d739f7f0a336",
+      "score": 0.7115088105201721,
+      "drinkScore": 0.01738266833126545,
       "reason": "padded",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "0f2cd0a2-e9e3-4ffc-82a4-6bbd7e2653e5",
+      "name": "Икра черная осетра",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-8b386925-8569-4bd4-a986-34a16e29f77f",
+      "score": 0.8942423462867737,
+      "drinkScore": 0.0005095668020658195,
+      "reason": "name",
       "en": "a plated food dish",
       "regen": true
     },
@@ -382,16 +382,16 @@
       "photoUrl": "/api/files/aigen-d041282c-180c-44f2-a69b-742b69b72b8e",
       "score": 0.19199609756469727,
       "drinkScore": 0.5881080627441406,
-      "reason": "name?",
+      "reason": "padded",
       "en": "a plated food dish",
-      "regen": false
+      "regen": true
     },
     {
       "id": "e0cab7fc-8116-46b6-9468-2569a6ffde1d",
       "name": "Йогурт «Кофемания»",
       "type": "DISH",
       "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-c42bc621-2e1a-43e8-9bf1-c1c6b996fd16",
+      "photoUrl": "/api/files/aigen-caab532b-94e9-4506-8ceb-c647dfe6fe24",
       "score": 0.07662656158208847,
       "drinkScore": 0.9670677781105042,
       "reason": "padded",
@@ -399,16 +399,16 @@
       "regen": true
     },
     {
-      "id": "111b8a50-36b3-404b-919a-0937eaff7de1",
-      "name": "Какао с маршмеллоу",
-      "type": "DRINK",
-      "category": "Напитки",
-      "photoUrl": "/api/files/aigen-d493575f-ac9e-4447-8d13-ab2a47092013",
-      "score": 0.02386101521551609,
-      "drinkScore": 0.9953209161758423,
-      "reason": "name?",
+      "id": "27ca0e45-fca4-4f84-ad3b-8cd39450d7e8",
+      "name": "Карамельный пирог целый",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-667c7ce1-3cd0-4a10-adf0-068e9e3d9d48",
+      "score": 0.32079219818115234,
+      "drinkScore": 0.0042602308094501495,
+      "reason": "padded",
       "en": "a plated food dish",
-      "regen": false
+      "regen": true
     },
     {
       "id": "5665fc5b-b360-4f54-8fb9-b1d1c30e28b0",
@@ -418,19 +418,7 @@
       "photoUrl": "/api/files/aigen-88931bee-0b2e-4b24-86b7-26864c3349f3",
       "score": 0.1552254855632782,
       "drinkScore": 0.03867456316947937,
-      "reason": "name?",
-      "en": "french fries or nuggets",
-      "regen": false
-    },
-    {
-      "id": "3248a754-57a1-4fec-aaa2-375124eee5d6",
-      "name": "Картофельный омлет с лососем",
-      "type": "DISH",
-      "category": "Фастфуд",
-      "photoUrl": "/api/files/aigen-06849688-634b-43c6-92c6-f1dd9721b6cc",
-      "score": 0.029020214453339577,
-      "drinkScore": 0.00032595873926766217,
-      "reason": "padded",
+      "reason": "name",
       "en": "french fries or nuggets",
       "regen": true
     },
@@ -439,19 +427,19 @@
       "name": "Картофель с беконом и халапеньо",
       "type": "DISH",
       "category": "Фастфуд",
-      "photoUrl": "/api/files/aigen-4d2bde8f-3142-47e5-81a4-56919a210e31",
-      "score": 0.04138169437646866,
-      "drinkScore": 0.012100772932171822,
-      "reason": "name?",
+      "photoUrl": "/api/files/aigen-b5e63fc4-8b8a-4d84-aaee-6a814265af1c",
+      "score": 0.15061837434768677,
+      "drinkScore": 0.004654111340641975,
+      "reason": "padded",
       "en": "french fries or nuggets",
-      "regen": false
+      "regen": true
     },
     {
       "id": "8118469d-015c-4779-8d38-38bf057b205b",
       "name": "Картофель фри",
       "type": "DISH",
       "category": "Фастфуд",
-      "photoUrl": "/api/files/aigen-5761d1a1-ee28-4f1e-b4c1-909c722d8502",
+      "photoUrl": "/api/files/aigen-18486cc1-a9e5-49b6-b453-5cfca8632764",
       "score": 0.913752019405365,
       "drinkScore": 0.014745867811143398,
       "reason": "padded",
@@ -459,15 +447,27 @@
       "regen": true
     },
     {
-      "id": "8695081b-e16e-4322-b879-62f9d99c5c5d",
-      "name": "Картофель фри с пармезаном",
+      "id": "226b0732-0767-4d3a-9571-e54ae55535ec",
+      "name": "Каша из злаков с яйцом пашот",
       "type": "DISH",
-      "category": "Фастфуд",
-      "photoUrl": "/api/files/aigen-b9270e72-b2aa-43fe-8dae-a3a8f4588440",
-      "score": 0.38514021039009094,
-      "drinkScore": 0.11092066019773483,
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-d7d822c4-88db-4843-982d-b1c51ba9ac5f",
+      "score": 0.36218059062957764,
+      "drinkScore": 0.12352454662322998,
       "reason": "padded",
-      "en": "french fries or nuggets",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "1193f3fe-5add-4e79-8da7-c3f04222ad98",
+      "name": "Киш с лососем и брокколи",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-ccbf6b6b-6151-471e-85cd-0d25ed8607ff",
+      "score": 0.3894771337509155,
+      "drinkScore": 0.013932710513472557,
+      "reason": "name",
+      "en": "a seafood dish",
       "regen": true
     },
     {
@@ -478,9 +478,33 @@
       "photoUrl": "/api/files/aigen-0b514248-ec48-4f12-8d0d-ec9737e92949",
       "score": 0.0800526961684227,
       "drinkScore": 0.8848511576652527,
-      "reason": "name?",
+      "reason": "name",
       "en": "a plated food dish",
-      "regen": false
+      "regen": true
+    },
+    {
+      "id": "2e7bd889-a806-429a-ae16-a9de2d07b066",
+      "name": "Котлета \"Морская\"",
+      "type": "DRINK",
+      "category": "Безалкогольные",
+      "photoUrl": "/api/files/aigen-ce165d27-b7c7-475e-8d72-5d0e6490b3f5",
+      "score": 0.05399718135595322,
+      "drinkScore": 0.0018363179406151175,
+      "reason": "type",
+      "en": "a glass of juice or soft drink",
+      "regen": true
+    },
+    {
+      "id": "0e335ac5-459d-47e0-a75b-7dcaf1997e7a",
+      "name": "Котлеты Пожарские На команию",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-afd6b7b0-50bf-4def-9c82-269d132624d0",
+      "score": 0.9161402583122253,
+      "drinkScore": 0.00003635674511315301,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
     },
     {
       "id": "6b35f21e-10de-4f67-ba9c-f4b2fb4bea75",
@@ -490,9 +514,81 @@
       "photoUrl": "/api/files/aigen-f0d8afef-855f-484a-8963-d6020f81c5c2",
       "score": 0.06234162300825119,
       "drinkScore": 0.6311414837837219,
-      "reason": "name?",
+      "reason": "name",
       "en": "a seafood dish",
-      "regen": false
+      "regen": true
+    },
+    {
+      "id": "6b28104e-9f63-47fe-8e19-d42d3602c8c9",
+      "name": "Креветки для котика",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-d07ae0a7-a87f-4c66-a111-15885703c8db",
+      "score": 0.03908351808786392,
+      "drinkScore": 0.7744508385658264,
+      "reason": "padded",
+      "en": "a seafood dish",
+      "regen": true
+    },
+    {
+      "id": "07b59f92-5343-4705-bb5b-e0572af8d626",
+      "name": "Креветки на гриле",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-12e2ac98-a697-4f04-a243-7aed1aa7709a",
+      "score": 0.5096561908721924,
+      "drinkScore": 0.001227450673468411,
+      "reason": "padded",
+      "en": "a seafood dish",
+      "regen": true
+    },
+    {
+      "id": "5c7d29af-feda-4f90-9fbd-ff4e2b8ab1fe",
+      "name": "креветочные чипсы",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-fa9dbdb6-a390-494e-891e-bad0f5d6208a",
+      "score": 0.17024676501750946,
+      "drinkScore": 0.4657581150531769,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "15805678-d0bc-4968-b7e9-ed8a704cf815",
+      "name": "Крем-чиз",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-97b5ee85-ccb0-4d7b-8f53-eefad56c1906",
+      "score": 0.2300523817539215,
+      "drinkScore": 0.7632519006729126,
+      "reason": "padded",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "2e1ec33c-e1c8-447d-8514-aeceb05d8f4b",
+      "name": "Круассан миндальный",
+      "type": "DISH",
+      "category": "Десерты",
+      "photoUrl": "/api/files/aigen-9fe794c9-ce1b-4644-b769-ebea0f88c40d",
+      "score": 0.48368698358535767,
+      "drinkScore": 0.0451270155608654,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "58b16750-b6de-43e8-be29-954136ab3852",
+      "name": "Кураговая каша",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-2ce85480-e303-4b87-96b4-8cd3a4e1b2c3",
+      "score": 0.2890772223472595,
+      "drinkScore": 0.2802976667881012,
+      "reason": "padded",
+      "en": "a plated food dish",
+      "regen": true
     },
     {
       "id": "8c0403fa-ca5e-4a0c-a2d2-ebf80e974f0a",
@@ -502,33 +598,33 @@
       "photoUrl": "/api/files/aigen-6a03ecbc-bef1-4e1c-a4a5-d8a140d0b4a2",
       "score": 0.034860603511333466,
       "drinkScore": 0.9156115055084229,
-      "reason": "name?",
+      "reason": "booze-look",
       "en": "a cup of coffee",
-      "regen": false
+      "regen": true
     },
     {
       "id": "039808e3-da07-4975-95e5-e5adc6031455",
       "name": "Лимонад клубника-базилик",
       "type": "DRINK",
       "category": "Безалкогольные",
-      "photoUrl": "/api/files/aigen-f4b3f7e3-e2cc-4ac1-8038-c3e3028d9aea",
-      "score": 0.17755001783370972,
-      "drinkScore": 0.04182865470647812,
-      "reason": "type",
+      "photoUrl": "/api/files/aigen-8840d043-1ddb-4f4c-a2ea-6ac97560ddf9",
+      "score": 0.9107028245925903,
+      "drinkScore": 0.9961331486701965,
+      "reason": "padded",
       "en": "a glass of juice or soft drink",
       "regen": true
     },
     {
-      "id": "28948740-191f-44b2-9882-c4404e1bda94",
-      "name": "Малина, апельсин, ваниль",
+      "id": "6b46165a-e002-488d-91c7-b47879aa921f",
+      "name": "Малинка Бланш",
       "type": "DISH",
       "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-686286cb-b595-40e1-b525-dc42c7b59eec",
-      "score": 0.07258699834346771,
-      "drinkScore": 0.0003871940425597131,
-      "reason": "name?",
-      "en": "fresh fruit",
-      "regen": false
+      "photoUrl": "/api/files/aigen-81b113c8-3e55-4bf6-852a-a5af2cd33fd5",
+      "score": 0.36221539974212646,
+      "drinkScore": 0.006089279893785715,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
     },
     {
       "id": "6a0f57b9-b0f0-4113-b3fa-0e406c9a0a60",
@@ -538,16 +634,16 @@
       "photoUrl": "/api/files/aigen-9a9d013c-0d74-4667-9d36-aa35827ac8ea",
       "score": 0.030637599527835846,
       "drinkScore": 0.9871399402618408,
-      "reason": "name?",
+      "reason": "name",
       "en": "a plated food dish",
-      "regen": false
+      "regen": true
     },
     {
       "id": "3923d7e6-1efa-476a-841f-57a10450969e",
       "name": "Манговый лес",
       "type": "DISH",
       "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-ed6ae642-8346-4802-bf7d-b9f512972223",
+      "photoUrl": "/api/files/aigen-daa795b8-f402-4819-a3cc-f5431da92329",
       "score": 0.1876191347837448,
       "drinkScore": 0.024604985490441322,
       "reason": "padded",
@@ -559,36 +655,12 @@
       "name": "Манго и маракуйя",
       "type": "DISH",
       "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-56cbcce6-b97e-4a03-8099-b622b5efd97c",
-      "score": 0.07258699834346771,
-      "drinkScore": 0.0003871940425597131,
-      "reason": "name?",
-      "en": "fresh fruit",
-      "regen": false
-    },
-    {
-      "id": "1334bb44-6c3b-496c-b8c9-6f79e0d1b853",
-      "name": "Манго и маракуйя в банке",
-      "type": "DISH",
-      "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-a94a06a5-afd3-4e10-946d-a107c0ed7ce9",
-      "score": 0.3703334629535675,
-      "drinkScore": 0.9818129539489746,
-      "reason": "padded",
+      "photoUrl": "/api/files/aigen-5c3fbe46-8fc5-4573-8be1-4c48b07ecde2",
+      "score": 0.4579836130142212,
+      "drinkScore": 0.0001452574215363711,
+      "reason": "name",
       "en": "fresh fruit",
       "regen": true
-    },
-    {
-      "id": "543cb814-dcc0-4626-98f2-8e4c5cff424e",
-      "name": "Маршмеллоу",
-      "type": "DRINK",
-      "category": "Напитки",
-      "photoUrl": "/api/files/aigen-62d55593-f61b-4f28-b182-1f840db888d7",
-      "score": 0.02386101521551609,
-      "drinkScore": 0.9953209161758423,
-      "reason": "name?",
-      "en": "a plated food dish",
-      "regen": false
     },
     {
       "id": "30000000-0000-4000-8000-000000000002",
@@ -598,16 +670,40 @@
       "photoUrl": "/api/files/aigen-c04acd4e-3880-4952-bd53-ea7f96ee2e14",
       "score": 0.04170003905892372,
       "drinkScore": 0.8673121333122253,
-      "reason": "name?",
+      "reason": "booze-look",
       "en": "a cup of coffee",
-      "regen": false
+      "regen": true
+    },
+    {
+      "id": "98c32eb6-2860-4f1a-bf66-661783da09cb",
+      "name": "Матча Тоник",
+      "type": "DRINK",
+      "category": "Чай",
+      "photoUrl": "/api/files/aigen-a9f910ba-30dc-4925-9390-7efb6a7c27cf",
+      "score": 0.062227774411439896,
+      "drinkScore": 0.8234715461730957,
+      "reason": "padded",
+      "en": "a cup of tea",
+      "regen": true
+    },
+    {
+      "id": "e7d44ac3-ad71-4601-a0e8-adf6e2aed083",
+      "name": "Минимальная сумма заказа",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-f92f226a-5b0a-4989-a3c1-ae6e96475633",
+      "score": 0.8881165981292725,
+      "drinkScore": 0.0003217664489056915,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
     },
     {
       "id": "3fd6551d-50b7-4c38-94b0-975ae97012a6",
       "name": "Молоко 3,6%",
       "type": "DISH",
       "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-21096a04-084d-4b45-8e39-0350078411dd",
+      "photoUrl": "/api/files/aigen-473f46dc-be6c-4819-b55e-39cc60edd75b",
       "score": 0.04777251556515694,
       "drinkScore": 0.9811174869537354,
       "reason": "padded",
@@ -615,15 +711,111 @@
       "regen": true
     },
     {
+      "id": "5d0764c1-72f7-48b6-998a-15fca86940f8",
+      "name": "Мороженое пломбир Кедровый орех с карамелью Деликатеска",
+      "type": "DISH",
+      "category": "Десерты",
+      "photoUrl": "/api/files/aigen-5c1c7edc-2b5d-4bdc-abbf-4212f561678d",
+      "score": 0.9013424515724182,
+      "drinkScore": 0.002389608882367611,
+      "reason": "name",
+      "en": "a dessert",
+      "regen": true
+    },
+    {
+      "id": "2216cd78-a0ba-4bb7-8ce1-193ce61ef723",
+      "name": "моцарелла",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-1b357dda-61dc-413c-b852-e0d4f326914c",
+      "score": 0.6686343550682068,
+      "drinkScore": 0.047658029943704605,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "01a762de-f71e-47d7-852e-91701adc84ad",
+      "name": "Обед Горца No3",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-b612c61f-c181-4a2c-b387-270a551d69b3",
+      "score": 0.9174289107322693,
+      "drinkScore": 0.0033990878146141768,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "1f864695-3029-4464-b005-8fd134b89065",
+      "name": "Обед Шашлычный",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-ce681d53-545f-4b86-9f30-d9825040ace5",
+      "score": 0.8501233458518982,
+      "drinkScore": 0.0021264541428536177,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "07fbb950-1efd-456b-badd-9c4424c1fdf9",
+      "name": "Овощи на гриле",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-dced4417-6ad3-4819-b038-f58c59144797",
+      "score": 0.8502640128135681,
+      "drinkScore": 0.0008738188189454377,
+      "reason": "padded",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "085938f4-3103-4681-aaa6-3808640d14bc",
+      "name": "Паста ракушки по–флотски",
+      "type": "DISH",
+      "category": "Паста",
+      "photoUrl": "/api/files/aigen-11536be1-aa3f-46f3-b3b4-5a64d1247610",
+      "score": 0.7130180597305298,
+      "drinkScore": 0.0027545765042304993,
+      "reason": "padded",
+      "en": "a pasta dish",
+      "regen": true
+    },
+    {
       "id": "03749ea9-b469-4ec1-a085-e28ea3b554ea",
       "name": "Пельмени в бульоне",
       "type": "DISH",
       "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-116d0890-7e89-4128-9f79-fed974a43fee",
-      "score": 0.7918829917907715,
-      "drinkScore": 0.006409773603081703,
+      "photoUrl": "/api/files/aigen-4a864835-b50a-4db8-8405-e642246f9fbb",
+      "score": 0.7089522480964661,
+      "drinkScore": 0.007442248519510031,
       "reason": "padded",
       "en": "dumplings",
+      "regen": true
+    },
+    {
+      "id": "b4b7b65d-c06a-4e48-aefe-a03e68bb3693",
+      "name": "Пепперони ролл",
+      "type": "DISH",
+      "category": "Японская",
+      "photoUrl": "/api/files/aigen-5b3b4c2a-b7ec-4180-a6f7-7fa2ecb130f2",
+      "score": 0.20864559710025787,
+      "drinkScore": 0.004687389824539423,
+      "reason": "name",
+      "en": "sushi rolls",
+      "regen": true
+    },
+    {
+      "id": "6803be34-ec4a-4df4-bc11-b52fbc8e4387",
+      "name": "Печенье Сабли",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-666f4034-cfb0-4043-84af-7868d280a7ef",
+      "score": 0.06088089197874069,
+      "drinkScore": 0.9517977237701416,
+      "reason": "padded",
+      "en": "a plated food dish",
       "regen": true
     },
     {
@@ -631,36 +823,168 @@
       "name": "Пикколо",
       "type": "DRINK",
       "category": "Кофе",
-      "photoUrl": "/api/files/aigen-a71619be-44cf-422e-bc81-cc6f0eb5e19f",
-      "score": 0.13274560868740082,
-      "drinkScore": 0.9894661903381348,
-      "reason": "name?",
+      "photoUrl": "/api/files/aigen-663fd7b6-2cbc-4d86-928b-3ca09d173732",
+      "score": 0.06623196601867676,
+      "drinkScore": 0.9826220273971558,
+      "reason": "booze-look",
       "en": "a plated food dish",
-      "regen": false
+      "regen": true
     },
     {
-      "id": "4ac3a683-ae4d-4c72-b1b1-54bdca00027d",
-      "name": "Полезная вода fahrenheit",
-      "type": "DRINK",
-      "category": "Безалкогольные",
-      "photoUrl": "/api/files/aigen-7aab6b52-745e-43c4-bba6-271264cc2126",
-      "score": 0.08089514821767807,
-      "drinkScore": 0.9952387809753418,
-      "reason": "name?",
-      "en": "a plated food dish",
-      "regen": false
-    },
-    {
-      "id": "09a94fc3-0c1e-46f5-89c7-85cc99565fd1",
-      "name": "Салат из двух видов рыб: лосося и тунца с пикантным соусом",
+      "id": "30097fa4-655c-44de-895d-e8e9620e5644",
+      "name": "Пирог с картофелем, сыром и грибами",
       "type": "DISH",
-      "category": "Салаты",
-      "photoUrl": "/api/files/aigen-e713287a-b6b7-4b7b-bece-a75c7aaeef7b",
-      "score": 0.109293632209301,
-      "drinkScore": 0.0964747816324234,
-      "reason": "name?",
-      "en": "a salad",
-      "regen": false
+      "category": "Фастфуд",
+      "photoUrl": "/api/files/aigen-389be742-628b-4939-afca-d75814da9081",
+      "score": 0.2495090216398239,
+      "drinkScore": 0.0019072727300226688,
+      "reason": "name",
+      "en": "french fries or nuggets",
+      "regen": true
+    },
+    {
+      "id": "406459a1-438b-4d45-b9fe-e97f3e9b224d",
+      "name": "Пирог с курагой и черносливом целый",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-4904f047-7d3a-43a3-a8e3-9483336f63e4",
+      "score": 0.35960084199905396,
+      "drinkScore": 0.011652741581201553,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "638b5c35-07dd-480a-aa6d-d83defbb572a",
+      "name": "Пирожок Пянсе классический с мясом Деликатеска",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-2e856f95-abb9-4b34-b19d-55eb256ece01",
+      "score": 0.794274628162384,
+      "drinkScore": 0.002983312588185072,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "0248bf84-44c3-4fd3-855a-6c3fac5cb54b",
+      "name": "Пирожок с яблоком и черной смородиной",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-0be71481-82cf-4453-b299-7cc450e79217",
+      "score": 0.794274628162384,
+      "drinkScore": 0.002983312588185072,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "48b2276d-2f41-45a0-acb6-7b9c7012ddd4",
+      "name": "Плов с курицей",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-b5246563-c9b3-48b6-9c78-3c3ae6f72791",
+      "score": 0.9028288722038269,
+      "drinkScore": 0.0003375646483618766,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "b04c2924-fb4a-4d66-a665-eaf6c0083d99",
+      "name": "Плюшевая птичка Додо",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-31ac1537-3ac1-4018-995e-acee66068ad1",
+      "score": 0.895717203617096,
+      "drinkScore": 0.0012474284740164876,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "37699428-ea01-4ce7-8faa-5794d8ab922d",
+      "name": "Помидоры малосольные",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-4ac0abf6-bcaa-437e-9fe7-667834c3bf9b",
+      "score": 0.45176202058792114,
+      "drinkScore": 0.11585282534360886,
+      "reason": "padded",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "38cef3da-3966-4680-9b09-116cce4d9897",
+      "name": "Просто тунец",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-eca3fb2a-9464-4aee-8e32-5f2a3e36f464",
+      "score": 0.5755707621574402,
+      "drinkScore": 0.0701836422085762,
+      "reason": "padded",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "05fa4f6c-a627-4122-8eeb-11a2ce2032ad",
+      "name": "Пшённая каша",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-71528102-2a94-4d2c-84bc-3c086d601253",
+      "score": 0.5919573307037354,
+      "drinkScore": 0.006198321934789419,
+      "reason": "padded",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "65b18a89-339a-48b8-a1c3-71978e8dc9b0",
+      "name": "Рамен с говядиной",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-f59c6bbe-8ec7-4963-8be1-87a80be61cd5",
+      "score": 0.8276157379150391,
+      "drinkScore": 0.0023662836756557226,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "be55bd2b-c134-4c36-a404-479d62877bc1",
+      "name": "Римская Аррива!",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-5880ae63-3131-4ea6-9270-6d1d5f46f3a4",
+      "score": 0.8575249910354614,
+      "drinkScore": 0.0013872174313291907,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "3f7b2a88-6e70-4ba4-ab12-13ea66700c8f",
+      "name": "Рукола",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-58492d9a-a0fe-4e90-8e27-11d3dcfedb0f",
+      "score": 0.7955340147018433,
+      "drinkScore": 0.9952387809753418,
+      "reason": "name",
+      "en": "a glass of juice or soft drink",
+      "regen": true
+    },
+    {
+      "id": "3aa3e873-912b-4e8a-a3ef-97bacd6945f8",
+      "name": "Рулет с маком",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-b4d08172-fc8f-4e6a-9f71-4d91f926f099",
+      "score": 0.6019102931022644,
+      "drinkScore": 0.07430585473775864,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
     },
     {
       "id": "376aef33-0d96-4364-baf4-07ced681992c",
@@ -670,16 +994,16 @@
       "photoUrl": "/api/files/aigen-6127c344-8731-49a2-b135-4f586640c587",
       "score": 0.109293632209301,
       "drinkScore": 0.0964747816324234,
-      "reason": "name?",
+      "reason": "name",
       "en": "a salad",
-      "regen": false
+      "regen": true
     },
     {
       "id": "5f952ccf-b02b-4463-a6a1-9df687a825a7",
       "name": "Салат с крабом и авокадо",
       "type": "DISH",
       "category": "Салаты",
-      "photoUrl": "/api/files/aigen-0af5531d-75aa-466b-b53d-4f963c50df0c",
+      "photoUrl": "/api/files/aigen-5de0f989-2b77-4048-8d95-8d1c011e329d",
       "score": 0.5866278409957886,
       "drinkScore": 0.00761456647887826,
       "reason": "padded",
@@ -687,11 +1011,35 @@
       "regen": true
     },
     {
+      "id": "4df73978-670f-4029-b909-37c56b1a7f76",
+      "name": "Самса бейби с говядиной",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-49f88c14-89d3-4284-bf84-3acce41a6e1e",
+      "score": 0.8457536697387695,
+      "drinkScore": 0.0015783123672008514,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "0c168218-742f-46a7-98f8-01baad565902",
+      "name": "Свекольник с говядиной",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-42159872-4ef4-4a02-ae36-4c0d4c1f473d",
+      "score": 0.5695492029190063,
+      "drinkScore": 0.015366611070930958,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
       "id": "664f0e44-c6a7-49f3-9caf-bfda5c8ed330",
       "name": "С говядиной и дижонским соусом",
       "type": "DISH",
       "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-8e91a657-5bd7-4d59-bd52-aeae034eb4f0",
+      "photoUrl": "/api/files/aigen-136cf82e-f659-4a73-b9be-36b22861b1aa",
       "score": 0.38619178533554077,
       "drinkScore": 0.0059825642965734005,
       "reason": "padded",
@@ -699,14 +1047,38 @@
       "regen": true
     },
     {
-      "id": "4659b6dc-7884-4ff2-ad4f-1faa1721a1d3",
-      "name": "Сгущённое молоко",
+      "id": "64922a9f-758b-4ac0-8fdf-1022b3a0c7c3",
+      "name": "Сет Ронин",
       "type": "DISH",
       "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-bd37e90a-d8c9-414d-ab5f-f1ea5edbaadc",
-      "score": 0.22602830827236176,
-      "drinkScore": 0.8914350271224976,
-      "reason": "padded",
+      "photoUrl": "/api/files/aigen-21f976e6-0e37-4e82-87aa-6e67e0fd7e83",
+      "score": 0.6915140151977539,
+      "drinkScore": 0.2035822570323944,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "560073b5-f545-4371-9bc3-d701770b29c0",
+      "name": "Сет с лососем",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-9431508c-4a51-4451-acac-771108bc8895",
+      "score": 0.490845263004303,
+      "drinkScore": 0.011934461072087288,
+      "reason": "name",
+      "en": "a seafood dish",
+      "regen": true
+    },
+    {
+      "id": "43c46e81-0734-4085-b2d9-77bbf69a3018",
+      "name": "Скаморца",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-0ef42985-2fde-43b3-9914-5bbf2ab27f8f",
+      "score": 0.6337352991104126,
+      "drinkScore": 0.004352726973593235,
+      "reason": "name",
       "en": "a plated food dish",
       "regen": true
     },
@@ -718,16 +1090,16 @@
       "photoUrl": "/api/files/aigen-7cfcc726-ca97-438c-a6fb-e517ae3a877a",
       "score": 0.11818259209394455,
       "drinkScore": 0.04182865470647812,
-      "reason": "name?",
+      "reason": "name",
       "en": "a pasta dish",
-      "regen": false
+      "regen": true
     },
     {
       "id": "1aa375f0-06ef-4c1d-a04b-77a518a84eb3",
       "name": "С куриной котлетой и сладким соусом чили",
       "type": "DISH",
       "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-f4e8f51b-75a9-4522-8495-30296cea83c2",
+      "photoUrl": "/api/files/aigen-711fff01-3a10-4a85-b6b0-6f6f7251f639",
       "score": 0.3165924847126007,
       "drinkScore": 0.0075259944424033165,
       "reason": "padded",
@@ -735,14 +1107,38 @@
       "regen": true
     },
     {
+      "id": "23f1da1c-148f-48e4-8370-66975bbeeee6",
+      "name": "Сладкий пирог \"Лимонник\"",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-0a13619c-8f56-4dc9-87ce-060d36da45ac",
+      "score": 0.2244572788476944,
+      "drinkScore": 0.010818896815180779,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
       "id": "145bc876-cbce-4ecf-8b72-e9380cf23364",
       "name": "Сладкий пирог \"Лимонник\" целый",
       "type": "DISH",
       "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-d11f2033-8633-4bc1-b800-40e8147fbb4e",
+      "photoUrl": "/api/files/aigen-45d7f690-f626-46d9-a061-c14f9ee6d8dc",
       "score": 0.303313672542572,
       "drinkScore": 0.016518492251634598,
       "reason": "padded",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "0441b2cb-6cc0-44c8-8d67-2601d533ba78",
+      "name": "Сливовица золотая",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-9fb931c0-0f2b-4630-bc96-6d6a20a3f472",
+      "score": 0.9174289107322693,
+      "drinkScore": 0.0033990878146141768,
+      "reason": "name",
       "en": "a plated food dish",
       "regen": true
     },
@@ -751,7 +1147,7 @@
       "name": "Сметана 30%",
       "type": "DISH",
       "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-61b5a4e3-7de5-46d5-9816-9aa774d04ffd",
+      "photoUrl": "/api/files/aigen-6735cc3e-c860-4032-88ce-8a614cda248e",
       "score": 0.18458199501037598,
       "drinkScore": 0.9433679580688477,
       "reason": "padded",
@@ -759,15 +1155,39 @@
       "regen": true
     },
     {
-      "id": "35248dea-76ae-4147-bcac-e6a6f627476d",
-      "name": "С шоколадно-арахисовой пастой дв. начинка",
+      "id": "61ef1a68-7cb5-4dfa-b241-b94b9c4f4457",
+      "name": "Суп Том Ям с курицей",
       "type": "DISH",
-      "category": "Паста",
-      "photoUrl": "/api/files/aigen-ba0cdfcc-994a-4e5c-b9aa-1ae76f472ed1",
-      "score": 0.14655445516109467,
-      "drinkScore": 0.01229950599372387,
+      "category": "Супы",
+      "photoUrl": "/api/files/aigen-b9e1138a-64d6-4325-a428-8aec4ee6e4a9",
+      "score": 0.9032250642776489,
+      "drinkScore": 0.004956127144396305,
+      "reason": "name",
+      "en": "a bowl of soup",
+      "regen": true
+    },
+    {
+      "id": "074f00d9-3243-42e2-9e1d-758e2ea04069",
+      "name": "Сырная пицца",
+      "type": "DISH",
+      "category": "Пицца",
+      "photoUrl": "/api/files/aigen-b1869dcf-c458-40d5-b269-6a7c075f8575",
+      "score": 0.5441722273826599,
+      "drinkScore": 0.050989992916584015,
       "reason": "padded",
-      "en": "a pasta dish",
+      "en": "a pizza",
+      "regen": true
+    },
+    {
+      "id": "2701bbdf-ea33-4d6a-96bd-1e2eb88ec645",
+      "name": "Сырный соус Heinz",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-0dffb128-c76c-4640-8c22-70bd500dfaee",
+      "score": 0.2920086085796356,
+      "drinkScore": 0.4437040090560913,
+      "reason": "padded",
+      "en": "a plated food dish",
       "regen": true
     },
     {
@@ -775,7 +1195,7 @@
       "name": "Сыр Чеддер",
       "type": "DISH",
       "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-bfcca2b9-2c3a-407d-b064-54ec75d56728",
+      "photoUrl": "/api/files/aigen-92d3bb98-602b-44ff-955c-9723ee3c51ba",
       "score": 0.3656553030014038,
       "drinkScore": 0.05620729923248291,
       "reason": "padded",
@@ -783,14 +1203,38 @@
       "regen": true
     },
     {
-      "id": "56726e82-4a49-4689-b4bd-c3fd24d7bbd9",
-      "name": "Сэндвич мортаделла и сливочным сыром",
+      "id": "1dd3ea9c-4078-4873-bf56-f4cb1605ebd6",
+      "name": "Сэнди пай с вишней и творожным сыром",
       "type": "DISH",
       "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-b73862b5-91a6-49d9-bc02-6e184adcaf24",
-      "score": 0.38738158345222473,
-      "drinkScore": 0.007641233503818512,
-      "reason": "padded",
+      "photoUrl": "/api/files/aigen-5fb1c7cd-9f51-44db-92b8-154ced773f31",
+      "score": 0.6248212456703186,
+      "drinkScore": 0.034597743302583694,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "3d7fc851-4f04-4e14-bdb4-3bd62f5f71e3",
+      "name": "Сэнди пай с яблоком и грушей",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-9dd79c02-1c08-4d76-baba-b4c02613a6a7",
+      "score": 0.5472518801689148,
+      "drinkScore": 0.02572559006512165,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "00fe1107-fe6f-44e2-86bb-31cd97f37646",
+      "name": "\"Сяке-сет\"",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-e4c83356-7750-4098-9bec-c29610825bed",
+      "score": 0.8942423462867737,
+      "drinkScore": 0.0005095668020658195,
+      "reason": "name",
       "en": "a plated food dish",
       "regen": true
     },
@@ -799,10 +1243,46 @@
       "name": "Те Гуаньинь",
       "type": "DISH",
       "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-0e5cc699-7d2b-420d-8f30-0fe5fe3bb029",
+      "photoUrl": "/api/files/aigen-e42cabcc-4cde-4958-bf69-e64d0d7d755d",
       "score": 0.1384863704442978,
       "drinkScore": 0.8796007633209229,
       "reason": "padded",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "162fbd33-c82f-410b-bbc5-e6aa7dfdad24",
+      "name": "Темпура дракон в тубусе",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-41f0d12b-027e-405e-b560-f5b95c25f809",
+      "score": 0.9066669940948486,
+      "drinkScore": 0.00045251575647853315,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "a8dc32aa-a0dd-4d25-a7d4-96215656cc57",
+      "name": "Тост с красной икрой",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-4df82eea-acd0-4493-910b-0823d5de1071",
+      "score": 0.05816784128546715,
+      "drinkScore": 0.0015864635352045298,
+      "reason": "padded",
+      "en": "avocado toast",
+      "regen": true
+    },
+    {
+      "id": "4ef435b2-72c0-42b3-aeaa-e50e6de80905",
+      "name": "Тэкка",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-9c878d10-b1ad-4082-a98e-e4002a74dbab",
+      "score": 0.30069905519485474,
+      "drinkScore": 0.5303980112075806,
+      "reason": "name",
       "en": "a plated food dish",
       "regen": true
     },
@@ -814,16 +1294,16 @@
       "photoUrl": "/api/files/aigen-2d2ff71c-4993-4857-840d-f7f92958284c",
       "score": 0.18701143562793732,
       "drinkScore": 0.00029580932459793985,
-      "reason": "name?",
+      "reason": "name",
       "en": "french fries or nuggets",
-      "regen": false
+      "regen": true
     },
     {
       "id": "f35d0dcf-7673-416f-8c92-aeac1e985393",
       "name": "Фильтр-кофе Аласитас натуральная",
       "type": "DRINK",
       "category": "Кофе",
-      "photoUrl": "/api/files/aigen-1c32e3e8-fc24-429c-9bb2-d9adbdae48be",
+      "photoUrl": "/api/files/aigen-98267331-879e-4c47-b8c4-d0412d34edac",
       "score": 0.8996552228927612,
       "drinkScore": 0.9823858737945557,
       "reason": "padded",
@@ -835,7 +1315,7 @@
       "name": "Фильтр-кофе Йемен анаэробная",
       "type": "DRINK",
       "category": "Кофе",
-      "photoUrl": "/api/files/aigen-66f831a6-49ef-4e1f-ad62-9bd72f5d1698",
+      "photoUrl": "/api/files/aigen-b2b82cf2-8e88-4014-ae5f-9eba5a72ace2",
       "score": 0.8996552228927612,
       "drinkScore": 0.9823858737945557,
       "reason": "padded",
@@ -847,7 +1327,7 @@
       "name": "Фильтр-кофе Эфиопия анаэробная",
       "type": "DRINK",
       "category": "Кофе",
-      "photoUrl": "/api/files/aigen-545d065c-9b0f-4662-a70e-a3d9d931e404",
+      "photoUrl": "/api/files/aigen-b133704b-5488-4646-adbe-0a588dbdc08c",
       "score": 0.8996552228927612,
       "drinkScore": 0.9823858737945557,
       "reason": "padded",
@@ -859,7 +1339,7 @@
       "name": "Фильтр-кофе Эфиопия мытая",
       "type": "DRINK",
       "category": "Кофе",
-      "photoUrl": "/api/files/aigen-1da35305-3f9b-4472-8d14-94a70f9ad8a8",
+      "photoUrl": "/api/files/aigen-7f865832-9654-49e2-91f5-7b02d8b1c82b",
       "score": 0.8996552228927612,
       "drinkScore": 0.9823858737945557,
       "reason": "padded",
@@ -867,88 +1347,52 @@
       "regen": true
     },
     {
-      "id": "65310440-e913-4002-82b4-20f260f401b8",
-      "name": "Фреш",
+      "id": "18fbcbb7-5e0e-4a15-90fd-a5c48c4d12ba",
+      "name": "Хашбрауны",
       "type": "DISH",
       "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-3a5f05b3-380b-40f9-887d-ae783861290d",
-      "score": 0.003134744940325618,
-      "drinkScore": 0.0003871940425597131,
-      "reason": "name?",
-      "en": "a glass of juice or soft drink",
-      "regen": false
+      "photoUrl": "/api/files/aigen-4b8d07c0-b955-4e8a-a37c-42e0dac7293f",
+      "score": 0.8820950388908386,
+      "drinkScore": 0.0001952410239027813,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
     },
     {
-      "id": "32ea0ba0-ba55-4c47-a681-4fe9fac3b319",
-      "name": "Фреш Ананасовый",
+      "id": "1ab45bad-a80e-4a0a-839a-028b16d38127",
+      "name": "Хлеб серый",
       "type": "DISH",
       "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-07979003-9493-4a5c-8906-ab05bb51af46",
-      "score": 0.003134744940325618,
-      "drinkScore": 0.0003871940425597131,
-      "reason": "name?",
-      "en": "a glass of juice or soft drink",
-      "regen": false
+      "photoUrl": "/api/files/aigen-896b6b82-09f8-4323-89c3-c0a323eca1f7",
+      "score": 0.4334118068218231,
+      "drinkScore": 0.1036863923072815,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
     },
     {
-      "id": "189d3cad-72ea-4f47-8881-8aaa98f59719",
-      "name": "Фреш апельсиновый свежевыжатый",
+      "id": "5c5b3858-a105-439c-95e9-e9c042b052c3",
+      "name": "Хот-дог борт 30",
       "type": "DISH",
-      "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-16f7e3ea-df59-4180-a4aa-4e17b8b12cc3",
-      "score": 0.003134744940325618,
-      "drinkScore": 0.0003871940425597131,
-      "reason": "name?",
-      "en": "a glass of juice or soft drink",
-      "regen": false
+      "category": "Фастфуд",
+      "photoUrl": "/api/files/aigen-f6bb75bb-9338-418a-b67e-89b77bd2cd86",
+      "score": 0.8956412672996521,
+      "drinkScore": 0.0008869534940458834,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
     },
     {
-      "id": "4fe79681-9290-4bb2-a42f-4a040280a35e",
-      "name": "Фреш Грейпфрутовый",
+      "id": "08b08863-f163-464c-a498-83957fa8cb50",
+      "name": "Цезарь с глазуньей",
       "type": "DISH",
-      "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-c7f5837b-9e1e-4eaf-9884-e99f7a7bccd8",
-      "score": 0.003134744940325618,
-      "drinkScore": 0.0003871940425597131,
-      "reason": "name?",
-      "en": "a glass of juice or soft drink",
-      "regen": false
-    },
-    {
-      "id": "67f5355f-68bb-4d5b-9b24-ef59e8b4c3bd",
-      "name": "Фреш сельдереевый",
-      "type": "DISH",
-      "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-02ad4777-3eb5-43d8-94fe-3aee7c65f34f",
-      "score": 0.003134744940325618,
-      "drinkScore": 0.0003871940425597131,
-      "reason": "name?",
-      "en": "a glass of juice or soft drink",
-      "regen": false
-    },
-    {
-      "id": "0ccf54f4-5055-464d-8fd2-ef71a1c72920",
-      "name": "Фреш Яблочный",
-      "type": "DISH",
-      "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-48ab7d1b-1a33-4956-a366-b9353dfb2210",
-      "score": 0.003134744940325618,
-      "drinkScore": 0.0003871940425597131,
-      "reason": "name?",
-      "en": "a glass of juice or soft drink",
-      "regen": false
-    },
-    {
-      "id": "30d8373b-4096-43f3-9b44-a70518e8a3a6",
-      "name": "Цитронова трава з ананасу",
-      "type": "DISH",
-      "category": "Блюдо",
-      "photoUrl": "/api/files/aigen-9e25bc5f-891d-46ef-a84e-1acf5ea84616",
-      "score": 0.07258699834346771,
-      "drinkScore": 0.0003871940425597131,
-      "reason": "name?",
-      "en": "fresh fruit",
-      "regen": false
+      "category": "Салаты",
+      "photoUrl": "/api/files/aigen-bba2836d-2d00-491f-bd92-3dbf01165ba3",
+      "score": 0.20868998765945435,
+      "drinkScore": 0.009424031712114811,
+      "reason": "padded",
+      "en": "a salad",
+      "regen": true
     },
     {
       "id": "19226508-d083-4281-87a7-776549a15510",
@@ -958,21 +1402,69 @@
       "photoUrl": "/api/files/aigen-f44d75b5-91f5-476e-ac32-0fe4b6799500",
       "score": 0.055284347385168076,
       "drinkScore": 0.000989166903309524,
-      "reason": "name?",
+      "reason": "name",
       "en": "french fries or nuggets",
-      "regen": false
+      "regen": true
+    },
+    {
+      "id": "03e398a3-1fe9-434c-9b25-6935c1a744c9",
+      "name": "Четыре в одном",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-64c0e00a-8ac2-441e-bab5-da72fd1b710d",
+      "score": 0.8567938208580017,
+      "drinkScore": 0.00031904963543638587,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
     },
     {
       "id": "7ab51b0b-16db-4f4c-b6f8-4745a75f2afb",
       "name": "Чизбургер с рваной свининой",
       "type": "DISH",
       "category": "Бургеры",
-      "photoUrl": "/api/files/aigen-eb7d1080-15e7-40ba-a6e0-3312da38f2bc",
-      "score": 0.15892960131168365,
-      "drinkScore": 0.00039234463474713266,
-      "reason": "name?",
+      "photoUrl": "/api/files/aigen-b31caab9-8312-4476-89fc-95444efb6541",
+      "score": 0.17818287014961243,
+      "drinkScore": 0.0012546039652079344,
+      "reason": "padded",
       "en": "a burger",
-      "regen": false
+      "regen": true
+    },
+    {
+      "id": "b24280c9-293a-42f8-adf3-e12b20c3738c",
+      "name": "Шашлык и сацебели",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-e751d5f0-1a4c-4440-92e1-fc0b7b9aa217",
+      "score": 0.9186002612113953,
+      "drinkScore": 0.0009913519024848938,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "5d7ee44e-c24a-428d-9788-188feaa13708",
+      "name": "Шницель куриный На компанию",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-0f44bfbf-5f02-4118-94c5-34999d6b6020",
+      "score": 0.7976516485214233,
+      "drinkScore": 0.00013809821393806487,
+      "reason": "name",
+      "en": "a chicken dish",
+      "regen": true
+    },
+    {
+      "id": "40417ae8-90b7-4851-867b-9ccf512266c9",
+      "name": "Эклер фисташковый",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-562efc91-ad9d-45b6-8d82-d0a862925aea",
+      "score": 0.20835663378238678,
+      "drinkScore": 0.20326916873455048,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
     },
     {
       "id": "0c76cae9-a002-4037-b6af-56d90833d262",
@@ -982,47 +1474,1312 @@
       "photoUrl": "/api/files/aigen-9ba6e5e3-ab2f-42d6-bdef-3ed31b926636",
       "score": 0.12862429022789001,
       "drinkScore": 0.850329577922821,
-      "reason": "name?",
+      "reason": "name",
       "en": "a plated food dish",
-      "regen": false
+      "regen": true
+    },
+    {
+      "id": "93d8a192-be97-41b1-a367-f016c2eddbd5",
+      "name": "Эрл Грей весовой",
+      "type": "DISH",
+      "category": "Блюдо",
+      "photoUrl": "/api/files/aigen-73eb5222-9c2e-4722-9fa8-28c7029888a5",
+      "score": 0.21943844854831696,
+      "drinkScore": 0.2988417446613312,
+      "reason": "name",
+      "en": "a plated food dish",
+      "regen": true
+    },
+    {
+      "id": "4794bb83-b5e0-4145-9f2b-28c8ba204954",
+      "name": "Гарденист Аранчата Rossa",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "48615189-1896-47d1-b157-a205b88b7cd1",
+      "name": "Сметана 30%",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "3441f5ea-b76a-41bc-8210-e8619666cc58",
+      "name": "Гави дей Гави, Черная этикетка, Ла Сколька",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "5fff9982-4a9c-44cc-875b-1c40104cf4a6",
+      "name": "Грюнер Вельтлинер, Ферайнихте Винцер Нойзидлер",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "3d99f365-752b-4196-b671-e0b690626fcd",
+      "name": "Ежевика",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "1627edbe-7b4f-4d84-af3c-7dbbe9b74a79",
+      "name": "Икра красная нерки малосол",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "61b0513b-3da8-49c3-9551-9d60577f53fe",
+      "name": "Козак Красная Горка, Галицкий и Галицкий",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "648a5863-e241-4f97-b707-4e5b10c17aa3",
+      "name": "Креман де Лиму, 1531 Гранд Кюве, Эмери",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "50a430f5-37c6-461a-8c22-1971345622f0",
+      "name": "Масло оливковое",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "298f5f37-5bdd-44b5-b580-f5636037c9c5",
+      "name": "Монтепульчано д’Абруццо Йорио, Умани Ронки",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "6272f820-2b73-4cc2-8422-ba535acd3d44",
+      "name": "Моравский клас Баварское",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "0099d431-44dd-4be1-a374-142374e899e6",
+      "name": "Тайга",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "03f0729a-986d-4bb4-aedb-8547bd291f94",
+      "name": "Тяхан",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "1e9beb2a-e640-4ecf-ae7f-c789fe4f3767",
+      "name": "Франковка Кабинет",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "3723902d-d54a-4867-9cff-d2cfb15f560c",
+      "name": "Фроти фро",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "34b310bc-359c-4eb3-a2eb-c9f0bec20174",
+      "name": "Шенен Блан, Кейп Ориджинал",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "0250b00b-03a5-4c6b-a766-cc490b639570",
+      "name": "Крем-брюле",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "034dc09d-dd70-4b7a-b061-ccd5f89c093e",
+      "name": "Курзе",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "02bb508e-b81f-4a27-96d3-812e0b3647fc",
+      "name": "Манго и маракуйя",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "009eda5e-fe6b-409a-9a88-d8060de48054",
+      "name": "Огненный фурай",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "039317c4-c391-4b12-b602-3a5d0bd83dfd",
+      "name": "Сыр Чеддер D36",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "01878f13-7e67-446f-a292-781f85fd0430",
+      "name": "Франк Тейсти Джуниор",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "3f7b2a88-6e70-4ba4-ab12-13ea66700c8f",
+      "name": "Рукола",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "134b1b85-bfd7-41f5-8ac1-f196ad8033cb",
+      "name": "Двойная пепперони",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "074f00d9-3243-42e2-9e1d-758e2ea04069",
+      "name": "Сырная пицца",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "7ab51b0b-16db-4f4c-b6f8-4745a75f2afb",
+      "name": "Чизбургер с рваной свининой",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "5fff9982-4a9c-44cc-875b-1c40104cf4a6",
+      "name": "Грюнер Вельтлинер, Ферайнихте Винцер Нойзидлер",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "3d99f365-752b-4196-b671-e0b690626fcd",
+      "name": "Ежевика",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "1627edbe-7b4f-4d84-af3c-7dbbe9b74a79",
+      "name": "Икра красная нерки малосол",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "61b0513b-3da8-49c3-9551-9d60577f53fe",
+      "name": "Козак Красная Горка, Галицкий и Галицкий",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "648a5863-e241-4f97-b707-4e5b10c17aa3",
+      "name": "Креман де Лиму, 1531 Гранд Кюве, Эмери",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "50a430f5-37c6-461a-8c22-1971345622f0",
+      "name": "Масло оливковое",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "298f5f37-5bdd-44b5-b580-f5636037c9c5",
+      "name": "Монтепульчано д’Абруццо Йорио, Умани Ронки",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "6272f820-2b73-4cc2-8422-ba535acd3d44",
+      "name": "Моравский клас Баварское",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "0099d431-44dd-4be1-a374-142374e899e6",
+      "name": "Тайга",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "03f0729a-986d-4bb4-aedb-8547bd291f94",
+      "name": "Тяхан",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "1e9beb2a-e640-4ecf-ae7f-c789fe4f3767",
+      "name": "Франковка Кабинет",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "3723902d-d54a-4867-9cff-d2cfb15f560c",
+      "name": "Фроти фро",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "34b310bc-359c-4eb3-a2eb-c9f0bec20174",
+      "name": "Шенен Блан, Кейп Ориджинал",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "e0cab7fc-8116-46b6-9468-2569a6ffde1d",
+      "name": "Йогурт «Кофемания»",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "8118469d-015c-4779-8d38-38bf057b205b",
+      "name": "Картофель фри",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "664f0e44-c6a7-49f3-9caf-bfda5c8ed330",
+      "name": "С говядиной и дижонским соусом",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "145bc876-cbce-4ecf-8b72-e9380cf23364",
+      "name": "Сладкий пирог \"Лимонник\" целый",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "48615189-1896-47d1-b157-a205b88b7cd1",
+      "name": "Сметана 30%",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "55cbb931-fe7f-46cb-a280-d69d214f3636",
+      "name": "Сыр Чеддер",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "01a762de-f71e-47d7-852e-91701adc84ad",
+      "name": "Обед Горца No3",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "0441b2cb-6cc0-44c8-8d67-2601d533ba78",
+      "name": "Сливовица золотая",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "89e8d201-6901-4085-a9f8-05c1c79d58dd",
+      "name": "Изюм",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "4f314756-407b-4b06-9636-1f0ff2c9d899",
+      "name": "Картофель с беконом и халапеньо",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "3923d7e6-1efa-476a-841f-57a10450969e",
+      "name": "Манговый лес",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "8e83ca74-c02d-42ea-9384-d30fbdb12e8b",
+      "name": "Пикколо",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "3923d7e6-1efa-476a-841f-57a10450969e",
+      "name": "Манговый лес",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "3d99f365-752b-4196-b671-e0b690626fcd",
+      "name": "Ежевика",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "1627edbe-7b4f-4d84-af3c-7dbbe9b74a79",
+      "name": "Икра красная нерки малосол",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "61b0513b-3da8-49c3-9551-9d60577f53fe",
+      "name": "Козак Красная Горка, Галицкий и Галицкий",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "648a5863-e241-4f97-b707-4e5b10c17aa3",
+      "name": "Креман де Лиму, 1531 Гранд Кюве, Эмери",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "50a430f5-37c6-461a-8c22-1971345622f0",
+      "name": "Масло оливковое",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "298f5f37-5bdd-44b5-b580-f5636037c9c5",
+      "name": "Монтепульчано д’Абруццо Йорио, Умани Ронки",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "6272f820-2b73-4cc2-8422-ba535acd3d44",
+      "name": "Моравский клас Баварское",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "0099d431-44dd-4be1-a374-142374e899e6",
+      "name": "Тайга",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "03f0729a-986d-4bb4-aedb-8547bd291f94",
+      "name": "Тяхан",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "1e9beb2a-e640-4ecf-ae7f-c789fe4f3767",
+      "name": "Франковка Кабинет",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "3723902d-d54a-4867-9cff-d2cfb15f560c",
+      "name": "Фроти фро",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "34b310bc-359c-4eb3-a2eb-c9f0bec20174",
+      "name": "Шенен Блан, Кейп Ориджинал",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "1dd3ea9c-4078-4873-bf56-f4cb1605ebd6",
+      "name": "Сэнди пай с вишней и творожным сыром",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "074f00d9-3243-42e2-9e1d-758e2ea04069",
+      "name": "Сырная пицца",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "7ab51b0b-16db-4f4c-b6f8-4745a75f2afb",
+      "name": "Чизбургер с рваной свининой",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "08b08863-f163-464c-a498-83957fa8cb50",
+      "name": "Цезарь с глазуньей",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "1627edbe-7b4f-4d84-af3c-7dbbe9b74a79",
+      "name": "Икра красная нерки малосол",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "61b0513b-3da8-49c3-9551-9d60577f53fe",
+      "name": "Козак Красная Горка, Галицкий и Галицкий",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "648a5863-e241-4f97-b707-4e5b10c17aa3",
+      "name": "Креман де Лиму, 1531 Гранд Кюве, Эмери",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "50a430f5-37c6-461a-8c22-1971345622f0",
+      "name": "Масло оливковое",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "298f5f37-5bdd-44b5-b580-f5636037c9c5",
+      "name": "Монтепульчано д’Абруццо Йорио, Умани Ронки",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "6272f820-2b73-4cc2-8422-ba535acd3d44",
+      "name": "Моравский клас Баварское",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "0099d431-44dd-4be1-a374-142374e899e6",
+      "name": "Тайга",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "03f0729a-986d-4bb4-aedb-8547bd291f94",
+      "name": "Тяхан",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "1e9beb2a-e640-4ecf-ae7f-c789fe4f3767",
+      "name": "Франковка Кабинет",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "3723902d-d54a-4867-9cff-d2cfb15f560c",
+      "name": "Фроти фро",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "34b310bc-359c-4eb3-a2eb-c9f0bec20174",
+      "name": "Шенен Блан, Кейп Ориджинал",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "07b59f92-5343-4705-bb5b-e0572af8d626",
+      "name": "Креветки на гриле",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "3923d7e6-1efa-476a-841f-57a10450969e",
+      "name": "Манговый лес",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "07fbb950-1efd-456b-badd-9c4424c1fdf9",
+      "name": "Овощи на гриле",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "38cef3da-3966-4680-9b09-116cce4d9897",
+      "name": "Просто тунец",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "a8dc32aa-a0dd-4d25-a7d4-96215656cc57",
+      "name": "Тост с красной икрой",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "61b0513b-3da8-49c3-9551-9d60577f53fe",
+      "name": "Козак Красная Горка, Галицкий и Галицкий",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "648a5863-e241-4f97-b707-4e5b10c17aa3",
+      "name": "Креман де Лиму, 1531 Гранд Кюве, Эмери",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "50a430f5-37c6-461a-8c22-1971345622f0",
+      "name": "Масло оливковое",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "298f5f37-5bdd-44b5-b580-f5636037c9c5",
+      "name": "Монтепульчано д’Абруццо Йорио, Умани Ронки",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "6272f820-2b73-4cc2-8422-ba535acd3d44",
+      "name": "Моравский клас Баварское",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "0099d431-44dd-4be1-a374-142374e899e6",
+      "name": "Тайга",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "03f0729a-986d-4bb4-aedb-8547bd291f94",
+      "name": "Тяхан",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "1e9beb2a-e640-4ecf-ae7f-c789fe4f3767",
+      "name": "Франковка Кабинет",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "3723902d-d54a-4867-9cff-d2cfb15f560c",
+      "name": "Фроти фро",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "34b310bc-359c-4eb3-a2eb-c9f0bec20174",
+      "name": "Шенен Блан, Кейп Ориджинал",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "00fe1107-fe6f-44e2-86bb-31cd97f37646",
+      "name": "\"Сяке-сет\"",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "145bc876-cbce-4ecf-8b72-e9380cf23364",
+      "name": "Сладкий пирог \"Лимонник\" целый",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "98c32eb6-2860-4f1a-bf66-661783da09cb",
+      "name": "Матча Тоник",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "8e83ca74-c02d-42ea-9384-d30fbdb12e8b",
+      "name": "Пикколо",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "a8dc32aa-a0dd-4d25-a7d4-96215656cc57",
+      "name": "Тост с красной икрой",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "48615189-1896-47d1-b157-a205b88b7cd1",
+      "name": "Сметана 30%",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "03749ea9-b469-4ec1-a085-e28ea3b554ea",
+      "name": "Пельмени в бульоне",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "648a5863-e241-4f97-b707-4e5b10c17aa3",
+      "name": "Креман де Лиму, 1531 Гранд Кюве, Эмери",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "50a430f5-37c6-461a-8c22-1971345622f0",
+      "name": "Масло оливковое",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "298f5f37-5bdd-44b5-b580-f5636037c9c5",
+      "name": "Монтепульчано д’Абруццо Йорио, Умани Ронки",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "6272f820-2b73-4cc2-8422-ba535acd3d44",
+      "name": "Моравский клас Баварское",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "0099d431-44dd-4be1-a374-142374e899e6",
+      "name": "Тайга",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "03f0729a-986d-4bb4-aedb-8547bd291f94",
+      "name": "Тяхан",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "1e9beb2a-e640-4ecf-ae7f-c789fe4f3767",
+      "name": "Франковка Кабинет",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "3723902d-d54a-4867-9cff-d2cfb15f560c",
+      "name": "Фроти фро",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "34b310bc-359c-4eb3-a2eb-c9f0bec20174",
+      "name": "Шенен Блан, Кейп Ориджинал",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "00e27c23-8ed8-4beb-a8d9-32cb5743a970",
+      "name": "Куриные котлеты",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "115b51f4-8421-4a57-8b2c-c5f26b0bf482",
+      "name": "Цыпленок корнишон потрошеный тушка Деликатеска ~",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "3923d7e6-1efa-476a-841f-57a10450969e",
+      "name": "Манговый лес",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "07fbb950-1efd-456b-badd-9c4424c1fdf9",
+      "name": "Овощи на гриле",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "38cef3da-3966-4680-9b09-116cce4d9897",
+      "name": "Просто тунец",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "a8dc32aa-a0dd-4d25-a7d4-96215656cc57",
+      "name": "Тост с красной икрой",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "50a430f5-37c6-461a-8c22-1971345622f0",
+      "name": "Масло оливковое",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "298f5f37-5bdd-44b5-b580-f5636037c9c5",
+      "name": "Монтепульчано д’Абруццо Йорио, Умани Ронки",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "6272f820-2b73-4cc2-8422-ba535acd3d44",
+      "name": "Моравский клас Баварское",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "0099d431-44dd-4be1-a374-142374e899e6",
+      "name": "Тайга",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "03f0729a-986d-4bb4-aedb-8547bd291f94",
+      "name": "Тяхан",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "1e9beb2a-e640-4ecf-ae7f-c789fe4f3767",
+      "name": "Франковка Кабинет",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "3723902d-d54a-4867-9cff-d2cfb15f560c",
+      "name": "Фроти фро",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "34b310bc-359c-4eb3-a2eb-c9f0bec20174",
+      "name": "Шенен Блан, Кейп Ориджинал",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "034dc09d-dd70-4b7a-b061-ccd5f89c093e",
+      "name": "Курзе",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "02bb508e-b81f-4a27-96d3-812e0b3647fc",
+      "name": "Манго и маракуйя",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "009eda5e-fe6b-409a-9a88-d8060de48054",
+      "name": "Огненный фурай",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "039317c4-c391-4b12-b602-3a5d0bd83dfd",
+      "name": "Сыр Чеддер D36",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "01878f13-7e67-446f-a292-781f85fd0430",
+      "name": "Франк Тейсти Джуниор",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "02bb508e-b81f-4a27-96d3-812e0b3647fc",
+      "name": "Манго и маракуйя",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "009eda5e-fe6b-409a-9a88-d8060de48054",
+      "name": "Огненный фурай",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "039317c4-c391-4b12-b602-3a5d0bd83dfd",
+      "name": "Сыр Чеддер D36",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "01878f13-7e67-446f-a292-781f85fd0430",
+      "name": "Франк Тейсти Джуниор",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "115b51f4-8421-4a57-8b2c-c5f26b0bf482",
+      "name": "Цыпленок корнишон потрошеный тушка Деликатеска ~",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "68c27cba-eee5-45f3-9f37-820726808532",
+      "name": "Ролл мексиканский",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "07fbb950-1efd-456b-badd-9c4424c1fdf9",
+      "name": "Овощи на гриле",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "38cef3da-3966-4680-9b09-116cce4d9897",
+      "name": "Просто тунец",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "a8dc32aa-a0dd-4d25-a7d4-96215656cc57",
+      "name": "Тост с красной икрой",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "009eda5e-fe6b-409a-9a88-d8060de48054",
+      "name": "Огненный фурай",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "039317c4-c391-4b12-b602-3a5d0bd83dfd",
+      "name": "Сыр Чеддер D36",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "01878f13-7e67-446f-a292-781f85fd0430",
+      "name": "Франк Тейсти Джуниор",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "298f5f37-5bdd-44b5-b580-f5636037c9c5",
+      "name": "Монтепульчано д’Абруццо Йорио, Умани Ронки",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "6272f820-2b73-4cc2-8422-ba535acd3d44",
+      "name": "Моравский клас Баварское",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "0099d431-44dd-4be1-a374-142374e899e6",
+      "name": "Тайга",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "03f0729a-986d-4bb4-aedb-8547bd291f94",
+      "name": "Тяхан",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "1e9beb2a-e640-4ecf-ae7f-c789fe4f3767",
+      "name": "Франковка Кабинет",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "3723902d-d54a-4867-9cff-d2cfb15f560c",
+      "name": "Фроти фро",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "34b310bc-359c-4eb3-a2eb-c9f0bec20174",
+      "name": "Шенен Блан, Кейп Ориджинал",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "3fd6551d-50b7-4c38-94b0-975ae97012a6",
+      "name": "Молоко 3,6%",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "301191c8-ec8b-4254-87e8-45bdaf957046",
+      "name": "Чай в чашке",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "6272f820-2b73-4cc2-8422-ba535acd3d44",
+      "name": "Моравский клас Баварское",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "0099d431-44dd-4be1-a374-142374e899e6",
+      "name": "Тайга",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "03f0729a-986d-4bb4-aedb-8547bd291f94",
+      "name": "Тяхан",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "1e9beb2a-e640-4ecf-ae7f-c789fe4f3767",
+      "name": "Франковка Кабинет",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "3723902d-d54a-4867-9cff-d2cfb15f560c",
+      "name": "Фроти фро",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "34b310bc-359c-4eb3-a2eb-c9f0bec20174",
+      "name": "Шенен Блан, Кейп Ориджинал",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "0099d431-44dd-4be1-a374-142374e899e6",
+      "name": "Тайга",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "03f0729a-986d-4bb4-aedb-8547bd291f94",
+      "name": "Тяхан",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "1e9beb2a-e640-4ecf-ae7f-c789fe4f3767",
+      "name": "Франковка Кабинет",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "3723902d-d54a-4867-9cff-d2cfb15f560c",
+      "name": "Фроти фро",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "34b310bc-359c-4eb3-a2eb-c9f0bec20174",
+      "name": "Шенен Блан, Кейп Ориджинал",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "0441b2cb-6cc0-44c8-8d67-2601d533ba78",
+      "name": "Сливовица золотая",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "38cef3da-3966-4680-9b09-116cce4d9897",
+      "name": "Просто тунец",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "a8dc32aa-a0dd-4d25-a7d4-96215656cc57",
+      "name": "Тост с красной икрой",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "039317c4-c391-4b12-b602-3a5d0bd83dfd",
+      "name": "Сыр Чеддер D36",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "01878f13-7e67-446f-a292-781f85fd0430",
+      "name": "Франк Тейсти Джуниор",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "01b8f962-fa3e-4b12-af43-ebb0a03ce9b2",
+      "name": "Шоколадно-ореховая паста",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "0248bf84-44c3-4fd3-855a-6c3fac5cb54b",
+      "name": "Пирожок с яблоком и черной смородиной",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "a8dc32aa-a0dd-4d25-a7d4-96215656cc57",
+      "name": "Тост с красной икрой",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "40417ae8-90b7-4851-867b-9ccf512266c9",
+      "name": "Эклер фисташковый",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "55cbb931-fe7f-46cb-a280-d69d214f3636",
+      "name": "Сыр Чеддер",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "7ab51b0b-16db-4f4c-b6f8-4745a75f2afb",
+      "name": "Чизбургер с рваной свининой",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "01878f13-7e67-446f-a292-781f85fd0430",
+      "name": "Франк Тейсти Джуниор",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "03f0729a-986d-4bb4-aedb-8547bd291f94",
+      "name": "Тяхан",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "1e9beb2a-e640-4ecf-ae7f-c789fe4f3767",
+      "name": "Франковка Кабинет",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "3723902d-d54a-4867-9cff-d2cfb15f560c",
+      "name": "Фроти фро",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "34b310bc-359c-4eb3-a2eb-c9f0bec20174",
+      "name": "Шенен Блан, Кейп Ориджинал",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "40417ae8-90b7-4851-867b-9ccf512266c9",
+      "name": "Эклер фисташковый",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "1e9beb2a-e640-4ecf-ae7f-c789fe4f3767",
+      "name": "Франковка Кабинет",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "3723902d-d54a-4867-9cff-d2cfb15f560c",
+      "name": "Фроти фро",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "34b310bc-359c-4eb3-a2eb-c9f0bec20174",
+      "name": "Шенен Блан, Кейп Ориджинал",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "7b65272d-c9c9-4b5e-9f21-e97e7fbc1da5",
+      "name": "Фильтр-кофе Йемен анаэробная",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "6c24ef37-7b63-4d5b-b511-8cd1b94ec8f4",
+      "name": "Фильтр-кофе Эфиопия анаэробная",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "2a11f23e-e3af-425f-af85-da70eea41a65",
+      "name": "Фильтр-кофе Эфиопия мытая",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "6c24ef37-7b63-4d5b-b511-8cd1b94ec8f4",
+      "name": "Фильтр-кофе Эфиопия анаэробная",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "2a11f23e-e3af-425f-af85-da70eea41a65",
+      "name": "Фильтр-кофе Эфиопия мытая",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "2a11f23e-e3af-425f-af85-da70eea41a65",
+      "name": "Фильтр-кофе Эфиопия мытая",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "3723902d-d54a-4867-9cff-d2cfb15f560c",
+      "name": "Фроти фро",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "34b310bc-359c-4eb3-a2eb-c9f0bec20174",
+      "name": "Шенен Блан, Кейп Ориджинал",
+      "reason": "same-image",
+      "regen": true
+    },
+    {
+      "id": "34b310bc-359c-4eb3-a2eb-c9f0bec20174",
+      "name": "Шенен Блан, Кейп Ориджинал",
+      "reason": "same-image",
+      "regen": true
     }
   ],
   "dups": [],
   "toRegen": [
-    "7c53478e-f88c-4d49-8d10-26c38b42ef84",
-    "7e2dd0f9-95e8-4479-af84-fd3b94722fec",
+    "955b04d3-30ea-442a-9850-a9144a4d4a23",
     "0170e47d-5525-4e54-9bfd-f6b7fb7e25d8",
-    "9123a14c-29ef-48f0-bd39-f8084d96d722",
+    "1d7af7c4-1a37-427e-a6d7-653f9d9cf92c",
+    "528346ee-0cb9-4dbb-bfc2-10cbdf2721b9",
+    "015ba771-2e26-4c30-a430-746d787580ae",
+    "2c4f7cbf-0b67-4c96-a312-2b4558b19947",
+    "24810f9d-80a7-451b-95be-a824337c300f",
+    "e463a09e-bcaa-49f8-bfa9-e05e54da71c4",
+    "29202784-edb9-4e9c-9e9b-1bb0e982feba",
+    "c8f4e187-d215-4eca-9b1c-3dfa8640f0e4",
     "4794bb83-b5e0-4145-9f2b-28c8ba204954",
+    "014a3368-fd5e-4087-8885-57461c4ba3f7",
+    "96178008-d58d-4969-8c88-22678685c5e1",
     "1b4dc9e8-9e9a-43d9-b861-47bcae03b45b",
+    "6a4d86ff-25a4-4fa2-b56d-9ec72c17f016",
     "134b1b85-bfd7-41f5-8ac1-f196ad8033cb",
-    "52ca57df-11ce-4a4e-b677-c543be410945",
+    "116b3006-ccf3-4796-9dcb-0333f3a3b689",
+    "47b16ec0-2d47-4b39-b8ee-5b160513b167",
+    "037747f2-4cff-4bb7-90f0-08f42481c22b",
+    "228313ba-d919-408c-9875-7cf097b237aa",
     "224298eb-d1f0-472b-aafc-a9e2a42df92c",
+    "ff62742a-6ba7-4d19-9928-b6e7542912ff",
+    "6f893de1-c7d6-4933-8f75-59b0963bbae2",
+    "62eb44d5-a651-400c-8527-aaa122291703",
+    "ea4e88d7-1cb5-4170-acc3-729530c7bd65",
+    "66c365a5-7d40-46c9-ac1f-9584a0daf92f",
     "5aea01b9-e9a3-460d-8410-0b6bf432337f",
+    "350aaebd-5f6b-4a54-b873-4be942b833e8",
     "6392eac1-7336-47b6-b0af-f0867e7f254d",
-    "67a8b609-55ff-4976-bb34-2ad5298aeadf",
+    "89e8d201-6901-4085-a9f8-05c1c79d58dd",
+    "0f2cd0a2-e9e3-4ffc-82a4-6bbd7e2653e5",
+    "1e9c9dea-9863-429c-a38b-73f999d755ab",
     "e0cab7fc-8116-46b6-9468-2569a6ffde1d",
-    "3248a754-57a1-4fec-aaa2-375124eee5d6",
+    "27ca0e45-fca4-4f84-ad3b-8cd39450d7e8",
+    "5665fc5b-b360-4f54-8fb9-b1d1c30e28b0",
+    "4f314756-407b-4b06-9636-1f0ff2c9d899",
     "8118469d-015c-4779-8d38-38bf057b205b",
-    "8695081b-e16e-4322-b879-62f9d99c5c5d",
+    "226b0732-0767-4d3a-9571-e54ae55535ec",
+    "1193f3fe-5add-4e79-8da7-c3f04222ad98",
+    "be387daa-00b1-4353-965f-f0538560923f",
+    "2e7bd889-a806-429a-ae16-a9de2d07b066",
+    "0e335ac5-459d-47e0-a75b-7dcaf1997e7a",
+    "6b35f21e-10de-4f67-ba9c-f4b2fb4bea75",
+    "6b28104e-9f63-47fe-8e19-d42d3602c8c9",
+    "07b59f92-5343-4705-bb5b-e0572af8d626",
+    "5c7d29af-feda-4f90-9fbd-ff4e2b8ab1fe",
+    "15805678-d0bc-4968-b7e9-ed8a704cf815",
+    "2e1ec33c-e1c8-447d-8514-aeceb05d8f4b",
+    "58b16750-b6de-43e8-be29-954136ab3852",
+    "8c0403fa-ca5e-4a0c-a2d2-ebf80e974f0a",
     "039808e3-da07-4975-95e5-e5adc6031455",
+    "6b46165a-e002-488d-91c7-b47879aa921f",
+    "6a0f57b9-b0f0-4113-b3fa-0e406c9a0a60",
     "3923d7e6-1efa-476a-841f-57a10450969e",
-    "1334bb44-6c3b-496c-b8c9-6f79e0d1b853",
+    "02bb508e-b81f-4a27-96d3-812e0b3647fc",
+    "30000000-0000-4000-8000-000000000002",
+    "98c32eb6-2860-4f1a-bf66-661783da09cb",
+    "e7d44ac3-ad71-4601-a0e8-adf6e2aed083",
     "3fd6551d-50b7-4c38-94b0-975ae97012a6",
+    "5d0764c1-72f7-48b6-998a-15fca86940f8",
+    "2216cd78-a0ba-4bb7-8ce1-193ce61ef723",
+    "01a762de-f71e-47d7-852e-91701adc84ad",
+    "1f864695-3029-4464-b005-8fd134b89065",
+    "07fbb950-1efd-456b-badd-9c4424c1fdf9",
+    "085938f4-3103-4681-aaa6-3808640d14bc",
     "03749ea9-b469-4ec1-a085-e28ea3b554ea",
+    "b4b7b65d-c06a-4e48-aefe-a03e68bb3693",
+    "6803be34-ec4a-4df4-bc11-b52fbc8e4387",
+    "8e83ca74-c02d-42ea-9384-d30fbdb12e8b",
+    "30097fa4-655c-44de-895d-e8e9620e5644",
+    "406459a1-438b-4d45-b9fe-e97f3e9b224d",
+    "638b5c35-07dd-480a-aa6d-d83defbb572a",
+    "0248bf84-44c3-4fd3-855a-6c3fac5cb54b",
+    "48b2276d-2f41-45a0-acb6-7b9c7012ddd4",
+    "b04c2924-fb4a-4d66-a665-eaf6c0083d99",
+    "37699428-ea01-4ce7-8faa-5794d8ab922d",
+    "38cef3da-3966-4680-9b09-116cce4d9897",
+    "05fa4f6c-a627-4122-8eeb-11a2ce2032ad",
+    "65b18a89-339a-48b8-a1c3-71978e8dc9b0",
+    "be55bd2b-c134-4c36-a404-479d62877bc1",
+    "3f7b2a88-6e70-4ba4-ab12-13ea66700c8f",
+    "3aa3e873-912b-4e8a-a3ef-97bacd6945f8",
+    "376aef33-0d96-4364-baf4-07ced681992c",
     "5f952ccf-b02b-4463-a6a1-9df687a825a7",
+    "4df73978-670f-4029-b909-37c56b1a7f76",
+    "0c168218-742f-46a7-98f8-01baad565902",
     "664f0e44-c6a7-49f3-9caf-bfda5c8ed330",
-    "4659b6dc-7884-4ff2-ad4f-1faa1721a1d3",
+    "64922a9f-758b-4ac0-8fdf-1022b3a0c7c3",
+    "560073b5-f545-4371-9bc3-d701770b29c0",
+    "43c46e81-0734-4085-b2d9-77bbf69a3018",
+    "6169f802-1a1b-436a-a61a-8ef1fe9af4d0",
     "1aa375f0-06ef-4c1d-a04b-77a518a84eb3",
+    "23f1da1c-148f-48e4-8370-66975bbeeee6",
     "145bc876-cbce-4ecf-8b72-e9380cf23364",
+    "0441b2cb-6cc0-44c8-8d67-2601d533ba78",
     "48615189-1896-47d1-b157-a205b88b7cd1",
-    "35248dea-76ae-4147-bcac-e6a6f627476d",
+    "61ef1a68-7cb5-4dfa-b241-b94b9c4f4457",
+    "074f00d9-3243-42e2-9e1d-758e2ea04069",
+    "2701bbdf-ea33-4d6a-96bd-1e2eb88ec645",
     "55cbb931-fe7f-46cb-a280-d69d214f3636",
-    "56726e82-4a49-4689-b4bd-c3fd24d7bbd9",
+    "1dd3ea9c-4078-4873-bf56-f4cb1605ebd6",
+    "3d7fc851-4f04-4e14-bdb4-3bd62f5f71e3",
+    "00fe1107-fe6f-44e2-86bb-31cd97f37646",
     "2c911839-44a3-42a5-82b2-640b7cf92e5d",
+    "162fbd33-c82f-410b-bbc5-e6aa7dfdad24",
+    "a8dc32aa-a0dd-4d25-a7d4-96215656cc57",
+    "4ef435b2-72c0-42b3-aeaa-e50e6de80905",
+    "5a9c84c1-8a0a-4058-ba63-79bda7f3ac26",
     "f35d0dcf-7673-416f-8c92-aeac1e985393",
     "7b65272d-c9c9-4b5e-9f21-e97e7fbc1da5",
     "6c24ef37-7b63-4d5b-b511-8cd1b94ec8f4",
-    "2a11f23e-e3af-425f-af85-da70eea41a65"
+    "2a11f23e-e3af-425f-af85-da70eea41a65",
+    "18fbcbb7-5e0e-4a15-90fd-a5c48c4d12ba",
+    "1ab45bad-a80e-4a0a-839a-028b16d38127",
+    "5c5b3858-a105-439c-95e9-e9c042b052c3",
+    "08b08863-f163-464c-a498-83957fa8cb50",
+    "19226508-d083-4281-87a7-776549a15510",
+    "03e398a3-1fe9-434c-9b25-6935c1a744c9",
+    "7ab51b0b-16db-4f4c-b6f8-4745a75f2afb",
+    "b24280c9-293a-42f8-adf3-e12b20c3738c",
+    "5d7ee44e-c24a-428d-9788-188feaa13708",
+    "40417ae8-90b7-4851-867b-9ccf512266c9",
+    "0c76cae9-a002-4037-b6af-56d90833d262",
+    "93d8a192-be97-41b1-a367-f016c2eddbd5",
+    "3441f5ea-b76a-41bc-8210-e8619666cc58",
+    "5fff9982-4a9c-44cc-875b-1c40104cf4a6",
+    "3d99f365-752b-4196-b671-e0b690626fcd",
+    "1627edbe-7b4f-4d84-af3c-7dbbe9b74a79",
+    "61b0513b-3da8-49c3-9551-9d60577f53fe",
+    "648a5863-e241-4f97-b707-4e5b10c17aa3",
+    "50a430f5-37c6-461a-8c22-1971345622f0",
+    "298f5f37-5bdd-44b5-b580-f5636037c9c5",
+    "6272f820-2b73-4cc2-8422-ba535acd3d44",
+    "0099d431-44dd-4be1-a374-142374e899e6",
+    "03f0729a-986d-4bb4-aedb-8547bd291f94",
+    "1e9beb2a-e640-4ecf-ae7f-c789fe4f3767",
+    "3723902d-d54a-4867-9cff-d2cfb15f560c",
+    "34b310bc-359c-4eb3-a2eb-c9f0bec20174",
+    "0250b00b-03a5-4c6b-a766-cc490b639570",
+    "034dc09d-dd70-4b7a-b061-ccd5f89c093e",
+    "009eda5e-fe6b-409a-9a88-d8060de48054",
+    "039317c4-c391-4b12-b602-3a5d0bd83dfd",
+    "01878f13-7e67-446f-a292-781f85fd0430",
+    "00e27c23-8ed8-4beb-a8d9-32cb5743a970",
+    "115b51f4-8421-4a57-8b2c-c5f26b0bf482",
+    "68c27cba-eee5-45f3-9f37-820726808532",
+    "301191c8-ec8b-4254-87e8-45bdaf957046",
+    "01b8f962-fa3e-4b12-af43-ebb0a03ce9b2"
   ]
 }

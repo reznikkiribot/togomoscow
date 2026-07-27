@@ -248,9 +248,22 @@ for (const r of rows) {
     // B) soft name check — REPORT ONLY, never triggers regen: our English labels
     // are coarse, so a low name-score is too noisy to act on automatically.
     const en = toEn(r.name);
-    const nameLabels = [`a photo of ${en}`, 'a photo of a completely different food or drink'];
+    // Two-sided check. The positive label names the dish AND its scene; the
+    // negatives are the concrete things a wrong render usually is. Scoring only
+    // against a vague positive let a meat plate pass as «Ананас консервированный»
+    // with 0.94 — recomputing it against real alternatives gives 0.08.
+    const positive = `a photo of ${r.name} — ${en}`;
+    const nameLabels = [
+      positive,
+      'a photo of a meat dish on a plate',
+      'a photo of a salad or vegetables',
+      'a photo of a dessert or pastry',
+      'a photo of a drink in a glass',
+      'a photo of a completely different food',
+      'a photo that is not food',
+    ];
     const nout = await zs(img, nameLabels);
-    const nameScore = nout.find((o) => o.label === nameLabels[0])?.score ?? 0;
+    const nameScore = nout.find((o) => o.label === positive)?.score ?? 0;
 
     // C) composition — border / letterbox / off-center → the picture didn't fill
     // the card square; regen to fix framing.

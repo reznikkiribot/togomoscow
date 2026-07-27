@@ -168,7 +168,16 @@ if (STAGE === 'check') {
       if (!fs.existsSync(file)) continue;
       try {
         const img = await RawImage.fromBlob(new Blob([new Uint8Array(fs.readFileSync(file))]));
-        const labels = [`a photo of ${en}`, 'a photo of an unrelated object or scene'];
+        const positive = `a photo of ${m?.name ?? ''} — ${en}`.replace(' —  ', ' ');
+    const labels = [
+      positive,
+      'a photo of a meat dish on a plate',
+      'a photo of a salad or vegetables',
+      'a photo of a dessert or pastry',
+      'a photo of a drink in a glass',
+      'a photo of a completely different food',
+      'a photo that is not food',
+    ];
         const out = await zs(img, labels);
         const s = out.find((o) => o.label === labels[0])?.score ?? 0;
         if (!best || s > best.s) best = { s, file };
