@@ -42,6 +42,12 @@ const s3 = new aws.S3Client({
 
 // Russian dish word → English search term. Pexels indexes food in English, and a
 // precise term is what makes the result actually match the dish.
+//
+// Short words need explicit boundaries: JS  is ASCII-only, so /морс/ happily
+// matched «МОРСкой окунь» and served a berry drink for smoked perch. W() wraps a
+// pattern in Cyrillic-safe word boundaries.
+const CH = 'а-яёa-z0-9';
+const W = (src) => new RegExp(`(?<![${CH}])(?:${src})(?![${CH}])`, 'i');
 const DISH_EN = [
   [/гаспачо/i, 'gazpacho soup'], [/борщ/i, 'borscht soup'], [/солянк/i, 'solyanka soup'],
   [/окрошк/i, 'okroshka cold soup'], [/харчо/i, 'kharcho soup'], [/том.?ям/i, 'tom yum soup'],
@@ -77,12 +83,36 @@ const DISH_EN = [
   [/фильтр.?кофе|пуровер|дрип/i, 'filter coffee'], [/какао/i, 'hot cocoa'], [/кофе/i, 'coffee cup'],
   [/матч/i, 'matcha latte'], [/улун|пуэр|дарджилинг|ассам|эрл.?грей/i, 'tea cup'], [/чай/i, 'tea cup'],
   [/лимонад/i, 'lemonade glass'], [/смузи/i, 'smoothie glass'], [/милкшейк|шейк/i, 'milkshake'],
-  [/морс/i, 'berry drink'], [/компот/i, 'fruit compote drink'], [/фреш|сок/i, 'fresh juice glass'],
+  [W('морс|морса'), 'berry drink'], [/компот/i, 'fruit compote drink'], [W('фреш|сок|сока|соки'), 'fresh juice glass'],
   [/картоф.*фри|фри/i, 'french fries'], [/наггетс/i, 'chicken nuggets'],
   [/крыл/i, 'chicken wings'], [/курин|цыпл/i, 'chicken dish'], [/индейк/i, 'turkey dish'],
   [/говядин|бифстроган/i, 'beef dish'], [/свинин/i, 'pork dish'], [/баранин|люля/i, 'lamb dish'],
-  [/овощи|гриль/i, 'grilled vegetables'], [/сыр/i, 'cheese plate'], [/хумус/i, 'hummus'],
+  [/овощи|гриль/i, 'grilled vegetables'], [W('сыр|сыра|сыры'), 'cheese plate'], [/хумус/i, 'hummus'],
   [/брускетт/i, 'bruschetta'], [/сэндвич|сендвич/i, 'sandwich'], [/боул/i, 'food bowl'],
+  // second pass: words that showed up in the skipped list
+  [/люля/i, 'lyulya kebab minced meat'], [/лагман/i, 'lagman noodle soup'],
+  [/пад.?тай/i, 'pad thai'], [/бефстроган/i, 'beef stroganoff'],
+  [/мусс/i, 'chocolate mousse'], [/павлов/i, 'pavlova dessert'],
+  [/чебурек/i, 'cheburek'], [/манты/i, 'manti dumplings'], [/долм/i, 'dolma'],
+  [/шницел/i, 'schnitzel'], [/гуляш/i, 'goulash'], [/жульен/i, 'julienne mushrooms'],
+  [/рулет/i, 'meat roll dish'], [/запеканк/i, 'casserole'], [/фрикадельк/i, 'meatballs'],
+  [/тефтел/i, 'meatballs'], [/голубц/i, 'stuffed cabbage rolls'], [/винегрет/i, 'vinaigrette salad'],
+  [/сельд|селёдк|селедк/i, 'herring dish'], [/буррит|тако|кесадиль/i, 'mexican food'],
+  [/фалафел/i, 'falafel'], [/шаверм/i, 'doner kebab wrap'], [/удон|соба/i, 'asian noodles'],
+  [/гёдза|гедза|дим.?сам/i, 'dumplings'], [/спринг.?ролл/i, 'spring rolls'],
+  [W('эби|сяке|унаги|темпура'), 'sushi rolls'], [/сет|ассорти/i, 'food platter'],
+  [/творог/i, 'cottage cheese dish'], [/йогурт/i, 'yogurt bowl'], [/мюсли/i, 'muesli bowl'],
+  [/бекон/i, 'bacon dish'], [/утк[аиоу]/i, 'duck dish'], [/телятин/i, 'veal dish'],
+  [/ребр/i, 'grilled ribs'], [/антрекот|вырезк/i, 'beef steak'], [/паштет/i, 'pate'],
+  [/суши/i, 'sushi'], [/пюре/i, 'mashed potatoes'], [/гречк|греча/i, 'buckwheat dish'],
+  [/рис/i, 'rice dish'], [/булгур|кускус|киноа/i, 'grain bowl'],
+  [/сироп|топпинг/i, 'dessert topping'], [/мед|мёд/i, 'honey'],
+  [/молоко/i, 'glass of milk'], [/кефир|айран|тан/i, 'fermented milk drink'],
+  [/лимон|апельсин|грейпфрут|манго|ананас|персик|вишн|клубник|малин|черник/i, 'fresh fruit'],
+  [/овощ/i, 'vegetable dish'], [/грибы|шампиньон|лисичк/i, 'mushroom dish'],
+  [/хлеб|багет|фокачч|лепешк|лепёшк/i, 'fresh bread'], [/булочк|синнабон/i, 'sweet bun'],
+  [/печень/i, 'liver dish'], [/язык/i, 'beef tongue dish'],
+  [/паста/i, 'pasta dish'], [/соус/i, 'sauce bowl'],
 ];
 
 function toQuery(name, category) {
