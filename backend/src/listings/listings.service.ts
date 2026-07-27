@@ -550,8 +550,15 @@ export class ListingsService {
     // image instead of showing something that doesn't match the dish.
     // Owner rule 26.07.2026: «убери из отображения те, которые не совпадают;
     // появляться должны, как только прошли все проверки».
+    // AI_PHOTOS_ENABLED=false (default): generated photos are OFF entirely. The
+    // owner judged their quality unacceptable — a card with no image is better
+    // than one showing a different dish. Real user photos are unaffected.
+    // Flip the env var back to true only when the generator is worth trusting.
+    const aiPhotosEnabled = process.env.AI_PHOTOS_ENABLED === 'true';
     const verified = await this.prisma.listing.findMany({
-      where: { id: { in: ids }, photoUrl: { startsWith: '/api/files/aigen' }, photoVerifiedAt: null },
+      where: aiPhotosEnabled
+        ? { id: { in: ids }, photoUrl: { startsWith: '/api/files/aigen' }, photoVerifiedAt: null }
+        : { id: { in: ids }, photoUrl: { startsWith: '/api/files/aigen' } },
       select: { id: true },
     });
     const unverifiedIds = new Set(verified.map((v) => v.id));

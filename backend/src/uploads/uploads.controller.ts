@@ -270,6 +270,14 @@ export class UploadsController {
     // phone still running an older bundle, or any cached list, physically cannot
     // display a photo that failed the name check. Owner 27.07.2026.
     if (key.startsWith('aigen-')) {
+      // Generated photos are switched off entirely (AI_PHOTOS_ENABLED). Serving
+      // 404 here — not just hiding the field — means an already-cached picture
+      // cannot come back on any client.
+      if (process.env.AI_PHOTOS_ENABLED !== 'true') {
+        res.setHeader('Cache-Control', 'no-store');
+        res.status(404).end();
+        return;
+      }
       const verified = await this.prisma.listing
         .findFirst({
           where: { photoUrl: `/api/files/${key}`, photoVerifiedAt: { not: null } },
