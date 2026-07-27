@@ -6943,3 +6943,25 @@ html[data-theme='dark'] .sk {
   max-width: 320px;
 }
 .search-empty-actions .btn { width: 100%; }
+
+/* tinder card: tap-or-swipe arrows pinned to the top corners of the photo */
+.hero-arrow {
+  position: absolute;
+  top: 10px;
+  z-index: 3;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  color: #fff;
+  font-size: 26px;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+.hero-arrow.left { left: 10px; }
+.hero-arrow.right { right: 10px; }
+.hero-arrow:active { background: rgba(0, 0, 0, 0.65); }

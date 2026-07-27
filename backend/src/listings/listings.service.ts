@@ -554,9 +554,9 @@ export class ListingsService {
       where: { id: { in: ids }, photoUrl: { startsWith: '/api/files/aigen' }, photoVerifiedAt: null },
       select: { id: true },
     });
-    if (verified.length) {
-      const unverified = new Set(verified.map((v) => v.id));
-      rows = rows.map((r) => (unverified.has(r.id) ? { ...r, photoUrl: null } : r));
+    const unverifiedIds = new Set(verified.map((v) => v.id));
+    if (unverifiedIds.size) {
+      rows = rows.map((r) => (unverifiedIds.has(r.id) ? { ...r, photoUrl: null } : r));
     }
     const reviews = await this.prisma.review.findMany({
       where: { listingId: { in: ids }, text: { not: null }, status: 'APPROVED', trust: { is: { hiddenAt: null } } },
@@ -684,7 +684,12 @@ export class ListingsService {
       // then «Попробуйте в:». User photos always win; venue photo only when no
       // real user photo exists yet.
       const isUserPhoto = (r as any).photoUrl?.startsWith('/api/files/') && !(r as any).photoUrl?.startsWith('/api/files/aigen-');
-      const venuePhoto = !isUserPhoto ? (best?.photoUrl || tryAt?.photoUrl || null) : null;
+      // A menu-link picture (parsed from the venue's own site) has NEVER been
+      // through the name check, so it must not be pasted over a card whose photo
+      // we just hid as unverified — that is how «Детское Какао» kept a photo.
+      const venuePhoto = !isUserPhoto && !unverifiedIds.has(r.id)
+        ? (best?.photoUrl || tryAt?.photoUrl || null)
+        : null;
       return {
       ...r,
       photoUrl: venuePhoto ?? (r as any).photoUrl,
@@ -1645,11 +1650,18 @@ export class ListingsService {
     // one card per actual dish: «Болоньезе» / «Паста болоньезе» / «Спагетти
     // Болоньезе» / «…с напитком Кола» collapse into the most useful one. Venues
     // are never collapsed (two cafés may share a name legitimately).
-    const deduped = [
-      ...combined.filter((c: any) => c.type === 'RESTAURANT'),
-      ...dedupeByDishName(combined.filter((c: any) => c.type !== 'RESTAURANT') as any[]),
-    ].sort((a, b) => rank(b) - rank(a));
-    const result = deduped.slice(0, take);
+    const dishes = dedupeByDishName(combined.filter((c: any) => c.type !== 'RESTAURANT') as any[]);
+    // When the query names a DISH/DRINK, show only dish cards — each already
+    // carries its recommended venue («Попробуйте в: …»), so a separate row of
+    // venue cards is noise. Venues still lead when the query is about a place.
+    // Owner rule 27.07.2026.
+    const deduped = intent === 'item' && dishes.length
+      ? dishes
+      : [
+          ...combined.filter((c: any) => c.type === 'RESTAURANT'),
+          ...dishes,
+        ];
+    const result = deduped.sort((a, b) => rank(b) - rank(a)).slice(0, take);
 
     // Attach the SEARCHED item's rating AT each venue (the "с пометкой" badge).
     if (items.length) await this.attachMatchedItem(result, items, ql);

@@ -144,6 +144,19 @@ export function TasteHero({
         {item.recVenue && (item.recVenue as any).price != null && (
           <span className="newdish-price hero-price-badge">{(item.recVenue as any).price} ₽</span>
         )}
+        {/* always-visible swipe affordances ON the photo (owner 27.07.2026) */}
+        <button
+          type="button"
+          className="hero-arrow left"
+          aria-label="Не люблю"
+          onClick={(e) => { e.stopPropagation(); onSkip(); }}
+        >‹</button>
+        <button
+          type="button"
+          className="hero-arrow right"
+          aria-label="Хочу попробовать"
+          onClick={(e) => { e.stopPropagation(); onFavorite(); }}
+        >›</button>
         {hint === 'right' && <div className="swipe-tag like">♥ Хочу попробовать</div>}
         {hint === 'left' && <div className="swipe-tag nope">Не люблю</div>}
         {hint === 'down' && <div className="swipe-tag nope">Скрыть ↓</div>}
