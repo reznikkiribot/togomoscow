@@ -8,7 +8,6 @@ import { haptic } from '../telegram';
 import type { Listing, Review } from '../types';
 import { tastingMotivation } from '../tastingMotivation';
 import { LocationConsentPrompt, readLocation, useTastingLocation } from '../locationTrust';
-import { OnboardingCoach, type CoachStep } from './OnboardingCoach';
 import { composeStoryImage } from '../storyImage';
 import { shareReviewToStory } from '../reviewStory';
 import { StarInput } from './StarInput';
@@ -38,14 +37,11 @@ export function QuickRatingFlow({
   initialRating = 0,
   onClose,
   onSaved,
-  guided = false,
 }: {
   listing: Listing;
   initialRating?: number;
   onClose: () => void;
   onSaved?: (review: Review, listing: Listing) => void;
-  // onboarding: coach-highlight each step (stars → venue → save) with an explainer
-  guided?: boolean;
 }) {
   const [item, setItem] = useState(listing);
   const [rating, setRating] = useState(initialRating);
@@ -254,19 +250,8 @@ export function QuickRatingFlow({
     );
   }
 
-  // guided onboarding: highlight whichever step still needs the user's action —
-  // stars first, then the venue search, then the Save button. Each with a short
-  // «что и где» explanation. Nothing before this point in the flow is skipped.
-  const guideSteps: CoachStep[] = [
-    { selector: '[data-coach="qr-stars"]', title: 'Поставьте оценку', hint: 'Нажмите на звёзды — на сколько понравилось.', place: 'bottom' },
-    { selector: '[data-coach="qr-venue"]', title: 'Где вы это пробовали?', hint: 'Введите название заведения или нажмите «Найти рядом», затем выберите его из списка.', place: 'bottom' },
-    { selector: '[data-coach="qr-save"]', title: 'Сохраните дегустацию', hint: 'Всё готово! Можно добавить фото и комментарий выше — с фото предложим выложить в сторис.', place: 'top' },
-  ];
-  const guideIndex = rating <= 0 ? 0 : !venue ? 1 : 2;
-
   return (
     <div ref={overlayRef} className="modal-backdrop quick-rate-backdrop" style={{ zIndex: 3400 }} onClick={close}>
-      {guided && <OnboardingCoach steps={guideSteps} stepIndex={guideIndex} onSkip={() => { /* stays until done */ }} zIndex={3450} />}
       <div className="modal quick-rate-sheet" ref={sheetRef} role="dialog" aria-modal="true" onClick={(event) => event.stopPropagation()}>
         <div className="sheet-grab" aria-hidden="true" />
         <button className="quick-close" type="button" onClick={close} aria-label="Закрыть">×</button>
@@ -274,10 +259,10 @@ export function QuickRatingFlow({
 
         <section className="quick-step">
           <div className="quick-step-label"><span>1</span> Ваша оценка</div>
-          <div className="quick-stars" data-coach="qr-stars"><StarInput value={rating} onChange={setRating} /><b>{rating ? rating.toFixed(1) : ''}</b></div>
+          <div className="quick-stars"><StarInput value={rating} onChange={setRating} /><b>{rating ? rating.toFixed(1) : ''}</b></div>
         </section>
 
-        <section className="quick-step" data-coach="qr-venue">
+        <section className="quick-step">
           <div className="quick-step-label"><span>2</span> Где пробовали?</div>
           {venue && (
             <div className="quick-selected">
@@ -359,7 +344,7 @@ export function QuickRatingFlow({
         </details>
 
         {error && <p className="quick-error" role="alert">{error}</p>}
-        <button className="btn quick-save" data-coach="qr-save" type="button" disabled={busy || rating <= 0 || !venue} onClick={save}>
+        <button className="btn quick-save" type="button" disabled={busy || rating <= 0 || !venue} onClick={save}>
           {busy ? 'Сохраняем…' : 'Сохранить оценку'}
         </button>
         {rating > 0 && !venue && <div className="quick-required">Выберите заведение, чтобы сохранить</div>}

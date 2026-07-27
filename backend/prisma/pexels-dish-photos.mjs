@@ -49,6 +49,10 @@ const s3 = new aws.S3Client({
 const CH = 'а-яёa-z0-9';
 const W = (src) => new RegExp(`(?<![${CH}])(?:${src})(?![${CH}])`, 'i');
 const DISH_EN = [
+  // The FORM of the dish must be matched before any ingredient in the name, or
+  // «Сэнди пай с вишней» falls through to the fruit rule and gets a bowl of
+  // cherries instead of a pie.
+  [W('пай|пая|паи'), 'pie dessert'], [/пирожок|пирожки|пянсе/i, 'savoury stuffed bun'],
   [/гаспачо/i, 'gazpacho soup'], [/борщ/i, 'borscht soup'], [/солянк/i, 'solyanka soup'],
   [/окрошк/i, 'okroshka cold soup'], [/харчо/i, 'kharcho soup'], [/том.?ям/i, 'tom yum soup'],
   [/уха|рыбный суп/i, 'fish soup'], [/крем.?суп|суп.?пюре/i, 'cream soup'], [/бульон/i, 'broth'],
@@ -56,6 +60,9 @@ const DISH_EN = [
   [/пепперони/i, 'pepperoni pizza'], [/маргарит.*пицц|пицц.*маргарит/i, 'margherita pizza'],
   [/четыре сыра|4 сыра/i, 'four cheese pizza'], [/пицц/i, 'pizza'],
   [/чизбургер/i, 'cheeseburger'], [/бургер/i, 'burger'],
+  // «hot dog» alone returns dachshunds — the query has to name the food explicitly
+  [/хот.?дог/i, 'hot dog sausage bun food'],
+  [/сэндвич|сендвич/i, 'sandwich'], [/наггетс/i, 'chicken nuggets'],
   [/карбонар/i, 'pasta carbonara'], [/болонье/i, 'pasta bolognese'], [/песто/i, 'pasta pesto'],
   [/лазань/i, 'lasagna'], [/паст|спагетти|феттучин|тальятелл/i, 'pasta dish'],
   [/цезар/i, 'caesar salad'], [/греческ.*салат/i, 'greek salad'], [/оливье/i, 'olivier salad'],
@@ -126,11 +133,32 @@ function toQuery(name, category) {
   return byCat[category] ?? null; // no guess → skip the item rather than fake it
 }
 
+// Two pages (80 photos) per query, fetched once and cached: one page runs dry
+// fast — «sushi rolls» alone serves over a hundred catalogue items — while page 3
+// and beyond drifts off-topic, which is how a cocoa query can end up returning
+// jars of nuts. Depth is capped where the results are still about the dish.
+const poolByQuery = new Map();
 async function pexels(query) {
-  const url = `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}`
-    + '&per_page=5&orientation=landscape&size=medium';
-  const r = await fetch(url, { headers: { Authorization: KEY } }).then((x) => x.json()).catch(() => null);
-  return r?.photos ?? [];
+  if (poolByQuery.has(query)) return poolByQuery.get(query);
+  const photos = [];
+  for (const page of [1, 2]) {
+    const url = `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}`
+      + `&per_page=40&page=${page}&orientation=landscape&size=medium`;
+    const r = await fetch(url, { headers: { Authorization: KEY } }).then((x) => x.json()).catch(() => null);
+    photos.push(...(r?.photos ?? []));
+    if ((r?.photos?.length ?? 0) < 40) break;
+    await new Promise((res) => setTimeout(res, 120));
+  }
+  poolByQuery.set(query, photos.filter(clean));
+  return poolByQuery.get(query);
+}
+
+// A hot dog shot came back with a Heineken bottle staged next to it. Alcohol is
+// banned from the catalogue outright and branded drinks are unwanted, so any
+// frame whose description mentions either is dropped before it can be picked.
+const DIRTY = /\b(beer|wine|whisk|vodka|rum|gin|tequila|cocktail|champagne|prosecco|liquor|liqueur|alcohol|brewery|pub|bar counter|coca.?cola|pepsi|heineken|corona|budweiser|starbucks|mcdonald)/i;
+function clean(ph) {
+  return !DIRTY.test(`${ph.alt ?? ''} ${ph.url ?? ''}`);
 }
 
 const rows = await p.listing.findMany({
@@ -154,8 +182,11 @@ for (const r of rows) {
   if (!q) { skipped++; continue; }
   try {
     const photos = await pexels(q);
-    const pick = photos.find((ph) => !used.has(ph.id));
-    if (!pick) { skipped++; continue; }
+    if (!photos.length) { skipped++; continue; }
+    // Prefer an unused photo, but once the relevant pool is exhausted, repeat the
+    // best match instead of reaching further down the results: two cocoa drinks
+    // sharing one cocoa photo is fine — cocoa illustrated with nuts is not.
+    const pick = photos.find((ph) => !used.has(ph.id)) ?? photos[0];
     used.add(pick.id);
     if (DRY) { console.log(`  ${r.name.slice(0, 30)} → [${q}] ${pick.alt?.slice(0, 40)}`); done++; continue; }
     const buf = Buffer.from(await fetch(pick.src.large).then((x) => x.arrayBuffer()));

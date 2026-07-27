@@ -1327,7 +1327,6 @@ export default function Home() {
         <QuickRatingFlow
           listing={quickRate.listing}
           initialRating={quickRate.rating}
-          guided={!onboardingSeen() || onboardingForced()}
           onSaved={() => {
             loadFeeds();
             if (quickRate.advanceHero) setHeroIdx((index) => index + 1);
