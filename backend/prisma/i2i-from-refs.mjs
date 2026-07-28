@@ -188,12 +188,20 @@ if (STAGE === 'check' || STAGE === 'both') {
   // card. Image-to-image similarity is measured in one language-free embedding
   // space, so it is a real check rather than a rubber stamp.
   const embed = await pipeline('image-feature-extraction', 'Xenova/clip-vit-base-patch32');
-  // Calibrated on 14 real pairs rather than guessed: a render against its OWN
-  // reference scored 0.729–0.929 (mean 0.857), against a foreign one at most
-  // 0.786 (mean 0.655). 0.82 sits above every foreign score seen and keeps the
-  // renders that were verified by eye («Карпаччо» 0.862, «Японский рис» 0.878).
-  // The owner's 92% rule was written for name-matching, which is unmeasurable
-  // here — see the note above; this is the strictest honest bar available.
+  // WARNING — this score is NOT a correctness check, and photos passing it must
+  // not be put on display without a human looking at them first.
+  //
+  // Checked against 289 published renders: reference similarity is reliable on
+  // simple single-subject shots («Зелёный микс» 0.970 correct, «Леденец Сердце»
+  // 0.935 correct) but blind on busy compositions, where a render copies the
+  // crockery and background of its reference while getting the dish wrong
+  // («Шиповник» 0.877 — a teapot with a yellow slab; «Свиные рёбрышки» 0.820 —
+  // no ribs). Correct renders also sit at the bottom («Сало соленое» 0.821), so
+  // no threshold separates the two. CLIP with English scene labels does not
+  // separate them either: 0.93 for both a correct and a broken render.
+  //
+  // The bar is kept only to drop the obviously-unrelated; the real gate is
+  // human review.
   const ACCEPT = 0.82;
   let ok = 0, failed = 0, noRef = 0;
   const okIds = [];
@@ -243,9 +251,12 @@ if (STAGE === 'check' || STAGE === 'both') {
         }));
         for (let i = 0; i < 6; i++) {
           try {
+            // photoVerifiedAt stays NULL on purpose: the score above cannot tell
+            // a correct render from a broken one, so the photo is stored and
+            // stays hidden until a human approves it.
             await p.listing.update({
               where: { id: item.id },
-              data: { photoUrl: `/api/files/${key}`, photoVerifiedAt: new Date(), photoScore: best.score },
+              data: { photoUrl: `/api/files/${key}`, photoScore: best.score },
             });
             break;
           } catch { await new Promise((r) => setTimeout(r, 3000)); }
